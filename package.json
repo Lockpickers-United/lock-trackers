@@ -1,12 +1,12 @@
 {
-    "name": "lpu-belt-explorer",
+    "name": "lock-trackers",
     "version": "0.0.1",
-    "description": "An interactive web app for exploring the Lockpickers United belt ranking system.",
+    "description": "An interactive web app for for tracking speed picks and challenge locks.",
     "main": "index.js",
-    "repository": "git@github.com:NiXXeD/lpu-belt-explorer.git",
-    "author": "Andy Christianson <nix@nixxed.com>",
+    "repository": "https://github.com/Lockpickers-United/lock-trackers.git",
+    "author": "mgsecure <mg@mgsecure.com>",
     "license": "Unlicense",
-    "homepage": "https://lpubelts.com",
+    "homepage": "https://locktrackers.com/",
     "type": "module",
     "scripts": {
         "dev": "vite",
