@@ -52,6 +52,13 @@ export default [
         }
     },
     {
+        path: '/privacy',
+        lazy: async () => {
+            const {default: PrivacyRoute} = await import('../privacy/PrivacyRoute')
+            return {element: <PrivacyRoute/>}
+        }
+    },
+    {
         path: '*',
         loader: () => redirect('/speedpicks')
     },
