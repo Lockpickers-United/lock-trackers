@@ -1,10 +1,10 @@
 import {
-  require_dayjs_min
-} from "./chunk-6GR4I7WI.js";
-import {
   _extends,
   buildWarning
 } from "./chunk-FSLIEGQF.js";
+import {
+  require_dayjs_min
+} from "./chunk-6GR4I7WI.js";
 import {
   __commonJS,
   __toESM
