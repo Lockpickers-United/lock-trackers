@@ -1,0 +1,122 @@
+import React, {useCallback, useContext, useEffect, useRef, useState} from 'react'
+import Accordion from '@mui/material/Accordion'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import {ListItemText} from '@mui/material'
+import formatTime from './formatTime'
+import BeltStripe from '../entries/BeltStripe.jsx'
+import queryString from 'query-string'
+import DBContext from '../app/DBContext.jsx'
+import useData from '../util/useData.jsx'
+import SPEntryDetails from './SPEntryDetails.jsx'
+import SPEntryEdit from './SPEntryEdit.jsx'
+import SPDataContext from './SPDataContext.jsx'
+
+const SPEntry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
+
+    const {DCUpdate = []} = useContext(SPDataContext)
+
+    const [editing, setEditing] = useState(false)
+
+    const pickerId = entry.picker
+    const {getProfile} = useContext(DBContext)
+    const loadFn = useCallback(() => {
+        return getProfile(pickerId)
+    }, [getProfile, pickerId])
+    const {data = {}, loading, error} = useData({loadFn})
+    const pickerName = data?.displayName
+
+    entry.bestTime = formatTime(bestTimes.get(entry.lockId))
+    const isBestTime = entry.totalTime === bestTimes.get(entry.lockId)
+    const entryColor = !entry.approved
+        ? '#ca6060'
+        : isBestTime ? '#fff' : '#777'
+    const entryWeight = !entry.approved
+        ? 400
+        : isBestTime ? 600 : 400
+
+    const [scrolled, setScrolled] = useState(false)
+    const style = {maxWidth: 700, marginLeft: 'auto', marginRight: 'auto'}
+    const ref = useRef(null)
+
+    const [openTEMP, setOpenTEMP] = useState(false)
+    const toggleOpenTEMP = useCallback(() => {
+        setOpenTEMP(!openTEMP)
+    }, [openTEMP])
+
+    const startEdit = useCallback(() => {
+        setEditing(true)
+    }, [])
+
+    const endEdit = useCallback(() => {
+        setEditing(false)
+        DCUpdate()
+        entriesUpdate()
+    }, [DCUpdate, entriesUpdate])
+
+    const handleChange = useCallback((_, isExpanded) => {
+        //onExpand && onExpand(isExpanded ? entry?.id : false)
+        console.log('SPEntry handleChange: ' + entry?.id)
+        toggleOpenTEMP()
+    }, [entry?.id, onExpand, toggleOpenTEMP])
+
+    useEffect(() => {
+        if (expanded && ref && !scrolled) {
+            const isMobile = window.innerWidth <= 600
+            const offset = isMobile ? 70 : 74
+            const {id} = queryString.parse(location.search)
+            const isIdFiltered = id === entry.id
+
+            setScrolled(true)
+
+            setTimeout(() => {
+                window.scrollTo({
+                    left: 0,
+                    top: ref.current.offsetTop - offset,
+                    behavior: isIdFiltered ? 'auto' : 'smooth'
+                })
+            }, isIdFiltered ? 0 : 100)
+        } else if (!expanded) {
+            setScrolled(false)
+        }
+    }, [expanded, entry, scrolled])
+
+    const divStyle = {
+        margin: '0px 15px 0px 15px',
+        fontSize: '1.1rem',
+        color: entryColor,
+        fontWeight: entryWeight,
+        display: 'flex',
+        placeItems: 'center'
+    }
+
+    // <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref}>
+    return (
+        <Accordion expanded={openTEMP} onChange={handleChange} style={style} ref={ref} disableGutters>
+            <AccordionSummary expandIcon={<ExpandMoreIcon/>} style={{fontSize: '1.1rem'}}>
+                <BeltStripe value={entry.belt}/>
+                <ListItemText
+                    primary={entry.lock}
+                    primaryTypographyProps={{fontWeight: 600, color: entryColor}}
+                    secondary={entry.version}
+                    secondaryTypographyProps={{color: entryColor}}
+                    style={{padding: '0px 0px 0px 10px'}}
+                />
+                <div style={divStyle}>{pickerName}</div>
+                <div style={divStyle}>{entry.totalTimeString}</div>
+            </AccordionSummary>
+            <AccordionDetails style={{display: 'block', padding: 0}}>
+
+                {!editing &&
+                    <SPEntryDetails entry={entry} startEdit={startEdit} entriesUpdate={entriesUpdate}/>
+                }
+                {editing &&
+                    <SPEntryEdit entry={entry} toggleOpen={toggleOpenTEMP} endEdit={endEdit} entriesUpdate={entriesUpdate}/>
+                }
+            </AccordionDetails>
+        </Accordion>
+    )
+}
+
+export default SPEntry
