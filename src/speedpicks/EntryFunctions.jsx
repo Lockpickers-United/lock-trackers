@@ -1,10 +1,10 @@
 import React, {useCallback, useContext} from 'react'
 import Button from '@mui/material/Button'
-import DataContext from './DataContext.jsx'
+import DataProvider from './DataProvider.jsx'
 
 const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
 
-    const {DCUpdate, isMod = []} = useContext(DataContext)
+    const {DCUpdate, isMod = []} = useContext(DataProvider)
 
     const toggleApprove = useCallback(() => {
         entry.approved = !entry.approved

@@ -5,7 +5,7 @@ import LT_logo from '../assets/LT_logo.jsx'
 
 import Button from '@mui/material/Button'
 import {ToggleButtonGroup, ToggleButton} from '@mui/material'
-import SPDataContext2 from '../speedpicks/DataContext.jsx'
+import SPDataContext2 from '../speedpicks/DataProvider.jsx'
 
 function TopNav({handleChange, handleSort}) {
 

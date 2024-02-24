@@ -1,40 +1,28 @@
-import React, {useCallback, useMemo, useState} from 'react'
+import React, {useCallback, useMemo, useState, useContext} from 'react'
 import lockJson from '../data/data.json'
 import belts, {uniqueBelts} from '../data/belts'
 import speedPickData from './speedPicks.json'
 import entryName from '../entries/entryName'
 import formatTime from './formatTime'
 import dayjs from 'dayjs'
+import DataContext from '../context/DataContext'
+import FilterContext from '../context/FilterContext.jsx'
+import getAnyCollection from '../util/getAnyCollection'
 
-const DataContext = React.createContext({})
+export function DataProvider({children, allEntries, profile}) {
+    const {filters: allFilters} = useContext(FilterContext)
+    const {search, id, tab, name, sort, image, ...filters} = allFilters
+    const anyCollection = useMemo(() => getAnyCollection(profile), [profile])
 
-export function DataProvider({children}) {
 
-    const [updated, setUpdated] = useState(0)
-    const DCUpdate = useCallback(value => {
-        setUpdated(value)
-    },[])
-
+    // MG CODE
     const lockBelts = useMemo(() => belts, [])
     const [speedPicks, setSpeedPicks] = useState(speedPickData)
 
     const lockData = useMemo(() => lockJson, [])
     const bestTimes = useMemo(() => new Map(), [])
 
-    const [isMod, setIsMod] = useState(true)
-    const toggleMod = useCallback(value => {
-        setIsMod(!isMod)
-        setSpeedPicks(speedPickData)
-        DCUpdate(Math.random())
-    }, [DCUpdate, isMod])
-
-    if (!isMod) {
-        speedPicks.data = speedPicks.data.filter(entry =>
-            entry.approved === true
-        )
-    }
-
-    speedPicks.data.map(entry => {
+    allEntries.data.map(entry => {
         const lockId = entry.lockId
         const thisLock = lockData?.find(({id}) => id === lockId)
         entry.lock = entryName(thisLock, 'short')
@@ -56,9 +44,9 @@ export function DataProvider({children}) {
         }
     })
 
-    const [sort, setSort] = useState('lock')
+    const [sortMG, setSortMG] = useState('lock')
     const handleSort = useCallback(newValue => {
-        setSort(newValue)
+        setSortMG(newValue)
     }, [])
     console.log(sort)
 
@@ -104,6 +92,26 @@ export function DataProvider({children}) {
         console.log(entry)
     },[])
 
+    const [isMod, setIsMod] = useState(true)
+    const toggleMod = useCallback(value => {
+        setIsMod(!isMod)
+        setSpeedPicks(speedPickData)
+        DCUpdate(Math.random())
+    }, [DCUpdate, isMod])
+
+    if (!isMod) {
+        speedPicks.data = speedPicks.data.filter(entry =>
+            entry.approved === true
+        )
+    }
+
+
+    const [updated, setUpdated] = useState(0)
+    const DCUpdate = useCallback(value => {
+        setUpdated(value)
+    },[])
+
+
     const value = useMemo(() => ({
         lockBelts,
         speedPicks,
@@ -139,4 +147,4 @@ export function DataProvider({children}) {
     )
 }
 
-export default DataContext
+export default DataProvider

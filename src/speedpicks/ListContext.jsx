@@ -1,13 +1,13 @@
 import React, {useCallback, useContext, useMemo, useState} from 'react'
 import {useParams} from 'react-router-dom'
-import DataContext from './DataContext.jsx'
-import FilterContext from './FilterContext.jsx'
+import DataProvider from './DataProvider.jsx'
+import FilterContext from '../context/FilterContext.jsx'
 
 const ListContext = React.createContext({})
 
-export function SPListProvider({children}) {
+export function ListProvider({children}) {
     const {userId} = useParams()
-    const {getEntryFromId,getNameFromId} = useContext(DataContext)
+    const {getEntryFromId,getNameFromId} = useContext(DataProvider)
     const {filters, addFilters, removeFilters} = useContext(FilterContext)
     const expanded = filters.id
 

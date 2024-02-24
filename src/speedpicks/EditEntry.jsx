@@ -5,7 +5,7 @@ import {DatePicker} from '@mui/x-date-pickers/DatePicker'
 import {TimePicker} from '@mui/x-date-pickers/TimePicker'
 import dayjs from 'dayjs'
 import formatTime from './formatTime.jsx'
-import DataContext from './DataContext.jsx'
+import DataProvider from './DataProvider.jsx'
 import VideocamIcon from '@mui/icons-material/Videocam'
 import LaunchIcon from '@mui/icons-material/Launch'
 import InputAdornment from '@mui/material/InputAdornment'
@@ -17,10 +17,10 @@ import DBContext from '../app/DBContext'
 import Button from '@mui/material/Button'
 
 const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
-    const {bestTimes, getLockFromId, addEntry = []} = useContext(DataContext)
+    const {bestTimes, getLockFromId, addEntry = []} = useContext(DataProvider)
     const {user, isLoggedIn} = useContext(AuthContext)
     const {lockCollection} = useContext(DBContext)
-    const {DCUpdate = []} = useContext(DataContext)
+    const {DCUpdate = []} = useContext(DataProvider)
 
     const safeName = lockCollection.displayName
         ? lockCollection.displayName.replace(/\s/g, '_')

@@ -5,11 +5,11 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import JsonDisplay from './JsonDisplay.jsx'
-import DataContext from './DataContext.jsx'
+import DataProvider from './DataProvider.jsx'
 
 function Main() {
 
-    const {speedPicks = []} = useContext(DataContext)
+    const {speedPicks = []} = useContext(DataProvider)
 
     return (
         <React.Fragment>
