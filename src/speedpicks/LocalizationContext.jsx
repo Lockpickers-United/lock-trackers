@@ -2,14 +2,14 @@ import React from 'react'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
-const SPLocalizationContext = React.createContext({})
+const LocalizationContext = React.createContext({})
 
 export function SPLocalizationProvider({children}) {
     return (
-        <SPLocalizationContext.Provider value={'foo'} dateAdapter={AdapterDayjs}>
+        <LocalizationContext.Provider value={'foo'} dateAdapter={AdapterDayjs}>
             {children}
-        </SPLocalizationContext.Provider>
+        </LocalizationContext.Provider>
     )
 }
 
-export default SPLocalizationContext
+export default LocalizationContext

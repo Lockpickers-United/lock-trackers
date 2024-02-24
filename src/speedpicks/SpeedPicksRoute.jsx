@@ -6,10 +6,10 @@ import Nav from '../nav/Nav'
 import {LocalizationProvider} from '@mui/x-date-pickers'
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
 
-import SPMain from './SPMain.jsx'
-import {DataProvider} from './SPDataContext'
-import {SPListProvider} from './SPListContext'
-import {FilterProvider} from './SPFilterContext'
+import Main from './Main.jsx'
+import {DataProvider} from './DataContext.jsx'
+import {SPListProvider} from './ListContext.jsx'
+import {FilterProvider} from './FilterContext.jsx'
 import ModModeCheckbox from './ModModeCheckbox.jsx'
 
 function SpeedPicksRoute() {
@@ -18,14 +18,13 @@ function SpeedPicksRoute() {
 
     return (
         <React.Fragment>
-
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DataProvider>
                     <FilterProvider>
                         <SPListProvider>
 
                             <Nav title='Speed Picks' extras={nav}/>
-                            <SPMain/>
+                            <Main/>
 
                         </SPListProvider>
                     </FilterProvider>

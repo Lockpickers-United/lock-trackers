@@ -1,13 +1,13 @@
 import React, {useCallback, useContext, useMemo, useState} from 'react'
 import {useParams} from 'react-router-dom'
-import SPDataContext from './SPDataContext'
-import FilterContext from './SPFilterContext'
+import DataContext from './DataContext.jsx'
+import FilterContext from './FilterContext.jsx'
 
-const SPListContext = React.createContext({})
+const ListContext = React.createContext({})
 
 export function SPListProvider({children}) {
     const {userId} = useParams()
-    const {getEntryFromId,getNameFromId} = useContext(SPDataContext)
+    const {getEntryFromId,getNameFromId} = useContext(DataContext)
     const {filters, addFilters, removeFilters} = useContext(FilterContext)
     const expanded = filters.id
 
@@ -15,7 +15,7 @@ export function SPListProvider({children}) {
 
     const handleSetExpanded = useCallback((newValue, forceTab) => {
         const entry = getEntryFromId(newValue)
-        console.log('SPListContext handleSetExpanded: ' + entry.id)
+        console.log('ListContext handleSetExpanded: ' + entry.id)
         const name = getNameFromId(newValue)
         if (newValue && newValue !== 'beltreqs') {
             const newTab = filters.tab === 'search' && !forceTab ? 'search' : entry.belt.replace(/\s\d/g, '')
@@ -57,10 +57,10 @@ export function SPListProvider({children}) {
     }), [expanded, filters.tab, handleClearExpanded, handleSetExpanded, handleSetTab])
 
     return (
-        <SPListContext.Provider value={value}>
+        <ListContext.Provider value={value}>
             {children}
-        </SPListContext.Provider>
+        </ListContext.Provider>
     )
 }
 
-export default SPListContext
+export default ListContext

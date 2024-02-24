@@ -5,7 +5,7 @@ import {DatePicker} from '@mui/x-date-pickers/DatePicker'
 import {TimePicker} from '@mui/x-date-pickers/TimePicker'
 import dayjs from 'dayjs'
 import formatTime from './formatTime.jsx'
-import SPDataContext from './SPDataContext.jsx'
+import DataContext from './DataContext.jsx'
 import VideocamIcon from '@mui/icons-material/Videocam'
 import LaunchIcon from '@mui/icons-material/Launch'
 import InputAdornment from '@mui/material/InputAdornment'
@@ -16,11 +16,11 @@ import AuthContext from '../app/AuthContext'
 import DBContext from '../app/DBContext'
 import Button from '@mui/material/Button'
 
-const SPEntryEdit = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
-    const {bestTimes, getLockFromId, addEntry = []} = useContext(SPDataContext)
+const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
+    const {bestTimes, getLockFromId, addEntry = []} = useContext(DataContext)
     const {user, isLoggedIn} = useContext(AuthContext)
     const {lockCollection} = useContext(DBContext)
-    const {DCUpdate = []} = useContext(SPDataContext)
+    const {DCUpdate = []} = useContext(DataContext)
 
     const safeName = lockCollection.displayName
         ? lockCollection.displayName.replace(/\s/g, '_')
@@ -264,7 +264,7 @@ const SPEntryEdit = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     )
 }
 
-export default SPEntryEdit
+export default EditEntry
 
 function genHexString(len) {
     const hex = '0123456789ABCDEF'

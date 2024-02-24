@@ -1,13 +1,13 @@
 import React, {useContext} from 'react'
 import dayjs from 'dayjs'
 import FieldValue from '../entries/FieldValue.jsx'
-import SPEntryFunctions from './SPEntryFunctions.jsx'
+import EntryFunctions from './EntryFunctions.jsx'
 import AuthContext from '../app/AuthContext.jsx'
-import SPDataContext from './SPDataContext.jsx'
+import DataContext from './DataContext.jsx'
 
-const SPEntryDetails = ({entry, startEdit, entriesUpdate}) => {
+const EntryDetails = ({entry, startEdit, entriesUpdate}) => {
 
-    const {isMod = []} = useContext(SPDataContext)
+    const {isMod = []} = useContext(DataContext)
     const {user, isLoggedIn} = useContext(AuthContext)
     const isUser = (isLoggedIn && entry.picker === user.uid)
 
@@ -29,10 +29,10 @@ const SPEntryDetails = ({entry, startEdit, entriesUpdate}) => {
                 <FieldValue name='Best time' value={`(${entry.bestTime})`} style={{marginLeft: 44}}/>
             </div>
             { (isUser || isMod) &&
-            <SPEntryFunctions entry={entry} startEdit={startEdit} entriesUpdate={entriesUpdate}/>
+            <EntryFunctions entry={entry} startEdit={startEdit} entriesUpdate={entriesUpdate}/>
             }
         </React.Fragment>
     )
 }
 
-export default SPEntryDetails
+export default EntryDetails

@@ -1,20 +1,20 @@
 import React, {useContext} from 'react'
-import SPEntries from './SPEntries.jsx'
+import Entries from './Entries.jsx'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import JsonDisplay from './JsonDisplay.jsx'
-import SPDataContext from './SPDataContext.jsx'
+import DataContext from './DataContext.jsx'
 
-function SPMain() {
+function Main() {
 
-    const {speedPicks = []} = useContext(SPDataContext)
+    const {speedPicks = []} = useContext(DataContext)
 
     return (
         <React.Fragment>
 
-            <SPEntries/>
+            <Entries/>
 
             <div style={{height: 20}}/>
             <Accordion>
@@ -29,4 +29,4 @@ function SPMain() {
     )
 }
 
-export default SPMain
+export default Main

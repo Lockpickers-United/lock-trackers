@@ -3,9 +3,9 @@ import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
-import SPEntryEdit from './SPEntryEdit.jsx'
+import EditEntry from './EditEntry.jsx'
 
-const SPEntryNew = ({entriesUpdate}) => {
+const NewEntry = ({entriesUpdate}) => {
 
     const [open,setOpen] = useState(false)
     const toggleOpen = useCallback(() => {
@@ -22,11 +22,11 @@ const SPEntryNew = ({entriesUpdate}) => {
             </AccordionSummary>
             <AccordionDetails>
 
-                <SPEntryEdit entry={null} toggleOpen={toggleOpen} entriesUpdate={entriesUpdate}/>
+                <EditEntry entry={null} toggleOpen={toggleOpen} entriesUpdate={entriesUpdate}/>
 
             </AccordionDetails>
         </Accordion>
     )
 }
 
-export default SPEntryNew
+export default NewEntry

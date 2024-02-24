@@ -9,13 +9,13 @@ import BeltStripe from '../entries/BeltStripe.jsx'
 import queryString from 'query-string'
 import DBContext from '../app/DBContext.jsx'
 import useData from '../util/useData.jsx'
-import SPEntryDetails from './SPEntryDetails.jsx'
-import SPEntryEdit from './SPEntryEdit.jsx'
-import SPDataContext from './SPDataContext.jsx'
+import EntryDetails from './EntryDetails.jsx'
+import EditEntry from './EditEntry.jsx'
+import DataContext from './DataContext.jsx'
 
-const SPEntry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
+const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
-    const {DCUpdate = []} = useContext(SPDataContext)
+    const {DCUpdate = []} = useContext(DataContext)
 
     const [editing, setEditing] = useState(false)
 
@@ -57,7 +57,7 @@ const SPEntry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
     const handleChange = useCallback((_, isExpanded) => {
         //onExpand && onExpand(isExpanded ? entry?.id : false)
-        console.log('SPEntry handleChange: ' + entry?.id)
+        console.log('Entry handleChange: ' + entry?.id)
         toggleOpenTEMP()
     }, [entry?.id, onExpand, toggleOpenTEMP])
 
@@ -109,14 +109,14 @@ const SPEntry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
             <AccordionDetails style={{display: 'block', padding: 0}}>
 
                 {!editing &&
-                    <SPEntryDetails entry={entry} startEdit={startEdit} entriesUpdate={entriesUpdate}/>
+                    <EntryDetails entry={entry} startEdit={startEdit} entriesUpdate={entriesUpdate}/>
                 }
                 {editing &&
-                    <SPEntryEdit entry={entry} toggleOpen={toggleOpenTEMP} endEdit={endEdit} entriesUpdate={entriesUpdate}/>
+                    <EditEntry entry={entry} toggleOpen={toggleOpenTEMP} endEdit={endEdit} entriesUpdate={entriesUpdate}/>
                 }
             </AccordionDetails>
         </Accordion>
     )
 }
 
-export default SPEntry
+export default Entry

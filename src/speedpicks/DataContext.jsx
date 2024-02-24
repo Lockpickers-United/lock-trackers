@@ -6,7 +6,7 @@ import entryName from '../entries/entryName'
 import formatTime from './formatTime'
 import dayjs from 'dayjs'
 
-const SPDataContext = React.createContext({})
+const DataContext = React.createContext({})
 
 export function DataProvider({children}) {
 
@@ -133,10 +133,10 @@ export function DataProvider({children}) {
     ])
 
     return (
-        <SPDataContext.Provider value={value}>
+        <DataContext.Provider value={value}>
             {children}
-        </SPDataContext.Provider>
+        </DataContext.Provider>
     )
 }
 
-export default SPDataContext
+export default DataContext

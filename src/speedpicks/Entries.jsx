@@ -1,15 +1,15 @@
 import React, {useCallback, useContext, useDeferredValue, useState} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
-import SPDataContext from './SPDataContext.jsx'
-import SPListContext from './SPListContext.jsx'
-import SPEntry from './SPEntry.jsx'
-import SPEntryNew from './SPEntryNew.jsx'
+import DataContext from './DataContext.jsx'
+import ListContext from './ListContext.jsx'
+import Entry from './Entry.jsx'
+import NewEntry from './NewEntry.jsx'
 import SortFilterBar from './SortFilterBar.jsx'
 
-function SPEntries() {
+function Entries() {
 
-    const {speedPicks, bestTimes, handleSort = []} = useContext(SPDataContext)
-    const {tab, expanded, setExpanded, displayAll} = useContext(SPListContext)
+    const {speedPicks, bestTimes, handleSort = []} = useContext(DataContext)
+    const {tab, expanded, setExpanded, displayAll} = useContext(ListContext)
 
     const [updated, setUpdated] = useState(0)
     const entriesUpdate = useCallback(value => {
@@ -46,16 +46,16 @@ function SPEntries() {
         }}>
             <SortFilterBar/>
 
-            <SPEntryNew entriesUpdate={entriesUpdate}/>
+            <NewEntry entriesUpdate={entriesUpdate}/>
 
 
             {speedPicks.data.map((entry) =>
-                <SPEntry bestTimes={bestTimes}
-                         key={entry.id}
-                         entry={entry}
-                         expanded={entry.id === defExpanded}
-                         onExpand={setExpanded}
-                         entriesUpdate={entriesUpdate}
+                <Entry bestTimes={bestTimes}
+                       key={entry.id}
+                       entry={entry}
+                       expanded={entry.id === defExpanded}
+                       onExpand={setExpanded}
+                       entriesUpdate={entriesUpdate}
                 />
             )}
 
@@ -63,4 +63,4 @@ function SPEntries() {
     )
 }
 
-export default SPEntries
+export default Entries

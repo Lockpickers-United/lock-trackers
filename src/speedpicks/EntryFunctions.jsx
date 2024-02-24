@@ -1,10 +1,10 @@
 import React, {useCallback, useContext} from 'react'
 import Button from '@mui/material/Button'
-import SPDataContext from './SPDataContext.jsx'
+import DataContext from './DataContext.jsx'
 
-const SPEntryFunctions = ({entry, startEdit, entriesUpdate}) => {
+const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
 
-    const {DCUpdate, isMod = []} = useContext(SPDataContext)
+    const {DCUpdate, isMod = []} = useContext(DataContext)
 
     const toggleApprove = useCallback(() => {
         entry.approved = !entry.approved
@@ -37,4 +37,4 @@ const SPEntryFunctions = ({entry, startEdit, entriesUpdate}) => {
     )
 }
 
-export default SPEntryFunctions
+export default EntryFunctions
