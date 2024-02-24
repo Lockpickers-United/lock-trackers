@@ -13,6 +13,9 @@ import AppContext from '../app/AppContext'
 import MainMenuItem from './MainMenuItem'
 import menuConfig from './menuConfig'
 import lpuHeaderSmall from '../resources/LPU-header-small.png'
+import LT_logo from '../assets/LT_logo.jsx'
+import Button from '@mui/material/Button'
+import LT_menu_header from '../assets/LT_menu_header.jsx'
 
 function MainMenu() {
     const {admin, beta} = useContext(AppContext)
@@ -38,11 +41,11 @@ function MainMenu() {
     return (
         <React.Fragment>
             <Tooltip title='Main Menu' arrow disableFocusListener>
-                <IconButton edge='start' color='inherit' onClick={openDrawer}
-                            style={{backgroundColor: '#181818', height: '36px', width: '36px', marginLeft: '-8px'}}
+                <Button edge='start' color='inherit' onClick={openDrawer}
+                            style={{ height: '50px', minWidth: '50px', margin:0, padding:0}}
                 >
-                    <MenuIcon/>
-                </IconButton>
+                    <LT_logo fill='#fff' style={{height: 50, padding:0, margin:0}}/>
+                </Button>
             </Tooltip>
 
             <SwipeableDrawer
@@ -52,15 +55,15 @@ function MainMenu() {
                 onClose={closeDrawer}
             >
                 <Stack direction='column' style={{minWidth: 250}}>
-                    <MenuItem onClick={goHome} style={{
+                    <MenuItem onClick={closeDrawer} style={{
                         padding: '12px 0px 6px 10px',
                         margin: '0px',
                         backgroundColor: '#292929',
                         borderBottom: '1px solid #000'
                     }}>
-                        <ListItemIcon style={{margin: '2px 0px 8px 10px'}}>
-                            <img alt='LPU' src={lpuHeaderSmall} width={210}/>
-                        </ListItemIcon>
+                        <div style={{margin: '2px 0px 8px 10px'}}>
+                            <LT_menu_header fill={'#fff'} style={{height: 50}}/>
+                        </div>
                     </MenuItem>
 
                     {menuConfig

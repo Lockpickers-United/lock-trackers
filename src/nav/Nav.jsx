@@ -5,6 +5,7 @@ import VersionChecker from '../app/VersionChecker'
 import MainMenu from './MainMenu'
 import ScrollToTopButton from './ScrollToTopButton'
 import UserMenu from './UserMenu'
+import TopNav from './TopNav.jsx'
 
 function Nav({extras, title}) {
     return (
@@ -13,14 +14,19 @@ function Nav({extras, title}) {
                 <Toolbar>
                     <MainMenu/>
 
+
                     <VersionChecker/>
 
                     <div style={{
                         flexGrow: 1,
+                        minWidth:150,
                         fontWeight: 500,
                         fontSize: '1.5rem',
-                        paddingLeft: 16
-                    }}>{title}</div>
+                        paddingLeft: 6
+                    }}>
+                        <TopNav/>
+
+                    </div>
 
                     {extras}
 

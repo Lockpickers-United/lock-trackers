@@ -4,6 +4,7 @@ import SPDataContext from './SPDataContext.jsx'
 import SPListContext from './SPListContext.jsx'
 import SPEntry from './SPEntry.jsx'
 import SPEntryNew from './SPEntryNew.jsx'
+import SortFilterBar from './SortFilterBar.jsx'
 
 function SPEntries() {
 
@@ -38,12 +39,15 @@ function SPEntries() {
 
     return (
         <div style={{
-            minWidth: '320px', maxWidth: 900, height: '100%',
+            minWidth: '320px', maxWidth: 800, height: '100%',
             padding: pagePadding, backgroundColor: '#223',
             marginLeft: 'auto', marginRight: 'auto',
             fontSize: '1.5rem', lineHeight: 0.8
         }}>
+            <SortFilterBar/>
+
             <SPEntryNew entriesUpdate={entriesUpdate}/>
+
 
             {speedPicks.data.map((entry) =>
                 <SPEntry bestTimes={bestTimes}
