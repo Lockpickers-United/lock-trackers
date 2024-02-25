@@ -56,7 +56,7 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
     }, [DCUpdate, entriesUpdate])
 
     const handleChange = useCallback((_, isExpanded) => {
-        //onExpand && onExpand(isExpanded ? entry?.id : false)
+        onExpand && onExpand(isExpanded ? entry?.id : false)
         console.log('Entry handleChange: ' + entry?.id)
         toggleOpenTEMP()
     }, [entry?.id, onExpand, toggleOpenTEMP])
@@ -91,9 +91,8 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
         placeItems: 'center'
     }
 
-    // <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref}>
     return (
-        <Accordion expanded={openTEMP} onChange={handleChange} style={style} ref={ref} disableGutters>
+        <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters>
             <AccordionSummary expandIcon={<ExpandMoreIcon/>} style={{fontSize: '1.1rem'}}>
                 <BeltStripe value={entry.belt}/>
                 <ListItemText

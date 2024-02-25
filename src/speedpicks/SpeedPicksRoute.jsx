@@ -9,7 +9,6 @@ import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
 import Main from './Main.jsx'
 
 import {lockFilterFields} from '../data/filterFields'
-
 import DBContext from '../app/DBContext'
 import {DataProvider} from './DataProvider.jsx'
 import {ListProvider} from './ListContext.jsx'
