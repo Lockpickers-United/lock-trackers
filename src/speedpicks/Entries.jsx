@@ -1,6 +1,6 @@
 import React, {useCallback, useContext, useDeferredValue, useState} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
-import DataProvider from './DataProvider.jsx'
+import DataContext from '../context/DataContext'
 import ListContext from './ListContext.jsx'
 import Entry from './Entry.jsx'
 import NewEntry from './NewEntry.jsx'
@@ -8,7 +8,7 @@ import SortFilterBar from './SortFilterBar.jsx'
 
 function Entries() {
 
-    const {speedPicks, bestTimes, handleSort = []} = useContext(DataProvider)
+    const {bestTimes, allEntries = []} = useContext(DataContext)
     const {tab, expanded, setExpanded, displayAll} = useContext(ListContext)
 
     const [updated, setUpdated] = useState(0)
@@ -49,7 +49,7 @@ function Entries() {
             <NewEntry entriesUpdate={entriesUpdate}/>
 
 
-            {speedPicks.data.map((entry) =>
+            {allEntries.map((entry) =>
                 <Entry bestTimes={bestTimes}
                        key={entry.id}
                        entry={entry}

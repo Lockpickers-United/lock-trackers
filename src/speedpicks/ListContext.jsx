@@ -1,13 +1,13 @@
 import React, {useCallback, useContext, useMemo, useState} from 'react'
 import {useParams} from 'react-router-dom'
-import DataProvider from './DataProvider.jsx'
-import FilterContext from '../context/FilterContext.jsx'
+import DataContext from '../context/DataContext'
+import FilterContext from '../context/FilterContext'
 
 const ListContext = React.createContext({})
 
 export function ListProvider({children}) {
     const {userId} = useParams()
-    const {getEntryFromId,getNameFromId} = useContext(DataProvider)
+    const {getEntryFromId,getNameFromId} = useContext(DataContext)
     const {filters, addFilters, removeFilters} = useContext(FilterContext)
     const expanded = filters.id
 
@@ -46,7 +46,6 @@ export function ListProvider({children}) {
         ], true)
 
     }, [addFilters, expanded])
-
 
     const value = useMemo(() => ({
         tab: filters.tab,

@@ -11,11 +11,11 @@ import DBContext from '../app/DBContext.jsx'
 import useData from '../util/useData.jsx'
 import EntryDetails from './EntryDetails.jsx'
 import EditEntry from './EditEntry.jsx'
-import DataProvider from './DataProvider.jsx'
+import DataContext from '../context/DataContext'
 
 const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
-    const {DCUpdate = []} = useContext(DataProvider)
+    const {DCUpdate = []} = useContext(DataContext)
 
     const [editing, setEditing] = useState(false)
 

@@ -3,11 +3,11 @@ import dayjs from 'dayjs'
 import FieldValue from '../entries/FieldValue.jsx'
 import EntryFunctions from './EntryFunctions.jsx'
 import AuthContext from '../app/AuthContext.jsx'
-import DataProvider from './DataProvider.jsx'
+import DataContext from '../context/DataContext'
 
 const EntryDetails = ({entry, startEdit, entriesUpdate}) => {
 
-    const {isMod = []} = useContext(DataProvider)
+    const {isMod = []} = useContext(DataContext)
     const {user, isLoggedIn} = useContext(AuthContext)
     const isUser = (isLoggedIn && entry.picker === user.uid)
 

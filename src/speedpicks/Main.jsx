@@ -5,11 +5,11 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import JsonDisplay from './JsonDisplay.jsx'
-import DataProvider from './DataProvider.jsx'
+import DataContext from '../context/DataContext'
 
 function Main() {
 
-    const {speedPicks = []} = useContext(DataProvider)
+    const {allEntries = []} = useContext(DataContext)
 
     return (
         <React.Fragment>
@@ -22,7 +22,7 @@ function Main() {
                     SPEEDPICKS DATA
                 </AccordionSummary>
                 <AccordionDetails>
-                    <JsonDisplay json={speedPicks.data} jsonName={'speedPicks'}/>
+                    <JsonDisplay json={allEntries} jsonName={'speedPicks'}/>
                 </AccordionDetails>
             </Accordion>
         </React.Fragment>

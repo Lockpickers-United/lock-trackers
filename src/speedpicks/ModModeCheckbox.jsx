@@ -1,9 +1,9 @@
 import Checkbox from '@mui/material/Checkbox'
 import React, {useContext} from 'react'
-import DataProvider from './DataProvider.jsx'
+import DataContext from '../context/DataContext'
 
 function ModModeCheckbox() {
-    const {isMod, toggleMod = []} = useContext(DataProvider)
+    const {isMod, toggleMod = []} = useContext(DataContext)
     return (
         <div style={{fontSize: '1.0rem', textAlign: 'right', width: '50%', paddingRight: 10}}>
             moderator mode: <Checkbox value={isMod} onChange={toggleMod} defaultChecked style={{color: '#7272d7'}}/>
