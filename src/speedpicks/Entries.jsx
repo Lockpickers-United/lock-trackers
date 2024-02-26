@@ -9,30 +9,22 @@ import SortFilterBar from './SortFilterBar.jsx'
 function Entries() {
 
     const {bestTimes, allEntries = []} = useContext(DataContext)
-    const {tab, expanded, setExpanded, displayAll} = useContext(ListContext)
+    const {expanded, setExpanded} = useContext(ListContext)
 
     const [updated, setUpdated] = useState(0)
     const entriesUpdate = useCallback(value => {
         setUpdated(value)
-    }, [])
+        console.log(updated)
+    }, [updated])
 
-    const defTab = useDeferredValue(tab)
+    //const defTab = useDeferredValue(tab)
     const defExpanded = useDeferredValue(expanded)
-    const defDisplayAll = useDeferredValue(displayAll)
+    //const defDisplayAll = useDeferredValue(displayAll)
 
 
     const {width} = useWindowSize()
     const smallWindow = width <= 560
 
-    const divStyle = {
-        width: '100%', padding: '0px', marginBottom: 12, alignItems: 'top',
-        marginLeft: 'auto', marginRight: 'auto', justifyContent: 'top'
-    }
-    const divFlexStyle = !smallWindow ? {display: 'flex'} : {}
-    const combinedDivStyle = {
-        ...divStyle,
-        ...divFlexStyle
-    }
     const pagePadding = !smallWindow
         ? '24px 24px 32px 24px'
         : '8px 8px 32px 8px'
@@ -47,7 +39,6 @@ function Entries() {
             <SortFilterBar/>
 
             <NewEntry entriesUpdate={entriesUpdate}/>
-
 
             {allEntries.map((entry) =>
                 <Entry bestTimes={bestTimes}

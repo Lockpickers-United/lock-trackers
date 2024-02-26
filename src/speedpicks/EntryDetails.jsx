@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import dayjs from 'dayjs'
-import FieldValue from '../entries/FieldValue.jsx'
+import FieldValue from '../util/FieldValue.jsx'
 import EntryFunctions from './EntryFunctions.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 import DataContext from '../context/DataContext'

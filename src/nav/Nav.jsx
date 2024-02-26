@@ -7,13 +7,12 @@ import ScrollToTopButton from './ScrollToTopButton'
 import UserMenu from './UserMenu'
 import TopNav from './TopNav.jsx'
 
-function Nav({extras, title}) {
+function Nav({extras}) {
     return (
         <React.Fragment>
             <AppBar position='fixed' sx={{boxShadow: 'none'}}>
                 <Toolbar>
                     <MainMenu/>
-
 
                     <VersionChecker/>
 

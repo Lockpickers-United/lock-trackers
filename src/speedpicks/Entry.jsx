@@ -4,8 +4,8 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {ListItemText} from '@mui/material'
-import formatTime from './formatTime'
-import BeltStripe from '../entries/BeltStripe.jsx'
+import formatTime from '../util/formatTime.jsx'
+import BeltStripe from './BeltStripe.jsx'
 import queryString from 'query-string'
 import DBContext from '../app/DBContext.jsx'
 import useData from '../util/useData.jsx'
@@ -24,7 +24,8 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
     const loadFn = useCallback(() => {
         return getProfile(pickerId)
     }, [getProfile, pickerId])
-    const {data = {}, loading, error} = useData({loadFn})
+    //const {data = {}, loading, error} = useData({loadFn})
+    const {data = {}} = useData({loadFn})
     const pickerName = data?.displayName
 
     entry.bestTime = formatTime(bestTimes.get(entry.lockId))

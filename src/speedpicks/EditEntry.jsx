@@ -4,13 +4,13 @@ import {ListItemText} from '@mui/material'
 import {DatePicker} from '@mui/x-date-pickers/DatePicker'
 import {TimePicker} from '@mui/x-date-pickers/TimePicker'
 import dayjs from 'dayjs'
-import formatTime from './formatTime.jsx'
+import formatTime from '../util/formatTime.jsx'
 import DataContext from '../context/DataContext'
 import VideocamIcon from '@mui/icons-material/Videocam'
 import LaunchIcon from '@mui/icons-material/Launch'
 import InputAdornment from '@mui/material/InputAdornment'
 import LockIcon from '@mui/icons-material/Lock'
-import entryName from '../entries/entryName'
+import entryName from '../util/entryName'
 import belts from '../data/belts'
 import AuthContext from '../app/AuthContext'
 import DBContext from '../app/DBContext'
@@ -27,14 +27,13 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
         : 'Private'
 
     const isNew = !entry
-    const [entryId, setEntryId] = useState(entry && entry.id ? entry.id : genHexString(8))
+    const [entryId] = useState(entry && entry.id ? entry.id : genHexString(8))
     const [status, setStatus] = useState(entry ? entry.status : 'Pending')
     const [picker, setPicker] = useState(isLoggedIn ? entry?.picker : user?.uid)
 
     const pickerName = isLoggedIn ? safeName : '(please log in)'
     const [lockURL, setLockURL] = useState(entry && entry.lockId
-        ? `https://lpubelts.com/#/locks?id=${entry.lockId}`
-        : ''
+        ? `https://lpubelts.com/#/locks?id=${entry.lockId}` : ''
     )
     const [lockId, setLockId] = useState(entry && entry.lockId ? entry.lockId : '')
     const [lock, setLock] = useState(entry && entry.lockId ? getLockFromId(entry.lockId) : null)
@@ -48,7 +47,6 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
         const thisId = lockRegex.test(value)
             ? value.match(lockRegex)[1]
             : ''
-
         setLock(getLockFromId(thisId))
         setLockId(thisId)
 
@@ -98,9 +96,16 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
             addEntry(thisEntry)
             toggleOpen()
         } else {
+            setStatus('Pending')
+            entry.status = status
+            entry.picker = picker
+            entry.lockId = lockId
+            entry.date = date.format()
             entry.start = startTime.format()
             entry.open = openTime.format()
-            //endEdit()
+            entry.videoUrl = videoUrl
+            toggleOpen()
+            endEdit()
         }
         DCUpdate()
         entriesUpdate()
@@ -108,7 +113,6 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
 
     function cancelEdit() {
         //entriesUpdate()
-        console.log(isNew)
         if (isNew) {
             setLock(null)
             setLockURL('')
@@ -118,7 +122,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
             setOpenTime(dayjs('1970-01-01'))
             toggleOpen()
         }
-        //endEdit()
+        endEdit()
     }
 
     return (
@@ -277,11 +281,8 @@ function genHexString(len) {
 
 function isValidHttpUrl(string) {
     let url
-    try {
-        url = new URL(string)
-    } catch (_) {
-        return false
-    }
+    try { url = new URL(string) }
+    catch (_) { return false }
     return url.protocol === 'http:' || url.protocol === 'https:'
 }
 

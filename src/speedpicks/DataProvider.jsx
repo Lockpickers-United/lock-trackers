@@ -1,28 +1,30 @@
 import React, {useCallback, useMemo, useState, useContext} from 'react'
 import lockJson from '../data/data.json'
-import belts, {beltSort, beltSortReverse, uniqueBelts} from '../data/belts'
+import belts, {uniqueBelts} from '../data/belts'
 import speedPickData from './speedPicks.json'
-import entryName from '../entries/entryName'
-import formatTime from './formatTime'
+import entryName from '../util/entryName'
+import formatTime from '../util/formatTime.jsx'
 import dayjs from 'dayjs'
 import DataContext from '../context/DataContext'
 import FilterContext from '../context/FilterContext.jsx'
-import getAnyCollection from '../util/getAnyCollection'
 import fuzzysort from 'fuzzysort'
 import removeAccents from 'remove-accents'
-import DBContext from '../app/DBContext.jsx'
-import useData from '../util/useData.jsx'
 
-export function DataProvider({children, allEntries, profile}) {
+export function DataProvider({children, allEntries}) {
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sort, image, ...filters} = allFilters
-    const anyCollection = useMemo(() => getAnyCollection(profile), [profile])
 
     const lockBelts = useMemo(() => belts, [])
     const [speedPicks, setSpeedPicks] = useState(speedPickData)
 
     const lockData = useMemo(() => lockJson, [])
     const bestTimes = useMemo(() => new Map(), [])
+
+    const getPickerNameFromId = useCallback(pickerId => {
+        //TODO get actual name
+        return pickerId
+    }, [])
+
 
     const mappedEntries = useMemo(() => {
         return allEntries.map(entry => {
@@ -32,6 +34,7 @@ export function DataProvider({children, allEntries, profile}) {
             entry.lock = entryName(thisLock, 'short')
             entry.version = thisLock.version
 
+            entry.pickerName = getPickerNameFromId
             entry.belt = thisLock.belt
             const beltLookup = thisLock.belt.startsWith('Black') ? 'Black' : thisLock.belt
             entry.beltIndex = uniqueBelts.indexOf(beltLookup)
@@ -48,18 +51,9 @@ export function DataProvider({children, allEntries, profile}) {
             }
             return entry
         })
-    }, [allEntries, bestTimes, lockData])
+    }, [allEntries, bestTimes, getPickerNameFromId, lockData])
 
     console.log(mappedEntries)
-
-    const getPickerNameFromId = useCallback(pickerId => {
-        const {getProfile} = useContext(DBContext)
-        const loadFn = useCallback(() => {
-            return getProfile(pickerId)
-        }, [getProfile, pickerId])
-        const {data = {}, loading, error} = useData({loadFn})
-        return data?.displayName
-    }, [])
 
 
     const getLockFromId = useCallback(lockId => {
@@ -137,18 +131,19 @@ console.log(sort)
 
 
     const addEntry = useCallback(entry => {
-        const foo = speedPickData.data.push(entry)
-        console.log(entry)
+        const temp = speedPickData.data.push(entry)
+        console.log(temp)
     }, [])
 
     const [updated, setUpdated] = useState(0)
     const DCUpdate = useCallback(value => {
         setUpdated(value)
-    }, [])
+        console.log(updated)
+    }, [updated])
 
 
     const [isMod, setIsMod] = useState(true)
-    const toggleMod = useCallback(value => {
+    const toggleMod = useCallback(() => {
         setIsMod(!isMod)
         setSpeedPicks(speedPickData)
         DCUpdate(Math.random())
@@ -198,4 +193,3 @@ console.log(sort)
 
 const fuzzySortKeys = ['fuzzy']
 
-export default DataProvider

@@ -1,12 +1,10 @@
-import React, {useState, useCallback, useContext} from 'react'
+import React, {useCallback} from 'react'
 import CL_logo from '../assets/CL_logo.jsx'
 import SP_logo from '../assets/SL_logo.jsx'
 import Button from '@mui/material/Button'
-import {ToggleButtonGroup, ToggleButton} from '@mui/material'
 import {useLocation, useNavigate} from 'react-router-dom'
-import queryString from 'query-string'
 
-function TopNav({handleChange, handleSort}) {
+function TopNav() {
 
     const navigate = useNavigate()
     const location = useLocation()

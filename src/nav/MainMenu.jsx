@@ -1,18 +1,13 @@
-import ListItemIcon from '@mui/material/ListItemIcon'
 import React, {useCallback, useContext, useState} from 'react'
 import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
-import MenuIcon from '@mui/icons-material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Stack from '@mui/material/Stack'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import Tooltip from '@mui/material/Tooltip'
 import {useHotkeys} from 'react-hotkeys-hook'
-import {useNavigate} from 'react-router-dom'
 import AppContext from '../app/AppContext'
 import MainMenuItem from './MainMenuItem'
 import menuConfig from './menuConfig'
-import lpuHeaderSmall from '../resources/LPU-header-small.png'
 import LT_logo from '../assets/LT_logo.jsx'
 import Button from '@mui/material/Button'
 import LT_menu_header from '../assets/LT_menu_header.jsx'
@@ -21,14 +16,9 @@ function MainMenu() {
     const {admin, beta} = useContext(AppContext)
     const [open, setOpen] = useState(false)
     const [openTitle, setOpenTitle] = useState('Admin Tools') // TODO: don't do this once there are more
-    const navigate = useNavigate()
 
     const handleHotkey = useCallback(() => setOpen(!open), [open])
     useHotkeys('m', handleHotkey)
-
-    const goHome = useCallback(() => {
-        navigate('/locks')
-    }, [navigate])
 
     const openDrawer = useCallback(() => {
         setOpen(true)

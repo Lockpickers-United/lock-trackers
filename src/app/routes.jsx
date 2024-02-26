@@ -8,40 +8,10 @@ export default [
         loader: () => redirect('/speedpicks')
     },
     {
-        admin: true,
-        path: '/admin',
-        lazy: async () => {
-            const {default: AdminRoute} = await import('../admin/AdminRoute')
-            return {element: <AdminRoute/>}
-        },
-        children: [
-            {
-                path: '/admin/collectionsReport',
-                lazy: async () => {
-                    const {default: CollectionsReportMain} = await import('../admin/CollectionsReportMain')
-                    return {element: <CollectionsReportMain/>}
-                }
-            }, {
-                path: '/admin/siteReport',
-                lazy: async () => {
-                    const {default: SiteReportMain} = await import('../admin/SiteReportMain')
-                    return {element: <SiteReportMain/>}
-                }
-            }
-        ]
-    },
-    {
         path: '/profile/edit',
         lazy: async () => {
             const {default: EditProfileRoute} = await import('../profile/EditProfileRoute')
             return {element: <EditProfileRoute/>}
-        }
-    },
-    {
-        path: '/profile/:userId',
-        lazy: async () => {
-            const {default: ProfileRoute} = await import('../profile/ProfileRoute')
-            return {element: <ProfileRoute/>}
         }
     },
     {

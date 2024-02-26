@@ -39,7 +39,7 @@ export function ColorModeProvider({children}) {
 
     const style = getRootStyle(darkTheme)
 
-    const [mode, setMode] = useState('light')
+    const [mode, setMode] = useState('dark')
     const colorMode = React.useMemo(() => ({
             toggleColorMode: () => {
                 setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
