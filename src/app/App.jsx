@@ -25,11 +25,22 @@ const darkTheme = createTheme({
     }
 })
 
+const lightTheme = createTheme({
+    palette: {
+        mode: 'light',
+        text: {
+            primary: '#333',
+            secondary: '#555555'
+        }
+    }
+})
+
 function App() {
+
     const style = getRootStyle(darkTheme)
     return (
         <ThemeProvider theme={darkTheme}>
-            <CssBaseline/>
+            <CssBaseline enableColorScheme/>
             <style>{style}</style>
 
             <SnackbarProvider>

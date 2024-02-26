@@ -8,7 +8,7 @@ import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
 
 import Main from './Main.jsx'
 
-import {lockFilterFields} from '../data/filterFields'
+import {spFilterFields} from '../data/filterFields'
 import DBContext from '../app/DBContext'
 import {DataProvider} from './DataProvider.jsx'
 import {ListProvider} from './ListContext.jsx'
@@ -27,7 +27,7 @@ function SpeedPicksRoute() {
 
     return (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <FilterProvider filterFields={lockFilterFields}>
+                <FilterProvider filterFields={spFilterFields}>
                     <DataProvider allEntries={allEntries} profile={lockCollection}>
                         <ListProvider>
 

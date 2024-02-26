@@ -86,36 +86,6 @@ function UserMenu() {
                         </MenuItem>
                         <Divider/>
 
-                        <MenuItem disabled>
-                            <ListItemText>My Collection</ListItemText>
-                        </MenuItem>
-                        <MenuItem onClick={handleClick(`/profile/${user.uid}?name=${safeName}&collection=Own`)}>
-                            <ListItemIcon>
-                                <LockIcon fontSize='small'/>
-                            </ListItemIcon>
-                            <ListItemText>Own ({lockCollection.own?.length || 0})</ListItemText>
-                        </MenuItem>
-                        <MenuItem onClick={handleClick(`/profile/${user.uid}?name=${safeName}&collection=Picked`)}>
-                            <ListItemIcon>
-                                <LockOpenOutlinedIcon fontSize='small'/>
-                            </ListItemIcon>
-                            <ListItemText>Picked ({lockCollection.picked?.length || 0})</ListItemText>
-                        </MenuItem>
-                        <MenuItem onClick={handleClick(`/profile/${user.uid}?name=${safeName}&collection=Recorded`)}>
-                            <ListItemIcon>
-                                <VideocamOutlinedIcon fontSize='small'/>
-                            </ListItemIcon>
-                            <ListItemText>Recorded ({lockCollection.recorded?.length || 0})</ListItemText>
-                        </MenuItem>
-                        <MenuItem onClick={handleClick(`/profile/${user.uid}?name=${safeName}&collection=Wishlist`)}>
-                            <ListItemIcon>
-                                <SavingsOutlinedIcon fontSize='small'/>
-                            </ListItemIcon>
-                            <ListItemText>Wishlist ({lockCollection.wishlist?.length || 0})</ListItemText>
-                        </MenuItem>
-
-                        <Divider/>
-
                         <MenuItem onClick={handleLogout}>
                             <ListItemIcon>
                                 <LogoutIcon fontSize='small'/>
@@ -127,36 +97,7 @@ function UserMenu() {
                 {
                     !isLoggedIn &&
                     <div>
-                        <MenuItem disabled>
-                            <ListItemText>My Collection</ListItemText>
-                        </MenuItem>
-                        <MenuItem disabled>
-                            <ListItemIcon>
-                                <LockIcon fontSize='small'/>
-                            </ListItemIcon>
-                            <ListItemText>Own</ListItemText>
-                        </MenuItem>
-                        <MenuItem disabled>
-                            <ListItemIcon>
-                                <LockOpenOutlinedIcon fontSize='small'/>
-                            </ListItemIcon>
-                            <ListItemText>Picked</ListItemText>
-                        </MenuItem>
-                        <MenuItem disabled>
-                            <ListItemIcon>
-                                <VideocamOutlinedIcon fontSize='small'/>
-                            </ListItemIcon>
-                            <ListItemText>Recorded</ListItemText>
-                        </MenuItem>
-                        <MenuItem disabled>
-                            <ListItemIcon>
-                                <SavingsOutlinedIcon fontSize='small'/>
-                            </ListItemIcon>
-                            <ListItemText>Wishlist</ListItemText>
-                        </MenuItem>
-
                         <Divider/>
-
                         <SignInButton onClick={handleClose}/>
                     </div>
                 }

@@ -57,9 +57,7 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
     const handleChange = useCallback((_, isExpanded) => {
         onExpand && onExpand(isExpanded ? entry?.id : false)
-        console.log('Entry handleChange: ' + entry?.id)
-        toggleOpenTEMP()
-    }, [entry?.id, onExpand, toggleOpenTEMP])
+    }, [entry?.id, onExpand])
 
     useEffect(() => {
         if (expanded && ref && !scrolled) {
@@ -106,7 +104,6 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
                 <div style={divStyle}>{entry.totalTimeString}</div>
             </AccordionSummary>
             <AccordionDetails style={{display: 'block', padding: 0}}>
-
                 {!editing &&
                     <EntryDetails entry={entry} startEdit={startEdit} entriesUpdate={entriesUpdate}/>
                 }

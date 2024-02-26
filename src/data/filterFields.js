@@ -9,6 +9,13 @@ export const lockFilterFields = [
     {label: 'Collection', fieldName: 'collection', userBased: true}
 ]
 
+export const spFilterFields = [
+    {label: 'Make', fieldName: 'makes'},
+    {label: 'Approved', fieldName: 'approved'},
+    {label: 'Locking Mechanism', fieldName: 'lockingMechanisms'},
+    {label: 'Belt', fieldName: 'belt', sort: beltSort}
+]
+
 export const dialFilterFields = [
     {label: 'Make', fieldName: 'make'},
     {label: 'Fence Type', fieldName: 'fence'},

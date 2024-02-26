@@ -17,6 +17,11 @@ export default [
         path: '/speedpicks'
     },
     {
+        title: 'Challenge Locks',
+        icon: <AlarmOnIcon fontSize='small'/>,
+        path: '/challengelocks'
+    },
+    {
         admin: true,
         title: 'Admin Tools',
         icon: <BuildIcon fontSize='small'/>,

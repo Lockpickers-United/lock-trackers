@@ -52,7 +52,6 @@ export function DataProvider({children, allEntries, profile}) {
 
     console.log(mappedEntries)
 
-
     const getPickerNameFromId = useCallback(pickerId => {
         const {getProfile} = useContext(DBContext)
         const loadFn = useCallback(() => {

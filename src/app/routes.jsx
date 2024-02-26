@@ -52,6 +52,13 @@ export default [
         }
     },
     {
+        path: '/challengelocks',
+        lazy: async () => {
+            const {default: ChallengeLocksRoute} = await import('../challengelocks/ChallengeLocksRoute')
+            return {element: <ChallengeLocksRoute/>}
+        }
+    },
+    {
         path: '/privacy',
         lazy: async () => {
             const {default: PrivacyRoute} = await import('../privacy/PrivacyRoute')
