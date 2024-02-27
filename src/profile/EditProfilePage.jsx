@@ -1,104 +1,231 @@
 import Stack from '@mui/material/Stack'
-import Switch from '@mui/material/Switch'
 import React, {useCallback, useContext, useState} from 'react'
 import Typography from '@mui/material/Typography'
 import {enqueueSnackbar} from 'notistack'
-import SaveIcon from '@mui/icons-material/Save'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
-import IconButton from '@mui/material/IconButton'
 import TextField from '@mui/material/TextField'
-import Tooltip from '@mui/material/Tooltip'
 import {useNavigate} from 'react-router-dom'
-import AuthContext from '../app/AuthContext'
 import DBContext from '../app/DBContext'
+import Button from '@mui/material/Button'
+import dayjs from 'dayjs'
+import {uniqueBelts} from '../data/belts'
+import countries from '../data/countries.json'
+import {FormControl, InputLabel, Select} from '@mui/material'
+import MenuItem from '@mui/material/MenuItem'
+import LoadingDisplay from '../util/LoadingDisplay.jsx'
 
 function EditProfilePage() {
-    const {lockCollection, updateProfileVisibility} = useContext(DBContext)
-    const [displayName, setDisplayName] = useState(lockCollection.displayName || '')
-    const [visibility, setVisibility] = useState(!!lockCollection.public)
-    const navigate = useNavigate()
-    const {user} = useContext(AuthContext)
 
-    const handleChange = useCallback(event => {
+    const {updateProfile, profile} = useContext(DBContext)
+
+    //const profile = user?.uid ? getProfile(user.uid) : null
+    //     const profile = useCallback(async () => {
+    //         return await getProfile(user.uid)
+    //     }, [getProfile, user.uid])
+
+    //    const {user} = useContext(AuthContext)
+    //     const loadFn = user
+    //         ? useCallback(() => {
+    //             return getProfile(user?.uid)
+    //         }, [getProfile, user?.uid])
+    //         : null
+    //     const {data = {}} = useData({loadFn})
+    //     const profile = data
+
+    //console.log(profile)
+    //console.log(`username: ${profile?.username}`)
+
+    const navigate = useNavigate()
+
+    const [created] = useState(profile?.created || dayjs().format())
+    const [username, setUsername] = useState(profile?.username || '')
+    const [discordUsername, setDiscordUsername] = useState(profile?.discordUsername || '')
+    const [redditUsername, setRedditUsername] = useState(profile?.redditUsername || '')
+    const [LPUBeltsProfile, setLPUBeltsProfile] = useState(profile?.LPUBeltsProfile || '')
+    const [belt, setBelt] = useState(profile?.belt || '')
+    const [country, setCountry] = useState(profile?.country || '')
+
+
+    const cardTitle = username
+        ? `Hey ${profile?.username}!`
+        : 'Create Profile'
+
+    const handleChange = useCallback((event) => {
         const {value} = event.target
-        setDisplayName(value)
+        if (event.target.id === 'username') {
+            setUsername(value)
+        } else if (event.target.id === 'discordUsername') {
+            setDiscordUsername(value)
+        } else if (event.target.id === 'redditUsername') {
+            setRedditUsername(value)
+        } else if (event.target.id === 'LPUBeltsProfile') {
+            setLPUBeltsProfile(value)
+        } else if (event.target.name === 'belt') {
+            setBelt(value)
+        } else if (event.target.name === 'country') {
+            setCountry(value)
+        }
     }, [])
 
-    const handleCheckChange = useCallback(event => {
-        const {checked} = event.target
-        setVisibility(checked)
+    const clearForm = useCallback(() => {
+        setUsername('')
+        setDiscordUsername('')
+        setRedditUsername('')
+        setLPUBeltsProfile('')
+        setBelt('')
+        setCountry('')
     }, [])
 
     const handleFocus = useCallback(event => event.target.select(), [])
 
     const handleSave = useCallback(async () => {
         try {
-            await updateProfileVisibility(visibility, displayName)
+            await updateProfile(username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created)
             enqueueSnackbar('Updated profile.')
-            navigate(`/profile/${user.uid}`)
+            navigate('/profile/edit')
         } catch (ex) {
             console.error('Error while updating profile', ex)
             enqueueSnackbar('Error while updating profile.')
         }
-    }, [navigate, displayName, updateProfileVisibility, user?.uid, visibility])
+    }, [updateProfile, username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created, navigate])
 
-    const error = visibility && !pattern.test(displayName)
+    const error = username.length > 0 && !pattern.test(username)
+    const empty = username.length === 0
 
     const helperText = error
-        ? displayName.length === 0
+        ? username.length === 0
             ? 'Public profiles must have a display name.'
             : 'Display name must only include A-Z, 0-9, _ and -.'
-        : visibility === true
-            ? `Your profile will be public, as ${displayName}.`
-            : 'Your profile will be private'
+        : ''
 
     return (
         <Card style={{
-            maxWidth: 350,
+            maxWidth: 450,
             marginLeft: 'auto',
             marginRight: 'auto',
-            marginTop: 16,
-            marginButtom: 16
+            marginTop: 26,
+            marginBottom: 16
         }}>
-            <CardHeader title='Edit Profile' action={
-                <Tooltip title='Save' arrow disableFocusListener>
-                    <IconButton onClick={handleSave} disabled={error}>
-                        <SaveIcon color={error ? undefined : 'success'}/>
-                    </IconButton>
-                </Tooltip>
-            }/>
+            <CardHeader title={cardTitle} action={null} style={{paddingBottom: 0}}/>
             <CardContent>
                 <Typography>
-                    Set a display name for your profile.
-                    Public profiles can be shared and show nicknames on the leaderboard.
+                    You must have a named profile to submit speed picks.
                 </Typography>
                 <br/>
-                <Stack direction='row'>
+                <Stack direction='column'>
                     <TextField
+                        id='username'
                         error={error}
                         fullWidth
                         variant='outlined'
-                        color='secondary'
-                        label='Display Name'
+                        label='Username'
                         helperText={helperText}
-                        value={displayName || ''}
+                        value={username || ''}
                         onChange={handleChange}
                         onFocus={handleFocus}
                         inputProps={{
                             maxLength: 32
                         }}
                     />
-                    <div style={{textAlign: 'center', width: 100}}>
-                        {visibility ? 'Public' : 'Private'}
-                        <Switch
-                            checked={visibility}
-                            color='secondary'
-                            onChange={handleCheckChange}
-                        />
-                    </div>
+                    {1 === 1 &&
+                        <div>
+                            <div style={{marginTop: 20, marginBottom: 15, fontWeight: 600}}>OPTIONAL</div>
+
+                            <FormControl id='beltFC' size='small' sx={{minWidth: 220}}>
+                                <InputLabel>Belt (Honor system!)</InputLabel>
+                                <Select
+                                    id='belt'
+                                    name='belt'
+                                    value={belt}
+                                    label='Belt (Honor system!)'
+                                    onChange={handleChange}
+                                >
+                                    {uniqueBelts.map((belt) =>
+                                        <MenuItem key={belt} value={belt}>{belt}</MenuItem>
+                                    )}
+                                </Select>
+                            </FormControl>
+
+                            <TextField
+                                id='discordUsername'
+                                fullWidth
+                                size='small'
+                                variant='outlined'
+                                label='Discord Username'
+                                value={discordUsername || ''}
+                                onChange={handleChange}
+                                onFocus={handleFocus}
+                                inputProps={{
+                                    maxLength: 32
+                                }}
+                                style={{marginTop: 20}}
+                            />
+                            <TextField
+                                id='redditUsername'
+                                fullWidth
+                                size='small'
+                                variant='outlined'
+                                label='Reddit Username'
+                                value={redditUsername || ''}
+                                onChange={handleChange}
+                                onFocus={handleFocus}
+                                inputProps={{
+                                    maxLength: 32
+                                }}
+                                style={{marginTop: 20}}
+                            />
+                            <TextField
+                                id='LPUBeltsProfile'
+                                fullWidth
+                                size='small'
+                                variant='outlined'
+                                label='LPUBelts Profile Link'
+                                value={LPUBeltsProfile || ''}
+                                onChange={handleChange}
+                                onFocus={handleFocus}
+                                inputProps={{
+                                    maxLength: 128
+                                }}
+                                style={{marginTop: 20}}
+                            />
+
+                            <FormControl id='country' size='small' sx={{minWidth: 220, marginTop: '20px'}}>
+                                <InputLabel>Country</InputLabel>
+                                <Select
+                                    id='country'
+                                    name='country'
+                                    value={country}
+                                    label='Country'
+                                    onChange={handleChange}
+                                >
+                                    {countries.map((countryInfo) =>
+                                        <MenuItem key={countryInfo.ISO_alpha3_code}
+                                                  value={countryInfo.country_area}>{countryInfo.country_area}</MenuItem>
+                                    )}
+                                </Select>
+                            </FormControl>
+
+
+                        </div>
+                    }
                 </Stack>
+
+                <div style={{marginTop: 20, textAlign: 'right'}}>
+                    <Button variant='outlined'
+                            onClick={clearForm}
+                            style={{marginRight: 10, color: '#bbb'}}>
+                        Clear&nbsp;Form
+                    </Button>
+                    <Button variant='outlined'
+                            disabled={error || empty}
+                            color={error ? undefined : 'success'}
+                            onClick={handleSave}
+                            style={{}}>
+                        Save&nbsp;Profile
+                    </Button>
+                </div>
             </CardContent>
         </Card>
     )

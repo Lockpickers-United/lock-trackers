@@ -2,7 +2,7 @@ import {initializeApp} from 'firebase/app'
 import {getAuth} from 'firebase/auth'
 import {getFirestore} from 'firebase/firestore'
 
-const firebaseLT = false
+const firebaseLT = true
 
 // LockTrackers Firebase configuration
 const firebaseConfig = firebaseLT

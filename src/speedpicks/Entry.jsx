@@ -27,7 +27,7 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
     }, [getProfile, pickerId])
     //const {data = {}, loading, error} = useData({loadFn})
     const {data = {}} = useData({loadFn})
-    const pickerName = data?.displayName
+    const pickerName = data?.username
 
     const theme = useTheme()
 

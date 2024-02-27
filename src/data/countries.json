@@ -1,0 +1,1242 @@
+[
+  {
+    "country_area": "Afghanistan",
+    "M49_code": "4",
+    "ISO_alpha3_code": "AFG"
+  },
+  {
+    "country_area": "Åland Islands",
+    "M49_code": "248",
+    "ISO_alpha3_code": "ALA"
+  },
+  {
+    "country_area": "Albania",
+    "M49_code": "8",
+    "ISO_alpha3_code": "ALB"
+  },
+  {
+    "country_area": "Algeria",
+    "M49_code": "12",
+    "ISO_alpha3_code": "DZA"
+  },
+  {
+    "country_area": "American Samoa",
+    "M49_code": "16",
+    "ISO_alpha3_code": "ASM"
+  },
+  {
+    "country_area": "Andorra",
+    "M49_code": "20",
+    "ISO_alpha3_code": "AND"
+  },
+  {
+    "country_area": "Angola",
+    "M49_code": "24",
+    "ISO_alpha3_code": "AGO"
+  },
+  {
+    "country_area": "Anguilla",
+    "M49_code": "660",
+    "ISO_alpha3_code": "AIA"
+  },
+  {
+    "country_area": "Antarctica",
+    "M49_code": "10",
+    "ISO_alpha3_code": "ATA"
+  },
+  {
+    "country_area": "Antigua and Barbuda",
+    "M49_code": "28",
+    "ISO_alpha3_code": "ATG"
+  },
+  {
+    "country_area": "Argentina",
+    "M49_code": "32",
+    "ISO_alpha3_code": "ARG"
+  },
+  {
+    "country_area": "Armenia",
+    "M49_code": "51",
+    "ISO_alpha3_code": "ARM"
+  },
+  {
+    "country_area": "Aruba",
+    "M49_code": "533",
+    "ISO_alpha3_code": "ABW"
+  },
+  {
+    "country_area": "Australia",
+    "M49_code": "36",
+    "ISO_alpha3_code": "AUS"
+  },
+  {
+    "country_area": "Austria",
+    "M49_code": "40",
+    "ISO_alpha3_code": "AUT"
+  },
+  {
+    "country_area": "Azerbaijan",
+    "M49_code": "31",
+    "ISO_alpha3_code": "AZE"
+  },
+  {
+    "country_area": "Bahamas",
+    "M49_code": "44",
+    "ISO_alpha3_code": "BHS"
+  },
+  {
+    "country_area": "Bahrain",
+    "M49_code": "48",
+    "ISO_alpha3_code": "BHR"
+  },
+  {
+    "country_area": "Bangladesh",
+    "M49_code": "50",
+    "ISO_alpha3_code": "BGD"
+  },
+  {
+    "country_area": "Barbados",
+    "M49_code": "52",
+    "ISO_alpha3_code": "BRB"
+  },
+  {
+    "country_area": "Belarus",
+    "M49_code": "112",
+    "ISO_alpha3_code": "BLR"
+  },
+  {
+    "country_area": "Belgium",
+    "M49_code": "56",
+    "ISO_alpha3_code": "BEL"
+  },
+  {
+    "country_area": "Belize",
+    "M49_code": "84",
+    "ISO_alpha3_code": "BLZ"
+  },
+  {
+    "country_area": "Benin",
+    "M49_code": "204",
+    "ISO_alpha3_code": "BEN"
+  },
+  {
+    "country_area": "Bermuda",
+    "M49_code": "60",
+    "ISO_alpha3_code": "BMU"
+  },
+  {
+    "country_area": "Bhutan",
+    "M49_code": "64",
+    "ISO_alpha3_code": "BTN"
+  },
+  {
+    "country_area": "Bolivia (Plurinational State of)",
+    "M49_code": "068",
+    "ISO_alpha3_code": "BOL"
+  },
+  {
+    "country_area": "Bonaire, Sint Eustatius and Saba",
+    "M49_code": "535",
+    "ISO_alpha3_code": "BES"
+  },
+  {
+    "country_area": "Bosnia and Herzegovina",
+    "M49_code": "070",
+    "ISO_alpha3_code": "BIH"
+  },
+  {
+    "country_area": "Botswana",
+    "M49_code": "072",
+    "ISO_alpha3_code": "BWA"
+  },
+  {
+    "country_area": "Bouvet Island",
+    "M49_code": "074",
+    "ISO_alpha3_code": "BVT"
+  },
+  {
+    "country_area": "Brazil",
+    "M49_code": "076",
+    "ISO_alpha3_code": "BRA"
+  },
+  {
+    "country_area": "British Indian Ocean Territory",
+    "M49_code": "086",
+    "ISO_alpha3_code": "IOT"
+  },
+  {
+    "country_area": "British Virgin Islands",
+    "M49_code": "092",
+    "ISO_alpha3_code": "VGB"
+  },
+  {
+    "country_area": "Brunei Darussalam",
+    "M49_code": "096",
+    "ISO_alpha3_code": "BRN"
+  },
+  {
+    "country_area": "Bulgaria",
+    "M49_code": "100",
+    "ISO_alpha3_code": "BGR"
+  },
+  {
+    "country_area": "Burkina Faso",
+    "M49_code": "854",
+    "ISO_alpha3_code": "BFA"
+  },
+  {
+    "country_area": "Burundi",
+    "M49_code": "108",
+    "ISO_alpha3_code": "BDI"
+  },
+  {
+    "country_area": "Cabo Verde",
+    "M49_code": "132",
+    "ISO_alpha3_code": "CPV"
+  },
+  {
+    "country_area": "Cambodia",
+    "M49_code": "116",
+    "ISO_alpha3_code": "KHM"
+  },
+  {
+    "country_area": "Cameroon",
+    "M49_code": "120",
+    "ISO_alpha3_code": "CMR"
+  },
+  {
+    "country_area": "Canada",
+    "M49_code": "124",
+    "ISO_alpha3_code": "CAN"
+  },
+  {
+    "country_area": "Cayman Islands",
+    "M49_code": "136",
+    "ISO_alpha3_code": "CYM"
+  },
+  {
+    "country_area": "Central African Republic",
+    "M49_code": "140",
+    "ISO_alpha3_code": "CAF"
+  },
+  {
+    "country_area": "Chad",
+    "M49_code": "148",
+    "ISO_alpha3_code": "TCD"
+  },
+  {
+    "country_area": "Chile",
+    "M49_code": "152",
+    "ISO_alpha3_code": "CHL"
+  },
+  {
+    "country_area": "China",
+    "M49_code": "156",
+    "ISO_alpha3_code": "CHN"
+  },
+  {
+    "country_area": "China, Hong Kong Special Administrative Region",
+    "M49_code": "344",
+    "ISO_alpha3_code": "HKG"
+  },
+  {
+    "country_area": "China, Macao Special Administrative Region",
+    "M49_code": "446",
+    "ISO_alpha3_code": "MAC"
+  },
+  {
+    "country_area": "Christmas Island",
+    "M49_code": "162",
+    "ISO_alpha3_code": "CXR"
+  },
+  {
+    "country_area": "Cocos (Keeling) Islands",
+    "M49_code": "166",
+    "ISO_alpha3_code": "CCK"
+  },
+  {
+    "country_area": "Colombia",
+    "M49_code": "170",
+    "ISO_alpha3_code": "COL"
+  },
+  {
+    "country_area": "Comoros",
+    "M49_code": "174",
+    "ISO_alpha3_code": "COM"
+  },
+  {
+    "country_area": "Congo",
+    "M49_code": "178",
+    "ISO_alpha3_code": "COG"
+  },
+  {
+    "country_area": "Cook Islands",
+    "M49_code": "184",
+    "ISO_alpha3_code": "COK"
+  },
+  {
+    "country_area": "Costa Rica",
+    "M49_code": "188",
+    "ISO_alpha3_code": "CRI"
+  },
+  {
+    "country_area": "Côte d’Ivoire",
+    "M49_code": "384",
+    "ISO_alpha3_code": "CIV"
+  },
+  {
+    "country_area": "Croatia",
+    "M49_code": "191",
+    "ISO_alpha3_code": "HRV"
+  },
+  {
+    "country_area": "Cuba",
+    "M49_code": "192",
+    "ISO_alpha3_code": "CUB"
+  },
+  {
+    "country_area": "Curaçao",
+    "M49_code": "531",
+    "ISO_alpha3_code": "CUW"
+  },
+  {
+    "country_area": "Cyprus",
+    "M49_code": "196",
+    "ISO_alpha3_code": "CYP"
+  },
+  {
+    "country_area": "Czechia",
+    "M49_code": "203",
+    "ISO_alpha3_code": "CZE"
+  },
+  {
+    "country_area": "Democratic People's Republic of Korea",
+    "M49_code": "408",
+    "ISO_alpha3_code": "PRK"
+  },
+  {
+    "country_area": "Democratic Republic of the Congo",
+    "M49_code": "180",
+    "ISO_alpha3_code": "COD"
+  },
+  {
+    "country_area": "Denmark",
+    "M49_code": "208",
+    "ISO_alpha3_code": "DNK"
+  },
+  {
+    "country_area": "Djibouti",
+    "M49_code": "262",
+    "ISO_alpha3_code": "DJI"
+  },
+  {
+    "country_area": "Dominica",
+    "M49_code": "212",
+    "ISO_alpha3_code": "DMA"
+  },
+  {
+    "country_area": "Dominican Republic",
+    "M49_code": "214",
+    "ISO_alpha3_code": "DOM"
+  },
+  {
+    "country_area": "Ecuador",
+    "M49_code": "218",
+    "ISO_alpha3_code": "ECU"
+  },
+  {
+    "country_area": "Egypt",
+    "M49_code": "818",
+    "ISO_alpha3_code": "EGY"
+  },
+  {
+    "country_area": "El Salvador",
+    "M49_code": "222",
+    "ISO_alpha3_code": "SLV"
+  },
+  {
+    "country_area": "Equatorial Guinea",
+    "M49_code": "226",
+    "ISO_alpha3_code": "GNQ"
+  },
+  {
+    "country_area": "Eritrea",
+    "M49_code": "232",
+    "ISO_alpha3_code": "ERI"
+  },
+  {
+    "country_area": "Estonia",
+    "M49_code": "233",
+    "ISO_alpha3_code": "EST"
+  },
+  {
+    "country_area": "Eswatini",
+    "M49_code": "748",
+    "ISO_alpha3_code": "SWZ"
+  },
+  {
+    "country_area": "Ethiopia",
+    "M49_code": "231",
+    "ISO_alpha3_code": "ETH"
+  },
+  {
+    "country_area": "Falkland Islands (Malvinas)",
+    "M49_code": "238",
+    "ISO_alpha3_code": "FLK"
+  },
+  {
+    "country_area": "Faroe Islands",
+    "M49_code": "234",
+    "ISO_alpha3_code": "FRO"
+  },
+  {
+    "country_area": "Fiji",
+    "M49_code": "242",
+    "ISO_alpha3_code": "FJI"
+  },
+  {
+    "country_area": "Finland",
+    "M49_code": "246",
+    "ISO_alpha3_code": "FIN"
+  },
+  {
+    "country_area": "France",
+    "M49_code": "250",
+    "ISO_alpha3_code": "FRA"
+  },
+  {
+    "country_area": "French Guiana",
+    "M49_code": "254",
+    "ISO_alpha3_code": "GUF"
+  },
+  {
+    "country_area": "French Polynesia",
+    "M49_code": "258",
+    "ISO_alpha3_code": "PYF"
+  },
+  {
+    "country_area": "French Southern Territories",
+    "M49_code": "260",
+    "ISO_alpha3_code": "ATF"
+  },
+  {
+    "country_area": "Gabon",
+    "M49_code": "266",
+    "ISO_alpha3_code": "GAB"
+  },
+  {
+    "country_area": "Gambia",
+    "M49_code": "270",
+    "ISO_alpha3_code": "GMB"
+  },
+  {
+    "country_area": "Georgia",
+    "M49_code": "268",
+    "ISO_alpha3_code": "GEO"
+  },
+  {
+    "country_area": "Germany",
+    "M49_code": "276",
+    "ISO_alpha3_code": "DEU"
+  },
+  {
+    "country_area": "Ghana",
+    "M49_code": "288",
+    "ISO_alpha3_code": "GHA"
+  },
+  {
+    "country_area": "Gibraltar",
+    "M49_code": "292",
+    "ISO_alpha3_code": "GIB"
+  },
+  {
+    "country_area": "Greece",
+    "M49_code": "300",
+    "ISO_alpha3_code": "GRC"
+  },
+  {
+    "country_area": "Greenland",
+    "M49_code": "304",
+    "ISO_alpha3_code": "GRL"
+  },
+  {
+    "country_area": "Grenada",
+    "M49_code": "308",
+    "ISO_alpha3_code": "GRD"
+  },
+  {
+    "country_area": "Guadeloupe",
+    "M49_code": "312",
+    "ISO_alpha3_code": "GLP"
+  },
+  {
+    "country_area": "Guam",
+    "M49_code": "316",
+    "ISO_alpha3_code": "GUM"
+  },
+  {
+    "country_area": "Guatemala",
+    "M49_code": "320",
+    "ISO_alpha3_code": "GTM"
+  },
+  {
+    "country_area": "Guernsey",
+    "M49_code": "831",
+    "ISO_alpha3_code": "GGY"
+  },
+  {
+    "country_area": "Guinea",
+    "M49_code": "324",
+    "ISO_alpha3_code": "GIN"
+  },
+  {
+    "country_area": "Guinea-Bissau",
+    "M49_code": "624",
+    "ISO_alpha3_code": "GNB"
+  },
+  {
+    "country_area": "Guyana",
+    "M49_code": "328",
+    "ISO_alpha3_code": "GUY"
+  },
+  {
+    "country_area": "Haiti",
+    "M49_code": "332",
+    "ISO_alpha3_code": "HTI"
+  },
+  {
+    "country_area": "Heard Island and McDonald Islands",
+    "M49_code": "334",
+    "ISO_alpha3_code": "HMD"
+  },
+  {
+    "country_area": "Holy See",
+    "M49_code": "336",
+    "ISO_alpha3_code": "VAT"
+  },
+  {
+    "country_area": "Honduras",
+    "M49_code": "340",
+    "ISO_alpha3_code": "HND"
+  },
+  {
+    "country_area": "Hungary",
+    "M49_code": "348",
+    "ISO_alpha3_code": "HUN"
+  },
+  {
+    "country_area": "Iceland",
+    "M49_code": "352",
+    "ISO_alpha3_code": "ISL"
+  },
+  {
+    "country_area": "India",
+    "M49_code": "356",
+    "ISO_alpha3_code": "IND"
+  },
+  {
+    "country_area": "Indonesia",
+    "M49_code": "360",
+    "ISO_alpha3_code": "IDN"
+  },
+  {
+    "country_area": "Iran (Islamic Republic of)",
+    "M49_code": "364",
+    "ISO_alpha3_code": "IRN"
+  },
+  {
+    "country_area": "Iraq",
+    "M49_code": "368",
+    "ISO_alpha3_code": "IRQ"
+  },
+  {
+    "country_area": "Ireland",
+    "M49_code": "372",
+    "ISO_alpha3_code": "IRL"
+  },
+  {
+    "country_area": "Isle of Man",
+    "M49_code": "833",
+    "ISO_alpha3_code": "IMN"
+  },
+  {
+    "country_area": "Israel",
+    "M49_code": "376",
+    "ISO_alpha3_code": "ISR"
+  },
+  {
+    "country_area": "Italy",
+    "M49_code": "380",
+    "ISO_alpha3_code": "ITA"
+  },
+  {
+    "country_area": "Jamaica",
+    "M49_code": "388",
+    "ISO_alpha3_code": "JAM"
+  },
+  {
+    "country_area": "Japan",
+    "M49_code": "392",
+    "ISO_alpha3_code": "JPN"
+  },
+  {
+    "country_area": "Jersey",
+    "M49_code": "832",
+    "ISO_alpha3_code": "JEY"
+  },
+  {
+    "country_area": "Jordan",
+    "M49_code": "400",
+    "ISO_alpha3_code": "JOR"
+  },
+  {
+    "country_area": "Kazakhstan",
+    "M49_code": "398",
+    "ISO_alpha3_code": "KAZ"
+  },
+  {
+    "country_area": "Kenya",
+    "M49_code": "404",
+    "ISO_alpha3_code": "KEN"
+  },
+  {
+    "country_area": "Kiribati",
+    "M49_code": "296",
+    "ISO_alpha3_code": "KIR"
+  },
+  {
+    "country_area": "Kuwait",
+    "M49_code": "414",
+    "ISO_alpha3_code": "KWT"
+  },
+  {
+    "country_area": "Kyrgyzstan",
+    "M49_code": "417",
+    "ISO_alpha3_code": "KGZ"
+  },
+  {
+    "country_area": "Lao People's Democratic Republic",
+    "M49_code": "418",
+    "ISO_alpha3_code": "LAO"
+  },
+  {
+    "country_area": "Latvia",
+    "M49_code": "428",
+    "ISO_alpha3_code": "LVA"
+  },
+  {
+    "country_area": "Lebanon",
+    "M49_code": "422",
+    "ISO_alpha3_code": "LBN"
+  },
+  {
+    "country_area": "Lesotho",
+    "M49_code": "426",
+    "ISO_alpha3_code": "LSO"
+  },
+  {
+    "country_area": "Liberia",
+    "M49_code": "430",
+    "ISO_alpha3_code": "LBR"
+  },
+  {
+    "country_area": "Libya",
+    "M49_code": "434",
+    "ISO_alpha3_code": "LBY"
+  },
+  {
+    "country_area": "Liechtenstein",
+    "M49_code": "438",
+    "ISO_alpha3_code": "LIE"
+  },
+  {
+    "country_area": "Lithuania",
+    "M49_code": "440",
+    "ISO_alpha3_code": "LTU"
+  },
+  {
+    "country_area": "Luxembourg",
+    "M49_code": "442",
+    "ISO_alpha3_code": "LUX"
+  },
+  {
+    "country_area": "Madagascar",
+    "M49_code": "450",
+    "ISO_alpha3_code": "MDG"
+  },
+  {
+    "country_area": "Malawi",
+    "M49_code": "454",
+    "ISO_alpha3_code": "MWI"
+  },
+  {
+    "country_area": "Malaysia",
+    "M49_code": "458",
+    "ISO_alpha3_code": "MYS"
+  },
+  {
+    "country_area": "Maldives",
+    "M49_code": "462",
+    "ISO_alpha3_code": "MDV"
+  },
+  {
+    "country_area": "Mali",
+    "M49_code": "466",
+    "ISO_alpha3_code": "MLI"
+  },
+  {
+    "country_area": "Malta",
+    "M49_code": "470",
+    "ISO_alpha3_code": "MLT"
+  },
+  {
+    "country_area": "Marshall Islands",
+    "M49_code": "584",
+    "ISO_alpha3_code": "MHL"
+  },
+  {
+    "country_area": "Martinique",
+    "M49_code": "474",
+    "ISO_alpha3_code": "MTQ"
+  },
+  {
+    "country_area": "Mauritania",
+    "M49_code": "478",
+    "ISO_alpha3_code": "MRT"
+  },
+  {
+    "country_area": "Mauritius",
+    "M49_code": "480",
+    "ISO_alpha3_code": "MUS"
+  },
+  {
+    "country_area": "Mayotte",
+    "M49_code": "175",
+    "ISO_alpha3_code": "MYT"
+  },
+  {
+    "country_area": "Mexico",
+    "M49_code": "484",
+    "ISO_alpha3_code": "MEX"
+  },
+  {
+    "country_area": "Micronesia (Federated States of)",
+    "M49_code": "583",
+    "ISO_alpha3_code": "FSM"
+  },
+  {
+    "country_area": "Monaco",
+    "M49_code": "492",
+    "ISO_alpha3_code": "MCO"
+  },
+  {
+    "country_area": "Mongolia",
+    "M49_code": "496",
+    "ISO_alpha3_code": "MNG"
+  },
+  {
+    "country_area": "Montenegro",
+    "M49_code": "499",
+    "ISO_alpha3_code": "MNE"
+  },
+  {
+    "country_area": "Montserrat",
+    "M49_code": "500",
+    "ISO_alpha3_code": "MSR"
+  },
+  {
+    "country_area": "Morocco",
+    "M49_code": "504",
+    "ISO_alpha3_code": "MAR"
+  },
+  {
+    "country_area": "Mozambique",
+    "M49_code": "508",
+    "ISO_alpha3_code": "MOZ"
+  },
+  {
+    "country_area": "Myanmar",
+    "M49_code": "104",
+    "ISO_alpha3_code": "MMR"
+  },
+  {
+    "country_area": "Namibia",
+    "M49_code": "516",
+    "ISO_alpha3_code": "NAM"
+  },
+  {
+    "country_area": "Nauru",
+    "M49_code": "520",
+    "ISO_alpha3_code": "NRU"
+  },
+  {
+    "country_area": "Nepal",
+    "M49_code": "524",
+    "ISO_alpha3_code": "NPL"
+  },
+  {
+    "country_area": "Netherlands (Kingdom of the)",
+    "M49_code": "528",
+    "ISO_alpha3_code": "NLD"
+  },
+  {
+    "country_area": "New Caledonia",
+    "M49_code": "540",
+    "ISO_alpha3_code": "NCL"
+  },
+  {
+    "country_area": "New Zealand",
+    "M49_code": "554",
+    "ISO_alpha3_code": "NZL"
+  },
+  {
+    "country_area": "Nicaragua",
+    "M49_code": "558",
+    "ISO_alpha3_code": "NIC"
+  },
+  {
+    "country_area": "Niger",
+    "M49_code": "562",
+    "ISO_alpha3_code": "NER"
+  },
+  {
+    "country_area": "Nigeria",
+    "M49_code": "566",
+    "ISO_alpha3_code": "NGA"
+  },
+  {
+    "country_area": "Niue",
+    "M49_code": "570",
+    "ISO_alpha3_code": "NIU"
+  },
+  {
+    "country_area": "Norfolk Island",
+    "M49_code": "574",
+    "ISO_alpha3_code": "NFK"
+  },
+  {
+    "country_area": "North Macedonia",
+    "M49_code": "807",
+    "ISO_alpha3_code": "MKD"
+  },
+  {
+    "country_area": "Northern Mariana Islands",
+    "M49_code": "580",
+    "ISO_alpha3_code": "MNP"
+  },
+  {
+    "country_area": "Norway",
+    "M49_code": "578",
+    "ISO_alpha3_code": "NOR"
+  },
+  {
+    "country_area": "Oman",
+    "M49_code": "512",
+    "ISO_alpha3_code": "OMN"
+  },
+  {
+    "country_area": "Pakistan",
+    "M49_code": "586",
+    "ISO_alpha3_code": "PAK"
+  },
+  {
+    "country_area": "Palau",
+    "M49_code": "585",
+    "ISO_alpha3_code": "PLW"
+  },
+  {
+    "country_area": "Panama",
+    "M49_code": "591",
+    "ISO_alpha3_code": "PAN"
+  },
+  {
+    "country_area": "Papua New Guinea",
+    "M49_code": "598",
+    "ISO_alpha3_code": "PNG"
+  },
+  {
+    "country_area": "Paraguay",
+    "M49_code": "600",
+    "ISO_alpha3_code": "PRY"
+  },
+  {
+    "country_area": "Peru",
+    "M49_code": "604",
+    "ISO_alpha3_code": "PER"
+  },
+  {
+    "country_area": "Philippines",
+    "M49_code": "608",
+    "ISO_alpha3_code": "PHL"
+  },
+  {
+    "country_area": "Pitcairn",
+    "M49_code": "612",
+    "ISO_alpha3_code": "PCN"
+  },
+  {
+    "country_area": "Poland",
+    "M49_code": "616",
+    "ISO_alpha3_code": "POL"
+  },
+  {
+    "country_area": "Portugal",
+    "M49_code": "620",
+    "ISO_alpha3_code": "PRT"
+  },
+  {
+    "country_area": "Puerto Rico",
+    "M49_code": "630",
+    "ISO_alpha3_code": "PRI"
+  },
+  {
+    "country_area": "Qatar",
+    "M49_code": "634",
+    "ISO_alpha3_code": "QAT"
+  },
+  {
+    "country_area": "Republic of Korea",
+    "M49_code": "410",
+    "ISO_alpha3_code": "KOR"
+  },
+  {
+    "country_area": "Republic of Moldova",
+    "M49_code": "498",
+    "ISO_alpha3_code": "MDA"
+  },
+  {
+    "country_area": "Réunion",
+    "M49_code": "638",
+    "ISO_alpha3_code": "REU"
+  },
+  {
+    "country_area": "Romania",
+    "M49_code": "642",
+    "ISO_alpha3_code": "ROU"
+  },
+  {
+    "country_area": "Russian Federation",
+    "M49_code": "643",
+    "ISO_alpha3_code": "RUS"
+  },
+  {
+    "country_area": "Rwanda",
+    "M49_code": "646",
+    "ISO_alpha3_code": "RWA"
+  },
+  {
+    "country_area": "Saint Barthélemy",
+    "M49_code": "652",
+    "ISO_alpha3_code": "BLM"
+  },
+  {
+    "country_area": "Saint Helena",
+    "M49_code": "654",
+    "ISO_alpha3_code": "SHN"
+  },
+  {
+    "country_area": "Saint Kitts and Nevis",
+    "M49_code": "659",
+    "ISO_alpha3_code": "KNA"
+  },
+  {
+    "country_area": "Saint Lucia",
+    "M49_code": "662",
+    "ISO_alpha3_code": "LCA"
+  },
+  {
+    "country_area": "Saint Martin (French Part)",
+    "M49_code": "663",
+    "ISO_alpha3_code": "MAF"
+  },
+  {
+    "country_area": "Saint Pierre and Miquelon",
+    "M49_code": "666",
+    "ISO_alpha3_code": "SPM"
+  },
+  {
+    "country_area": "Saint Vincent and the Grenadines",
+    "M49_code": "670",
+    "ISO_alpha3_code": "VCT"
+  },
+  {
+    "country_area": "Samoa",
+    "M49_code": "882",
+    "ISO_alpha3_code": "WSM"
+  },
+  {
+    "country_area": "San Marino",
+    "M49_code": "674",
+    "ISO_alpha3_code": "SMR"
+  },
+  {
+    "country_area": "Sao Tome and Principe",
+    "M49_code": "678",
+    "ISO_alpha3_code": "STP"
+  },
+  {
+    "country_area": "Saudi Arabia",
+    "M49_code": "682",
+    "ISO_alpha3_code": "SAU"
+  },
+  {
+    "country_area": "Senegal",
+    "M49_code": "686",
+    "ISO_alpha3_code": "SEN"
+  },
+  {
+    "country_area": "Serbia",
+    "M49_code": "688",
+    "ISO_alpha3_code": "SRB"
+  },
+  {
+    "country_area": "Seychelles",
+    "M49_code": "690",
+    "ISO_alpha3_code": "SYC"
+  },
+  {
+    "country_area": "Sierra Leone",
+    "M49_code": "694",
+    "ISO_alpha3_code": "SLE"
+  },
+  {
+    "country_area": "Singapore",
+    "M49_code": "702",
+    "ISO_alpha3_code": "SGP"
+  },
+  {
+    "country_area": "Sint Maarten (Dutch part)",
+    "M49_code": "534",
+    "ISO_alpha3_code": "SXM"
+  },
+  {
+    "country_area": "Slovakia",
+    "M49_code": "703",
+    "ISO_alpha3_code": "SVK"
+  },
+  {
+    "country_area": "Slovenia",
+    "M49_code": "705",
+    "ISO_alpha3_code": "SVN"
+  },
+  {
+    "country_area": "Solomon Islands",
+    "M49_code": "090",
+    "ISO_alpha3_code": "SLB"
+  },
+  {
+    "country_area": "Somalia",
+    "M49_code": "706",
+    "ISO_alpha3_code": "SOM"
+  },
+  {
+    "country_area": "South Africa",
+    "M49_code": "710",
+    "ISO_alpha3_code": "ZAF"
+  },
+  {
+    "country_area": "South Georgia and the South Sandwich Islands",
+    "M49_code": "239",
+    "ISO_alpha3_code": "SGS"
+  },
+  {
+    "country_area": "South Sudan",
+    "M49_code": "728",
+    "ISO_alpha3_code": "SSD"
+  },
+  {
+    "country_area": "Spain",
+    "M49_code": "724",
+    "ISO_alpha3_code": "ESP"
+  },
+  {
+    "country_area": "Sri Lanka",
+    "M49_code": "144",
+    "ISO_alpha3_code": "LKA"
+  },
+  {
+    "country_area": "State of Palestine",
+    "M49_code": "275",
+    "ISO_alpha3_code": "PSE"
+  },
+  {
+    "country_area": "Sudan",
+    "M49_code": "729",
+    "ISO_alpha3_code": "SDN"
+  },
+  {
+    "country_area": "Suriname",
+    "M49_code": "740",
+    "ISO_alpha3_code": "SUR"
+  },
+  {
+    "country_area": "Svalbard and Jan Mayen Islands",
+    "M49_code": "744",
+    "ISO_alpha3_code": "SJM"
+  },
+  {
+    "country_area": "Sweden",
+    "M49_code": "752",
+    "ISO_alpha3_code": "SWE"
+  },
+  {
+    "country_area": "Switzerland",
+    "M49_code": "756",
+    "ISO_alpha3_code": "CHE"
+  },
+  {
+    "country_area": "Syrian Arab Republic",
+    "M49_code": "760",
+    "ISO_alpha3_code": "SYR"
+  },
+  {
+    "country_area": "Tajikistan",
+    "M49_code": "762",
+    "ISO_alpha3_code": "TJK"
+  },
+  {
+    "country_area": "Thailand",
+    "M49_code": "764",
+    "ISO_alpha3_code": "THA"
+  },
+  {
+    "country_area": "Timor-Leste",
+    "M49_code": "626",
+    "ISO_alpha3_code": "TLS"
+  },
+  {
+    "country_area": "Togo",
+    "M49_code": "768",
+    "ISO_alpha3_code": "TGO"
+  },
+  {
+    "country_area": "Tokelau",
+    "M49_code": "772",
+    "ISO_alpha3_code": "TKL"
+  },
+  {
+    "country_area": "Tonga",
+    "M49_code": "776",
+    "ISO_alpha3_code": "TON"
+  },
+  {
+    "country_area": "Trinidad and Tobago",
+    "M49_code": "780",
+    "ISO_alpha3_code": "TTO"
+  },
+  {
+    "country_area": "Tunisia",
+    "M49_code": "788",
+    "ISO_alpha3_code": "TUN"
+  },
+  {
+    "country_area": "Türkiye",
+    "M49_code": "792",
+    "ISO_alpha3_code": "TUR"
+  },
+  {
+    "country_area": "Turkmenistan",
+    "M49_code": "795",
+    "ISO_alpha3_code": "TKM"
+  },
+  {
+    "country_area": "Turks and Caicos Islands",
+    "M49_code": "796",
+    "ISO_alpha3_code": "TCA"
+  },
+  {
+    "country_area": "Tuvalu",
+    "M49_code": "798",
+    "ISO_alpha3_code": "TUV"
+  },
+  {
+    "country_area": "Uganda",
+    "M49_code": "800",
+    "ISO_alpha3_code": "UGA"
+  },
+  {
+    "country_area": "Ukraine",
+    "M49_code": "804",
+    "ISO_alpha3_code": "UKR"
+  },
+  {
+    "country_area": "United Arab Emirates",
+    "M49_code": "784",
+    "ISO_alpha3_code": "ARE"
+  },
+  {
+    "country_area": "United Kingdom of Great Britain and Northern Ireland",
+    "M49_code": "826",
+    "ISO_alpha3_code": "GBR"
+  },
+  {
+    "country_area": "United Republic of Tanzania",
+    "M49_code": "834",
+    "ISO_alpha3_code": "TZA"
+  },
+  {
+    "country_area": "United States Minor Outlying Islands",
+    "M49_code": "581",
+    "ISO_alpha3_code": "UMI"
+  },
+  {
+    "country_area": "United States of America",
+    "M49_code": "840",
+    "ISO_alpha3_code": "USA"
+  },
+  {
+    "country_area": "United States Virgin Islands",
+    "M49_code": "850",
+    "ISO_alpha3_code": "VIR"
+  },
+  {
+    "country_area": "Uruguay",
+    "M49_code": "858",
+    "ISO_alpha3_code": "URY"
+  },
+  {
+    "country_area": "Uzbekistan",
+    "M49_code": "860",
+    "ISO_alpha3_code": "UZB"
+  },
+  {
+    "country_area": "Vanuatu",
+    "M49_code": "548",
+    "ISO_alpha3_code": "VUT"
+  },
+  {
+    "country_area": "Venezuela (Bolivarian Republic of)",
+    "M49_code": "862",
+    "ISO_alpha3_code": "VEN"
+  },
+  {
+    "country_area": "Viet Nam",
+    "M49_code": "704",
+    "ISO_alpha3_code": "VNM"
+  },
+  {
+    "country_area": "Wallis and Futuna Islands",
+    "M49_code": "876",
+    "ISO_alpha3_code": "WLF"
+  },
+  {
+    "country_area": "Western Sahara",
+    "M49_code": "732",
+    "ISO_alpha3_code": "ESH"
+  },
+  {
+    "country_area": "Yemen",
+    "M49_code": "887",
+    "ISO_alpha3_code": "YEM"
+  },
+  {
+    "country_area": "Zambia",
+    "M49_code": "894",
+    "ISO_alpha3_code": "ZMB"
+  },
+  {
+    "country_area": "Zimbabwe",
+    "M49_code": "716",
+    "ISO_alpha3_code": "ZWE"
+  }
+]

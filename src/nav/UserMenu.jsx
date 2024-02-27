@@ -74,7 +74,7 @@ function UserMenu() {
                             </ListItemIcon>
                             <ListItemText>Edit Profile</ListItemText>
                         </MenuItem>
-                        <MenuItem onClick={handleClick(`/profile/${user.uid}?name=${safeName}`)}>
+                        <MenuItem onClick={handleClick('/profile/edit')}>
                             <ListItemIcon>
                                 <AccountBoxIcon/>
                             </ListItemIcon>

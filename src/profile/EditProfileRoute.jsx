@@ -9,6 +9,7 @@ import lpuLogoPath from '../resources/LPU.png'
 import CopyProfileLinkButton from './CopyProfileLinkButton'
 import EditProfilePage from './EditProfilePage'
 import MustBeLoggedIn from './MustBeLoggedIn'
+import LoadingDisplay from '../util/LoadingDisplay.jsx'
 
 function ProfileRoute() {
     const {authLoaded, isLoggedIn} = useContext(AuthContext)
@@ -25,12 +26,7 @@ function ProfileRoute() {
             <Nav title='Edit Profile' extras={nav}/>
 
             {(!authLoaded || !dbLoaded) &&
-                <React.Fragment>
-                    <LinearProgress variant='indeterminate' color='secondary'/>
-                    <img alt='Loading' src={lpuLogoPath} style={{
-                        marginLeft: 'auto', marginRight: 'auto', display: 'block'
-                    }}/>
-                </React.Fragment>
+                <LoadingDisplay/>
             }
 
             {authLoaded && !isLoggedIn && <MustBeLoggedIn/>}
