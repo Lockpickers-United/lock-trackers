@@ -5,6 +5,7 @@ import ListContext from './ListContext.jsx'
 import Entry from './Entry.jsx'
 import NewEntry from './NewEntry.jsx'
 import SortFilterBar from './SortFilterBar.jsx'
+import {useTheme} from '@mui/material/styles'
 
 function Entries() {
 
@@ -29,10 +30,13 @@ function Entries() {
         ? '24px 24px 32px 24px'
         : '8px 8px 32px 8px'
 
+    const theme = useTheme()
+    const background = theme.palette.mode === 'dark' ? '#223' : '#ffffff'
+
     return (
         <div style={{
             minWidth: '320px', maxWidth: 800, height: '100%',
-            padding: pagePadding, backgroundColor: '#223',
+            padding: pagePadding, backgroundColor: background,
             marginLeft: 'auto', marginRight: 'auto',
             fontSize: '1.5rem', lineHeight: 0.8
         }}>

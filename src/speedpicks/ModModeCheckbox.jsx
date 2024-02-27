@@ -20,16 +20,18 @@ function ModModeCheckbox() {
             textAlign: 'right',
             width: '50%',
             paddingRight: 10,
-            color: theme.palette.text.primary
+            color: theme.palette.text
         }}>
 
-            { 1===0 &&
-            <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-                {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-            </IconButton>
+            moderator mode: <Checkbox value={isMod} onChange={toggleMod} defaultChecked style={{color: '#7272d7'}}/>
+
+            { 0===0 &&
+                <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+                    {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                </IconButton>
             }
 
-            moderator mode: <Checkbox value={isMod} onChange={toggleMod} defaultChecked style={{color: '#7272d7'}}/>
+
         </div>
     )
 }

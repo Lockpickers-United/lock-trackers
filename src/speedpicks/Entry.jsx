@@ -12,6 +12,7 @@ import useData from '../util/useData.jsx'
 import EntryDetails from './EntryDetails.jsx'
 import EditEntry from './EditEntry.jsx'
 import DataContext from '../context/DataContext'
+import {useTheme} from '@mui/material/styles'
 
 const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
@@ -28,11 +29,13 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
     const {data = {}} = useData({loadFn})
     const pickerName = data?.displayName
 
+    const theme = useTheme()
+
     entry.bestTime = formatTime(bestTimes.get(entry.lockId))
     const isBestTime = entry.totalTime === bestTimes.get(entry.lockId)
     const entryColor = !entry.approved
-        ? '#ca6060'
-        : isBestTime ? '#fff' : '#777'
+        ? theme.palette.error.light
+        : isBestTime ? theme.palette.text.primary : theme.palette.text.disabled
     const entryWeight = !entry.approved
         ? 400
         : isBestTime ? 600 : 400

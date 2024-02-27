@@ -8,36 +8,18 @@ const ColorModeContext = React.createContext({
 
 export function ColorModeProvider({children}) {
 
-
     const darkTheme = createTheme({
         palette: {
             mode: 'dark',
-            primary: {
-                main: '#000000',
-                light: '#2c2c2c',
-                dark: '#000000',
-                contrastText: '#ffffff'
-            },
-            secondary: {
-                main: '#18aa18',
-                light: '#23d523',
-                dark: '#117e11',
-                contrastText: '#000000'
-            }
         }
     })
 
     const lightTheme = createTheme({
         palette: {
             mode: 'light',
-            text: {
-                primary: '#333',
-                secondary: '#555555'
-            }
-        }
+        },
     })
 
-    const style = getRootStyle(darkTheme)
 
     const [mode, setMode] = useState('dark')
     const colorMode = React.useMemo(() => ({
@@ -53,8 +35,9 @@ export function ColorModeProvider({children}) {
             ? lightTheme
             : darkTheme,
         [darkTheme, lightTheme, mode]
-
     )
+
+    const style = getRootStyle(theme)
 
     return (
         <ColorModeContext.Provider value={colorMode}>
