@@ -53,15 +53,13 @@ export function DataProvider({children, allEntries}) {
         })
     }, [allEntries, bestTimes, getPickerNameFromId, lockData])
 
-    console.log(mappedEntries)
-
 
     const getLockFromId = useCallback(lockId => {
         return lockData?.find(({id}) => id === lockId)
     }, [lockData])
 
     const getEntryFromId = useCallback(entryId => {
-        return allEntries.find(({id}) => id === entryId)
+        return allEntries?.find(({id}) => id === entryId)
     }, [allEntries])
 
     const getNameFromId = useCallback(id => {
@@ -123,10 +121,14 @@ export function DataProvider({children, allEntries}) {
                         || a.totalTime - b.totalTime
                 }
             })
-            : searched
+            : searched.sort((a, b) => {
+                return a.lock.localeCompare(b.lock)
+                || a.totalTime - b.totalTime
+            })
+
     }, [filters, mappedEntries, search, sort])
 
-console.log(sort)
+//console.log(visibleEntries)
     // MG CODE
 
 

@@ -11,11 +11,11 @@ export function ListProvider({children}) {
     const {filters, addFilters, removeFilters} = useContext(FilterContext)
     const expanded = filters.id
 
-    console.log(`expanded: ${expanded}`)
+    //console.log(`expanded: ${expanded}`)
 
     const handleSetExpanded = useCallback((newValue, forceTab) => {
         const entry = getEntryFromId(newValue)
-        console.log('ListContext handleSetExpanded: ' + entry.id)
+        console.log('ListContext handleSetExpanded: ' + newValue)
         const name = getNameFromId(newValue)
         if (newValue && newValue !== 'beltreqs') {
             const newTab = filters.tab === 'search' && !forceTab ? 'search' : entry.belt.replace(/\s\d/g, '')

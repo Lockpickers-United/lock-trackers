@@ -20,14 +20,16 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
     const [editing, setEditing] = useState(false)
 
-    const pickerId = entry.picker
-    const {getProfile} = useContext(DBContext)
-    const loadFn = useCallback(() => {
-        return getProfile(pickerId)
-    }, [getProfile, pickerId])
-    //const {data = {}, loading, error} = useData({loadFn})
-    const {data = {}} = useData({loadFn})
-    const pickerName = data?.username
+    //     const pickerId = entry.picker
+    //     const {getProfile} = useContext(DBContext)
+    //     const loadFn = useCallback(() => {
+    //         return getProfile(pickerId)
+    //     }, [getProfile, pickerId])
+    //     //const {data = {}, loading, error} = useData({loadFn})
+    //     const {data = {}} = useData({loadFn})
+    //     const pickerName = data?.username
+
+    const pickerName = 'Picker Name'
 
     const theme = useTheme()
 

@@ -9,7 +9,7 @@ import {useTheme} from '@mui/material/styles'
 
 function Entries() {
 
-    const {bestTimes, allEntries = []} = useContext(DataContext)
+    const {bestTimes, allEntries, visibleEntries= []} = useContext(DataContext)
     const {expanded, setExpanded} = useContext(ListContext)
 
     const [updated, setUpdated] = useState(0)
@@ -44,7 +44,7 @@ function Entries() {
 
             <NewEntry entriesUpdate={entriesUpdate}/>
 
-            {allEntries.map((entry) =>
+            {visibleEntries.map((entry) =>
                 <Entry bestTimes={bestTimes}
                        key={entry.id}
                        entry={entry}
