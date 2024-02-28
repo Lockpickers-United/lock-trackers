@@ -14,7 +14,6 @@ import {uniqueBelts} from '../data/belts'
 import countries from '../data/countries.json'
 import {FormControl, InputLabel, Select} from '@mui/material'
 import MenuItem from '@mui/material/MenuItem'
-import LoadingDisplay from '../util/LoadingDisplay.jsx'
 
 function EditProfilePage() {
 
@@ -91,7 +90,7 @@ function EditProfilePage() {
         }
     }, [updateProfile, username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created, navigate])
 
-    const error = username.length > 0 && !pattern.test(username)
+    const error = username.length > 0 && !pattern.test(username.toString())
     const empty = username.length === 0
 
     const helperText = error

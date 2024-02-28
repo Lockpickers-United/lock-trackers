@@ -1,6 +1,4 @@
-import LinearProgress from '@mui/material/LinearProgress'
 import React from 'react'
-import lpuLogoPath from '../resources/LPU.png'
 import {Box, CircularProgress, circularProgressClasses} from '@mui/material'
 
 function LoadingDisplay() {

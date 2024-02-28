@@ -30,7 +30,7 @@ function SortFilterBar() {
         event.stopPropagation()
         clearFilters()
         setView('all')
-    })
+    },[clearFilters])
 
     return (
         <div style={{display: 'flex', margin: '6px 0px 26px 0px', opacity: 0.8}}>

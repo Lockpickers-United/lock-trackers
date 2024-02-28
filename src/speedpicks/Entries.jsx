@@ -8,7 +8,7 @@ import SortFilterBar from './SortFilterBar.jsx'
 import {useTheme} from '@mui/material/styles'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore.js'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import JsonDisplay from './JsonDisplay.jsx'
 
