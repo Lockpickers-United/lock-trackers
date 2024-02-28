@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useDeferredValue, useState} from 'react'
+import React, {useCallback, useContext, useDeferredValue, useState, useMemo} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
 import DataContext from '../context/DataContext'
 import ListContext from './ListContext.jsx'
@@ -6,10 +6,15 @@ import Entry from './Entry.jsx'
 import NewEntry from './NewEntry.jsx'
 import SortFilterBar from './SortFilterBar.jsx'
 import {useTheme} from '@mui/material/styles'
+import Accordion from '@mui/material/Accordion'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore.js'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import JsonDisplay from './JsonDisplay.jsx'
 
 function Entries() {
 
-    const {bestTimes, allEntries, visibleEntries= []} = useContext(DataContext)
+    const {bestTimes, visibleEntries, allEntries = []} = useContext(DataContext)
     const {expanded, setExpanded} = useContext(ListContext)
 
     const [updated, setUpdated] = useState(0)
@@ -18,14 +23,15 @@ function Entries() {
         console.log(updated)
     }, [updated])
 
-    //const defTab = useDeferredValue(tab)
     const defExpanded = useDeferredValue(expanded)
-    //const defDisplayAll = useDeferredValue(displayAll)
 
+    const entries = useMemo(() => {
+        // removed tab/search code
+        return visibleEntries
+    }, [visibleEntries])
 
     const {width} = useWindowSize()
     const smallWindow = width <= 560
-
     const pagePadding = !smallWindow
         ? '24px 24px 32px 24px'
         : '8px 8px 32px 8px'
@@ -44,7 +50,7 @@ function Entries() {
 
             <NewEntry entriesUpdate={entriesUpdate}/>
 
-            {visibleEntries.map((entry) =>
+            {entries.map((entry) =>
                 <Entry bestTimes={bestTimes}
                        key={entry.id}
                        entry={entry}
@@ -53,6 +59,17 @@ function Entries() {
                        entriesUpdate={entriesUpdate}
                 />
             )}
+
+            <div style={{height: 40}}/>
+
+            <Accordion style={{width: 740}}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon/>} style={{fontSize: '1.0rem'}}>
+                    SPEEDPICKS DATA
+                </AccordionSummary>
+                <AccordionDetails>
+                    <JsonDisplay json={allEntries} jsonName={'allEntries (json + calculated)'}/>
+                </AccordionDetails>
+            </Accordion>
 
         </div>
     )

@@ -12,20 +12,7 @@ function Main() {
     const {allEntries = []} = useContext(DataContext)
 
     return (
-        <React.Fragment>
-
             <Entries/>
-
-            <div style={{height: 20}}/>
-            <Accordion>
-                <AccordionSummary expandIcon={<ExpandMoreIcon/>} style={{fontSize: '1.0rem'}}>
-                    SPEEDPICKS DATA
-                </AccordionSummary>
-                <AccordionDetails>
-                    <JsonDisplay json={allEntries} jsonName={'speedPicks'}/>
-                </AccordionDetails>
-            </Accordion>
-        </React.Fragment>
     )
 }
 

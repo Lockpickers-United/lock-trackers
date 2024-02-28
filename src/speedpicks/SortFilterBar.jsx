@@ -1,15 +1,36 @@
-import React, {useContext, useCallback} from 'react'
+import React, {useContext, useCallback, useState} from 'react'
 import {ToggleButton, ToggleButtonGroup} from '@mui/material'
 import FilterContext from '../context/FilterContext'
 
 function SortFilterBar() {
 
-    const {filters, addFilter} = useContext(FilterContext)
+    const {filters, addFilter, clearFilters} = useContext(FilterContext)
     const {sort} = filters
+    const [view,setView]=useState('all')
 
+    console.log(filters)
     const handleClick = useCallback(value => () => {
         setTimeout(() => addFilter('sort', value, true), 0)
     }, [addFilter])
+
+    const field='belt'
+    const value='Red'
+
+    const handleFilter = useCallback(event => {
+        event.preventDefault()
+        event.stopPropagation()
+        //setOpen(false)
+        addFilter(field, value)
+        setView(field)
+        window.scrollTo({top: 0, behavior: 'smooth'})
+    }, [addFilter, field, value])
+
+    const handleClear = useCallback(event => {
+        event.preventDefault()
+        event.stopPropagation()
+        clearFilters()
+        setView('all')
+    })
 
     return (
         <div style={{display: 'flex', margin: '6px 0px 26px 0px', opacity: 0.8}}>
@@ -29,8 +50,8 @@ function SortFilterBar() {
             }}>
                 <span style={{fontSize: '.7rem', marginRight: 5}}>FILTER</span>
                 <ToggleButtonGroup style={{height: 26}}>
-                    <ToggleButton selected style={{padding: 7}} value={'all'}>All</ToggleButton>
-                    <ToggleButton style={{padding: 7}} value={'fastest'}>Fastest</ToggleButton>
+                    <ToggleButton selected={view === 'all'} style={{padding: 7}} value={'all'} onClick={handleClear}>All</ToggleButton>
+                    <ToggleButton selected={view === 'belt'} style={{padding: 7}} value={'belt'} onClick={handleFilter}>Belt Test</ToggleButton>
                     <ToggleButton style={{padding: 7}} value={'approved'}>Approved</ToggleButton>
                     <ToggleButton style={{padding: 7}} value={'pending'}>Pending</ToggleButton>
                 </ToggleButtonGroup>

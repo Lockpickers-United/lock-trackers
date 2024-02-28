@@ -129,8 +129,6 @@ export function DataProvider({children, allEntries}) {
     }, [filters, mappedEntries, search, sort])
 
 //console.log(visibleEntries)
-    // MG CODE
-
 
     const addEntry = useCallback(entry => {
         const temp = speedPickData.data.push(entry)
@@ -142,7 +140,6 @@ export function DataProvider({children, allEntries}) {
         setUpdated(value)
         console.log(updated)
     }, [updated])
-
 
     const [isMod, setIsMod] = useState(true)
     const toggleMod = useCallback(() => {
