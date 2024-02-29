@@ -9,7 +9,7 @@
       "videoUrl": "https://www.youtube.com/watch?v=TcodCt6jcOY",
       "date": "12-19-2023",
       "reviewer": "g4S2MLVbHhSRs42gHfYOsukeb6C3",
-      "approved": false
+      "status": "pending"
     },
     {
       "id": "002",
@@ -20,7 +20,7 @@
       "videoUrl": "https://www.youtube.com/watch?v=TcodCt6jcOY",
       "date": "12-19-2023",
       "reviewer": "g4S2MLVbHhSRs42gHfYOsukeb6C3",
-      "approved": true
+      "status": "approved"
     },
     {
       "id": "003",
@@ -31,7 +31,7 @@
       "videoUrl": "https://discord.com/channels/1128368516664393741/1186651813441716264/1186730652406648842",
       "date": "12-19-2023",
       "reviewer": "g4S2MLVbHhSRs42gHfYOsukeb6C3",
-      "approved": true
+      "status": "approved"
     },
     {
       "id": "004",
@@ -42,7 +42,7 @@
       "videoUrl": "https://discord.com/channels/1128368516664393741/1186651813441716264/1186788662244016159",
       "date": "12-19-2023",
       "reviewer": "g4S2MLVbHhSRs42gHfYOsukeb6C3",
-      "approved": true
+      "status": "approved"
     },
     {
       "id": "005",
@@ -53,7 +53,7 @@
       "videoUrl": "https://www.youtube.com/watch?v=xmDucD1kvBA",
       "date": "12-19-2023",
       "reviewer": "g4S2MLVbHhSRs42gHfYOsukeb6C3",
-      "approved": true
+      "status": "approved"
     },
     {
       "id": "006",
@@ -64,7 +64,7 @@
       "videoUrl": "https://www.youtube.com/watch?v=xmDucD1kvBA",
       "date": "12-19-2023",
       "reviewer": "g4S2MLVbHhSRs42gHfYOsukeb6C3",
-      "approved": false
+      "status": "pending"
     },
     {
       "id": "007",
@@ -75,7 +75,7 @@
       "videoUrl": "https://www.youtube.com/watch?v=xmDucD1kvBA",
       "date": "12-19-2023",
       "reviewer": "g4S2MLVbHhSRs42gHfYOsukeb6C3",
-      "approved": true
+      "status": "approved"
     },
     {
       "id": "008",
@@ -86,7 +86,7 @@
       "videoUrl": "https://www.youtube.com/watch?v=NQkTui7HeMs",
       "date": "12-19-2023",
       "reviewer": "g4S2MLVbHhSRs42gHfYOsukeb6C3",
-      "approved": true
+      "status": "approved"
     }
   ],
   "columns": [

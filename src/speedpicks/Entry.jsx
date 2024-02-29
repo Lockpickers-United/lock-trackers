@@ -35,10 +35,10 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
     entry.bestTime = formatTime(bestTimes.get(entry.lockId))
     const isBestTime = entry.totalTime === bestTimes.get(entry.lockId)
-    const entryColor = !entry.approved
+    const entryColor = entry.status !== 'approved'
         ? theme.palette.error.light
         : isBestTime ? theme.palette.text.primary : theme.palette.text.disabled
-    const entryWeight = !entry.approved
+    const entryWeight = entry.status !== 'approved'
         ? 400
         : isBestTime ? 600 : 400
 

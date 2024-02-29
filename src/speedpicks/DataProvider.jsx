@@ -43,10 +43,10 @@ export function DataProvider({children, allEntries}) {
             entry.totalTime = totalTime
             entry.totalTimeString = formatTime(totalTime)
 
-            if (bestTimes.get(lockId) && entry.approved) {
+            if (bestTimes.get(lockId) && entry.status==='approved') {
                 const bestTime = totalTime > bestTimes.get(lockId) ? bestTimes.get(lockId) : totalTime
                 bestTimes.set(lockId, bestTime)
-            } else if (entry.approved) {
+            } else if (entry.status==='approved') {
                 bestTimes.set(lockId, totalTime)
             }
             return entry
@@ -150,7 +150,7 @@ export function DataProvider({children, allEntries}) {
 
     if (!isMod) {
         speedPicks.data = speedPicks.data.filter(entry =>
-            entry.approved === true
+            entry.status === 'approved'
         )
     }
 

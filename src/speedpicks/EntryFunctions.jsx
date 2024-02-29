@@ -7,15 +7,15 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
     const {DCUpdate, isMod = []} = useContext(DataContext)
 
     const toggleApprove = useCallback(() => {
-        entry.approved = !entry.approved
-        console.log(entry.approved)
+        entry.status = entry.status === 'approved' ? 'pending' : 'approved'
+        console.log(entry.status)
         DCUpdate(Math.random())
         entriesUpdate(Math.random())
     }, [DCUpdate, entriesUpdate, entry])
 
-    const status = entry.approved ? 'APPROVED' : 'PENDING'
-    const statusColor = entry.approved ? '#fff' : '#ca6060'
-    const functionColor = entry.approved ? '#ca6060' : '#0a0'
+    const status = entry.status === 'approved' ? 'APPROVED' : 'PENDING'
+    const statusColor = entry.status === 'approved' ? '#fff' : '#ca6060'
+    const functionColor = entry.status === 'approved' ? '#ca6060' : '#0a0'
     const statusString = `ENTRY IS ${status}:`
 
     return (
@@ -27,10 +27,10 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
         }}>
             <Button disabled style={{color: statusColor, fontWeight: 600}}>{statusString}</Button>
             <Button style={{color: '#ccc'}} onClick={startEdit}>Edit</Button>
-            {(entry.approved && isMod) &&
+            {(entry.status === 'approved' && isMod) &&
                 <Button style={{marginRight: 10, color: functionColor}} onClick={toggleApprove}>Pend</Button>
             }
-            {(!entry.approved && isMod) &&
+            {(entry.status !== 'approved' && isMod) &&
                 <Button style={{marginRight: 10, color: functionColor}} onClick={toggleApprove}>Approve</Button>
             }
         </div>

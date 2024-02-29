@@ -15,6 +15,8 @@ export function FilterProvider({children, filterFields = []}) {
     }, [searchParams])
 
     const setFilters = useCallback(newFilters => {
+        console.log(newFilters)
+
         Object.keys(newFilters)
             .forEach(key => {
                 if (!newFilters[key]) {
