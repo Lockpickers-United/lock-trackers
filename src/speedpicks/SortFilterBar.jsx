@@ -13,25 +13,7 @@ function SortFilterBar() {
         setTimeout(() => addFilter('sort', value, true), 0)
     }, [addFilter])
 
-    const [belt, setBelt] = useState('')
-    const [status, setStatus] = useState('')
-
-    const handleFilter2 = useCallback((field, value) => () => {
-        if (field === 'belt') {
-            setBelt(value)
-        } else if (field === 'status') {
-            setStatus(value)
-        }
-        console.log(status)
-        console.log(field)
-        console.log(value)
-        setFilters({belt, status})
-        setView(field)
-        window.scrollTo({top: 0, behavior: 'smooth'})
-    }, [belt, setFilters, status])
-
-
-    const handleFilter = useCallback(event => {
+    const handleFilterFieldValue = useCallback(event => {
         event.preventDefault()
         event.stopPropagation()
         console.log(event.target.value)
@@ -44,13 +26,19 @@ function SortFilterBar() {
         window.scrollTo({top: 0, behavior: 'smooth'})
     }, [addFilter, clearFilters])
 
+    const handleFilter = useCallback(event => {
+        event.preventDefault()
+        event.stopPropagation()
+        const {value} = event.target
+        setFilters({status: value})
+        setView(value)
+        window.scrollTo({top: 0, behavior: 'smooth'})
+    }, [setFilters])
 
     const handleClear = useCallback(event => {
         event.preventDefault()
         event.stopPropagation()
         clearFilters()
-        setStatus('')
-        setBelt('')
         setView('all')
     }, [clearFilters])
 
@@ -64,7 +52,7 @@ function SortFilterBar() {
                     <ToggleButton selected={sort === 'belt'} style={{padding: 7}} value={'belt'}
                                   onClick={handleClick('belt')}>Belt</ToggleButton>
                     <ToggleButton selected={sort === 'picker'} style={{padding: 7}} value={'picker'}
-                    >Picker</ToggleButton>
+                                  onClick={handleClick('picker')}>Picker</ToggleButton>
                 </ToggleButtonGroup>
             </div>
             <div style={{
@@ -75,11 +63,11 @@ function SortFilterBar() {
                     <ToggleButton selected={view === 'all'} style={{padding: 7}} value={'all'}
                                   onClick={handleClear}>All</ToggleButton>
                     <ToggleButton selected={view === 'belt'} style={{padding: 7}} value={['status', 'approved']}
-                                  onClick={handleFilter}>Test</ToggleButton>
-                    <ToggleButton style={{padding: 7}} value={'approved'}
-                                  onClick={handleFilter2('status', 'approved')}>Approved</ToggleButton>
-                    <ToggleButton style={{padding: 7}} value={'pending'}
-                                  onClick={handleFilter2('status', 'pending')}>Pending</ToggleButton>
+                                  onClick={handleFilterFieldValue}>Test</ToggleButton>
+                    <ToggleButton selected={view === 'approved'} style={{padding: 7}} value={'approved'}
+                                  onClick={handleFilter}>Approved</ToggleButton>
+                    <ToggleButton  selected={view === 'pending'} style={{padding: 7}} value={'pending'}
+                                  onClick={handleFilter}>Pending</ToggleButton>
                 </ToggleButtonGroup>
             </div>
         </div>

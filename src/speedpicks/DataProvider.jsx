@@ -1,6 +1,6 @@
 import React, {useCallback, useMemo, useState, useContext} from 'react'
 import lockJson from '../data/data.json'
-import belts, {uniqueBelts} from '../data/belts'
+import belts, {allBelts} from '../data/belts'
 import speedPickData from './speedPicks.json'
 import entryName from '../util/entryName'
 import formatTime from '../util/formatTime.jsx'
@@ -9,6 +9,7 @@ import DataContext from '../context/DataContext'
 import FilterContext from '../context/FilterContext.jsx'
 import fuzzysort from 'fuzzysort'
 import removeAccents from 'remove-accents'
+import DBContext from '../app/DBContext.jsx'
 
 export function DataProvider({children, allEntries}) {
     const {filters: allFilters} = useContext(FilterContext)
@@ -20,10 +21,13 @@ export function DataProvider({children, allEntries}) {
     const lockData = useMemo(() => lockJson, [])
     const bestTimes = useMemo(() => new Map(), [])
 
-    const getPickerNameFromId = useCallback(pickerId => {
-        //TODO get actual name
-        return pickerId
-    }, [])
+    const {getProfileName} = useContext(DBContext)
+
+    const getPickerNameFromId = useCallback(async pickerId => {
+        const pickerName =  await getProfileName(pickerId)
+        console.log(pickerName)
+        return pickerName
+    }, [getProfileName])
 
 
     const mappedEntries = useMemo(() => {
@@ -34,12 +38,13 @@ export function DataProvider({children, allEntries}) {
             entry.lock = entryName(thisLock, 'short')
             entry.version = thisLock.version
 
-            entry.pickerName = getPickerNameFromId
-            entry.belt = thisLock.belt
-            const beltLookup = thisLock.belt.startsWith('Black') ? 'Black' : thisLock.belt
-            entry.beltIndex = uniqueBelts.indexOf(beltLookup)
+            entry.pickerName = getPickerNameFromId(entry.pickerId)
+            console.log(entry.pickerName)
 
-            const totalTime = (dayjs(entry.open) - dayjs(entry.start)) / 1000
+            entry.belt = thisLock.belt
+            entry.beltIndex = allBelts.indexOf(thisLock.belt)
+
+            const totalTime = (dayjs(entry.openTime) - dayjs(entry.startTime)) / 1000
             entry.totalTime = totalTime
             entry.totalTimeString = formatTime(totalTime)
 
@@ -113,8 +118,7 @@ export function DataProvider({children, allEntries}) {
                         || a.lock.localeCompare(b.lock)
                         || a.totalTime - b.totalTime
                 } else if (sort === 'picker') {
-                    //return getPickerNameFromId(a.picker).localeCompare(getPickerNameFromId(b.picker))
-                    return a.picker.localeCompare(b.picker)
+                    return a.pickerName.localeCompare(b.pickerName)
                         || a.totalTime - b.totalTime
                 } else {
                     return a.lock.localeCompare(b.lock)

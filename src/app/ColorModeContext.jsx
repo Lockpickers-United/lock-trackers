@@ -11,6 +11,10 @@ export function ColorModeProvider({children}) {
     const darkTheme = createTheme({
         palette: {
             mode: 'dark',
+            secondary: {
+                main: '#2d49bc',
+            }
+
         }
     })
 
@@ -19,7 +23,6 @@ export function ColorModeProvider({children}) {
             mode: 'light',
         },
     })
-
 
     const [mode, setMode] = useState('dark')
     const colorMode = React.useMemo(() => ({
@@ -50,7 +53,6 @@ export function ColorModeProvider({children}) {
             </ThemeProvider>
         </ColorModeContext.Provider>
     )
-
 }
 
 export default ColorModeContext

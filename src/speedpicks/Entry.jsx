@@ -16,11 +16,13 @@ import {useTheme} from '@mui/material/styles'
 
 const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
+    //TODO: handle no lock matching ID (or null)
+
     const {DCUpdate = []} = useContext(DataContext)
 
     const [editing, setEditing] = useState(false)
 
-    const pickerId = entry.picker
+    const pickerId = entry.pickerId
     const {getProfile} = useContext(DBContext)
     const loadFn = useCallback(() => {
         return getProfile(pickerId)
@@ -28,6 +30,8 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
     //const {data = {}, loading, error} = useData({loadFn})
     const {data = {}} = useData({loadFn})
     const pickerName = data?.username
+
+    //const pickerName = entry.pickerName
 
     //const pickerName = 'Picker Name'
 

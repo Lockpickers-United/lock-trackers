@@ -5,6 +5,7 @@ import {doc, arrayUnion, arrayRemove, onSnapshot, runTransaction, getDoc} from '
 import AuthContext from './AuthContext'
 import {enqueueSnackbar} from 'notistack'
 import dayjs from 'dayjs'
+import useData from '../util/useData.jsx'
 
 const DBContext = React.createContext({})
 
@@ -70,6 +71,12 @@ export function DBProvider({children}) {
         return value.data()
     }, [])
 
+    const getProfileName = useCallback(async pickerId => {
+        const profile = await getProfile(pickerId)
+        return profile.username
+    }, [getProfile])
+
+
     // Lock Collection Subscription
     useEffect(() => {
         if (isLoggedIn) {
@@ -87,7 +94,7 @@ export function DBProvider({children}) {
                 setDbError(true)
                 enqueueSnackbar('There was a problem reading your profile. It will be unavailable until you refresh the page. ', {
                     autoHideDuration: null,
-                    action: <Button color='secondary' onClick={() => window.location.reload()}>Refresh</Button>,
+                    action: <Button color='secondary' onClick={() => window.location.reload()}>Refresh</Button>
                 })
             })
         } else if (authLoaded) {
@@ -102,9 +109,17 @@ export function DBProvider({children}) {
         addToLockCollection,
         removeFromLockCollection,
         getProfile,
+        getProfileName,
         updateProfile,
         profile
-    }), [dbLoaded, lockCollection, addToLockCollection, removeFromLockCollection, getProfile, updateProfile,profile])
+    }), [dbLoaded,
+        lockCollection,
+        addToLockCollection,
+        removeFromLockCollection,
+        getProfile,
+        getProfileName,
+        updateProfile,
+        profile])
 
     return (
         <DBContext.Provider value={value}>
