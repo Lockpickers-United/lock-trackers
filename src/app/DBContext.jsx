@@ -1,17 +1,16 @@
 import Button from '@mui/material/Button'
 import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react'
 import {db} from '../auth/firebase'
-import {doc, arrayUnion, arrayRemove, onSnapshot, runTransaction, getDoc} from 'firebase/firestore'
+import {doc, arrayUnion, arrayRemove, onSnapshot, runTransaction, getDoc, getDocs, collection} from 'firebase/firestore'
 import AuthContext from './AuthContext'
 import {enqueueSnackbar} from 'notistack'
 import dayjs from 'dayjs'
-import useData from '../util/useData.jsx'
 
 const DBContext = React.createContext({})
 
 export function DBProvider({children}) {
     const {authLoaded, isLoggedIn, user} = useContext(AuthContext)
-    const [lockCollection, setLockCollection] = useState({})
+    const [lockCollection] = useState({})
     const [profile, setProfile] = useState({})
     const [dbLoaded, setDbLoaded] = useState(false)
     const [dbError, setDbError] = useState(null)
@@ -65,6 +64,18 @@ export function DBProvider({children}) {
         })
     }, [dbError, user])
 
+    const getAllProfiles = useCallback(async () => {
+        const allProfiles = new Map()
+        const querySnapshot = await getDocs(collection(db, 'profiles'))
+        querySnapshot.forEach((doc) => {
+            //console.log(doc.id, ' => ', doc.data())
+            const profileId = doc.id
+            allProfiles[profileId] = doc.data()
+        })
+        return allProfiles
+    }, [])
+
+
     const getProfile = useCallback(async userId => {
         const ref = doc(db, 'profiles', userId)
         const value = await getDoc(ref)
@@ -111,7 +122,8 @@ export function DBProvider({children}) {
         getProfile,
         getProfileName,
         updateProfile,
-        profile
+        profile,
+        getAllProfiles
     }), [dbLoaded,
         lockCollection,
         addToLockCollection,
@@ -119,7 +131,9 @@ export function DBProvider({children}) {
         getProfile,
         getProfileName,
         updateProfile,
-        profile])
+        profile,
+        getAllProfiles
+    ])
 
     return (
         <DBContext.Provider value={value}>

@@ -63,8 +63,8 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const bestTime = entry ? bestTimes.get(lockId) : 0
 
     const [date, setDate] = useState(entry && entry.date ? dayjs(entry.date) : dayjs())
-    const [startTime, setStartTime] = useState(entry && entry.start ? dayjs(entry.start) : dayjs('1970-01-01'))
-    const [openTime, setOpenTime] = useState(entry && entry.open ? dayjs(entry.open) : dayjs('1970-01-01'))
+    const [startTime, setStartTime] = useState(entry && entry.startTime ? dayjs(entry.startTime) : dayjs('1970-01-01'))
+    const [openTime, setOpenTime] = useState(entry && entry.openTime ? dayjs(entry.openTime) : dayjs('1970-01-01'))
     const timeError = (openTime - startTime) < 0
     const timeHelperText = timeError ? 'Total time must be positive' : ''
 

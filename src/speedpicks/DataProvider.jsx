@@ -10,36 +10,34 @@ import FilterContext from '../context/FilterContext.jsx'
 import fuzzysort from 'fuzzysort'
 import removeAccents from 'remove-accents'
 import DBContext from '../app/DBContext.jsx'
+import AuthContext from '../app/AuthContext.jsx'
 
 export function DataProvider({children, allEntries}) {
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sort, image, ...filters} = allFilters
 
     const lockBelts = useMemo(() => belts, [])
-    const [speedPicks, setSpeedPicks] = useState(speedPickData)
 
     const lockData = useMemo(() => lockJson, [])
     const bestTimes = useMemo(() => new Map(), [])
 
     const {getProfileName} = useContext(DBContext)
 
-    const getPickerNameFromId = useCallback(async pickerId => {
-        const pickerName =  await getProfileName(pickerId)
-        console.log(pickerName)
-        return pickerName
-    }, [getProfileName])
+    const {user} = useContext(AuthContext)
 
+    const [modMode, setModMode] = useState(true)
+    const isMod = modMode
+    const [updated, setUpdated] = useState(0)
 
     const mappedEntries = useMemo(() => {
+
         return allEntries.map(entry => {
+            entry.pickerName = getProfileName(entry.pickerId).length ? getProfileName(entry.pickerId) : ''
 
             const lockId = entry.lockId
             const thisLock = lockData?.find(({id}) => id === lockId)
             entry.lock = entryName(thisLock, 'short')
             entry.version = thisLock.version
-
-            entry.pickerName = getPickerNameFromId(entry.pickerId)
-            console.log(entry.pickerName)
 
             entry.belt = thisLock.belt
             entry.beltIndex = allBelts.indexOf(thisLock.belt)
@@ -54,10 +52,20 @@ export function DataProvider({children, allEntries}) {
             } else if (entry.status==='approved') {
                 bestTimes.set(lockId, totalTime)
             }
+
+            entry.forceUpdate = updated
+
             return entry
         })
-    }, [allEntries, bestTimes, getPickerNameFromId, lockData])
+    }, [allEntries, bestTimes, getProfileName, lockData, updated])
 
+    mappedEntries.map(entry => {
+        if (entry.totalTime === bestTimes.get(entry.lockId)) {
+            entry.isBest = 'true'
+        } else {
+            entry.isBest = 'false'
+        }
+    })
 
     const getLockFromId = useCallback(lockId => {
         return lockData?.find(({id}) => id === lockId)
@@ -98,6 +106,7 @@ export function DataProvider({children, allEntries}) {
                         : datum[key] === value
                 })
             })
+            .filter(datum => (datum.pickerId === user?.uid) || isMod || datum.status!=='pending')
 
         // If there is a search term, fuzzy match that
         const searched = search
@@ -130,7 +139,7 @@ export function DataProvider({children, allEntries}) {
                 || a.totalTime - b.totalTime
             })
 
-    }, [filters, mappedEntries, search, sort])
+    }, [filters, isMod, mappedEntries, search, sort, user?.uid])
 
 //console.log(visibleEntries)
 
@@ -139,24 +148,16 @@ export function DataProvider({children, allEntries}) {
         console.log(temp)
     }, [])
 
-    const [updated, setUpdated] = useState(0)
     const DCUpdate = useCallback(value => {
         setUpdated(value)
         console.log(updated)
     }, [updated])
 
-    const [isMod, setIsMod] = useState(true)
     const toggleMod = useCallback(() => {
-        setIsMod(!isMod)
-        setSpeedPicks(speedPickData)
+        setModMode(!modMode)
+        console.log(modMode)
         DCUpdate(Math.random())
-    }, [DCUpdate, isMod])
-
-    if (!isMod) {
-        speedPicks.data = speedPicks.data.filter(entry =>
-            entry.status === 'approved'
-        )
-    }
+    }, [DCUpdate, modMode])
 
     const value = useMemo(() => ({
         lockBelts,

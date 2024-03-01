@@ -1,14 +1,16 @@
 import React, {useContext, useCallback, useState} from 'react'
 import {ToggleButton, ToggleButtonGroup} from '@mui/material'
 import FilterContext from '../context/FilterContext'
+import DataContext from '../context/DataContext.jsx'
 
 function SortFilterBar() {
+
+    const {isMod = []} = useContext(DataContext)
 
     const {filters, addFilter, clearFilters, setFilters} = useContext(FilterContext)
     const {sort} = filters
     const [view, setView] = useState('all')
 
-    console.log(filters)
     const handleClick = useCallback(value => () => {
         setTimeout(() => addFilter('sort', value, true), 0)
     }, [addFilter])
@@ -17,14 +19,17 @@ function SortFilterBar() {
         event.preventDefault()
         event.stopPropagation()
         console.log(event.target.value)
-        const [field,value] = event.target.value.split(',')
-        console.log(field)
-        //setOpen(false)
-        clearFilters()
-        addFilter(field, value)
-        //setView(field)
+        const [field, value] = event.target.value.split(',')
+        if (field === 'status') {
+            setFilters({status: value})
+            setView(value)
+
+        } else if (field === 'isBest') {
+            setView('isBest')
+            setFilters({isBest: value})
+        }
         window.scrollTo({top: 0, behavior: 'smooth'})
-    }, [addFilter, clearFilters])
+    }, [setFilters])
 
     const handleFilter = useCallback(event => {
         event.preventDefault()
@@ -62,16 +67,15 @@ function SortFilterBar() {
                 <ToggleButtonGroup style={{height: 26}}>
                     <ToggleButton selected={view === 'all'} style={{padding: 7}} value={'all'}
                                   onClick={handleClear}>All</ToggleButton>
-                    <ToggleButton selected={view === 'belt'} style={{padding: 7}} value={['status', 'approved']}
-                                  onClick={handleFilterFieldValue}>Test</ToggleButton>
-                    <ToggleButton selected={view === 'approved'} style={{padding: 7}} value={'approved'}
-                                  onClick={handleFilter}>Approved</ToggleButton>
-                    <ToggleButton  selected={view === 'pending'} style={{padding: 7}} value={'pending'}
-                                  onClick={handleFilter}>Pending</ToggleButton>
+                    <ToggleButton selected={view === 'isBest'} style={{padding: 7}} value={['isBest', 'true']}
+                                  onClick={handleFilterFieldValue}>Fastest</ToggleButton>
+                    {isMod && <ToggleButton selected={view === 'approved'} style={{padding: 7}} value={'approved'}
+                                            onClick={handleFilter}>Approved</ToggleButton>}
+                    {isMod && <ToggleButton selected={view === 'pending'} style={{padding: 7}} value={'pending'}
+                                            onClick={handleFilter}>Pending</ToggleButton>}
                 </ToggleButtonGroup>
             </div>
         </div>
-
     )
 }
 
