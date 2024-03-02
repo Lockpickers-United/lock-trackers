@@ -1,27 +1,28 @@
 import React, {useCallback, useMemo, useState, useContext} from 'react'
 import lockJson from '../data/data.json'
 import belts, {allBelts} from '../data/belts'
-import speedPickData from './speedPicks.json'
+import speedPickData from '../speedpicks/speedPicks.json'
 import entryName from '../util/entryName'
 import formatTime from '../util/formatTime.jsx'
 import dayjs from 'dayjs'
-import DataContext from '../context/DataContext'
-import FilterContext from '../context/FilterContext.jsx'
+import DataContext from './DataContext.jsx'
+import FilterContext from './FilterContext.jsx'
 import fuzzysort from 'fuzzysort'
 import removeAccents from 'remove-accents'
 import DBContext from '../app/DBContext.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 
 export function DataProvider({children, allEntries}) {
+
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sort, image, ...filters} = allFilters
+    const {getProfileName} = useContext(DBContext)
 
     const lockBelts = useMemo(() => belts, [])
 
     const lockData = useMemo(() => lockJson, [])
     const bestTimes = useMemo(() => new Map(), [])
 
-    const {getProfileName} = useContext(DBContext)
 
     const {user} = useContext(AuthContext)
 
@@ -30,8 +31,10 @@ export function DataProvider({children, allEntries}) {
     const [updated, setUpdated] = useState(0)
 
     const mappedEntries = useMemo(() => {
-
         return allEntries.map(entry => {
+
+            //console.log(allProfiles[entry.pickerId])
+
             entry.pickerName = getProfileName(entry.pickerId).length ? getProfileName(entry.pickerId) : ''
 
             const lockId = entry.lockId
@@ -46,10 +49,10 @@ export function DataProvider({children, allEntries}) {
             entry.totalTime = totalTime
             entry.totalTimeString = formatTime(totalTime)
 
-            if (bestTimes.get(lockId) && entry.status==='approved') {
+            if (bestTimes.get(lockId) && entry.status === 'approved') {
                 const bestTime = totalTime > bestTimes.get(lockId) ? bestTimes.get(lockId) : totalTime
                 bestTimes.set(lockId, bestTime)
-            } else if (entry.status==='approved') {
+            } else if (entry.status === 'approved') {
                 bestTimes.set(lockId, totalTime)
             }
 
@@ -106,7 +109,8 @@ export function DataProvider({children, allEntries}) {
                         : datum[key] === value
                 })
             })
-            .filter(datum => (datum.pickerId === user?.uid) || isMod || datum.status!=='pending')
+            .filter(datum => (datum.pickerId === user?.uid) || isMod || datum.status !== 'pending')
+            .filter(datum => datum.status !== 'deleted')
 
         // If there is a search term, fuzzy match that
         const searched = search
@@ -129,6 +133,14 @@ export function DataProvider({children, allEntries}) {
                 } else if (sort === 'picker') {
                     return a.pickerName.localeCompare(b.pickerName)
                         || a.totalTime - b.totalTime
+                } else if (sort === 'dateAsc') {
+                    return dayjs(a.date) - (dayjs(b.date))
+                        || a.lock.localeCompare(b.lock)
+                        || a.totalTime - b.totalTime
+                } else if (sort === 'dateDesc') {
+                    return dayjs(b.date) - (dayjs(a.date))
+                        || a.lock.localeCompare(b.lock)
+                        || a.totalTime - b.totalTime
                 } else {
                     return a.lock.localeCompare(b.lock)
                         || a.totalTime - b.totalTime
@@ -136,22 +148,25 @@ export function DataProvider({children, allEntries}) {
             })
             : searched.sort((a, b) => {
                 return a.lock.localeCompare(b.lock)
-                || a.totalTime - b.totalTime
+                    || a.totalTime - b.totalTime
             })
 
     }, [filters, isMod, mappedEntries, search, sort, user?.uid])
 
-//console.log(visibleEntries)
 
     const addEntry = useCallback(entry => {
         const temp = speedPickData.data.push(entry)
         console.log(temp)
     }, [])
 
+    const deleteEntry = useCallback(entry => {
+        entry.status = 'deleted'
+        console.log('deleted ', entry)
+    }, [])
+
     const DCUpdate = useCallback(value => {
         setUpdated(value)
-        console.log(updated)
-    }, [updated])
+    }, [])
 
     const toggleMod = useCallback(() => {
         setModMode(!modMode)
@@ -171,8 +186,8 @@ export function DataProvider({children, allEntries}) {
         toggleMod,
         isMod,
         allEntries,
-        visibleEntries
-
+        visibleEntries,
+        deleteEntry
     }), [
         lockBelts,
         lockData,
@@ -185,7 +200,8 @@ export function DataProvider({children, allEntries}) {
         toggleMod,
         isMod,
         allEntries,
-        visibleEntries
+        visibleEntries,
+        deleteEntry
     ])
 
     return (

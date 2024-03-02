@@ -11,7 +11,6 @@ const DBContext = React.createContext({})
 export function DBProvider({children}) {
     const {authLoaded, isLoggedIn, user} = useContext(AuthContext)
     const [lockCollection] = useState({})
-    const [profile, setProfile] = useState({})
     const [dbLoaded, setDbLoaded] = useState(false)
     const [dbError, setDbError] = useState(null)
 
@@ -64,17 +63,20 @@ export function DBProvider({children}) {
         })
     }, [dbError, user])
 
+    const [allProfiles, setAllProfiles] = useState({})
+
     const getAllProfiles = useCallback(async () => {
-        const allProfiles = new Map()
+        const profiles = new Map()
         const querySnapshot = await getDocs(collection(db, 'profiles'))
         querySnapshot.forEach((doc) => {
-            //console.log(doc.id, ' => ', doc.data())
-            const profileId = doc.id
-            allProfiles[profileId] = doc.data()
+            profiles[doc.id] = doc.data()
         })
-        return allProfiles
+        setAllProfiles(profiles)
+        return profiles
     }, [])
 
+    if (!allProfiles) { getAllProfiles()}
+    //console.log(allProfiles)
 
     const getProfile = useCallback(async userId => {
         const ref = doc(db, 'profiles', userId)
@@ -87,6 +89,7 @@ export function DBProvider({children}) {
         return profile.username
     }, [getProfile])
 
+    const [profile, setProfile] = useState({})
 
     // Lock Collection Subscription
     useEffect(() => {
@@ -123,7 +126,7 @@ export function DBProvider({children}) {
         getProfileName,
         updateProfile,
         profile,
-        getAllProfiles
+        allProfiles
     }), [dbLoaded,
         lockCollection,
         addToLockCollection,
@@ -132,7 +135,7 @@ export function DBProvider({children}) {
         getProfileName,
         updateProfile,
         profile,
-        getAllProfiles
+        allProfiles
     ])
 
     return (

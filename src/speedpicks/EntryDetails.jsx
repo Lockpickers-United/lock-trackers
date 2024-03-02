@@ -23,7 +23,7 @@ const EntryDetails = ({entry, startEdit, entriesUpdate}) => {
                 <a href={entry.videoUrl} target='_blank' rel='noreferrer'>{videoLinkText}</a>
             </div>
             <div style={{display: 'flex', marginBottom: '14px', fontSize: '1rem', lineHeight: '1.3rem'}}>
-                <FieldValue name='Belt' value={entry.beltIndex} style={{marginLeft: 44}}/>
+                <FieldValue name='Date' value={dayjs(entry.date).format('MM/DD/YY')} style={{marginLeft: 44}}/>
                 <FieldValue name='Picking starts' value={dayjs(entry.startTime).format('mm:ss')} style={{marginLeft: 44}}/>
                 <FieldValue name='Lock open' value={dayjs(entry.openTime).format('mm:ss')} style={{marginLeft: 44}}/>
                 <FieldValue name='Total time' value={entry.totalTimeString} style={{marginLeft: 44}}/>

@@ -10,9 +10,23 @@ function SortFilterBar() {
     const {filters, addFilter, clearFilters, setFilters} = useContext(FilterContext)
     const {sort} = filters
     const [view, setView] = useState('all')
+    const [dateSort, setDateSort] = useState('')
 
-    const handleClick = useCallback(value => () => {
+    const dateSortText = sort === 'dateAsc'
+        ? 'Date ⬆'
+        : sort === 'dateDesc'
+            ? 'Date ⬇'
+            : 'Date'
+
+    const handleSort = useCallback(value => () => {
         setTimeout(() => addFilter('sort', value, true), 0)
+        setDateSort('')
+    }, [addFilter])
+
+    const handleDateSort = useCallback(value => () => {
+        const newSort = value === 'dateAsc' ? 'dateDesc' : 'dateAsc'
+        setDateSort(newSort)
+        setTimeout(() => addFilter('sort', newSort, true), 0)
     }, [addFilter])
 
     const handleFilterFieldValue = useCallback(event => {
@@ -53,11 +67,13 @@ function SortFilterBar() {
                 <span style={{fontSize: '.7rem', marginRight: 5}}>SORT</span>
                 <ToggleButtonGroup style={{height: 26}}>
                     <ToggleButton selected={sort === 'lock' || !sort} style={{padding: 7}} value={'lock'}
-                                  onClick={handleClick('lock')}>Lock</ToggleButton>
+                                  onClick={handleSort('lock')}>Lock</ToggleButton>
                     <ToggleButton selected={sort === 'belt'} style={{padding: 7}} value={'belt'}
-                                  onClick={handleClick('belt')}>Belt</ToggleButton>
+                                  onClick={handleSort('belt')}>Belt</ToggleButton>
                     <ToggleButton selected={sort === 'picker'} style={{padding: 7}} value={'picker'}
-                                  onClick={handleClick('picker')}>Picker</ToggleButton>
+                                  onClick={handleSort('picker')}>Picker</ToggleButton>
+                    <ToggleButton selected={sort === 'dateAsc' || sort === 'dateDesc'} style={{padding: 7}} value={'date'}
+                                  onClick={handleDateSort(dateSort)}>{dateSortText}</ToggleButton>
                 </ToggleButtonGroup>
             </div>
             <div style={{

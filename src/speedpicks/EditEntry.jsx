@@ -19,16 +19,16 @@ import Button from '@mui/material/Button'
 const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const {bestTimes, getLockFromId, addEntry = []} = useContext(DataContext)
     const {user, isLoggedIn} = useContext(AuthContext)
-    const {lockCollection} = useContext(DBContext)
-    const {DCUpdate = []} = useContext(DataContext)
+    const {profile} = useContext(DBContext)
+    const {DCUpdate, isMod = []} = useContext(DataContext)
 
-    const safeName = lockCollection.displayName
-        ? lockCollection.displayName.replace(/\s/g, '_')
+    const safeName = user && isLoggedIn
+        ? profile?.username
         : 'Private'
 
     const isNew = !entry
     const [entryId] = useState(entry && entry.id ? entry.id : genHexString(8))
-    const [status, setStatus] = useState(entry ? entry.status : 'Pending')
+    const [status] = useState(entry ? entry.status : 'pending')
     const [picker, setPicker] = useState(isLoggedIn ? entry?.picker : user?.uid)
 
     const pickerName = isLoggedIn ? safeName : '(please log in)'
@@ -90,19 +90,18 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
             thisEntry.picker = picker
             thisEntry.lockId = lockId
             thisEntry.date = date.format()
-            thisEntry.start = startTime.format()
-            thisEntry.open = openTime.format()
+            thisEntry.startTime = startTime.format()
+            thisEntry.openTime = openTime.format()
             thisEntry.videoUrl = videoUrl
             addEntry(thisEntry)
             toggleOpen()
         } else {
-            setStatus('Pending')
-            entry.status = status
+            entry.status = isMod ? status : 'pending'
             entry.picker = picker
             entry.lockId = lockId
             entry.date = date.format()
-            entry.start = startTime.format()
-            entry.open = openTime.format()
+            entry.startTime = startTime.format()
+            entry.openTime = openTime.format()
             entry.videoUrl = videoUrl
             toggleOpen()
             endEdit()
@@ -223,7 +222,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                     </div>
                     <div style={{margin: '10px 1px 0px 0px', fontSize: '0.9rem', lineHeight: '1.4rem'}}>
                         Lock open<br/>
-                        <TimePicker views={['minutes', 'seconds',]}
+                        <TimePicker views={['minutes', 'seconds']}
                                     view='seconds'
                                     format='mm:ss'
                                     timeSteps={{minutes: 1, seconds: 1}}
@@ -253,7 +252,12 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                 />
             </div>
 
-            <div style={{width:'100%', textAlign:'right'}}>
+            <div style={{width: '100%', textAlign: 'right'}}>
+                {!isMod &&
+                    <div style={{fontSize: '1rem', lineHeight: '1.4rem', marginBottom: 8}}>
+                        Note: changed entries must<br/> be re-approved by mods
+                    </div>
+                }
                 <Button variant='text' style={{color: '#999'}} onClick={cancelEdit}>
                     Cancel
                 </Button>
@@ -281,8 +285,11 @@ function genHexString(len) {
 
 function isValidHttpUrl(string) {
     let url
-    try { url = new URL(string) }
-    catch (_) { return false }
+    try {
+        url = new URL(string)
+    } catch (_) {
+        return false
+    }
     return url.protocol === 'http:' || url.protocol === 'https:'
 }
 

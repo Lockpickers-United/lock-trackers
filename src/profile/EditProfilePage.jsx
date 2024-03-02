@@ -6,7 +6,6 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 import TextField from '@mui/material/TextField'
-import {useNavigate} from 'react-router-dom'
 import DBContext from '../app/DBContext'
 import Button from '@mui/material/Button'
 import dayjs from 'dayjs'
@@ -36,8 +35,6 @@ function EditProfilePage() {
     //console.log(profile)
     //console.log(`username: ${profile?.username}`)
 
-    const navigate = useNavigate()
-
     const [created] = useState(profile?.created || dayjs().format())
     const [username, setUsername] = useState(profile?.username || '')
     const [discordUsername, setDiscordUsername] = useState(profile?.discordUsername || '')
@@ -45,7 +42,6 @@ function EditProfilePage() {
     const [LPUBeltsProfile, setLPUBeltsProfile] = useState(profile?.LPUBeltsProfile || '')
     const [belt, setBelt] = useState(profile?.belt || '')
     const [country, setCountry] = useState(profile?.country || '')
-
 
     const cardTitle = username
         ? `Hey ${profile?.username}!`
@@ -83,12 +79,14 @@ function EditProfilePage() {
         try {
             await updateProfile(username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created)
             enqueueSnackbar('Updated profile.')
-            navigate('/profile/edit')
+            //navigate('/profile/edit')
         } catch (ex) {
             console.error('Error while updating profile', ex)
             enqueueSnackbar('Error while updating profile.')
         }
-    }, [updateProfile, username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created, navigate])
+    }, [updateProfile, username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created])
+
+    const pattern = /^[\sa-zA-Z0-9_-]{1,32}$/
 
     const error = username.length > 0 && !pattern.test(username.toString())
     const empty = username.length === 0
@@ -130,7 +128,8 @@ function EditProfilePage() {
                     />
                     {1 === 1 &&
                         <div>
-                            <div style={{marginTop: 20, marginBottom: 15, fontWeight: 600}}>OPTIONAL</div>
+                            <div style={{marginTop: 20, marginBottom: 15, fontWeight: 600, fontSize: '1rem'}}>OPTIONAL
+                            </div>
 
                             <FormControl id='beltFC' size='small' sx={{minWidth: 220}}>
                                 <InputLabel>Belt (Honor system!)</InputLabel>
@@ -229,7 +228,5 @@ function EditProfilePage() {
         </Card>
     )
 }
-
-const pattern = /^[\sa-zA-Z0-9_-]{1,32}$/
 
 export default EditProfilePage
