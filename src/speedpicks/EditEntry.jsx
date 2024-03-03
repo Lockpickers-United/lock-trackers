@@ -27,8 +27,6 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const [status] = useState(entry ? entry.status : 'pending')
     const [pickerId] = useState(entry ? entry?.pickerId : user?.uid)
 
-    console.log('pickerId', pickerId)
-
     const pickerName = isLoggedIn ? profile?.username : '(please log in)'
     const [lockURL, setLockURL] = useState(entry && entry.lockId
         ? `https://lpubelts.com/#/locks?id=${entry.lockId}` : ''

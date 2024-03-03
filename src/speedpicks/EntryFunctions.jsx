@@ -2,8 +2,11 @@ import React, {useCallback, useContext, useState} from 'react'
 import Button from '@mui/material/Button'
 import DataContext from '../context/DataContext'
 import Menu from '@mui/material/Menu'
+import DBContext from '../app/DBContext.jsx'
 
 const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
+
+    const {updateEntry} = useContext(DBContext)
 
     const {DCUpdate, isMod = []} = useContext(DataContext)
     const [anchorEl, setAnchorEl] = useState(null)
@@ -12,18 +15,20 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
     const handleClose = useCallback(() => setAnchorEl(null), [])
 
     const toggleApprove = useCallback(() => {
+        console.log('status', entry.status)
         entry.status = entry.status === 'approved' ? 'pending' : 'approved'
-        console.log(entry.status)
+        updateEntry(entry)
         DCUpdate(Math.random())
         entriesUpdate(Math.random())
-    }, [DCUpdate, entriesUpdate, entry])
+    }, [DCUpdate, entriesUpdate, entry, updateEntry])
 
     const deleteEntry = useCallback(() => {
         entry.status = 'deleted'
-        console.log(entry.status)
+        console.log('status', entry.status)
+        updateEntry(entry)
         DCUpdate(Math.random())
         entriesUpdate(Math.random())
-    }, [DCUpdate, entriesUpdate, entry])
+    }, [DCUpdate, entriesUpdate, entry, updateEntry])
 
     const status = entry.status === 'approved' ? 'APPROVED' : 'PENDING'
     const statusColor = entry.status === 'approved' ? '#fff' : '#ca6060'
