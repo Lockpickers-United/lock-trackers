@@ -10,12 +10,11 @@ function ModModeCheckbox() {
         <div style={{
             fontSize: '1.0rem',
             textAlign: 'right',
-            width: '50%',
             paddingRight: 10,
             color: '#ccc'
         }}>
 
-            mod mode: <Checkbox value={isMod} onChange={toggleMod} defaultChecked
+            mod mode <Checkbox value={isMod} onChange={toggleMod} defaultChecked
                                       style={{color: '#ccc'}}/>
 
         </div>

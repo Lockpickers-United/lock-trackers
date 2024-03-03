@@ -62,7 +62,7 @@ function Entries() {
 
             <div style={{height: 40}}/>
 
-            <Accordion style={{width: 740}}>
+            <Accordion style={{width: '100%'}}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon/>} style={{fontSize: '1.0rem'}}>
                     SPEEDPICKS DATA
                 </AccordionSummary>

@@ -3,6 +3,7 @@ import Button from '@mui/material/Button'
 import DataContext from '../context/DataContext'
 import Menu from '@mui/material/Menu'
 import DBContext from '../app/DBContext.jsx'
+import useWindowSize from '../util/useWindowSize.jsx'
 
 const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
 
@@ -30,10 +31,16 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
         entriesUpdate(Math.random())
     }, [DCUpdate, entriesUpdate, entry, updateEntry])
 
+    const {width} = useWindowSize()
+    const mobileLarge428 = width <= 428
+    const mobileSmall360 = width <= 360
+
     const status = entry.status === 'approved' ? 'APPROVED' : 'PENDING'
     const statusColor = entry.status === 'approved' ? '#fff' : '#ca6060'
     const functionColor = entry.status === 'approved' ? '#ca6060' : '#0a0'
-    const statusString = `ENTRY IS ${status}:`
+    const statusString = mobileSmall360 ? `${status}:`
+        : mobileLarge428 ? `IS ${status}:`
+            : `ENTRY IS ${status}:`
 
     return (
 
@@ -67,7 +74,7 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
                 <Button disabled style={{color: statusColor, fontWeight: 600}}>{statusString}</Button>
                 <Button style={{color: '#ccc'}} onClick={startEdit}>Edit</Button>
                 {(entry.status === 'approved' && isMod) &&
-                    <Button style={{marginRight: 10, color: functionColor}} onClick={toggleApprove}>Pend</Button>
+                    <Button style={{marginRight: 0, color: functionColor}} onClick={toggleApprove}>Pend</Button>
                 }
                 {(entry.status !== 'approved' && isMod) &&
                     <Button style={{marginRight: 10, color: functionColor}} onClick={toggleApprove}>Approve</Button>

@@ -7,6 +7,7 @@ function FieldValue({name, value, last, style, headerStyle = {}, textStyle = {}}
     const fullHeaderStyle = {
         color: '#666',
         fontSize: '0.85rem',
+        lineHeight: '1rem',
         ...headerStyle
     }
     const fullTextStyle = {

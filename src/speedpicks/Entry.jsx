@@ -11,6 +11,7 @@ import EntryDetails from './EntryDetails.jsx'
 import EditEntry from './EditEntry.jsx'
 import DataContext from '../context/DataContext'
 import {useTheme} from '@mui/material/styles'
+import useWindowSize from '../util/useWindowSize.jsx'
 
 const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
@@ -76,12 +77,23 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
     }, [expanded, entry, scrolled])
 
     const divStyle = {
-        margin: '0px 15px 0px 15px',
+        margin: '10px 15px 10px 15px',
         fontSize: '1.1rem',
         color: entryColor,
         fontWeight: entryWeight,
         display: 'flex',
         placeItems: 'center'
+    }
+
+    const {width} = useWindowSize()
+    const breakSize = width <= 427
+    const nameDivStyle = {
+        minWidth: 110
+    }
+    const divFlexStyle = !breakSize ? {display: 'flex'} : {}
+    const combinedDivStyle = {
+        ...nameDivStyle,
+        ...divFlexStyle
     }
 
     return (
@@ -95,15 +107,18 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
                     secondaryTypographyProps={{color: entryColor}}
                     style={{padding: '0px 0px 0px 10px'}}
                 />
-                <div style={divStyle}>{entry.pickerName}</div>
-                <div style={divStyle}>{entry.totalTimeString}</div>
+                <div style={combinedDivStyle}>
+                    <div style={divStyle}>{entry.pickerName}</div>
+                    <div style={divStyle}>{entry.totalTimeString}</div>
+                </div>
             </AccordionSummary>
             <AccordionDetails style={{display: 'block', padding: 0}}>
                 {!editing &&
                     <EntryDetails entry={entry} startEdit={startEdit} entriesUpdate={entriesUpdate}/>
                 }
                 {editing &&
-                    <EditEntry entry={entry} toggleOpen={toggleOpenTEMP} endEdit={endEdit} entriesUpdate={entriesUpdate}/>
+                    <EditEntry entry={entry} toggleOpen={toggleOpenTEMP} endEdit={endEdit}
+                               entriesUpdate={entriesUpdate}/>
                 }
             </AccordionDetails>
         </Accordion>

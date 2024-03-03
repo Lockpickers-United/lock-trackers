@@ -250,7 +250,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                 />
             </div>
 
-            <div style={{width: '100%', textAlign: 'right'}}>
+            <div style={{width: '100%', textAlign: 'right', marginTop:14}}>
                 {!isMod &&
                     <div style={{fontSize: '1rem', lineHeight: '1.4rem', marginBottom: 8}}>
                         Note: changed entries must<br/> be re-approved by mods

@@ -2,6 +2,7 @@ import React, {useContext, useCallback, useState} from 'react'
 import {ToggleButton, ToggleButtonGroup} from '@mui/material'
 import FilterContext from '../context/FilterContext'
 import DataContext from '../context/DataContext.jsx'
+import useWindowSize from '../util/useWindowSize.jsx'
 
 function SortFilterBar() {
 
@@ -61,9 +62,24 @@ function SortFilterBar() {
         setView('all')
     }, [clearFilters])
 
+
+    const {width} = useWindowSize()
+    const mobileLarge428 = width <= 428
+
+    const divStyle = {
+        margin: '16px 0px 26px 0px', opacity: 0.8
+    }
+    const divFlexStyle = !mobileLarge428 ? {display: 'flex'} : {}
+    const combinedDivStyle = {
+        ...divStyle,
+        ...divFlexStyle
+    }
+
+
+
     return (
-        <div style={{display: 'flex', margin: '6px 0px 26px 0px', opacity: 0.8}}>
-            <div style={{textAlign: 'left'}}>
+        <div style={combinedDivStyle}>
+            <div style={{textAlign: 'left', marginTop:10}}>
                 <span style={{fontSize: '.7rem', marginRight: 5}}>SORT</span>
                 <ToggleButtonGroup style={{height: 26}}>
                     <ToggleButton selected={sort === 'lock' || !sort} style={{padding: 7}} value={'lock'}
@@ -77,7 +93,7 @@ function SortFilterBar() {
                 </ToggleButtonGroup>
             </div>
             <div style={{
-                textAlign: 'right', flexGrow: 1
+                textAlign: 'right', flexGrow: 1, marginTop:10
             }}>
                 <span style={{fontSize: '.7rem', marginRight: 5}}>FILTER</span>
                 <ToggleButtonGroup style={{height: 26}}>

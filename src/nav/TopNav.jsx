@@ -21,7 +21,7 @@ function TopNav() {
     return (
         <React.Fragment>
             <div style={{display: 'flex', marginTop:13, padding:0}}>
-                <div style={{width: '80%', padding:0}}>
+                <div style={{padding:0}}>
                     <Button variant='text' style={buttonSyle}
                             onClick={handleButtonClick('/speedpicks')}>
                         <SP_logo fill={spFill} style={{height: 50}}/>

@@ -47,6 +47,10 @@ function EditProfilePage() {
         ? `Hey ${profile?.username}!`
         : 'Create Profile'
 
+    const introText = !username
+        ? 'You must have a named profile to submit speed picks.'
+        : ''
+
     const handleChange = useCallback((event) => {
         const {value} = event.target
         if (event.target.id === 'username') {
@@ -107,9 +111,7 @@ function EditProfilePage() {
         }}>
             <CardHeader title={cardTitle} action={null} style={{paddingBottom: 0}}/>
             <CardContent>
-                <Typography>
-                    You must have a named profile to submit speed picks.
-                </Typography>
+                <Typography>{introText}</Typography>
                 <br/>
                 <Stack direction='column'>
                     <TextField
@@ -123,7 +125,7 @@ function EditProfilePage() {
                         onChange={handleChange}
                         onFocus={handleFocus}
                         inputProps={{
-                            maxLength: 32
+                            maxLength: 20
                         }}
                     />
                     {1 === 1 &&
