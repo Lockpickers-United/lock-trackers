@@ -1,0 +1,88 @@
+{
+  "data": [
+    {
+      "id": "000",
+      "date": "2023-12-19",
+      "pickerId": "ClbjuilBEHgbzO4UZl4y3GStlEz2",
+      "lockId": "5e3397a9",
+      "startTime": "1970-01-01 0:00:00",
+      "openTime": "1970-01-01 23:59:59",
+      "videoUrl": "https://www.youtube.com/watch?v=rMktxWVqpMs",
+      "reviewer": "g4S2MLVbHhSRs42gHfYOsukeb6C3",
+      "status": "approved",
+      "created": "2023-12-19 0:00:00"
+    }
+  ],
+  "columns": [
+    {
+      "field": "picker",
+      "headerName": "Picker",
+      "width": "150",
+      "editable": "TRUE",
+      "align": "left"
+    },
+    {
+      "field": "lockId",
+      "headerName": "Lock ID",
+      "width": "150",
+      "editable": "TRUE",
+      "align": "left"
+    },
+    {
+      "field": "lock",
+      "headerName": "Lock",
+      "width": "150",
+      "editable": "TRUE",
+      "align": "left"
+    },
+    {
+      "field": "belt",
+      "headerName": "Belt",
+      "width": "80",
+      "editable": "FALSE",
+      "align": "left"
+    },
+    {
+      "field": "startTime",
+      "headerName": "startTime",
+      "width": "80",
+      "editable": "TRUE",
+      "align": "left"
+    },
+    {
+      "field": "openTime",
+      "headerName": "openTime",
+      "width": "80",
+      "editable": "TRUE",
+      "align": "left"
+    },
+    {
+      "field": "videoUrl",
+      "headerName": "Video URL",
+      "width": "150",
+      "editable": "TRUE",
+      "align": "left"
+    },
+    {
+      "field": "date",
+      "headerName": "Date",
+      "width": "150",
+      "editable": "TRUE",
+      "align": "left"
+    },
+    {
+      "field": "reviewer",
+      "headerName": "Reviewer",
+      "width": "150",
+      "editable": "TRUE",
+      "align": "left"
+    },
+    {
+      "field": "approved",
+      "headerName": "Approved",
+      "width": "150",
+      "editable": "TRUE",
+      "align": "left"
+    }
+  ]
+}

@@ -22,17 +22,14 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const {profile, updateEntry} = useContext(DBContext)
     const {DCUpdate, isMod = []} = useContext(DataContext)
 
-    const safeName = user && isLoggedIn
-        ? profile?.username
-        : 'Private'
-
     const isNew = !entry
     const [entryId] = useState(entry && entry.id ? entry.id : genHexString(8))
     const [status] = useState(entry ? entry.status : 'pending')
-    const [picker, setPicker] = useState(isLoggedIn ? entry?.picker : user?.uid)
-    const [pickerId] = useState(isLoggedIn ? entry?.pickerId : user?.uid)
+    const [pickerId] = useState(entry ? entry?.pickerId : user?.uid)
 
-    const pickerName = isLoggedIn ? safeName : '(please log in)'
+    console.log('pickerId', pickerId)
+
+    const pickerName = isLoggedIn ? profile?.username : '(please log in)'
     const [lockURL, setLockURL] = useState(entry && entry.lockId
         ? `https://lpubelts.com/#/locks?id=${entry.lockId}` : ''
     )
@@ -88,7 +85,6 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
             const thisEntry = new Map()
             thisEntry.id = entryId
             thisEntry.status = 'pending'
-            thisEntry.picker = picker
             thisEntry.pickerId = pickerId
             thisEntry.lockId = lockId
             thisEntry.date = date.format()
@@ -101,7 +97,6 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
             toggleOpen()
         } else {
             entry.status = isMod ? status : 'pending'
-            entry.picker = picker
             entry.pickerId = pickerId
             entry.lockId = lockId
             entry.date = date.format()
@@ -136,7 +131,6 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
             <div style={{display: 'flex', placeItems: 'center', width: '90%'}}>
                 <TextField variant='outlined' color='secondary' label='Picker'
                            value={pickerName}
-                           onChange={(newValue) => setPicker(newValue)}
                 />
                 {lockName &&
                     <div style={{display: 'flex', placeItems: 'center', marginLeft: 20, width: '100%'}}>

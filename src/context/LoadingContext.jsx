@@ -1,6 +1,6 @@
 import React, {useContext, useMemo} from 'react'
 import DBContext from '../app/DBContext.jsx'
-import speedPickData from '../speedpicks/speedPicks.json'
+import speedPickData from '../speedpicks/speedPicksSkeleton.json'
 
 const LoadingContext = React.createContext({})
 

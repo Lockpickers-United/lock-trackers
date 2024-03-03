@@ -15,7 +15,7 @@ function ModModeCheckbox() {
             color: '#ccc'
         }}>
 
-            moderator mode: <Checkbox value={isMod} onChange={toggleMod} defaultChecked
+            mod mode: <Checkbox value={isMod} onChange={toggleMod} defaultChecked
                                       style={{color: '#ccc'}}/>
 
         </div>

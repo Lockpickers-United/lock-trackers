@@ -173,7 +173,6 @@ export function DataProvider({children}) {
 
     const toggleMod = useCallback(() => {
         setModMode(!modMode)
-        console.log(modMode)
         DCUpdate(Math.random())
     }, [DCUpdate, modMode])
 

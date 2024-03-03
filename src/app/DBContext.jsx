@@ -68,6 +68,7 @@ export function DBProvider({children}) {
     const dataLoaded = (!!dbEntries && !!dbProfiles)
 
     const updateEntry = useCallback(async entry => {
+        console.log('entry', entry)
         if (dbError) return false
         const modified = dayjs().format()
         const ref = doc(db, 'speedPicks', entry.id)
