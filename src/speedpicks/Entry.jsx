@@ -7,8 +7,6 @@ import {ListItemText} from '@mui/material'
 import formatTime from '../util/formatTime.jsx'
 import BeltStripe from './BeltStripe.jsx'
 import queryString from 'query-string'
-import DBContext from '../app/DBContext.jsx'
-import useData from '../util/useData.jsx'
 import EntryDetails from './EntryDetails.jsx'
 import EditEntry from './EditEntry.jsx'
 import DataContext from '../context/DataContext'
@@ -21,19 +19,6 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
     const {DCUpdate = []} = useContext(DataContext)
 
     const [editing, setEditing] = useState(false)
-
-    const pickerId = entry.pickerId
-    const {getProfile} = useContext(DBContext)
-    const loadFn = useCallback(() => {
-        return getProfile(pickerId)
-    }, [getProfile, pickerId])
-    //const {data = {}, loading, error} = useData({loadFn})
-    const {data = {}} = useData({loadFn})
-    const pickerName = data?.username
-
-    //const pickerName = entry.pickerName
-
-    //const pickerName = 'Picker Name'
 
     const theme = useTheme()
 
@@ -110,7 +95,7 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
                     secondaryTypographyProps={{color: entryColor}}
                     style={{padding: '0px 0px 0px 10px'}}
                 />
-                <div style={divStyle}>{pickerName}</div>
+                <div style={divStyle}>{entry.pickerName}</div>
                 <div style={divStyle}>{entry.totalTimeString}</div>
             </AccordionSummary>
             <AccordionDetails style={{display: 'block', padding: 0}}>

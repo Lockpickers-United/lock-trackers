@@ -12,7 +12,7 @@ const EntryDetails = ({entry, startEdit, entriesUpdate}) => {
     const isUser = (isLoggedIn && entry.pickerId === user.uid)
 
     const videoLinkText = entry.videoUrl.length > 50
-        ? entry.videoUrl.substring(0, 50) + '...'
+        ? entry.videoUrl?.substring(0, 50) + '...'
         : entry.videoUrl
 
     const bestTime = entry.bestTime === 'aN:aN' ? 'pending' : entry.bestTime

@@ -12,30 +12,29 @@ import DBContext from '../app/DBContext'
 import {DataProvider} from '../context/DataProvider.jsx'
 import {ListProvider} from './ListContext.jsx'
 import {FilterProvider} from '../context/FilterContext.jsx'
-
-import speedPickData from './speedPicks.json'
+import {LoadingProvider} from '../context/LoadingContext.jsx'
 
 function SpeedPicksRoute() {
 
     const {lockCollection} = useContext(DBContext)
 
-    const allEntries = speedPickData.data
-
     const nav = (<ModModeCheckbox/>)
 
     return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <FilterProvider filterFields={spFilterFields}>
-                <DataProvider allEntries={allEntries} profile={lockCollection}>
-                    <ListProvider>
+        <LoadingProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <FilterProvider filterFields={spFilterFields}>
+                    <DataProvider profile={lockCollection}>
+                        <ListProvider>
                             <Nav title='Speed Picks' extras={nav}/>
                             <Main/>
                             <Footer/>
                             <Tracker feature='sp'/>
-                    </ListProvider>
-                </DataProvider>
-            </FilterProvider>
-        </LocalizationProvider>
+                        </ListProvider>
+                    </DataProvider>
+                </FilterProvider>
+            </LocalizationProvider>
+        </LoadingProvider>
     )
 }
 

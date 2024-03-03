@@ -1,7 +1,14 @@
 import Button from '@mui/material/Button'
 import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react'
 import {db} from '../auth/firebase'
-import {doc, arrayUnion, arrayRemove, onSnapshot, runTransaction, getDoc, getDocs, collection} from 'firebase/firestore'
+import {
+    doc,
+    onSnapshot,
+    runTransaction,
+    getDoc,
+    getDocs,
+    collection
+} from 'firebase/firestore'
 import AuthContext from './AuthContext'
 import {enqueueSnackbar} from 'notistack'
 import dayjs from 'dayjs'
@@ -14,39 +21,89 @@ export function DBProvider({children}) {
     const [dbLoaded, setDbLoaded] = useState(false)
     const [dbError, setDbError] = useState(null)
 
-    const addToLockCollection = useCallback(async (key, entryId) => {
-        if (dbError) return false
-        const ref = doc(db, 'lockcollections', user.uid)
-        await runTransaction(db, async transaction => {
-            const sfDoc = await transaction.get(ref)
-            if (!sfDoc.exists()) {
-                transaction.set(ref, {
-                    [key]: [entryId]
-                })
-            } else {
-                transaction.update(ref, {
-                    [key]: arrayUnion(entryId)
-                })
-            }
-        })
-    }, [dbError, user])
 
-    const removeFromLockCollection = useCallback(async (key, entryId) => {
+    // SPEED PICK ENTRIES //
+
+    // TODO: Speed Picks Subscription ??
+
+    const [dbEntries, setDbEntries] = useState(null)
+    const getDbEntries = useCallback(async () => {
         if (dbError) return false
-        const ref = doc(db, 'lockcollections', user.uid)
-        await runTransaction(db, async transaction => {
-            const sfDoc = await transaction.get(ref)
-            if (!sfDoc.exists()) {
-                transaction.set(ref, {
-                    [key]: [entryId]
-                })
-            } else {
-                transaction.update(ref, {
-                    [key]: arrayRemove(entryId)
-                })
-            }
+        const entries = []
+        const querySnapshot = await getDocs(collection(db, 'speedPicks'))
+        querySnapshot.forEach((doc) => {
+            //console.log(doc.id, ' => ', doc.data())
+            entries.push(doc.data())
         })
-    }, [dbError, user])
+        setDbEntries(entries)
+        return entries
+    }, [dbError])
+
+    if (!dbEntries) {
+        getDbEntries()
+    } else {
+        //console.log(dbEntries)
+    }
+
+
+    const [dbProfiles, setDbProfiles] = useState(null)
+    const getDbProfiles = useCallback(async () => {
+        if (dbError) return false
+        const profiles = []
+        const querySnapshot2 = await getDocs(collection(db, 'profiles'))
+        querySnapshot2.forEach((doc) => {
+            //const userId = doc.id
+            profiles.push(doc.data())
+        })
+        setDbProfiles(profiles)
+        return profiles
+    }, [dbError])
+
+    if (!dbProfiles) {
+        getDbProfiles()
+    } else {
+        console.log('db', dbProfiles)
+    }
+
+    const dataLoaded = (!!dbEntries && !!dbProfiles)
+
+    const updateEntry = useCallback(async entry => {
+        if (dbError) return false
+        const modified = dayjs().format()
+        const ref = doc(db, 'speedPicks', entry.id)
+        let statusText = ''
+        try {
+            await runTransaction(db, async transaction => {
+                const sfDoc = await transaction.get(ref)
+                const delta = {
+                    id: entry.id,
+                    date: entry.date,
+                    pickerId: entry.pickerId,
+                    lockId: entry.lockId,
+                    startTime: entry.startTime,
+                    openTime: entry.openTime,
+                    videoUrl: entry.videoUrl,
+                    status: entry.status,
+                    created: entry.created,
+                    modified: modified
+                }
+                if (!sfDoc.exists()) {
+                    transaction.set(ref, delta)
+                    statusText = 'Entry Created'
+                } else {
+                    transaction.update(ref, delta)
+                    statusText = 'Entry Updated'
+                }
+            })
+            console.log(statusText)
+            return statusText
+        } catch (e) {
+            console.log('error')
+            console.error(e)
+        }
+    }, [dbError])
+
+    // PROFILE //
 
     const updateProfile = useCallback(async (username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created) => {
         if (dbError) return false
@@ -63,20 +120,6 @@ export function DBProvider({children}) {
         })
     }, [dbError, user])
 
-    const [allProfiles, setAllProfiles] = useState({})
-
-    const getAllProfiles = useCallback(async () => {
-        const profiles = new Map()
-        const querySnapshot = await getDocs(collection(db, 'profiles'))
-        querySnapshot.forEach((doc) => {
-            profiles[doc.id] = doc.data()
-        })
-        setAllProfiles(profiles)
-        return profiles
-    }, [])
-
-    if (!allProfiles) { getAllProfiles()}
-    //console.log(allProfiles)
 
     const getProfile = useCallback(async userId => {
         const ref = doc(db, 'profiles', userId)
@@ -117,25 +160,29 @@ export function DBProvider({children}) {
         }
     }, [authLoaded, isLoggedIn, user])
 
+    // value & provider
     const value = useMemo(() => ({
         dbLoaded,
         lockCollection,
-        addToLockCollection,
-        removeFromLockCollection,
+        dbProfiles,
+        profile,
         getProfile,
         getProfileName,
         updateProfile,
-        profile,
-        allProfiles
-    }), [dbLoaded,
+        updateEntry,
+        dbEntries,
+        dataLoaded
+    }), [
+        dbLoaded,
         lockCollection,
-        addToLockCollection,
-        removeFromLockCollection,
+        dbProfiles,
         getProfile,
         getProfileName,
         updateProfile,
         profile,
-        allProfiles
+        updateEntry,
+        dbEntries,
+        dataLoaded
     ])
 
     return (

@@ -8,6 +8,9 @@
 */
 
 function entryName(entry, nameType = 'short', includeVersion = false) {
+
+    if (!entry) return false
+
     const versionString = includeVersion && entry.version ? ' (' + entry.version + ')' : ''
 
     if (nameType === 'long') {

@@ -17,9 +17,9 @@ import DBContext from '../app/DBContext'
 import Button from '@mui/material/Button'
 
 const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
-    const {bestTimes, getLockFromId, addEntry = []} = useContext(DataContext)
+    const {bestTimes, getLockFromId = []} = useContext(DataContext)
     const {user, isLoggedIn} = useContext(AuthContext)
-    const {profile} = useContext(DBContext)
+    const {profile, updateEntry} = useContext(DBContext)
     const {DCUpdate, isMod = []} = useContext(DataContext)
 
     const safeName = user && isLoggedIn
@@ -30,6 +30,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const [entryId] = useState(entry && entry.id ? entry.id : genHexString(8))
     const [status] = useState(entry ? entry.status : 'pending')
     const [picker, setPicker] = useState(isLoggedIn ? entry?.picker : user?.uid)
+    const [pickerId] = useState(isLoggedIn ? entry?.pickerId : user?.uid)
 
     const pickerName = isLoggedIn ? safeName : '(please log in)'
     const [lockURL, setLockURL] = useState(entry && entry.lockId
@@ -86,23 +87,28 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
         if (isNew) {
             const thisEntry = new Map()
             thisEntry.id = entryId
-            thisEntry.status = status
+            thisEntry.status = 'pending'
             thisEntry.picker = picker
+            thisEntry.pickerId = pickerId
             thisEntry.lockId = lockId
             thisEntry.date = date.format()
             thisEntry.startTime = startTime.format()
             thisEntry.openTime = openTime.format()
             thisEntry.videoUrl = videoUrl
-            addEntry(thisEntry)
+            thisEntry.reviewer = ''
+            thisEntry.created = dayjs().format()
+            updateEntry(thisEntry)
             toggleOpen()
         } else {
             entry.status = isMod ? status : 'pending'
             entry.picker = picker
+            entry.pickerId = pickerId
             entry.lockId = lockId
             entry.date = date.format()
             entry.startTime = startTime.format()
             entry.openTime = openTime.format()
             entry.videoUrl = videoUrl
+            updateEntry(entry)
             toggleOpen()
             endEdit()
         }

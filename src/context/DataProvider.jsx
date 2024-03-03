@@ -9,33 +9,36 @@ import DataContext from './DataContext.jsx'
 import FilterContext from './FilterContext.jsx'
 import fuzzysort from 'fuzzysort'
 import removeAccents from 'remove-accents'
-import DBContext from '../app/DBContext.jsx'
 import AuthContext from '../app/AuthContext.jsx'
+import LoadingContext from './LoadingContext.jsx'
 
-export function DataProvider({children, allEntries}) {
+export function DataProvider({children}) {
 
+    const {user} = useContext(AuthContext)
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sort, image, ...filters} = allFilters
-    const {getProfileName} = useContext(DBContext)
+    const {allEntries, allProfiles} = useContext(LoadingContext)
+
+    console.log('dp: ', allEntries)
+    console.log('dp: ', allProfiles)
 
     const lockBelts = useMemo(() => belts, [])
-
     const lockData = useMemo(() => lockJson, [])
     const bestTimes = useMemo(() => new Map(), [])
 
-
-    const {user} = useContext(AuthContext)
 
     const [modMode, setModMode] = useState(true)
     const isMod = modMode
     const [updated, setUpdated] = useState(0)
 
     const mappedEntries = useMemo(() => {
-        return allEntries.map(entry => {
+       return allEntries.map(entry => {
 
-            //console.log(allProfiles[entry.pickerId])
+           const pickerId = entry.pickerId
 
-            entry.pickerName = getProfileName(entry.pickerId).length ? getProfileName(entry.pickerId) : ''
+            entry.pickerName = allProfiles.find(({userId}) => userId === pickerId)
+                ? allProfiles.find(({userId}) => userId === pickerId).username
+                : ''
 
             const lockId = entry.lockId
             const thisLock = lockData?.find(({id}) => id === lockId)
@@ -60,7 +63,7 @@ export function DataProvider({children, allEntries}) {
 
             return entry
         })
-    }, [allEntries, bestTimes, getProfileName, lockData, updated])
+    }, [allEntries, allProfiles, lockData, bestTimes, updated])
 
     mappedEntries.map(entry => {
         if (entry.totalTime === bestTimes.get(entry.lockId)) {
