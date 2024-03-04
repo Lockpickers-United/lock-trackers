@@ -11,7 +11,7 @@ function Footer({extras}) {
             </a>
             &nbsp;•&nbsp;
             <a href='https://discord.gg/lockpicking' target='_blank' rel='noopener noreferrer'>
-                Discord
+                LPU Discord
             </a>
             &nbsp;•&nbsp;
             <a href='https://www.reddit.com/r/lockpicking/' target='_blank' rel='noopener noreferrer'>

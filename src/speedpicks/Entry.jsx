@@ -78,7 +78,7 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
     const divStyle = {
         margin: '10px 15px 10px 15px',
-        fontSize: '1.1rem',
+        fontSize: '1.0rem',
         color: entryColor,
         fontWeight: entryWeight,
         display: 'flex',
@@ -102,10 +102,10 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
                 <BeltStripe value={entry.belt}/>
                 <ListItemText
                     primary={entry.lock}
-                    primaryTypographyProps={{fontWeight: 600, color: entryColor}}
+                    primaryTypographyProps={{fontWeight: 600, color: entryColor, fontSize:'1.0rem'}}
                     secondary={entry.version}
                     secondaryTypographyProps={{color: entryColor}}
-                    style={{padding: '0px 0px 0px 10px'}}
+                    style={{padding: '4px 0px 4px 10px'}}
                 />
                 <div style={combinedDivStyle}>
                     <div style={divStyle}>{entry.pickerName}</div>
