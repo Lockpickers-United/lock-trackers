@@ -1,11 +1,15 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Typography from '@mui/material/Typography'
 import ToggleBetaButton from './ToggleBetaButton'
 import ToggleColorMode from './ToggleColorMode'
 import ToggleModButton from './ToggleModButton.jsx'
-import ViewProfile from '../profile/ViewProfile.jsx'
+import ImportButton from '../data/ImportButton.jsx'
+import AuthContext from '../app/AuthContext.jsx'
 
 function Footer({extras}) {
+    const {user} = useContext(AuthContext)
+
+
     return (
         <Typography align='center' component='div' style={{marginTop: 16, marginBottom: 80}}>
             <a href='https://lpubelts.com' target='_blank' rel='noopener noreferrer'>
@@ -27,7 +31,10 @@ function Footer({extras}) {
             {extras}
 
             <div>
-                <ToggleBetaButton/><ToggleModButton/><ToggleColorMode/>
+                <ToggleBetaButton/><ToggleModButton/><ToggleColorMode/><br/>
+                {user?.uid === 'ClbjuilBEHgbzO4UZl4y3GStlEz2' &&
+                    <ImportButton/>
+                }
             </div>
         </Typography>
 

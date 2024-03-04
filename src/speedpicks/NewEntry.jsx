@@ -21,6 +21,11 @@ const NewEntry = ({entriesUpdate}) => {
     const noUsername = isLoggedIn && user && !profile?.username
     const editOK = isLoggedIn && profile?.username
 
+    const endEdit = useCallback(() => {
+        //TODO : implement or remove
+        console.log('implement or remove endEdit')
+     }, [])
+
     return (
 
         <Accordion expanded={open} onChange={toggleOpen} style={{maxWidth: 700, marginLeft: 'auto', marginRight: 'auto', marginBottom:10}}>
@@ -40,7 +45,7 @@ const NewEntry = ({entriesUpdate}) => {
                     </React.Fragment>
                 }
                 {noUsername && <EditProfilePage/>}
-                {editOK && <EditEntry entry={null} toggleOpen={toggleOpen} entriesUpdate={entriesUpdate}/>}
+                {editOK && <EditEntry entry={null} toggleOpen={toggleOpen} entriesUpdate={entriesUpdate} endEdit={endEdit}/>}
 
             </AccordionDetails>
         </Accordion>

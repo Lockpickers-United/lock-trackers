@@ -22,9 +22,9 @@ export function LoadingProvider({children}) {
     const skeletonLocks = skeletonData.lock
     const allLocks = jsonLoaded ? data : skeletonLocks
 
-    console.log('lc: ', dbEntries)
-    console.log('lc: ', allEntries)
-    console.log('lc: ', allProfiles)
+    //console.log('lc: ', dbEntries)
+    //console.log('lc: ', allEntries)
+    //console.log('lc: ', allProfiles)
 
     const value = useMemo(() => ({
         allEntries,

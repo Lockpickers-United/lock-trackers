@@ -23,7 +23,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const {DCUpdate, isMod = []} = useContext(DataContext)
 
     const isNew = !entry
-    const [entryId] = useState(entry && entry.id ? entry.id : genHexString(8))
+    const [entryId] = useState(entry && entry.id ? entry.id : 'sp_' + genHexString(8))
     const [status] = useState(entry ? entry.status : 'pending')
     const [pickerId] = useState(entry ? entry?.pickerId : user?.uid)
     const [reviewerId] = useState(user?.uid)
@@ -253,9 +253,14 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
             </div>
 
             <div style={{width: '100%', textAlign: 'right', marginTop:14}}>
-                {!isMod &&
+                {(!isMod && !isNew) &&
                     <div style={{fontSize: '1rem', lineHeight: '1.4rem', marginBottom: 8}}>
                         Note: changed entries must<br/> be re-approved by mods
+                    </div>
+                }
+                {(isNew) &&
+                    <div style={{fontSize: '1rem', lineHeight: '1.4rem', marginBottom: 8}}>
+                        Note: new entries must be approved<br/> by mods before they become visible
                     </div>
                 }
                 <Button variant='text' style={{color: '#999'}} onClick={cancelEdit}>

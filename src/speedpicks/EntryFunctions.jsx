@@ -11,8 +11,6 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
     const {updateEntry} = useContext(DBContext)
     const {user} = useContext(AuthContext)
 
-    //console.log(user)
-
     const {DCUpdate, isMod = []} = useContext(DataContext)
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
