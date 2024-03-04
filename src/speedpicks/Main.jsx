@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import Entries from './Entries.jsx'
 import DBContext from '../app/DBContext.jsx'
 import LoadingDisplay from '../util/LoadingDisplay.jsx'
-
+import EntriesSkeleton from './EntriesSkeleton.jsx'
 function Main() {
 
     const {dataLoaded} = useContext(DBContext)
@@ -10,7 +10,7 @@ function Main() {
     return (
         <React.Fragment>
             {!dataLoaded &&
-                <LoadingDisplay/>
+                <EntriesSkeleton/>
             }
             {dataLoaded &&
                 <Entries/>
