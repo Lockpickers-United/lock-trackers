@@ -30,10 +30,10 @@ function Entries() {
             <SortFilterBar/>
 
 
-            <SkeletonEntry/>
-
+            <SkeletonEntry height={10}/>
+            <div style={{height:10}}/>
             {skeletons.map((i) =>
-                <SkeletonEntry key={i}/>
+                <SkeletonEntry key={i} height={30}/>
             )}
 
             <div style={{height: 40}}/>
