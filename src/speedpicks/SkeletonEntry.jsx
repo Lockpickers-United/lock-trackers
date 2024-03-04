@@ -4,7 +4,7 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import useWindowSize from '../util/useWindowSize.jsx'
 import {Skeleton} from '@mui/material'
 
-const EntrySkeleton = () => {
+const SkeletonEntry = () => {
 
     const style = {maxWidth: 700, marginLeft: 'auto', marginRight: 'auto', placeItems: 'center'}
 
@@ -38,4 +38,4 @@ const EntrySkeleton = () => {
     )
 }
 
-export default EntrySkeleton
+export default SkeletonEntry

@@ -11,7 +11,6 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import JsonDisplay from './JsonDisplay.jsx'
-import EntrySkeleton from './EntrySkeleton.jsx'
 
 function Entries() {
 
@@ -40,7 +39,6 @@ function Entries() {
     const theme = useTheme()
     const background = theme.palette.mode === 'dark' ? '#223' : '#ffffff'
 
-    console.log(entries)
     return (
         <div style={{
             minWidth: '320px', maxWidth: 800, height: '100%',

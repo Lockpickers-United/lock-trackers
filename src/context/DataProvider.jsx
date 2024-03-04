@@ -1,7 +1,5 @@
 import React, {useCallback, useMemo, useState, useContext} from 'react'
-import lockJson from '../data/data.json'
 import belts, {allBelts} from '../data/belts'
-import speedPickData from '../speedpicks/speedPicks.json'
 import entryName from '../util/entryName'
 import formatTime from '../util/formatTime.jsx'
 import dayjs from 'dayjs'
@@ -17,13 +15,14 @@ export function DataProvider({children}) {
     const {user} = useContext(AuthContext)
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sort, image, ...filters} = allFilters
-    const {allEntries, allProfiles} = useContext(LoadingContext)
+    const {allEntries, allProfiles, allLocks} = useContext(LoadingContext)
 
-    console.log('dp: ', allEntries)
-    console.log('dp: ', allProfiles)
+    //console.log('dp: ', allEntries)
+    //console.log('dp: ', allProfiles)
+    //console.log('dp: ', allLocks)
 
     const lockBelts = useMemo(() => belts, [])
-    const lockData = useMemo(() => lockJson, [])
+    const lockData = useMemo(() => allLocks, [allLocks])
     const bestTimes = useMemo(() => new Map(), [])
 
 
@@ -156,17 +155,6 @@ export function DataProvider({children}) {
 
     }, [filters, isMod, mappedEntries, search, sort, user?.uid])
 
-
-    const addEntry = useCallback(entry => {
-        const temp = speedPickData.data.push(entry)
-        console.log(temp)
-    }, [])
-
-    const deleteEntry = useCallback(entry => {
-        entry.status = 'deleted'
-        console.log('deleted ', entry)
-    }, [])
-
     const DCUpdate = useCallback(value => {
         setUpdated(value)
     }, [])
@@ -183,13 +171,11 @@ export function DataProvider({children}) {
         getLockFromId,
         getEntryFromId,
         getNameFromId,
-        addEntry,
         DCUpdate,
         toggleMod,
         isMod,
         allEntries,
         visibleEntries,
-        deleteEntry
     }), [
         lockBelts,
         lockData,
@@ -197,13 +183,11 @@ export function DataProvider({children}) {
         getLockFromId,
         getEntryFromId,
         getNameFromId,
-        addEntry,
         DCUpdate,
         toggleMod,
         isMod,
         allEntries,
         visibleEntries,
-        deleteEntry
     ])
 
     return (

@@ -2,7 +2,7 @@ import React from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
 import SortFilterBar from './SortFilterBar.jsx'
 import {useTheme} from '@mui/material/styles'
-import EntrySkeleton from './EntrySkeleton.jsx'
+import SkeletonEntry from './SkeletonEntry.jsx'
 
 function Entries() {
 
@@ -30,10 +30,10 @@ function Entries() {
             <SortFilterBar/>
 
 
-            <EntrySkeleton/>
+            <SkeletonEntry/>
 
             {skeletons.map((i) =>
-                <EntrySkeleton key={i}/>
+                <SkeletonEntry key={i}/>
             )}
 
             <div style={{height: 40}}/>

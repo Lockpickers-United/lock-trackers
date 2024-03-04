@@ -1,18 +1,17 @@
 import React, {useContext} from 'react'
 import Entries from './Entries.jsx'
-import DBContext from '../app/DBContext.jsx'
-import LoadingDisplay from '../util/LoadingDisplay.jsx'
-import EntriesSkeleton from './EntriesSkeleton.jsx'
+import EntriesSkeleton from './SkeletonEntries.jsx'
+import LoadingContext from '../context/LoadingContext.jsx'
 function Main() {
 
-    const {dataLoaded} = useContext(DBContext)
+    const {allDataLoaded} = useContext(LoadingContext)
 
     return (
         <React.Fragment>
-            {!dataLoaded &&
+            {!allDataLoaded &&
                 <EntriesSkeleton/>
             }
-            {dataLoaded &&
+            {allDataLoaded &&
                 <Entries/>
             }
         </React.Fragment>
