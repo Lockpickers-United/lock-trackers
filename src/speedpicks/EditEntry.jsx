@@ -15,6 +15,7 @@ import belts from '../data/belts'
 import AuthContext from '../app/AuthContext'
 import DBContext from '../app/DBContext'
 import Button from '@mui/material/Button'
+import {DesktopTimePicker} from '@mui/x-date-pickers'
 
 const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const {bestTimes, getLockFromId = []} = useContext(DataContext)
@@ -209,7 +210,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                 <div style={{display: 'flex'}}>
                     <div style={{margin: '10px 1px 0px 0px', fontSize: '0.9rem', lineHeight: '1.4rem'}}>
                         Picking starts<br/>
-                        <TimePicker views={['minutes', 'seconds']}
+                        <DesktopTimePicker views={['minutes', 'seconds']}
                                     view='seconds'
                                     format='mm:ss'
                                     timeSteps={{minutes: 1, seconds: 1}}
