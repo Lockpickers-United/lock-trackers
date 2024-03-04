@@ -3,7 +3,6 @@ import Tracker from '../app/Tracker'
 import Footer from '../nav/Footer'
 import Nav from '../nav/Nav'
 import Main from './Main.jsx'
-import ModModeCheckbox from './ModModeCheckbox.jsx'
 
 import {LocalizationProvider} from '@mui/x-date-pickers'
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'

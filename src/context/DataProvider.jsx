@@ -26,7 +26,7 @@ export function DataProvider({children}) {
     const bestTimes = useMemo(() => new Map(), [])
 
 
-    const [modMode, setModMode] = useState(true)
+    const [modMode, setModMode] = useState(false)
     const isMod = modMode
     const [updated, setUpdated] = useState(0)
 

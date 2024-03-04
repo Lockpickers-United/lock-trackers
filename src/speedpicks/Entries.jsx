@@ -14,7 +14,7 @@ import JsonDisplay from './JsonDisplay.jsx'
 
 function Entries() {
 
-    const {bestTimes, visibleEntries, allEntries = []} = useContext(DataContext)
+    const {bestTimes, visibleEntries, allEntries, isMod = []} = useContext(DataContext)
     const {expanded, setExpanded} = useContext(ListContext)
 
     const [updated, setUpdated] = useState(0)
@@ -62,6 +62,7 @@ function Entries() {
 
             <div style={{height: 40}}/>
 
+            {isMod &&
             <Accordion style={{width: '100%'}}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon/>} style={{fontSize: '1.0rem'}}>
                     SPEEDPICKS DATA
@@ -70,6 +71,7 @@ function Entries() {
                     <JsonDisplay json={allEntries} jsonName={'allEntries (json + calculated)'}/>
                 </AccordionDetails>
             </Accordion>
+            }
 
         </div>
     )
