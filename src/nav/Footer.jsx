@@ -2,6 +2,7 @@ import React from 'react'
 import Typography from '@mui/material/Typography'
 import ToggleBetaButton from './ToggleBetaButton'
 import ToggleColorMode from './ToggleColorMode'
+import ToggleModButton from './ToggleModButton.jsx'
 
 function Footer({extras}) {
     return (
@@ -25,7 +26,7 @@ function Footer({extras}) {
             {extras}
 
             <div>
-                <ToggleBetaButton/><ToggleColorMode/>
+                <ToggleBetaButton/><ToggleModButton/><ToggleColorMode/>
             </div>
         </Typography>
     )

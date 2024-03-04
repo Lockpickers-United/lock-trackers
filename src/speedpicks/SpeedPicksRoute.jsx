@@ -18,7 +18,7 @@ function SpeedPicksRoute() {
 
     const {lockCollection} = useContext(DBContext)
 
-    const nav = (<ModModeCheckbox/>)
+    const nav = null
 
     return (
         <LoadingProvider>

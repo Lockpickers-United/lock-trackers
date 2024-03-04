@@ -2,7 +2,6 @@ import React, {useContext, useState, useCallback, useMemo} from 'react'
 import TextField from '@mui/material/TextField'
 import {ListItemText} from '@mui/material'
 import {DatePicker} from '@mui/x-date-pickers/DatePicker'
-import {TimePicker} from '@mui/x-date-pickers/TimePicker'
 import dayjs from 'dayjs'
 import formatTime from '../util/formatTime.jsx'
 import DataContext from '../context/DataContext'
@@ -221,7 +220,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                     </div>
                     <div style={{margin: '10px 1px 0px 0px', fontSize: '0.9rem', lineHeight: '1.4rem'}}>
                         Lock open<br/>
-                        <TimePicker views={['minutes', 'seconds']}
+                        <DesktopTimePicker views={['minutes', 'seconds']}
                                     view='seconds'
                                     format='mm:ss'
                                     timeSteps={{minutes: 1, seconds: 1}}
