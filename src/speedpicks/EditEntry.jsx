@@ -26,6 +26,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const [entryId] = useState(entry && entry.id ? entry.id : genHexString(8))
     const [status] = useState(entry ? entry.status : 'pending')
     const [pickerId] = useState(entry ? entry?.pickerId : user?.uid)
+    const [reviewerId] = useState(user?.uid)
 
     const pickerName = isLoggedIn ? profile?.username : '(please log in)'
     const [lockURL, setLockURL] = useState(entry && entry.lockId
@@ -89,12 +90,13 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
             thisEntry.startTime = startTime.format()
             thisEntry.openTime = openTime.format()
             thisEntry.videoUrl = videoUrl
-            thisEntry.reviewer = ''
+            thisEntry.reviewerId = ''
             thisEntry.created = dayjs().format()
             updateEntry(thisEntry)
             toggleOpen()
         } else {
             entry.status = isMod ? status : 'pending'
+            entry.reviewerId = isMod ? reviewerId : ''
             entry.pickerId = pickerId
             entry.lockId = lockId
             entry.date = date.format()

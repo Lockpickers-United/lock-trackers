@@ -34,12 +34,16 @@ export function DataProvider({children}) {
        return allEntries.map(entry => {
 
            const pickerId = entry.pickerId
+           entry.pickerName = allProfiles.find(({userId}) => userId === pickerId)
+               ? allProfiles.find(({userId}) => userId === pickerId).username
+               : ''
 
-            entry.pickerName = allProfiles.find(({userId}) => userId === pickerId)
-                ? allProfiles.find(({userId}) => userId === pickerId).username
-                : ''
+           const reviewerId = entry.reviewerId
+           entry.reviewerName = reviewerId && allProfiles.find(({userId}) => userId === reviewerId)
+               ? allProfiles.find(({userId}) => userId === reviewerId).username
+               : 'unknown'
 
-            const lockId = entry?.lockId
+           const lockId = entry?.lockId
             const thisLock = lockData?.find(({id}) => id === lockId)
             entry.lock = entryName(thisLock, 'short')
             entry.version = thisLock?.version

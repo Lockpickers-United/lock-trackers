@@ -86,6 +86,7 @@ export function DBProvider({children}) {
                     videoUrl: entry.videoUrl,
                     status: entry.status,
                     created: entry.created,
+                    reviewerId: entry.reviewerId,
                     modified: modified
                 }
                 if (!sfDoc.exists()) {
