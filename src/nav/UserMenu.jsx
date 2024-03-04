@@ -20,13 +20,14 @@ import {useNavigate} from 'react-router-dom'
 function UserMenu() {
     const navigate = useNavigate()
     const {isLoggedIn, user, logout} = useContext(AuthContext)
-    const {lockCollection} = useContext(DBContext)
+    const {profile} = useContext(DBContext)
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
     const handleOpen = useCallback(event => setAnchorEl(event.currentTarget), [])
     const handleClose = useCallback(() => setAnchorEl(null), [])
-    const safeName = lockCollection.displayName
-        ? lockCollection.displayName.replace(/\s/g, '_')
+
+    const safeName = profile
+        ? profile.username
         : 'Private'
 
     const handleClick = useCallback(url => () => {
@@ -73,12 +74,6 @@ function UserMenu() {
                                 <EditIcon/>
                             </ListItemIcon>
                             <ListItemText>Edit Profile</ListItemText>
-                        </MenuItem>
-                        <MenuItem onClick={handleClick('/profile/edit')}>
-                            <ListItemIcon>
-                                <AccountBoxIcon/>
-                            </ListItemIcon>
-                            <ListItemText>View Profile</ListItemText>
                         </MenuItem>
                         <Divider/>
 

@@ -11,29 +11,24 @@ import DBContext from '../app/DBContext'
 import {DataProvider} from '../context/DataProvider.jsx'
 import {ListProvider} from './ListContext.jsx'
 import {FilterProvider} from '../context/FilterContext.jsx'
-import {LoadingProvider} from '../context/LoadingContext.jsx'
 
 function SpeedPicksRoute() {
-
-    const {lockCollection} = useContext(DBContext)
-
+    
     const nav = null
 
     return (
-        <LoadingProvider>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <FilterProvider filterFields={spFilterFields}>
-                    <DataProvider profile={lockCollection}>
-                        <ListProvider>
-                            <Nav title='Speed Picks' extras={nav}/>
-                            <Main/>
-                            <Footer/>
-                            <Tracker feature='sp'/>
-                        </ListProvider>
-                    </DataProvider>
-                </FilterProvider>
-            </LocalizationProvider>
-        </LoadingProvider>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <FilterProvider filterFields={spFilterFields}>
+                <DataProvider>
+                    <ListProvider>
+                        <Nav title='Speed Picks' extras={nav}/>
+                        <Main/>
+                        <Footer/>
+                        <Tracker feature='sp'/>
+                    </ListProvider>
+                </DataProvider>
+            </FilterProvider>
+        </LocalizationProvider>
     )
 }
 

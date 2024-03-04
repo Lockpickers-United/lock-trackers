@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography'
 import ToggleBetaButton from './ToggleBetaButton'
 import ToggleColorMode from './ToggleColorMode'
 import ToggleModButton from './ToggleModButton.jsx'
+import ViewProfile from '../profile/ViewProfile.jsx'
 
 function Footer({extras}) {
     return (
@@ -29,6 +30,8 @@ function Footer({extras}) {
                 <ToggleBetaButton/><ToggleModButton/><ToggleColorMode/>
             </div>
         </Typography>
+
+
     )
 }
 

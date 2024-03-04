@@ -11,11 +11,13 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import JsonDisplay from './JsonDisplay.jsx'
+import AppContext from '../app/AppContext.jsx'
 
 function Entries() {
 
     const {bestTimes, visibleEntries, allEntries, isMod = []} = useContext(DataContext)
     const {expanded, setExpanded} = useContext(ListContext)
+    const {beta} = useContext(AppContext)
 
     const [updated, setUpdated] = useState(0)
     const entriesUpdate = useCallback(value => {
@@ -60,19 +62,20 @@ function Entries() {
                 />
             )}
 
-            <div style={{height: 40}}/>
 
-            {isMod &&
-            <Accordion style={{width: '100%'}}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon/>} style={{fontSize: '1.0rem'}}>
-                    SPEEDPICKS DATA
-                </AccordionSummary>
-                <AccordionDetails>
-                    <JsonDisplay json={allEntries} jsonName={'allEntries (json + calculated)'}/>
-                </AccordionDetails>
-            </Accordion>
+            {beta &&
+                <div>
+                    <div style={{height: 40}}/>
+                    <Accordion style={{width: '100%'}}>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon/>} style={{fontSize: '1.0rem'}}>
+                            SPEEDPICKS DATA
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <JsonDisplay json={allEntries} jsonName={'allEntries (json + calculated)'}/>
+                        </AccordionDetails>
+                    </Accordion>
+                </div>
             }
-
         </div>
     )
 }

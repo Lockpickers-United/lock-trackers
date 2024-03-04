@@ -12,8 +12,10 @@ const EntryDetails = ({entry, startEdit, entriesUpdate}) => {
     const {user, isLoggedIn} = useContext(AuthContext)
     const isUser = (isLoggedIn && entry.pickerId === user.uid)
 
+    const lockLink = 'https://lpubelts.com/#/locks?id=' + entry.lockId
+
     const videoLinkText = entry.videoUrl.length > 50
-        ? entry.videoUrl?.substring(0, 50) + '...'
+        ? entry.videoUrl?.substring(0, 65) + '...'
         : entry.videoUrl
 
     const bestTime = entry.bestTime === 'aN:aN' ? 'pending' : entry.bestTime
@@ -33,8 +35,21 @@ const EntryDetails = ({entry, startEdit, entriesUpdate}) => {
 
     return (
         <React.Fragment>
-            <div style={{textOverflow: 'ellipsis', margin: '0px 0px 10px 28px', fontSize: '1rem',lineHeight: '1.3rem'}}>
-                <a href={entry.videoUrl} target='_blank' rel='noreferrer'>{videoLinkText}</a>
+            <div style={{
+                textOverflow: 'ellipsis',
+                margin: '15px 0px 6px 28px',
+                fontSize: '1rem',
+                lineHeight: '1.3rem'
+            }}>
+                lock: <a href={lockLink} target='_blank' rel='noreferrer'>{lockLink}</a><br/>
+            </div>
+            <div style={{
+                textOverflow: 'ellipsis',
+                margin: '0px 0px 10px 28px',
+                fontSize: '1rem',
+                lineHeight: '1.3rem'
+            }}>
+                video: <a href={entry.videoUrl} target='_blank' rel='noreferrer'>{videoLinkText}</a>
             </div>
             <div style={combinedDivStyle}>
                 <div style={{}}>

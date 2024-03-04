@@ -13,27 +13,11 @@ import {uniqueBelts} from '../data/belts'
 import countries from '../data/countries.json'
 import {FormControl, InputLabel, Select} from '@mui/material'
 import MenuItem from '@mui/material/MenuItem'
+import ViewProfile from './ViewProfile.jsx'
 
 function EditProfilePage() {
 
     const {updateProfile, profile} = useContext(DBContext)
-
-    //const profile = user?.uid ? getProfile(user.uid) : null
-    //     const profile = useCallback(async () => {
-    //         return await getProfile(user.uid)
-    //     }, [getProfile, user.uid])
-
-    //    const {user} = useContext(AuthContext)
-    //     const loadFn = user
-    //         ? useCallback(() => {
-    //             return getProfile(user?.uid)
-    //         }, [getProfile, user?.uid])
-    //         : null
-    //     const {data = {}} = useData({loadFn})
-    //     const profile = data
-
-    //console.log(profile)
-    //console.log(`username: ${profile?.username}`)
 
     const [created] = useState(profile?.created || dayjs().format())
     const [username, setUsername] = useState(profile?.username || '')

@@ -39,13 +39,13 @@ export function DataProvider({children}) {
                 ? allProfiles.find(({userId}) => userId === pickerId).username
                 : ''
 
-            const lockId = entry.lockId
+            const lockId = entry?.lockId
             const thisLock = lockData?.find(({id}) => id === lockId)
             entry.lock = entryName(thisLock, 'short')
-            entry.version = thisLock.version
+            entry.version = thisLock?.version
 
-            entry.belt = thisLock.belt
-            entry.beltIndex = allBelts.indexOf(thisLock.belt)
+            entry.belt = thisLock?.belt
+            entry.beltIndex = allBelts.indexOf(thisLock?.belt)
 
             const totalTime = (dayjs(entry.openTime) - dayjs(entry.startTime)) / 1000
             entry.totalTime = totalTime
