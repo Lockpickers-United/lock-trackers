@@ -33,7 +33,6 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
         : isBestTime ? 600 : 400
 
     const [scrolled, setScrolled] = useState(false)
-    const style = {maxWidth: 700, marginLeft: 'auto', marginRight: 'auto'}
     const ref = useRef(null)
 
     const [openTEMP, setOpenTEMP] = useState(false)
@@ -75,6 +74,8 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
             setScrolled(false)
         }
     }, [expanded, entry, scrolled])
+
+    const style = {maxWidth: 700, marginLeft: 'auto', marginRight: 'auto', borderBottom:'1px solid #444' }
 
     const divStyle = {
         margin: '10px 15px 10px 15px',

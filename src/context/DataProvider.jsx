@@ -30,26 +30,36 @@ export function DataProvider({children}) {
     const isMod = modMode
     const [updated, setUpdated] = useState(0)
 
+
     const mappedEntries = useMemo(() => {
-       return allEntries.map(entry => {
+        return allEntries.map(entry => {
 
-           const pickerId = entry.pickerId
-           entry.pickerName = allProfiles.find(({userId}) => userId === pickerId)
-               ? allProfiles.find(({userId}) => userId === pickerId).username
-               : ''
-
-           const reviewerId = entry.reviewerId
-           entry.reviewerName = reviewerId && allProfiles.find(({userId}) => userId === reviewerId)
-               ? allProfiles.find(({userId}) => userId === reviewerId).username
-               : 'unknown'
-
-           const lockId = entry?.lockId
+            const lockId = entry?.lockId
             const thisLock = lockData?.find(({id}) => id === lockId)
-            entry.lock = entryName(thisLock, 'short')
-            entry.version = thisLock?.version
 
-            entry.belt = thisLock?.belt
-            entry.beltIndex = allBelts.indexOf(thisLock?.belt)
+            if (!thisLock) {
+                entry.lock = 'Unknown Lock'
+                entry.version = 'Lock ID not valid'
+                entry.belt = 'Unknown'
+                entry.beltIndex = 9
+                entry.status = 'Pending'
+            } else {
+                entry.lock = entryName(thisLock, 'short')
+                entry.version = thisLock?.version
+                entry.belt = thisLock?.belt
+                entry.beltIndex = allBelts.indexOf(thisLock?.belt)
+            }
+
+            const pickerId = entry.pickerId
+            entry.pickerName = allProfiles.find(({userId}) => userId === pickerId)
+                ? allProfiles.find(({userId}) => userId === pickerId).username
+                : ''
+
+            const reviewerId = entry.reviewerId
+            entry.reviewerName = reviewerId && allProfiles.find(({userId}) => userId === reviewerId)
+                ? allProfiles.find(({userId}) => userId === reviewerId).username
+                : 'unknown'
+
 
             const totalTime = (dayjs(entry.openTime) - dayjs(entry.startTime)) / 1000
             entry.totalTime = totalTime
@@ -179,7 +189,7 @@ export function DataProvider({children}) {
         toggleMod,
         isMod,
         allEntries,
-        visibleEntries,
+        visibleEntries
     }), [
         lockBelts,
         lockData,
@@ -191,7 +201,7 @@ export function DataProvider({children}) {
         toggleMod,
         isMod,
         allEntries,
-        visibleEntries,
+        visibleEntries
     ])
 
     return (

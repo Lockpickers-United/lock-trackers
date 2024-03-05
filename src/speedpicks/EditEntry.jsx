@@ -44,7 +44,9 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
         const thisId = lockRegex.test(value)
             ? value.match(lockRegex)[1]
             : ''
-        setLock(getLockFromId(thisId))
+        const thisLock = getLockFromId(thisId)
+        console.log(lock, thisLock)
+        setLock(thisLock ? thisLock : null)
         setLockId(thisId)
 
     }, [getLockFromId, lockRegex])
@@ -65,9 +67,9 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const timeError = (openTime - startTime) < 0
     const timeHelperText = timeError ? 'Total time must be positive' : ''
 
-    const lockURLError = !!lockURL && !lockRegex.test(lockURL)
-    const lockURLHelperText = lockURLError ? 'Unable to find lock ID in URL' : 'paste lpubelts.com URL here to set lock'
-    const lockURLValid = isValidHttpUrl(lockURL)
+    const lockURLError = !!lockURL && (!lockRegex.test(lockURL) || !lock)
+    const lockURLHelperText = lockURLError ? 'Unable to find valid lock ID in URL' : 'paste lpubelts.com URL here to set lock'
+    const lockURLValid = isValidHttpUrl(lockURL) && lock
     const lockLaunchColor = lockURLValid ? '#fff' : '#666'
 
     const videoUrlError = !!videoUrl && !isValidHttpUrl(videoUrl)

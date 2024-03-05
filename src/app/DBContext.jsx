@@ -137,7 +137,7 @@ export function DBProvider({children}) {
 
     const [profile, setProfile] = useState({})
 
-    // Lock Collection Subscription
+    // Profile Subscription
     useEffect(() => {
         if (isLoggedIn) {
             const ref = doc(db, 'profiles', user.uid)
