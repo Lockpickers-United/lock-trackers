@@ -25,9 +25,6 @@ export function DBProvider({children}) {
 
     // SPEED PICK ENTRIES //
 
-    // TODO: Speed Picks Subscription ??
-
-    const [dbEntries, setDbEntries] = useState(null)
     const getDbEntries = useCallback(async () => {
         if (dbError) return false
         const entries = []
@@ -36,18 +33,9 @@ export function DBProvider({children}) {
             //console.log(doc.id, ' => ', doc.data())
             entries.push(doc.data())
         })
-        setDbEntries(entries)
         return entries
     }, [dbError])
 
-    if (!dbEntries) {
-        getDbEntries()
-    } else {
-        //console.log(dbEntries)
-    }
-
-
-    const [dbProfiles, setDbProfiles] = useState(null)
     const getDbProfiles = useCallback(async () => {
         if (dbError) return false
         const profiles = []
@@ -56,17 +44,8 @@ export function DBProvider({children}) {
             //const userId = doc.id
             profiles.push(doc.data())
         })
-        setDbProfiles(profiles)
         return profiles
     }, [dbError])
-
-    if (!dbProfiles) {
-        getDbProfiles()
-    } else {
-        console.log('db', dbProfiles)
-    }
-
-    const dataLoaded = (!!dbEntries && !!dbProfiles)
 
     const updateEntry = useCallback(async entry => {
         console.log('entry', entry)
@@ -167,25 +146,23 @@ export function DBProvider({children}) {
     const value = useMemo(() => ({
         dbLoaded,
         lockCollection,
-        dbProfiles,
         profile,
         getProfile,
         getProfileName,
         updateProfile,
         updateEntry,
-        dbEntries,
-        dataLoaded
+        getDbEntries,
+        getDbProfiles
     }), [
         dbLoaded,
         lockCollection,
-        dbProfiles,
         getProfile,
         getProfileName,
         updateProfile,
         profile,
         updateEntry,
-        dbEntries,
-        dataLoaded
+        getDbEntries,
+        getDbProfiles
     ])
 
     return (
