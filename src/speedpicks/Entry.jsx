@@ -106,7 +106,7 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
                     primaryTypographyProps={{fontWeight: 600, color: entryColor, fontSize:'1.0rem'}}
                     secondary={entry.version}
                     secondaryTypographyProps={{color: entryColor}}
-                    style={{padding: '4px 0px 4px 10px'}}
+                    style={{padding: '8px 0px 8px 10px'}}
                 />
                 <div style={combinedDivStyle}>
                     <div style={divStyle}>{entry.pickerName}</div>

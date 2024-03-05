@@ -10,7 +10,7 @@ import TopNav from './TopNav.jsx'
 function Nav({extras}) {
     return (
         <React.Fragment>
-            <AppBar position='fixed' sx={{boxShadow: 'none'}}>
+            <AppBar position='fixed' sx={{boxShadow: 'none', backgroundColor:'#0b0017'}}>
                 <Toolbar>
                     <MainMenu/>
 

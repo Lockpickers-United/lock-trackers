@@ -13,12 +13,12 @@ import {uniqueBelts} from '../data/belts'
 import countries from '../data/countries.json'
 import {FormControl, InputLabel, Select} from '@mui/material'
 import MenuItem from '@mui/material/MenuItem'
-import ViewProfile from './ViewProfile.jsx'
+import LoadingContext from '../context/LoadingContext.jsx'
 
 function EditProfilePage() {
 
+    const {refreshData} = useContext(LoadingContext)
     const {updateProfile, profile} = useContext(DBContext)
-
     const [created] = useState(profile?.created || dayjs().format())
     const [username, setUsername] = useState(profile?.username || '')
     const [discordUsername, setDiscordUsername] = useState(profile?.discordUsername || '')
@@ -67,7 +67,7 @@ function EditProfilePage() {
         try {
             await updateProfile(username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created)
             enqueueSnackbar('Updated profile.')
-            //navigate('/profile/edit')
+            refreshData()
         } catch (ex) {
             console.error('Error while updating profile', ex)
             enqueueSnackbar('Error while updating profile.')

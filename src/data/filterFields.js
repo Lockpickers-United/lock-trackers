@@ -10,7 +10,7 @@ export const lockFilterFields = [
 ]
 
 export const spFilterFields = [
-    {label: 'Make', fieldName: 'makes'},
+    {label: 'Picker ID', fieldName: 'pickerId'},
     {label: 'Approved', fieldName: 'approved'},
     {label: 'Belt', fieldName: 'belt', sort: beltSort}
 ]

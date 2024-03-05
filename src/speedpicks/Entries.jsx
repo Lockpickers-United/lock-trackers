@@ -13,13 +13,17 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import JsonDisplay from './JsonDisplay.jsx'
 import AppContext from '../app/AppContext.jsx'
 import ViewProfileInline from '../profile/ViewProfileInline.jsx'
+import FilterContext from '../context/FilterContext.jsx'
+import NoEntriesCard from './NoEntriesCard.jsx'
 
 function Entries() {
 
-    const {bestTimes, visibleEntries, allEntries, isMod = []} = useContext(DataContext)
+    const {bestTimes, visibleEntries, allEntries = []} = useContext(DataContext)
     const {expanded, setExpanded} = useContext(ListContext)
+    const {filters} = useContext(FilterContext)
     const {beta} = useContext(AppContext)
 
+    const [view, setView] = useState('all')
     const [updated, setUpdated] = useState(0)
     const entriesUpdate = useCallback(value => {
         setUpdated(value)
@@ -49,9 +53,11 @@ function Entries() {
             marginLeft: 'auto', marginRight: 'auto',
             fontSize: '1.5rem', lineHeight: 0.8
         }}>
-            <SortFilterBar/>
+            <SortFilterBar view={view} setView={setView}/>
 
-            <ViewProfileInline/>
+            {filters.pickerId &&
+                <ViewProfileInline/>
+            }
             <NewEntry entriesUpdate={entriesUpdate}/>
 
             {entries.map((entry) =>
@@ -64,7 +70,9 @@ function Entries() {
                 />
             )}
 
-
+            {entries?.length === 0 &&
+            <NoEntriesCard view={view} setView={setView}/>
+            }
             {beta &&
                 <div>
                     <div style={{height: 40}}/>

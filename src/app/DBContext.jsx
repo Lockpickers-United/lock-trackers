@@ -7,8 +7,7 @@ import {
     runTransaction,
     getDoc,
     getDocs,
-    collection,
-    writeBatch
+    collection
 } from 'firebase/firestore'
 import AuthContext from './AuthContext'
 import {enqueueSnackbar} from 'notistack'
@@ -41,8 +40,10 @@ export function DBProvider({children}) {
         const profiles = []
         const querySnapshot2 = await getDocs(collection(db, 'profiles'))
         querySnapshot2.forEach((doc) => {
-            //const userId = doc.id
-            profiles.push(doc.data())
+            const profile = doc.data()
+            console.log(doc.data())
+            profile.userId = doc.id
+            profiles.push(profile)
         })
         return profiles
     }, [dbError])
@@ -101,7 +102,6 @@ export function DBProvider({children}) {
             }
         })
     }, [dbError, user])
-
 
     const getProfile = useCallback(async userId => {
         const ref = doc(db, 'profiles', userId)

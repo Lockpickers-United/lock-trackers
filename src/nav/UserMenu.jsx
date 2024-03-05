@@ -20,6 +20,7 @@ function UserMenu() {
     const navigate = useNavigate()
     const {isLoggedIn, user, logout} = useContext(AuthContext)
     const {profile} = useContext(DBContext)
+
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
     const handleOpen = useCallback(event => setAnchorEl(event.currentTarget), [])
@@ -68,6 +69,14 @@ function UserMenu() {
                             </ListItemIcon>
                             <ListItemText>{safeName}</ListItemText>
                         </MenuItem>
+                        {profile &&
+                            <MenuItem onClick={handleClick(`/speedpicks?pickerId=${user.uid}`)}>
+                                <ListItemIcon>
+                                    <EditIcon/>
+                                </ListItemIcon>
+                                <ListItemText>View Profile</ListItemText>
+                            </MenuItem>
+                        }
                         <MenuItem onClick={handleClick('/profile/edit')}>
                             <ListItemIcon>
                                 <EditIcon/>
@@ -75,7 +84,6 @@ function UserMenu() {
                             <ListItemText>Edit Profile</ListItemText>
                         </MenuItem>
                         <Divider/>
-
                         <MenuItem onClick={handleLogout}>
                             <ListItemIcon>
                                 <LogoutIcon fontSize='small'/>

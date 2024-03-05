@@ -1,27 +1,32 @@
-import React, {useContext, useMemo, useState} from 'react'
+import React, {useContext, useMemo} from 'react'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
-import DBContext from '../app/DBContext'
 import FieldValue from '../util/FieldValue.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
+import FilterContext from '../context/FilterContext.jsx'
+import DataContext from '../context/DataContext.jsx'
 
+// http://localhost:3000/#/speedpicks?pickerId=ClbjuilBEHgbzO4UZl4y3GStlEz2
 
-function ViewProfileInline({viewProfile}) {
+function ViewProfileInline() {
 
-    const {profile} = useContext(DBContext)
-    const profileNameRegex = useMemo(() => /name=(\w*)/, [])
+    const {filters} = useContext(FilterContext)
+    const {getProfileFromId} = useContext(DataContext)
 
-    const fieldValueStyle = {margin: '15px 30px 0px 0px', fontSize: '1rem', lineHeight: '1.1rem'}
+    const profile = getProfileFromId(filters.pickerId)
+    const profileName = profile?.username ? profile?.username : 'No matching profile.'
+    const profileURLRegex = useMemo(() => /name=(\w*)/, [])
 
     const {width} = useWindowSize()
     const breakSize = width <= 500
 
-    const profileLink = profile ? profile?.LPUBeltsProfile : 'https://lpubelts.com/#/profile/GGplAdctTfVDLVvYsfIADJmfp8f2?name=mgsecure'
+    const profileLink = profile ? profile?.LPUBeltsProfile : ''
     const profileLinkText = !breakSize
         ? profile?.LPUBeltsProfile
-        : 'lpubelts.com/#/profile ... ' + profileNameRegex.exec(profileLink)[1]
+        : 'lpubelts.com/#/profile ... ' + profileURLRegex.exec(profileLink)[1]
 
+    const fieldValueStyle = {margin: '15px 30px 0px 0px', fontSize: '1rem', lineHeight: '1.1rem'}
 
     const divFlexStyle = !breakSize ? {display: 'flex'} : {}
 
@@ -33,22 +38,38 @@ function ViewProfileInline({viewProfile}) {
             marginTop: 26,
             marginBottom: 16
         }}>
-            <CardHeader title={profile?.username} action={null} style={{paddingBottom: 0}}/>
+            <CardHeader title={profileName} action={null} style={{paddingBottom: 0}}/>
             <CardContent>
-                <div style={divFlexStyle}>
+                {(profile?.belt || profile?.LPUBeltsProfile || profile?.discordUsername || profile?.redditUsername ) &&
+                    <div style={divFlexStyle}>
                     <div style={{display: 'flex'}}>
-                        <FieldValue name='Belt' value={profile?.belt} style={fieldValueStyle}/>
-                        <FieldValue name='Discord&nbsp;Username' value={profile?.discordUsername} style={fieldValueStyle}/>
+                        {profile?.belt &&
+                            <FieldValue name='Belt' value={profile?.belt} style={fieldValueStyle}/>
+                        }
+                        {profile?.discordUsername &&
+                            <FieldValue name='Discord&nbsp;Username' value={profile?.discordUsername}
+                                        style={fieldValueStyle}/>
+                        }
                     </div>
                     <div style={{display: 'flex'}}>
-                        <FieldValue name='Reddit&nbsp;Username' value={profile?.redditUsername} style={fieldValueStyle}/>
-                        <FieldValue name='Country' value={profile?.country} style={fieldValueStyle}/>
+                        {profile?.redditUsername &&
+                            <FieldValue name='Reddit&nbsp;Username' value={profile?.redditUsername}
+                                        style={fieldValueStyle}/>
+                        }
+                        {profile?.country &&
+                            <FieldValue name='Country' value={profile?.country} style={fieldValueStyle}/>
+                        }
                     </div>
                 </div>
-                <FieldValue name='LPUbelts Profile' value={null} style={fieldValueStyle}/>
-                <div style={{margin: '5px 0px 0px 4px', width: '95%', fontSize: '1rem', lineHeight:'1.2rem'}}>
-                    <a href={profile?.LPUBeltsProfile} target='_blank' rel='noreferrer'>{profileLinkText}</a>
-                </div>
+                }
+                {profile?.LPUBeltsProfile &&
+                    <div>
+                        <FieldValue name='LPUbelts Profile' value={null} style={fieldValueStyle}/>
+                        <div style={{margin: '5px 0px 0px 4px', width: '95%', fontSize: '1rem', lineHeight: '1.2rem'}}>
+                            <a href={profile?.LPUBeltsProfile} target='_blank' rel='noreferrer'>{profileLinkText}</a>
+                        </div>
+                    </div>
+                }
             </CardContent>
         </Card>
     )

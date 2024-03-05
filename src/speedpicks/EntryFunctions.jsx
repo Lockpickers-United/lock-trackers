@@ -5,11 +5,13 @@ import Menu from '@mui/material/Menu'
 import DBContext from '../app/DBContext.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 import AuthContext from '../app/AuthContext.jsx'
+import LoadingContext from '../context/LoadingContext.jsx'
 
 const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
 
     const {updateEntry} = useContext(DBContext)
     const {user} = useContext(AuthContext)
+    const {refreshData} = useContext(LoadingContext)
 
     const {DCUpdate, isMod = []} = useContext(DataContext)
     const [anchorEl, setAnchorEl] = useState(null)
@@ -22,18 +24,20 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
         entry.status = entry.status === 'approved' ? 'pending' : 'approved'
         entry.reviewerId = user?.uid
         updateEntry(entry)
+        setTimeout(() => refreshData(), 500)
         DCUpdate(Math.random())
         entriesUpdate(Math.random())
-    }, [DCUpdate, entriesUpdate, entry, updateEntry, user?.uid])
+    }, [DCUpdate, entriesUpdate, entry, refreshData, updateEntry, user?.uid])
 
     const deleteEntry = useCallback(() => {
         entry.status = 'deleted'
         console.log('status', entry.status)
         entry.reviewerId = user?.uid
         updateEntry(entry)
+        setTimeout(() => refreshData(), 500)
         DCUpdate(Math.random())
         entriesUpdate(Math.random())
-    }, [DCUpdate, entriesUpdate, entry, updateEntry, user?.uid])
+    }, [DCUpdate, entriesUpdate, entry, refreshData, updateEntry, user?.uid])
 
     const {width} = useWindowSize()
     const mobileLarge428 = width <= 428

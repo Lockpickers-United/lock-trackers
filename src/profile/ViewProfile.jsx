@@ -1,4 +1,4 @@
-import React, {useContext, useMemo, useState} from 'react'
+import React, {useContext, useMemo} from 'react'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
@@ -25,9 +25,11 @@ function ViewProfile({viewProfile}) {
     const handleClose = () => {
         setOpen(false)
     }
+    /*
     const handleOpen = () => {
         setOpen(true)
     }
+     */
 
     return (
         <Backdrop

@@ -15,12 +15,14 @@ import AuthContext from '../app/AuthContext'
 import DBContext from '../app/DBContext'
 import Button from '@mui/material/Button'
 import {DesktopTimePicker} from '@mui/x-date-pickers'
+import LoadingContext from '../context/LoadingContext.jsx'
 
 const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const {bestTimes, getLockFromId = []} = useContext(DataContext)
     const {user, isLoggedIn} = useContext(AuthContext)
     const {profile, updateEntry} = useContext(DBContext)
     const {DCUpdate, isMod = []} = useContext(DataContext)
+    const {refreshData} = useContext(LoadingContext)
 
     const isNew = !entry
     const [entryId] = useState(entry && entry.id ? entry.id : 'sp_' + genHexString(8))
@@ -48,8 +50,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
         console.log(lock, thisLock)
         setLock(thisLock ? thisLock : null)
         setLockId(thisId)
-
-    }, [getLockFromId, lockRegex])
+    }, [getLockFromId, lock, lockRegex])
     const {color: backgroundColor} = belts[lockBelt] || {}
     const beltStyle = {
         width: 8,
@@ -95,6 +96,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
             thisEntry.reviewerId = ''
             thisEntry.created = dayjs().format()
             updateEntry(thisEntry)
+            setTimeout(() => refreshData(), 500)
             toggleOpen()
         } else {
             entry.status = isMod ? status : 'pending'
@@ -106,6 +108,9 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
             entry.openTime = openTime.format()
             entry.videoUrl = videoUrl
             updateEntry(entry)
+            //refreshData()
+            setTimeout(() => refreshData(), 500)
+
             toggleOpen()
             endEdit()
         }

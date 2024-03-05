@@ -94,6 +94,10 @@ export function DataProvider({children}) {
         return allEntries?.find(({id}) => id === entryId)
     }, [allEntries])
 
+    const getProfileFromId = useCallback(profileId => {
+        return allProfiles?.find(({userId}) => userId === profileId)
+    }, [allProfiles])
+
     const getNameFromId = useCallback(id => {
         const entry = getEntryFromId(id)
         const lock = getLockFromId(entry.lockId)
@@ -185,6 +189,7 @@ export function DataProvider({children}) {
         getLockFromId,
         getEntryFromId,
         getNameFromId,
+        getProfileFromId,
         DCUpdate,
         toggleMod,
         isMod,
@@ -197,6 +202,7 @@ export function DataProvider({children}) {
         getLockFromId,
         getEntryFromId,
         getNameFromId,
+        getProfileFromId,
         DCUpdate,
         toggleMod,
         isMod,

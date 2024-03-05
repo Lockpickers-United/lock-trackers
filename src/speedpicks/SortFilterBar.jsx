@@ -4,13 +4,12 @@ import FilterContext from '../context/FilterContext'
 import DataContext from '../context/DataContext.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 
-function SortFilterBar() {
+function SortFilterBar({view, setView}) {
 
     const {isMod = []} = useContext(DataContext)
 
     const {filters, addFilter, clearFilters, setFilters} = useContext(FilterContext)
     const {sort} = filters
-    const [view, setView] = useState('all')
     const [dateSort, setDateSort] = useState('')
 
     const dateSortText = sort === 'dateAsc'
@@ -44,7 +43,7 @@ function SortFilterBar() {
             setFilters({isBest: value})
         }
         window.scrollTo({top: 0, behavior: 'smooth'})
-    }, [setFilters])
+    }, [setFilters, setView])
 
     const handleFilter = useCallback(event => {
         event.preventDefault()
@@ -53,14 +52,14 @@ function SortFilterBar() {
         setFilters({status: value})
         setView(value)
         window.scrollTo({top: 0, behavior: 'smooth'})
-    }, [setFilters])
+    }, [setFilters, setView])
 
     const handleClear = useCallback(event => {
         event.preventDefault()
         event.stopPropagation()
         clearFilters()
         setView('all')
-    }, [clearFilters])
+    }, [clearFilters, setView])
 
 
     const {width} = useWindowSize()
@@ -76,10 +75,9 @@ function SortFilterBar() {
     }
 
 
-
     return (
         <div style={combinedDivStyle}>
-            <div style={{textAlign: 'left', marginTop:10}}>
+            <div style={{textAlign: 'left', marginTop: 10}}>
                 <span style={{fontSize: '.7rem', marginRight: 5}}>SORT</span>
                 <ToggleButtonGroup style={{height: 26}}>
                     <ToggleButton selected={sort === 'lock' || !sort} style={{padding: 7}} value={'lock'}
@@ -88,25 +86,40 @@ function SortFilterBar() {
                                   onClick={handleSort('belt')}>Belt</ToggleButton>
                     <ToggleButton selected={sort === 'picker'} style={{padding: 7}} value={'picker'}
                                   onClick={handleSort('picker')}>Picker</ToggleButton>
-                    <ToggleButton selected={sort === 'dateAsc' || sort === 'dateDesc'} style={{padding: 7}} value={'date'}
+                    <ToggleButton selected={sort === 'dateAsc' || sort === 'dateDesc'} style={{padding: 7}}
+                                  value={'date'}
                                   onClick={handleDateSort(dateSort)}>{dateSortText}</ToggleButton>
                 </ToggleButtonGroup>
             </div>
-            <div style={{
-                textAlign: 'right', flexGrow: 1, marginTop:10
-            }}>
-                <span style={{fontSize: '.7rem', marginRight: 5}}>FILTER</span>
-                <ToggleButtonGroup style={{height: 26}}>
-                    <ToggleButton selected={view === 'all'} style={{padding: 7}} value={'all'}
-                                  onClick={handleClear}>All</ToggleButton>
-                    <ToggleButton selected={view === 'isBest'} style={{padding: 7}} value={['isBest', 'true']}
-                                  onClick={handleFilterFieldValue}>Fastest</ToggleButton>
-                    {isMod && <ToggleButton selected={view === 'approved'} style={{padding: 7}} value={'approved'}
-                                            onClick={handleFilter}>Approved</ToggleButton>}
-                    {isMod && <ToggleButton selected={view === 'pending'} style={{padding: 7}} value={'pending'}
-                                            onClick={handleFilter}>Pending</ToggleButton>}
-                </ToggleButtonGroup>
-            </div>
+            {!filters.pickerId &&
+                <div style={{
+                    textAlign: 'right', flexGrow: 1, marginTop: 10
+                }}>
+                    <span style={{fontSize: '.7rem', marginRight: 5}}>FILTER</span>
+                    <ToggleButtonGroup style={{height: 26}}>
+                        <ToggleButton selected={view === 'all'} style={{padding: 7}} value={'all'}
+                                      onClick={handleClear}>All</ToggleButton>
+                        <ToggleButton selected={view === 'isBest'} style={{padding: 7}} value={['isBest', 'true']}
+                                      onClick={handleFilterFieldValue}>Fastest</ToggleButton>
+                        {isMod && <ToggleButton selected={view === 'approved'} style={{padding: 7}} value={'approved'}
+                                                onClick={handleFilter}>Approved</ToggleButton>}
+                        {isMod && <ToggleButton selected={view === 'pending'} style={{padding: 7}} value={'pending'}
+                                                onClick={handleFilter}>Pending</ToggleButton>}
+                    </ToggleButtonGroup>
+                </div>
+            }
+
+            {filters.pickerId &&
+                <div style={{
+                    textAlign: 'right', flexGrow: 1, marginTop: 10
+                }}>
+                    <ToggleButtonGroup style={{height: 26}}>
+                        <ToggleButton selected={view === 'all'} style={{padding: 7}} value={'all'}
+                                      onClick={handleClear}>View All Entries</ToggleButton>
+                    </ToggleButtonGroup>
+
+                </div>
+            }
         </div>
     )
 }
