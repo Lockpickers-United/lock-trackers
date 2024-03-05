@@ -4,7 +4,6 @@ import DBContext from '../app/DBContext'
 import Tracker from '../app/Tracker'
 import Footer from '../nav/Footer'
 import Nav from '../nav/Nav'
-import CopyProfileLinkButton from './CopyProfileLinkButton'
 import EditProfilePage from './EditProfilePage'
 import MustBeLoggedIn from './MustBeLoggedIn'
 import LoadingDisplay from '../util/LoadingDisplay.jsx'
@@ -13,11 +12,7 @@ function ProfileRoute() {
     const {authLoaded, isLoggedIn} = useContext(AuthContext)
     const {dbLoaded} = useContext(DBContext)
 
-    const nav = (
-        <React.Fragment>
-            <CopyProfileLinkButton/>
-        </React.Fragment>
-    )
+    const nav = null
 
     return (
         <React.Fragment>

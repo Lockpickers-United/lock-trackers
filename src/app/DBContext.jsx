@@ -41,7 +41,6 @@ export function DBProvider({children}) {
         const querySnapshot2 = await getDocs(collection(db, 'profiles'))
         querySnapshot2.forEach((doc) => {
             const profile = doc.data()
-            console.log(doc.data())
             profile.userId = doc.id
             profiles.push(profile)
         })
