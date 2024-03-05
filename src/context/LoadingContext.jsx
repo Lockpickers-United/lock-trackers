@@ -1,4 +1,4 @@
-import React, {useContext, useMemo} from 'react'
+import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react'
 import DBContext from '../app/DBContext.jsx'
 import skeletonData from '../speedpicks/skeletonData.json'
 import {locksData} from '../data/dataUrls'
@@ -9,16 +9,32 @@ const url = locksData
 
 export function LoadingProvider({children}) {
 
-    const {dbEntries, dbProfiles, dataLoaded} = useContext(DBContext)
+    const {getDbEntries, getDbProfiles} = useContext(DBContext)
     const {data, loading, error} = useData({url})
     const jsonLoaded = (!loading && !error && data)
 
-    const allDataLoaded = dataLoaded && jsonLoaded
+    const [dbEntries, setDbEntries] = useState()
+    const [dbProfiles, setDbProfiles] = useState()
+
+    const refreshData = useCallback(async () => {
+        const newDbEntries = await getDbEntries()
+        setDbEntries(newDbEntries)
+
+        const newDbProfiles = await getDbProfiles()
+        setDbProfiles(newDbProfiles)
+    }, [getDbEntries, getDbProfiles])
+
+    // Initial data load
+    useEffect(() => {
+        refreshData()
+    }, []) // eslint-disable-line
+
+    const allDataLoaded = dbEntries && dbProfiles && jsonLoaded
 
     const skeletonEntries = skeletonData.entry
-    const allEntries = dataLoaded ? dbEntries : skeletonEntries
+    const allEntries = allDataLoaded ? dbEntries : skeletonEntries
     const skeletonProfiles = skeletonData.profile
-    const allProfiles = dataLoaded ? dbProfiles : skeletonProfiles
+    const allProfiles = allDataLoaded ? dbProfiles : skeletonProfiles
     const skeletonLocks = skeletonData.lock
     const allLocks = jsonLoaded ? data : skeletonLocks
 
@@ -30,12 +46,14 @@ export function LoadingProvider({children}) {
         allEntries,
         allProfiles,
         allLocks,
-        allDataLoaded
+        allDataLoaded,
+        refreshData
     }), [
         allEntries,
         allProfiles,
         allLocks,
-        allDataLoaded
+        allDataLoaded,
+        refreshData
     ])
 
     return (
