@@ -12,6 +12,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import JsonDisplay from './JsonDisplay.jsx'
 import AppContext from '../app/AppContext.jsx'
+import ViewProfileInline from '../profile/ViewProfileInline.jsx'
 
 function Entries() {
 
@@ -50,6 +51,7 @@ function Entries() {
         }}>
             <SortFilterBar/>
 
+            <ViewProfileInline/>
             <NewEntry entriesUpdate={entriesUpdate}/>
 
             {entries.map((entry) =>
