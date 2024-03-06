@@ -3,10 +3,13 @@ import Footer from '../nav/Footer'
 import Nav from '../nav/Nav'
 import PrivacyPage from './PrivacyPage'
 
-function InfoRoute() {
+function PrivacyRoute() {
+
+    document.title = 'Lock Trackers - Privacy Policy'
+
     return (
         <React.Fragment>
-            <Nav title='Privacy Policy'/>
+            <Nav title='Privacy Policy' route='priv'/>
 
             <PrivacyPage/>
 
@@ -15,4 +18,4 @@ function InfoRoute() {
     )
 }
 
-export default InfoRoute
+export default PrivacyRoute

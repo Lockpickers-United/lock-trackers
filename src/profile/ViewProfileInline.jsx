@@ -19,6 +19,9 @@ function ViewProfileInline() {
     const profileName = profile?.username ? profile?.username : 'No matching profile.'
     const profileURLRegex = useMemo(() => /name=(\w*)/, [])
 
+    if (profile?.username) { document.title = `Lock Trackers - ${profile?.username}` }
+    else { document.title = 'Lock Trackers - View Profile' }
+
     const {width} = useWindowSize()
     const breakSize = width <= 500
 

@@ -13,7 +13,7 @@ function PrivacyPage() {
     return (
         <React.Fragment>
             <Card style={{
-                maxWidth: 800,
+                maxWidth: 720,
                 marginLeft: 'auto',
                 marginRight: 'auto',
                 marginTop: 16,

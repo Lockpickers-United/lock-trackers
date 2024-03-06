@@ -36,6 +36,13 @@ export default [
         }
     },
     {
+        path: '/contact',
+        lazy: async () => {
+            const {default: ContactRoute} = await import('../contact/ContactRoute')
+            return {element: <ContactRoute/>}
+        }
+    },
+    {
         path: '*',
         loader: () => redirect('/speedpicks')
     },

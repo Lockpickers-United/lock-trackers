@@ -5,6 +5,10 @@ import Button from '@mui/material/Button'
 import {useLocation, useNavigate} from 'react-router-dom'
 import ChallengeLocks from '../assets/ChallengeLocks.jsx'
 import Profile from '../assets/Profile.jsx'
+import Nav_Contact from '../assets/Nav_Contact.jsx'
+import Nav_PrivacyPolicy from '../assets/Nav_PrivacyPolicy.jsx'
+
+
 function TopNav(route) {
 
     const navigate = useNavigate()
@@ -19,6 +23,8 @@ function TopNav(route) {
     const clFill = location.pathname === '/challengelocks' ? '#fff' : '#777'
     const spFill = location.pathname === '/speedpicks' ? '#fff' : '#777'
     const prFill = location.pathname === '/profile/edit' ? '#fff' : '#777'
+    const coFill = location.pathname === '/contact' ? '#fff' : '#777'
+    const privFill = location.pathname === '/privacy' ? '#fff' : '#777'
 
     //console.log(location.pathname)
 
@@ -48,7 +54,7 @@ function TopNav(route) {
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: 30}}/>
                             </Button>
-                            <Button variant='text' style={buttonSyle} disabled>
+                            <Button variant='text' style={buttonSyle}>
                                 <Profile fill={prFill} style={{height: 30}}/>
                             </Button>
                         </div>
@@ -65,9 +71,42 @@ function TopNav(route) {
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: 30}}/>
                             </Button>
-                            <Button variant='text' style={buttonSyle}
-                                    onClick={handleButtonClick('/challengelocks')}>
+                            <Button variant='text' style={buttonSyle}>
                                 <ChallengeLocks fill={clFill} style={{height: 30}}/>
+                            </Button>
+                        </div>
+                    </div>
+                    <div style={{height: 12}}/>
+                </div>
+            }
+
+            {route.route === 'co' &&
+                <div>
+                    <div style={{display: 'flex', marginTop: 9, padding: 0}}>
+                        <div style={{padding: 0}}>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/speedpicks')}>
+                                <SP_logo fill={spFill} style={{height: 30}}/>
+                            </Button>
+                            <Button variant='text' style={buttonSyle}>
+                                <Nav_Contact fill={coFill} style={{height: 30}}/>
+                            </Button>
+                        </div>
+                    </div>
+                    <div style={{height: 12}}/>
+                </div>
+            }
+
+            {route.route === 'priv' &&
+                <div>
+                    <div style={{display: 'flex', marginTop: 9, padding: 0}}>
+                        <div style={{padding: 0}}>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/speedpicks')}>
+                                <SP_logo fill={spFill} style={{height: 30}}/>
+                            </Button>
+                            <Button variant='text' style={buttonSyle}>
+                                <Nav_PrivacyPolicy fill={privFill} style={{height: 30}}/>
                             </Button>
                         </div>
                     </div>

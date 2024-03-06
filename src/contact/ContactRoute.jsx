@@ -3,17 +3,17 @@ import Tracker from '../app/Tracker'
 import Footer from '../nav/Footer'
 import Nav from '../nav/Nav'
 
-import CLMain from './CLMain.jsx'
+import ContactMain from './ContactMain.jsx'
 
-function ChallengeLocksRoute() {
+function ContactRoute() {
 
-    document.title = 'Lock Trackers - Challenge Locks'
+    document.title = 'Lock Trackers - Contact Us'
 
     return (
         <React.Fragment>
 
-            <Nav title='Challenge Locks' route='cl'/>
-            <CLMain/>
+            <Nav title='Contact' route='co'/>
+            <ContactMain/>
             <Footer/>
             <Tracker feature='cl'/>
 
@@ -21,4 +21,4 @@ function ChallengeLocksRoute() {
     )
 }
 
-export default ChallengeLocksRoute
+export default ContactRoute

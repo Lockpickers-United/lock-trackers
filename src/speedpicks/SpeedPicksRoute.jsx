@@ -15,6 +15,8 @@ function SpeedPicksRoute() {
 
     const nav = null
 
+    document.title = 'Lock Trackers - Speed Picks'
+
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <FilterProvider filterFields={spFilterFields}>
