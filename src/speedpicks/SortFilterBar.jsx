@@ -84,6 +84,8 @@ function SortFilterBar({view, setView}) {
                                   onClick={handleSort('lock')}>Lock</ToggleButton>
                     <ToggleButton selected={sort === 'belt'} style={{padding: 7}} value={'belt'}
                                   onClick={handleSort('belt')}>Belt</ToggleButton>
+                    <ToggleButton selected={sort === 'totalTime'} style={{padding: 7}} value={'belt'}
+                                  onClick={handleSort('totalTime')}>Pick Time</ToggleButton>
                     {!filters.pickerId &&
                         <ToggleButton selected={sort === 'picker'} style={{padding: 7}} value={'picker'}
                                       onClick={handleSort('picker')}>Picker</ToggleButton>

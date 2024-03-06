@@ -3,22 +3,19 @@ import Tracker from '../app/Tracker'
 import Footer from '../nav/Footer'
 import Nav from '../nav/Nav'
 
-import {LocalizationProvider} from '@mui/x-date-pickers'
-import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
-
 import CLMain from './CLMain.jsx'
 
 function ChallengeLocksRoute() {
 
     return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <React.Fragment>
 
-            <Nav title='Challenge Locks'/>
+            <Nav title='Challenge Locks' route='cl'/>
             <CLMain/>
             <Footer/>
             <Tracker feature='cl'/>
 
-        </LocalizationProvider>
+        </React.Fragment>
     )
 }
 

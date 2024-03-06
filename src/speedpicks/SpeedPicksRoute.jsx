@@ -20,7 +20,7 @@ function SpeedPicksRoute() {
             <FilterProvider filterFields={spFilterFields}>
                 <DataProvider>
                     <ListProvider>
-                        <Nav title='Speed Picks' extras={nav}/>
+                        <Nav title='Speed Picks' extras={nav} route='sp'/>
                         <Main/>
                         <Footer/>
                         <Tracker feature='sp'/>

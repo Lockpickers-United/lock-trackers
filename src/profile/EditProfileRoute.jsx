@@ -16,7 +16,7 @@ function ProfileRoute() {
 
     return (
         <React.Fragment>
-            <Nav title='Edit Profile' extras={nav}/>
+            <Nav title='Edit Profile' extras={nav} route='pr'/>
 
             {(!authLoaded || !dbLoaded) &&
                 <LoadingDisplay/>

@@ -8,6 +8,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import LogoutIcon from '@mui/icons-material/Logout'
 import EditIcon from '@mui/icons-material/Edit'
 import IconButton from '@mui/material/IconButton'
+import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
@@ -69,20 +70,20 @@ function UserMenu() {
                             </ListItemIcon>
                             <ListItemText>{safeName}</ListItemText>
                         </MenuItem>
-                        {profile &&
-                            <MenuItem onClick={handleClick(`/speedpicks?pickerId=${user.uid}`)}>
-                                <ListItemIcon>
-                                    <EditIcon/>
-                                </ListItemIcon>
-                                <ListItemText>View Profile</ListItemText>
-                            </MenuItem>
-                        }
                         <MenuItem onClick={handleClick('/profile/edit')}>
                             <ListItemIcon>
                                 <EditIcon/>
                             </ListItemIcon>
                             <ListItemText>Edit Profile</ListItemText>
                         </MenuItem>
+                        {profile &&
+                            <MenuItem onClick={handleClick(`/speedpicks?pickerId=${user.uid}`)}>
+                                <ListItemIcon>
+                                    <AccountBoxIcon/>
+                                </ListItemIcon>
+                                <ListItemText>View Profile</ListItemText>
+                            </MenuItem>
+                        }
                         <Divider/>
                         <MenuItem onClick={handleLogout}>
                             <ListItemIcon>

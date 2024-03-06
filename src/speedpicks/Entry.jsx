@@ -52,7 +52,8 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
     const handleChange = useCallback((_, isExpanded) => {
         onExpand && onExpand(isExpanded ? entry?.id : false)
-    }, [entry?.id, onExpand])
+        setTimeout(() => endEdit(), 500)
+    }, [endEdit, entry?.id, onExpand])
 
     useEffect(() => {
         if (expanded && ref && !scrolled) {
@@ -89,7 +90,8 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
     const {width} = useWindowSize()
     const breakSize = width <= 427
     const nameDivStyle = {
-        minWidth: 110
+        minWidth: 110,
+        textAlign:'right'
     }
     const divFlexStyle = !breakSize ? {display: 'flex'} : {}
     const combinedDivStyle = {

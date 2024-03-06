@@ -7,7 +7,7 @@ import ScrollToTopButton from './ScrollToTopButton'
 import UserMenu from './UserMenu'
 import TopNav from './TopNav.jsx'
 
-function Nav({extras}) {
+function Nav({extras, route}) {
     return (
         <React.Fragment>
             <AppBar position='fixed' sx={{boxShadow: 'none', backgroundColor:'#0b0017'}}>
@@ -23,7 +23,7 @@ function Nav({extras}) {
                         fontSize: '1.5rem',
                         paddingLeft: 6
                     }}>
-                        <TopNav/>
+                        <TopNav route={route}/>
 
                     </div>
 

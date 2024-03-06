@@ -153,6 +153,10 @@ export function DataProvider({children}) {
                 } else if (sort === 'picker') {
                     return a.pickerName.localeCompare(b.pickerName)
                         || a.totalTime - b.totalTime
+                } else if (sort === 'totalTime') {
+                    return a.totalTime - b.totalTime
+                        || a.lock.localeCompare(b.lock)
+                        || a.pickerName.localeCompare(b.pickerName)
                 } else if (sort === 'dateAsc') {
                     return dayjs(a.date) - (dayjs(b.date))
                         || a.lock.localeCompare(b.lock)

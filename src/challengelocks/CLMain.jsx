@@ -17,7 +17,7 @@ function CLMain() {
             fontSize: '1.5rem', lineHeight: 0.8, textAlign: 'center'
         }}>
 
-            <div style={{fontSize: '.9rem', width: '100%', textAlign: 'center', marginTop: 20}}>
+            <div style={{fontSize: '1.2rem', width: '100%', textAlign: 'center', marginTop: 20}}>
                 Challenge Lock Tracker - coming soonish
             </div>
         </div>

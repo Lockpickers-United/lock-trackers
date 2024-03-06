@@ -32,9 +32,9 @@ function MainMenu() {
         <React.Fragment>
             <Tooltip title='Main Menu' arrow disableFocusListener>
                 <Button edge='start' color='inherit' onClick={openDrawer}
-                            style={{ height: '50px', minWidth: '50px', margin:0, padding:0}}
+                            style={{ height: '30px', minWidth: '30px', margin:0, padding:0}}
                 >
-                    <LT_logo fill='#fff' style={{height: 50, padding:0, margin:0}}/>
+                    <LT_logo fill='#fff' style={{height: 30, padding:0, margin:0}}/>
                 </Button>
             </Tooltip>
 

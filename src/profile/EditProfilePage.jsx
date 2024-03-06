@@ -65,14 +65,14 @@ function EditProfilePage() {
 
     const handleSave = useCallback(async () => {
         try {
-            await updateProfile(username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created)
+            updateProfile(username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created)
+            await refreshData()
             enqueueSnackbar('Updated profile.')
-            refreshData()
         } catch (ex) {
             console.error('Error while updating profile', ex)
             enqueueSnackbar('Error while updating profile.')
         }
-    }, [updateProfile, username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created])
+    }, [updateProfile, username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created, refreshData])
 
     const pattern = /^[\sa-zA-Z0-9_-]{1,32}$/
 
