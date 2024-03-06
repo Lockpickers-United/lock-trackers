@@ -37,7 +37,6 @@ function SortFilterBar({view, setView}) {
         if (field === 'status') {
             setFilters({status: value})
             setView(value)
-
         } else if (field === 'isBest') {
             setView('isBest')
             setFilters({isBest: value})
@@ -61,7 +60,6 @@ function SortFilterBar({view, setView}) {
         setView('all')
     }, [clearFilters, setView])
 
-
     const {width} = useWindowSize()
     const mobileLarge428 = width <= 428
 
@@ -73,7 +71,6 @@ function SortFilterBar({view, setView}) {
         ...divStyle,
         ...divFlexStyle
     }
-
 
     return (
         <div style={combinedDivStyle}>

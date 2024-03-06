@@ -9,6 +9,8 @@ import fuzzysort from 'fuzzysort'
 import removeAccents from 'remove-accents'
 import AuthContext from '../app/AuthContext.jsx'
 import LoadingContext from './LoadingContext.jsx'
+import DBContext from '../app/DBContext.jsx'
+import AppContext from '../app/AppContext.jsx'
 
 export function DataProvider({children}) {
 
@@ -16,6 +18,7 @@ export function DataProvider({children}) {
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sort, image, ...filters} = allFilters
     const {allEntries, allProfiles, allLocks} = useContext(LoadingContext)
+    const {modMode, setModMode} = useContext(AppContext)
 
     //console.log('dp: ', allEntries)
     //console.log('dp: ', allProfiles)
@@ -24,12 +27,10 @@ export function DataProvider({children}) {
     const lockBelts = useMemo(() => belts, [])
     const lockData = useMemo(() => allLocks, [allLocks])
     const bestTimes = useMemo(() => new Map(), [])
-
-
-    const [modMode, setModMode] = useState(false)
-    const isMod = modMode
+    const {profile} = useContext(DBContext)
+    const modUser = profile?.isMod
+    const isMod = (user && profile) && (modUser || modMode)
     const [updated, setUpdated] = useState(0)
-
 
     const mappedEntries = useMemo(() => {
         return allEntries.map(entry => {
@@ -59,8 +60,7 @@ export function DataProvider({children}) {
             entry.reviewerName = reviewerId && allProfiles.find(({userId}) => userId === reviewerId)
                 ? allProfiles.find(({userId}) => userId === reviewerId).username
                 : 'unknown'
-
-
+            
             const totalTime = (dayjs(entry.openTime) - dayjs(entry.startTime)) / 1000
             entry.totalTime = totalTime
             entry.totalTimeString = formatTime(totalTime)

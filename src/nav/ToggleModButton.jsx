@@ -3,20 +3,21 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import ShieldIcon from '@mui/icons-material/Shield'
 import DataContext from '../context/DataContext.jsx'
+import AppContext from '../app/AppContext.jsx'
 
 function ToggleModButton() {
 
-    const {isMod, toggleMod = []} = useContext(DataContext)
+    const {modMode, setModMode} = useContext(AppContext)
 
     const handleClick = useCallback(() => {
-        toggleMod()
-    }, [toggleMod])
+        setModMode(!modMode)
+    }, [modMode, setModMode])
 
     return (
-        <Tooltip title={`Toggle moderator mode to ${isMod ? 'off' : 'on'}`} arrow
+        <Tooltip title={`Toggle moderator mode to ${modMode ? 'off' : 'on'}`} arrow
                  disableFocusListener>
             <IconButton onClick={handleClick} color='inherit'>
-                <ShieldIcon fontSize='small'  color={isMod ? 'primary' : 'secondary'}/>
+                <ShieldIcon fontSize='small'  color={modMode ? 'primary' : 'secondary'}/>
             </IconButton>
         </Tooltip>
     )

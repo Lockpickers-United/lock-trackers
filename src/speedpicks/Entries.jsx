@@ -15,10 +15,12 @@ import AppContext from '../app/AppContext.jsx'
 import ViewProfileInline from '../profile/ViewProfileInline.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import NoEntriesCard from './NoEntriesCard.jsx'
+import LoadingContext from '../context/LoadingContext.jsx'
 
 function Entries() {
 
     const {bestTimes, visibleEntries, allEntries = []} = useContext(DataContext)
+    const {allProfiles} = useContext(LoadingContext)
     const {expanded, setExpanded} = useContext(ListContext)
     const {filters} = useContext(FilterContext)
     const {beta} = useContext(AppContext)
@@ -31,6 +33,8 @@ function Entries() {
     }, [updated])
 
     const defExpanded = useDeferredValue(expanded)
+
+    if (!filters.pickerId) document.title = 'Lock Trackers - Speed Picks'
 
     const entries = useMemo(() => {
         // removed tab/search code

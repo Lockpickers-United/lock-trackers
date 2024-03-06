@@ -14,6 +14,7 @@ import speedPicks from '../speedpicks/speedPicks.json'
 
 function Footer({extras}) {
     const {user} = useContext(AuthContext)
+    const {profile} = useContext(DBContext)
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
 
@@ -49,16 +50,20 @@ function Footer({extras}) {
 
             {extras}
 
-            <div style={{textAlign:'center'}}>
-                <ToggleBetaButton/><ToggleModButton/><br/>
+            <div style={{textAlign: 'center'}}>
+                <ToggleBetaButton/>
+                {(user && profile) &&
+                    <ToggleModButton/>
+                }
+                <br/>
                 {user?.uid === 'ClbjuilBEHgbzO4UZl4y3GStlEz2' &&
-                    <div style={{marginTop: '20px', display:'flex', textAlign:'center'}}>
-                        <div style={{marginRight:'auto', marginLeft:'auto'}}>
+                    <div style={{marginTop: '20px', display: 'flex', textAlign: 'center'}}>
+                        <div style={{marginRight: 'auto', marginLeft: 'auto'}}>
                             <ToggleColorMode/>
                             <Tooltip title={'! IMPORT JSON !'} arrow
                                      disableFocusListener>
                                 <IconButton onClick={handleOpen} color='inherit'>
-                                    <ReportProblemIcon fontSize='small'  color={'warning'}/>
+                                    <ReportProblemIcon fontSize='small' color={'warning'}/>
                                 </IconButton>
                             </Tooltip>
                             <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>

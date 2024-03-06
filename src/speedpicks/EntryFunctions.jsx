@@ -22,7 +22,7 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
     const toggleApprove = useCallback(() => {
         console.log('status', entry.status)
         entry.status = entry.status === 'approved' ? 'pending' : 'approved'
-        entry.reviewerId = user?.uid
+        entry.reviewerId = user?.uid ? user?.uid : 'unknown'
         updateEntry(entry)
         setTimeout(() => refreshData(), 500)
         DCUpdate(Math.random())
