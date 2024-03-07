@@ -1,6 +1,6 @@
 import React, {useContext, useState, useCallback, useMemo} from 'react'
 import TextField from '@mui/material/TextField'
-import {ListItemText} from '@mui/material'
+import {Backdrop, ListItemText} from '@mui/material'
 import {DatePicker} from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
 import formatTime from '../util/formatTime.jsx'
@@ -16,16 +16,22 @@ import DBContext from '../app/DBContext'
 import Button from '@mui/material/Button'
 import {DesktopTimePicker} from '@mui/x-date-pickers'
 import LoadingContext from '../context/LoadingContext.jsx'
+import {enqueueSnackbar} from 'notistack'
+import LpuCopyLinkInfo from './LpuCopyLinkInfo.jsx'
+import InfoIcon from '@mui/icons-material/Info'
 
 const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
-    const {bestTimes, getLockFromId = []} = useContext(DataContext)
+    const {bestTimes, getLockFromId, getEntryFromId = []} = useContext(DataContext)
     const {user, isLoggedIn} = useContext(AuthContext)
     const {profile, updateEntry} = useContext(DBContext)
     const {DCUpdate, isMod = []} = useContext(DataContext)
     const {refreshData} = useContext(LoadingContext)
 
     const isNew = !entry
-    const [entryId] = useState(entry && entry.id ? entry.id : 'sp_' + genHexString(8))
+    const [entryId, setEntryId] = useState(entry && entry.id ? entry.id : 'sp_' + genHexString(8))
+
+    if (isNew && getEntryFromId(entryId)) setEntryId('sp_' + genHexString(8))
+
     const [status] = useState(entry ? entry.status : 'pending')
     const [pickerId] = useState(entry ? entry?.pickerId : user?.uid)
     const [reviewerId] = useState(user?.uid)
@@ -58,10 +64,9 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
         backgroundColor
     }
 
-    const [videoUrl, setvideoUrl] = useState(entry ? entry.videoUrl : '')
-
     const bestTime = entry ? bestTimes.get(lockId) : 0
 
+    const [videoUrl, setvideoUrl] = useState(entry ? entry.videoUrl : '')
     const [date, setDate] = useState(entry && entry.date ? dayjs(entry.date) : dayjs())
     const [startTime, setStartTime] = useState(entry && entry.startTime ? dayjs(entry.startTime) : dayjs('1970-01-01'))
     const [openTime, setOpenTime] = useState(entry && entry.openTime ? dayjs(entry.openTime) : dayjs('1970-01-01'))
@@ -82,7 +87,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const validEntry = lockURLValid && videoUrlValid && (openTime - startTime) > 0 && !timeError
     const saveEntryColor = validEntry ? '#0a0' : '#666'
 
-    function saveEntry() {
+    async function saveEntry() {
         if (isNew) {
             const thisEntry = new Map()
             thisEntry.id = entryId
@@ -95,8 +100,10 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
             thisEntry.videoUrl = videoUrl
             thisEntry.reviewerId = ''
             thisEntry.created = dayjs().format()
-            updateEntry(thisEntry)
-            setTimeout(() => refreshData(), 500)
+            await updateEntry(thisEntry)
+            enqueueSnackbar('New entry created. Requires mod approval.')
+            refreshData()
+            cancelEdit()
             toggleOpen()
         } else {
             entry.status = isMod ? status : 'pending'
@@ -107,10 +114,9 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
             entry.startTime = startTime.format()
             entry.openTime = openTime.format()
             entry.videoUrl = videoUrl
-            updateEntry(entry)
-            //refreshData()
-            setTimeout(() => refreshData(), 500)
-
+            await updateEntry(entry)
+            enqueueSnackbar('Entry updated.')
+            refreshData()
             toggleOpen()
             endEdit()
         }
@@ -131,6 +137,14 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
         }
         endEdit()
     }
+
+    const [overlayIsOpen, setOverlayIsOpen] = useState(false)
+    const handleOverlayClose = useCallback(() => {
+        setOverlayIsOpen(false)
+    }, [])
+    const handleOverlayOpen = useCallback(() => {
+        setOverlayIsOpen(true)
+    }, [])
 
     return (
 
@@ -173,8 +187,24 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                            error={lockURLError}
                            helperText={lockURLHelperText}
                 />
-                <Button type='text' style={buttonStyle} sx={{color: lockLaunchColor}}><LaunchIcon
-                    style={{fontSize: 'large'}}/></Button>
+                <div>
+
+
+                    <Button type='text' style={buttonStyle}
+                            sx={{color: '#fff', marginBottom: '10px'}}
+                            onClick={handleOverlayOpen}>
+                        <InfoIcon style={{fontSize: 'large'}}/>
+                    </Button>
+
+                    <Button type='text'
+                            style={buttonStyle}
+                            disabled={!lockURLValid}>
+                        <a href={lockURL} target='_blank' rel='noreferrer'>
+                            <LaunchIcon style={{fontSize: 'large', color: lockLaunchColor}}/></a>
+                    </Button>
+
+
+                </div>
             </div>
             <div style={{display: 'flex', placeItems: 'center', marginTop: 25}}>
                 <TextField variant='outlined'
@@ -197,11 +227,9 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                 />
                 <Button type='text'
                         style={buttonStyle}
-                        sx={{color: videoLaunchColor}}
-                        target={'_blank'}
-                        link={videoUrl}
                         disabled={!videoUrlValid}>
-                    <LaunchIcon style={{fontSize: 'large'}}/>
+                    <a href={videoUrl} target='_blank' rel='noreferrer'><LaunchIcon
+                        style={{fontSize: 'large', color: videoLaunchColor}}/></a>
                 </Button>
             </div>
             <br/>
@@ -219,23 +247,23 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                     <div style={{margin: '10px 1px 0px 0px', fontSize: '0.9rem', lineHeight: '1.4rem'}}>
                         Picking starts<br/>
                         <DesktopTimePicker views={['minutes', 'seconds']}
-                                    view='seconds'
-                                    format='mm:ss'
-                                    timeSteps={{minutes: 1, seconds: 1}}
-                                    sx={{width: 120, marginRight: '10px'}}
-                                    value={startTime}
-                                    onChange={(newValue) => setStartTime(newValue)}
+                                           view='seconds'
+                                           format='mm:ss'
+                                           timeSteps={{minutes: 1, seconds: 1}}
+                                           sx={{width: 120, marginRight: '10px'}}
+                                           value={startTime}
+                                           onChange={(newValue) => setStartTime(newValue)}
                         />
                     </div>
                     <div style={{margin: '10px 1px 0px 0px', fontSize: '0.9rem', lineHeight: '1.4rem'}}>
                         Lock open<br/>
                         <DesktopTimePicker views={['minutes', 'seconds']}
-                                    view='seconds'
-                                    format='mm:ss'
-                                    timeSteps={{minutes: 1, seconds: 1}}
-                                    sx={{width: 120}}
-                                    value={openTime}
-                                    onChange={(newValue) => setOpenTime(newValue)}
+                                           view='seconds'
+                                           format='mm:ss'
+                                           timeSteps={{minutes: 1, seconds: 1}}
+                                           sx={{width: 120}}
+                                           value={openTime}
+                                           onChange={(newValue) => setOpenTime(newValue)}
                         />
 
                     </div>
@@ -259,7 +287,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                 />
             </div>
 
-            <div style={{width: '100%', textAlign: 'right', marginTop:14}}>
+            <div style={{width: '100%', textAlign: 'right', marginTop: 14}}>
                 {(!isMod && !isNew) &&
                     <div style={{fontSize: '1rem', lineHeight: '1.4rem', marginBottom: 8}}>
                         Note: changed entries must<br/> be re-approved by mods
@@ -280,6 +308,14 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                     Save
                 </Button>
             </div>
+
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={overlayIsOpen} onClick={handleOverlayClose}
+            >
+                <LpuCopyLinkInfo/>
+            </Backdrop>
+
         </div>
     )
 }

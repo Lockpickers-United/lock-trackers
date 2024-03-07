@@ -6,6 +6,7 @@ import DBContext from '../app/DBContext.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 import LoadingContext from '../context/LoadingContext.jsx'
+import {enqueueSnackbar} from 'notistack'
 
 const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
 
@@ -19,22 +20,24 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
     const handleOpen = useCallback(event => setAnchorEl(event.currentTarget), [])
     const handleClose = useCallback(() => setAnchorEl(null), [])
 
-    const toggleApprove = useCallback(() => {
+    const toggleApprove = useCallback(async () => {
         console.log('status', entry.status)
         entry.status = entry.status === 'approved' ? 'pending' : 'approved'
         entry.reviewerId = user?.uid ? user?.uid : 'unknown'
-        updateEntry(entry)
-        setTimeout(() => refreshData(), 500)
+        await updateEntry(entry)
+        enqueueSnackbar(`Entry ${entry.status}.`)
+        refreshData()
         DCUpdate(Math.random())
         entriesUpdate(Math.random())
     }, [DCUpdate, entriesUpdate, entry, refreshData, updateEntry, user?.uid])
 
-    const deleteEntry = useCallback(() => {
+    const deleteEntry = useCallback(async () => {
         entry.status = 'deleted'
         console.log('status', entry.status)
         entry.reviewerId = user?.uid
-        updateEntry(entry)
-        setTimeout(() => refreshData(), 500)
+        await updateEntry(entry)
+        enqueueSnackbar('Entry deleted.')
+        refreshData()
         DCUpdate(Math.random())
         entriesUpdate(Math.random())
     }, [DCUpdate, entriesUpdate, entry, refreshData, updateEntry, user?.uid])

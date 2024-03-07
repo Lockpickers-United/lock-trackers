@@ -16,7 +16,7 @@ export function DataProvider({children}) {
 
     const {user} = useContext(AuthContext)
     const {filters: allFilters} = useContext(FilterContext)
-    const {search, id, tab, name, sort, image, ...filters} = allFilters
+    const {search, id, tab, name, sort, image, profileUpdated, ...filters} = allFilters
     const {allEntries, allProfiles, allLocks} = useContext(LoadingContext)
     const {modMode, setModMode} = useContext(AppContext)
 
@@ -184,7 +184,7 @@ export function DataProvider({children}) {
     const toggleMod = useCallback(() => {
         setModMode(!modMode)
         DCUpdate(Math.random())
-    }, [DCUpdate, modMode])
+    }, [DCUpdate, modMode, setModMode])
 
     const value = useMemo(() => ({
         lockBelts,

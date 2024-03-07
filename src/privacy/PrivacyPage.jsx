@@ -20,7 +20,7 @@ function PrivacyPage() {
                 marginButtom: 16
             }}>
                 <CardHeader title='Privacy Policy' action={
-                    <GithubButton url='https://github.com/Lockpickers-United/lpu-belt-explorer/blob/main/src/resources/privacyPolicy.md'/>
+                    <GithubButton url='https://github.com/Lockpickers-United/lock-trackers/blob/main/src/resources/privacyPolicy.md'/>
                 }/>
                 <CardContent>
                     <ReactMarkdown rehypePlugins={[[rehypeExternalLinks, {target: '_blank'}]]}>

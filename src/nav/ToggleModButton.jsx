@@ -2,7 +2,6 @@ import React, {useCallback, useContext} from 'react'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import ShieldIcon from '@mui/icons-material/Shield'
-import DataContext from '../context/DataContext.jsx'
 import AppContext from '../app/AppContext.jsx'
 
 function ToggleModButton() {

@@ -15,18 +15,17 @@ import AppContext from '../app/AppContext.jsx'
 import ViewProfileInline from '../profile/ViewProfileInline.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import NoEntriesCard from './NoEntriesCard.jsx'
-import LoadingContext from '../context/LoadingContext.jsx'
 
 function Entries() {
 
     const {bestTimes, visibleEntries, allEntries = []} = useContext(DataContext)
-    const {allProfiles} = useContext(LoadingContext)
     const {expanded, setExpanded} = useContext(ListContext)
     const {filters} = useContext(FilterContext)
     const {beta} = useContext(AppContext)
 
     const [view, setView] = useState('all')
     const [updated, setUpdated] = useState(0)
+
     const entriesUpdate = useCallback(value => {
         setUpdated(value)
         console.log(updated)
@@ -75,7 +74,7 @@ function Entries() {
             )}
 
             {entries?.length === 0 &&
-            <NoEntriesCard view={view} setView={setView}/>
+                <NoEntriesCard view={view} setView={setView}/>
             }
             {beta &&
                 <div>

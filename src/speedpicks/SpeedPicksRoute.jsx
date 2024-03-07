@@ -25,7 +25,7 @@ function SpeedPicksRoute() {
                         <Nav title='Speed Picks' extras={nav} route='sp'/>
                         <Main/>
                         <Footer/>
-                        <Tracker feature='sp'/>
+                        <Tracker feature='speedpicks'/>
                     </ListProvider>
                 </DataProvider>
             </FilterProvider>

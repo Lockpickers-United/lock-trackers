@@ -3,6 +3,3 @@ Disallow: /nogooglebot/
 
 User-agent: *
 Allow: /
-
-Sitemap: https://lpubelts.com/sitemap.xml
-Sitemap: https://lpubelts.com/sitemap.txt

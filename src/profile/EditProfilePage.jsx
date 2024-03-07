@@ -14,11 +14,16 @@ import countries from '../data/countries.json'
 import {FormControl, InputLabel, Select} from '@mui/material'
 import MenuItem from '@mui/material/MenuItem'
 import LoadingContext from '../context/LoadingContext.jsx'
+import {useNavigate} from 'react-router-dom'
+import AuthContext from '../app/AuthContext.jsx'
 
 function EditProfilePage() {
 
     const {refreshData} = useContext(LoadingContext)
     const {updateProfile, profile} = useContext(DBContext)
+    const {user} = useContext(AuthContext)
+    const navigate = useNavigate()
+
     const [created] = useState(profile?.created || dayjs().format())
     const [username, setUsername] = useState(profile?.username || '')
     const [discordUsername, setDiscordUsername] = useState(profile?.discordUsername || '')
@@ -35,6 +40,7 @@ function EditProfilePage() {
         ? 'You must have a named profile to submit speed picks.'
         : ''
 
+    const [profileChanged, setProfileChanged] = useState(false)
     const handleChange = useCallback((event) => {
         const {value} = event.target
         if (event.target.id === 'username') {
@@ -50,7 +56,10 @@ function EditProfilePage() {
         } else if (event.target.name === 'country') {
             setCountry(value)
         }
+        setProfileChanged(true)
     }, [])
+
+    const updatedString = profileChanged ? '&profileUpdated=true' : ''
 
     const clearForm = useCallback(() => {
         setUsername('')
@@ -68,11 +77,13 @@ function EditProfilePage() {
             updateProfile(username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created)
             await refreshData()
             enqueueSnackbar('Updated profile.')
+            navigate(`/speedpicks?pickerId=${user?.uid}${updatedString}`)
+
         } catch (ex) {
             console.error('Error while updating profile', ex)
             enqueueSnackbar('Error while updating profile.')
         }
-    }, [updateProfile, username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created, refreshData])
+    }, [updateProfile, username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created, refreshData, navigate, user?.uid, updatedString])
 
     const pattern = /^[\sa-zA-Z0-9_-]{1,32}$/
 

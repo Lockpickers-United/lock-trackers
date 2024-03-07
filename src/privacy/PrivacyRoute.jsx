@@ -2,6 +2,7 @@ import React from 'react'
 import Footer from '../nav/Footer'
 import Nav from '../nav/Nav'
 import PrivacyPage from './PrivacyPage'
+import Tracker from '../app/Tracker.jsx'
 
 function PrivacyRoute() {
 
@@ -14,6 +15,8 @@ function PrivacyRoute() {
             <PrivacyPage/>
 
             <Footer/>
+            <Tracker feature='privacy'/>
+
         </React.Fragment>
     )
 }

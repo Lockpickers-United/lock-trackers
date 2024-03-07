@@ -16,7 +16,6 @@ function App() {
                     <DBProvider>
                         <AppProvider>
                             <LoadingProvider>
-
                                 <AppRoutes/>
                             </LoadingProvider>
                         </AppProvider>

@@ -15,7 +15,7 @@ function ContactRoute() {
             <Nav title='Contact' route='co'/>
             <ContactMain/>
             <Footer/>
-            <Tracker feature='cl'/>
+            <Tracker feature='contact'/>
 
         </React.Fragment>
     )

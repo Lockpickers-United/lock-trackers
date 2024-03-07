@@ -15,7 +15,7 @@ function ChallengeLocksRoute() {
             <Nav title='Challenge Locks' route='cl'/>
             <CLMain/>
             <Footer/>
-            <Tracker feature='cl'/>
+            <Tracker feature='challengelocks'/>
 
         </React.Fragment>
     )
