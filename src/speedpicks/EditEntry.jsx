@@ -188,22 +188,17 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                            helperText={lockURLHelperText}
                 />
                 <div>
-
-
                     <Button type='text' style={buttonStyle}
                             sx={{color: '#fff', marginBottom: '10px'}}
                             onClick={handleOverlayOpen}>
                         <InfoIcon style={{fontSize: 'large'}}/>
                     </Button>
-
                     <Button type='text'
                             style={buttonStyle}
                             disabled={!lockURLValid}>
                         <a href={lockURL} target='_blank' rel='noreferrer'>
                             <LaunchIcon style={{fontSize: 'large', color: lockLaunchColor}}/></a>
                     </Button>
-
-
                 </div>
             </div>
             <div style={{display: 'flex', placeItems: 'center', marginTop: 25}}>

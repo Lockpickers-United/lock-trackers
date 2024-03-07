@@ -47,6 +47,21 @@ export function DBProvider({children}) {
         return profiles
     }, [dbError])
 
+
+    const updateVersion = useCallback(async () => {
+        if (dbError) return false
+        const ref = doc(db, 'versions', 'speedpicks')
+        try {
+            await runTransaction(db, async transaction => {
+                const delta = {version: 'X' + Math.random()}
+                transaction.update(ref, delta)
+            })
+        } catch (e) {
+            console.log('error')
+            console.error(e)
+        }
+    }, [dbError])
+
     const updateEntry = useCallback(async entry => {
         console.log('entry', entry)
         if (dbError) return false
@@ -76,6 +91,7 @@ export function DBProvider({children}) {
                     transaction.update(ref, delta)
                     statusText = 'Entry Updated'
                 }
+                //await updateVersion()
             })
             console.log(statusText)
             return statusText
@@ -141,6 +157,37 @@ export function DBProvider({children}) {
         }
     }, [authLoaded, isLoggedIn, user])
 
+
+    // Version Subscription
+    const [version, setVersion] = useState('')
+    useEffect(() => {
+        if (isLoggedIn) {
+
+            const ref = doc(db, 'versions', 'speedpicks')
+            return onSnapshot(ref, async doc => {
+                const data = doc.data()
+                if (data) {
+                    setVersion(data.version)
+                } else {
+                    setVersion('')
+                }
+                console.log('Current data: ', data)
+            }, error => {
+                console.error('Error listening to DB:', error)
+                setDbError(true)
+                enqueueSnackbar('There was a problem reading the current version. It will be unavailable until you refresh the page. ', {
+                    autoHideDuration: null,
+                    action: <Button color='secondary' onClick={() => window.location.reload()}>Refresh</Button>
+                })
+            })
+        } else if (authLoaded) {
+            setProfile({})
+            setDbLoaded(true)
+        }
+    }, [authLoaded, isLoggedIn, user])
+
+    //console.log('db version', version.toString())
+
     // value & provider
     const value = useMemo(() => ({
         dbLoaded,
@@ -151,7 +198,8 @@ export function DBProvider({children}) {
         updateProfile,
         updateEntry,
         getDbEntries,
-        getDbProfiles
+        getDbProfiles,
+        version
     }), [
         dbLoaded,
         lockCollection,
@@ -161,7 +209,8 @@ export function DBProvider({children}) {
         profile,
         updateEntry,
         getDbEntries,
-        getDbProfiles
+        getDbProfiles,
+        version
     ])
 
     return (

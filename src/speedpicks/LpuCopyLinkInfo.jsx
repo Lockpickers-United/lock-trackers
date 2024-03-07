@@ -2,7 +2,7 @@ import React from 'react'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
-import lpubeltsCopyLink from '../resources/lpubelts-copy-link-s.jpg'
+import lpubeltsCopyLink from '../resources/lpubeltsCopyLinkSps.png'
 import useWindowSize from '../util/useWindowSize.jsx'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 
