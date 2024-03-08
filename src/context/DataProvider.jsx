@@ -28,8 +28,10 @@ export function DataProvider({children}) {
     const lockData = useMemo(() => allLocks, [allLocks])
     const bestTimes = useMemo(() => new Map(), [])
     const {profile} = useContext(DBContext)
-    const isMod = user && profile && profile?.isMod
+    const isMod = !!(user && profile && profile?.isMod)
     const [updated, setUpdated] = useState(0)
+
+    console.log(isMod)
 
     const mappedEntries = useMemo(() => {
         return allEntries.map(entry => {
