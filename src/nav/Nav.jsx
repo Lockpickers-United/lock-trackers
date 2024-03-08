@@ -1,6 +1,7 @@
 import React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
+import VersionChecker from '../app/VersionChecker'
 import MainMenu from './MainMenu'
 import ScrollToTopButton from './ScrollToTopButton'
 import UserMenu from './UserMenu'
@@ -25,6 +26,8 @@ function Nav({extras, route}) {
                     </div>
 
                     {extras}
+
+                    <VersionChecker/>
 
                     <UserMenu/>
                 </Toolbar>

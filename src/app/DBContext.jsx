@@ -21,15 +21,17 @@ export function DBProvider({children}) {
     const [dbLoaded, setDbLoaded] = useState(false)
     const [dbError, setDbError] = useState(null)
 
+    const [knownVersions] = useState([])
+    const [currentVersion, setCurrentVersion] = useState('')
+    const newVersionAvailable = !knownVersions.includes(currentVersion)
 
-    // SPEED PICK ENTRIES //
+    // SPEED PICK ENTRIES & PROFILES //
 
     const getDbEntries = useCallback(async () => {
         if (dbError) return false
         const entries = []
         const querySnapshot = await getDocs(collection(db, 'speedPicks'))
         querySnapshot.forEach((doc) => {
-            //console.log(doc.id, ' => ', doc.data())
             entries.push(doc.data())
         })
         return entries
@@ -47,20 +49,21 @@ export function DBProvider({children}) {
         return profiles
     }, [dbError])
 
-
     const updateVersion = useCallback(async () => {
         if (dbError) return false
         const ref = doc(db, 'versions', 'speedpicks')
+        const newVersion = 'X' + Math.random()
         try {
             await runTransaction(db, async transaction => {
-                const delta = {version: 'X' + Math.random()}
+                const delta = {version: newVersion.toString()}
                 transaction.update(ref, delta)
             })
+            knownVersions.push(newVersion)
         } catch (e) {
             console.log('error')
             console.error(e)
         }
-    }, [dbError])
+    }, [dbError, knownVersions])
 
     const updateEntry = useCallback(async entry => {
         console.log('entry', entry)
@@ -91,22 +94,22 @@ export function DBProvider({children}) {
                     transaction.update(ref, delta)
                     statusText = 'Entry Updated'
                 }
-                //await updateVersion()
             })
+            await updateVersion()
             console.log(statusText)
             return statusText
         } catch (e) {
             console.log('error')
             console.error(e)
         }
-    }, [dbError])
+    }, [dbError, updateVersion])
 
     // PROFILE //
 
     const updateProfile = useCallback(async (username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created) => {
         if (dbError) return false
         const modified = dayjs().format()
-        const ref = doc(db, 'profiles', user.uid)
+        const ref = doc(db, 'profiles', user?.uid)
         await runTransaction(db, async transaction => {
             const sfDoc = await transaction.get(ref)
             const delta = {username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created, modified}
@@ -116,7 +119,8 @@ export function DBProvider({children}) {
                 transaction.update(ref, delta)
             }
         })
-    }, [dbError, user])
+        await updateVersion()
+    }, [dbError, updateVersion, user?.uid])
 
     const getProfile = useCallback(async userId => {
         const ref = doc(db, 'profiles', userId)
@@ -159,19 +163,20 @@ export function DBProvider({children}) {
 
 
     // Version Subscription
-    const [version, setVersion] = useState('')
+
+    const modUser = profile?.isMod
+
     useEffect(() => {
         if (isLoggedIn) {
-
             const ref = doc(db, 'versions', 'speedpicks')
             return onSnapshot(ref, async doc => {
                 const data = doc.data()
                 if (data) {
-                    setVersion(data.version)
+                    setCurrentVersion(data.version)
+                    if (knownVersions.length===0) knownVersions.push(data.version)
                 } else {
-                    setVersion('')
+                    setCurrentVersion('')
                 }
-                console.log('Current data: ', data)
             }, error => {
                 console.error('Error listening to DB:', error)
                 setDbError(true)
@@ -184,9 +189,7 @@ export function DBProvider({children}) {
             setProfile({})
             setDbLoaded(true)
         }
-    }, [authLoaded, isLoggedIn, user])
-
-    //console.log('db version', version.toString())
+    }, [authLoaded, isLoggedIn, knownVersions, modUser, user])
 
     // value & provider
     const value = useMemo(() => ({
@@ -199,7 +202,7 @@ export function DBProvider({children}) {
         updateEntry,
         getDbEntries,
         getDbProfiles,
-        version
+        newVersionAvailable
     }), [
         dbLoaded,
         lockCollection,
@@ -210,7 +213,7 @@ export function DBProvider({children}) {
         updateEntry,
         getDbEntries,
         getDbProfiles,
-        version
+        newVersionAvailable
     ])
 
     return (
