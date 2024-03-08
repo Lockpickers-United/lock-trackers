@@ -1,8 +1,5 @@
 import React from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
-import CardHeader from '@mui/material/CardHeader'
-import CardContent from '@mui/material/CardContent'
-import Card from '@mui/material/Card'
 import LT_url from './LT_url.jsx'
 
 function Front() {

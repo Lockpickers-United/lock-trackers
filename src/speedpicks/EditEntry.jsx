@@ -46,6 +46,8 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const lockVersion = lock ? lock.version : ''
     const lockBelt = lock ? lock.belt : ''
     const lockRegex = useMemo(() => /id=(\w{8})/, [])
+    const [bestTime,setBestTime] = useState(entry ? bestTimes.get(lockId) : 0)
+
     const processURL = useCallback(event => {
         const {value} = event.target
         setLockURL(value)
@@ -53,19 +55,18 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
             ? value.match(lockRegex)[1]
             : ''
         const thisLock = getLockFromId(thisId)
-        console.log(lock, thisLock)
         setLock(thisLock ? thisLock : null)
         setLockId(thisId)
-    }, [getLockFromId, lock, lockRegex])
+        setBestTime(thisLock && bestTimes.get(thisId) ? bestTimes.get(thisId) : 0)
+    }, [bestTimes, getLockFromId, lockRegex])
+
     const {color: backgroundColor} = belts[lockBelt] || {}
     const beltStyle = {
         width: 8,
         height: 35,
         backgroundColor
     }
-
-    const bestTime = entry ? bestTimes.get(lockId) : 0
-
+    
     const [videoUrl, setvideoUrl] = useState(entry ? entry.videoUrl : '')
     const [date, setDate] = useState(entry && entry.date ? dayjs(entry.date) : dayjs())
     const [startTime, setStartTime] = useState(entry && entry.startTime ? dayjs(entry.startTime) : dayjs('1970-01-01'))
@@ -276,7 +277,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                 <TextField variant='outlined'
                            color='secondary'
                            label='(Best Time)'
-                           value={formatTime(bestTime)}
+                           value={formatTime(bestTime ? bestTime : 0)}
                            style={{width: 120, alignItems: 'center'}}
                            disabled
                 />
