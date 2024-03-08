@@ -55,7 +55,7 @@ export function DBProvider({children}) {
         const newVersion = 'X' + Math.random()
         try {
             await runTransaction(db, async transaction => {
-                const delta = {version: newVersion.toString()}
+                const delta = {version: newVersion}
                 transaction.update(ref, delta)
             })
             knownVersions.push(newVersion)
@@ -152,7 +152,7 @@ export function DBProvider({children}) {
                 setDbError(true)
                 enqueueSnackbar('There was a problem reading your profile. It will be unavailable until you refresh the page. ', {
                     autoHideDuration: null,
-                    action: <Button color='secondary' onClick={() => window.location.reload()}>Refresh</Button>
+                    action: <Button color='secondary' onClick={() => location.reload()}>Refresh</Button>
                 })
             })
         } else if (authLoaded) {
@@ -182,7 +182,7 @@ export function DBProvider({children}) {
                 setDbError(true)
                 enqueueSnackbar('There was a problem reading the current version. It will be unavailable until you refresh the page. ', {
                     autoHideDuration: null,
-                    action: <Button color='secondary' onClick={() => window.location.reload()}>Refresh</Button>
+                    action: <Button color='secondary' onClick={() => location.reload()}>Refresh</Button>
                 })
             })
         } else if (authLoaded) {

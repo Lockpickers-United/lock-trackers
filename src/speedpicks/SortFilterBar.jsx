@@ -7,11 +7,20 @@ import useWindowSize from '../util/useWindowSize.jsx'
 function SortFilterBar({view, setView}) {
 
     const {isMod = []} = useContext(DataContext)
-
     const {filters, addFilter, clearFilters, setFilters} = useContext(FilterContext)
-    const {sort} = filters
-    const [dateSort, setDateSort] = useState('')
 
+    const {sort} = filters
+
+    const [highlight, setHighlight] = useState('all')
+    if (filters?.status && highlight !== filters?.status) {
+        setHighlight(filters?.status)
+    } else if (filters?.isBest && highlight !== 'isBest') {
+        setHighlight('isBest')
+    } else if (!filters?.isBest && !filters?.status && highlight !== 'all') {
+        setHighlight('all')
+    }
+
+    const [dateSort, setDateSort] = useState('')
     const dateSortText = sort === 'dateAsc'
         ? 'Date ⬆'
         : sort === 'dateDesc'
@@ -41,15 +50,6 @@ function SortFilterBar({view, setView}) {
             setView('isBest')
             setFilters({isBest: value})
         }
-        window.scrollTo({top: 0, behavior: 'smooth'})
-    }, [setFilters, setView])
-
-    const handleFilter = useCallback(event => {
-        event.preventDefault()
-        event.stopPropagation()
-        const {value} = event.target
-        setFilters({status: value})
-        setView(value)
         window.scrollTo({top: 0, behavior: 'smooth'})
     }, [setFilters, setView])
 
@@ -98,14 +98,16 @@ function SortFilterBar({view, setView}) {
                 }}>
                     <span style={{fontSize: '.7rem', marginRight: 5}}>FILTER</span>
                     <ToggleButtonGroup style={{height: 26}}>
-                        <ToggleButton selected={view === 'all'} style={{padding: 7}} value={'all'}
+                        <ToggleButton selected={highlight === 'all'} style={{padding: 7}} value={'all'}
                                       onClick={handleClear}>All</ToggleButton>
-                        <ToggleButton selected={view === 'isBest'} style={{padding: 7}} value={['isBest', 'true']}
+                        <ToggleButton selected={highlight === 'isBest'} style={{padding: 7}} value={['isBest', 'true']}
                                       onClick={handleFilterFieldValue}>Fastest</ToggleButton>
-                        {isMod && <ToggleButton selected={view === 'approved'} style={{padding: 7}} value={'approved'}
-                                                onClick={handleFilter}>Approved</ToggleButton>}
-                        {isMod && <ToggleButton selected={view === 'pending'} style={{padding: 7}} value={'pending'}
-                                                onClick={handleFilter}>Pending</ToggleButton>}
+
+                        {isMod && <ToggleButton selected={highlight === 'approved'} style={{padding: 7}} value={['status', 'approved']}
+                                                onClick={handleFilterFieldValue}>Approved</ToggleButton>}
+
+                        {isMod && <ToggleButton selected={highlight === 'pending'} style={{padding: 7}} value={['status', 'pending']}
+                                                onClick={handleFilterFieldValue}>Pending</ToggleButton>}
                     </ToggleButtonGroup>
                 </div>
             }

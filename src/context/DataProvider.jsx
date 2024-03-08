@@ -60,7 +60,7 @@ export function DataProvider({children}) {
             entry.reviewerName = reviewerId && allProfiles.find(({userId}) => userId === reviewerId)
                 ? allProfiles.find(({userId}) => userId === reviewerId).username
                 : 'unknown'
-            
+
             const totalTime = (dayjs(entry.openTime) - dayjs(entry.startTime)) / 1000
             entry.totalTime = totalTime
             entry.totalTimeString = formatTime(totalTime)
@@ -177,6 +177,11 @@ export function DataProvider({children}) {
 
     }, [filters, isMod, mappedEntries, search, sort, user?.uid])
 
+    const pendingEntries = useMemo(() => {
+        return allEntries.filter(datum => datum.status === 'pending')
+
+    },[allEntries])
+
     const DCUpdate = useCallback(value => {
         setUpdated(value)
     }, [])
@@ -198,7 +203,8 @@ export function DataProvider({children}) {
         toggleMod,
         isMod,
         allEntries,
-        visibleEntries
+        visibleEntries,
+        pendingEntries
     }), [
         lockBelts,
         lockData,
@@ -211,7 +217,8 @@ export function DataProvider({children}) {
         toggleMod,
         isMod,
         allEntries,
-        visibleEntries
+        visibleEntries,
+        pendingEntries
     ])
 
     return (

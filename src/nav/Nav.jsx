@@ -6,6 +6,7 @@ import MainMenu from './MainMenu'
 import ScrollToTopButton from './ScrollToTopButton'
 import UserMenu from './UserMenu'
 import TopNav from './TopNav.jsx'
+import PendingChecker from '../speedpicks/PendingChecker.jsx'
 
 function Nav({extras, route}) {
     return (
@@ -27,9 +28,10 @@ function Nav({extras, route}) {
 
                     {extras}
 
+                    <PendingChecker/>
                     <VersionChecker/>
-
                     <UserMenu/>
+
                 </Toolbar>
             </AppBar>
 

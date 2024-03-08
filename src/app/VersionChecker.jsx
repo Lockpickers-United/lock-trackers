@@ -15,7 +15,7 @@ function VersionChecker() {
     if (newVersionAvailable && isLoggedIn) {
         return (
             <Tooltip title='New Version Available' arrow disableFocusListener>
-                <IconButton onClick={handleClick} style={{color: '#7272ce', marginLeft: 8}}>
+                <IconButton onClick={handleClick} style={{color: '#7272ce', marginLeft: 0}}>
                     <CachedIcon/>
                 </IconButton>
             </Tooltip>
