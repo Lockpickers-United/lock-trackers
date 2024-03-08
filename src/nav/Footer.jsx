@@ -2,7 +2,6 @@ import React, {useCallback, useContext, useState} from 'react'
 import Typography from '@mui/material/Typography'
 import ToggleBetaButton from './ToggleBetaButton'
 import ToggleColorMode from './ToggleColorMode'
-import ToggleModButton from './ToggleModButton.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
@@ -14,7 +13,6 @@ import speedPicks from '../speedpicks/speedPicks.json'
 
 function Footer({extras}) {
     const {user} = useContext(AuthContext)
-    const {profile} = useContext(DBContext)
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
 
@@ -52,9 +50,6 @@ function Footer({extras}) {
 
             <div style={{textAlign: 'center'}}>
                 <ToggleBetaButton/>
-                {(user && profile) &&
-                    <ToggleModButton/>
-                }
                 <br/>
                 {user?.uid === 'ClbjuilBEHgbzO4UZl4y3GStlEz2' &&
                     <div style={{marginTop: '20px', display: 'flex', textAlign: 'center'}}>

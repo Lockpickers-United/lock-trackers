@@ -5,7 +5,7 @@ import ErrorBoundary from './ErrorBoundary'
 export default [
     {
         path: '/',
-        loader: () => redirect('/speedpicks')
+        loader: () => redirect('/front')
     },
     {
         path: '/profile/edit',
@@ -43,8 +43,15 @@ export default [
         }
     },
     {
+        path: '/front',
+        lazy: async () => {
+            const {default: FrontRoute} = await import('../front/FrontRoute')
+            return {element: <FrontRoute/>}
+        }
+    },
+    {
         path: '*',
-        loader: () => redirect('/speedpicks')
+        loader: () => redirect('/front')
     },
 ].map(route => ({...route, errorElement: <ErrorBoundary/>}))
 
