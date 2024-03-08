@@ -49,15 +49,15 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
     const status = entry.status === 'approved' ? 'APPROVED' : 'PENDING'
     const statusColor = entry.status === 'approved' ? '#fff' : '#ca6060'
     const functionColor = entry.status === 'approved' ? '#ca6060' : '#0a0'
-    const statusString = mobileSmall360 ? `${status}:`
-        : mobileLarge428 ? `IS ${status}:`
-            : `ENTRY IS ${status}:`
+    const statusString = mobileSmall360 ? `${status}`
+        : mobileLarge428 ? `IS ${status}`
+            : `ENTRY IS ${status}`
 
     return (
 
         <div>
             {isMod &&
-                <div style={{fontSize: '1rem', textAlign: 'right', margin: '15px 25px 5px 0px', color:'#ccc'}}>
+                <div style={{fontSize: '1rem', textAlign: 'right', margin: '15px 25px 5px 0px', color: '#ccc'}}>
                     Last reviewed by {entry.reviewerName}
                 </div>
             }
@@ -89,7 +89,9 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
                     padding: '0px 12px 8px 0px'
                 }}>
                     <Button disabled style={{color: statusColor, fontWeight: 600}}>{statusString}</Button>
-                    <Button style={{color: '#ccc'}} onClick={startEdit}>Edit</Button>
+                    {(entry.status !== 'approved' || isMod) &&
+                        <Button style={{color: '#ccc'}} onClick={startEdit}>Edit</Button>
+                    }
                     {(entry.status === 'approved' && isMod) &&
                         <Button style={{marginRight: 0, color: functionColor}} onClick={toggleApprove}>Pend</Button>
                     }
