@@ -3,16 +3,16 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import DBContext from './DBContext.jsx'
 import CachedIcon from '@mui/icons-material/Cached'
-import AuthContext from './AuthContext.jsx'
 
 function VersionChecker() {
     //if (import.meta.env.DEV) return null
-    const {newVersionAvailable} = useContext(DBContext)
-    const {isLoggedIn} = useContext(AuthContext)
+    const {newVersionAvailable, profile} = useContext(DBContext)
+
+    console.log(newVersionAvailable)
 
     const handleClick = useCallback(() => location.reload(), [])
 
-    if (newVersionAvailable && isLoggedIn) {
+    if (newVersionAvailable && profile.username) {
         return (
             <Tooltip title='New Version Available' arrow disableFocusListener>
                 <IconButton onClick={handleClick} style={{color: '#7272ce', marginLeft: 0}}>

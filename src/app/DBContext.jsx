@@ -52,7 +52,7 @@ export function DBProvider({children}) {
     const updateVersion = useCallback(async () => {
         if (dbError) return false
         const ref = doc(db, 'versions', 'speedpicks')
-        const newVersion = 'X' + Math.random()
+        const newVersion = user?.uid + '-' + Math.random().toString()
         try {
             await runTransaction(db, async transaction => {
                 const delta = {version: newVersion}
@@ -63,7 +63,7 @@ export function DBProvider({children}) {
             console.log('error')
             console.error(e)
         }
-    }, [dbError, knownVersions])
+    }, [dbError, knownVersions, user?.uid])
 
     const updateEntry = useCallback(async entry => {
         console.log('entry', entry)

@@ -15,7 +15,7 @@ function CopyProfileLinkButton() {
 
     const profile = filters?.pickerId ? getProfileFromId(filters.pickerId) : null
 
-    const safeName = profile.username
+    const safeName = profile?.username
         ? profile.username.replace(/\s/g, '_')
         : 'Private'
 
