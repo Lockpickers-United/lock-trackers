@@ -40,11 +40,16 @@ function EditProfilePage() {
         ? 'You must have a named profile to submit speed picks.'
         : ''
 
+    const [safeName,setSafeName] = useState(profile.username
+        ? profile.username.replace(/\s/g, '_')
+        : 'Private')
+
     const [profileChanged, setProfileChanged] = useState(false)
     const handleChange = useCallback((event) => {
         const {value} = event.target
         if (event.target.id === 'username') {
             setUsername(value)
+            setSafeName(value.replace(/\s/g, '_'))
         } else if (event.target.id === 'discordUsername') {
             setDiscordUsername(value)
         } else if (event.target.id === 'redditUsername') {
@@ -59,7 +64,7 @@ function EditProfilePage() {
         setProfileChanged(true)
     }, [])
 
-    const updatedString = profileChanged ? '&profileUpdated=true' : ''
+    const updatedString = profileChanged ? `&profileUpdated=true&name=${safeName}` : ''
 
     const clearForm = useCallback(() => {
         setUsername('')

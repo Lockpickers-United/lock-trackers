@@ -15,13 +15,16 @@ function CopyProfileLinkButton() {
 
     const profile = filters?.pickerId ? getProfileFromId(filters.pickerId) : null
 
+    const safeName = profile.username
+        ? profile.username.replace(/\s/g, '_')
+        : 'Private'
+
     const handleClick = useCallback(async () => {
-        const safeName = profile?.username.replace(/\s/g, '_')
-        const link = `https://locktrackers.com/dist/#/speedpicks?pickerId=${pickerId}&name=${safeName}`
+        const link = `https://beta.locktrackers.com/#/speedpicks?pickerId=${pickerId}&name=${safeName}`
 
         await navigator.clipboard.writeText(link)
         enqueueSnackbar('Link to profile copied to clipboard.')
-    }, [profile.username, pickerId])
+    }, [pickerId, safeName])
 
     if ((!user || (!!pickerId && pickerId !== user.uid) || !profile?.username) && !isMod) return null
     return (

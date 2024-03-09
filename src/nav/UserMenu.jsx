@@ -27,8 +27,8 @@ function UserMenu() {
     const handleOpen = useCallback(event => setAnchorEl(event.currentTarget), [])
     const handleClose = useCallback(() => setAnchorEl(null), [])
 
-    const safeName = profile
-        ? profile.username
+    const safeName = profile.username
+        ? profile.username.replace(/\s/g, '_')
         : 'Private'
 
     const handleClick = useCallback(url => () => {
@@ -77,7 +77,7 @@ function UserMenu() {
                             <ListItemText>Edit Profile</ListItemText>
                         </MenuItem>
                         {profile &&
-                            <MenuItem onClick={handleClick(`/speedpicks?pickerId=${user.uid}`)}>
+                            <MenuItem onClick={handleClick(`/speedpicks?pickerId=${user.uid}&name=${safeName}`)}>
                                 <ListItemIcon>
                                     <AccountBoxIcon/>
                                 </ListItemIcon>
