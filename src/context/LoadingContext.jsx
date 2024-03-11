@@ -5,9 +5,7 @@ import AuthContext from '../app/AuthContext.jsx'
 import useData from '../util/useData'
 import {locksData, jsonBackup} from '../data/dataUrls'
 
-const urls = {
-    locksData, jsonBackup
-}
+const urls = {locksData, jsonBackup}
 
 const LoadingContext = React.createContext({})
 
@@ -16,52 +14,44 @@ export function LoadingProvider({children}) {
     const {locksData, jsonBackup} = data || {}
     const jsonLoaded = (!loading && !error && !!data)
 
-    const {isLoggedIn} = useContext(AuthContext)
-    const {getDbEntries, getDbProfiles, profile} = useContext(DBContext)
+    const {isLoggedIn, authLoaded} = useContext(AuthContext)
+    const {getDbEntries, getDbProfiles} = useContext(DBContext)
 
-    const [dbEntries, setDbEntries] = useState([])
-    const [dbProfiles, setDbProfiles] = useState([])
-
-    const [jsonEntries, setJsonEntries] = useState([])
-    const [jsonProfiles, setJsonProfiles] = useState([])
-
-    console.log('loggedIn: ', isLoggedIn)
     const dbUser = isLoggedIn
 
-    const jsonEntrySource = jsonLoaded
-        ? jsonBackup?.__collections__.speedPicks
-        : skeletonData.entry
+    const [dbEntries, setDbEntries] = useState(null)
+    const [dbProfiles, setDbProfiles] = useState(null)
+    const [jsonEntries, setJsonEntries] = useState(null)
+    const [jsonProfiles, setJsonProfiles] = useState(null)
 
-    const jsonProfileSource = jsonLoaded
-        ? jsonBackup?.__collections__.profiles
-        : skeletonData.profile
+    const willNeedJson = !dbUser && jsonLoaded
+    const allDataLoaded = ((authLoaded && !dbUser && !!jsonEntries && !!jsonProfiles) || (authLoaded && dbUser && !!dbEntries && !!dbProfiles))
 
     const refreshData = useCallback(async () => {
-        if (dbUser) {
+        console.log('start refreshData')
+        if (authLoaded && dbUser) {
             console.log('REFRESHDATA: using dbEntries')
             const newDbEntries = await getDbEntries()
             setDbEntries(newDbEntries)
             const newDbProfiles = await getDbProfiles()
             setDbProfiles(newDbProfiles)
-        } else {
+        } else if (authLoaded && jsonLoaded) {
             console.log('REFRESHDATA: using jsonEntries')
-            const jsonEntriesMap = jsonEntrySource
+            const jsonEntriesMap = jsonBackup?.__collections__.speedPicks
             setJsonEntries(Object.keys(jsonEntriesMap).map(key => ({key, ...jsonEntriesMap[key]})))
 
-            const jsonProfilesMap = jsonProfileSource
+            const jsonProfilesMap = jsonBackup?.__collections__.profiles
             setJsonProfiles(Object.keys(jsonProfilesMap).map(key => {
                 const profile = jsonProfilesMap[key]
                 profile.userId = key
                 return profile
             }))
         }
-    }, [dbUser, getDbEntries, getDbProfiles, profile, jsonLoaded]) // eslint-disable-line
-
-    const allDataLoaded = !!dbEntries && !!dbProfiles && jsonLoaded
+    }, [dbUser, getDbEntries, getDbProfiles, willNeedJson]) // eslint-disable-line
 
     // Initial data load
     useEffect(() => {
-         refreshData()
+        refreshData()
     }, [refreshData])
 
     const allEntries = !allDataLoaded ? skeletonData.entry
@@ -75,9 +65,10 @@ export function LoadingProvider({children}) {
     const skeletonLocks = skeletonData.lock
     const allLocks = jsonLoaded ? locksData : skeletonLocks
 
+    console.log('authLoaded: ', authLoaded)
+    console.log('loggedIn: ', isLoggedIn)
     console.log('jsonLoaded: ', jsonLoaded)
     console.log('allDataLoaded: ', allDataLoaded)
-
     //console.log('lc, dbEntries: ', dbEntries.length)
     //console.log('lc, jsonEntries: ', jsonEntries.length)
     console.log('lc, allEntries: ', allEntries.length)

@@ -80,7 +80,7 @@ function EditProfilePage() {
     const handleSave = useCallback(async () => {
         try {
             updateProfile(username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created)
-            //await refreshData()
+            await refreshData()
             enqueueSnackbar('Updated profile.')
             navigate(`/speedpicks?pickerId=${user?.uid}${updatedString}`)
         } catch (ex) {
