@@ -48,8 +48,6 @@ function Entries() {
     const theme = useTheme()
     const background = theme.palette.mode === 'dark' ? '#223' : '#ffffff'
 
-    console.log('entries', entries)
-
     return (
         <div style={{
             minWidth: '320px', maxWidth: 800, height: '100%',

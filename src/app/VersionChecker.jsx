@@ -8,11 +8,9 @@ function VersionChecker() {
     //if (import.meta.env.DEV) return null
     const {newVersionAvailable, profile} = useContext(DBContext)
 
-    console.log(newVersionAvailable)
-
     const handleClick = useCallback(() => location.reload(), [])
 
-    if (newVersionAvailable && profile.username) {
+    if (newVersionAvailable && profile?.username) {
         return (
             <Tooltip title='New Version Available' arrow disableFocusListener>
                 <IconButton onClick={handleClick} style={{color: '#7272ce', marginLeft: 0}}>

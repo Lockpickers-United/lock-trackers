@@ -1,71 +1,89 @@
-import React, {useCallback, useContext, useMemo, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react'
 import DBContext from '../app/DBContext.jsx'
 import skeletonData from '../speedpicks/skeletonData.json'
-import {locksData} from '../data/dataUrls'
-import useData from '../util/useData.jsx'
-import dataSnapshot from '../data/dataSnapshot.json'
+import AuthContext from '../app/AuthContext.jsx'
+import useData from '../util/useData'
+import {locksData, jsonBackup} from '../data/dataUrls'
+
+const urls = {
+    locksData, jsonBackup
+}
 
 const LoadingContext = React.createContext({})
-const url = locksData
 
 export function LoadingProvider({children}) {
+    const {data, loading, error} = useData({urls})
+    const {locksData, jsonBackup} = data || {}
+    const jsonLoaded = (!loading && !error && !!data)
 
+    const {isLoggedIn} = useContext(AuthContext)
     const {getDbEntries, getDbProfiles, profile} = useContext(DBContext)
-    const {data, loading, error} = useData({url})
-    const jsonLoaded = (!loading && !error && data)
 
     const [dbEntries, setDbEntries] = useState([])
     const [dbProfiles, setDbProfiles] = useState([])
 
-    const jsonEntriesMap = dataSnapshot.__collections__.speedPicks
+    const [jsonEntries, setJsonEntries] = useState([])
+    const [jsonProfiles, setJsonProfiles] = useState([])
 
-    //const jsonEntriesArray = Object.keys(jsonEntriesMap).map(key => jsonEntriesMap[key])
-    const jsonEntries = Object.keys(jsonEntriesMap).map(key => ({key, ...jsonEntriesMap[key]}))
+    console.log('loggedIn: ', isLoggedIn)
+    const dbUser = isLoggedIn
 
-    const jsonProfilesMap = dataSnapshot.__collections__.profiles
-    const jsonProfiles =
-        Object.keys(jsonProfilesMap)
-            .map(key => {
-                    const profile = jsonProfilesMap[key]
-                    profile.userId = key
-                    return profile
-                }
-            )
+    const jsonEntrySource = jsonLoaded
+        ? jsonBackup?.__collections__.speedPicks
+        : skeletonData.entry
+
+    const jsonProfileSource = jsonLoaded
+        ? jsonBackup?.__collections__.profiles
+        : skeletonData.profile
 
     const refreshData = useCallback(async () => {
-        const newDbEntries = await getDbEntries()
-        setDbEntries(newDbEntries)
+        if (dbUser) {
+            console.log('REFRESHDATA: using dbEntries')
+            const newDbEntries = await getDbEntries()
+            setDbEntries(newDbEntries)
+            const newDbProfiles = await getDbProfiles()
+            setDbProfiles(newDbProfiles)
+        } else {
+            console.log('REFRESHDATA: using jsonEntries')
+            const jsonEntriesMap = jsonEntrySource
+            setJsonEntries(Object.keys(jsonEntriesMap).map(key => ({key, ...jsonEntriesMap[key]})))
 
-        const newDbProfiles = await getDbProfiles()
-        setDbProfiles(newDbProfiles)
-    }, [getDbEntries, getDbProfiles])
+            const jsonProfilesMap = jsonProfileSource
+            setJsonProfiles(Object.keys(jsonProfilesMap).map(key => {
+                const profile = jsonProfilesMap[key]
+                profile.userId = key
+                return profile
+            }))
+        }
+    }, [dbUser, getDbEntries, getDbProfiles, profile, jsonLoaded]) // eslint-disable-line
 
-    if (profile.username && dbEntries.length === 0) {
-        refreshData() // eslint-disable-line
-        console.log('refreshData')
-    }
+    const allDataLoaded = !!dbEntries && !!dbProfiles && jsonLoaded
 
-    const allDataLoaded = dbEntries && dbProfiles && jsonLoaded
+    // Initial data load
+    useEffect(() => {
+         refreshData()
+    }, [refreshData])
 
-    const skeletonEntries = skeletonData.entry
-    const allEntries = !allDataLoaded ? skeletonEntries
-        : profile.username ? dbEntries
+    const allEntries = !allDataLoaded ? skeletonData.entry
+        : dbUser ? dbEntries
             : jsonEntries
 
-    const skeletonProfiles = skeletonData.profile
-    const allProfiles = !allDataLoaded ? skeletonProfiles
-        : profile.username ? dbProfiles
+    const allProfiles = !allDataLoaded ? skeletonData.profile
+        : dbUser ? dbProfiles
             : jsonProfiles
 
     const skeletonLocks = skeletonData.lock
-    const allLocks = jsonLoaded ? data : skeletonLocks
+    const allLocks = jsonLoaded ? locksData : skeletonLocks
 
-    console.log('lc, dbEntries: ', dbEntries.length)
+    console.log('jsonLoaded: ', jsonLoaded)
+    console.log('allDataLoaded: ', allDataLoaded)
+
+    //console.log('lc, dbEntries: ', dbEntries.length)
+    //console.log('lc, jsonEntries: ', jsonEntries.length)
     console.log('lc, allEntries: ', allEntries.length)
-
-    console.log('lc, dbProfiles: ', dbProfiles.length)
-    console.log('lc, jsonProfiles: ', jsonProfiles)
-    console.log('lc, allProfiles: ', allProfiles)
+    //console.log('lc, dbProfiles: ', dbProfiles.length)
+    //console.log('lc, jsonProfiles: ', jsonProfiles.length)
+    //console.log('lc, allProfiles: ', allProfiles.length)
 
     const value = useMemo(() => ({
         allEntries,

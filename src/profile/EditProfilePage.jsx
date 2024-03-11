@@ -80,15 +80,14 @@ function EditProfilePage() {
     const handleSave = useCallback(async () => {
         try {
             updateProfile(username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created)
-            await refreshData()
+            //await refreshData()
             enqueueSnackbar('Updated profile.')
             navigate(`/speedpicks?pickerId=${user?.uid}${updatedString}`)
-
         } catch (ex) {
             console.error('Error while updating profile', ex)
             enqueueSnackbar('Error while updating profile.')
         }
-    }, [updateProfile, username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created, refreshData, navigate, user?.uid, updatedString])
+    }, [updateProfile, username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created, navigate, user?.uid, updatedString])
 
     const pattern = /^[\sa-zA-Z0-9_-]{1,32}$/
 
