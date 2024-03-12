@@ -17,8 +17,8 @@ export function LoadingProvider({children}) {
     const {isLoggedIn, authLoaded} = useContext(AuthContext)
     const {getDbEntries, getDbProfiles} = useContext(DBContext)
 
-    const dbUser = isLoggedIn
-   // const dbUser = true
+    //const dbUser = isLoggedIn
+    const dbUser = authLoaded
 
     const [dbEntries, setDbEntries] = useState(null)
     const [dbProfiles, setDbProfiles] = useState(null)
@@ -66,18 +66,17 @@ export function LoadingProvider({children}) {
     const skeletonLocks = skeletonData.lock
     const allLocks = jsonLoaded ? locksData : skeletonLocks
 
-    if (import.meta.env.PROD) {
-        console.log('authLoaded: ', authLoaded)
-        console.log('loggedIn: ', isLoggedIn)
-        console.log('jsonLoaded: ', jsonLoaded)
-        console.log('allDataLoaded: ', allDataLoaded)
-        //console.log('lc, dbEntries: ', dbEntries.length)
-        //console.log('lc, jsonEntries: ', jsonEntries.length)
-        console.log('lc, allEntries: ', allEntries.length)
-        //console.log('lc, dbProfiles: ', dbProfiles.length)
-        //console.log('lc, jsonProfiles: ', jsonProfiles.length)
-        //console.log('lc, allProfiles: ', allProfiles.length)
-    }
+    console.log('authLoaded: ', authLoaded)
+    console.log('loggedIn: ', isLoggedIn)
+    console.log('dbUser: ', dbUser)
+    console.log('jsonLoaded: ', jsonLoaded)
+    console.log('allDataLoaded: ', allDataLoaded)
+    //console.log('lc, dbEntries: ', dbEntries.length)
+    //console.log('lc, jsonEntries: ', jsonEntries.length)
+    console.log('lc, allEntries: ', allEntries.length)
+    //console.log('lc, dbProfiles: ', dbProfiles.length)
+    //console.log('lc, jsonProfiles: ', jsonProfiles.length)
+    //console.log('lc, allProfiles: ', allProfiles.length)
 
     const value = useMemo(() => ({
         allEntries,
