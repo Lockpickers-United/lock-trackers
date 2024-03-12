@@ -24,7 +24,7 @@ function Entries() {
     const {beta} = useContext(AppContext)
 
     const [view, setView] = useState('all')
-    const [setUpdated] = useState(0)
+    const [updated, setUpdated] = useState(0)
 
     const entriesUpdate = useCallback(value => {
         setUpdated(value)

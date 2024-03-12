@@ -76,7 +76,7 @@ function UserMenu() {
                             </ListItemIcon>
                             <ListItemText>Edit Profile</ListItemText>
                         </MenuItem>
-                        {profile &&
+                        {profile?.username &&
                             <MenuItem onClick={handleClick(`/speedpicks?pickerId=${user.uid}&name=${safeName}`)}>
                                 <ListItemIcon>
                                     <AccountBoxIcon/>

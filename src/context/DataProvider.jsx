@@ -31,8 +31,6 @@ export function DataProvider({children}) {
     const isMod = !!(user && profile && profile?.isMod)
     const [updated, setUpdated] = useState(0)
 
-    console.log(isMod)
-
     const mappedEntries = useMemo(() => {
         return allEntries.map(entry => {
 

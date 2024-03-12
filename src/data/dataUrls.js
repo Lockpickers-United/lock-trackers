@@ -7,3 +7,4 @@ if (import.meta.env && import.meta.env.VITE_LOCAL_DATA === 'true') {
 }
 
 export const locksData = `${url}/data.json`
+export const jsonBackup = 'https://data.locktrackers.com/firebase/backup.json'
