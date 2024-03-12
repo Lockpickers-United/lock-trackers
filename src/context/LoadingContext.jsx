@@ -17,7 +17,8 @@ export function LoadingProvider({children}) {
     const {isLoggedIn, authLoaded} = useContext(AuthContext)
     const {getDbEntries, getDbProfiles} = useContext(DBContext)
 
-    const dbUser = isLoggedIn
+    //const dbUser = isLoggedIn
+    const dbUser = true
 
     const [dbEntries, setDbEntries] = useState(null)
     const [dbProfiles, setDbProfiles] = useState(null)
