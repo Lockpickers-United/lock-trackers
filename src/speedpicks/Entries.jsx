@@ -28,7 +28,8 @@ function Entries() {
 
     const entriesUpdate = useCallback(value => {
         setUpdated(value)
-    }, [setUpdated])
+        console.log('entriesUpdate: ', updated)
+    }, [updated])
 
     const defExpanded = useDeferredValue(expanded)
 
