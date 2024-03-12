@@ -21,6 +21,8 @@ export function DBProvider({children}) {
     const [dbLoaded, setDbLoaded] = useState(false)
     const [dbError, setDbError] = useState(null)
 
+    const [profile, setProfile] = useState({})
+
     const [knownVersions] = useState([])
     const [currentVersion, setCurrentVersion] = useState('')
     const newVersionAvailable = !knownVersions.includes(currentVersion)
@@ -49,10 +51,73 @@ export function DBProvider({children}) {
         return profiles
     }, [dbError])
 
+    // Profile Subscription
+    useEffect(() => {
+        if (isLoggedIn) {
+            const ref = doc(db, 'profiles', user.uid)
+            return onSnapshot(ref, async doc => {
+                const data = doc.data()
+                if (data) {
+                    setProfile(data)
+                } else {
+                    setProfile({})
+                }
+                setDbLoaded(true)
+            }, error => {
+                console.error('Error listening to DB:', error)
+                setDbError(true)
+                enqueueSnackbar('There was a problem reading your profile. It will be unavailable until you refresh the page. ', {
+                    autoHideDuration: null,
+                    action: <Button color='secondary' onClick={() => location.reload()}>Refresh</Button>
+                })
+            })
+        } else if (authLoaded) {
+            setProfile({})
+            setDbLoaded(true)
+        }
+    }, [authLoaded, isLoggedIn, user])
+
+
+// Version Subscription
+
+    const modUser = profile?.isMod
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            const ref = doc(db, 'versions', 'speedpicks')
+            return onSnapshot(ref, async doc => {
+                const data = doc.data()
+                if (data) {
+                    setCurrentVersion(data.version)
+                    if (knownVersions.length===0) knownVersions.push(data.version)
+                } else {
+                    setCurrentVersion('')
+                }
+            }, error => {
+                console.error('Error listening to DB:', error)
+                setDbError(true)
+                enqueueSnackbar('There was a problem reading the current version. It will be unavailable until you refresh the page. ', {
+                    autoHideDuration: null,
+                    action: <Button color='secondary' onClick={() => location.reload()}>Refresh</Button>
+                })
+            })
+        } else if (authLoaded) {
+            setProfile({})
+            setDbLoaded(true)
+        }
+    }, [authLoaded, isLoggedIn, knownVersions, modUser, user])
+
+    console.log(profile?.username)
+
     const updateVersion = useCallback(async () => {
         if (dbError) return false
+
+        const safeName = profile?.username
+        ? profile?.username.replace(/\s/g, '_')
+        : user?.uid
+
         const ref = doc(db, 'versions', 'speedpicks')
-        const newVersion = user?.uid + '_' + new Date().toISOString()
+        const newVersion = safeName + '_' + new Date().toISOString().substring(0,21)
         try {
             await runTransaction(db, async transaction => {
                 const delta = {version: newVersion}
@@ -63,7 +128,7 @@ export function DBProvider({children}) {
             console.log('error')
             console.error(e)
         }
-    }, [dbError, knownVersions, user?.uid])
+    }, [dbError, knownVersions, profile?.username, user?.uid])
 
     const updateEntry = useCallback(async entry => {
         console.log('entry', entry)
@@ -133,63 +198,6 @@ export function DBProvider({children}) {
         return profile.username
     }, [getProfile])
 
-    const [profile, setProfile] = useState({})
-
-    // Profile Subscription
-    useEffect(() => {
-        if (isLoggedIn) {
-            const ref = doc(db, 'profiles', user.uid)
-            return onSnapshot(ref, async doc => {
-                const data = doc.data()
-                if (data) {
-                    setProfile(data)
-                } else {
-                    setProfile({})
-                }
-                setDbLoaded(true)
-            }, error => {
-                console.error('Error listening to DB:', error)
-                setDbError(true)
-                enqueueSnackbar('There was a problem reading your profile. It will be unavailable until you refresh the page. ', {
-                    autoHideDuration: null,
-                    action: <Button color='secondary' onClick={() => location.reload()}>Refresh</Button>
-                })
-            })
-        } else if (authLoaded) {
-            setProfile({})
-            setDbLoaded(true)
-        }
-    }, [authLoaded, isLoggedIn, user])
-
-
-    // Version Subscription
-
-    const modUser = profile?.isMod
-
-    useEffect(() => {
-        if (isLoggedIn) {
-            const ref = doc(db, 'versions', 'speedpicks')
-            return onSnapshot(ref, async doc => {
-                const data = doc.data()
-                if (data) {
-                    setCurrentVersion(data.version)
-                    if (knownVersions.length===0) knownVersions.push(data.version)
-                } else {
-                    setCurrentVersion('')
-                }
-            }, error => {
-                console.error('Error listening to DB:', error)
-                setDbError(true)
-                enqueueSnackbar('There was a problem reading the current version. It will be unavailable until you refresh the page. ', {
-                    autoHideDuration: null,
-                    action: <Button color='secondary' onClick={() => location.reload()}>Refresh</Button>
-                })
-            })
-        } else if (authLoaded) {
-            setProfile({})
-            setDbLoaded(true)
-        }
-    }, [authLoaded, isLoggedIn, knownVersions, modUser, user])
 
     // value & provider
     const value = useMemo(() => ({
