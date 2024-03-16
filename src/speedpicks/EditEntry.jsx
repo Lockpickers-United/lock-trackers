@@ -1,24 +1,24 @@
 import React, {useContext, useState, useCallback, useMemo} from 'react'
-import TextField from '@mui/material/TextField'
 import {Backdrop, ListItemText} from '@mui/material'
 import {DatePicker} from '@mui/x-date-pickers/DatePicker'
-import dayjs from 'dayjs'
-import formatTime from '../util/formatTime.jsx'
-import DataContext from '../context/DataContext'
-import VideocamIcon from '@mui/icons-material/Videocam'
-import LaunchIcon from '@mui/icons-material/Launch'
-import InputAdornment from '@mui/material/InputAdornment'
-import LockIcon from '@mui/icons-material/Lock'
-import entryName from '../util/entryName'
-import belts from '../data/belts'
-import AuthContext from '../app/AuthContext'
-import DBContext from '../app/DBContext'
-import Button from '@mui/material/Button'
 import {DesktopTimePicker} from '@mui/x-date-pickers'
-import LoadingContext from '../context/LoadingContext.jsx'
 import {enqueueSnackbar} from 'notistack'
-import LpuCopyLinkInfo from './LpuCopyLinkInfo.jsx'
+import AuthContext from '../app/AuthContext'
+import belts from '../data/belts'
+import Button from '@mui/material/Button'
+import DataContext from '../context/DataContext'
+import dayjs from 'dayjs'
+import DBContext from '../app/DBContext'
+import entryName from '../util/entryName'
+import formatTime from '../util/formatTime.jsx'
 import InfoIcon from '@mui/icons-material/Info'
+import InputAdornment from '@mui/material/InputAdornment'
+import LaunchIcon from '@mui/icons-material/Launch'
+import LoadingContext from '../context/LoadingContext.jsx'
+import LockIcon from '@mui/icons-material/Lock'
+import LpuCopyLinkInfo from './LpuCopyLinkInfo.jsx'
+import TextField from '@mui/material/TextField'
+import VideocamIcon from '@mui/icons-material/Videocam'
 
 const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const {bestTimes, getLockFromId, getEntryFromId = []} = useContext(DataContext)
@@ -46,7 +46,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const lockVersion = lock ? lock.version : ''
     const lockBelt = lock ? lock.belt : ''
     const lockRegex = useMemo(() => /id=(\w{8})/, [])
-    const [bestTime,setBestTime] = useState(entry ? bestTimes.get(lockId) : 0)
+    const [bestTime, setBestTime] = useState(entry ? bestTimes.get(lockId) : 0)
 
     const processURL = useCallback(event => {
         const {value} = event.target
@@ -66,7 +66,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
         height: 35,
         backgroundColor
     }
-    
+
     const [videoUrl, setvideoUrl] = useState(entry ? entry.videoUrl : '')
     const [date, setDate] = useState(entry && entry.date ? dayjs(entry.date) : dayjs())
     const [startTime, setStartTime] = useState(entry && entry.startTime ? dayjs(entry.startTime) : dayjs('1970-01-01'))
@@ -269,7 +269,10 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                 <TextField variant='outlined'
                            color='secondary'
                            label='Total Time'
-                           value={formatTime((openTime - startTime) / 1000)}
+                           value={ openTime - startTime > 0
+                               ? formatTime((openTime - startTime) / 1000)
+                               : formatTime(0)
+                           }
                            style={{width: 120, marginRight: 10}}
                            error={timeError}
                            helperText={timeHelperText}
