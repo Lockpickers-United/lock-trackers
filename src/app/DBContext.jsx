@@ -102,7 +102,6 @@ export function DBProvider({children}) {
                 })
             })
         } else if (authLoaded) {
-            setProfile({})
             setDbLoaded(true)
         }
     }, [authLoaded, isLoggedIn, knownVersions, modUser, user])

@@ -14,11 +14,12 @@ import AppContext from '../app/AppContext.jsx'
 
 export function DataProvider({children}) {
 
-    const {user} = useContext(AuthContext)
+    const {user, isLoggedIn} = useContext(AuthContext)
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sort, image, profileUpdated, ...filters} = allFilters
     const {allEntries, allProfiles, allLocks} = useContext(LoadingContext)
     const {modMode, setModMode} = useContext(AppContext)
+    const {profile} = useContext(DBContext)
 
     //console.log('dp: ', allEntries)
     //console.log('dp: ', allProfiles)
@@ -27,7 +28,6 @@ export function DataProvider({children}) {
     const lockBelts = useMemo(() => belts, [])
     const lockData = useMemo(() => allLocks, [allLocks])
     const bestTimes = useMemo(() => new Map(), [])
-    const {profile} = useContext(DBContext)
     const isMod = !!(user && profile && profile?.isMod)
     const [updated, setUpdated] = useState(0)
 
@@ -85,13 +85,56 @@ export function DataProvider({children}) {
         }
     })
 
-    const getLockFromId = useCallback(lockId => {
-        return lockData?.find(({id}) => id === lockId)
-    }, [lockData])
-
     const getEntryFromId = useCallback(entryId => {
         return allEntries?.find(({id}) => id === entryId)
     }, [allEntries])
+
+
+    const userEntries = useMemo(() => {
+        if (!isLoggedIn) return []
+        const entryIds = []
+        mappedEntries.filter(datum => datum.pickerId === user?.uid)
+            .map(entry => {
+                entryIds.push(entry.id)
+            })
+        return entryIds
+    }, [isLoggedIn, mappedEntries, user?.uid])
+
+    const userEntriesApproved = useMemo(() => {
+        if (!isLoggedIn) return []
+        const entryIds = []
+        mappedEntries.filter(datum => datum.status === 'approved')
+            .filter(datum => datum.pickerId === user?.uid)
+            .map(entry => {
+                entryIds.push(entry.id)
+            })
+        return entryIds
+    }, [isLoggedIn, mappedEntries, user?.uid])
+
+    const newApprovedEntries = useMemo(() => {
+        if (!isLoggedIn) return []
+        const approvedEntries = profile?.approvedEntries
+            ? profile?.approvedEntries
+            : []
+        const entries = []
+        userEntriesApproved.map(id => {
+            if (!approvedEntries.includes(id)) {
+                entries.push(getEntryFromId(id))
+            }
+        })
+        return entries
+    }, [getEntryFromId, isLoggedIn, profile?.approvedEntries, userEntriesApproved])
+
+
+    console.log('userEntries: ', userEntries)
+    console.log('userEntriesApproved: ', userEntriesApproved)
+    console.log('profile?.approvedEntries: ',profile?.approvedEntries)
+    console.log('newApprovedEntries: ', newApprovedEntries)
+
+
+    const getLockFromId = useCallback(lockId => {
+        return lockData?.find(({id}) => id === lockId)
+    }, [lockData])
 
     const getProfileFromId = useCallback(profileId => {
         return allProfiles?.find(({userId}) => userId === profileId)
@@ -178,8 +221,7 @@ export function DataProvider({children}) {
 
     const pendingEntries = useMemo(() => {
         return allEntries.filter(datum => datum.status === 'pending')
-
-    },[allEntries])
+    }, [allEntries])
 
     const DCUpdate = useCallback(value => {
         setUpdated(value)
@@ -203,7 +245,8 @@ export function DataProvider({children}) {
         isMod,
         allEntries,
         visibleEntries,
-        pendingEntries
+        pendingEntries,
+        newApprovedEntries
     }), [
         lockBelts,
         lockData,
@@ -217,7 +260,8 @@ export function DataProvider({children}) {
         isMod,
         allEntries,
         visibleEntries,
-        pendingEntries
+        pendingEntries,
+        newApprovedEntries
     ])
 
     return (

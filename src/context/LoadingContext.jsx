@@ -71,12 +71,12 @@ export function LoadingProvider({children}) {
     console.log('dbUser: ', dbUser)
     console.log('jsonLoaded: ', jsonLoaded)
     console.log('allDataLoaded: ', allDataLoaded)
-    //console.log('lc, dbEntries: ', dbEntries.length)
-    //console.log('lc, jsonEntries: ', jsonEntries.length)
-    console.log('lc, allEntries: ', allEntries.length)
-    //console.log('lc, dbProfiles: ', dbProfiles.length)
-    //console.log('lc, jsonProfiles: ', jsonProfiles.length)
-    //console.log('lc, allProfiles: ', allProfiles.length)
+    console.log('lc, dbEntries: ', dbEntries?.length)
+    console.log('lc, jsonEntries: ', jsonEntries?.length)
+    console.log('lc, allEntries: ', allEntries?.length)
+    console.log('lc, dbProfiles: ', dbProfiles?.length)
+    console.log('lc, jsonProfiles: ', jsonProfiles?.length)
+    console.log('lc, allProfiles: ', allProfiles?.length)
 
     const value = useMemo(() => ({
         allEntries,

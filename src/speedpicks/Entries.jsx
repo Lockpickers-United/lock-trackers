@@ -15,10 +15,12 @@ import AppContext from '../app/AppContext.jsx'
 import ViewProfileInline from '../profile/ViewProfileInline.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import NoEntriesCard from './NoEntriesCard.jsx'
+import {Backdrop} from '@mui/material'
+import NewEntryAlert from './NewApprovedEntryAlert.jsx'
 
 function Entries() {
 
-    const {bestTimes, visibleEntries, allEntries = []} = useContext(DataContext)
+    const {bestTimes, visibleEntries, allEntries, newApprovedEntries = []} = useContext(DataContext)
     const {expanded, setExpanded} = useContext(ListContext)
     const {filters} = useContext(FilterContext)
     const {beta} = useContext(AppContext)
@@ -49,47 +51,65 @@ function Entries() {
     const theme = useTheme()
     const background = theme.palette.mode === 'dark' ? '#223' : '#ffffff'
 
+    //const [overlayIsOpen, setOverlayIsOpen] = useState(newApprovedEntries.length > 0)
+    const [overlayIsOpen, setOverlayIsOpen] = useState(false)
+    const handleOverlayClose = useCallback(() => {
+        setOverlayIsOpen(false)
+    }, [])
+    //const handleOverlayOpen = useCallback(() => { setOverlayIsOpen(true) }, [])
+
+
     return (
-        <div style={{
-            minWidth: '320px', maxWidth: 800, height: '100%',
-            padding: pagePadding, backgroundColor: background,
-            marginLeft: 'auto', marginRight: 'auto',
-            fontSize: '1.5rem', lineHeight: 0.8
-        }}>
-            <SortFilterBar view={view} setView={setView}/>
+        <React.Fragment>
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={overlayIsOpen} onClick={handleOverlayClose}
+            >
+                <NewEntryAlert newApprovedEntries={newApprovedEntries} bestTimes={bestTimes}/>
+            </Backdrop>
 
-            {filters.pickerId &&
-                <ViewProfileInline/>
-            }
-            <NewEntry entriesUpdate={entriesUpdate}/>
+            <div style={{
+                minWidth: '320px', maxWidth: 800, height: '100%',
+                padding: pagePadding, backgroundColor: background,
+                marginLeft: 'auto', marginRight: 'auto',
+                fontSize: '1.5rem', lineHeight: 0.8
+            }}>
+                <SortFilterBar view={view} setView={setView}/>
 
-            {entries.map((entry) =>
-                <Entry bestTimes={bestTimes}
-                       key={entry.id}
-                       entry={entry}
-                       expanded={entry.id === defExpanded}
-                       onExpand={setExpanded}
-                       entriesUpdate={entriesUpdate}
-                />
-            )}
+                {filters.pickerId &&
+                    <ViewProfileInline/>
+                }
+                <NewEntry entriesUpdate={entriesUpdate}/>
 
-            {entries?.length === 0 &&
-                <NoEntriesCard view={view} setView={setView}/>
-            }
-            {beta &&
-                <div>
-                    <div style={{height: 40}}/>
-                    <Accordion style={{width: '100%'}}>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon/>} style={{fontSize: '1.0rem'}}>
-                            SPEEDPICKS DATA
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <JsonDisplay json={allEntries} jsonName={'allEntries (json + calculated)'}/>
-                        </AccordionDetails>
-                    </Accordion>
-                </div>
-            }
-        </div>
+                {entries.map((entry) =>
+                    <Entry bestTimes={bestTimes}
+                           key={entry.id}
+                           entry={entry}
+                           expanded={entry.id === defExpanded}
+                           onExpand={setExpanded}
+                           entriesUpdate={entriesUpdate}
+                    />
+                )}
+
+                {entries?.length === 0 &&
+                    <NoEntriesCard view={view} setView={setView}/>
+                }
+                {beta &&
+                    <div>
+                        <div style={{height: 40}}/>
+                        <Accordion style={{width: '100%'}}>
+                            <AccordionSummary expandIcon={<ExpandMoreIcon/>} style={{fontSize: '1.0rem'}}>
+                                SPEEDPICKS DATA
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <JsonDisplay json={allEntries} jsonName={'allEntries (json + calculated)'}/>
+                            </AccordionDetails>
+                        </Accordion>
+                    </div>
+                }
+            </div>
+        </React.Fragment>
+
     )
 }
 
