@@ -28,6 +28,7 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
     const entryColor = entry.status !== 'approved'
         ? theme.palette.error.light
         : isBestTime ? theme.palette.text.primary : theme.palette.text.disabled
+    
     const entryWeight = entry.status !== 'approved'
         ? 400
         : isBestTime ? 600 : 400

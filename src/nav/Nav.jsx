@@ -7,6 +7,7 @@ import ScrollToTopButton from './ScrollToTopButton'
 import UserMenu from './UserMenu'
 import TopNav from './TopNav.jsx'
 import PendingChecker from '../speedpicks/PendingChecker.jsx'
+import VersionCheckerCode from '../app/VersionCheckerCode.jsx'
 
 function Nav({extras, route}) {
     return (
@@ -20,9 +21,11 @@ function Nav({extras, route}) {
                         minWidth:150,
                         fontWeight: 500,
                         fontSize: '1.5rem',
-                        paddingLeft: 6
+                        paddingLeft: 6,
+                        display:'flex'
                     }}>
                         <TopNav route={route}/>
+                        <VersionCheckerCode/>
 
                     </div>
 
