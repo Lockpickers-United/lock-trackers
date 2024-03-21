@@ -12,6 +12,14 @@ import EditEntry from './EditEntry.jsx'
 import DataContext from '../context/DataContext'
 import {useTheme} from '@mui/material/styles'
 import useWindowSize from '../util/useWindowSize.jsx'
+import ErrorIcon from '@mui/icons-material/Error'
+import {makeStyles} from '@mui/styles'
+
+const useStyles = makeStyles({
+    alert : {
+        color: '#E15C07FF'
+    }
+})
 
 const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
@@ -25,10 +33,12 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
     entry.bestTime = formatTime(bestTimes.get(entry.lockId))
     const isBestTime = entry.totalTime === bestTimes.get(entry.lockId)
-    const entryColor = entry.status !== 'approved'
+    const entryColor = entry.status === 'pending'
         ? theme.palette.error.light
-        : isBestTime ? theme.palette.text.primary : theme.palette.text.disabled
-    
+        : entry.status === 'rejected'
+            ? '#e15c07'
+            : isBestTime ? theme.palette.text.primary : theme.palette.text.disabled
+
     const entryWeight = entry.status !== 'approved'
         ? 400
         : isBestTime ? 600 : 400
@@ -77,7 +87,7 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
         }
     }, [expanded, entry, scrolled])
 
-    const style = {maxWidth: 700, marginLeft: 'auto', marginRight: 'auto', borderBottom:'1px solid #444' }
+    const style = {maxWidth: 700, marginLeft: 'auto', marginRight: 'auto', borderBottom: '1px solid #444'}
 
     const divStyle = {
         margin: '10px 15px 10px 15px',
@@ -92,7 +102,7 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
     const breakSize = width <= 427
     const nameDivStyle = {
         minWidth: 110,
-        textAlign:'right'
+        textAlign: 'right'
     }
     const divFlexStyle = !breakSize ? {display: 'flex'} : {}
     const combinedDivStyle = {
@@ -100,27 +110,36 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
         ...divFlexStyle
     }
 
+    const classes = useStyles()
+    const expandIcon = entry.status === 'rejected'
+        ? <ErrorIcon  className={classes.alert}/>
+        : <ExpandMoreIcon/>
+
+    const timeString = entry.status === 'rejected'
+    ? 'problems'
+        : entry.totalTimeString
+
     return (
         <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters>
-            <AccordionSummary expandIcon={<ExpandMoreIcon/>} style={{fontSize: '1.1rem'}}>
+            <AccordionSummary expandIcon={expandIcon} style={{fontSize: '1.1rem'}}>
                 <BeltStripe value={entry.belt}/>
                 <ListItemText
                     primary={entry.lock}
-                    primaryTypographyProps={{fontWeight: 600, color: entryColor, fontSize:'1.0rem'}}
+                    primaryTypographyProps={{fontWeight: 600, color: entryColor, fontSize: '1.0rem'}}
                     secondary={entry.version}
                     secondaryTypographyProps={{color: entryColor}}
                     style={{padding: '8px 0px 8px 10px'}}
                 />
                 <div style={combinedDivStyle}>
                     <div style={divStyle}>{entry.pickerName}</div>
-                    <div style={divStyle}>{entry.totalTimeString}</div>
+                    <div style={divStyle}>{timeString}</div>
                 </div>
             </AccordionSummary>
             <AccordionDetails style={{display: 'block', padding: 0}}>
-                {!editing &&
+                {(!editing && expanded) &&
                     <EntryDetails entry={entry} startEdit={startEdit} entriesUpdate={entriesUpdate}/>
                 }
-                {editing &&
+                {(editing && expanded) &&
                     <EditEntry entry={entry} toggleOpen={toggleOpenTEMP} endEdit={endEdit}
                                entriesUpdate={entriesUpdate}/>
                 }

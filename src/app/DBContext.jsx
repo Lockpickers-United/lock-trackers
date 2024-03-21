@@ -89,7 +89,7 @@ export function DBProvider({children}) {
                 const data = doc.data()
                 if (data) {
                     setCurrentVersion(data.version)
-                    if (knownVersions.length===0) knownVersions.push(data.version)
+                    if (knownVersions.length === 0) knownVersions.push(data.version)
                 } else {
                     setCurrentVersion('')
                 }
@@ -106,17 +106,15 @@ export function DBProvider({children}) {
         }
     }, [authLoaded, isLoggedIn, knownVersions, modUser, user])
 
-    console.log(profile?.username)
-
     const updateVersion = useCallback(async () => {
         if (dbError) return false
 
         const safeName = profile?.username
-        ? profile?.username.replace(/\s/g, '_')
-        : user?.uid
+            ? profile?.username.replace(/\s/g, '_')
+            : user?.uid
 
         const ref = doc(db, 'versions', 'speedpicks')
-        const newVersion = safeName + '_' + new Date().toISOString().substring(0,21)
+        const newVersion = safeName + '_' + new Date().toISOString().substring(0, 21)
         try {
             await runTransaction(db, async transaction => {
                 const delta = {version: newVersion}
@@ -129,8 +127,30 @@ export function DBProvider({children}) {
         }
     }, [dbError, knownVersions, profile?.username, user?.uid])
 
+    const addComment = useCallback(async (entry, comment) => {
+        console.log('DB, adding comment: ', entry)
+        if (dbError) return false
+        const ref = doc(db, 'speedPicks', entry.id)
+        const currentComments = entry.comments ? entry.comments : []
+        currentComments.push(comment)
+        let statusText = ''
+        try {
+            await runTransaction(db, async transaction => {
+                const delta = {comments: currentComments}
+                transaction.update(ref, delta)
+                statusText = 'Comment Added'
+            })
+        } catch (e) {
+            console.log('error')
+            console.error(e)
+        }
+        console.log(statusText)
+        return statusText
+    }, [dbError])
+
+
     const updateEntry = useCallback(async entry => {
-        console.log('entry', entry)
+        console.log('DB, updating entry: ', entry)
         if (dbError) return false
         const modified = dayjs().format()
         const ref = doc(db, 'speedPicks', entry.id)
@@ -149,6 +169,7 @@ export function DBProvider({children}) {
                     status: entry.status,
                     created: entry.created,
                     reviewerId: entry.reviewerId,
+                    comments: entry.comments,
                     modified: modified
                 }
                 if (!sfDoc.exists()) {
@@ -176,7 +197,16 @@ export function DBProvider({children}) {
         const ref = doc(db, 'profiles', user?.uid)
         await runTransaction(db, async transaction => {
             const sfDoc = await transaction.get(ref)
-            const delta = {username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created, modified}
+            const delta = {
+                username,
+                discordUsername,
+                redditUsername,
+                LPUBeltsProfile,
+                belt,
+                country,
+                created,
+                modified
+            }
             if (!sfDoc.exists()) {
                 transaction.set(ref, delta)
             } else {
@@ -209,7 +239,8 @@ export function DBProvider({children}) {
         updateEntry,
         getDbEntries,
         getDbProfiles,
-        newVersionAvailable
+        newVersionAvailable,
+        addComment
     }), [
         dbLoaded,
         lockCollection,
@@ -220,7 +251,8 @@ export function DBProvider({children}) {
         updateEntry,
         getDbEntries,
         getDbProfiles,
-        newVersionAvailable
+        newVersionAvailable,
+        addComment
     ])
 
     return (

@@ -19,6 +19,7 @@ import LockIcon from '@mui/icons-material/Lock'
 import LpuCopyLinkInfo from './LpuCopyLinkInfo.jsx'
 import TextField from '@mui/material/TextField'
 import VideocamIcon from '@mui/icons-material/Videocam'
+import EntryCommentAdd from './EntryCommentAdd.jsx'
 
 const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const {bestTimes, getLockFromId, getEntryFromId = []} = useContext(DataContext)
@@ -125,8 +126,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
         entriesUpdate()
     }
 
-    function cancelEdit() {
-        //entriesUpdate()
+    const cancelEdit = useCallback(() => {
         if (isNew) {
             setLock(null)
             setLockURL('')
@@ -137,7 +137,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
             toggleOpen()
         }
         endEdit()
-    }
+    }, [endEdit, isNew, toggleOpen])
 
     const [overlayIsOpen, setOverlayIsOpen] = useState(false)
     const handleOverlayClose = useCallback(() => {
@@ -146,6 +146,24 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const handleOverlayOpen = useCallback(() => {
         setOverlayIsOpen(true)
     }, [])
+
+    const [commentOpen, setCommentOpen] = useState(false)
+    const handleOpenComment = useCallback(() => setCommentOpen(true), [])
+    const handleCloseComment = useCallback(() => setCommentOpen(false), [])
+    const targetStatus = 'pending'
+
+    const addCommentAction = useCallback(async (commentText, status) => {
+        entry.status = status
+        if (entry.comments) {
+            entry.comments?.push(commentText)
+        } else {
+            entry.comments = [commentText]
+        }
+        await updateEntry(entry)
+        enqueueSnackbar('Entry updated')
+        refreshData()
+        cancelEdit()
+    }, [cancelEdit, entry, refreshData, updateEntry])
 
     return (
 
@@ -269,7 +287,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                 <TextField variant='outlined'
                            color='secondary'
                            label='Total Time'
-                           value={ openTime - startTime > 0
+                           value={openTime - startTime > 0
                                ? formatTime((openTime - startTime) / 1000)
                                : formatTime(0)
                            }
@@ -300,12 +318,23 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                 <Button variant='text' style={{color: '#999'}} onClick={cancelEdit}>
                     Cancel
                 </Button>
-                <Button variant='text'
-                        style={{color: saveEntryColor}}
-                        disabled={!validEntry}
-                        onClick={saveEntry}>
-                    Save
-                </Button>
+
+                {entry?.status !== 'rejected' &&
+                    <Button variant='text'
+                            style={{color: saveEntryColor}}
+                            disabled={!validEntry}
+                            onClick={saveEntry}>
+                        Save
+                    </Button>
+                }
+                {entry?.status === 'rejected' &&
+                    <Button variant='text'
+                            style={{color: saveEntryColor}}
+                            disabled={!validEntry}
+                            onClick={handleOpenComment}>
+                        Resubmit
+                    </Button>
+                }
             </div>
 
             <Backdrop
@@ -313,6 +342,14 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                 open={overlayIsOpen} onClick={handleOverlayClose}
             >
                 <LpuCopyLinkInfo/>
+            </Backdrop>
+            <Backdrop sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                      open={commentOpen} onClick={null}>
+                <EntryCommentAdd handleCloseComment={handleCloseComment}
+                                 addCommentAction={addCommentAction}
+                                 targetStatus={targetStatus}
+                                 commenter={profile?.username}
+                />
             </Backdrop>
 
         </div>

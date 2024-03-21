@@ -16,7 +16,7 @@ import ViewProfileInline from '../profile/ViewProfileInline.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import NoEntriesCard from './NoEntriesCard.jsx'
 import {Backdrop} from '@mui/material'
-import NewEntryAlert from './NewApprovedEntryAlert.jsx'
+import NewApprovedEntryAlert from './NewApprovedEntryAlert.jsx'
 
 function Entries() {
 
@@ -58,14 +58,13 @@ function Entries() {
     }, [])
     //const handleOverlayOpen = useCallback(() => { setOverlayIsOpen(true) }, [])
 
-
     return (
         <React.Fragment>
             <Backdrop
                 sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
                 open={overlayIsOpen} onClick={handleOverlayClose}
             >
-                <NewEntryAlert newApprovedEntries={newApprovedEntries} bestTimes={bestTimes}/>
+                <NewApprovedEntryAlert newApprovedEntries={newApprovedEntries} bestTimes={bestTimes}/>
             </Backdrop>
 
             <div style={{

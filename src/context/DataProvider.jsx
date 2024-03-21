@@ -99,6 +99,7 @@ export function DataProvider({children}) {
             })
         return entryIds
     }, [isLoggedIn, mappedEntries, user?.uid])
+    console.log(userEntries)
 
     const userEntriesApproved = useMemo(() => {
         if (!isLoggedIn) return []
@@ -125,12 +126,12 @@ export function DataProvider({children}) {
         return entries
     }, [getEntryFromId, isLoggedIn, profile?.approvedEntries, userEntriesApproved])
 
-
+/*
     console.log('userEntries: ', userEntries)
     console.log('userEntriesApproved: ', userEntriesApproved)
     console.log('profile?.approvedEntries: ',profile?.approvedEntries)
     console.log('newApprovedEntries: ', newApprovedEntries)
-
+*/
 
     const getLockFromId = useCallback(lockId => {
         return lockData?.find(({id}) => id === lockId)
@@ -171,7 +172,7 @@ export function DataProvider({children}) {
                         : datum[key] === value
                 })
             })
-            .filter(datum => (datum.pickerId === user?.uid) || isMod || datum.status !== 'pending')
+            .filter(datum => (datum.pickerId === user?.uid) || isMod || (datum.status !== 'pending' && datum.status !== 'rejected'))
             .filter(datum => datum.status !== 'deleted')
 
         // If there is a search term, fuzzy match that

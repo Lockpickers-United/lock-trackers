@@ -103,8 +103,8 @@ function SortFilterBar({view, setView}) {
                         <ToggleButton selected={highlight === 'isBest'} style={{padding: 7}} value={['isBest', 'true']}
                                       onClick={handleFilterFieldValue}>Fastest</ToggleButton>
 
-                        {isMod && <ToggleButton selected={highlight === 'approved'} style={{padding: 7}} value={['status', 'approved']}
-                                                onClick={handleFilterFieldValue}>Approved</ToggleButton>}
+                        {isMod && <ToggleButton selected={highlight === 'rejected'} style={{padding: 7}} value={['status', 'rejected']}
+                                                onClick={handleFilterFieldValue}>Rejected</ToggleButton>}
 
                         {isMod && <ToggleButton selected={highlight === 'pending'} style={{padding: 7}} value={['status', 'pending']}
                                                 onClick={handleFilterFieldValue}>Pending</ToggleButton>}

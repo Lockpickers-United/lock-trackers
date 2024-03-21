@@ -10,7 +10,7 @@ function VersionCheckerCode() {
     const [version, setVersion] = useState()
 
     const checkVersion = async first => {
-        console.log('version: ', version)
+        //console.log('version: ', version)
         try {
             const response = await fetch('./version.json', {cache: 'no-cache'})
             const {version: newVersion} = (await response.json())

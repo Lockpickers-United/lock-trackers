@@ -5,6 +5,7 @@ import EntryFunctions from './EntryFunctions.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 import DataContext from '../context/DataContext'
 import useWindowSize from '../util/useWindowSize.jsx'
+import EntryComments from './EntryComments.jsx'
 
 const EntryDetails = ({entry, startEdit, entriesUpdate}) => {
 
@@ -31,10 +32,17 @@ const EntryDetails = ({entry, startEdit, entriesUpdate}) => {
         ...divFlexStyle
     }
 
-    const fieldValueStyle = {marginLeft:28, marginRight: 0, fontSize: '1rem', lineHeight: '1.9rem'}
+    const fieldValueStyle = {marginLeft: 28, marginRight: 0, fontSize: '1rem', lineHeight: '1.9rem'}
 
+    console.log('comments: ', entry.comments)
     return (
         <React.Fragment>
+
+            {entry.comments &&
+                <div>
+                    <EntryComments entry={entry}/>
+                </div>
+            }
             <div style={{
                 textOverflow: 'ellipsis',
                 margin: '15px 0px 6px 28px',
