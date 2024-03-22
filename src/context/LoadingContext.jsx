@@ -4,10 +4,10 @@ import skeletonData from '../speedpicks/skeletonData.json'
 import AuthContext from '../app/AuthContext.jsx'
 import useData from '../util/useData'
 import {locksData, jsonBackup} from '../data/dataUrls'
-
-const urls = {locksData, jsonBackup}
+import DBContextSP from '../speedpicks/DBContextSP.jsx'
 
 const LoadingContext = React.createContext({})
+const urls = {locksData, jsonBackup}
 
 export function LoadingProvider({children}) {
     const {data, loading, error} = useData({urls})
@@ -15,7 +15,8 @@ export function LoadingProvider({children}) {
     const jsonLoaded = (!loading && !error && !!data)
 
     const {authLoaded} = useContext(AuthContext)
-    const {getDbEntries, getDbProfiles} = useContext(DBContext)
+    const {getDbProfiles} = useContext(DBContext)
+    const {getDbEntries} = useContext(DBContextSP)
 
     //const dbUser = isLoggedIn
     const dbUser = authLoaded

@@ -98,7 +98,7 @@ export function DataProvider({children}) {
                 entryIds.push(entry.id)
             })
         return entryIds
-    }, [isLoggedIn, mappedEntries, user?.uid])
+    }, [isLoggedIn, mappedEntries, user?.uid]) // eslint-disable-line
     console.log(userEntries)
 
     const userEntriesApproved = useMemo(() => {

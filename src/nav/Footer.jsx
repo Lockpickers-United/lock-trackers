@@ -1,32 +1,11 @@
-import React, {useCallback, useContext, useState} from 'react'
+import React, {useContext} from 'react'
 import Typography from '@mui/material/Typography'
 import ToggleBetaButton from './ToggleBetaButton'
 import ToggleColorMode from './ToggleColorMode'
 import AuthContext from '../app/AuthContext.jsx'
-import Button from '@mui/material/Button'
-import Menu from '@mui/material/Menu'
-import Tooltip from '@mui/material/Tooltip'
-import IconButton from '@mui/material/IconButton'
-import ReportProblemIcon from '@mui/icons-material/ReportProblem'
-import DBContext from '../app/DBContext.jsx'
-import speedPicks from '../speedpicks/speedPicks.json'
 
 function Footer({extras}) {
     const {user} = useContext(AuthContext)
-    const [anchorEl, setAnchorEl] = useState(null)
-    const open = Boolean(anchorEl)
-
-    const {updateEntry} = useContext(DBContext)
-
-    const handleOpen = useCallback(event => setAnchorEl(event.currentTarget), [])
-    const handleClose = useCallback(() => setAnchorEl(null), [])
-
-    const doImport = useCallback(() => {
-        speedPicks.data.map((entry) => {
-                updateEntry(entry)
-            }
-        )
-    }, [updateEntry])
 
     return (
         <Typography align='center' component='div' style={{marginTop: 16, marginBottom: 80}}>
@@ -55,27 +34,6 @@ function Footer({extras}) {
                     <div style={{marginTop: '20px', display: 'flex', textAlign: 'center'}}>
                         <div style={{marginRight: 'auto', marginLeft: 'auto'}}>
                             <ToggleColorMode/>
-                            <Tooltip title={'! IMPORT JSON !'} arrow
-                                     disableFocusListener>
-                                <IconButton onClick={handleOpen} color='inherit'>
-                                    <ReportProblemIcon fontSize='small' color={'warning'}/>
-                                </IconButton>
-                            </Tooltip>
-                            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                                <div style={{padding: 20, textAlign: 'center'}}>
-                                    Are you sure?
-                                </div>
-                                <div style={{textAlign: 'center'}}>
-                                    <Button style={{marginBottom: 10, color: '#000'}}
-                                            variant='contained'
-                                            onClick={doImport}
-                                            edge='start'
-                                            color='warning'
-                                    >
-                                        Import
-                                    </Button>
-                                </div>
-                            </Menu>
                         </div>
                     </div>
                 }

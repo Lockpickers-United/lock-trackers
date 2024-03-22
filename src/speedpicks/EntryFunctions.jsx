@@ -2,18 +2,17 @@ import React, {useCallback, useContext, useState} from 'react'
 import Button from '@mui/material/Button'
 import DataContext from '../context/DataContext'
 import Menu from '@mui/material/Menu'
-import DBContext from '../app/DBContext.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 import LoadingContext from '../context/LoadingContext.jsx'
 import {enqueueSnackbar} from 'notistack'
 import {Backdrop} from '@mui/material'
 import EntryCommentAdd from './EntryCommentAdd.jsx'
-
+import DBContextSP from './DBContextSP.jsx'
 
 const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
 
-    const {updateEntry} = useContext(DBContext)
+    const {updateEntry} = useContext(DBContextSP)
     const {user} = useContext(AuthContext)
     const {refreshData} = useContext(LoadingContext)
 

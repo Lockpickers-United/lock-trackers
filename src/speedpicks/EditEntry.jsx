@@ -20,11 +20,13 @@ import LpuCopyLinkInfo from './LpuCopyLinkInfo.jsx'
 import TextField from '@mui/material/TextField'
 import VideocamIcon from '@mui/icons-material/Videocam'
 import EntryCommentAdd from './EntryCommentAdd.jsx'
+import DBContextSP from './DBContextSP.jsx'
 
 const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const {bestTimes, getLockFromId, getEntryFromId = []} = useContext(DataContext)
     const {user, isLoggedIn} = useContext(AuthContext)
-    const {profile, updateEntry} = useContext(DBContext)
+    const {profile} = useContext(DBContext)
+    const {updateEntry} = useContext(DBContextSP)
     const {DCUpdate, isMod = []} = useContext(DataContext)
     const {refreshData} = useContext(LoadingContext)
 

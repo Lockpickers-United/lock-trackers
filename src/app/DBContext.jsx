@@ -17,7 +17,6 @@ const DBContext = React.createContext({})
 
 export function DBProvider({children}) {
     const {authLoaded, isLoggedIn, user} = useContext(AuthContext)
-    const [lockCollection] = useState({})
     const [dbLoaded, setDbLoaded] = useState(false)
     const [dbError, setDbError] = useState(null)
 
@@ -27,18 +26,7 @@ export function DBProvider({children}) {
     const [currentVersion, setCurrentVersion] = useState('')
     const newVersionAvailable = !knownVersions.includes(currentVersion)
 
-    // SPEED PICK ENTRIES & PROFILES //
-
-    const getDbEntries = useCallback(async () => {
-        if (dbError) return false
-        const entries = []
-        const querySnapshot = await getDocs(collection(db, 'speedPicks'))
-        querySnapshot.forEach((doc) => {
-            entries.push(doc.data())
-        })
-        return entries
-    }, [dbError])
-
+    // SPEED PICK ENTRIES //
     const getDbProfiles = useCallback(async () => {
         if (dbError) return false
         const profiles = []
@@ -51,7 +39,7 @@ export function DBProvider({children}) {
         return profiles
     }, [dbError])
 
-    // Profile Subscription
+    // PROFILE SUBSCRIPTION //
     useEffect(() => {
         if (isLoggedIn) {
             const ref = doc(db, 'profiles', user.uid)
@@ -77,11 +65,7 @@ export function DBProvider({children}) {
         }
     }, [authLoaded, isLoggedIn, user])
 
-
-// Version Subscription
-
-    const modUser = profile?.isMod
-
+    // VERSION //
     useEffect(() => {
         if (isLoggedIn) {
             const ref = doc(db, 'versions', 'speedpicks')
@@ -104,7 +88,7 @@ export function DBProvider({children}) {
         } else if (authLoaded) {
             setDbLoaded(true)
         }
-    }, [authLoaded, isLoggedIn, knownVersions, modUser, user])
+    }, [authLoaded, isLoggedIn, knownVersions, user])
 
     const updateVersion = useCallback(async () => {
         if (dbError) return false
@@ -127,70 +111,7 @@ export function DBProvider({children}) {
         }
     }, [dbError, knownVersions, profile?.username, user?.uid])
 
-    const addComment = useCallback(async (entry, comment) => {
-        console.log('DB, adding comment: ', entry)
-        if (dbError) return false
-        const ref = doc(db, 'speedPicks', entry.id)
-        const currentComments = entry.comments ? entry.comments : []
-        currentComments.push(comment)
-        let statusText = ''
-        try {
-            await runTransaction(db, async transaction => {
-                const delta = {comments: currentComments}
-                transaction.update(ref, delta)
-                statusText = 'Comment Added'
-            })
-        } catch (e) {
-            console.log('error')
-            console.error(e)
-        }
-        console.log(statusText)
-        return statusText
-    }, [dbError])
-
-
-    const updateEntry = useCallback(async entry => {
-        console.log('DB, updating entry: ', entry)
-        if (dbError) return false
-        const modified = dayjs().format()
-        const ref = doc(db, 'speedPicks', entry.id)
-        let statusText = ''
-        try {
-            await runTransaction(db, async transaction => {
-                const sfDoc = await transaction.get(ref)
-                const delta = {
-                    id: entry.id,
-                    date: entry.date,
-                    pickerId: entry.pickerId,
-                    lockId: entry.lockId,
-                    startTime: entry.startTime,
-                    openTime: entry.openTime,
-                    videoUrl: entry.videoUrl,
-                    status: entry.status,
-                    created: entry.created,
-                    reviewerId: entry.reviewerId,
-                    comments: entry.comments,
-                    modified: modified
-                }
-                if (!sfDoc.exists()) {
-                    transaction.set(ref, delta)
-                    statusText = 'Entry Created'
-                } else {
-                    transaction.update(ref, delta)
-                    statusText = 'Entry Updated'
-                }
-            })
-            await updateVersion()
-            console.log(statusText)
-            return statusText
-        } catch (e) {
-            console.log('error')
-            console.error(e)
-        }
-    }, [dbError, updateVersion])
-
     // PROFILE //
-
     const updateProfile = useCallback(async (username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created) => {
         if (dbError) return false
         const modified = dayjs().format()
@@ -227,32 +148,23 @@ export function DBProvider({children}) {
         return profile.username
     }, [getProfile])
 
-
-    // value & provider
+    // VALUE & PROVIDER //
     const value = useMemo(() => ({
         dbLoaded,
-        lockCollection,
         profile,
         getProfile,
         getProfileName,
         updateProfile,
-        updateEntry,
-        getDbEntries,
         getDbProfiles,
-        newVersionAvailable,
-        addComment
+        newVersionAvailable
     }), [
         dbLoaded,
-        lockCollection,
         getProfile,
         getProfileName,
         updateProfile,
         profile,
-        updateEntry,
-        getDbEntries,
         getDbProfiles,
-        newVersionAvailable,
-        addComment
+        newVersionAvailable
     ])
 
     return (

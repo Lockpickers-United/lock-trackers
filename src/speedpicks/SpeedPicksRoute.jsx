@@ -10,6 +10,8 @@ import {spFilterFields} from '../data/filterFields'
 import {DataProvider} from '../context/DataProvider.jsx'
 import {ListProvider} from './ListContext.jsx'
 import {FilterProvider} from '../context/FilterContext.jsx'
+import {LoadingProvider} from '../context/LoadingContext.jsx'
+import {DBSPProvider} from './DBContextSP.jsx'
 
 function SpeedPicksRoute() {
 
@@ -18,18 +20,22 @@ function SpeedPicksRoute() {
     document.title = 'Lock Trackers - Speed Picks'
 
     return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <FilterProvider filterFields={spFilterFields}>
-                <DataProvider>
-                    <ListProvider>
-                        <Nav title='Speed Picks' extras={nav} route='sp'/>
-                        <Main/>
-                        <Footer/>
-                        <Tracker feature='speedpicks'/>
-                    </ListProvider>
-                </DataProvider>
-            </FilterProvider>
-        </LocalizationProvider>
+        <DBSPProvider>
+            <LoadingProvider>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <FilterProvider filterFields={spFilterFields}>
+                        <DataProvider>
+                            <ListProvider>
+                                <Nav title='Speed Picks' extras={nav} route='sp'/>
+                                <Main/>
+                                <Footer/>
+                                <Tracker feature='speedpicks'/>
+                            </ListProvider>
+                        </DataProvider>
+                    </FilterProvider>
+                </LocalizationProvider>
+            </LoadingProvider>
+        </DBSPProvider>
     )
 }
 

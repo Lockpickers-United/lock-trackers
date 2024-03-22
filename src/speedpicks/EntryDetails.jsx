@@ -34,7 +34,6 @@ const EntryDetails = ({entry, startEdit, entriesUpdate}) => {
 
     const fieldValueStyle = {marginLeft: 28, marginRight: 0, fontSize: '1rem', lineHeight: '1.9rem'}
 
-    console.log('comments: ', entry.comments)
     return (
         <React.Fragment>
 
