@@ -5,6 +5,7 @@ const FilterContext = React.createContext({})
 
 export function FilterProvider({children, filterFields = []}) {
     const [searchParams, setSearchParams] = useSearchParams()
+
     const filters = useMemo(() => {
         const keys = Array.from(searchParams.keys())
         return keys.reduce((acc, key) => {

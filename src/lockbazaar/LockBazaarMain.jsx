@@ -12,7 +12,7 @@ import EntriesLB from './EntriesLB.jsx'
 
 function LockBazaarMain() {
 
-    const {visibleEntries, allEntries = []} = useContext(DataContext)
+    const {visibleEntries = []} = useContext(DataContext)
     const {beta} = useContext(AppContext)
 
     const {width} = useWindowSize()

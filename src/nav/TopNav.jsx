@@ -7,7 +7,7 @@ import ChallengeLocks from '../assets/ChallengeLocks.jsx'
 import Profile from '../assets/Profile.jsx'
 import Nav_Contact from '../assets/Nav_Contact.jsx'
 import Nav_PrivacyPolicy from '../assets/Nav_PrivacyPolicy.jsx'
-
+import Nav_LockBazaar from '../assets/Nav_LockBazaar.jsx'
 
 function TopNav(route) {
 
@@ -21,6 +21,7 @@ function TopNav(route) {
     }, [navigate])
 
     const clFill = location.pathname === '/challengelocks' ? '#fff' : '#777'
+    const lbFill = location.pathname === '/lockbazaar' ? '#fff' : '#777'
     const spFill = location.pathname === '/speedpicks' ? '#fff' : '#777'
     const prFill = location.pathname === '/profile/edit' ? '#fff' : '#777'
     const coFill = location.pathname === '/contact' ? '#fff' : '#777'
@@ -39,6 +40,25 @@ function TopNav(route) {
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SpeedPicks fill={spFill} style={{height: 30}}/>
+                            </Button>
+                        </div>
+                    </div>
+                    <div style={{height: 12}}/>
+                </div>
+            }
+
+            {route.route === 'lb' &&
+                <div>
+                    <div style={{display: 'flex', marginTop: 9, padding: 0}}>
+                        <div style={{padding: 0}}>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/speedpicks')}>
+                                <SP_logo fill={spFill} style={{height: 30}}/>
+                            </Button>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/lockbazaar')}
+                            >
+                                <Nav_LockBazaar fill={lbFill} style={{height: 30}}/>
                             </Button>
                         </div>
                     </div>

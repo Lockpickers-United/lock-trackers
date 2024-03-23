@@ -1,33 +1,20 @@
-import Divider from '@mui/material/Divider'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
 import React, {useCallback, useContext, useState} from 'react'
 import Chip from '@mui/material/Chip'
 import FilterContext from '../context/FilterContext'
 
 function FilterChip({field, value, label = value, ...props}) {
-    const [open, setOpen] = useState(false)
-    const {addFilter} = useContext(FilterContext)
-
-    const handleClose = useCallback(event => {
-        event.preventDefault()
-        event.stopPropagation()
-        setOpen(false)
-    }, [])
+    const {filters,addFilter} = useContext(FilterContext)
+    const filtersMap = new Map(Object.entries(filters))
 
     const handleFilter = useCallback(event => {
         event.preventDefault()
         event.stopPropagation()
-        setOpen(false)
-        addFilter(field, value)
+        if (filtersMap.get(field) !== value) {
+            console.log(field, value)
+            addFilter(field, value)
+        }
         window.scrollTo({top: 0, behavior: 'smooth'})
-    }, [addFilter, field, value])
-
-    const handleOpen = useCallback(event => {
-        event.preventDefault()
-        event.stopPropagation()
-        setOpen(event.target)
-    }, [])
+    }, [addFilter, field, filters.field, value])
 
     return (
         <React.Fragment>
@@ -36,19 +23,9 @@ function FilterChip({field, value, label = value, ...props}) {
                 variant='outlined'
                 label={label}
                 style={{marginRight: 4, marginBottom: 4}}
-                onClick={handleOpen}
+                onClick={handleFilter}
                 {...props}
             />
-            <Menu
-                open={!!open}
-                anchorEl={open}
-                anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-                onClose={handleClose}
-            >
-                <MenuItem disabled>Term: {value}</MenuItem>
-                <Divider/>
-                <MenuItem onClick={handleFilter}>Add Filter</MenuItem>
-            </Menu>
         </React.Fragment>
     )
 }

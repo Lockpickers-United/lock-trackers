@@ -12,6 +12,9 @@ export function LoadingProvider({children}) {
     const {locksData} = data || {}
     const jsonLoaded = (!loading && !error && !!data)
 
+    const skeletonLocks = []
+    const allLocks = jsonLoaded ? locksData : skeletonLocks
+
     const getLockFromId = useCallback(lockId => {
         return locksData?.find(({id}) => id === lockId)
     }, [locksData])
@@ -19,35 +22,29 @@ export function LoadingProvider({children}) {
     const lockRegex = useMemo(() => /id=(\w{8})/, [])
 
     function isValidLPUbeltsUrl(urlString) {
-        let url
-        try {
-            url = new URL(urlString)
-        } catch (_) {
-            return false
-        }
         const thisId = lockRegex.test(urlString)
             ? urlString.match(lockRegex)[1]
             : null
         const thisLock = getLockFromId(thisId)
-        return (url.protocol === 'http:' || url.protocol === 'https:') && !!thisId && !!thisLock
+        return !!thisId && !!thisLock
     }
 
     const allListings = lockLists
-        .map(function (listing) {
+        .map((listing) => {
                 const isValidListing = (listing.available && isValidLPUbeltsUrl(listing.url))
-
                 const thisId = lockRegex.test(listing.url)
                     ? listing.url.match(lockRegex)[1]
                     : null
                 const thisLock = getLockFromId(thisId)
-
                 const lockName = listing.samelineIndex
-                    ? thisLock?.makeModels[listing.samelineIndex-1].make + ' ' + thisLock?.makeModels[listing.samelineIndex-1].model
+                    ? thisLock?.makeModels[listing.samelineIndex - 1].make + ' ' + thisLock?.makeModels[listing.samelineIndex - 1].model
                     : entryName(thisLock, 'short')
+                const samelineInfo = listing.samelineIndex ? '|' + listing.samelineIndex : ''
+                const newId = thisId + samelineInfo
 
                 return {
-                    id: thisId,
-                    name: listing.name,
+                    id: newId,
+                    seller: listing.name,
                     avail: listing.available,
                     samelineIndex: listing.samelineIndex,
                     isValid: isValidListing,
@@ -64,27 +61,38 @@ export function LoadingProvider({children}) {
 
     const validLockIds = validListings
         .filter(listing => listing.isValid)
-        .map(function (listing) {
-            const samelineInfo = listing.samelineIndex ? '|' + listing.samelineIndex : ''
-            return listing.id + samelineInfo
+        .map((listing) => {
+            return listing.id
         })
-
 
     let uniqueLockIds = [...new Set(validLockIds)]
 
-    const allEntries = uniqueLockIds.map(function (id) {
+    const allEntries = uniqueLockIds.map((id) => {
         const [lockId, samelineIndex] = id.split('|')
+        const lock = getLockFromId(lockId)
         const samelineName = samelineIndex
-            ? getLockFromId(lockId).makeModels[samelineIndex-1].make + ' ' + getLockFromId(lockId).makeModels[samelineIndex-1].model
+            ? lock.makeModels[samelineIndex - 1].make + ' ' + lock.makeModels[samelineIndex - 1].model
             : ''
 
-        let foo = getLockFromId(lockId)
-        foo = {...foo, samelineName: samelineName}
-        return foo
+        let entry = {...lock}
+
+        const sellers = validListings
+            .filter(listing => listing.id === id)
+            .map((listing) => {
+                return listing.seller
+            })
+
+        if (samelineIndex) {
+            entry.makeModels = [lock.makeModels[samelineIndex - 1]]
+            entry.id = id
+        }
+
+        entry.sellers = sellers
+
+        return entry
     })
 
-    const skeletonLocks = []
-    const allLocks = jsonLoaded ? locksData : skeletonLocks
+
 
     const value = useMemo(() => ({
         validListings,

@@ -1,0 +1,47 @@
+[
+  {
+    "name": "mgsecure",
+    "seller": "approved",
+    "spreadsheetId": "1uvEoGRzR6tizMV-p7h9vIcTkxk72fEstuEvpWUZC49s",
+    "range": "Sheet1!A2:C",
+    "availableIndex": 0,
+    "lockURLIndex": 1,
+    "samelineIndex": 2,
+    "location": "United States",
+    "shipsTo": "United States",
+    "discordUsername": "mgsecure",
+    "discordServer": "Lockpickers United",
+    "discordURL": "https://discord.gg/lockpicking",
+    "redditUsername" : "mgsecure"
+  },
+  {
+    "name": "NiXXeD",
+    "seller": "approved",
+    "spreadsheetId": "1s7lAzU4uuPBesteNVocK9rD7F5UYDrQOgh4hDiP6QXw",
+    "range": "Sheet1!A2:F",
+    "availableIndex": 3,
+    "lockURLIndex": 4,
+    "samelineIndex": 5,
+    "location": "United States",
+    "shipsTo": "United States & Europe",
+    "discordUsername": "NiXXeD",
+    "discordServer": "Lockpickers United",
+    "discordURL": "https://discord.gg/lockpicking",
+    "redditUsername" : "TheNiXXeD"
+  },
+  {
+    "name": "Red Wanderer",
+    "seller": "approved",
+    "spreadsheetId": "1BanXbLuE-snPC8iIZ0cRGuUpIBnUcg0-8DMalXLNuRo",
+    "range": "Sheet1!A2:J",
+    "availableIndex": 6,
+    "lockURLIndex": 8,
+    "samelineIndex": 9,
+    "location": "United States",
+    "shipsTo": "Worldwide",
+    "discordUsername": "RedWanderer",
+    "discordServer": "Lockpickers United",
+    "discordURL": "https://discord.gg/lockpicking",
+    "redditUsername" : "RedWanderer"
+  }
+]

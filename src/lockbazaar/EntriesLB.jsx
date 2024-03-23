@@ -6,6 +6,7 @@ import {useTheme} from '@mui/material/styles'
 import FilterContext from '../context/FilterContext.jsx'
 import NoEntriesCardLB from './NoEntriesCardLB.jsx'
 import EntryLB from './EntryLB.jsx'
+import SortFilterBarLB from './SortFilterBarLB.jsx'
 
 function EntriesLB() {
 
@@ -23,8 +24,6 @@ function EntriesLB() {
     }, [updated])
 
     const defExpanded = useDeferredValue(expanded)
-
-    if (!filters.pickerId) document.title = 'Lock Trackers - Speed Picks'
 
     const entries = useMemo(() => {
         // removed tab/search code
@@ -48,6 +47,7 @@ function EntriesLB() {
                 marginLeft: 'auto', marginRight: 'auto',
                 fontSize: '1.5rem', lineHeight: 0.8
             }}>
+                <SortFilterBarLB/>
 
                 {entries.map((entry) =>
                     <EntryLB

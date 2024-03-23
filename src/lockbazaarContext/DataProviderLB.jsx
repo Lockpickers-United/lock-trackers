@@ -1,5 +1,4 @@
-import React, {useCallback, useMemo, useState, useContext} from 'react'
-import belts, {allBelts} from '../data/belts'
+import React, {useCallback, useMemo, useContext} from 'react'
 import entryName from '../util/entryName'
 import dayjs from 'dayjs'
 import DataContext from './DataContextLB.jsx'
@@ -9,10 +8,11 @@ import removeAccents from 'remove-accents'
 import AuthContext from '../app/AuthContext.jsx'
 import LoadingContext from './LoadingContextLB.jsx'
 import DBContext from '../app/DBContext.jsx'
+import belts, {beltSort, beltSortReverse} from '../data/belts'
 
 export function DataProvider({children}) {
 
-    const {user, isLoggedIn} = useContext(AuthContext)
+    const {user} = useContext(AuthContext)
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sort, image, profileUpdated, ...filters} = allFilters
     const {allEntries, allLocks} = useContext(LoadingContext)
@@ -21,7 +21,6 @@ export function DataProvider({children}) {
     const lockBelts = useMemo(() => belts, [])
     const lockData = useMemo(() => allLocks, [allLocks])
     const isMod = !!(user && profile && profile?.isMod)
-    const [updated, setUpdated] = useState(0)
 
     const getLockFromId = useCallback(lockId => {
         return lockData?.find(({id}) => id === lockId)
@@ -108,8 +107,10 @@ export function DataProvider({children}) {
                 if (sort === 'lock') {
                     return entryName(a, 'short').localeCompare(entryName(b, 'short'))
                 } else if (sort === 'belt') {
-                    return a.belt - b.belt
+                    return beltSort(a.belt, b.belt)
                         || entryName(a, 'short').localeCompare(entryName(b, 'short'))
+                } else if (sort === 'seller') {
+                    return entryName(a, 'short').localeCompare(entryName(b, 'short'))
                 } else {
                     return a.localeCompare(b)
                 }
@@ -120,17 +121,12 @@ export function DataProvider({children}) {
 
     }, [filters, mappedEntries, search, sort])
 
-    const DCUpdate = useCallback(value => {
-        setUpdated(value)
-    }, [])
-
     const value = useMemo(() => ({
         lockBelts,
         lockData,
         getLockFromId,
         getEntryFromId,
         getNameFromId,
-        DCUpdate,
         isMod,
         allEntries,
         visibleEntries,
@@ -140,7 +136,6 @@ export function DataProvider({children}) {
         getLockFromId,
         getEntryFromId,
         getNameFromId,
-        DCUpdate,
         isMod,
         allEntries,
         visibleEntries,

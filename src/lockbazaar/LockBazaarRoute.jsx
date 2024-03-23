@@ -8,6 +8,7 @@ import {LoadingProvider} from '../lockbazaarContext/LoadingContextLB'
 import {FilterProvider} from '../context/FilterContext.jsx'
 import {DataProvider} from '../lockbazaarContext/DataProviderLB.jsx'
 import {ListProvider} from '../context/ListContext.jsx'
+import {LBFilterFields} from '../data/filterFields'
 
 
 function ChallengeLocksRoute() {
@@ -16,10 +17,10 @@ function ChallengeLocksRoute() {
 
     return (
         <LoadingProvider>
-            <FilterProvider>
+            <FilterProvider filterFields={LBFilterFields}>
                 <DataProvider>
                     <ListProvider>
-                        <Nav title='Lock Bazaar' route='cl'/>
+                        <Nav title='Lock Bazaar' route='lb'/>
                         <LockBazaarMain/>
                         <Footer/>
                         <Tracker feature='lockbazaar'/>

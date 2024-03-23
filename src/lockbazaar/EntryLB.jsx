@@ -2,42 +2,24 @@ import React, {useCallback, useMemo, useEffect, useRef, useState, useContext} fr
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {AccordionActions} from '@mui/material'
 import BeltStripe from '../speedpicks/BeltStripe.jsx'
 import queryString from 'query-string'
-import useWindowSize from '../util/useWindowSize.jsx'
-import {makeStyles} from '@mui/styles'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import FieldValue from '../util/FieldValue.jsx'
 import Tracker from '../app/Tracker.jsx'
 import FilterChip from '../filters/FilterChip.jsx'
-import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 import Button from '@mui/material/Button'
-import SellerListings from './SellerListings.jsx'
-
-const useStyles = makeStyles({
-    alert: {
-        color: '#E15C07FF'
-    }
-})
+import FilterContext from '../context/FilterContext.jsx'
 
 const Entry = ({entry, expanded, onExpand}) => {
 
+    const {filters, setFilters, addFilter} = useContext(FilterContext)
     //expanded = true
-    const {validListings} = useContext(LoadingContextLB)
 
-    const [currentSeller, setCurrentSeller] = useState('NiXXeD')
-
-    const sellerListings = validListings.filter(listing => listing.name === currentSeller)
-
-    const sellers = validListings
-        .filter(listing => listing.id === entry.id)
-        .map(function (listing) {
-            return listing.name
-        })
-
+    const sellers = filters.sellers ? [filters.sellers] : entry.sellers
+    const sellerButtonDisabled = filters.sellers
     let uniqueSellers = [...new Set(sellers)]
 
     const sellersText = uniqueSellers.length > 1 ? 'Sellers' : 'Seller'
@@ -49,6 +31,13 @@ const Entry = ({entry, expanded, onExpand}) => {
         console.log('handleChange')
         onExpand && onExpand(isExpanded ? entry.id : false)
     }, [entry.id, onExpand])
+
+    const handleFilter = useCallback(event => {
+        event.preventDefault()
+        event.stopPropagation()
+        addFilter('sellers', event.target.value)
+    }, [addFilter])
+
 
     useEffect(() => {
         if (expanded && ref && !scrolled) {
@@ -79,52 +68,23 @@ const Entry = ({entry, expanded, onExpand}) => {
         textAlign: 'left'
     }
 
-    const divStyle = {
-        margin: '10px 15px 10px 15px',
-        fontSize: '1.0rem',
-        display: 'flex',
-        placeItems: 'center'
-    }
-
-    const {width} = useWindowSize()
-    const breakSize = width <= 427
-    const nameDivStyle = {
-        minWidth: 110,
-        textAlign: 'right'
-    }
-    const divFlexStyle = !breakSize ? {display: 'flex'} : {}
-    const combinedDivStyle = {
-        ...nameDivStyle,
-        ...divFlexStyle
-    }
-
     const makeModels = useMemo(() => {
         return (
             <Stack direction='column' spacing={0} sx={{flexWrap: 'wrap'}}>
-                {!entry.samelineName && entry.makeModels?.map(({make, model}, index) =>
+                {entry.makeModels?.map(({make, model}, index) =>
                     <Typography key={index}
                                 style={{fontWeight: 500, fontSize: '1.07rem', lineHeight: 1.25, marginBottom: '4px'}}>
                         {make && make !== model ? `${make} ${model}` : model}
                     </Typography>
                 )}
-                {entry.samelineName &&
-                    <Typography style={{fontWeight: 500, fontSize: '1.07rem', lineHeight: 1.25, marginBottom: '4px'}}>
-                        {entry.samelineName}
-                    </Typography>
-                }
             </Stack>
         )
-    }, [entry.makeModels, entry.samelineName])
-
-    const handleSellerChange = useCallback((seller) => {
-        console.log('handleSellerChange', seller)
-        setCurrentSeller(seller)
-    }, [])
+    }, [entry.makeModels])
 
 
     return (
         <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters>
-            <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
+            <AccordionSummary>
                 <BeltStripe value={entry.belt}/>
                 <div style={{margin: '12px 0px 8px 8px', width: '50%', flexShrink: 0, flexDirection: 'column'}}>
                     <FieldValue
@@ -173,7 +133,9 @@ const Entry = ({entry, expanded, onExpand}) => {
                         value={uniqueSellers.map((seller) =>
                             <Button variant='text' size='small'
                                     key={seller} style={{textTransform: 'none'}} color='primary'
-                                    >
+                                    value={seller} onClick={handleFilter}
+                                    disabled={sellerButtonDisabled}
+                            >
                                 {seller}
                             </Button>
                         )}
@@ -185,7 +147,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                 expanded &&
                 <React.Fragment>
                     <AccordionDetails sx={{padding: '8px 16px 0px 16px'}}>
-                        <SellerListings listings={sellerListings} name={currentSeller}/>
+                        foo
                     </AccordionDetails>
                     <AccordionActions disableSpacing>
                         <Tracker feature='lock' id={entry.id}/>

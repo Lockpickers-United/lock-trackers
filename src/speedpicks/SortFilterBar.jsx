@@ -8,7 +8,6 @@ function SortFilterBar({view, setView}) {
 
     const {isMod = []} = useContext(DataContext)
     const {filters, addFilter, clearFilters, setFilters} = useContext(FilterContext)
-
     const {sort} = filters
 
     const [highlight, setHighlight] = useState('all')
