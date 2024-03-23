@@ -29,6 +29,13 @@ export default [
         }
     },
     {
+        path: '/lockbazaar',
+        lazy: async () => {
+            const {default: LockBazaarRoute} = await import('../lockbazaar/LockBazaarRoute')
+            return {element: <LockBazaarRoute/>}
+        }
+    },
+    {
         path: '/privacy',
         lazy: async () => {
             const {default: PrivacyRoute} = await import('../privacy/PrivacyRoute')

@@ -1,7 +1,7 @@
 import React, {useCallback, useContext, useMemo} from 'react'
 import {useParams} from 'react-router-dom'
-import DataContext from '../context/DataContext'
-import FilterContext from '../context/FilterContext'
+import DataContext from './DataContext.jsx'
+import FilterContext from './FilterContext.jsx'
 
 const ListContext = React.createContext({})
 
@@ -10,9 +10,12 @@ export function ListProvider({children}) {
     const {getEntryFromId,getNameFromId} = useContext(DataContext)
     const {filters, addFilters, removeFilters} = useContext(FilterContext)
     const expanded = filters.id
+    console.log('list. expanded', expanded)
 
     const handleSetExpanded = useCallback((newValue, forceTab) => {
         const entry = getEntryFromId(newValue)
+
+        console.log('handleSetExpanded')
 
         if (newValue && newValue !== 'beltreqs') {
             const name = getNameFromId(newValue)
