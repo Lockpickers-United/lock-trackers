@@ -111,6 +111,9 @@ export function DBSPProvider({children}) {
         const modified = dayjs().format()
         const ref = doc(db, 'speedPicks', entry.id)
         let statusText = ''
+
+        if (!entry.comments) {entry.comments = ''}
+
         try {
             await runTransaction(db, async transaction => {
                 const sfDoc = await transaction.get(ref)
