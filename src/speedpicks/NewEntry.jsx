@@ -9,6 +9,7 @@ import DBContext from '../app/DBContext.jsx'
 import EditProfilePage from '../profile/EditProfilePage.jsx'
 import SignInButton from '../auth/SignInButton.jsx'
 import RulesInfo from './RulesInfo.jsx'
+import Button from '@mui/material/Button'
 
 const NewEntry = ({entriesUpdate}) => {
 
@@ -35,10 +36,18 @@ const NewEntry = ({entriesUpdate}) => {
     return (
         <React.Fragment>
             <Accordion expanded={open} onChange={toggleOpen}
-                       style={{maxWidth: 700, marginLeft: 'auto', marginRight: 'auto', marginBottom: 10}}>
-                <AccordionSummary expandIcon={<AddCircleIcon style={{fontSize: 'large'}}/>}>
+                       style={{
+                           maxWidth: 700,
+                           marginLeft: 'auto',
+                           marginRight: 'auto',
+                           marginBottom: 10,
+                           backgroundColor: 'transparent',
+                       }}>
+                <AccordionSummary>
                     <div style={{fontSize: '1.0rem', textAlign: 'right', width: '100%', paddingRight: 10}}>
-                        New Entry
+                        <Button variant='contained' style={{}} endIcon={<AddCircleIcon/>}>
+                            New Entry
+                        </Button>
                     </div>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -62,12 +71,16 @@ const NewEntry = ({entriesUpdate}) => {
                         <React.Fragment>
 
                             <Accordion expanded={openRules} onChange={toggleOpenRules}
-                                       style={{maxWidth: 700, marginLeft: 'auto', marginRight: 'auto', marginBottom: 0, boxShadow:'none'}}
+                                       style={{
+                                           maxWidth: 700, marginLeft: 'auto',
+                                           marginRight: 'auto', marginBottom: 0, boxShadow: 'none',
+                                           backgroundColor: '#222231'
+                                       }}
                                        disableGutters
                             >
                                 <AccordionSummary>
-                                    <div style={{fontSize: '1rem', lineHeight:'1.2rem'}}>
-                                        <a href='javascript:void(0)'>Click here</a> for
+                                    <div style={{fontSize: '1rem', lineHeight: '1.2rem'}}>
+                                        <a href='#'>Click here</a> for
                                         submission rules and information.
                                     </div>
                                 </AccordionSummary>
