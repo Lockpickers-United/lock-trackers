@@ -2,6 +2,12 @@ import React, {useContext, useCallback, useState, useMemo} from 'react'
 import {ToggleButton, ToggleButtonGroup} from '@mui/material'
 import FilterContext from '../context/FilterContext'
 import useWindowSize from '../util/useWindowSize.jsx'
+import FilterButton from '../filters/FilterButton.jsx'
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
+import Tooltip from '@mui/material/Tooltip'
+import IconButton from '@mui/material/IconButton'
+import Badge from '@mui/material/Badge'
+import FilterAltIcon from '@mui/icons-material/FilterAlt.js'
 
 function SortFilterBar({view, setView}) {
 
@@ -110,7 +116,7 @@ function SortFilterBar({view, setView}) {
             </div>
             <div style={{textAlign: 'right', flexGrow: 1}}>
                 {filterCount > 0 &&
-                    <React.Fragment>
+                    <div>
                         <span style={{fontSize: '.7rem', marginRight: 5}}>FILTER</span>
                         <ToggleButtonGroup style={{height: 26, marginTop: 10}}>
                             {filterValues.map(({key, value: filter}, index) =>
@@ -124,11 +130,13 @@ function SortFilterBar({view, setView}) {
                                 >{cleanChipLabel(filterFieldsByFieldName[key]?.label, filter)}</ToggleButton>
                             )}
                         </ToggleButtonGroup>
-                        <ToggleButtonGroup style={{height: 26, marginLeft: 10, marginTop: 10}}>
-                            <ToggleButton selected={false} style={{padding: 7, color: clearFiltersColor}} value={'all'}
-                                          onClick={handleClear} disabled={clearFiltersDisabled}>Clear</ToggleButton>
-                        </ToggleButtonGroup>
-                    </React.Fragment>
+                        <FilterButton/>
+                    </div>
+                }
+                {filterCount === 0 &&
+                    <div>
+                        <FilterButton/>
+                    </div>
                 }
             </div>
         </div>

@@ -12,14 +12,17 @@ import Tracker from '../app/Tracker.jsx'
 import FilterChip from '../filters/FilterChip.jsx'
 import Button from '@mui/material/Button'
 import FilterContext from '../context/FilterContext.jsx'
+import EntryActionsLB from './EntryActionsLB.jsx'
+import EntryDetailsLB from './EntryDetailsLB.jsx'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 const Entry = ({entry, expanded, onExpand}) => {
 
     const {filters, setFilters, addFilter} = useContext(FilterContext)
-    //expanded = true
 
+    console.log(entry)
     const sellers = filters.sellers ? [filters.sellers] : entry.sellers
-    const sellerButtonDisabled = filters.sellers
+    const sellerButtonDisabled = !!filters.sellers
     let uniqueSellers = [...new Set(sellers)]
 
     const sellersText = uniqueSellers.length > 1 ? 'Sellers' : 'Seller'
@@ -84,7 +87,7 @@ const Entry = ({entry, expanded, onExpand}) => {
 
     return (
         <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters>
-            <AccordionSummary>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <BeltStripe value={entry.belt}/>
                 <div style={{margin: '12px 0px 8px 8px', width: '50%', flexShrink: 0, flexDirection: 'column'}}>
                     <FieldValue
@@ -132,7 +135,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                         name={sellersText}
                         value={uniqueSellers.map((seller) =>
                             <Button variant='text' size='small'
-                                    key={seller} style={{textTransform: 'none'}} color='primary'
+                                    key={seller} style={{textTransform: 'none', lineHeight:'.9rem', minWidth:40}} color='primary'
                                     value={seller} onClick={handleFilter}
                                     disabled={sellerButtonDisabled}
                             >
@@ -147,9 +150,10 @@ const Entry = ({entry, expanded, onExpand}) => {
                 expanded &&
                 <React.Fragment>
                     <AccordionDetails sx={{padding: '8px 16px 0px 16px'}}>
-                        foo
+                        <EntryDetailsLB entry={entry}/>
                     </AccordionDetails>
                     <AccordionActions disableSpacing>
+                        <EntryActionsLB entry={entry}/>
                         <Tracker feature='lock' id={entry.id}/>
                     </AccordionActions>
                 </React.Fragment>

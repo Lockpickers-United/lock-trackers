@@ -1,5 +1,6 @@
 import React, {useCallback, useMemo} from 'react'
 import lockLists from '../lockbazaar/lockLists.json'
+import sellerList from '../lockbazaar/sellerList.json'
 import useData from '../util/useData'
 import {locksData} from '../data/dataUrls'
 import entryName from '../util/entryName'
@@ -44,11 +45,15 @@ export function LoadingProvider({children}) {
 
                 return {
                     id: newId,
+                    lockName: lockName,
                     seller: listing.name,
                     avail: listing.available,
                     samelineIndex: listing.samelineIndex,
                     isValid: isValidListing,
-                    lockName: lockName
+                    keys:listing.keys,
+                    condition:listing.condition,
+                    photo:listing.photo,
+                    price:listing.price
                 }
             }
         )
@@ -70,10 +75,6 @@ export function LoadingProvider({children}) {
     const allEntries = uniqueLockIds.map((id) => {
         const [lockId, samelineIndex] = id.split('|')
         const lock = getLockFromId(lockId)
-        const samelineName = samelineIndex
-            ? lock.makeModels[samelineIndex - 1].make + ' ' + lock.makeModels[samelineIndex - 1].model
-            : ''
-
         let entry = {...lock}
 
         const sellers = validListings
@@ -82,27 +83,28 @@ export function LoadingProvider({children}) {
                 return listing.seller
             })
 
+        const listings = validListings
+            .filter(listing => listing.id === id)
+            .map((listing) => {
+                return listing
+            })
+
         if (samelineIndex) {
             entry.makeModels = [lock.makeModels[samelineIndex - 1]]
             entry.id = id
         }
-
         entry.sellers = sellers
+        entry.listings = listings
 
         return entry
     })
 
-
-
     const value = useMemo(() => ({
+        sellerList,
         validListings,
         allEntries,
         allLocks
-    }), [
-        validListings,
-        allEntries,
-        allLocks
-    ])
+    }), [validListings, allEntries, allLocks])
 
     return (
         <LoadingContext.Provider value={value}>

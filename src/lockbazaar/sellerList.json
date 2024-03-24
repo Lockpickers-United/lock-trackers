@@ -1,5 +1,5 @@
-[
-  {
+{
+  "mgsecure": {
     "name": "mgsecure",
     "seller": "approved",
     "spreadsheetId": "1uvEoGRzR6tizMV-p7h9vIcTkxk72fEstuEvpWUZC49s",
@@ -7,14 +7,14 @@
     "availableIndex": 0,
     "lockURLIndex": 1,
     "samelineIndex": 2,
-    "location": "United States",
+    "country": "United States",
     "shipsTo": "United States",
     "discordUsername": "mgsecure",
     "discordServer": "Lockpickers United",
-    "discordURL": "https://discord.gg/lockpicking",
-    "redditUsername" : "mgsecure"
+    "discordURL": "https://discord.com/channels/140129091796992000/813826592069255249",
+    "redditUsername": "mgsecure"
   },
-  {
+  "NiXXeD": {
     "name": "NiXXeD",
     "seller": "approved",
     "spreadsheetId": "1s7lAzU4uuPBesteNVocK9rD7F5UYDrQOgh4hDiP6QXw",
@@ -22,14 +22,14 @@
     "availableIndex": 3,
     "lockURLIndex": 4,
     "samelineIndex": 5,
-    "location": "United States",
+    "country": "United States",
     "shipsTo": "United States & Europe",
     "discordUsername": "NiXXeD",
     "discordServer": "Lockpickers United",
-    "discordURL": "https://discord.gg/lockpicking",
-    "redditUsername" : "TheNiXXeD"
+    "discordURL": "https://discord.com/channels/140129091796992000/813826592069255249",
+    "redditUsername": "TheNiXXeD"
   },
-  {
+  "Red Wanderer": {
     "name": "Red Wanderer",
     "seller": "approved",
     "spreadsheetId": "1BanXbLuE-snPC8iIZ0cRGuUpIBnUcg0-8DMalXLNuRo",
@@ -37,11 +37,11 @@
     "availableIndex": 6,
     "lockURLIndex": 8,
     "samelineIndex": 9,
-    "location": "United States",
+    "country": "United States",
     "shipsTo": "Worldwide",
     "discordUsername": "RedWanderer",
     "discordServer": "Lockpickers United",
-    "discordURL": "https://discord.gg/lockpicking",
-    "redditUsername" : "RedWanderer"
+    "discordURL": "https://discord.com/channels/140129091796992000/813826592069255249",
+    "redditUsername": "RedWanderer"
   }
-]
+}

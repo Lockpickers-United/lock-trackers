@@ -16,7 +16,6 @@ export function FilterProvider({children, filterFields = []}) {
     }, [searchParams])
 
     const setFilters = useCallback(newFilters => {
-        console.log(newFilters)
         const {sort} = filters
 
         Object.keys(newFilters)

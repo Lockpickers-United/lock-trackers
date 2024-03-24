@@ -10,12 +10,9 @@ export function ListProvider({children}) {
     const {getEntryFromId,getNameFromId} = useContext(DataContext)
     const {filters, addFilters, removeFilters} = useContext(FilterContext)
     const expanded = filters.id
-    console.log('list. expanded', expanded)
 
     const handleSetExpanded = useCallback((newValue, forceTab) => {
         const entry = getEntryFromId(newValue)
-
-        console.log('handleSetExpanded')
 
         if (newValue && newValue !== 'beltreqs') {
             const name = getNameFromId(newValue)

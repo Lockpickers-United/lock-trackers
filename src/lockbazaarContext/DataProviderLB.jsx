@@ -1,7 +1,7 @@
 import React, {useCallback, useMemo, useContext} from 'react'
 import entryName from '../util/entryName'
 import dayjs from 'dayjs'
-import DataContext from './DataContextLB.jsx'
+import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import fuzzysort from 'fuzzysort'
 import removeAccents from 'remove-accents'
@@ -47,7 +47,6 @@ export function DataProvider({children}) {
                     entry.media?.some(m => !m.fullUrl.match(/youtube\.com/)) ? 'Has Images' : 'No Images',
                     entry.media?.some(m => m.fullUrl.match(/youtube\.com/)) ? 'Has Video' : 'No Video',
                     entry.links?.length > 0 ? 'Has Links' : 'No Links',
-                    belts[entry.belt].danPoints > 0 ? 'Worth Dan Points' : undefined,
                     dayjs(entry.lastUpdated).isAfter(dayjs().subtract(1, 'days')) ? 'Updated Recently' : undefined,
                     entry.belt.startsWith('Black') ? 'Is Black' : undefined,
                     entry.belt !== 'Unranked' ? 'Is Ranked' : undefined

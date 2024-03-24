@@ -6,7 +6,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import JsonDisplay from '../util/JsonDisplay.jsx'
 
-import DataContext from '../lockbazaarContext/DataContextLB.jsx'
+import DataContext from '../context/DataContext'
 import AppContext from '../app/AppContext.jsx'
 import EntriesLB from './EntriesLB.jsx'
 

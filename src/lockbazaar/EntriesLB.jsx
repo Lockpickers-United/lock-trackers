@@ -1,20 +1,21 @@
 import React, {useCallback, useContext, useDeferredValue, useState, useMemo} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
-import DataContext from '../lockbazaarContext/DataContextLB'
+import DataContext from '../context/DataContext'
 import ListContext from '../context/ListContext'
 import {useTheme} from '@mui/material/styles'
 import FilterContext from '../context/FilterContext.jsx'
 import NoEntriesCardLB from './NoEntriesCardLB.jsx'
 import EntryLB from './EntryLB.jsx'
 import SortFilterBarLB from './SortFilterBarLB.jsx'
+import SellerProfileInline from './SellerProfileInline.jsx'
 
 function EntriesLB() {
+
+    document.title = 'Lock Trackers - Lock Bazaar Browser'
 
     const {visibleEntries = []} = useContext(DataContext)
     const {expanded, setExpanded} = useContext(ListContext)
     const {filters} = useContext(FilterContext)
-
-    console.log('entries, expanded', expanded)
 
     const [updated, setUpdated] = useState(0)
 
@@ -48,6 +49,9 @@ function EntriesLB() {
                 fontSize: '1.5rem', lineHeight: 0.8
             }}>
                 <SortFilterBarLB/>
+                {filters.sellers &&
+                    <SellerProfileInline/>
+                }
 
                 {entries.map((entry) =>
                     <EntryLB
