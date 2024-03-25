@@ -20,7 +20,6 @@ const Entry = ({entry, expanded, onExpand}) => {
 
     const {filters, setFilters, addFilter} = useContext(FilterContext)
 
-    console.log(entry)
     const sellers = filters.sellers ? [filters.sellers] : entry.sellers
     const sellerButtonDisabled = !!filters.sellers
     let uniqueSellers = [...new Set(sellers)]
@@ -31,7 +30,6 @@ const Entry = ({entry, expanded, onExpand}) => {
     const ref = useRef(null)
 
     const handleChange = useCallback((_, isExpanded) => {
-        console.log('handleChange')
         onExpand && onExpand(isExpanded ? entry.id : false)
     }, [entry.id, onExpand])
 

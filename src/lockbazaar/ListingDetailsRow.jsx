@@ -26,7 +26,7 @@ const ListingDetailsRow = ({listing}) => {
                     {listing.seller}
                 </div>
                 <EntryDetailsField field='Qty' value={listing.avail}/>
-                {listing.condition && <EntryDetailsField field='Condition' value={listing.condition}/>}
+                {listing.condition && <EntryDetailsField field='Cond' value={listing.condition}/>}
                 {listing.keys && <EntryDetailsField field='Keys' value={listing.keys}/>}
                 {listing.photo && <EntryDetailsField field='Photo' value={photoLink}/>}
                 {listing.condition && <EntryDetailsField field='Price' value={listing.price}/>}

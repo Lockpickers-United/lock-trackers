@@ -43,25 +43,28 @@ function FilterButton({onFiltersChanged, extraFilters = []}) {
 
     return (
         <React.Fragment>
-            { filterCount > 0 &&
-            <Tooltip title='Filter' arrow disableFocusListener>
-                <IconButton color='inherit' onClick={handleClick}>
-                    <Badge
-                        badgeContent={filterCount}
-                        color='error'
-                        overlap='circular'
-                        anchorOrigin={{
-                            vertical: 'top', horizontal: 'right'
-                        }}
-                        variant="dot"
-                    >
-                        <FilterAltIcon/>
-                    </Badge>
-                </IconButton>
-            </Tooltip>
+            {filterCount > 0 &&
+                <Tooltip title='Filter' arrow disableFocusListener>
+                    <IconButton color='inherit' onClick={handleClick}>
+                        <Badge
+                            badgeContent={filterCount}
+                            color='error'
+                            overlap='circular'
+                            anchorOrigin={{
+                                vertical: 'top', horizontal: 'right'
+                            }}
+                            variant='dot'
+                        >
+                            <FilterAltIcon/>
+                        </Badge>
+                    </IconButton>
+                </Tooltip>
             }
-            { filterCount === 0 &&
-                <Button variant='contained' size='small' onClick={handleClick} endIcon={<FilterAltIcon/>}>filters</Button>
+            {filterCount === 0 &&
+                <Button variant='contained' size='small'
+                        onClick={handleClick} endIcon={<FilterAltIcon/>} style={{margin: '8px 15px 3px 0px'}}>
+                    filters
+                </Button>
             }
             <Menu
                 open={open}
@@ -75,15 +78,13 @@ function FilterButton({onFiltersChanged, extraFilters = []}) {
                             return (!field.beta || beta) && (!field.userBased || isLoggedIn)
                         })
                         .map((field, index) =>
-                            <React.Fragment key={index}>
-                                <MenuItem>
-                                    <FilterByField
-                                        key={index}
-                                        {...field}
-                                        onFilter={handleAddFilter}
-                                    />
-                                </MenuItem>
-                            </React.Fragment>
+                            <MenuItem key={index}>
+                                <FilterByField
+                                    key={index}
+                                    {...field}
+                                    onFilter={handleAddFilter}
+                                />
+                            </MenuItem>
                         )}
                 </Stack>
 

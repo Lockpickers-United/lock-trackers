@@ -21,6 +21,10 @@ function LockBazaarMain() {
         ? '24px 24px 32px 24px'
         : '8px 8px 32px 8px'
 
+    const introPadding = !smallWindow
+        ? 0
+        : 0
+
     return (
         <div style={{
             minWidth: '320px', maxWidth: 800, height: '100%',
@@ -29,24 +33,40 @@ function LockBazaarMain() {
             fontSize: '1.5rem', lineHeight: 0.8, textAlign: 'center'
         }}>
 
-            <div style={{fontSize: '1.2rem', width: '100%', textAlign: 'center', marginTop: 20}}>
-                Lock Bazaar Browser - coming soon
-            </div>
+            <div style={{
+                maxWidth: 700,
+                paddingLeft:{introPadding},
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                textAlign: 'left'
+            }}>
+                <div style={{fontSize: '1.2rem', width: '100%', textAlign: 'left', marginTop: 5}}>
+                    Lock Bazaar Browser<br/>
+                </div>
+                <div style={{fontSize: '1rem', lineHeight: '1.2rem', width: '100%', textAlign: 'left', marginTop: 20}}>
 
+                    Just stating so that it's clear - these are user submitted lists of items for sale in
+                    the <a href={'https://discord.com/channels/140129091796992000/1109656237269860383'} target='_blank' rel='noopener noreferrer'><nobr>#lock-bazaar</nobr></a> channel
+                    on the Lockpickers United discord server.
+                    We are not vouching for the sellers, please take appropriate precautions as you would with any bazaar
+                    purchase.
+
+                </div>
+            </div>
             <EntriesLB/>
 
             {beta &&
                 <div>
-                <div style={{height: 40}}/>
-                <Accordion style={{width: '100%'}}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon/>} style={{fontSize: '1.0rem'}}>
-                        LOCK BAZAAR DATA
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <JsonDisplay json={visibleEntries} jsonName={'allEntries'}/>
-                    </AccordionDetails>
-                </Accordion>
-            </div>
+                    <div style={{height: 40}}/>
+                    <Accordion style={{width: '100%'}}>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon/>} style={{fontSize: '1.0rem'}}>
+                            LOCK BAZAAR DATA
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <JsonDisplay json={visibleEntries} jsonName={'allEntries'}/>
+                        </AccordionDetails>
+                    </Accordion>
+                </div>
             }
 
         </div>
