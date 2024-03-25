@@ -1,6 +1,4 @@
-import React, {useCallback} from 'react'
-import {enqueueSnackbar} from 'notistack'
-import LinkIcon from '@mui/icons-material/Link'
+import React from 'react'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import entryName from '../util/entryName'

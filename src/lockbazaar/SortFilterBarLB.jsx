@@ -3,19 +3,12 @@ import {ToggleButton, ToggleButtonGroup} from '@mui/material'
 import FilterContext from '../context/FilterContext'
 import useWindowSize from '../util/useWindowSize.jsx'
 import FilterButton from '../filters/FilterButton.jsx'
-import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
-import Tooltip from '@mui/material/Tooltip'
-import IconButton from '@mui/material/IconButton'
-import Badge from '@mui/material/Badge'
-import FilterAltIcon from '@mui/icons-material/FilterAlt.js'
 
-function SortFilterBar({view, setView}) {
+function SortFilterBar() {
 
     const {
         filters,
         addFilter,
-        clearFilters,
-        setFilters,
         filterCount,
         removeFilter,
         filterFieldsByFieldName
@@ -51,11 +44,7 @@ function SortFilterBar({view, setView}) {
         return value
     }, [])
 
-
     const {sort} = filters
-
-    const clearFiltersDisabled = !filterCount
-    const clearFiltersColor = !filterCount ? '#777' : '#4db013'
 
     const [highlight, setHighlight] = useState('all')
     if (filters?.status && highlight !== filters?.status) {
@@ -69,27 +58,6 @@ function SortFilterBar({view, setView}) {
     const handleSort = useCallback(value => () => {
         setTimeout(() => addFilter('sort', value, true), 0)
     }, [addFilter])
-
-    const handleFilterFieldValue = useCallback(event => {
-        event.preventDefault()
-        event.stopPropagation()
-        console.log(event.target.value)
-        const [field, value] = event.target.value.split(',')
-        if (field === 'status') {
-            setFilters({status: value})
-            setView(value)
-        } else if (field === 'isBest') {
-            setView('isBest')
-            setFilters({isBest: value})
-        }
-        window.scrollTo({top: 0, behavior: 'smooth'})
-    }, [setFilters, setView])
-
-    const handleClear = useCallback(event => {
-        event.preventDefault()
-        event.stopPropagation()
-        clearFilters()
-    }, [clearFilters])
 
     const {width} = useWindowSize()
     const mobileLarge428 = width <= 428
@@ -108,10 +76,10 @@ function SortFilterBar({view, setView}) {
             <div style={{textAlign: 'left'}}>
                 <span style={{fontSize: '.7rem', marginRight: 5}}>SORT</span>
                 <ToggleButtonGroup style={{height: 26, marginTop: 10}}>
-                    <ToggleButton selected={sort === 'lock' || !sort} style={{padding: 7}} value={'lock'}
-                                  onClick={handleSort('lock')}>Lock</ToggleButton>
-                    <ToggleButton selected={sort === 'belt'} style={{padding: 7}} value={'belt'}
+                    <ToggleButton selected={sort === 'belt' || !sort} style={{padding: 7}} value={'belt'}
                                   onClick={handleSort('belt')}>Belt</ToggleButton>
+                    <ToggleButton selected={sort === 'lock'} style={{padding: 7}} value={'lock'}
+                                  onClick={handleSort('lock')}>Name</ToggleButton>
                 </ToggleButtonGroup>
             </div>
             <div style={{textAlign: 'right', flexGrow: 1}}>

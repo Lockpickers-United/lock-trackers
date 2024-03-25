@@ -48,6 +48,26 @@ function EntriesLB() {
                 marginLeft: 'auto', marginRight: 'auto',
                 fontSize: '1.5rem', lineHeight: 0.8
             }}>
+
+                <div style={{fontSize: '1.2rem', width: '100%', textAlign: 'left', marginTop: 5}}>
+                    Lock Bazaar Browser<br/>
+                </div>
+                <div style={{fontSize: '1rem', lineHeight: '1.2rem', width: '100%', textAlign: 'left', marginTop: 20}}>
+
+                    Just stating so that it&apos;s clear - these are user submitted lists of items for sale in
+                    the <a href={'https://discord.com/channels/140129091796992000/1109656237269860383'} target='_blank'
+                           rel='noopener noreferrer'>
+                    <nobr>#lock-bazaar</nobr>
+                </a> channel on the Lockpickers United discord server.
+                    We are not vouching for the sellers, please take appropriate precautions as you would with any
+                    bazaar purchase.
+                    You&apos;ll find some handy tips for safe purchases
+                    in <a href={'https://discord.com/channels/140129091796992000/1111777295942828084'} target='_blank'
+                    rel='noopener noreferrer'>this post</a>.
+
+                </div>
+
+
                 <SortFilterBarLB/>
                 {filters.sellers &&
                     <SellerProfileInline/>
@@ -55,11 +75,11 @@ function EntriesLB() {
 
                 {entries.map((entry) =>
                     <EntryLB
-                           key={entry.id}
-                           entry={entry}
-                           expanded={entry.id === defExpanded}
-                           onExpand={setExpanded}
-                           entriesUpdate={entriesUpdate}
+                        key={entry.id}
+                        entry={entry}
+                        expanded={entry.id === defExpanded}
+                        onExpand={setExpanded}
+                        entriesUpdate={entriesUpdate}
                     />
                 )}
 

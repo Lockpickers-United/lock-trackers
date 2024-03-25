@@ -18,7 +18,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 const Entry = ({entry, expanded, onExpand}) => {
 
-    const {filters, setFilters, addFilter} = useContext(FilterContext)
+    const {filters, addFilter} = useContext(FilterContext)
 
     const sellers = filters.sellers ? [filters.sellers] : entry.sellers
     const sellerButtonDisabled = !!filters.sellers
@@ -37,6 +37,7 @@ const Entry = ({entry, expanded, onExpand}) => {
         event.preventDefault()
         event.stopPropagation()
         addFilter('sellers', event.target.value)
+        window.scrollTo({top: 0})
     }, [addFilter])
 
 
@@ -87,7 +88,7 @@ const Entry = ({entry, expanded, onExpand}) => {
         <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <BeltStripe value={entry.belt}/>
-                <div style={{margin: '12px 0px 8px 8px', width: '50%', flexShrink: 0, flexDirection: 'column'}}>
+                <div style={{margin: '12px 0px 8px 8px', width: '40%', flexShrink: 0, flexDirection: 'column'}}>
                     <FieldValue
                         value={makeModels}
                         textStyle={entry.belt === 'Unranked' ? {color: '#aaa', marginLeft: '0px'} : {marginLeft: '0px'}}
@@ -133,7 +134,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                         name={sellersText}
                         value={uniqueSellers.map((seller) =>
                             <Button variant='text' size='small'
-                                    key={seller} style={{textTransform: 'none', lineHeight:'.9rem', minWidth:40}} color='primary'
+                                    key={seller} style={{textTransform: 'none', lineHeight:'.9rem', minWidth:40, textAlign:'left'}} color='primary'
                                     value={seller} onClick={handleFilter}
                                     disabled={sellerButtonDisabled}
                             >

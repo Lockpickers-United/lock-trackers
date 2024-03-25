@@ -1,13 +1,12 @@
 import LinkIcon from '@mui/icons-material/Link'
 import IconButton from '@mui/material/IconButton'
-import Tooltip from '@mui/material/Tooltip'
 import {enqueueSnackbar} from 'notistack'
 import React, {useCallback, useContext} from 'react'
 import AuthContext from '../app/AuthContext'
 import FilterContext from '../context/FilterContext.jsx'
 import DataContext from '../context/DataContext.jsx'
 
-function CopySellerLinkButton() {
+function CopySellerLinkButtonUNUSED() {
     const {user} = useContext(AuthContext)
     const {filters} = useContext(FilterContext)
     const pickerId = filters?.pickerId
@@ -34,4 +33,4 @@ function CopySellerLinkButton() {
     )
 }
 
-export default CopySellerLinkButton
+export default CopySellerLinkButtonUNUSED

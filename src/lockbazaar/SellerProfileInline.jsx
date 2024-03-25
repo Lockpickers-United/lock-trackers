@@ -6,22 +6,19 @@ import FieldValue from '../util/FieldValue.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
-import CopySellerLinkButton from './CopySellerLinkButton.jsx'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
-import LinkIcon from '@mui/icons-material/Link.js'
+import LinkIcon from '@mui/icons-material/Link'
 import {enqueueSnackbar} from 'notistack'
 
 // http://localhost:3000/#/speedpicks?pickerId=ClbjuilBEHgbzO4UZl4y3GStlEz2
 
 function ViewProfileInline() {
 
-
     const {filters} = useContext(FilterContext)
     const filtersMap = new Map(Object.entries(filters))
     const {sellerList} = useContext(LoadingContextLB)
     const thisSeller = filtersMap.get('sellers')
-    console.log(sellerList)
 
     const profile = sellerList[thisSeller]
     const profileName = profile?.name ? profile?.name : 'No matching profile.'
@@ -40,7 +37,7 @@ function ViewProfileInline() {
     const handleCopyLink = useCallback(async () => {
         const link = `https://locktrackers.com/#/lockbazaar?sellers=${profile?.name}`
         await navigator.clipboard.writeText(link)
-        enqueueSnackbar('Link to profile copied to clipboard.')
+        enqueueSnackbar('Link to seller copied to clipboard.')
     }, [profile?.name])
 
 
