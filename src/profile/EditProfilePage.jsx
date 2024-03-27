@@ -37,20 +37,13 @@ function EditProfilePage() {
     const [profileChanged, setProfileChanged] = useState(false)
 
     const handleChange = useCallback((event) => {
-        const {value} = event.target
-        if (event.target.id === 'username') {
-            setUsername(value)
-        } else if (event.target.id === 'discordUsername') {
-            setDiscordUsername(value)
-        } else if (event.target.id === 'redditUsername') {
-            setRedditUsername(value)
-        } else if (event.target.id === 'LPUBeltsProfile') {
-            setLPUBeltsProfile(value)
-        } else if (event.target.name === 'belt') {
-            setBelt(value)
-        } else if (event.target.name === 'country') {
-            setCountry(value)
-        }
+        const {value, id, name} = event.target
+        id === 'username' && setUsername(value)
+        id === 'discordUsername' && setDiscordUsername(value)
+        id === 'redditUsername' && setRedditUsername(value)
+        id === 'LPUBeltsProfile' && setLPUBeltsProfile(value)
+        name === 'belt' && setBelt(value)
+        name === 'country' && setCountry(value)
         setProfileChanged(true)
     }, [])
 
