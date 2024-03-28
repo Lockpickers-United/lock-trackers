@@ -125,7 +125,8 @@ const nonFilters = [
     'tab',
     'sort',
     'image',
-    'profileUpdated'
+    'profileUpdated',
+    'sellerId'
 ]
 
 export default FilterContext

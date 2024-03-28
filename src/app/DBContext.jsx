@@ -11,7 +11,6 @@ import {
 } from 'firebase/firestore'
 import AuthContext from './AuthContext'
 import {enqueueSnackbar} from 'notistack'
-import dayjs from 'dayjs'
 
 const DBContext = React.createContext({})
 
@@ -26,17 +25,20 @@ export function DBProvider({children}) {
     const [currentVersion, setCurrentVersion] = useState('')
     const newVersionAvailable = !knownVersions.includes(currentVersion)
 
-    // SPEED PICK ENTRIES //
+
     const getDbProfiles = useCallback(async () => {
         if (dbError) return false
         const profiles = []
+        const sellerProfiles = []
         const querySnapshot2 = await getDocs(collection(db, 'profiles'))
         querySnapshot2.forEach((doc) => {
             const profile = doc.data()
             profile.userId = doc.id
             profiles.push(profile)
+            profile.isSeller && sellerProfiles.push(profile)
         })
-        return profiles
+        return {profiles,sellerProfiles}
+
     }, [dbError])
 
     // PROFILE SUBSCRIPTION //
@@ -112,26 +114,15 @@ export function DBProvider({children}) {
     }, [dbError, knownVersions, profile?.username, user?.uid])
 
     // PROFILE //
-    const updateProfile = useCallback(async (username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created) => {
+    const updateProfile = useCallback(async (localProfile) => {
         if (dbError) return false
-        const modified = dayjs().format()
         const ref = doc(db, 'profiles', user?.uid)
         await runTransaction(db, async transaction => {
             const sfDoc = await transaction.get(ref)
-            const delta = {
-                username,
-                discordUsername,
-                redditUsername,
-                LPUBeltsProfile,
-                belt,
-                country,
-                created,
-                modified
-            }
             if (!sfDoc.exists()) {
-                transaction.set(ref, delta)
+                transaction.set(ref, localProfile)
             } else {
-                transaction.update(ref, delta)
+                transaction.update(ref, localProfile)
             }
         })
         await updateVersion()

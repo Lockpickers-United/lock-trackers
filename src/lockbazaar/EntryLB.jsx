@@ -15,15 +15,24 @@ import FilterContext from '../context/FilterContext.jsx'
 import EntryActionsLB from './EntryActionsLB.jsx'
 import EntryDetailsLB from './EntryDetailsLB.jsx'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 
 const Entry = ({entry, expanded, onExpand}) => {
 
+    console.log('entry', entry)
+    const {getSellerFromId} = useContext(LoadingContextLB)
     const {filters, addFilter} = useContext(FilterContext)
 
-    const sellers = filters.sellers ? [filters.sellers] : entry.sellers
-    const sellerButtonDisabled = !!filters.sellers
-    let uniqueSellers = [...new Set(sellers)]
+    const seller = filters.seller ? [filters.seller] : entry.seller
+    const sellerButtonDisabled = !!filters.sellerName
+    let sellerIds = [...new Set(seller)]
 
+    const uniqueSellers = sellerIds.map((sellerId) => {
+        return getSellerFromId(sellerId)
+        }
+    )
+
+    console.log('uniqueSellers', uniqueSellers)
     const sellersText = uniqueSellers.length > 1 ? 'Sellers' : 'Seller'
 
     const [scrolled, setScrolled] = useState(false)
@@ -36,10 +45,11 @@ const Entry = ({entry, expanded, onExpand}) => {
     const handleFilter = useCallback(event => {
         event.preventDefault()
         event.stopPropagation()
-        addFilter('sellers', event.target.value)
+        const [name,id] = event.target.value.split(',')
+        addFilter('sellerName', name)
+        addFilter('id', id)
         window.scrollTo({top: 0})
     }, [addFilter])
-
 
     useEffect(() => {
         if (expanded && ref && !scrolled) {
@@ -132,13 +142,16 @@ const Entry = ({entry, expanded, onExpand}) => {
                 }}>
                     <FieldValue
                         name={sellersText}
-                        value={uniqueSellers.map((seller) =>
+                        value={uniqueSellers.map((seller, index) =>
                             <Button variant='text' size='small'
-                                    key={seller} style={{textTransform: 'none', lineHeight:'.9rem', minWidth:40, textAlign:'left'}} color='primary'
-                                    value={seller} onClick={handleFilter}
+                                    key={index}
+                                    style={{textTransform: 'none', lineHeight:'.9rem', minWidth:40, textAlign:'left'}}
+                                    color='primary'
+                                    value={[seller?.username,seller?.userId]}
+                                    onClick={handleFilter}
                                     disabled={sellerButtonDisabled}
                             >
-                                {seller}
+                                {seller?.username}
                             </Button>
                         )}
                         headerStyle={{marginBottom: 0}}

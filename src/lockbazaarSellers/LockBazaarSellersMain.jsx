@@ -5,19 +5,26 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import JsonDisplay from '../util/JsonDisplay.jsx'
-import LoadingDisplay from '../util/LoadingDisplay.jsx'
 
 import DataContext from '../context/DataContext'
 import AppContext from '../app/AppContext.jsx'
-import EntriesLB from './EntriesLB.jsx'
+import ListingsDataGrid from './ListingsDataGrid.jsx'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
+import FilterContext from '../context/FilterContext.jsx'
 
-function LockBazaarMain() {
+function LockBazaarSellersMain() {
 
-    const {allDataLoaded} = useContext(LoadingContextLB)
+    const {filters} = useContext(FilterContext)
+
+    const {validListings} = useContext(LoadingContextLB)
     const {visibleEntries = []} = useContext(DataContext)
     const {beta} = useContext(AppContext)
 
+    console.log('validListings', validListings)
+
+    const listings = filters.seller
+        ? validListings.filter(listing => listing.seller === filters.seller)
+        : validListings
     const {width} = useWindowSize()
     const smallWindow = width <= 560
     const pagePadding = !smallWindow
@@ -26,15 +33,13 @@ function LockBazaarMain() {
 
     return (
         <div style={{
-            minWidth: '320px', maxWidth: 800, height: '100%',
+            minWidth: '320px', maxWidth: 1000, height: '100%',
             padding: pagePadding, backgroundColor: '#223',
             marginLeft: 'auto', marginRight: 'auto',
             fontSize: '1.5rem', lineHeight: 0.8, textAlign: 'center'
         }}>
 
-            {!allDataLoaded && <LoadingDisplay/>}
-            {allDataLoaded && <EntriesLB/> }
-
+            <ListingsDataGrid listings={listings}/>
             {beta &&
                 <div>
                     <div style={{height: 40}}/>
@@ -53,4 +58,4 @@ function LockBazaarMain() {
     )
 }
 
-export default LockBazaarMain
+export default LockBazaarSellersMain

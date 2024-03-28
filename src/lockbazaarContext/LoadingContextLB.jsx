@@ -1,17 +1,35 @@
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react'
 import lockLists from '../lockbazaar/lockLists.json'
-import sellerList from '../lockbazaar/sellerList.json'
 import useData from '../util/useData'
 import {locksData} from '../data/dataUrls'
 import entryName from '../util/entryName'
+import AuthContext from '../app/AuthContext.jsx'
+import DBContext from '../app/DBContext.jsx'
 
 const LoadingContext = React.createContext({})
 const urls = {locksData}
 
 export function LoadingProvider({children}) {
+
     const {data, loading, error} = useData({urls})
     const {locksData} = data || {}
+    const {authLoaded} = useContext(AuthContext)
     const jsonLoaded = (!loading && !error && !!data)
+
+    const {getDbProfiles} = useContext(DBContext)
+    const [sellerProfiles, setSellerProfiles] = useState(null)
+
+    const refreshData = useCallback(async () => {
+        console.log('start refreshData for lockbazaar sellers')
+        console.log('REFRESHDATA: using dbEntries')
+        const newDbProfiles = await getDbProfiles()
+        setSellerProfiles(newDbProfiles.sellerProfiles)
+    }, [getDbProfiles]) // eslint-disable-line
+
+    // Initial data load
+    useEffect(() => {
+        refreshData()
+    }, [refreshData])
 
     const skeletonLocks = []
     const allLocks = jsonLoaded ? locksData : skeletonLocks
@@ -19,6 +37,10 @@ export function LoadingProvider({children}) {
     const getLockFromId = useCallback(lockId => {
         return locksData?.find(({id}) => id === lockId)
     }, [locksData])
+
+    const getSellerFromId = useCallback(thisId => {
+        return sellerProfiles?.find(({userId}) => userId === thisId)
+    }, [sellerProfiles])
 
     const lockRegex = useMemo(() => /id=(\w{8})/, [])
 
@@ -28,6 +50,10 @@ export function LoadingProvider({children}) {
             : null
         const thisLock = getLockFromId(thisId)
         return !!thisId && !!thisLock
+    }
+
+    function isValidUrl(value) {
+        return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value)
     }
 
     const allListings = lockLists
@@ -42,25 +68,30 @@ export function LoadingProvider({children}) {
                     : entryName(thisLock, 'short')
                 const samelineInfo = listing.samelineIndex ? '|' + listing.samelineIndex : ''
                 const newId = thisId + samelineInfo
+                const photo = (listing.photo && isValidUrl(listing.photo)) ? listing.photo : null
+                const seller = getSellerFromId(listing.seller)
 
                 return {
                     id: newId,
                     lockName: lockName,
-                    seller: listing.name,
+                    //TODO get from sellerId
+                    sellerName: seller?.username,
+                    sellerId: listing.sellerId,
                     avail: listing.available,
+                    format: listing.format,
                     samelineIndex: listing.samelineIndex,
                     isValid: isValidListing,
-                    keys:listing.keys,
-                    condition:listing.condition,
-                    photo:listing.photo,
-                    price:listing.price
+                    keys: listing.keys,
+                    condition: listing.condition,
+                    photo: photo,
+                    price: listing.price
                 }
             }
         )
 
     const validListings = allListings.filter(listing => listing.isValid)
 
-    //TODO get row number for seller
+    //TODO get row number for seller info
     const invalidListings = allListings // eslint-disable-line
         .filter(listing => !listing.isValid)
 
@@ -80,7 +111,14 @@ export function LoadingProvider({children}) {
         const sellers = validListings
             .filter(listing => listing.id === id)
             .map((listing) => {
-                return listing.seller
+                return listing.sellerId
+            })
+
+        const sellerNames = validListings
+            .filter(listing => listing.id === id)
+            .map((listing) => {
+                const seller = getSellerFromId(listing.sellerId)
+                return seller?.username
             })
 
         const listings = validListings
@@ -93,18 +131,31 @@ export function LoadingProvider({children}) {
             entry.makeModels = [lock.makeModels[samelineIndex - 1]]
             entry.id = id
         }
-        entry.sellers = sellers
+        entry.seller = sellers
+        entry.sellerName =  sellerNames
         entry.listings = listings
-
         return entry
     })
 
+    const allDataLoaded = ((authLoaded && !!getDbProfiles && jsonLoaded))
+
     const value = useMemo(() => ({
-        sellerList,
+        allDataLoaded,
+        sellerProfiles,
         validListings,
         allEntries,
-        allLocks
-    }), [validListings, allEntries, allLocks])
+        allLocks,
+        getLockFromId,
+        getSellerFromId
+    }), [
+        allDataLoaded,
+        sellerProfiles,
+        validListings,
+        allEntries,
+        allLocks,
+        getLockFromId,
+        getSellerFromId
+    ])
 
     return (
         <LoadingContext.Provider value={value}>

@@ -16,73 +16,53 @@ import MenuItem from '@mui/material/MenuItem'
 
 function EditProfilePage() {
 
-    const {updateProfile, profile} = useContext(DBContext)
+    const {updateProfile, profile = {}} = useContext(DBContext)
+    const [localProfile, setLocalProfile] = useState(profile)
 
-    const [created] = useState(profile?.created || dayjs().format())
-    const [username, setUsername] = useState(profile?.username || '')
-    const [discordUsername, setDiscordUsername] = useState(profile?.discordUsername || '')
-    const [redditUsername, setRedditUsername] = useState(profile?.redditUsername || '')
-    const [LPUBeltsProfile, setLPUBeltsProfile] = useState(profile?.LPUBeltsProfile || '')
-    const [belt, setBelt] = useState(profile?.belt || '')
-    const [country, setCountry] = useState(profile?.country || '')
-
-    const cardTitle = username
+    const cardTitle = profile.username
         ? `Hey ${profile?.username}!`
         : 'Create Profile'
 
-    const introText = !username
+    const introText = !profile.username
         ? 'You must have a named profile to submit speed picks.'
         : ''
 
     const [profileChanged, setProfileChanged] = useState(false)
 
     const handleChange = useCallback((event) => {
-        const {value} = event.target
-        if (event.target.id === 'username') {
-            setUsername(value)
-        } else if (event.target.id === 'discordUsername') {
-            setDiscordUsername(value)
-        } else if (event.target.id === 'redditUsername') {
-            setRedditUsername(value)
-        } else if (event.target.id === 'LPUBeltsProfile') {
-            setLPUBeltsProfile(value)
-        } else if (event.target.name === 'belt') {
-            setBelt(value)
-        } else if (event.target.name === 'country') {
-            setCountry(value)
-        }
+        const {name, value} = event.target
+        const newProfile = {...localProfile}
+        newProfile[name] = value
+        newProfile.created = localProfile.created || dayjs().format()
+        newProfile.modified = dayjs().format()
+        setLocalProfile(newProfile)
         setProfileChanged(true)
-    }, [])
+    }, [localProfile])
 
     const clearForm = useCallback(() => {
-        setUsername('')
-        setDiscordUsername('')
-        setRedditUsername('')
-        setLPUBeltsProfile('')
-        setBelt('')
-        setCountry('')
+        setLocalProfile({})
     }, [])
 
     const handleFocus = useCallback(event => event.target.select(), [])
 
     const handleSave = useCallback(async () => {
         try {
-            updateProfile(username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created)
+            updateProfile(localProfile)
             //await refreshData()
             enqueueSnackbar('Profile updated')
+            setProfileChanged(false)
         } catch (ex) {
             console.error('Error while updating profile', ex)
             enqueueSnackbar('Error while updating profile', ex)
         }
-    }, [updateProfile, username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created])
+    }, [updateProfile, localProfile])
 
     const pattern = /^[\sa-zA-Z0-9_-]{1,32}$/
-
-    const error = username.length > 0 && !pattern.test(username.toString())
-    const empty = username.length === 0
+    const error = localProfile.username?.length > 0 && !pattern.test(localProfile.username.toString())
+    const empty = localProfile.username?.length === 0
 
     const helperText = error
-        ? username.length === 0
+        ? localProfile.username?.length === 0
             ? 'Public profiles must have a display name.'
             : 'Display name must only include A-Z, 0-9, _ and -.'
         : ''
@@ -101,99 +81,96 @@ function EditProfilePage() {
                 <br/>
                 <Stack direction='column'>
                     <TextField
-                        id='username'
+                        name='username'
                         error={error}
                         fullWidth
                         variant='outlined'
                         label='Username'
                         helperText={helperText}
-                        value={username || ''}
+                        value={localProfile?.username || ''}
                         onChange={handleChange}
                         onFocus={handleFocus}
                         inputProps={{
                             maxLength: 20
                         }}
                     />
-                    {1 === 1 &&
-                        <div>
-                            <div style={{marginTop: 20, marginBottom: 15, fontWeight: 600, fontSize: '1rem'}}>OPTIONAL
-                            </div>
-
-                            <FormControl id='beltFC' size='small' sx={{minWidth: 220}}>
-                                <InputLabel>Belt (Honor system!)</InputLabel>
-                                <Select
-                                    id='belt'
-                                    name='belt'
-                                    value={belt}
-                                    label='Belt (Honor system!)'
-                                    onChange={handleChange}
-                                >
-                                    {uniqueBelts.map((belt) =>
-                                        <MenuItem key={belt} value={belt}>{belt}</MenuItem>
-                                    )}
-                                </Select>
-                            </FormControl>
-
-                            <TextField
-                                id='discordUsername'
-                                fullWidth
-                                size='small'
-                                variant='outlined'
-                                label='Discord Username'
-                                value={discordUsername || ''}
-                                onChange={handleChange}
-                                onFocus={handleFocus}
-                                inputProps={{
-                                    maxLength: 32
-                                }}
-                                style={{marginTop: 20}}
-                            />
-                            <TextField
-                                id='redditUsername'
-                                fullWidth
-                                size='small'
-                                variant='outlined'
-                                label='Reddit Username'
-                                value={redditUsername || ''}
-                                onChange={handleChange}
-                                onFocus={handleFocus}
-                                inputProps={{
-                                    maxLength: 32
-                                }}
-                                style={{marginTop: 20}}
-                            />
-                            <TextField
-                                id='LPUBeltsProfile'
-                                fullWidth
-                                size='small'
-                                variant='outlined'
-                                label='LPUBelts Profile Link'
-                                value={LPUBeltsProfile || ''}
-                                onChange={handleChange}
-                                onFocus={handleFocus}
-                                inputProps={{
-                                    maxLength: 128
-                                }}
-                                style={{marginTop: 20}}
-                            />
-
-                            <FormControl id='country' size='small' sx={{minWidth: 220, marginTop: '20px'}}>
-                                <InputLabel>Country</InputLabel>
-                                <Select
-                                    id='country'
-                                    name='country'
-                                    value={country}
-                                    label='Country'
-                                    onChange={handleChange}
-                                >
-                                    {countries.map((countryInfo) =>
-                                        <MenuItem key={countryInfo.ISO_alpha3_code}
-                                                  value={countryInfo.country_area}>{countryInfo.country_area}</MenuItem>
-                                    )}
-                                </Select>
-                            </FormControl>
+                    <div>
+                        <div style={{marginTop: 20, marginBottom: 15, fontWeight: 600, fontSize: '1rem'}}>OPTIONAL
                         </div>
-                    }
+
+                        <FormControl id='beltFC' size='small' sx={{minWidth: 220}}>
+                            <InputLabel>Belt (Honor system!)</InputLabel>
+                            <Select
+                                id='belt'
+                                name='belt'
+                                value={localProfile?.belt || ''}
+                                label='Belt (Honor system!)'
+                                onChange={handleChange}
+                            >
+                                {uniqueBelts.map((belt) =>
+                                    <MenuItem key={belt} value={belt}>{belt}</MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>
+
+                        <TextField
+                            name='discordUsername'
+                            fullWidth
+                            size='small'
+                            variant='outlined'
+                            label='Discord Username'
+                            value={localProfile?.discordUsername || ''}
+                            onChange={handleChange}
+                            onFocus={handleFocus}
+                            inputProps={{
+                                maxLength: 32
+                            }}
+                            style={{marginTop: 20}}
+                        />
+                        <TextField
+                            name='redditUsername'
+                            fullWidth
+                            size='small'
+                            variant='outlined'
+                            label='Reddit Username'
+                            value={localProfile?.redditUsername || ''}
+                            onChange={handleChange}
+                            onFocus={handleFocus}
+                            inputProps={{
+                                maxLength: 32
+                            }}
+                            style={{marginTop: 20}}
+                        />
+                        <TextField
+                            name='LPUBeltsProfile'
+                            fullWidth
+                            size='small'
+                            variant='outlined'
+                            label='LPUBelts Profile Link'
+                            value={localProfile?.LPUBeltsProfile || ''}
+                            onChange={handleChange}
+                            onFocus={handleFocus}
+                            inputProps={{
+                                maxLength: 128
+                            }}
+                            style={{marginTop: 20}}
+                        />
+
+                        <FormControl id='country' size='small' sx={{minWidth: 220, marginTop: '20px'}}>
+                            <InputLabel>Country</InputLabel>
+                            <Select
+                                name='country'
+                                value={localProfile?.country || ''}
+                                label='Country'
+                                onChange={handleChange}
+                            >
+                                {countries.map((countryInfo) =>
+                                    <MenuItem key={countryInfo.ISO_alpha3_code}
+                                              value={countryInfo.country_area}>{countryInfo.country_area}</MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>
+                    </div>
                 </Stack>
 
                 <div style={{marginTop: 20, textAlign: 'right'}}>

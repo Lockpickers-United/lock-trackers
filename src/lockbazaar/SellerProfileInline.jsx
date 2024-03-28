@@ -17,13 +17,17 @@ function ViewProfileInline() {
 
     const {filters} = useContext(FilterContext)
     const filtersMap = new Map(Object.entries(filters))
-    const {sellerList} = useContext(LoadingContextLB)
-    const thisSeller = filtersMap.get('sellers')
+    const {sellerProfiles, getSellerFromId} = useContext(LoadingContextLB)
 
-    const profile = sellerList[thisSeller]
-    const profileName = profile?.name ? profile?.name : 'No matching profile.'
+    const thisSeller = filtersMap.get('id')
+    console.log('filter?',  thisSeller)
 
-    if (profile?.name) {
+    const profile = getSellerFromId(filtersMap.get('id'))
+    //const profile = sellerProfiles[thisSeller]
+    const profileName = profile?.username ? profile?.username : 'No matching profile.'
+
+    console.log(filters)
+    if (profile?.username) {
         document.title = `Lock Trackers - Seller ${profileName}`
     } else {
         document.title = 'Lock Trackers - Seller Profile'
@@ -35,7 +39,7 @@ function ViewProfileInline() {
     const divFlexStyle = !breakSize ? {display: 'flex'} : {}
 
     const handleCopyLink = useCallback(async () => {
-        const link = `https://locktrackers.com/#/lockbazaar?sellers=${profile?.name}`
+        const link = `https://locktrackers.com/#/lockbazaar?seller=${profile?.name}`
         await navigator.clipboard.writeText(link)
         enqueueSnackbar('Link to seller copied to clipboard.')
     }, [profile?.name])

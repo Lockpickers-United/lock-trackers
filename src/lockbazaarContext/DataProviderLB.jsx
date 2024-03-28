@@ -14,7 +14,7 @@ export function DataProvider({children}) {
 
     const {user} = useContext(AuthContext)
     const {filters: allFilters} = useContext(FilterContext)
-    const {search, id, tab, name, sort, image, profileUpdated, ...filters} = allFilters
+    const {search, id, tab, name, sellerId, sort, image, profileUpdated, ...filters} = allFilters
     const {allEntries, allLocks} = useContext(LoadingContext)
     const {profile} = useContext(DBContext)
 

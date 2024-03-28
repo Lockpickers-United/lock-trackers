@@ -26,10 +26,11 @@ const ListingDetailsRow = ({listing}) => {
                     {listing.seller}
                 </div>
                 <EntryDetailsField field='Qty' value={listing.avail}/>
+                {listing.format && <EntryDetailsField field='Format' value={listing.format}/>}
                 {listing.condition && <EntryDetailsField field='Cond' value={listing.condition}/>}
                 {listing.keys && <EntryDetailsField field='Keys' value={listing.keys}/>}
                 {listing.photo && <EntryDetailsField field='Photo' value={photoLink}/>}
-                {listing.condition && <EntryDetailsField field='Price' value={listing.price}/>}
+                {listing.price && <EntryDetailsField field='Price' value={listing.price}/>}
             </div>
         </React.Fragment>
     )
