@@ -95,7 +95,81 @@ function EditProfilePage() {
                         }}
                     />
                     <div>
-                        <div style={{marginTop: 20, marginBottom: 15, fontWeight: 600, fontSize: '1rem'}}>OPTIONAL
+
+                        {profile.isSeller &&
+                            <div>
+                                <div id={'SELLER PROFILE'} style={{
+                                    marginTop: 25,
+                                    marginBottom: 0,
+                                    fontWeight: 600,
+                                    fontSize: '1rem'
+                                }}>SELLER PROFILE
+                                </div>
+
+                                <TextField
+                                    name='sellerEmail'
+                                    fullWidth
+                                    size='small'
+                                    variant='outlined'
+                                    label='Public Email'
+                                    value={localProfile?.sellerEmail || ''}
+                                    onChange={handleChange}
+                                    onFocus={handleFocus}
+                                    inputProps={{
+                                        maxLength: 32
+                                    }}
+                                    style={{marginTop: 20}}
+                                />
+                                <TextField
+                                    name='sellerShipsTo'
+                                    fullWidth
+                                    size='small'
+                                    variant='outlined'
+                                    label='Ships To'
+                                    value={localProfile?.sellerShipsTo || ''}
+                                    onChange={handleChange}
+                                    onFocus={handleFocus}
+                                    inputProps={{
+                                        maxLength: 32
+                                    }}
+                                    style={{marginTop: 20}}
+                                />
+                                <TextField
+                                    name='spreadsheetId'
+                                    fullWidth
+                                    disabled
+                                    size='small'
+                                    variant='outlined'
+                                    label='Spreadsheet Id'
+                                    value={localProfile?.spreadsheetId || ''}
+                                    onChange={handleChange}
+                                    onFocus={handleFocus}
+                                    inputProps={{
+                                        maxLength: 50
+                                    }}
+                                    style={{marginTop: 20}}
+                                />
+                                <TextField
+                                    name='spreadsheetRange'
+                                    fullWidth
+                                    disabled
+                                    size='small'
+                                    variant='outlined'
+                                    label='Spreadsheet Range'
+                                    value={localProfile?.spreadsheetRange || ''}
+                                    onChange={handleChange}
+                                    onFocus={handleFocus}
+                                    inputProps={{
+                                        maxLength: 50
+                                    }}
+                                    style={{marginTop: 20}}
+                                />
+
+                            </div>
+                        }
+
+                        <div id={'OPTIONAL'}
+                             style={{marginTop: 25, marginBottom: 15, fontWeight: 600, fontSize: '1rem'}}>OPTIONAL
                         </div>
 
                         <FormControl id='beltFC' size='small' sx={{minWidth: 220}}>

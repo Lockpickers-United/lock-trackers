@@ -2,15 +2,17 @@ import TextField from '@mui/material/TextField'
 import React from 'react'
 
 
-function ProfileTextField(fieldId,label,value,maxLength,onChange,onFocus) {
+function ProfileInputItem(fieldId, label, value, maxLength, onChange, onFocus) {
 
+
+    const valString = value ? value.toString() : ''
 
     return (
 
         <TextField
-            id={fieldId}
-            label={label}
-            value={value || ''}
+            id={fieldId.toString()}
+            label={label.toString()}
+            value={valString || ''}
             onChange={onChange}
             onFocus={onFocus}
             inputProps={{
@@ -25,4 +27,4 @@ function ProfileTextField(fieldId,label,value,maxLength,onChange,onFocus) {
     )
 }
 
-export default ProfileTextField
+export default ProfileInputItem

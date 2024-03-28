@@ -31,6 +31,8 @@ function EntriesLB() {
         return visibleEntries
     }, [visibleEntries])
 
+
+
     const {width} = useWindowSize()
     const smallWindow = width <= 560
     const pagePadding = !smallWindow

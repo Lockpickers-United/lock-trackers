@@ -19,7 +19,6 @@ import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 
 const Entry = ({entry, expanded, onExpand}) => {
 
-    console.log('entry', entry)
     const {getSellerFromId} = useContext(LoadingContextLB)
     const {filters, addFilter} = useContext(FilterContext)
 
@@ -32,7 +31,6 @@ const Entry = ({entry, expanded, onExpand}) => {
         }
     )
 
-    console.log('uniqueSellers', uniqueSellers)
     const sellersText = uniqueSellers.length > 1 ? 'Sellers' : 'Seller'
 
     const [scrolled, setScrolled] = useState(false)
@@ -45,9 +43,7 @@ const Entry = ({entry, expanded, onExpand}) => {
     const handleFilter = useCallback(event => {
         event.preventDefault()
         event.stopPropagation()
-        const [name,id] = event.target.value.split(',')
-        addFilter('sellerName', name)
-        addFilter('id', id)
+        addFilter('sellerName', event.target.value)
         window.scrollTo({top: 0})
     }, [addFilter])
 
@@ -115,7 +111,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                         />
                     }
                 </div>
-                <div style={{margin: '8px 0px 0px 0px', width: '30%', display: 'flex', alignItems: 'center'}}>
+                <div style={{margin: '8px 0px 0px 0px', width: '40%', display: 'flex', alignItems: 'center'}}>
                     {
                         entry.lockingMechanisms?.length > 0 &&
                         <FieldValue
@@ -147,7 +143,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                                     key={index}
                                     style={{textTransform: 'none', lineHeight:'.9rem', minWidth:40, textAlign:'left'}}
                                     color='primary'
-                                    value={[seller?.username,seller?.userId]}
+                                    value={seller?.username}
                                     onClick={handleFilter}
                                     disabled={sellerButtonDisabled}
                             >

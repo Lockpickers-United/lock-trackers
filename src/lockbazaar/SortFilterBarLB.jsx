@@ -11,12 +11,14 @@ function SortFilterBar() {
         addFilter,
         filterCount,
         removeFilter,
+        removeFilters,
         filterFieldsByFieldName
     } = useContext(FilterContext)
 
     const handleDeleteFilter = useCallback((keyToDelete, valueToDelete) => () => {
         removeFilter(keyToDelete, valueToDelete)
-    }, [removeFilter])
+        keyToDelete==='sellerName' && removeFilters(['id'])
+    }, [removeFilter, removeFilters])
 
     const filterValues = useMemo(() => {
         const {search, id, tab, name, sort, image, ...rest} = filters

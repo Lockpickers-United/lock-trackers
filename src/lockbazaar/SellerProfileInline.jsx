@@ -17,16 +17,12 @@ function ViewProfileInline() {
 
     const {filters} = useContext(FilterContext)
     const filtersMap = new Map(Object.entries(filters))
-    const {sellerProfiles, getSellerFromId} = useContext(LoadingContextLB)
+    const {getSellerFromId, sellerIdMap} = useContext(LoadingContextLB)
 
-    const thisSeller = filtersMap.get('id')
-    console.log('filter?',  thisSeller)
-
-    const profile = getSellerFromId(filtersMap.get('id'))
-    //const profile = sellerProfiles[thisSeller]
+    const thisSellerId = sellerIdMap[filtersMap.get('sellerName')]
+    const profile = getSellerFromId(thisSellerId)
     const profileName = profile?.username ? profile?.username : 'No matching profile.'
 
-    console.log(filters)
     if (profile?.username) {
         document.title = `Lock Trackers - Seller ${profileName}`
     } else {
@@ -39,10 +35,10 @@ function ViewProfileInline() {
     const divFlexStyle = !breakSize ? {display: 'flex'} : {}
 
     const handleCopyLink = useCallback(async () => {
-        const link = `https://locktrackers.com/#/lockbazaar?seller=${profile?.name}`
+        const link = `https://beta.locktrackers.com/#/lockbazaar?sellerName=${profileName}`
         await navigator.clipboard.writeText(link)
         enqueueSnackbar('Link to seller copied to clipboard.')
-    }, [profile?.name])
+    }, [profileName])
 
 
     return (
@@ -72,7 +68,17 @@ function ViewProfileInline() {
                                 Click here for detailed seller sheet
                             </a>
                         </div>
-                        <div style={{...divFlexStyle, marginLeft: 'auto', marginRight: 'auto', justifyContent:'center'}}>
+                        {profile?.sellerEmail &&
+                        <div style={{fontSize: '1rem', marginBottom: 10, marginTop:10}}>
+                                {profile?.sellerEmail}
+                        </div>
+                        }
+                        <div style={{
+                            ...divFlexStyle,
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
+                            justifyContent: 'center'
+                        }}>
                             <div style={{display: 'flex'}}>
                                 {profile?.country &&
                                     <FieldValue name='Location' value={profile?.country} style={fieldValueStyle}/>
