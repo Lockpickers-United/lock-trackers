@@ -1,25 +1,23 @@
 import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react'
-import lockListings from '../lockbazaar/lockListings.json'
 import useData from '../util/useData'
-import {locksData} from '../data/dataUrls'
+import {locksData, lockListings} from '../data/dataUrls'
 import entryName from '../util/entryName'
 import AuthContext from '../app/AuthContext.jsx'
 import DBContext from '../app/DBContext.jsx'
 
 const LoadingContext = React.createContext({})
-const urls = {locksData}
+const urls = {locksData, lockListings}
 
 export function LoadingProvider({children}) {
 
     const {data, loading, error} = useData({urls})
-    const {locksData} = data || {}
+    const {locksData, lockListings} = data || {}
     const {authLoaded} = useContext(AuthContext)
     const jsonLoaded = (!loading && !error && !!data)
 
     const {getDbProfiles} = useContext(DBContext)
     const [sellerProfiles, setSellerProfiles] = useState(null)
     const [sellerIdMap, setSellerIdMap] = useState({})
-
 
     const refreshData = useCallback(async () => {
         console.log('start refreshData for lockbazaar sellers')
@@ -69,7 +67,7 @@ export function LoadingProvider({children}) {
         return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value)
     }
 
-    const allListings = lockListings
+    const allListings = jsonLoaded ? lockListings
         .map((listing) => {
                 const isValidListing = (listing.available && isValidLPUbeltsUrl(listing.url))
                 const thisId = lockRegex.test(listing.url)
@@ -101,6 +99,7 @@ export function LoadingProvider({children}) {
                 }
             }
         )
+        : []
 
     const validListings = allListings.filter(listing => listing.isValid)
 
