@@ -3,7 +3,6 @@ import useWindowSize from '../util/useWindowSize.jsx'
 import EntryDetailsField from './EntryDetailsField.jsx'
 
 const ListingDetailsRow = ({listing}) => {
-
     const {width} = useWindowSize()
     const smallWindow = width <= 520
     const divFlexStyle = !smallWindow ? {display: 'flex'} : {}
@@ -23,7 +22,7 @@ const ListingDetailsRow = ({listing}) => {
                 ...divFlexStyle
             }}>
                 <div style={{marginRight: 20, fontWeight:500}}>
-                    {listing.seller}
+                    {listing.sellerName}
                 </div>
                 <EntryDetailsField field='Qty' value={listing.avail}/>
                 {listing.format && <EntryDetailsField field='Format' value={listing.format}/>}

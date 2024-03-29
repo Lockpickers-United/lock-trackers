@@ -86,7 +86,7 @@ export function LoadingProvider({children}) {
                     id: newId,
                     lockName: lockName,
                     //TODO get from sellerId
-                    sellerName: seller?.username,
+                    sellerName: listing.name,
                     sellerId: listing.sellerId,
                     avail: listing.available,
                     format: listing.format,
