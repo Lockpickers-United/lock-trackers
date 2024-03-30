@@ -20,8 +20,6 @@ export function LoadingProvider({children}) {
     const [sellerIdMap, setSellerIdMap] = useState({})
 
     const refreshData = useCallback(async () => {
-        console.log('start refreshData for lockbazaar sellers')
-        console.log('REFRESHDATA: using dbEntries')
         const newDbProfiles = await getDbProfiles()
         setSellerProfiles(newDbProfiles.sellerProfiles)
 
@@ -31,9 +29,6 @@ export function LoadingProvider({children}) {
             }
         )
         setSellerIdMap(sellerIdMap)
-
-
-        //const dates = newDbProfiles.sellerProfiles.map(({date}) => date)
 
     }, [getDbProfiles]) // eslint-disable-line
 
@@ -68,37 +63,39 @@ export function LoadingProvider({children}) {
     }
 
     const allListings = jsonLoaded ? lockListings
-        .map((listing) => {
-                const isValidListing = (listing.available && isValidLPUbeltsUrl(listing.url))
-                const thisId = lockRegex.test(listing.url)
-                    ? listing.url.match(lockRegex)[1]
-                    : null
-                const thisLock = getLockFromId(thisId)
-                const lockName = listing.samelineIndex
-                    ? thisLock?.makeModels[listing.samelineIndex - 1].make + ' ' + thisLock?.makeModels[listing.samelineIndex - 1].model
-                    : entryName(thisLock, 'short')
-                const samelineInfo = listing.samelineIndex ? '|' + listing.samelineIndex : ''
-                const newId = thisId + samelineInfo
-                const photo = (listing.photo && isValidUrl(listing.photo)) ? listing.photo : null
-                const seller = getSellerFromId(listing.seller)
+            .map((listing) => {
+                    const isValidListing = (listing.available > 0 && isValidLPUbeltsUrl(listing.url))
+                    const thisId = lockRegex.test(listing.url)
+                        ? listing.url.match(lockRegex)[1]
+                        : null
+                    const thisLock = getLockFromId(thisId)
+                    const lockName = listing.samelineIndex
+                        ? thisLock?.makeModels[listing.samelineIndex - 1].make + ' ' + thisLock?.makeModels[listing.samelineIndex - 1].model
+                        : entryName(thisLock, 'short')
+                    const samelineInfo = listing.samelineIndex ? '|' + listing.samelineIndex : ''
+                    const newId = thisId + samelineInfo
+                    const photo = (listing.photo && isValidUrl(listing.photo)) ? listing.photo : null
 
-                return {
-                    id: newId,
-                    lockName: lockName,
-                    //TODO get from sellerId
-                    sellerName: listing.name,
-                    sellerId: listing.sellerId,
-                    avail: listing.available,
-                    format: listing.format,
-                    samelineIndex: listing.samelineIndex,
-                    isValid: isValidListing,
-                    keys: listing.keys,
-                    condition: listing.condition,
-                    photo: photo,
-                    price: listing.price
+                    //const shipsTo = listing.shipsTo ? listing.shipsTo.join(',') : null
+                    //listing.shipsTo && console.log('listing.shipsTo', shipsTo)
+                    return {
+                        id: newId,
+                        lockName: lockName,
+                        //TODO get from sellerId
+                        sellerName: listing.name,
+                        shipsTo: listing.shipsTo,
+                        sellerId: listing.sellerId,
+                        avail: listing.available,
+                        format: listing.format,
+                        samelineIndex: listing.samelineIndex,
+                        isValid: isValidListing,
+                        keys: listing.keys,
+                        condition: listing.condition,
+                        photo: photo,
+                        price: listing.price
+                    }
                 }
-            }
-        )
+            )
         : []
 
     const validListings = allListings.filter(listing => listing.isValid)
@@ -120,29 +117,39 @@ export function LoadingProvider({children}) {
         const lock = getLockFromId(lockId)
         let entry = {...lock}
 
-        const sellers = validListings
-            .filter(listing => listing.id === id)
+        const lockListings = validListings.filter(listing => listing.id === id)
+
+        const sellers = lockListings
             .map((listing) => {
                 return listing.sellerId
             })
 
-        const sellerNames = validListings
-            .filter(listing => listing.id === id)
+        const sellerNames = lockListings
             .map((listing) => {
                 const seller = getSellerFromId(listing.sellerId)
                 return seller?.username
             })
 
-        const listings = validListings
-            .filter(listing => listing.id === id)
+        const listings = lockListings
             .map((listing) => {
                 return listing
             })
+
+        const shipsToFull = lockListings
+            .filter(listing => !!listing.shipsTo)
+            .map((listing) => {
+            return listing.shipsTo ? listing.shipsTo : null
+        }).flat()
+        const shipsToUnique = [...new Set(shipsToFull)]
 
         if (samelineIndex) {
             entry.makeModels = [lock.makeModels[samelineIndex - 1]]
             entry.id = id
         }
+
+        //TODO roll up shipTos
+
+        entry.shipsTo = shipsToUnique
         entry.seller = sellers
         entry.sellerName = sellerNames
         entry.listings = listings

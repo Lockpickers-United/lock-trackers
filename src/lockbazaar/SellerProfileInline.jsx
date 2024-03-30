@@ -22,6 +22,7 @@ function ViewProfileInline() {
     const thisSellerId = sellerIdMap[filtersMap.get('sellerName')]
     const profile = getSellerFromId(thisSellerId)
     const profileName = profile?.username ? profile?.username : 'No matching profile.'
+    const safeName = profileName.replace(/[\s/]/g, '_').replace(/\W/g, '')
 
     if (profile?.username) {
         document.title = `Lock Trackers - Seller ${profileName}`
@@ -35,12 +36,12 @@ function ViewProfileInline() {
     const divFlexStyle = !breakSize ? {display: 'flex'} : {}
 
     const handleCopyLink = useCallback(async () => {
-        const link = `https://beta.locktrackers.com/#/lockbazaar?sellerName=${profileName}`
+        const link = `https://beta.locktrackers.com/#/lockbazaar?viewSeller=${thisSellerId}&name=${safeName}`
         await navigator.clipboard.writeText(link)
         enqueueSnackbar('Link to seller copied to clipboard.')
-    }, [profileName])
+    }, [safeName, thisSellerId])
 
-
+    console.log(profile)
     return (
         <Card style={{
             maxWidth: 700,
@@ -50,7 +51,7 @@ function ViewProfileInline() {
             marginBottom: 16
         }}>
             <CardHeader title={profileName}
-                        style={{paddingBottom: 0, paddingLeft:40}}
+                        style={{paddingBottom: 0, paddingLeft: 40}}
                         action={
                             <Tooltip title='Copy Seller Link' arrow disableFocusListener>
                                 <IconButton onClick={handleCopyLink}>
@@ -69,9 +70,15 @@ function ViewProfileInline() {
                             </a>
                         </div>
                         {profile?.sellerEmail &&
-                        <div style={{fontSize: '1rem', marginBottom: 10, marginTop:10}}>
+                            <div style={{fontSize: '1rem', marginBottom: 10, marginTop: 10}}>
                                 {profile?.sellerEmail}
-                        </div>
+                            </div>
+                        }
+                        {profile.sellerShipsTo &&
+                            <div style={{fontSize: '1rem', marginBottom: 10, marginTop:20}}>
+                                <FieldValue name='Ships To' value={profile?.sellerShipsTo.join(', ')}
+                                            style={fieldValueStyle}/>
+                            </div>
                         }
                         <div style={{
                             ...divFlexStyle,

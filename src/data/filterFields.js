@@ -13,7 +13,8 @@ export const LBFilterFields = [
     {label: 'Make', fieldName: 'makes'},
     {label: 'Locking Mechanism', fieldName: 'lockingMechanisms'},
     {label: 'Belt', fieldName: 'belt', sort: beltSort},
-    {label: 'Seller Name', fieldName: 'sellerName'}
+    {label: 'Seller Name', fieldName: 'sellerName'},
+    {label: 'Ships To', fieldName: 'shipsTo'}
 ]
 
 export const spFilterFields = [

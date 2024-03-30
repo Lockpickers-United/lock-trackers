@@ -19,17 +19,31 @@ import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 
 const Entry = ({entry, expanded, onExpand}) => {
 
+    //console.log('entry', entry)
+
     const {getSellerFromId} = useContext(LoadingContextLB)
     const {filters, addFilter} = useContext(FilterContext)
 
-    const seller = filters.seller ? [filters.seller] : entry.seller
-    const sellerButtonDisabled = !!filters.sellerName
-    let sellerIds = [...new Set(seller)]
+    console.log('entry.listings', entry.listings)
+    console.log('filters.shipsTo', [filters.shipsTo])
 
-    const uniqueSellers = sellerIds.map((sellerId) => {
-        return getSellerFromId(sellerId)
+    const shippableListings = filters.shipsTo
+        ? entry.listings
+            .filter(listing => !!listing.shipsTo)
+            .filter(listing => filters.shipsTo.some(r=> [listing.shipsTo].includes(r)))
+        : entry.listings
+
+    console.log('shippableListings', shippableListings)
+
+    const sellerButtonDisabled = !!filters.sellerName
+
+    const allSellers = shippableListings.map((listing) => {
+            return getSellerFromId(listing.sellerId)
         }
     )
+    const uniqueSellers = [...new Set(allSellers)]
+
+    console.log(uniqueSellers)
 
     const sellersText = uniqueSellers.length > 1 ? 'Sellers' : 'Seller'
 
@@ -92,7 +106,7 @@ const Entry = ({entry, expanded, onExpand}) => {
 
     return (
         <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
                 <BeltStripe value={entry.belt}/>
                 <div style={{margin: '12px 0px 8px 8px', width: '40%', flexShrink: 0, flexDirection: 'column'}}>
                     <FieldValue
@@ -141,7 +155,12 @@ const Entry = ({entry, expanded, onExpand}) => {
                         value={uniqueSellers.map((seller, index) =>
                             <Button variant='text' size='small'
                                     key={index}
-                                    style={{textTransform: 'none', lineHeight:'.9rem', minWidth:40, textAlign:'left'}}
+                                    style={{
+                                        textTransform: 'none',
+                                        lineHeight: '.9rem',
+                                        minWidth: 40,
+                                        textAlign: 'left'
+                                    }}
                                     color='primary'
                                     value={seller?.username}
                                     onClick={handleFilter}
@@ -158,7 +177,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                 expanded &&
                 <React.Fragment>
                     <AccordionDetails sx={{padding: '8px 16px 0px 16px'}}>
-                        <EntryDetailsLB entry={entry}/>
+                        <EntryDetailsLB listings={shippableListings}/>
                     </AccordionDetails>
                     <AccordionActions disableSpacing>
                         <EntryActionsLB entry={entry}/>

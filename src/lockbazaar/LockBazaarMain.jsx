@@ -11,18 +11,32 @@ import DataContext from '../context/DataContext'
 import AppContext from '../app/AppContext.jsx'
 import EntriesLB from './EntriesLB.jsx'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
+import FilterContext from '../context/FilterContext.jsx'
+import {useNavigate} from 'react-router-dom'
 
 function LockBazaarMain() {
 
-    const {allDataLoaded} = useContext(LoadingContextLB)
+    const {allDataLoaded, getSellerFromId} = useContext(LoadingContextLB)
     const {visibleEntries = []} = useContext(DataContext)
     const {beta} = useContext(AppContext)
+    const {filters} = useContext(FilterContext)
 
     const {width} = useWindowSize()
     const smallWindow = width <= 560
     const pagePadding = !smallWindow
         ? '24px 24px 32px 24px'
         : '8px 8px 32px 8px'
+
+    const navigate = useNavigate()
+    if (filters.viewSeller) {
+
+        if (getSellerFromId(filters.viewSeller)) {
+            const sellerName = getSellerFromId(filters.viewSeller).username
+            navigate(`/lockbazaar?sellerName=${sellerName}`)
+        } else {
+            navigate('/lockbazaar')
+        }
+    }
 
     return (
         <div style={{
@@ -33,7 +47,7 @@ function LockBazaarMain() {
         }}>
 
             {!allDataLoaded && <LoadingDisplay/>}
-            {allDataLoaded && <EntriesLB/> }
+            {allDataLoaded && <EntriesLB/>}
 
             {beta &&
                 <div>

@@ -13,6 +13,7 @@ import {uniqueBelts} from '../data/belts'
 import countries from '../data/countries.json'
 import {FormControl, InputLabel, Select} from '@mui/material'
 import MenuItem from '@mui/material/MenuItem'
+import MultipleSelect from './ShipsToSelect.jsx'
 
 function EditProfilePage() {
 
@@ -105,6 +106,11 @@ function EditProfilePage() {
                                     fontSize: '1rem'
                                 }}>SELLER PROFILE
                                 </div>
+
+                                <MultipleSelect
+                                    parentChange={handleChange}
+                                    currentValue={localProfile?.sellerShipsTo || ''}
+                                />
 
                                 <TextField
                                     name='sellerEmail'
