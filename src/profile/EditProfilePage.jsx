@@ -127,20 +127,6 @@ function EditProfilePage() {
                                     style={{marginTop: 20}}
                                 />
                                 <TextField
-                                    name='sellerShipsTo'
-                                    fullWidth
-                                    size='small'
-                                    variant='outlined'
-                                    label='Ships To'
-                                    value={localProfile?.sellerShipsTo || ''}
-                                    onChange={handleChange}
-                                    onFocus={handleFocus}
-                                    inputProps={{
-                                        maxLength: 32
-                                    }}
-                                    style={{marginTop: 20}}
-                                />
-                                <TextField
                                     name='spreadsheetId'
                                     fullWidth
                                     disabled
