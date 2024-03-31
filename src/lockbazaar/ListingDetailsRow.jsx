@@ -11,8 +11,6 @@ const ListingDetailsRow = ({listing}) => {
     const {filters} = useContext(FilterContext)
     const sellerView = !!filters.sellerName
 
-    console.log(listing)
-
     const {width} = useWindowSize()
     const smallWindow = width <= 520
     const divFlexStyle = !smallWindow ? {display: 'flex'} : {}
@@ -57,7 +55,7 @@ const ListingDetailsRow = ({listing}) => {
 
             </div>
             {listing.notes &&
-                <div style={{margin: '10px 20px 20px 20px', fontSize: '.85rem', textAlign: 'left'}}>
+                <div style={{padding: '0px 20px 15px 20px', fontSize: '.85rem', textAlign: 'left'}}>
                     notes: {listing.notes}
                 </div>
             }

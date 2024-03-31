@@ -179,10 +179,10 @@ const Entry = ({entry, expanded, onExpand}) => {
             {
                 expanded &&
                 <React.Fragment>
-                    <AccordionDetails sx={{padding: '8px 16px 0px 16px'}}>
+                    <AccordionDetails style={{backgroundColor:'#272727'}} sx={{padding: '8px 16px 0px 16px'}}>
                         <EntryDetailsLB listings={sellersListings}/>
                     </AccordionDetails>
-                    <AccordionActions disableSpacing>
+                    <AccordionActions disableSpacing  style={{backgroundColor:'#272727'}}>
                         <EntryActionsLB entry={entry}/>
                         <Tracker feature='lock' id={entry.id}/>
                     </AccordionActions>

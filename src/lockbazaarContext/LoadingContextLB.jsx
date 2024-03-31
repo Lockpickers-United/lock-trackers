@@ -72,6 +72,12 @@ export function LoadingProvider({children}) {
                     const lockName = listing.samelineIndex
                         ? thisLock?.makeModels[listing.samelineIndex - 1].make + ' ' + thisLock?.makeModels[listing.samelineIndex - 1].model
                         : entryName(thisLock, 'short')
+                    const lockMake = listing.samelineIndex
+                        ? thisLock?.makeModels[listing.samelineIndex - 1].make
+                        : thisLock?.makeModels[0].make
+                    const lockModel = listing.samelineIndex
+                        ? thisLock?.makeModels[listing.samelineIndex - 1].model
+                        : thisLock?.makeModels[0].model
                     const samelineInfo = listing.samelineIndex ? '|' + listing.samelineIndex : ''
                     const newId = thisId + samelineInfo
                     const photo = (listing.photo && isValidUrl(listing.photo)) ? listing.photo : null
@@ -81,6 +87,8 @@ export function LoadingProvider({children}) {
                     return {
                         id: newId,
                         lockName: lockName,
+                        lockMake: lockMake,
+                        lockModel: lockModel,
                         //TODO get from sellerId
                         sellerName: listing.name,
                         shipsTo: listing.shipsTo,
@@ -92,7 +100,7 @@ export function LoadingProvider({children}) {
                         keys: listing.keys,
                         condition: listing.condition,
                         photo: photo,
-                        price: listing.price,
+                        price: listing.price?.replace('.00',''),
                         notes: listing.notes
                     }
                 }
@@ -139,8 +147,8 @@ export function LoadingProvider({children}) {
         const shipsToFull = lockListings
             .filter(listing => !!listing.shipsTo)
             .map((listing) => {
-            return listing.shipsTo ? listing.shipsTo : null
-        }).flat()
+                return listing.shipsTo ? listing.shipsTo : null
+            }).flat()
         const shipsToUnique = [...new Set(shipsToFull)]
 
         if (samelineIndex) {

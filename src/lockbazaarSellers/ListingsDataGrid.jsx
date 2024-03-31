@@ -7,11 +7,15 @@ import useWindowSize from '../util/useWindowSize.jsx'
 
 function ListingsDataGrid({listings, profile}) {
 
-    console.log(listings)
     const {getLockFromId} = useContext(LoadingContextLB)
 
-    const rows = listings.map((listing, index) => {
+    const dataRows = profile
+    ? listings.filter(listing => listing.sellerName === profile.username)
+        : listings
 
+    console.log(dataRows)
+
+    const rows = listings.map((listing, index) => {
             const id = listing.id.split('|')[0]
             const lock = getLockFromId(id)
             return {
@@ -19,7 +23,7 @@ function ListingsDataGrid({listings, profile}) {
                 belt: lock?.belt ? lock.belt : '',
                 lockId: listing.id,
                 id: index,
-                version: lock?.version ? lock.version : ''
+                version: lock?.version ? lock.version : '',
             }
         }
     )
@@ -29,13 +33,19 @@ function ListingsDataGrid({listings, profile}) {
         {
             field: 'sellerName',
             headerName: 'Seller',
-            width: 130,
+            width: 110,
             editable: false
         },
         {
-            field: 'lockName',
-            headerName: 'Lock',
-            width: 190,
+            field: 'lockMake',
+            headerName: 'Make',
+            width: 110,
+            editable: false
+        },
+        {
+            field: 'lockModel',
+            headerName: 'Model',
+            width: 100,
             editable: false
         },
         {
@@ -47,13 +57,13 @@ function ListingsDataGrid({listings, profile}) {
         {
             field: 'belt',
             headerName: 'Belt',
-            width: 90,
+            width: 80,
             editable: false
         },
         {
             field: 'condition',
             headerName: 'Condition',
-            width: 100,
+            width: 90,
             editable: false
         },
         {
@@ -66,7 +76,7 @@ function ListingsDataGrid({listings, profile}) {
         {
             field: 'price',
             headerName: 'Price',
-            width: 70,
+            width: 60,
             editable: false
         },
         {
@@ -74,7 +84,9 @@ function ListingsDataGrid({listings, profile}) {
             headerName: 'Qty',
             width: 60,
             editable: false,
-            align: 'center'
+            align: 'center',
+            type: 'number',
+
         }
     ]
 
