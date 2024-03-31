@@ -141,22 +141,6 @@ function EditProfilePage() {
                                     }}
                                     style={{marginTop: 20}}
                                 />
-                                <TextField
-                                    name='spreadsheetRange'
-                                    fullWidth
-                                    disabled
-                                    size='small'
-                                    variant='outlined'
-                                    label='Spreadsheet Range'
-                                    value={localProfile?.spreadsheetRange || ''}
-                                    onChange={handleChange}
-                                    onFocus={handleFocus}
-                                    inputProps={{
-                                        maxLength: 50
-                                    }}
-                                    style={{marginTop: 20}}
-                                />
-
                             </div>
                         }
 

@@ -16,36 +16,32 @@ import EntryActionsLB from './EntryActionsLB.jsx'
 import EntryDetailsLB from './EntryDetailsLB.jsx'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
+import useWindowSize from '../util/useWindowSize.jsx'
 
 const Entry = ({entry, expanded, onExpand}) => {
-
-    //console.log('entry', entry)
 
     const {getSellerFromId} = useContext(LoadingContextLB)
     const {filters, addFilter} = useContext(FilterContext)
 
-    console.log('entry.listings', entry.listings)
-    console.log('filters.shipsTo', [filters.shipsTo])
-
     const shippableListings = filters.shipsTo
         ? entry.listings
             .filter(listing => !!listing.shipsTo)
-            .filter(listing => filters.shipsTo.some(r=> [listing.shipsTo].includes(r)))
+            .filter(listing => listing.shipsTo.some(r => [filters.shipsTo].includes(r)))
         : entry.listings
 
-    console.log('shippableListings', shippableListings)
+    const sellersListings = filters.sellerName
+        ? shippableListings.filter(listing => listing.sellerName === filters.sellerName)
+        : shippableListings
 
     const sellerButtonDisabled = !!filters.sellerName
 
-    const allSellers = shippableListings.map((listing) => {
+    const allSellers = sellersListings.map((listing) => {
             return getSellerFromId(listing.sellerId)
         }
     )
-    const uniqueSellers = [...new Set(allSellers)]
-
-    console.log(uniqueSellers)
-
-    const sellersText = uniqueSellers.length > 1 ? 'Sellers' : 'Seller'
+    const uniqueSellers = [...new Set(allSellers)].sort()
+    const sortSellers = uniqueSellers.sort((item1, item2) => item1.username.localeCompare(item2.username))
+    const sellersText = sortSellers.length > 1 ? 'Sellers' : 'Seller'
 
     const [scrolled, setScrolled] = useState(false)
     const ref = useRef(null)
@@ -103,12 +99,15 @@ const Entry = ({entry, expanded, onExpand}) => {
         )
     }, [entry.makeModels])
 
+    const {width} = useWindowSize()
+    const smallWindow = width <= 520
+    const nameDivWidth = !smallWindow ? '40%' : '35%'
 
     return (
         <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters>
             <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
                 <BeltStripe value={entry.belt}/>
-                <div style={{margin: '12px 0px 8px 8px', width: '40%', flexShrink: 0, flexDirection: 'column'}}>
+                <div style={{margin: '12px 0px 8px 8px', width: nameDivWidth, flexShrink: 0, flexDirection: 'column'}}>
                     <FieldValue
                         value={makeModels}
                         textStyle={entry.belt === 'Unranked' ? {color: '#aaa', marginLeft: '0px'} : {marginLeft: '0px'}}
@@ -152,7 +151,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                 }}>
                     <FieldValue
                         name={sellersText}
-                        value={uniqueSellers.map((seller, index) =>
+                        value={sortSellers.map((seller, index) =>
                             <Button variant='text' size='small'
                                     key={index}
                                     style={{
@@ -172,12 +171,16 @@ const Entry = ({entry, expanded, onExpand}) => {
                         headerStyle={{marginBottom: 0}}
                     />
                 </div>
+                <div style={{
+                    width: '60px',
+                }}/>
+
             </AccordionSummary>
             {
                 expanded &&
                 <React.Fragment>
                     <AccordionDetails sx={{padding: '8px 16px 0px 16px'}}>
-                        <EntryDetailsLB listings={shippableListings}/>
+                        <EntryDetailsLB listings={sellersListings}/>
                     </AccordionDetails>
                     <AccordionActions disableSpacing>
                         <EntryActionsLB entry={entry}/>

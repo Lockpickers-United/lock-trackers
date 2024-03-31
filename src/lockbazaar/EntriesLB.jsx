@@ -74,6 +74,7 @@ function EntriesLB() {
                         in <a href={'https://discord.com/channels/140129091796992000/1111777295942828084'}
                               target='_blank'
                               rel='noopener noreferrer'>this post</a>.
+                        Sellers maintain &mdash; and are solely responsible for &mdash; all listings.
                     </div>
                 </React.Fragment>
             }

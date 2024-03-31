@@ -10,19 +10,28 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import LinkIcon from '@mui/icons-material/Link'
 import {enqueueSnackbar} from 'notistack'
+import ListAltIcon from '@mui/icons-material/ListAlt'
 
 // http://localhost:3000/#/speedpicks?pickerId=ClbjuilBEHgbzO4UZl4y3GStlEz2
 
-function ViewProfileInline() {
+function SellerProfileInline({listing, handleClose}) {
 
-    const {filters} = useContext(FilterContext)
+    const {filters, addFilter} = useContext(FilterContext)
     const filtersMap = new Map(Object.entries(filters))
     const {getSellerFromId, sellerIdMap} = useContext(LoadingContextLB)
 
-    const thisSellerId = sellerIdMap[filtersMap.get('sellerName')]
+    const sellerView = !!filters.sellerName
+
+    const thisSellerId = listing
+        ? sellerIdMap[listing.sellerName]
+        : sellerIdMap[filtersMap.get('sellerName')]
     const profile = getSellerFromId(thisSellerId)
     const profileName = profile?.username ? profile?.username : 'No matching profile.'
     const safeName = profileName.replace(/[\s/]/g, '_').replace(/\W/g, '')
+
+    const sellerShipsTo = profile?.sellerShipsTo?.length === 6
+    ? 'Worldwide'
+        : profile?.sellerShipsTo?.join(', ')
 
     if (profile?.username) {
         document.title = `Lock Trackers - Seller ${profileName}`
@@ -41,7 +50,14 @@ function ViewProfileInline() {
         enqueueSnackbar('Link to seller copied to clipboard.')
     }, [safeName, thisSellerId])
 
-    console.log(profile)
+    const handleOpenSellerList = useCallback(event => {
+        event.preventDefault()
+        event.stopPropagation()
+        handleClose()
+        addFilter('sellerName', profileName)
+        window.scrollTo({top: 0})
+    }, [addFilter, handleClose, profileName])
+
     return (
         <Card style={{
             maxWidth: 700,
@@ -50,6 +66,7 @@ function ViewProfileInline() {
             marginTop: 26,
             marginBottom: 16
         }}>
+            {sellerView &&
             <CardHeader title={profileName}
                         style={{paddingBottom: 0, paddingLeft: 40}}
                         action={
@@ -60,6 +77,22 @@ function ViewProfileInline() {
                             </Tooltip>
                         }
             />
+            }
+
+            {!sellerView &&
+                <CardHeader title={profileName}
+                            style={{paddingBottom: 0, paddingLeft: 40}}
+                            action={
+                                <Tooltip title='View Seller Listings' arrow disableFocusListener>
+                                    <IconButton onClick={handleOpenSellerList}>
+                                        <ListAltIcon/>
+                                    </IconButton>
+                                </Tooltip>
+                            }
+                />
+            }
+
+
             <CardContent>
                 {(profile || profile?.discordUsername || profile?.redditUsername) &&
                     <React.Fragment>
@@ -75,8 +108,8 @@ function ViewProfileInline() {
                             </div>
                         }
                         {profile.sellerShipsTo &&
-                            <div style={{fontSize: '1rem', marginBottom: 10, marginTop:20}}>
-                                <FieldValue name='Ships To' value={profile?.sellerShipsTo.join(', ')}
+                            <div style={{fontSize: '1rem', marginBottom: 10, marginTop: 20}}>
+                                <FieldValue name='Ships To' value={sellerShipsTo}
                                             style={fieldValueStyle}/>
                             </div>
                         }
@@ -112,4 +145,4 @@ function ViewProfileInline() {
     )
 }
 
-export default ViewProfileInline
+export default SellerProfileInline

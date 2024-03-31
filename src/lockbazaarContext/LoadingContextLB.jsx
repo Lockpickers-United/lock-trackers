@@ -92,7 +92,8 @@ export function LoadingProvider({children}) {
                         keys: listing.keys,
                         condition: listing.condition,
                         photo: photo,
-                        price: listing.price
+                        price: listing.price,
+                        notes: listing.notes
                     }
                 }
             )
