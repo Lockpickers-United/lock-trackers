@@ -1,13 +1,14 @@
 import React, {useCallback} from 'react'
+import {useLocation, useNavigate} from 'react-router-dom'
 import SP_logo from '../assets/SP_logo.jsx'
 import SpeedPicks from '../assets/SpeedPicks.jsx'
 import Button from '@mui/material/Button'
-import {useLocation, useNavigate} from 'react-router-dom'
 import ChallengeLocks from '../assets/ChallengeLocks.jsx'
 import Profile from '../assets/Profile.jsx'
 import Nav_Contact from '../assets/Nav_Contact.jsx'
 import Nav_PrivacyPolicy from '../assets/Nav_PrivacyPolicy.jsx'
 import Nav_LockBazaar from '../assets/Nav_LockBazaar.jsx'
+import LB_logo from '../assets/LB_logo.jsx'
 
 function TopNav(route) {
 
@@ -42,12 +43,15 @@ function TopNav(route) {
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SpeedPicks fill={spFill} style={{height: 30}}/>
                             </Button>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/lockbazaar')}>
+                                <LB_logo fill={lbFill} style={{height: 30}}/>
+                            </Button>
                         </div>
                     </div>
                     <div style={{height: 12}}/>
                 </div>
             }
-
             {(route.route === 'lb') &&
                 <div>
                     <div style={{display: 'flex', marginTop: 9, padding: 0}}>
@@ -93,6 +97,10 @@ function TopNav(route) {
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: 30}}/>
                             </Button>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/lockbazaar')}>
+                                <LB_logo fill={lbFill} style={{height: 30}}/>
+                            </Button>
                             <Button variant='text' style={buttonSyle}>
                                 <Profile fill={prFill} style={{height: 30}}/>
                             </Button>
@@ -109,6 +117,10 @@ function TopNav(route) {
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: 30}}/>
+                            </Button>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/lockbazaar')}>
+                                <LB_logo fill={lbFill} style={{height: 30}}/>
                             </Button>
                             <Button variant='text' style={buttonSyle}>
                                 <ChallengeLocks fill={clFill} style={{height: 30}}/>
@@ -127,6 +139,10 @@ function TopNav(route) {
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: 30}}/>
                             </Button>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/lockbazaar')}>
+                                <LB_logo fill={lbFill} style={{height: 30}}/>
+                            </Button>
                             <Button variant='text' style={buttonSyle}>
                                 <Nav_Contact fill={coFill} style={{height: 30}}/>
                             </Button>
@@ -143,6 +159,10 @@ function TopNav(route) {
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: 30}}/>
+                            </Button>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/lockbazaar')}>
+                                <LB_logo fill={lbFill} style={{height: 30}}/>
                             </Button>
                             <Button variant='text' style={buttonSyle}>
                                 <Nav_PrivacyPolicy fill={privFill} style={{height: 30}}/>
