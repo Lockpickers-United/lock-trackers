@@ -85,7 +85,8 @@ const Entry = ({entry, expanded, onExpand}) => {
         marginLeft: 'auto',
         marginRight: 'auto',
         borderBottom: '1px solid #444',
-        textAlign: 'left'
+        textAlign: 'left',
+        display: 'block'
     }
 
     const makeModels = useMemo(() => {
@@ -109,84 +110,108 @@ const Entry = ({entry, expanded, onExpand}) => {
 
     return (
         <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters>
-            <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
-                <BeltStripe value={entry.belt}/>
-                <div style={{margin: '12px 0px 8px 8px', width: nameDivWidth, flexShrink: 0, flexDirection: 'column'}}>
-                    <FieldValue
-                        value={makeModels}
-                        textStyle={entry.belt === 'Unranked' ? {color: '#aaa', marginLeft: '0px'} : {marginLeft: '0px'}}
-                        style={{marginBottom: '2px', fontSize: '.5rem'}}
-                    />
+            <AccordionSummary expandIcon={<ExpandMoreIcon/>}
+                              sx={{
+                                  '& .MuiAccordionSummary-content': {
+                                      display: 'block'
+                                  }
+                              }}>
+                <div style={{display: 'flex'}}>
+                    <BeltStripe value={entry.belt}/>
 
-                    {
-                        !!entry.version &&
+                    <div style={{
+                        margin: '12px 0px 8px 8px',
+                        width: nameDivWidth,
+                        flexShrink: 0,
+                        flexDirection: 'column'
+                    }}>
                         <FieldValue
-                            name='Version'
-                            value={<Typography
-                                style={{fontSize: '0.95rem', lineHeight: 1.25}}>{entry.version}</Typography>}
-                            textStyle={entry.belt === 'Unranked' ? {color: '#aaa'} : {}}
+                            value={makeModels}
+                            textStyle={entry.belt === 'Unranked' ? {
+                                color: '#aaa',
+                                marginLeft: '0px'
+                            } : {marginLeft: '0px'}}
+                            style={{marginBottom: '2px', fontSize: '.5rem'}}
                         />
-                    }
-                </div>
-                <div style={{margin: '8px 0px 0px 0px', width: '40%', display: 'flex', alignItems: 'center'}}>
-                    {
-                        entry.lockingMechanisms?.length > 0 &&
-                        <FieldValue
-                            value={
-                                <Stack direction='row' spacing={0} sx={{flexWrap: 'wrap'}}>
-                                    {entry.lockingMechanisms?.map((lockingMechanism, index) =>
-                                        <FilterChip
+
+                        {
+                            !!entry.version &&
+                            <FieldValue
+                                name='Version'
+                                value={<Typography
+                                    style={{fontSize: '0.95rem', lineHeight: 1.25}}>{entry.version}</Typography>}
+                                textStyle={entry.belt === 'Unranked' ? {color: '#aaa'} : {}}
+                            />
+                        }
+                    </div>
+                    <div style={{margin: '8px 0px 0px 0px', width: '40%', display: 'flex', alignItems: 'center'}}>
+                        {
+                            entry.lockingMechanisms?.length > 0 &&
+                            <FieldValue
+                                value={
+                                    <Stack direction='row' spacing={0} sx={{flexWrap: 'wrap'}}>
+                                        {entry.lockingMechanisms?.map((lockingMechanism, index) =>
+                                            <FilterChip
+                                                key={index}
+                                                value={lockingMechanism}
+                                                field='lockingMechanisms'
+                                            />
+                                        )}
+                                    </Stack>
+                                }
+                            />
+                        }
+                    </div>
+                    {!sellerView &&
+                        <div style={{
+                            margin: '8px 0px 0px 0px',
+                            width: '20%',
+                            display: 'flex',
+                            alignItems: 'center'
+                        }}>
+                            <FieldValue
+                                name={sellersText}
+                                value={sortSellers.map((seller, index) =>
+                                    <Button variant='text' size='small'
                                             key={index}
-                                            value={lockingMechanism}
-                                            field='lockingMechanisms'
-                                        />
-                                    )}
-                                </Stack>
-                            }
-                        />
+                                            style={{
+                                                textTransform: 'none',
+                                                lineHeight: '.9rem',
+                                                minWidth: 40,
+                                                textAlign: 'left'
+                                            }}
+                                            color='primary'
+                                            value={seller?.username}
+                                            onClick={handleFilter}
+                                            disabled={sellerButtonDisabled}
+                                    >
+                                        {seller?.username}
+                                    </Button>
+                                )}
+                                headerStyle={{marginBottom: 0}}
+                            />
+                        </div>
                     }
+                    <div style={{
+                        width: iconDivWidth,
+                        flex: 'row-end'
+                    }}/>
                 </div>
-
-                <div style={{
-                    margin: '8px 0px 0px 0px',
-                    width: '20%',
-                    display: 'flex',
-                    alignItems: 'center'
-                }}>
-                    <FieldValue
-                        name={sellersText}
-                        value={sortSellers.map((seller, index) =>
-                            <Button variant='text' size='small'
-                                    key={index}
-                                    style={{
-                                        textTransform: 'none',
-                                        lineHeight: '.9rem',
-                                        minWidth: 40,
-                                        textAlign: 'left'
-                                    }}
-                                    color='primary'
-                                    value={seller?.username}
-                                    onClick={handleFilter}
-                                    disabled={sellerButtonDisabled}
-                            >
-                                {seller?.username}
-                            </Button>
-                        )}
-                        headerStyle={{marginBottom: 0}}
-                    />
-                </div>
-                <div style={{
-                    width: iconDivWidth,
-                }}/>
-
+                {sellerView &&
+                    <div style={{}}>
+                        <EntryDetailsLB listings={sellersListings} sellerView={sellerView}/>
+                    </div>
+                }
             </AccordionSummary>
             {
                 expanded &&
                 <React.Fragment>
-                    <AccordionDetails style={{backgroundColor:'#272727'}} sx={{padding: '8px 16px 0px 16px'}}>
-                        <EntryDetailsLB listings={sellersListings}/>
-                    </AccordionDetails>
-                    <AccordionActions disableSpacing  style={{backgroundColor:'#272727'}}>
+                    {!sellerView &&
+                        <AccordionDetails style={{backgroundColor: '#272727'}} sx={{padding: '8px 16px 0px 16px'}}>
+                            <EntryDetailsLB listings={sellersListings} sellerView={sellerView}/>
+                        </AccordionDetails>
+                    }
+                    <AccordionActions disableSpacing style={{backgroundColor: '#272727'}}>
                         <EntryActionsLB entry={entry}/>
                         <Tracker feature='lock' id={entry.id}/>
                     </AccordionActions>

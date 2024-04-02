@@ -64,21 +64,40 @@ export function LoadingProvider({children}) {
 
     const allListings = jsonLoaded ? lockListings
             .map((listing) => {
-                    const isValidListing = (listing.available > 0 && isValidLPUbeltsUrl(listing.url))
+
+                    console.log(listing)
+
+                let availableInt = parseInt(listing.available)
+                console.log('availableInt', availableInt)
+                if (isNaN(availableInt)) { availableInt= 0 }
+
+                const isValidListing = (availableInt > 0 && isValidLPUbeltsUrl(listing.url))
+                    if (!isValidListing) { return false }
+                console.log('isValidListing', isValidListing)
+
                     const thisId = lockRegex.test(listing.url)
                         ? listing.url.match(lockRegex)[1]
                         : null
+                console.log('thisId', thisId)
                     const thisLock = getLockFromId(thisId)
-                    const lockName = listing.samelineIndex
-                        ? thisLock?.makeModels[listing.samelineIndex - 1].make + ' ' + thisLock?.makeModels[listing.samelineIndex - 1].model
+                console.log('thisLock', thisLock)
+                let samelineInt = parseInt(listing.samelineIndex)
+                if (isNaN(samelineInt)) { samelineInt= 1 }
+
+                console.log('listing.samelineIndex', samelineInt)
+                    const lockName = samelineInt && samelineInt > 0
+                        ? thisLock?.makeModels[samelineInt - 1].make + ' ' + thisLock?.makeModels[samelineInt - 1].model
                         : entryName(thisLock, 'short')
-                    const lockMake = listing.samelineIndex
-                        ? thisLock?.makeModels[listing.samelineIndex - 1].make
+
+                console.log(thisId, lockName)
+                    const lockMake = samelineInt
+                        ? thisLock?.makeModels[samelineInt - 1].make
                         : thisLock?.makeModels[0].make
-                    const lockModel = listing.samelineIndex
-                        ? thisLock?.makeModels[listing.samelineIndex - 1].model
+
+                    const lockModel = listing.samelineInt
+                        ? thisLock?.makeModels[samelineInt - 1].model
                         : thisLock?.makeModels[0].model
-                    const samelineInfo = listing.samelineIndex ? '|' + listing.samelineIndex : ''
+                    const samelineInfo = samelineInt ? '|' + samelineInt : ''
                     const newId = thisId + samelineInfo
                     const photo = (listing.photo && isValidUrl(listing.photo)) ? listing.photo : null
 
@@ -100,7 +119,7 @@ export function LoadingProvider({children}) {
                         keys: listing.keys,
                         condition: listing.condition,
                         photo: photo,
-                        price: listing.price?.replace('.00',''),
+                        price: listing.price?.replace('.00', ''),
                         notes: listing.notes
                     }
                 }

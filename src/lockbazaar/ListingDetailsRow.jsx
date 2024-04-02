@@ -1,24 +1,21 @@
-import React, {useCallback, useContext, useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
 import EntryDetailsField from './EntryDetailsField.jsx'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import SellerPopup from './SellerPopup.jsx'
-import FilterContext from '../context/FilterContext.jsx'
 
-const ListingDetailsRow = ({listing}) => {
-
-    const {filters} = useContext(FilterContext)
-    const sellerView = !!filters.sellerName
+const ListingDetailsRow = ({listing, sellerView}) => {
 
     const {width} = useWindowSize()
     const smallWindow = width <= 520
     const divFlexStyle = !smallWindow ? {display: 'flex'} : {}
 
     const photoURL = listing.photo ? listing.photo : null
-    const re = /http.*:\/\/(\w*.\w*)\//g
+    const re = /http.*:\/\/([\w|.]*)\//g
     const photoLinkMatches = re.exec(photoURL)
     const photoLinkText = photoLinkMatches ? photoLinkMatches[1] : listing.photo
+    
     const photoLink = <a href={photoURL} target='_blank' rel='noopener noreferrer'>{photoLinkText}</a>
 
     const [anchorEl, setAnchorEl] = useState(null)
@@ -37,16 +34,19 @@ const ListingDetailsRow = ({listing}) => {
                 ...divFlexStyle
             }}>
 
-            <div style={{marginRight: 20, fontWeight: 500}}>
-                <Button style={{marginRight: 0, padding:0}} onClick={handleOpen} edge='start' disabled={sellerView}>
-                    {listing.sellerName}
-                </Button>
-                <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                    <SellerPopup listing={listing} handleClose={handleClose}/>
-                </Menu>
-            </div>
+                {!sellerView &&
+                    <div style={{marginRight: 20, fontWeight: 500}}>
+                        <Button style={{marginRight: 0, padding: 0}} onClick={handleOpen} edge='start'
+                                disabled={sellerView}>
+                            {listing.sellerName}
+                        </Button>
+                        <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+                            <SellerPopup listing={listing} handleClose={handleClose}/>
+                        </Menu>
+                    </div>
+                }
 
-            <EntryDetailsField field='Qty' value={listing.avail}/>
+                <EntryDetailsField field='Qty' value={listing.avail}/>
                 {listing.format && <EntryDetailsField field='Format' value={listing.format}/>}
                 {listing.condition && <EntryDetailsField field='Cond' value={listing.condition}/>}
                 {listing.keys && <EntryDetailsField field='Keys' value={listing.keys}/>}
