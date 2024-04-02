@@ -29,11 +29,13 @@ const Entry = ({entry, expanded, onExpand}) => {
             .filter(listing => listing.shipsTo.some(r => [filters.shipsTo].includes(r)))
         : entry.listings
 
-    const sellersListings = filters.sellerName
+    const sellerView = !!filters.sellerName
+
+    const sellersListings = sellerView
         ? shippableListings.filter(listing => listing.sellerName === filters.sellerName)
         : shippableListings
 
-    const sellerButtonDisabled = !!filters.sellerName
+    const sellerButtonDisabled = sellerView
 
     const allSellers = sellersListings.map((listing) => {
             return getSellerFromId(listing.sellerId)
@@ -101,7 +103,9 @@ const Entry = ({entry, expanded, onExpand}) => {
 
     const {width} = useWindowSize()
     const smallWindow = width <= 520
+    const mobile360 = width < 390
     const nameDivWidth = !smallWindow ? '40%' : '35%'
+    const iconDivWidth = !mobile360 ? '60px' : '40px'
 
     return (
         <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters>
@@ -172,7 +176,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                     />
                 </div>
                 <div style={{
-                    width: '60px',
+                    width: iconDivWidth,
                 }}/>
 
             </AccordionSummary>

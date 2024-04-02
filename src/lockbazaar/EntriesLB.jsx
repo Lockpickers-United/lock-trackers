@@ -37,7 +37,7 @@ function EntriesLB() {
     const smallWindow = width <= 560
     const pagePadding = !smallWindow
         ? '8px 24px 32px 24px'
-        : '8px 8px 32px 8px'
+        : '8px 2px 32px 2px'
 
     const theme = useTheme()
     const background = theme.palette.mode === 'dark' ? '#223' : '#ffffff'
@@ -52,17 +52,14 @@ function EntriesLB() {
 
             {!filters.sellerName &&
                 <React.Fragment>
-                    <div style={{fontSize: '1.2rem', width: '100%', textAlign: 'left', marginTop: 0}}>
-                        Lock Bazaar Browser<br/>
-                    </div>
                     <div style={{
                         fontSize: '1rem',
                         lineHeight: '1.2rem',
                         width: '100%',
                         textAlign: 'left',
-                        marginTop: 20
+                        marginTop: 10
                     }}>
-                        Just stating so that it&apos;s clear - these are user submitted lists of items for sale in
+                        These are user submitted lists of items for sale in
                         the <a href={'https://discord.com/channels/140129091796992000/1109656237269860383'}
                                target='_blank'
                                rel='noopener noreferrer'>

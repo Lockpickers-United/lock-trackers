@@ -27,7 +27,7 @@ function VersionCheckerCode() {
     useEffect(() => {
         checkVersion(true)
     })
-    useInterval(checkVersion, 10 * 60 * 10) // 10 minutes
+    useInterval(checkVersion, 10 * 60 * 1000) // 10 minutes
     const handleClick = useCallback(() => location.reload(), [])
 
     if (!initial || !version || initial === version) return null
