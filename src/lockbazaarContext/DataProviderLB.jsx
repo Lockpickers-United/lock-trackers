@@ -104,12 +104,8 @@ export function DataProvider({children}) {
                 }))
             : filtered
 
-        // TODO: get name to sort by???
-        return sort
-            ? searched.sort((a, b) => {
-                if (sort === 'lock') {
-                    return entryName(a, 'short').localeCompare(entryName(b, 'short'))
-                } else if (sort === 'belt') {
+        return searched.sort((a, b) => {
+                if (sort === 'belt') {
                     return beltSort(a.belt, b.belt)
                         || entryName(a, 'short').localeCompare(entryName(b, 'short'))
                 } else if (sort === 'beltDesc') {
@@ -118,15 +114,9 @@ export function DataProvider({children}) {
                 } else if (sort === 'popularity') {
                     return b.views - a.views
                         || entryName(a, 'short').localeCompare(entryName(b, 'short'))
-                } else if (sort === 'seller') {
-                    return entryName(a, 'short').localeCompare(entryName(b, 'short'))
                 } else {
-                    return a.localeCompare(b)
+                    return entryName(a, 'short').localeCompare(entryName(b, 'short'))
                 }
-            })
-            : searched.sort((a, b) => {
-                return beltSort(a.belt, b.belt)
-                    || entryName(a, 'short').localeCompare(entryName(b, 'short'))
             })
 
     }, [filters, mappedEntries, search, sort])

@@ -33,7 +33,7 @@ function SortFilterBar() {
     }, [filters])
 
     const cleanChipLabel = useCallback((label, value) => {
-        if (label === 'Belt') {
+        if (label === 'BeltXXX') {
             if (value === 'Unranked') {
                 return label
             }
@@ -91,11 +91,11 @@ function SortFilterBar() {
             <div style={{textAlign: 'left'}}>
                 <span style={{fontSize: '.7rem', marginRight: 5}}>SORT</span>
                 <ToggleButtonGroup style={{height: 26, marginTop: 10}}>
+                    <ToggleButton selected={sort === 'name' || !sort} style={{padding: 7}} value={'name'}
+                                  onClick={handleSort('name')}>Name</ToggleButton>
                     <ToggleButton selected={sort === 'belt' || sort === 'beltDesc'} style={{padding: 7}}
                                   value={'belt'}
                                   onClick={handleBeltSort(beltSort)}>{beltSortText}</ToggleButton>
-                    <ToggleButton selected={sort === 'lock'} style={{padding: 7}} value={'lock'}
-                                  onClick={handleSort('lock')}>Name</ToggleButton>
                     <ToggleButton selected={sort === 'popularity'} style={{padding: 7}} value={'lock'}
                                   onClick={handleSort('popularity')}>Popularity</ToggleButton>
                 </ToggleButtonGroup>
