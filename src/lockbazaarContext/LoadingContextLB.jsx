@@ -67,8 +67,9 @@ export function LoadingProvider({children}) {
 
                     console.log(listing)
 
-                let availableInt = parseInt(listing.available)
+                let availableInt = parseInt(listing?.available)
                 console.log('availableInt', availableInt)
+
                 if (isNaN(availableInt)) { availableInt= 0 }
 
                 const isValidListing = (availableInt > 0 && isValidLPUbeltsUrl(listing.url))
@@ -120,7 +121,9 @@ export function LoadingProvider({children}) {
                         condition: listing.condition,
                         photo: photo,
                         price: listing.price?.replace('.00', ''),
-                        notes: listing.notes
+                        notes: listing.notes,
+                        simpleBelt: thisLock?.belt.replace(/\s\d/g, '')
+
                     }
                 }
             )

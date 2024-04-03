@@ -15,7 +15,7 @@ const ListingDetailsRow = ({listing, sellerView}) => {
     const re = /http.*:\/\/([\w|.]*)\//g
     const photoLinkMatches = re.exec(photoURL)
     const photoLinkText = photoLinkMatches ? photoLinkMatches[1] : listing.photo
-    
+
     const photoLink = <a href={photoURL} target='_blank' rel='noopener noreferrer'>{photoLinkText}</a>
 
     const [anchorEl, setAnchorEl] = useState(null)

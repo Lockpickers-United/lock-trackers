@@ -8,7 +8,7 @@ import removeAccents from 'remove-accents'
 import AuthContext from '../app/AuthContext.jsx'
 import LoadingContext from './LoadingContextLB.jsx'
 import DBContext from '../app/DBContext.jsx'
-import belts, {beltSort} from '../data/belts'
+import belts, {beltSort, beltSortReverse} from '../data/belts'
 
 export function DataProvider({children}) {
 
@@ -107,6 +107,12 @@ export function DataProvider({children}) {
                     return entryName(a, 'short').localeCompare(entryName(b, 'short'))
                 } else if (sort === 'belt') {
                     return beltSort(a.belt, b.belt)
+                        || entryName(a, 'short').localeCompare(entryName(b, 'short'))
+                } else if (sort === 'beltDesc') {
+                    return beltSortReverse(a.belt, b.belt)
+                        || entryName(a, 'short').localeCompare(entryName(b, 'short'))
+                } else if (sort === 'popularity') {
+                    return b.views - a.views
                         || entryName(a, 'short').localeCompare(entryName(b, 'short'))
                 } else if (sort === 'seller') {
                     return entryName(a, 'short').localeCompare(entryName(b, 'short'))
