@@ -12,6 +12,12 @@ export function LoadingProvider({children}) {
 
     const {data, loading, error} = useData({urls})
     const {locksData, lockListings} = data || {}
+
+    const localLocksData = useMemo(() => [], [])
+    for (let i = 0; i < locksData?.length; i++) {
+        localLocksData[i] = locksData[i]
+    }
+
     const {authLoaded} = useContext(AuthContext)
     const jsonLoaded = (!loading && !error && !!data)
 
@@ -38,98 +44,129 @@ export function LoadingProvider({children}) {
     }, [refreshData])
 
     const skeletonLocks = []
-    const allLocks = jsonLoaded ? locksData : skeletonLocks
+    const allLocks = jsonLoaded ? localLocksData : skeletonLocks
+
+    const isLPUbeltsLock = useCallback(lockId => {
+        return locksData?.find(({id}) => id === lockId) || false
+    }, [locksData])
 
     const getLockFromId = useCallback(lockId => {
-        return locksData?.find(({id}) => id === lockId)
-    }, [locksData])
+        return localLocksData?.find(({id}) => id === lockId) || null
+    }, [localLocksData])
 
     const getSellerFromId = useCallback(thisId => {
         return sellerProfiles?.find(({userId}) => userId === thisId)
     }, [sellerProfiles])
 
-    const lockRegex = useMemo(() => /id=(\w{8})/, [])
-
-    function isValidLPUbeltsUrl(urlString) {
-        const thisId = lockRegex.test(urlString)
-            ? urlString.match(lockRegex)[1]
-            : null
-        const thisLock = getLockFromId(thisId)
-        return !!thisId && !!thisLock
+    function genHexString(len) {
+        const hex = '0123456789ABCDEF'
+        let output = ''
+        for (let i = 0; i < len; ++i) {
+            output += hex.charAt(Math.floor(Math.random() * hex.length))
+        }
+        return output.toLowerCase()
     }
+
+    const lockRegex = useMemo(() => /id=(\w{8})/, [])
 
     function isValidUrl(value) {
         return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value)
     }
 
-    const allListings = jsonLoaded ? lockListings
-            .map((listing) => {
-
-                    console.log(listing)
+    const allListings = jsonLoaded ?
+        lockListings.map((listing) => {
 
                 let availableInt = parseInt(listing?.available)
-                console.log('availableInt', availableInt)
+                if (isNaN(availableInt) || availableInt === 0) {
+                    return false
+                }
 
-                if (isNaN(availableInt)) { availableInt= 0 }
+                let thisId = lockRegex.test(listing.url)
+                    ? listing.url.match(lockRegex)[1]
+                    : null
 
-                const isValidListing = (availableInt > 0 && isValidLPUbeltsUrl(listing.url))
-                    if (!isValidListing) { return false }
-                console.log('isValidListing', isValidListing)
+                const isLPUlock = isLPUbeltsLock(thisId)
+                const isLPUListing = (availableInt > 0 && isLPUlock)
 
-                    const thisId = lockRegex.test(listing.url)
-                        ? listing.url.match(lockRegex)[1]
-                        : null
-                console.log('thisId', thisId)
-                    const thisLock = getLockFromId(thisId)
-                console.log('thisLock', thisLock)
-                let samelineInt = parseInt(listing.samelineIndex)
-                if (isNaN(samelineInt)) { samelineInt= 1 }
+                let thisLock
 
-                console.log('listing.samelineIndex', samelineInt)
-                    const lockName = samelineInt && samelineInt > 0
-                        ? thisLock?.makeModels[samelineInt - 1].make + ' ' + thisLock?.makeModels[samelineInt - 1].model
-                        : entryName(thisLock, 'short')
-
-                console.log(thisId, lockName)
-                    const lockMake = samelineInt
-                        ? thisLock?.makeModels[samelineInt - 1].make
-                        : thisLock?.makeModels[0].make
-
-                    const lockModel = listing.samelineInt
-                        ? thisLock?.makeModels[samelineInt - 1].model
-                        : thisLock?.makeModels[0].model
-                    const samelineInfo = samelineInt ? '|' + samelineInt : ''
-                    const newId = thisId + samelineInfo
-                    const photo = (listing.photo && isValidUrl(listing.photo)) ? listing.photo : null
-
-                    //const shipsTo = listing.shipsTo ? listing.shipsTo.join(',') : null
-                    //listing.shipsTo && console.log('listing.shipsTo', shipsTo)
-                    return {
-                        id: newId,
-                        lockName: lockName,
-                        lockMake: lockMake,
-                        lockModel: lockModel,
-                        //TODO get from sellerId
-                        sellerName: listing.name,
-                        shipsTo: listing.shipsTo,
-                        sellerId: listing.sellerId,
-                        avail: listing.available,
-                        format: listing.format,
-                        samelineIndex: listing.samelineIndex,
-                        isValid: isValidListing,
-                        keys: listing.keys,
-                        condition: listing.condition,
-                        photo: photo,
-                        price: listing.price?.replace('.00', ''),
-                        notes: listing.notes,
-                        simpleBelt: thisLock?.belt.replace(/\s\d/g, '')
-
+                if (isLPUListing) {
+                    thisLock = getLockFromId(thisId)
+                    if (isLPUListing && !thisLock) {
+                        return false
                     }
                 }
-            )
+
+                let samelineInt = parseInt(listing.samelineIndex)
+                if (isNaN(samelineInt)) {
+                    samelineInt = null
+                }
+
+                if (listing && !isLPUListing) {
+                    thisLock = {}
+                    thisId = 'lb_' + genHexString(8)
+                    thisLock.id = thisId
+                    thisLock.belt = 'Unranked'
+                    thisLock.makeModels = [{make: listing.make, model: listing.model}]
+                    thisLock.lockingMechanisms = listing.lockingMechanisms
+                    thisLock.views = 0
+                    if (!localLocksData?.find(({id}) => id === thisLock.id)) {
+                        localLocksData.push(thisLock)
+                    }
+                }
+
+                if (!thisLock || !thisLock.makeModels) {
+                    console.log('no lock or makeModels', thisLock)
+                    return false
+                }
+
+                const lockName = samelineInt && samelineInt > 0
+                    ? thisLock?.makeModels[samelineInt - 1]?.make + ' ' + thisLock?.makeModels[samelineInt - 1]?.model
+                    : entryName(thisLock, 'short')
+
+                const lockMake = samelineInt
+                    ? thisLock?.makeModels[samelineInt - 1]?.make
+                    : thisLock?.makeModels[0]?.make
+
+                const lockModel = samelineInt
+                    ? thisLock?.makeModels[samelineInt - 1]?.model
+                    : thisLock?.makeModels[0]?.model
+
+                const samelineInfo = samelineInt ? '|' + samelineInt : ''
+                const newId = thisId + samelineInfo
+
+                const photo = (listing.photo && isValidUrl(listing.photo)) ? listing.photo : null
+
+                const isValid = thisLock && thisLock.makeModels
+
+                return {
+                    id: newId,
+                    lockName: lockName,
+                    lockMake: lockMake,
+                    lockModel: lockModel,
+                    //TODO get from sellerId
+                    sellerName: listing.name,
+                    shipsTo: listing.shipsTo,
+                    sellerId: listing.sellerId,
+                    avail: listing.available,
+                    format: listing.format,
+                    samelineIndex: listing.samelineIndex,
+                    isValid: isValid,
+                    keys: listing.keys,
+                    condition: listing.condition,
+                    photo: photo,
+                    price: listing.price?.replace('.00', ''),
+                    notes: listing.notes,
+                    lockBelt: thisLock?.belt.replace(/\s\d/g, '')
+                }
+            }
+        )
         : []
 
+    console.log('allListings', allListings)
+
     const validListings = allListings.filter(listing => listing.isValid)
+    console.log('validListings', validListings)
 
     //TODO get row number for seller info
     const invalidListings = allListings // eslint-disable-line
@@ -141,7 +178,10 @@ export function LoadingProvider({children}) {
             return listing.id
         })
 
+    console.log('validLockIds', validLockIds)
     let uniqueLockIds = [...new Set(validLockIds)]
+
+    console.log('uniqueLockIds', uniqueLockIds)
 
     const allEntries = uniqueLockIds.map((id) => {
         const [lockId, samelineIndex] = id.split('|')
@@ -174,7 +214,7 @@ export function LoadingProvider({children}) {
         const shipsToUnique = [...new Set(shipsToFull)]
 
         if (samelineIndex) {
-            entry.makeModels = [lock.makeModels[samelineIndex - 1]]
+            entry.makeModels = [lock?.makeModels[samelineIndex - 1]]
             entry.id = id
         }
 

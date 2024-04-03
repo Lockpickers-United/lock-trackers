@@ -31,7 +31,7 @@ function EntriesLB() {
         return visibleEntries
     }, [visibleEntries])
 
-
+console.log('entries', entries)
 
     const {width} = useWindowSize()
     const smallWindow = width <= 560

@@ -26,8 +26,11 @@ export function DataProvider({children}) {
         return lockData?.find(({id}) => id === lockId)
     }, [lockData])
 
+    console.log('lockData', lockData)
+
     const mappedEntries = useMemo(() => {
         return allEntries
+            .filter(listing => (!listing.makeModels?.make && !listing.makeModels?.model))
             .map(entry => ({
                 ...entry,
                 makes: entry.makeModels.map(({make}) => make),
@@ -51,7 +54,8 @@ export function DataProvider({children}) {
                     entry.belt.startsWith('Black') ? 'Is Black' : undefined,
                     entry.belt !== 'Unranked' ? 'Is Ranked' : undefined
                 ].flat().filter(x => x),
-                simpleBelt: entry.belt.replace(/\s\d/g, '')
+                simpleBelt: entry.belt.replace(/\s\d/g, ''),
+                lockBelt: entry.belt.replace(/\s\d/g, '')
             }))
     }, [allEntries])
 
@@ -135,7 +139,7 @@ export function DataProvider({children}) {
         getNameFromId,
         isMod,
         allEntries,
-        visibleEntries,
+        visibleEntries
     }), [
         lockBelts,
         lockData,
@@ -144,7 +148,7 @@ export function DataProvider({children}) {
         getNameFromId,
         isMod,
         allEntries,
-        visibleEntries,
+        visibleEntries
     ])
 
     return (

@@ -117,7 +117,6 @@ function ListingsDataGrid({listings, profile}) {
                         }
                     }}
                     pageSizeOptions={[50]}
-                    checkboxSelection
                     density={'compact'}
                     disableRowSelectionOnClick
                     ignoreDiacritics
