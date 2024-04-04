@@ -10,13 +10,13 @@ import Typography from '@mui/material/Typography'
 import FieldValue from '../util/FieldValue.jsx'
 import Tracker from '../app/Tracker.jsx'
 import FilterChip from '../filters/FilterChip.jsx'
-import Button from '@mui/material/Button'
 import FilterContext from '../context/FilterContext.jsx'
 import EntryActionsLB from './EntryActionsLB.jsx'
 import EntryDetailsLB from './EntryDetailsLB.jsx'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
+import EntrySellersDisplay from './EntrySellersDisplay.jsx'
 
 const Entry = ({entry, expanded, onExpand}) => {
 
@@ -43,7 +43,6 @@ const Entry = ({entry, expanded, onExpand}) => {
     )
     const uniqueSellers = [...new Set(allSellers)].sort()
     const sortSellers = uniqueSellers.sort((item1, item2) => item1.username.localeCompare(item2.username))
-    const sellersText = sortSellers.length > 1 ? 'Sellers' : 'Seller'
 
     const [scrolled, setScrolled] = useState(false)
     const ref = useRef(null)
@@ -85,8 +84,7 @@ const Entry = ({entry, expanded, onExpand}) => {
         marginLeft: 'auto',
         marginRight: 'auto',
         borderBottom: '1px solid #444',
-        textAlign: 'left',
-        display: 'block'
+        textAlign: 'left'
     }
 
     const makeModels = useMemo(() => {
@@ -103,10 +101,12 @@ const Entry = ({entry, expanded, onExpand}) => {
     }, [entry.makeModels])
 
     const {width} = useWindowSize()
-    const smallWindow = width <= 520
-    const mobile360 = width < 390
-    const nameDivWidth = !smallWindow ? '40%' : '35%'
-    const iconDivWidth = !mobile360 ? '60px' : '40px'
+    const smallWindow = width <= 480
+    const mobile424 = width <= 424
+
+    const nameDivWidth = !smallWindow ? '65%' : '70%'
+    const summaryFlexStyle = !mobile424 ? {display: 'flex'} : {}
+    const summarySellersWidth = !mobile424 ? '20%' : '100%'
 
     return (
         <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters>
@@ -116,86 +116,63 @@ const Entry = ({entry, expanded, onExpand}) => {
                                       display: 'block'
                                   }
                               }}>
-                <div style={{display: 'flex'}}>
-                    <BeltStripe value={entry.belt}/>
-
-                    <div style={{
-                        margin: '12px 0px 8px 8px',
-                        width: nameDivWidth,
-                        flexShrink: 0,
-                        flexDirection: 'column'
-                    }}>
-                        <FieldValue
-                            value={makeModels}
-                            textStyle={entry.belt === 'Unranked' ? {
-                                color: '#aaa',
-                                marginLeft: '0px'
-                            } : {marginLeft: '0px'}}
-                            style={{marginBottom: '2px', fontSize: '.5rem'}}
-                        />
-
-                        {
-                            !!entry.version &&
+                <div style={summaryFlexStyle}>
+                    <div style={{display: 'flex', width: '80%'}}>
+                        <BeltStripe value={entry.belt}/>
+                        <div style={{
+                            margin: '12px 0px 8px 8px',
+                            width: nameDivWidth,
+                            flexShrink: 0,
+                            flexDirection: 'column'
+                        }}>
                             <FieldValue
-                                name='Version'
-                                value={<Typography
-                                    style={{fontSize: '0.95rem', lineHeight: 1.25}}>{entry.version}</Typography>}
-                                textStyle={entry.belt === 'Unranked' ? {color: '#aaa'} : {}}
+                                value={makeModels}
+                                textStyle={entry.belt === 'Unranked' ? {
+                                    color: '#aaa',
+                                    marginLeft: '0px'
+                                } : {marginLeft: '0px'}}
+                                style={{marginBottom: '2px', fontSize: '.5rem'}}
                             />
-                        }
-                    </div>
-                    <div style={{margin: '8px 0px 0px 0px', width: '40%', display: 'flex', alignItems: 'center'}}>
-                        {
-                            entry.lockingMechanisms?.length > 0 &&
-                            <FieldValue
-                                value={
-                                    <Stack direction='row' spacing={0} sx={{flexWrap: 'wrap'}}>
-                                        {entry.lockingMechanisms?.map((lockingMechanism, index) =>
-                                            <FilterChip
-                                                key={index}
-                                                value={lockingMechanism}
-                                                field='lockingMechanisms'
-                                            />
-                                        )}
-                                    </Stack>
-                                }
-                            />
-                        }
+
+                            {
+                                !!entry.version &&
+                                <FieldValue
+                                    name='Version'
+                                    value={<Typography
+                                        style={{fontSize: '0.95rem', lineHeight: 1.25}}>{entry.version}</Typography>}
+                                    textStyle={entry.belt === 'Unranked' ? {color: '#aaa'} : {}}
+                                />
+                            }
+                        </div>
+                        <div style={{margin: '8px 0px 0px 0px', width: '40%', display: 'flex', alignItems: 'center'}}>
+                            {
+                                entry.lockingMechanisms?.length > 0 &&
+                                <FieldValue
+                                    value={
+                                        <Stack direction='row' spacing={0} sx={{flexWrap: 'wrap'}}>
+                                            {entry.lockingMechanisms?.map((lockingMechanism, index) =>
+                                                <FilterChip
+                                                    key={index}
+                                                    value={lockingMechanism}
+                                                    field='lockingMechanisms'
+                                                />
+                                            )}
+                                        </Stack>
+                                    }
+                                />
+                            }
+                        </div>
                     </div>
                     {!sellerView &&
                         <div style={{
                             margin: '8px 0px 0px 0px',
-                            width: '20%',
+                            width: summarySellersWidth,
                             display: 'flex',
-                            alignItems: 'center'
                         }}>
-                            <FieldValue
-                                name={sellersText}
-                                value={sortSellers.map((seller, index) =>
-                                    <Button variant='text' size='small'
-                                            key={index}
-                                            style={{
-                                                textTransform: 'none',
-                                                lineHeight: '.9rem',
-                                                minWidth: 40,
-                                                textAlign: 'left'
-                                            }}
-                                            color='primary'
-                                            value={seller?.username}
-                                            onClick={handleFilter}
-                                            disabled={sellerButtonDisabled}
-                                    >
-                                        {seller?.username}
-                                    </Button>
-                                )}
-                                headerStyle={{marginBottom: 0}}
-                            />
+                            <EntrySellersDisplay sortSellers={sortSellers} handleFilter={handleFilter}
+                                                 sellerButtonDisabled={sellerButtonDisabled}/>
                         </div>
                     }
-                    <div style={{
-                        width: iconDivWidth,
-                        flex: 'row-end'
-                    }}/>
                 </div>
                 {sellerView &&
                     <div style={{}}>

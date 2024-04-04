@@ -8,7 +8,7 @@ import SellerPopup from './SellerPopup.jsx'
 const ListingDetailsRow = ({listing, sellerView}) => {
 
     const {width} = useWindowSize()
-    const smallWindow = width <= 520
+    const smallWindow = width < 520
     const divFlexStyle = !smallWindow ? {display: 'flex'} : {}
 
     const photoURL = listing.photo ? listing.photo : null
