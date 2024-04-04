@@ -14,7 +14,7 @@ function Nav({extras, route}) {
     console.log(route)
     return (
         <React.Fragment>
-            <AppBar position='fixed' sx={{boxShadow: 'none', backgroundColor: '#0b0017'}}>
+            <AppBar position='fixed' sx={{boxShadow: 'none'}}>
                 <Toolbar>
                     <MainMenu/>
 
@@ -27,15 +27,16 @@ function Nav({extras, route}) {
                         display: 'flex'
                     }}>
                         <TopNav route={route}/>
-                        <VersionCheckerCode/>
-
+                        {route === 'sp' &&
+                            <VersionCheckerCode/>
+                        }
+                        {route === 'lb' &&
+                            <VersionCheckerLB/>
+                        }
                     </div>
 
                     {extras}
 
-                    {route === 'lb' &&
-                        <VersionCheckerLB/>
-                    }
                     {route === 'sp' &&
                         <React.Fragment>
                             <PendingChecker/>
