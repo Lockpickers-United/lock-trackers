@@ -10,9 +10,18 @@ export default [
         path: '/speedpicks'
     },
     {
-        title: 'Lock Bazaar Browser',
+        title: 'Lock Bazaar',
         icon: <ShoppingCartIcon fontSize='small'/>,
-        path: '/lockbazaar'
+        path: '/lockbazaar',
+        children: [
+            {
+                title: 'Lock Bazaar Browser',
+                path: '/lockbazaar'
+            }, {
+                title: 'Seller Info',
+                path: '/lockbazaar/sellers'
+            }
+        ]
     },
     {
         title: 'Challenge Locks',
