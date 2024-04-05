@@ -117,12 +117,17 @@ export function LoadingProvider({children}) {
                     }
                 }
 
-                if (!thisLock || !thisLock.makeModels) {
-                    console.log('no lock or makeModels', thisLock)
-                    return false
-                }
+            if (!thisLock || !thisLock.makeModels) {
+                console.log('no lock or makeModels', thisLock)
+                return false
+            }
 
-                const lockName = samelineInt && samelineInt > 0
+            if (!thisLock.makeModels[0].make && !thisLock.makeModels[0].model) {
+                console.log('neither make nor model', thisLock)
+                return false
+            }
+
+            const lockName = samelineInt && samelineInt > 0
                     ? thisLock?.makeModels[samelineInt - 1]?.make + ' ' + thisLock?.makeModels[samelineInt - 1]?.model
                     : entryName(thisLock, 'short')
 

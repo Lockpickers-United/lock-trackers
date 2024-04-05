@@ -22,7 +22,7 @@ function FilterChip({field, value, label = value, ...props}) {
                 clickable
                 variant='outlined'
                 label={label}
-                style={{marginRight: 4, marginBottom: 4}}
+                style={{marginRight: 4, marginBottom: 4, lineHeight:1}}
                 onClick={handleFilter}
                 {...props}
             />
