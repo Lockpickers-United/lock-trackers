@@ -76,7 +76,7 @@ export function LoadingProvider({children}) {
     const allListings = jsonLoaded ?
         lockListings.map((listing) => {
 
-                const availableInt = parseInt(listing?.available)
+                let availableInt = parseInt(listing?.available)
                 if (isNaN(availableInt) || availableInt === 0) {
                     return false
                 }
@@ -93,11 +93,8 @@ export function LoadingProvider({children}) {
                 if (isLPUListing) {
                     thisLock = getLockFromId(thisId)
                     if (isLPUListing && !thisLock) {
-                        //TODO: treat it like an unlisted lock if possible
                         return false
                     }
-                } else if  (!thisLock?.makeModels[0]?.make && !thisLock?.makeModels[0]?.model) {
-                    return false
                 }
 
                 let samelineInt = parseInt(listing.samelineIndex)
