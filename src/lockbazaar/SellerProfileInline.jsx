@@ -30,7 +30,7 @@ function SellerProfileInline({listing, handleClose}) {
     const safeName = profileName.replace(/[\s/]/g, '_').replace(/\W/g, '')
 
     const sellerShipsTo = profile?.sellerShipsTo?.length === 6
-    ? 'Worldwide'
+        ? 'Worldwide'
         : profile?.sellerShipsTo?.join(', ')
 
     if (profile?.username) {
@@ -38,6 +38,11 @@ function SellerProfileInline({listing, handleClose}) {
     } else {
         document.title = 'Lock Trackers - Seller Profile'
     }
+
+    const sellerNoteLines = profile?.sellerNote
+        ? profile?.sellerNote?.split('.')
+        : null
+    console.log(sellerNoteLines)
 
     const fieldValueStyle = {margin: '15px 30px 0px 0px', fontSize: '1rem', lineHeight: '1.1rem'}
     const {width} = useWindowSize()
@@ -67,16 +72,16 @@ function SellerProfileInline({listing, handleClose}) {
             marginBottom: 16
         }}>
             {sellerView &&
-            <CardHeader title={profileName}
-                        style={{paddingBottom: 0, paddingLeft: 40}}
-                        action={
-                            <Tooltip title='Copy Seller Link' arrow disableFocusListener>
-                                <IconButton onClick={handleCopyLink}>
-                                    <LinkIcon/>
-                                </IconButton>
-                            </Tooltip>
-                        }
-            />
+                <CardHeader title={profileName}
+                            style={{paddingBottom: 0, paddingLeft: 40}}
+                            action={
+                                <Tooltip title='Copy Seller Link' arrow disableFocusListener>
+                                    <IconButton onClick={handleCopyLink}>
+                                        <LinkIcon/>
+                                    </IconButton>
+                                </Tooltip>
+                            }
+                />
             }
 
             {!sellerView &&
@@ -94,10 +99,22 @@ function SellerProfileInline({listing, handleClose}) {
 
 
             <CardContent>
+
                 {(profile || profile?.discordUsername || profile?.redditUsername) &&
                     <React.Fragment>
-                        <div style={{fontSize: '1.1rem', marginBottom: 10}}>
-                            <a href={`https://docs.google.com/spreadsheets/d/${profile.spreadsheetId}`} target='_blank'
+
+                        {sellerNoteLines &&
+                            <div style={{fontSize: '1rem', lineHeight: '1.3rem', padding: '0px 30px 20px 30px'}}>
+                                {sellerNoteLines.map((line, index) =>
+                                    <div key={index}>{line}</div>
+                                )}
+                            </div>
+                        }
+
+
+                        <div style={{fontSize: '1.1rem', marginBottom: 20}}>
+                            <a href={`https://docs.google.com/spreadsheets/d/${profile.spreadsheetId}`}
+                               target='_blank'
                                rel='noopener noreferrer'>
                                 Click here for detailed seller sheet
                             </a>
@@ -121,10 +138,12 @@ function SellerProfileInline({listing, handleClose}) {
                         }}>
                             <div style={{display: 'flex'}}>
                                 {profile?.country &&
-                                    <FieldValue name='Location' value={profile?.country} style={fieldValueStyle}/>
+                                    <FieldValue name='Location' value={profile?.country}
+                                                style={fieldValueStyle}/>
                                 }
                                 {profile?.shipsTo &&
-                                    <FieldValue name='Ships To' value={profile?.shipsTo} style={fieldValueStyle}/>
+                                    <FieldValue name='Ships To' value={profile?.shipsTo}
+                                                style={fieldValueStyle}/>
                                 }
                             </div>
                             <div style={{display: 'flex'}}>

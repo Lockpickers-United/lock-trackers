@@ -107,6 +107,19 @@ function EditProfilePage() {
                                 }}>SELLER PROFILE
                                 </div>
 
+                                <TextField
+                                    name='sellerNote'
+                                    fullWidth
+                                    size='small'
+                                    variant='outlined'
+                                    multiline
+                                    label='Seller Notes'
+                                    value={localProfile?.sellerNote || ''}
+                                    onChange={handleChange}
+                                    onFocus={handleFocus}
+                                    style={{marginTop: 20, marginBottom:20}}
+                                />
+
                                 <ShipsToSelect
                                     parentChange={handleChange}
                                     currentValue={localProfile?.sellerShipsTo || ''}

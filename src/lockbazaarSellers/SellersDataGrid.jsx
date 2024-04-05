@@ -44,6 +44,11 @@ function SellersDataGrid({sellerProfiles, listings}) {
             headerName: 'Country',
             width: 200,
             editable: false
+        },{
+            field: 'sellerNote',
+            headerName: 'Seller Note',
+            width: 200,
+            editable: false
         },
         {
             field: 'sellerShipsTo',
