@@ -63,7 +63,7 @@ function SellerProfileInline({listing, handleClose}) {
             maxWidth: 700,
             marginLeft: 'auto',
             marginRight: 'auto',
-            marginTop: 26,
+            marginTop: 0,
             marginBottom: 16
         }}>
             {sellerView &&

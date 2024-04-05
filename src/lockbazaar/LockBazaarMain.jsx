@@ -15,7 +15,7 @@ function LockBazaarMain() {
     const {width} = useWindowSize()
     const smallWindow = width <= 560
     const pagePadding = !smallWindow
-        ? '24px 24px 32px 24px'
+        ? '8px 24px 32px 24px'
         : '8px 8px 32px 8px'
 
     const navigate = useNavigate()

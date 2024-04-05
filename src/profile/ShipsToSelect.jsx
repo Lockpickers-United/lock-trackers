@@ -21,9 +21,9 @@ const MenuProps = {
 const options = [
     'Africa',
     'Asia',
+    'Australia & Oceania',
     'Europe',
     'North America',
-    'Australia & Oceania',
     'South America'
 ]
 

@@ -8,6 +8,7 @@ import NoEntriesCardLB from './NoEntriesCardLB.jsx'
 import EntryLB from './EntryLB.jsx'
 import SortFilterBarLB from './SortFilterBarLB.jsx'
 import SellerProfileInline from './SellerProfileInline.jsx'
+import SearchBox from '../nav/SearchBox.jsx'
 
 function EntriesLB() {
 
@@ -36,11 +37,13 @@ console.log('entries', entries)
     const {width} = useWindowSize()
     const smallWindow = width <= 560
     const pagePadding = !smallWindow
-        ? '8px 24px 32px 24px'
-        : '8px 2px 32px 2px'
+        ? '0px 24px 32px 24px'
+        : '0px 2px 32px 2px'
 
     const theme = useTheme()
     const background = theme.palette.mode === 'dark' ? '#223' : '#ffffff'
+
+    console.log('filters', filters, filters.size, Object.keys(filters).length)
 
     return (
         <div style={{
@@ -49,8 +52,7 @@ console.log('entries', entries)
             marginLeft: 'auto', marginRight: 'auto',
             fontSize: '1.5rem', lineHeight: 0.8
         }}>
-
-            {!filters.sellerName &&
+            {!Object.keys(filters).length &&
                 <React.Fragment>
                     <div style={{
                         fontSize: '1rem',
@@ -76,10 +78,13 @@ console.log('entries', entries)
                 </React.Fragment>
             }
 
-            <SortFilterBarLB/>
             {filters.sellerName &&
                 <SellerProfileInline/>
             }
+
+            <SortFilterBarLB/>
+
+            <SearchBox label='Listings'/>
 
             {entries.map((entry) =>
                 <EntryLB
