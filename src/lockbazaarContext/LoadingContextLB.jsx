@@ -245,7 +245,7 @@ export function LoadingProvider({children}) {
         allLocks,
         getLockFromId,
         getSellerFromId,
-        sellerIdMap
+        sellerIdMap,
     }), [
         allDataLoaded,
         sellerProfiles,

@@ -28,7 +28,7 @@ function EditSellerProfilePage() {
         : 'Create Profile'
 
     const introText = !profile.username
-        ? 'You must have a named profile to submit speed picks.'
+        ? 'You must have a named profile to submit to LockTrackers.'
         : ''
 
     const [profileChanged, setProfileChanged] = useState(false)

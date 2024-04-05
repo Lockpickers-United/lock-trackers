@@ -23,7 +23,7 @@ const options = [
     'Asia',
     'Europe',
     'North America',
-    'Oceania',
+    'Australia & Oceania',
     'South America'
 ]
 

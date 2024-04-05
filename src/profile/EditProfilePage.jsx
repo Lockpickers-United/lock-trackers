@@ -13,7 +13,7 @@ import {uniqueBelts} from '../data/belts'
 import countries from '../data/countries.json'
 import {FormControl, InputLabel, Select} from '@mui/material'
 import MenuItem from '@mui/material/MenuItem'
-import MultipleSelect from './ShipsToSelect.jsx'
+import ShipsToSelect from './ShipsToSelect.jsx'
 
 function EditProfilePage() {
 
@@ -25,7 +25,7 @@ function EditProfilePage() {
         : 'Create Profile'
 
     const introText = !profile.username
-        ? 'You must have a named profile to submit speed picks.'
+        ? 'You must have a named profile to submit to LockTarckers.'
         : ''
 
     const [profileChanged, setProfileChanged] = useState(false)
@@ -107,7 +107,7 @@ function EditProfilePage() {
                                 }}>SELLER PROFILE
                                 </div>
 
-                                <MultipleSelect
+                                <ShipsToSelect
                                     parentChange={handleChange}
                                     currentValue={localProfile?.sellerShipsTo || ''}
                                 />

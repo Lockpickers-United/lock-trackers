@@ -116,7 +116,7 @@ function ListingsDataGrid({listings, profile}) {
                             }
                         }
                     }}
-                    pageSizeOptions={[50]}
+                    pageSizeOptions={[50,100]}
                     density={'compact'}
                     disableRowSelectionOnClick
                     ignoreDiacritics
