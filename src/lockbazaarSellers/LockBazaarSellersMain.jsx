@@ -4,10 +4,11 @@ import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 import SellerHowTo from './SellerHowTo.jsx'
 import DBContext from '../app/DBContext.jsx'
 import SellersDataGrid from './SellersDataGrid.jsx'
+import LoadingDisplay from '../util/LoadingDisplay.jsx'
 
 function LockBazaarSellersMain() {
 
-    const {validListings, sellerProfiles} = useContext(LoadingContextLB)
+    const {allDataLoaded, validListings, sellerProfiles} = useContext(LoadingContextLB)
     const {profile = {}} = useContext(DBContext)
 
     const listings = profile && !profile?.isLBMod
@@ -17,11 +18,19 @@ function LockBazaarSellersMain() {
     console.log('sellerProfiles', sellerProfiles)
 
     return (
+
         <React.Fragment>
-            {!profile.isSeller && <SellerHowTo/>}
-            {profile.isSeller && <ListingsDataGrid listings={listings} profile={profile}/>}
-            {profile.isLBMod && <SellersDataGrid listings={listings} sellerProfiles={sellerProfiles}/>}
+
+            {!allDataLoaded && <LoadingDisplay/>}
+
+            {(allDataLoaded && !profile.isSeller) && <SellerHowTo/>}
+            {(allDataLoaded && profile.isSeller) && <ListingsDataGrid listings={listings} profile={profile}/>}
+            {(allDataLoaded && profile.isLBMod) &&
+                <SellersDataGrid listings={listings} sellerProfiles={sellerProfiles}/>}
+
+
         </React.Fragment>
+
     )
 }
 
