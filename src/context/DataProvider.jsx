@@ -90,7 +90,7 @@ export function DataProvider({children}) {
     }, [allEntries])
 
 
-    const userEntries = useMemo(() => {
+    const userEntries = useMemo(() => {  // eslint-disable-line
         if (!isLoggedIn) return []
         const entryIds = []
         mappedEntries.filter(datum => datum.pickerId === user?.uid)
@@ -98,8 +98,7 @@ export function DataProvider({children}) {
                 entryIds.push(entry.id)
             })
         return entryIds
-    }, [isLoggedIn, mappedEntries, user?.uid]) // eslint-disable-line
-    console.log(userEntries)
+    }, [isLoggedIn, mappedEntries, user?.uid])
 
     const userEntriesApproved = useMemo(() => {
         if (!isLoggedIn) return []

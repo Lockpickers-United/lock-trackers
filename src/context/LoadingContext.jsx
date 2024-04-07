@@ -36,7 +36,7 @@ export function LoadingProvider({children}) {
             const newDbEntries = await getDbEntries()
             setDbEntries(newDbEntries)
             const newDbProfiles = await getDbProfiles()
-            setDbProfiles(newDbProfiles)
+            setDbProfiles(newDbProfiles.profiles)
         } else if (authLoaded && jsonLoaded) {
             console.log('REFRESHDATA: using jsonEntries')
             const jsonEntriesMap = jsonBackup?.__collections__.speedPicks
@@ -66,20 +66,6 @@ export function LoadingProvider({children}) {
 
     const skeletonLocks = skeletonData.lock
     const allLocks = jsonLoaded ? locksData : skeletonLocks
-
-    /*
-        console.log('authLoaded: ', authLoaded)
-        console.log('loggedIn: ', isLoggedIn)
-        console.log('dbUser: ', dbUser)
-        console.log('jsonLoaded: ', jsonLoaded)
-        console.log('allDataLoaded: ', allDataLoaded)
-        console.log('lc, dbEntries: ', dbEntries?.length)
-        console.log('lc, jsonEntries: ', jsonEntries?.length)
-        console.log('lc, allEntries: ', allEntries?.length)
-        console.log('lc, dbProfiles: ', dbProfiles?.length)
-        console.log('lc, jsonProfiles: ', jsonProfiles?.length)
-        console.log('lc, allProfiles: ', allProfiles?.length)
-    */
 
     const value = useMemo(() => ({
         allEntries,

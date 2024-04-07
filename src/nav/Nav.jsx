@@ -8,31 +8,41 @@ import UserMenu from './UserMenu'
 import TopNav from './TopNav.jsx'
 import PendingChecker from '../speedpicks/PendingChecker.jsx'
 import VersionCheckerCode from '../app/VersionCheckerCode.jsx'
+import VersionCheckerLB from '../app/VersionCheckerLB.jsx'
 
 function Nav({extras, route}) {
+    console.log(route)
     return (
         <React.Fragment>
-            <AppBar position='fixed' sx={{boxShadow: 'none', backgroundColor:'#0b0017'}}>
+            <AppBar position='fixed' sx={{boxShadow: 'none'}}>
                 <Toolbar>
                     <MainMenu/>
 
                     <div style={{
                         flexGrow: 1,
-                        minWidth:150,
+                        minWidth: 150,
                         fontWeight: 500,
                         fontSize: '1.5rem',
                         paddingLeft: 6,
-                        display:'flex'
+                        display: 'flex'
                     }}>
                         <TopNav route={route}/>
-                        <VersionCheckerCode/>
-
+                        {route === 'sp' &&
+                            <VersionCheckerCode/>
+                        }
+                        {route === 'lb' &&
+                            <VersionCheckerLB/>
+                        }
                     </div>
 
                     {extras}
 
-                    <PendingChecker/>
-                    <VersionChecker/>
+                    {route === 'sp' &&
+                        <React.Fragment>
+                            <PendingChecker/>
+                            <VersionChecker/>
+                        </React.Fragment>
+                    }
                     <UserMenu/>
 
                 </Toolbar>

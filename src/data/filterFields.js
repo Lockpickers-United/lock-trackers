@@ -9,6 +9,14 @@ export const lockFilterFields = [
     {label: 'Collection', fieldName: 'collection', userBased: true}
 ]
 
+export const LBFilterFields = [
+    {label: 'Make', fieldName: 'makes'},
+    {label: 'Locking Mechanism', fieldName: 'lockingMechanisms'},
+    {label: 'Belt', fieldName: 'lockBelt', sort: beltSort},
+    {label: 'Seller Name', fieldName: 'sellerName'},
+    {label: 'Ships To', fieldName: 'shipsTo'}
+]
+
 export const spFilterFields = [
     {label: 'Picker ID', fieldName: 'pickerId'},
     {label: 'Approved', fieldName: 'approved'},

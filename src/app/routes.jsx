@@ -5,7 +5,7 @@ import ErrorBoundary from './ErrorBoundary'
 export default [
     {
         path: '/',
-        loader: () => redirect('/speedpicks')
+        loader: () => redirect('/lockbazaar')
     },
     {
         path: '/profile/edit',
@@ -26,6 +26,20 @@ export default [
         lazy: async () => {
             const {default: ChallengeLocksRoute} = await import('../challengelocks/ChallengeLocksRoute')
             return {element: <ChallengeLocksRoute/>}
+        }
+    },
+    {
+        path: '/lockbazaar',
+        lazy: async () => {
+            const {default: LockBazaarRoute} = await import('../lockbazaar/LockBazaarRoute')
+            return {element: <LockBazaarRoute/>}
+        }
+    },
+    {
+        path: '/lockbazaar/sellers',
+        lazy: async () => {
+            const {default: LockBazaarSellersRoute} = await import('../lockbazaarSellers/LockBazaarSellersRoute')
+            return {element: <LockBazaarSellersRoute/>}
         }
     },
     {
@@ -51,7 +65,7 @@ export default [
     },
     {
         path: '*',
-        loader: () => redirect('/speedpicks')
+        loader: () => redirect('/lockbazaar')
     },
 ].map(route => ({...route, errorElement: <ErrorBoundary/>}))
 

@@ -9,7 +9,7 @@ import GithubButton from '../nav/GithubButton'
 import privacyPolicyMd from '../resources/privacyPolicy.md?raw'
 
 function PrivacyPage() {
-    const updateTime = 'November 28, 2023'
+    const updateTime = 'April 2, 2024'
     return (
         <React.Fragment>
             <Card style={{

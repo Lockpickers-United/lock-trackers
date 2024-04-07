@@ -13,69 +13,57 @@ import {uniqueBelts} from '../data/belts'
 import countries from '../data/countries.json'
 import {FormControl, InputLabel, Select} from '@mui/material'
 import MenuItem from '@mui/material/MenuItem'
+import ShipsToSelect from './ShipsToSelect.jsx'
 
 function EditProfilePage() {
 
-    const {updateProfile, profile} = useContext(DBContext)
+    const {updateProfile, profile = {}} = useContext(DBContext)
+    const [localProfile, setLocalProfile] = useState(profile)
 
-    const [created] = useState(profile?.created || dayjs().format())
-    const [username, setUsername] = useState(profile?.username || '')
-    const [discordUsername, setDiscordUsername] = useState(profile?.discordUsername || '')
-    const [redditUsername, setRedditUsername] = useState(profile?.redditUsername || '')
-    const [LPUBeltsProfile, setLPUBeltsProfile] = useState(profile?.LPUBeltsProfile || '')
-    const [belt, setBelt] = useState(profile?.belt || '')
-    const [country, setCountry] = useState(profile?.country || '')
-
-    const cardTitle = username
+    const cardTitle = profile.username
         ? `Hey ${profile?.username}!`
         : 'Create Profile'
 
-    const introText = !username
-        ? 'You must have a named profile to submit speed picks.'
+    const introText = !profile.username
+        ? 'You must have a named profile to submit to LockTarckers.'
         : ''
 
     const [profileChanged, setProfileChanged] = useState(false)
 
     const handleChange = useCallback((event) => {
-        const {value, id, name} = event.target
-        id === 'username' && setUsername(value)
-        id === 'discordUsername' && setDiscordUsername(value)
-        id === 'redditUsername' && setRedditUsername(value)
-        id === 'LPUBeltsProfile' && setLPUBeltsProfile(value)
-        name === 'belt' && setBelt(value)
-        name === 'country' && setCountry(value)
+        const {name, value} = event.target
+        const newProfile = {...localProfile}
+        newProfile[name] = value
+        newProfile.created = localProfile.created || dayjs().format()
+        newProfile.modified = dayjs().format()
+        setLocalProfile(newProfile)
         setProfileChanged(true)
-    }, [])
+    }, [localProfile])
 
     const clearForm = useCallback(() => {
-        setUsername('')
-        setDiscordUsername('')
-        setRedditUsername('')
-        setLPUBeltsProfile('')
-        setBelt('')
-        setCountry('')
+        setLocalProfile({})
     }, [])
 
     const handleFocus = useCallback(event => event.target.select(), [])
 
     const handleSave = useCallback(async () => {
         try {
-            updateProfile(username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created)
+            updateProfile(localProfile)
             //await refreshData()
             enqueueSnackbar('Profile updated')
+            setProfileChanged(false)
         } catch (ex) {
             console.error('Error while updating profile', ex)
             enqueueSnackbar('Error while updating profile', ex)
         }
-    }, [updateProfile, username, discordUsername, redditUsername, LPUBeltsProfile, belt, country, created])
+    }, [updateProfile, localProfile])
 
     const pattern = /^[\sa-zA-Z0-9_-]{1,32}$/
-
-    const error = username.length > 0 && !pattern.test(username.toString())
-    const empty = username.length === 0
+    const error = localProfile.username?.length > 0 && !pattern.test(localProfile.username.toString())
+    const empty = localProfile.username?.length === 0
 
     const helperText = error
-        ? username.length === 0
+        ? localProfile.username?.length === 0
             ? 'Public profiles must have a display name.'
             : 'Display name must only include A-Z, 0-9, _ and -.'
         : ''
@@ -94,99 +82,158 @@ function EditProfilePage() {
                 <br/>
                 <Stack direction='column'>
                     <TextField
-                        id='username'
+                        name='username'
                         error={error}
                         fullWidth
                         variant='outlined'
                         label='Username'
                         helperText={helperText}
-                        value={username || ''}
+                        value={localProfile?.username || ''}
                         onChange={handleChange}
                         onFocus={handleFocus}
                         inputProps={{
                             maxLength: 20
                         }}
                     />
-                    {1 === 1 &&
-                        <div>
-                            <div style={{marginTop: 20, marginBottom: 15, fontWeight: 600, fontSize: '1rem'}}>OPTIONAL
+                    <div>
+
+                        {profile.isSeller &&
+                            <div>
+                                <div id={'SELLER PROFILE'} style={{
+                                    marginTop: 25,
+                                    marginBottom: 0,
+                                    fontWeight: 600,
+                                    fontSize: '1rem'
+                                }}>SELLER PROFILE
+                                </div>
+
+                                <TextField
+                                    name='sellerNote'
+                                    fullWidth
+                                    size='small'
+                                    variant='outlined'
+                                    multiline
+                                    label='Seller Notes'
+                                    value={localProfile?.sellerNote || ''}
+                                    onChange={handleChange}
+                                    onFocus={handleFocus}
+                                    style={{marginTop: 20, marginBottom:20}}
+                                />
+
+                                <ShipsToSelect
+                                    parentChange={handleChange}
+                                    currentValue={localProfile?.sellerShipsTo || ''}
+                                />
+
+                                <TextField
+                                    name='sellerEmail'
+                                    fullWidth
+                                    size='small'
+                                    variant='outlined'
+                                    label='Public Email'
+                                    value={localProfile?.sellerEmail || ''}
+                                    onChange={handleChange}
+                                    onFocus={handleFocus}
+                                    inputProps={{
+                                        maxLength: 32
+                                    }}
+                                    style={{marginTop: 20}}
+                                />
+                                <TextField
+                                    name='spreadsheetId'
+                                    fullWidth
+                                    disabled
+                                    size='small'
+                                    variant='outlined'
+                                    label='Spreadsheet Id'
+                                    value={localProfile?.spreadsheetId || ''}
+                                    onChange={handleChange}
+                                    onFocus={handleFocus}
+                                    inputProps={{
+                                        maxLength: 50
+                                    }}
+                                    style={{marginTop: 20}}
+                                />
                             </div>
+                        }
 
-                            <FormControl id='beltFC' size='small' sx={{minWidth: 220}}>
-                                <InputLabel>Belt (Honor system!)</InputLabel>
-                                <Select
-                                    id='belt'
-                                    name='belt'
-                                    value={belt}
-                                    label='Belt (Honor system!)'
-                                    onChange={handleChange}
-                                >
-                                    {uniqueBelts.map((belt) =>
-                                        <MenuItem key={belt} value={belt}>{belt}</MenuItem>
-                                    )}
-                                </Select>
-                            </FormControl>
-
-                            <TextField
-                                id='discordUsername'
-                                fullWidth
-                                size='small'
-                                variant='outlined'
-                                label='Discord Username'
-                                value={discordUsername || ''}
-                                onChange={handleChange}
-                                onFocus={handleFocus}
-                                inputProps={{
-                                    maxLength: 32
-                                }}
-                                style={{marginTop: 20}}
-                            />
-                            <TextField
-                                id='redditUsername'
-                                fullWidth
-                                size='small'
-                                variant='outlined'
-                                label='Reddit Username'
-                                value={redditUsername || ''}
-                                onChange={handleChange}
-                                onFocus={handleFocus}
-                                inputProps={{
-                                    maxLength: 32
-                                }}
-                                style={{marginTop: 20}}
-                            />
-                            <TextField
-                                id='LPUBeltsProfile'
-                                fullWidth
-                                size='small'
-                                variant='outlined'
-                                label='LPUBelts Profile Link'
-                                value={LPUBeltsProfile || ''}
-                                onChange={handleChange}
-                                onFocus={handleFocus}
-                                inputProps={{
-                                    maxLength: 128
-                                }}
-                                style={{marginTop: 20}}
-                            />
-
-                            <FormControl id='country' size='small' sx={{minWidth: 220, marginTop: '20px'}}>
-                                <InputLabel>Country</InputLabel>
-                                <Select
-                                    id='country'
-                                    name='country'
-                                    value={country}
-                                    label='Country'
-                                    onChange={handleChange}
-                                >
-                                    {countries.map((countryInfo) =>
-                                        <MenuItem key={countryInfo.ISO_alpha3_code}
-                                                  value={countryInfo.country_area}>{countryInfo.country_area}</MenuItem>
-                                    )}
-                                </Select>
-                            </FormControl>
+                        <div id={'OPTIONAL'}
+                             style={{marginTop: 25, marginBottom: 15, fontWeight: 600, fontSize: '1rem'}}>OPTIONAL
                         </div>
-                    }
+
+                        <FormControl id='beltFC' size='small' sx={{minWidth: 220}}>
+                            <InputLabel>Belt (Honor system!)</InputLabel>
+                            <Select
+                                id='belt'
+                                name='belt'
+                                value={localProfile?.belt || ''}
+                                label='Belt (Honor system!)'
+                                onChange={handleChange}
+                            >
+                                {uniqueBelts.map((belt) =>
+                                    <MenuItem key={belt} value={belt}>{belt}</MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>
+
+                        <TextField
+                            name='discordUsername'
+                            fullWidth
+                            size='small'
+                            variant='outlined'
+                            label='Discord Username'
+                            value={localProfile?.discordUsername || ''}
+                            onChange={handleChange}
+                            onFocus={handleFocus}
+                            inputProps={{
+                                maxLength: 32
+                            }}
+                            style={{marginTop: 20}}
+                        />
+                        <TextField
+                            name='redditUsername'
+                            fullWidth
+                            size='small'
+                            variant='outlined'
+                            label='Reddit Username'
+                            value={localProfile?.redditUsername || ''}
+                            onChange={handleChange}
+                            onFocus={handleFocus}
+                            inputProps={{
+                                maxLength: 32
+                            }}
+                            style={{marginTop: 20}}
+                        />
+                        <TextField
+                            name='LPUBeltsProfile'
+                            fullWidth
+                            size='small'
+                            variant='outlined'
+                            label='LPUBelts Profile Link'
+                            value={localProfile?.LPUBeltsProfile || ''}
+                            onChange={handleChange}
+                            onFocus={handleFocus}
+                            inputProps={{
+                                maxLength: 128
+                            }}
+                            style={{marginTop: 20}}
+                        />
+
+                        <FormControl id='country' size='small' sx={{minWidth: 220, marginTop: '20px'}}>
+                            <InputLabel>Country</InputLabel>
+                            <Select
+                                name='country'
+                                value={localProfile?.country || ''}
+                                label='Country'
+                                onChange={handleChange}
+                            >
+                                {countries.map((countryInfo) =>
+                                    <MenuItem key={countryInfo.ISO_alpha3_code}
+                                              value={countryInfo.country_area}>{countryInfo.country_area}</MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>
+                    </div>
                 </Stack>
 
                 <div style={{marginTop: 20, textAlign: 'right'}}>

@@ -15,7 +15,7 @@ import LT_menu_header from '../assets/LT_menu_header.jsx'
 function MainMenu() {
     const {admin, beta} = useContext(AppContext)
     const [open, setOpen] = useState(false)
-    const [openTitle, setOpenTitle] = useState('Admin Tools') // TODO: don't do this once there are more
+    const [openTitle, setOpenTitle] = useState('Lock Bazaar') // TODO: don't do this once there are more
 
     const handleHotkey = useCallback(() => setOpen(!open), [open])
     useHotkeys('m', handleHotkey)
