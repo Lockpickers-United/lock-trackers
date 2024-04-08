@@ -87,7 +87,7 @@ function SellerProfileInline({listing, handleClose}) {
             {!sellerView &&
                 <CardHeader title={profileName}
                             style={{paddingBottom: 0, paddingLeft: 40, cursor: 'pointer'}}
-							onClick={handleOpenSellerList}
+                            onClick={handleOpenSellerList}
                             action={
                                 <Tooltip title='View Seller Listings' arrow disableFocusListener>
                                     <IconButton onClick={handleOpenSellerList}>
