@@ -5,28 +5,24 @@ import {Box} from '@mui/material'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 
-function ListingsDataGrid({listings, profile}) {
+function ListingsDataGrid({listings}) {
 
     const {getLockFromId} = useContext(LoadingContextLB)
-
-    const dataRows = profile
-    ? listings.filter(listing => listing.sellerName === profile.username)
-        : listings
-
-    console.log(dataRows)
 
     const rows = listings.map((listing, index) => {
             const id = listing.id.split('|')[0]
             const lock = getLockFromId(id)
             return {
                 ...listing,
-                belt: lock?.belt ? lock.belt : '',
+                belt: (lock?.belt && lock.belt !== 'Unranked') ? lock.belt : '',
                 lockId: listing.id,
                 id: index,
-                version: lock?.version ? lock.version : '',
+                version: lock?.version ? lock.version : ''
             }
         }
     )
+
+    console.log('rows', rows)
 
     //const rows = validListings
     const columns = [
@@ -71,7 +67,8 @@ function ListingsDataGrid({listings, profile}) {
             headerName: 'Keys',
             width: 60,
             editable: false,
-            align: 'center'
+            align: 'center',
+            headerAlign: 'center'
         },
         {
             field: 'price',
@@ -85,7 +82,8 @@ function ListingsDataGrid({listings, profile}) {
             width: 60,
             editable: false,
             align: 'center',
-            type: 'number',
+            headerAlign: 'center',
+            type: 'number'
 
         }
     ]
@@ -116,7 +114,7 @@ function ListingsDataGrid({listings, profile}) {
                             }
                         }
                     }}
-                    pageSizeOptions={[50,100]}
+                    pageSizeOptions={[50, 100]}
                     density={'compact'}
                     disableRowSelectionOnClick
                     ignoreDiacritics
