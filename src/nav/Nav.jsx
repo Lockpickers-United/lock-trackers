@@ -9,6 +9,7 @@ import TopNav from './TopNav.jsx'
 import PendingChecker from '../speedpicks/PendingChecker.jsx'
 import VersionCheckerCode from '../app/VersionCheckerCode.jsx'
 import VersionCheckerLB from '../app/VersionCheckerLB.jsx'
+import Tracker from '../app/Tracker.jsx'
 
 function Nav({extras, route}) {
     console.log(route)
@@ -52,6 +53,8 @@ function Nav({extras, route}) {
             <Toolbar style={{backgroundColor: 'rgba(255, 255, 255, 0.09)'}}/>
 
             <ScrollToTopButton/>
+            <Tracker feature='nav'/>
+
         </React.Fragment>
     )
 }

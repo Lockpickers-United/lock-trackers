@@ -12,7 +12,7 @@ function Tracker({feature, ...extraParams}) {
 }
 
 const files = {
-    locks: 'welcome.gif',
+    nav: 'welcome.gif',
     lock: 'clear.gif'
 }
 

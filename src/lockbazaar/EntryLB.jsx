@@ -20,6 +20,7 @@ import EntrySellersDisplay from './EntrySellersDisplay.jsx'
 
 const Entry = ({entry, expanded, onExpand}) => {
 
+    console.log('entry', entry)
     const {getSellerFromId} = useContext(LoadingContextLB)
     const {filters, addFilter} = useContext(FilterContext)
 
@@ -190,7 +191,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                     }
                     <AccordionActions disableSpacing style={{backgroundColor: '#272727'}}>
                         <EntryActionsLB entry={entry}/>
-                        <Tracker feature='lock' id={entry.id}/>
+                        <Tracker feature='lock' id={entry.id} lockMake={entry?.makeModels[0].make} lockModel={entry?.makeModels[0].model}/>
                     </AccordionActions>
                 </React.Fragment>
             }
