@@ -21,22 +21,23 @@ export function LoadingProvider({children}) {
     const {authLoaded} = useContext(AuthContext)
     const jsonLoaded = (!loading && !error && !!data)
 
-    const {getDbProfiles} = useContext(DBContext)
+    const {getSellerProfiles} = useContext(DBContext)
     const [sellerProfiles, setSellerProfiles] = useState(null)
     const [sellerIdMap, setSellerIdMap] = useState({})
 
     const refreshData = useCallback(async () => {
-        const newDbProfiles = await getDbProfiles()
-        setSellerProfiles(newDbProfiles.sellerProfiles)
+        const dbProfiles = await getSellerProfiles()
+        setSellerProfiles(dbProfiles)
 
         const sellerIdMap = new Map()
-        newDbProfiles.sellerProfiles.map((profile) => {
+        dbProfiles.map((profile) => {
                 sellerIdMap[profile.username] = profile.userId
             }
         )
         setSellerIdMap(sellerIdMap)
-
-    }, [getDbProfiles]) // eslint-disable-line
+        console.log('sellerIdMap', sellerIdMap)
+    }, [getSellerProfiles])
+    // eslint-disable-line
 
     // Initial data load
     useEffect(() => {
@@ -109,7 +110,7 @@ export function LoadingProvider({children}) {
                     thisLock.belt = 'Unranked'
                     thisLock.makeModels = [{make: listing.make, model: listing.model}]
                     thisLock.lockingMechanisms = listing.mechanism
-                        ? [listing.mechanism.replace('Pin tumbler','Pin-tumbler')]
+                        ? [listing.mechanism.replace('Pin tumbler', 'Pin-tumbler')]
                         : null
                     thisLock.views = 0
                     if (!localLocksData?.find(({id}) => id === thisLock.id)) {
@@ -117,17 +118,17 @@ export function LoadingProvider({children}) {
                     }
                 }
 
-            if (!thisLock || !thisLock.makeModels) {
-                console.log('no lock or makeModels', thisLock)
-                return false
-            }
+                if (!thisLock || !thisLock.makeModels) {
+                    console.log('no lock or makeModels', thisLock)
+                    return false
+                }
 
-            if (!thisLock.makeModels[0].make && !thisLock.makeModels[0].model) {
-                console.log('neither make nor model', thisLock)
-                return false
-            }
+                if (!thisLock.makeModels[0].make && !thisLock.makeModels[0].model) {
+                    console.log('neither make nor model', thisLock)
+                    return false
+                }
 
-            const lockName = samelineInt && samelineInt > 0
+                const lockName = samelineInt && samelineInt > 0
                     ? thisLock?.makeModels[samelineInt - 1]?.make + ' ' + thisLock?.makeModels[samelineInt - 1]?.model
                     : entryName(thisLock, 'short')
 
@@ -171,10 +172,10 @@ export function LoadingProvider({children}) {
         )
         : []
 
-    console.log('allListings', allListings)
+    //console.log('allListings', allListings)
 
     const validListings = allListings.filter(listing => listing.isValid)
-    console.log('validListings', validListings)
+    //console.log('validListings', validListings)
 
     //TODO get row number for seller info
     const invalidListings = allListings // eslint-disable-line
@@ -186,10 +187,10 @@ export function LoadingProvider({children}) {
             return listing.id
         })
 
-    console.log('validLockIds', validLockIds)
+    //console.log('validLockIds', validLockIds)
     let uniqueLockIds = [...new Set(validLockIds)]
 
-    console.log('uniqueLockIds', uniqueLockIds)
+    //console.log('uniqueLockIds', uniqueLockIds)
 
     const allEntries = uniqueLockIds.map((id) => {
         const [lockId, samelineIndex] = id.split('|')
@@ -235,7 +236,7 @@ export function LoadingProvider({children}) {
         return entry
     })
 
-    const allDataLoaded = ((authLoaded && !!getDbProfiles && jsonLoaded))
+    const allDataLoaded = ((authLoaded && !!sellerProfiles && jsonLoaded))
 
     const value = useMemo(() => ({
         allDataLoaded,
@@ -245,7 +246,7 @@ export function LoadingProvider({children}) {
         allLocks,
         getLockFromId,
         getSellerFromId,
-        sellerIdMap,
+        sellerIdMap
     }), [
         allDataLoaded,
         sellerProfiles,

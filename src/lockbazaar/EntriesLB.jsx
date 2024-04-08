@@ -32,7 +32,7 @@ function EntriesLB() {
         return visibleEntries
     }, [visibleEntries])
 
-console.log('entries', entries)
+//console.log('entries', entries)
 
     const {width} = useWindowSize()
     const smallWindow = width <= 560
@@ -43,7 +43,7 @@ console.log('entries', entries)
     const theme = useTheme()
     const background = theme.palette.mode === 'dark' ? '#223' : '#ffffff'
 
-    console.log('filters', filters, filters.size, Object.keys(filters).length)
+    //console.log('filters', filters, filters.size, Object.keys(filters).length)
 
     return (
         <div style={{

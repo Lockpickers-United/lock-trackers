@@ -7,6 +7,8 @@ import {
     runTransaction,
     getDoc,
     getDocs,
+    query,
+    where,
     collection
 } from 'firebase/firestore'
 import AuthContext from './AuthContext'
@@ -30,7 +32,8 @@ export function DBProvider({children}) {
         if (dbError) return false
         const profiles = []
         const sellerProfiles = []
-        const querySnapshot2 = await getDocs(collection(db, 'profiles'))
+        const q = query(collection(db, 'profiles'))
+        const querySnapshot2 = await getDocs(q)
         querySnapshot2.forEach((doc) => {
             const profile = doc.data()
             profile.userId = doc.id
@@ -38,7 +41,19 @@ export function DBProvider({children}) {
             profile.isSeller && sellerProfiles.push(profile)
         })
         return {profiles,sellerProfiles}
+    }, [dbError])
 
+    const getSellerProfiles = useCallback(async () => {
+        if (dbError) return false
+        const sellerProfiles = []
+        const q = query(collection(db, 'profiles'), where('isSeller', '==', true))
+        const querySnapshot2 = await getDocs(q)
+        querySnapshot2.forEach((doc) => {
+            const profile = doc.data()
+            profile.userId = doc.id
+            sellerProfiles.push(profile)
+        })
+        return sellerProfiles
     }, [dbError])
 
     // PROFILE SUBSCRIPTION //
@@ -147,6 +162,7 @@ export function DBProvider({children}) {
         getProfileName,
         updateProfile,
         getDbProfiles,
+        getSellerProfiles,
         newVersionAvailable
     }), [
         dbLoaded,
@@ -155,6 +171,7 @@ export function DBProvider({children}) {
         updateProfile,
         profile,
         getDbProfiles,
+        getSellerProfiles,
         newVersionAvailable
     ])
 

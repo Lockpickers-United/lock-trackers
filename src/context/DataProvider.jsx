@@ -31,7 +31,7 @@ export function DataProvider({children}) {
     const isMod = !!(user && profile && profile?.isMod)
     const [updated, setUpdated] = useState(0)
 
-    const mappedEntries = useMemo(() => {
+    const validEntries = useMemo(() => {
         return allEntries.map(entry => {
 
             const lockId = entry?.lockId
@@ -77,12 +77,13 @@ export function DataProvider({children}) {
         })
     }, [allEntries, allProfiles, lockData, bestTimes, updated])
 
-    mappedEntries.map(entry => {
+    const mappedEntries = validEntries.map(entry => {
         if (entry.totalTime === bestTimes.get(entry.lockId)) {
             entry.isBest = 'true'
         } else {
             entry.isBest = 'false'
         }
+        return entry
     })
 
     const getEntryFromId = useCallback(entryId => {

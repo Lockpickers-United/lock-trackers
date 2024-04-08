@@ -3,15 +3,16 @@ import Entries from './Entries.jsx'
 import EntriesSkeleton from './SkeletonEntries.jsx'
 import LoadingContext from '../context/LoadingContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
+import DataContext from '../context/DataContext.jsx'
 
 function Main() {
 
     const {filters} = useContext(FilterContext)
-    const {refreshData} = useContext(LoadingContext)
-    const {allDataLoaded} = useContext(LoadingContext)
+    const {refreshData, allDataLoaded} = useContext(LoadingContext)
+    const {visibleEntries} = useContext(DataContext)
 
     // refresh if username has changed
-    if (filters['profileUpdated']==='true') {
+    if (filters['profileUpdated'] === 'true') {
         useEffect(() => {
             refreshData()
         }, []) // eslint-disable-line
@@ -19,10 +20,10 @@ function Main() {
 
     return (
         <React.Fragment>
-            {!allDataLoaded &&
+            {(!allDataLoaded || !visibleEntries) &&
                 <EntriesSkeleton/>
             }
-            {allDataLoaded &&
+            {(visibleEntries && allDataLoaded) &&
                 <Entries/>
             }
         </React.Fragment>
