@@ -20,7 +20,6 @@ import EntrySellersDisplay from './EntrySellersDisplay.jsx'
 
 const Entry = ({entry, expanded, onExpand}) => {
 
-    console.log('entry', entry)
     const {getSellerFromId} = useContext(LoadingContextLB)
     const {filters, addFilter} = useContext(FilterContext)
 

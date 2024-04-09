@@ -9,10 +9,6 @@ function Footer({extras}) {
 
     return (
         <Typography align='center' component='div' style={{marginTop: 16, marginBottom: 80}}>
-            <a href='https://lpubelts.com' target='_blank' rel='noopener noreferrer'>
-                LPUbelts.com
-            </a>
-            &nbsp;•&nbsp;
             <a href='https://discord.gg/lockpicking' target='_blank' rel='noopener noreferrer'>
                 LPU Discord
             </a>

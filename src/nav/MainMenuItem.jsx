@@ -6,22 +6,30 @@ import MenuItem from '@mui/material/MenuItem'
 import queryString from 'query-string'
 import React, {useCallback} from 'react'
 import {useLocation, useNavigate} from 'react-router-dom'
+import Divider from '@mui/material/Divider'
 
 function MainMenuItem({menuItem, openTitle, onOpen, onClose, child}) {
     const navigate = useNavigate()
     const location = useLocation()
     const searchParams = queryString.parse(location.search)
-    const {children, title, params, path, icon} = menuItem
+    const {children, title, params, path, icon, separator} = menuItem
 
     const isCurrentPath = location.pathname === path
     const isCurrentParams = Object.keys(params || [])
         .every(key => params[key] === searchParams[key])
     const isCurrentRoute = isCurrentPath && isCurrentParams
 
+    const openInNewTab = (url) => {
+        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+        if (newWindow) newWindow.opener = null
+    }
+
     const handleClick = useCallback(() => {
         if (children) {
             const isOpen = openTitle === title
             onOpen(isOpen ? null : title)
+        } else if (path.includes('http')) {
+            openInNewTab(path)
         } else {
             onClose()
             const url = params
@@ -44,9 +52,16 @@ function MainMenuItem({menuItem, openTitle, onOpen, onClose, child}) {
 
     return (
         <React.Fragment>
+            {separator &&
+                <React.Fragment>
+                    <div style={{height: 25}}/>
+                    <Divider style={{margin: 0}}/>
+                </React.Fragment>
+            }
+
             <MenuItem style={style} onClick={handleClick} dense={child}>
                 {coloredIcon &&
-                    <ListItemIcon>
+                    <ListItemIcon style={{height:20}}>
                         {coloredIcon}
                     </ListItemIcon>
                 }
