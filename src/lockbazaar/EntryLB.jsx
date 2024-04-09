@@ -105,8 +105,8 @@ const Entry = ({entry, expanded, onExpand}) => {
     const mobile424 = width <= 424
 
     const nameDivWidth = !smallWindow ? '65%' : '70%'
-    const summaryFlexStyle = !mobile424 ? {display: 'flex'} : {}
-    const summarySellersWidth = !mobile424 ? '20%' : '100%'
+    const summaryFlexStyle = !smallWindow ? {display: 'flex'} : {}
+    const summarySellersWidth = !smallWindow ? '20%' : '100%'
 
     return (
         <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters>
