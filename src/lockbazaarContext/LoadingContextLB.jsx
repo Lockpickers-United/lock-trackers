@@ -109,9 +109,14 @@ export function LoadingProvider({children}) {
                     thisLock.id = thisId
                     thisLock.belt = 'Unranked'
                     thisLock.makeModels = [{make: listing.make, model: listing.model}]
-                    thisLock.lockingMechanisms = listing.mechanism
-                        ? [listing.mechanism.replace('Pin tumbler', 'Pin-tumbler')]
+                    const lockingMechanisms = listing.mechanism
+                        ? listing.mechanism.split(',')
                         : null
+                    thisLock.lockingMechanisms = lockingMechanisms && !(typeof lockingMechanisms === 'string')
+                        ? lockingMechanisms.map((mechanism) => {
+                            return mechanism.charAt(0).toUpperCase() + mechanism.slice(1)
+                        })
+                        : lockingMechanisms
                     thisLock.views = 0
                     if (!localLocksData?.find(({id}) => id === thisLock.id)) {
                         localLocksData.push(thisLock)
