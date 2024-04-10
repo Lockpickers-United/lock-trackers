@@ -60,12 +60,18 @@ function EditProfilePage() {
 
     const pattern = /^[\sa-zA-Z0-9_-]{1,32}$/
     const error = localProfile.username?.length > 0 && !pattern.test(localProfile.username.toString())
+    const lpuError = !lpuIdRegex.test(localProfile.LPUBeltsProfile)
+
     const empty = localProfile.username?.length === 0
 
     const helperText = error
         ? localProfile.username?.length === 0
             ? 'Public profiles must have a display name.'
             : 'Display name must only include A-Z, 0-9, _ and -.'
+        : ''
+
+    const lpuHelperText = lpuError
+        ? 'Not a valid LPUbelts profile.'
         : ''
 
     return (
@@ -117,7 +123,7 @@ function EditProfilePage() {
                                     value={localProfile?.sellerNote || ''}
                                     onChange={handleChange}
                                     onFocus={handleFocus}
-                                    style={{marginTop: 20, marginBottom:20}}
+                                    style={{marginTop: 20, marginBottom: 20}}
                                 />
 
                                 <ShipsToSelect
@@ -213,6 +219,8 @@ function EditProfilePage() {
                             value={localProfile?.LPUBeltsProfile || ''}
                             onChange={handleChange}
                             onFocus={handleFocus}
+                            error={lpuError}
+                            helperText={lpuHelperText}
                             inputProps={{
                                 maxLength: 128
                             }}
@@ -243,7 +251,7 @@ function EditProfilePage() {
                         Clear&nbsp;Form
                     </Button>
                     <Button variant='outlined'
-                            disabled={error || empty || !profileChanged}
+                            disabled={error || lpuError || empty || !profileChanged}
                             color={error ? undefined : 'success'}
                             onClick={handleSave}
                             style={{}}>
@@ -254,5 +262,8 @@ function EditProfilePage() {
         </Card>
     )
 }
+
+const lpuIdRegex = /^https:\/\/lpubelts.com\/#\/profile\/([A-Za-z0-9]{28})/
+
 
 export default EditProfilePage

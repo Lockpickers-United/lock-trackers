@@ -27,7 +27,6 @@ export function DBProvider({children}) {
     const [currentVersion, setCurrentVersion] = useState('')
     const newVersionAvailable = !knownVersions.includes(currentVersion)
 
-
     const getDbProfiles = useCallback(async () => {
         if (dbError) return false
         const profiles = []
@@ -107,11 +106,17 @@ export function DBProvider({children}) {
         }
     }, [authLoaded, isLoggedIn, knownVersions, user])
 
+    // UPDATES
+
+    function clean(string) {
+        return string.replace(/(<([^>]+)>)/gi, '')
+    }
+
     const updateVersion = useCallback(async () => {
         if (dbError) return false
 
         const safeName = profile?.username
-            ? profile?.username.replace(/\s/g, '_')
+            ? clean(profile?.username.replace(/\s/g, '_'))
             : user?.uid
 
         const ref = doc(db, 'versions', 'speedpicks')

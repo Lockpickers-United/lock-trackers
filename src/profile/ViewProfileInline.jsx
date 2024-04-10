@@ -1,4 +1,4 @@
-import React, {useContext, useMemo} from 'react'
+import React, {useContext} from 'react'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
@@ -9,27 +9,36 @@ import DataContext from '../context/DataContext.jsx'
 import CopyProfileLinkButton from './CopyProfileLinkButton.jsx'
 
 // http://localhost:3000/#/speedpicks?pickerId=ClbjuilBEHgbzO4UZl4y3GStlEz2
+// https://lpubelts.com/#/profile/4qqxB0nW8dczUws5XuAyhEkgZEj2?name=mg_test_account
+
 
 function ViewProfileInline() {
 
     const {filters} = useContext(FilterContext)
     const {getProfileFromId} = useContext(DataContext)
 
-    const profile = getProfileFromId(filters.pickerId)
-    const profileName = profile?.username ? profile?.username : 'No matching profile.'
-    const profileURLRegex = useMemo(() => /name=(\w*)/, [])
-
-    if (profile?.username) { document.title = `Lock Trackers - ${profile?.username}` }
-    else { document.title = 'Lock Trackers - View Profile' }
-
     const {width} = useWindowSize()
     const breakSize = width <= 500
 
-    const profileLink = profile ? profile?.LPUBeltsProfile : ''
+    const profile = getProfileFromId(filters.pickerId)
+    const profileName = profile?.username ? profile?.username : 'No matching profile.'
+
+    if (profile?.username) {
+        document.title = `Lock Trackers - ${profile?.username}`
+    } else {
+        document.title = 'Lock Trackers - View Profile'
+    }
+
+    console.log('profile', profile, lpuIdRegex.test(profile?.LPUBeltsProfile))
+
+    const profileLink = profile && lpuIdRegex.test(profile?.LPUBeltsProfile)
+        ? profile?.LPUBeltsProfile
+        : null
+
     const profileLinkText = !breakSize
         ? profile?.LPUBeltsProfile
         : profileLink
-            ? 'lpubelts.com/#/profile ... ' + profileURLRegex.exec(profileLink)[1]
+            ? 'lpubelts.com/#/profile ... ' + profileTextRegex.exec(profileLink)[1]
             : ''
 
     const fieldValueStyle = {margin: '15px 30px 0px 0px', fontSize: '1rem', lineHeight: '1.1rem'}
@@ -76,7 +85,12 @@ function ViewProfileInline() {
                     <div>
                         <FieldValue name='LPUbelts Profile' value={null} style={fieldValueStyle}/>
                         <div style={{margin: '5px 0px 0px 4px', width: '95%', fontSize: '1rem', lineHeight: '1.2rem'}}>
-                            <a href={profile?.LPUBeltsProfile} target='_blank' rel='noreferrer'>{profileLinkText}</a>
+                            {profileLink &&
+                                <a href={profileLink} target='_blank' rel='noopener, noreferrer'>{profileLinkText}</a>
+                        }
+                        {!profileLink &&
+                                <span>{profileLinkText}</span>
+                            }
                         </div>
                     </div>
                 }
@@ -84,5 +98,9 @@ function ViewProfileInline() {
         </Card>
     )
 }
+
+const profileTextRegex = /name=(\w*)/
+
+const lpuIdRegex = /^https:\/\/lpubelts.com\/#\/profile\/([A-Za-z0-9]{28})/
 
 export default ViewProfileInline
