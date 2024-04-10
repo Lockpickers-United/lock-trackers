@@ -5,28 +5,24 @@ import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import fuzzysort from 'fuzzysort'
 import removeAccents from 'remove-accents'
-import AuthContext from '../app/AuthContext.jsx'
 import LoadingContext from './LoadingContextLB.jsx'
-import DBContext from '../app/DBContext.jsx'
 import belts, {beltSort, beltSortReverse} from '../data/belts'
 
 export function DataProvider({children}) {
 
-    const {user} = useContext(AuthContext)
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sellerId, sort, image, profileUpdated, ...filters} = allFilters
     const {allEntries, allLocks} = useContext(LoadingContext)
-    const {profile} = useContext(DBContext)
 
     const lockBelts = useMemo(() => belts, [])
     const lockData = useMemo(() => allLocks, [allLocks])
-    const isMod = !!(user && profile && profile?.isMod)
+
+    console.log('lockData', lockData)
 
     const getLockFromId = useCallback(lockId => {
         return lockData?.find(({id}) => id === lockId)
     }, [lockData])
 
-    console.log('lockData', lockData)
 
     const mappedEntries = useMemo(() => {
         return allEntries
@@ -131,7 +127,6 @@ export function DataProvider({children}) {
         getLockFromId,
         getEntryFromId,
         getNameFromId,
-        isMod,
         allEntries,
         visibleEntries
     }), [
@@ -140,7 +135,6 @@ export function DataProvider({children}) {
         getLockFromId,
         getEntryFromId,
         getNameFromId,
-        isMod,
         allEntries,
         visibleEntries
     ])

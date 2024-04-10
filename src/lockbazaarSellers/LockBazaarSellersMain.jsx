@@ -15,8 +15,6 @@ function LockBazaarSellersMain() {
         ? validListings.filter(listing => listing.sellerName === profile?.username)
         : validListings
 
-    console.log('sellerProfiles', sellerProfiles)
-
     return (
 
         <React.Fragment>
@@ -26,9 +24,8 @@ function LockBazaarSellersMain() {
             {(allDataLoaded && !profile.isSeller) && <SellerHowTo/>}
             {(allDataLoaded && profile.isSeller) && <ListingsDataGrid listings={listings} profile={profile}/>}
             {(allDataLoaded && profile.isLBMod) &&
-                <SellersDataGrid listings={listings} sellerProfiles={sellerProfiles}/>}
-
-
+                <SellersDataGrid listings={listings} sellerProfiles={sellerProfiles}/>
+            }
         </React.Fragment>
 
     )

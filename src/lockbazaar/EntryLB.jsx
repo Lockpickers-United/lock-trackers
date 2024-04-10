@@ -102,7 +102,6 @@ const Entry = ({entry, expanded, onExpand}) => {
 
     const {width} = useWindowSize()
     const smallWindow = width <= 480
-    const mobile424 = width <= 424
 
     const nameDivWidth = !smallWindow ? '65%' : '70%'
     const summaryFlexStyle = !smallWindow ? {display: 'flex'} : {}

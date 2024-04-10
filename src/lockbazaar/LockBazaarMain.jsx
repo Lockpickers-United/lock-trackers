@@ -8,7 +8,6 @@ import FilterContext from '../context/FilterContext.jsx'
 import {useNavigate} from 'react-router-dom'
 
 function LockBazaarMain() {
-
     const {allDataLoaded, getSellerFromId} = useContext(LoadingContextLB)
     const {filters} = useContext(FilterContext)
 

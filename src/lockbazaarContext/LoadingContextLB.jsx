@@ -2,7 +2,6 @@ import React, {useCallback, useContext, useEffect, useMemo, useState} from 'reac
 import useData from '../util/useData'
 import {locksData, lockListings} from '../data/dataUrls'
 import entryName from '../util/entryName'
-import AuthContext from '../app/AuthContext.jsx'
 import DBContext from '../app/DBContext.jsx'
 
 const LoadingContext = React.createContext({})
@@ -18,7 +17,6 @@ export function LoadingProvider({children}) {
         localLocksData[i] = locksData[i]
     }
 
-    const {authLoaded} = useContext(AuthContext)
     const jsonLoaded = (!loading && !error && !!data)
 
     const {getSellerProfiles} = useContext(DBContext)
@@ -241,7 +239,7 @@ export function LoadingProvider({children}) {
         return entry
     })
 
-    const allDataLoaded = ((authLoaded && !!sellerProfiles && jsonLoaded))
+    const allDataLoaded = ((!!sellerProfiles && jsonLoaded))
 
     const value = useMemo(() => ({
         allDataLoaded,
