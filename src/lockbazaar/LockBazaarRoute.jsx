@@ -11,7 +11,7 @@ import {ListProvider} from '../context/ListContext.jsx'
 import {LBFilterFields} from '../data/filterFields'
 
 
-function ChallengeLocksRoute() {
+function LockBazaarRoute() {
 
     document.title = 'Lock Trackers - Lock Bazaar Browser'
 
@@ -32,4 +32,4 @@ function ChallengeLocksRoute() {
     )
 }
 
-export default ChallengeLocksRoute
+export default LockBazaarRoute
