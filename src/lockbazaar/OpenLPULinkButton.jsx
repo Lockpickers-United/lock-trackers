@@ -8,7 +8,8 @@ function CopyLinkToEntryButton({entry, nameType, fontSize}) {
 
     const name =  entryName(entry, nameType)
     const safeName = name.replace(/[\s/]/g, '_').replace(/\W/g, '')
-    const link = `https://share.lpubelts.com/?id=${entry.id}&name=${safeName}`
+    const [lockId, samelineIndex] = entry.id.split('-')     // eslint-disable-line
+    const link = `https://share.lpubelts.com/?id=${lockId}&name=${safeName}`
 
     return (
         <Tooltip title='View lock on LPUbelts.com' arrow disableFocusListener>

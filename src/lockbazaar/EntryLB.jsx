@@ -23,11 +23,24 @@ const Entry = ({entry, expanded, onExpand}) => {
     const {getSellerFromId} = useContext(LoadingContextLB)
     const {filters, addFilter} = useContext(FilterContext)
 
-    const shippableListings = filters.shipsTo
+
+    const countryListings = filters.country
         ? entry.listings
+            .map(listing => {
+                let terseListing = {...listing}
+                terseListing.country = listing?.country?.replace('United States of America', 'United States')
+                terseListing.country = terseListing.country.replace('Netherlands (Kingdom of the)', 'Netherlands')
+                return terseListing
+            })
+            .filter(listing => !!listing.country)
+            .filter(listing => [filters.country].includes(listing.country))
+        : entry.listings
+
+    const shippableListings = filters.shipsTo
+        ? countryListings
             .filter(listing => !!listing.shipsTo)
             .filter(listing => listing.shipsTo.some(r => [filters.shipsTo].includes(r)))
-        : entry.listings
+        : countryListings
 
     const sellerView = !!filters.sellerName
 

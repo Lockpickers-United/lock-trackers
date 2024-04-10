@@ -143,7 +143,7 @@ export function LoadingProvider({children}) {
                     ? thisLock?.makeModels[samelineInt - 1]?.model
                     : thisLock?.makeModels[0]?.model
 
-                const samelineInfo = samelineInt ? '|' + samelineInt : ''
+                const samelineInfo = samelineInt ? '-' + samelineInt : ''
                 const newId = thisId + samelineInfo
 
                 const photo = (listing.photo && isValidUrl(listing.photo)) ? listing.photo : null
@@ -197,7 +197,7 @@ export function LoadingProvider({children}) {
     //console.log('uniqueLockIds', uniqueLockIds)
 
     const allEntries = uniqueLockIds.map((id) => {
-        const [lockId, samelineIndex] = id.split('|')
+        const [lockId, samelineIndex] = id.split('-')
         const lock = getLockFromId(lockId)
         let entry = {...lock}
 
