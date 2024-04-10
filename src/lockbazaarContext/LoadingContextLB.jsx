@@ -116,7 +116,7 @@ export function LoadingProvider({children}) {
                         })
                         : lockingMechanisms
                     thisLock.views = 0
-                    if (!localLocksData?.find(({id}) => id === thisLock.id)) {
+                    if (!localLocksData?.find(({id}) => id === thisId)) {
                         localLocksData.push(thisLock)
                     }
                 }
@@ -158,6 +158,7 @@ export function LoadingProvider({children}) {
                     //TODO get from sellerId
                     sellerName: listing.name,
                     shipsTo: listing.shipsTo,
+                    country: listing.country,
                     sellerId: listing.sellerId,
                     avail: listing.available,
                     format: listing.format,
@@ -175,7 +176,7 @@ export function LoadingProvider({children}) {
         )
         : []
 
-    //console.log('allListings', allListings)
+    console.log('allListings', allListings)
 
     const validListings = allListings.filter(listing => listing.isValid)
     //console.log('validListings', validListings)
@@ -225,6 +226,14 @@ export function LoadingProvider({children}) {
             }).flat()
         const shipsToUnique = [...new Set(shipsToFull)]
 
+        const countriesFull = lockListings
+            .map((listing) => {
+                let terse = listing?.country?.replace('United States of America', 'United States')
+                terse = terse.replace('Netherlands (Kingdom of the)', 'Netherlands')
+                return listing.country ? terse : null
+            }).flat()
+        const countryUnique = [...new Set(countriesFull)]
+
         if (samelineIndex) {
             entry.makeModels = [lock?.makeModels[samelineIndex - 1]]
             entry.id = id
@@ -233,6 +242,7 @@ export function LoadingProvider({children}) {
         //TODO roll up shipTos
 
         entry.shipsTo = shipsToUnique
+        entry.country = countryUnique
         entry.seller = sellers
         entry.sellerName = sellerNames
         entry.listings = listings
