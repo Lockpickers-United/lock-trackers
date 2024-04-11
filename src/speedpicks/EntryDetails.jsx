@@ -13,7 +13,7 @@ const EntryDetails = ({entry, startEdit, entriesUpdate}) => {
     const {user, isLoggedIn} = useContext(AuthContext)
     const isUser = (isLoggedIn && entry.pickerId === user.uid)
 
-    const lockLink = 'https://share.lpubelts.com/#/locks?id=' + entry.lockId
+    const lockLink = 'https://share.lpubelts.com/?id=' + entry.lockId
 
     const videoLink = httpRegex.test(entry.videoUrl)
         ? entry.videoUrl
