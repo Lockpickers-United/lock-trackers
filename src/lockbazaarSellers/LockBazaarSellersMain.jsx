@@ -9,9 +9,9 @@ import LoadingDisplay from '../util/LoadingDisplay.jsx'
 function LockBazaarSellersMain() {
 
     const {allDataLoaded, validListings, sellerProfiles} = useContext(LoadingContextLB)
-    const {profile = {}} = useContext(DBContext)
+    const {profile, adminFlags = {}} = useContext(DBContext)
 
-    const listings = profile && !profile?.isLBMod
+    const listings = profile && !adminFlags?.isLBMod
         ? validListings.filter(listing => listing.sellerName === profile?.username)
         : validListings
 
@@ -21,9 +21,9 @@ function LockBazaarSellersMain() {
 
             {!allDataLoaded && <LoadingDisplay/>}
 
-            {(allDataLoaded && !profile.isSeller) && <SellerHowTo/>}
-            {(allDataLoaded && profile.isSeller) && <ListingsDataGrid listings={listings} profile={profile}/>}
-            {(allDataLoaded && profile.isLBMod) &&
+            {(allDataLoaded && !adminFlags.isSeller) && <SellerHowTo/>}
+            {(allDataLoaded && adminFlags.isSeller) && <ListingsDataGrid listings={listings} profile={profile}/>}
+            {(allDataLoaded && adminFlags.isLBMod) &&
                 <SellersDataGrid listings={listings} sellerProfiles={sellerProfiles}/>
             }
         </React.Fragment>

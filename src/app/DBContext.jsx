@@ -43,22 +43,41 @@ export function DBProvider({children}) {
         return {profiles, sellerProfiles}
     }, [dbError])
 
+    const getAdminProfiles = useCallback(async () => {
+        if (dbError) return false
+        const adminProfiles = []
+        const q = query(collection(db, 'admins'), where('isSeller', '==', true))
+        const querySnapshot = await getDocs(q)
+        querySnapshot.forEach((doc) => {
+            const profile = doc.data()
+            profile.userId = doc.id
+            adminProfiles.push(profile)
+        })
+        return adminProfiles
+    }, [dbError])
 
     const getSellerProfiles = useCallback(async () => {
         if (dbError) return false
-        const sellerProfiles = []
-        const q = query(collection(db, 'profiles'), where('isSeller', '==', true))
-        const querySnapshot2 = await getDocs(q)
-        querySnapshot2.forEach((doc) => {
-            const profile = doc.data()
-            profile.userId = doc.id
-            sellerProfiles.push(profile)
-        })
-        return sellerProfiles
-    }, [dbError])
+        const admins = await getAdminProfiles()
+        const sellers = admins.map(async (admin) => {
+                const docRef = doc(db, 'profiles', admin.userId)
+                const docSnap = await getDoc(docRef)
+                const seller = docSnap.data()
+                seller.userId = admin.userId
+                if (admin.spreadsheetId) {
+                    seller.spreadsheetId = admin.spreadsheetId
+                    return seller
+                } else {
+                    return null
+                }
+            }
+        )
+        return (await Promise.all(sellers))
+    }, [dbError, getAdminProfiles])
+
+
 
     // ADMIN SUBSCRIPTION //
-
     useEffect(() => {
         if (isLoggedIn) {
             const ref = doc(db, 'admins', user.uid)
@@ -81,8 +100,6 @@ export function DBProvider({children}) {
             setAdminFlags({})
         }
     }, [authLoaded, isLoggedIn, user])
-
-//console.log('adminFlags', adminFlags)
 
 // PROFILE SUBSCRIPTION //
     useEffect(() => {

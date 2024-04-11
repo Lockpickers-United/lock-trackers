@@ -17,7 +17,7 @@ import ShipsToSelect from './ShipsToSelect.jsx'
 
 function EditProfilePage() {
 
-    const {updateProfile, profile = {}} = useContext(DBContext)
+    const {updateProfile, profile, adminFlags= {}} = useContext(DBContext)
     const [localProfile, setLocalProfile] = useState(profile)
 
     const cardTitle = profile.username
@@ -103,7 +103,7 @@ function EditProfilePage() {
                     />
                     <div>
 
-                        {profile.isSeller &&
+                        {adminFlags.isSeller &&
                             <div>
                                 <div id={'SELLER PROFILE'} style={{
                                     marginTop: 25,
@@ -152,7 +152,7 @@ function EditProfilePage() {
                                     size='small'
                                     variant='outlined'
                                     label='Spreadsheet Id'
-                                    value={localProfile?.spreadsheetId || ''}
+                                    value={adminFlags?.spreadsheetId || ''}
                                     onChange={handleChange}
                                     onFocus={handleFocus}
                                     inputProps={{

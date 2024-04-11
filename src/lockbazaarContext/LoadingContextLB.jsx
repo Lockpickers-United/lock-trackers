@@ -25,6 +25,8 @@ export function LoadingProvider({children}) {
 
     const refreshData = useCallback(async () => {
         const dbProfiles = await getSellerProfiles()
+        console.log('sellers', dbProfiles)
+
         setSellerProfiles(dbProfiles)
 
         const sellerIdMap = new Map()

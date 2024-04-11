@@ -20,7 +20,7 @@ import {useNavigate} from 'react-router-dom'
 function UserMenu() {
     const navigate = useNavigate()
     const {isLoggedIn, user, logout} = useContext(AuthContext)
-    const {profile} = useContext(DBContext)
+    const {profile, adminFlags} = useContext(DBContext)
 
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
@@ -30,6 +30,11 @@ function UserMenu() {
     const safeName = profile.username
         ? profile.username.replace(/\s/g, '_')
         : 'Private'
+
+    //TODO: change profile destination and add toggle on view page
+    const profileURL = adminFlags.isSeller
+        ? `/speedpicks?pickerId=${user.uid}&name=${safeName}`
+        : `/speedpicks?pickerId=${user.uid}&name=${safeName}`
 
     const handleClick = useCallback(url => () => {
         handleClose()
@@ -77,7 +82,7 @@ function UserMenu() {
                             <ListItemText>Edit Profile</ListItemText>
                         </MenuItem>
                         {profile?.username &&
-                            <MenuItem onClick={handleClick(`/speedpicks?pickerId=${user.uid}&name=${safeName}`)}>
+                            <MenuItem onClick={handleClick(profileURL)}>
                                 <ListItemIcon>
                                     <AccountBoxIcon/>
                                 </ListItemIcon>
