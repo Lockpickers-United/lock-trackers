@@ -60,7 +60,7 @@ function EditProfilePage() {
 
     const pattern = /^[\sa-zA-Z0-9_-]{1,32}$/
     const error = localProfile.username?.length > 0 && !pattern.test(localProfile.username.toString())
-    const lpuError = !lpuIdRegex.test(localProfile.LPUBeltsProfile)
+    const lpuError = localProfile.LPUBeltsProfile?.length > 0 && !lpuIdRegex.test(localProfile.LPUBeltsProfile)
 
     const empty = localProfile.username?.length === 0
 
@@ -263,7 +263,7 @@ function EditProfilePage() {
     )
 }
 
-const lpuIdRegex = /^https:\/\/lpubelts.com\/#\/profile\/([A-Za-z0-9]{28})/
+const lpuIdRegex = /^(http|https):\/\/lpubelts.com\/#\/profile\/([A-Za-z0-9]{28})/
 
 
 export default EditProfilePage
