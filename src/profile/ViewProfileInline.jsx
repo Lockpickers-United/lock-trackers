@@ -29,8 +29,6 @@ function ViewProfileInline() {
         document.title = 'Lock Trackers - View Profile'
     }
 
-    console.log('profile', profile, lpuIdRegex.test(profile?.LPUBeltsProfile))
-
     const profileLink = profile && lpuIdRegex.test(profile?.LPUBeltsProfile)
         ? profile?.LPUBeltsProfile
         : null
