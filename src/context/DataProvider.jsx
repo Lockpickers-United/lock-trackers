@@ -10,7 +10,6 @@ import removeAccents from 'remove-accents'
 import AuthContext from '../app/AuthContext.jsx'
 import LoadingContext from './LoadingContext.jsx'
 import DBContext from '../app/DBContext.jsx'
-import AppContext from '../app/AppContext.jsx'
 
 export function DataProvider({children}) {
 
@@ -18,17 +17,17 @@ export function DataProvider({children}) {
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sort, image, profileUpdated, ...filters} = allFilters
     const {allEntries, allProfiles, allLocks} = useContext(LoadingContext)
-    const {modMode, setModMode} = useContext(AppContext)
-    const {profile} = useContext(DBContext)
+    const {profile, adminFlags} = useContext(DBContext)
 
-    //console.log('dp: ', allEntries)
+    console.log('adminFlags: ', adminFlags)
     //console.log('dp: ', allProfiles)
     //console.log('dp: ', allLocks)
 
     const lockBelts = useMemo(() => belts, [])
     const lockData = useMemo(() => allLocks, [allLocks])
     const bestTimes = useMemo(() => new Map(), [])
-    const isMod = !!(user && profile && profile?.isMod)
+    const isMod = !!adminFlags.isSPMod
+    //const isMod = !!(user && profile && profile?.isMod)
     const [updated, setUpdated] = useState(0)
 
     const validEntries = useMemo(() => {
@@ -228,11 +227,6 @@ export function DataProvider({children}) {
         setUpdated(value)
     }, [])
 
-    const toggleMod = useCallback(() => {
-        setModMode(!modMode)
-        DCUpdate(Math.random())
-    }, [DCUpdate, modMode, setModMode])
-
     const value = useMemo(() => ({
         lockBelts,
         lockData,
@@ -242,7 +236,6 @@ export function DataProvider({children}) {
         getNameFromId,
         getProfileFromId,
         DCUpdate,
-        toggleMod,
         isMod,
         allEntries,
         visibleEntries,
@@ -257,7 +250,6 @@ export function DataProvider({children}) {
         getNameFromId,
         getProfileFromId,
         DCUpdate,
-        toggleMod,
         isMod,
         allEntries,
         visibleEntries,

@@ -22,6 +22,7 @@ export function DBProvider({children}) {
     const [dbError, setDbError] = useState(null)
 
     const [profile, setProfile] = useState({})
+    const [adminFlags, setAdminFlags] = useState({})
 
     const [knownVersions] = useState([])
     const [currentVersion, setCurrentVersion] = useState('')
@@ -39,8 +40,9 @@ export function DBProvider({children}) {
             profiles.push(profile)
             profile.isSeller && sellerProfiles.push(profile)
         })
-        return {profiles,sellerProfiles}
+        return {profiles, sellerProfiles}
     }, [dbError])
+
 
     const getSellerProfiles = useCallback(async () => {
         if (dbError) return false
@@ -55,7 +57,34 @@ export function DBProvider({children}) {
         return sellerProfiles
     }, [dbError])
 
-    // PROFILE SUBSCRIPTION //
+    // ADMIN SUBSCRIPTION //
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            const ref = doc(db, 'admins', user.uid)
+            return onSnapshot(ref, async doc => {
+                const data = doc.data()
+                if (data) {
+                    setAdminFlags(data)
+                } else {
+                    setAdminFlags({})
+                }
+            }, error => {
+                console.error('Error listening to DB:', error)
+                setDbError(true)
+                enqueueSnackbar('There was a problem reading your profile. It will be unavailable until you refresh the page. ', {
+                    autoHideDuration: null,
+                    action: <Button color='secondary' onClick={() => location.reload()}>Refresh</Button>
+                })
+            })
+        } else if (authLoaded) {
+            setAdminFlags({})
+        }
+    }, [authLoaded, isLoggedIn, user])
+
+//console.log('adminFlags', adminFlags)
+
+// PROFILE SUBSCRIPTION //
     useEffect(() => {
         if (isLoggedIn) {
             const ref = doc(db, 'profiles', user.uid)
@@ -81,7 +110,7 @@ export function DBProvider({children}) {
         }
     }, [authLoaded, isLoggedIn, user])
 
-    // VERSION //
+// VERSION //
     useEffect(() => {
         if (isLoggedIn) {
             const ref = doc(db, 'versions', 'speedpicks')
@@ -106,7 +135,7 @@ export function DBProvider({children}) {
         }
     }, [authLoaded, isLoggedIn, knownVersions, user])
 
-    // UPDATES
+// UPDATES
 
     function clean(string) {
         return string.replace(/(<([^>]+)>)/gi, '')
@@ -133,7 +162,7 @@ export function DBProvider({children}) {
         }
     }, [dbError, knownVersions, profile?.username, user?.uid])
 
-    // PROFILE //
+// PROFILE //
     const updateProfile = useCallback(async (localProfile) => {
         if (dbError) return false
         const ref = doc(db, 'profiles', user?.uid)
@@ -159,12 +188,13 @@ export function DBProvider({children}) {
         return profile.username
     }, [getProfile])
 
-    // VALUE & PROVIDER //
+// VALUE & PROVIDER //
     const value = useMemo(() => ({
         dbLoaded,
         profile,
         getProfile,
         getProfileName,
+        adminFlags,
         updateProfile,
         getDbProfiles,
         getSellerProfiles,
@@ -173,6 +203,7 @@ export function DBProvider({children}) {
         dbLoaded,
         getProfile,
         getProfileName,
+        adminFlags,
         updateProfile,
         profile,
         getDbProfiles,
