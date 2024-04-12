@@ -18,10 +18,7 @@ function SellerHowTo() {
         }}>
 
             <div style={{textAlign: 'left', fontSize: '1rem', lineHeight: '1.3rem'}}>
-                Any established seller can be listed on the site and there are no fees of any kind involved. Please note
-                that only listings which directly correspond to an entry on lpubelts.com are currently shown
-                on locktrackers but you can list any other locks in your sheet. Listings without an LPUbelts URL (see
-                below) will be ignored.<p/>
+                Any established seller can be listed on the site and there are no fees of any kind involved.
                 In order to be listed on the site:<p/>
 
                 <ol type='1'>
@@ -38,31 +35,34 @@ function SellerHowTo() {
                         rel='noopener noreferrer'>example
                         spreadsheet</a></b>
 
-                        <ul style={{ listStyleType :'disc'}}>
+                        <ul style={{listStyleType: 'disc'}}>
                             <li style={{marginTop: 5}}>Only listings with a quantity of 1 or more are displayed on the
                                 site.
+                                Only listings linked to a specific lock on lpubelts.com will have their belt ranking
+                                shown.
                             </li>
-                            <li style={{marginTop: 5}}>The LPUbelts URL is a link to the lock details on lpubelts.com
-                                and is
-                                required.
+                            <li style={{marginTop: 5}}>For listings that match a specific lock on lpubelts.com:
+                                the site will pull the Belt, Make, Model, Version, and Locking Mechanisms
+                                from the lpubelts.com data. This information is automatically updated, so if a lock
+                                changes ranking,
+                                your listing will too.
                             </li>
-                            <li style={{marginTop: 5}}>The &#34;Sameline #&#34; column is for locks that are part of a
-                                sameline
-                                entry containing
-                                multiple locks. The
-                                number indicates which lock in the group you are selling. So if you are selling a Medeco
-                                Biaxial, you&#39;d look
+                            <li style={{marginTop: 5}}>Matching to an lpubelts lock is done by supplying
+                                a valid URL to the lock details on lpubelts.com in the &#34;LPUbelts URL&#34; column.
+                            </li>
+                            <li style={{marginTop: 5}}>For locks that are part of a sameline entry containing multiple locks, the &#34;Sameline #&#34; column
+                                column should contain a number indicating which lock in the group you are selling.
+                                So if you are selling a Medeco Biaxial, you&#39;d look
                                 at the <b><a
                                     href={'https://lpubelts.com/#/locks?id=826c31e0&name=Medeco_Original_Biaxial_M3&tab=Purple'}
                                     target='_blank'
                                     rel='noopener noreferrer'>lpubelts
-                                    samelined entry</a></b> and indicate which lock it is, in this case <b>&#34;2&#34;</b>
+                                    samelined entry</a></b> and indicate which lock it is, in this
+                                case <b>&#34;2&#34;</b>
                             </li>
-                            <li style={{marginTop: 5}}>The site will pull the Make, Model, and Version from the
-                                lpubelts.com
-                                data.
+                            <li style={{marginTop: 5}}>For listings of other locks: the site will display the information in your sheet, with the exception of belt ranking.
                             </li>
-                            <li style={{marginTop: 5}}>Other columns can be blank or hidden, but the site will look for
+                            <li style={{marginTop: 5}}>Unused columns can be blank or hidden, but the site will look for
                                 data
                                 there so please
                                 make sure they
