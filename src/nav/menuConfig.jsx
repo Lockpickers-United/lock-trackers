@@ -35,6 +35,14 @@ export default [
             {
                 title: 'LPUbelts.com',
                 path: 'https://lpubelts.com/'
+            },
+            {
+                title: '#lock-bazaar',
+                path: 'https://discord.com/channels/140129091796992000/1109656237269860383'
+            },
+            {
+                title: 'Reddit',
+                path: 'https://www.reddit.com/r/lockpicking/'
             }
         ]
     }

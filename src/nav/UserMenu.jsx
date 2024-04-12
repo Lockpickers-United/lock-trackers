@@ -20,7 +20,7 @@ import {useNavigate} from 'react-router-dom'
 function UserMenu() {
     const navigate = useNavigate()
     const {isLoggedIn, user, logout} = useContext(AuthContext)
-    const {profile, adminFlags} = useContext(DBContext)
+    const {profile} = useContext(DBContext)
 
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
@@ -32,9 +32,7 @@ function UserMenu() {
         : 'Private'
 
     //TODO: change profile destination and add toggle on view page
-    const profileURL = adminFlags.isSeller
-        ? `/speedpicks?pickerId=${user.uid}&name=${safeName}`
-        : `/speedpicks?pickerId=${user.uid}&name=${safeName}`
+    const profileURL = `/speedpicks?pickerId=${user?.uid}&name=${safeName}`
 
     const handleClick = useCallback(url => () => {
         handleClose()

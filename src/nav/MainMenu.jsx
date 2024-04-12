@@ -8,9 +8,9 @@ import {useHotkeys} from 'react-hotkeys-hook'
 import AppContext from '../app/AppContext'
 import MainMenuItem from './MainMenuItem'
 import menuConfig from './menuConfig'
-import LT_logo from '../assets/LT_logo.jsx'
 import Button from '@mui/material/Button'
-import LT_menu_header from '../assets/LT_menu_header.jsx'
+import LPU_text_logo from '../assets/LPU-text-logo.jsx'
+import LPU_LOCKS_header from '../assets/LPU_LOCKS_header.jsx'
 
 function MainMenu() {
     const {admin, beta} = useContext(AppContext)
@@ -34,7 +34,7 @@ function MainMenu() {
                 <Button edge='start' color='inherit' onClick={openDrawer}
                             style={{ height: '30px', minWidth: '30px', margin:0, padding:0}}
                 >
-                    <LT_logo fill='#fff' style={{height: 30, padding:0, margin:0}}/>
+                    <LPU_text_logo fill='#fff' style={{height: 30, padding:0, margin:0}}/>
                 </Button>
             </Tooltip>
 
@@ -51,8 +51,8 @@ function MainMenu() {
                         backgroundColor: '#292929',
                         borderBottom: '1px solid #000'
                     }}>
-                        <div style={{margin: '2px 0px 8px 10px'}}>
-                            <LT_menu_header fill={'#fff'} style={{height: 50}}/>
+                        <div style={{margin: '4px 0px 8px 10px'}}>
+                            <LPU_LOCKS_header fill={'#fff'} style={{height: 50}}/>
                         </div>
                     </MenuItem>
 
