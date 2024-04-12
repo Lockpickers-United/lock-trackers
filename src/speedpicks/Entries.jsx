@@ -35,7 +35,7 @@ function Entries() {
 
     const defExpanded = useDeferredValue(expanded)
 
-    if (!filters.pickerId) document.title = 'Lock Trackers - Speed Picks'
+    if (!filters.pickerId) document.title = 'LPU Locks - Speed Picks'
 
     const entries = useMemo(() => {
         // removed tab/search code

@@ -12,7 +12,7 @@ import SearchBox from '../nav/SearchBox.jsx'
 
 function EntriesLB() {
 
-    document.title = 'Lock Trackers - Lock Bazaar Browser'
+    document.title = 'LPU Locks - Lock Bazaar Browser'
 
     const {visibleEntries = []} = useContext(DataContext)
     const {expanded, setExpanded} = useContext(ListContext)

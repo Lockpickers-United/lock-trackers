@@ -34,9 +34,9 @@ function SellerProfileInline({listing, handleClose}) {
         : profile?.sellerShipsTo?.join(', ')
 
     if (profile?.username) {
-        document.title = `Lock Trackers - Seller ${profileName}`
+        document.title = `LPU Locks - Seller ${profileName}`
     } else {
-        document.title = 'Lock Trackers - Seller Profile'
+        document.title = 'LPU Locks - Seller Profile'
     }
 
     const sellerNoteLines = profile?.sellerNote

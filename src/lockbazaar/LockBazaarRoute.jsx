@@ -13,7 +13,7 @@ import {LBFilterFields} from '../data/filterFields'
 
 function LockBazaarRoute() {
 
-    document.title = 'Lock Trackers - Lock Bazaar Browser'
+    document.title = 'LPU Locks - Lock Bazaar Browser'
 
     return (
         <LoadingProvider>

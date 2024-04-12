@@ -13,7 +13,7 @@ import LockBazaarSellersMain from './LockBazaarSellersMain.jsx'
 
 function LockBazaarSellersRoute() {
 
-    document.title = 'Lock Trackers - Lock Bazaar Sellers'
+    document.title = 'LPU Locks - Lock Bazaar Sellers'
 
     return (
         <LoadingProvider>

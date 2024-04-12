@@ -17,7 +17,7 @@ function SpeedPicksRoute() {
 
     const nav = null
 
-    document.title = 'Lock Trackers - Speed Picks'
+    document.title = 'LPU Locks - Speed Picks'
 
     return (
         <DBSPProvider>

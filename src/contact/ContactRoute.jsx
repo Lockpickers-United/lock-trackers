@@ -7,7 +7,7 @@ import ContactMain from './ContactMain.jsx'
 
 function ContactRoute() {
 
-    document.title = 'Lock Trackers - Contact Us'
+    document.title = 'LPU Locks - Contact Us'
 
     return (
         <React.Fragment>

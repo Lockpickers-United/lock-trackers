@@ -6,7 +6,7 @@ import Tracker from '../app/Tracker.jsx'
 
 function PrivacyRoute() {
 
-    document.title = 'Lock Trackers - Privacy Policy'
+    document.title = 'LPU Locks - Privacy Policy'
 
     return (
         <React.Fragment>

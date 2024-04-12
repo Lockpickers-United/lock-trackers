@@ -12,7 +12,7 @@ function ProfileRoute() {
     const {authLoaded, isLoggedIn} = useContext(AuthContext)
     const {dbLoaded} = useContext(DBContext)
 
-    document.title = 'Lock Trackers - Edit Profile'
+    document.title = 'LPU Locks - Edit Profile'
 
     const nav = null
 

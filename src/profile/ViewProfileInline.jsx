@@ -24,9 +24,9 @@ function ViewProfileInline() {
     const profileName = profile?.username ? profile?.username : 'No matching profile.'
 
     if (profile?.username) {
-        document.title = `Lock Trackers - ${profile?.username}`
+        document.title = `LPU Locks - ${profile?.username}`
     } else {
-        document.title = 'Lock Trackers - View Profile'
+        document.title = 'LPU Locks - View Profile'
     }
 
     const profileLink = profile && lpuIdRegex.test(profile?.LPUBeltsProfile)

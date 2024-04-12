@@ -7,7 +7,7 @@ import CLMain from './CLMain.jsx'
 
 function ChallengeLocksRoute() {
 
-    document.title = 'Lock Trackers - Challenge Locks'
+    document.title = 'LPU Locks - Challenge Locks'
 
     return (
         <React.Fragment>
