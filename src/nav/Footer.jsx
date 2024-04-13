@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography'
 import ToggleBetaButton from './ToggleBetaButton'
 import ToggleColorMode from './ToggleColorMode'
 import AuthContext from '../app/AuthContext.jsx'
+import FirebaseTestButton from './FirebaseTestButton.jsx'
 
 function Footer({extras}) {
     const {user} = useContext(AuthContext)
@@ -25,6 +26,7 @@ function Footer({extras}) {
 
             <div style={{textAlign: 'center'}}>
                 <ToggleBetaButton/>
+                <FirebaseTestButton/>
                 <br/>
                 {user?.uid === 'ClbjuilBEHgbzO4UZl4y3GStlEz2' &&
                     <div style={{marginTop: '20px', display: 'flex', textAlign: 'center'}}>

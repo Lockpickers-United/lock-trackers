@@ -12,7 +12,7 @@ function VersionCheckerCode() {
     const checkVersion = async first => {
         //console.log('version: ', version)
         try {
-            const response = await fetch('./version.json', {cache: 'no-cache'})
+            const response = await fetch('/versionCode.json', {cache: 'no-cache'})
             const {version: newVersion} = (await response.json())
             if (first && !initial) {
                 setInitial(newVersion)

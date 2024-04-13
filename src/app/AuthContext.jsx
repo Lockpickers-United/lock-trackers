@@ -12,9 +12,23 @@ export function AuthProvider({children}) {
         const unregisterAuthObserver = auth.onAuthStateChanged(user => {
             setAuthLoaded(true)
             setUser(user)
+            console.log('user', user)
+
         })
         return () => unregisterAuthObserver()
     }, [])
+
+    useEffect(() => {
+        const foo = auth?.currentUser?.getIdTokenResult()
+            .then((idTokenResult) => {
+                // Confirm the user is an Admin.
+                console.log('token', idTokenResult.claims)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    })
+
 
     const login = useCallback(() => {
         const provider = new GoogleAuthProvider()

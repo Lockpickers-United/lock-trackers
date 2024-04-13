@@ -205,6 +205,49 @@ export function DBProvider({children}) {
         return profile.username
     }, [getProfile])
 
+
+    const [testDoc,setTestDoc] = useState({})
+
+    // TESTING SUBSCRIPTION //
+    useEffect(() => {
+        if (isLoggedIn) {
+            const ref = doc(db, 'testing', 'testDoc')
+            return onSnapshot(ref, async doc => {
+                const data = doc.data()
+                if (data) {
+                    setTestDoc(data)
+                } else {
+                    setTestDoc({})
+                }
+            }, error => {
+                console.error('Error listening to DB:', error)
+                enqueueSnackbar('There was a problem reading the test doc. It will be unavailable until you refresh the page. ', {
+                    autoHideDuration: null,
+                    action: <Button color='secondary' onClick={() => location.reload()}>Refresh</Button>
+                })
+            })
+        } else if (authLoaded) {
+            setTestDoc({})
+        }
+    }, [authLoaded, isLoggedIn, user])
+
+    const updateTestDoc = useCallback(async (value) => {
+        if (dbError) return false
+        const ref = doc(db, 'testing', 'testDoc')
+        try {
+            await runTransaction(db, async transaction => {
+                const delta = {testValue: value}
+                transaction.update(ref, delta)
+            })
+        } catch (e) {
+            console.log('error')
+            console.error(e)
+        }
+    }, [dbError])
+
+
+
+
 // VALUE & PROVIDER //
     const value = useMemo(() => ({
         dbLoaded,
@@ -215,7 +258,9 @@ export function DBProvider({children}) {
         updateProfile,
         getDbProfiles,
         getSellerProfiles,
-        newVersionAvailable
+        newVersionAvailable,
+        testDoc,
+        updateTestDoc
     }), [
         dbLoaded,
         getProfile,
@@ -225,7 +270,9 @@ export function DBProvider({children}) {
         profile,
         getDbProfiles,
         getSellerProfiles,
-        newVersionAvailable
+        newVersionAvailable,
+        testDoc,
+        updateTestDoc
     ])
 
     return (

@@ -19,6 +19,26 @@ export function LoadingProvider({children}) {
 
     const jsonLoaded = (!loading && !error && !!data)
 
+    /*
+    const [lockListingsX, setLockListingsX] = useState(null)
+
+    useEffect(() => {
+        // If you're using Create React App and the file is in the public folder
+        fetch('/listings.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok')
+                }
+                return response.json()
+            })
+            .then(data => setLockListingsX(data))
+            .catch(error => console.error('There has been a problem with your fetch operation:', error))
+    }, [])
+*/
+
+console.log('lockListings', lockListings)
+
+
     const {getSellerProfiles} = useContext(DBContext)
     const [sellerProfiles, setSellerProfiles] = useState(null)
     const [sellerIdMap, setSellerIdMap] = useState({})
