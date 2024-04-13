@@ -12,7 +12,7 @@ const ListingDetailsRow = ({listing, sellerView}) => {
     const divFlexStyle = !smallWindow ? {display: 'flex'} : {}
 
     const photoURL = listing.photo ? listing.photo : null
-    const re = /http.*:\/\/([\w|.]*)\//g
+    const re = /https?:\/\/([\w|.]*)\//g
     const photoLinkMatches = re.exec(photoURL)
     const photoLinkText = photoLinkMatches ? photoLinkMatches[1] : listing.photo
 
