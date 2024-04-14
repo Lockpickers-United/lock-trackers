@@ -56,7 +56,7 @@ const ListingDetailsRow = ({listing, sellerView}) => {
             </div>
             {listing.notes &&
                 <div style={{padding: '0px 20px 15px 20px', fontSize: '.85rem', textAlign: 'left'}}>
-                    notes: {listing.notes}
+                    {listing.notes} (Row {listing.rowNum+1})
                 </div>
             }
         </React.Fragment>
