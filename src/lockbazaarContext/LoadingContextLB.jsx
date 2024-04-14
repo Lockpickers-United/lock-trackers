@@ -99,7 +99,7 @@ export function LoadingProvider({children}) {
                 }
 
                 let samelineInt = parseInt(listing.samelineIndex)
-                if (isNaN(samelineInt)) {
+                if (isNaN(samelineInt) || !isLPUListing) {
                     samelineInt = null
                 }
 
@@ -108,7 +108,11 @@ export function LoadingProvider({children}) {
                     thisId = 'lb_' + genHexString(8)
                     thisLock.id = thisId
                     thisLock.belt = 'Unranked'
-                    thisLock.makeModels = [{make: listing.make, model: listing.model}]
+
+                    const thisMake = /\w+/.test(listing.make) ? listing.make : ''
+                    const thisModel = /\w+/.test(listing.model) ? listing.model : ''
+                    thisLock.makeModels =  [{make: thisMake, model: thisModel}]
+                    
                     const lockingMechanisms = listing.mechanism
                         ? listing.mechanism.split(',')
                         : null
