@@ -74,8 +74,8 @@ function SellerHowTo() {
 
                     <li style={{marginBottom: 10}}>
                         Sign up and create a profile with username at <a
-                        href={'https://beta.locktrackers.com/#/profile/edit'}>
-                        https://beta.locktrackers.com/#/profile/edit
+                        href={'https://lpulocks.com/#/profile/edit'}>
+                        https://lpulocks.com/#/profile/edit
                     </a>
                     </li>
 

@@ -5,7 +5,7 @@ import Front from './Front.jsx'
 
 function FrontRoute() {
 
-    document.title = 'LockTrackers.com'
+    document.title = 'LPUlocks.com'
 
     return (
         <React.Fragment>

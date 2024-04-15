@@ -20,7 +20,7 @@ function CopyProfileLinkButton() {
         : 'Private'
 
     const handleClick = useCallback(async () => {
-        const link = `https://locktrackers.com/#/speedpicks?pickerId=${pickerId}&name=${safeName}`
+        const link = `https://lpulocks.com/#/speedpicks?pickerId=${pickerId}&name=${safeName}`
 
         await navigator.clipboard.writeText(link)
         enqueueSnackbar('Link to profile copied to clipboard.')

@@ -49,7 +49,7 @@ function SellerProfileInline({listing, handleClose}) {
     const divFlexStyle = !breakSize ? {display: 'flex'} : {}
 
     const handleCopyLink = useCallback(async () => {
-        const link = `https://beta.locktrackers.com/#/lockbazaar?viewSeller=${thisSellerId}&name=${safeName}`
+        const link = `https://lpulocks.com/#/lockbazaar?viewSeller=${thisSellerId}&name=${safeName}`
         await navigator.clipboard.writeText(link)
         enqueueSnackbar('Link to seller copied to clipboard.')
     }, [safeName, thisSellerId])

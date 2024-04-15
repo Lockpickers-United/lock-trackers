@@ -6,7 +6,7 @@
     "repository": "https://github.com/Lockpickers-United/lock-trackers.git",
     "author": "mgsecure <mg@mgsecure.com>",
     "license": "Unlicense",
-    "homepage": "https://locktrackers.com/",
+    "homepage": "https://lpulocks.com/",
     "type": "module",
     "scripts": {
         "dev": "vite",

@@ -37,7 +37,7 @@ function ContactMain() {
                         marginTop: 20,
                         marginBottom: 15
                     }}>
-                        <a href='mailto:locktrackers@gmail.com'>locktrackers@gmail.com</a>
+                        <a href='mailto:lpulocks@gmail.com'>lpulocks@gmail.com</a>
                     </div>
                 </CardContent>
             </Card>
