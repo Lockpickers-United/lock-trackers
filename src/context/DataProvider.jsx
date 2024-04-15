@@ -12,6 +12,7 @@ import LoadingContext from './LoadingContext.jsx'
 import DBContext from '../app/DBContext.jsx'
 
 export function DataProvider({children}) {
+    const verbose = false
 
     const {user, isLoggedIn} = useContext(AuthContext)
     const {filters: allFilters} = useContext(FilterContext)
@@ -19,7 +20,7 @@ export function DataProvider({children}) {
     const {allEntries, allProfiles, allLocks} = useContext(LoadingContext)
     const {profile, adminFlags} = useContext(DBContext)
 
-    console.log('adminFlags: ', adminFlags)
+    verbose && console.log('adminFlags: ', adminFlags)
     //console.log('dp: ', allProfiles)
     //console.log('dp: ', allLocks)
 

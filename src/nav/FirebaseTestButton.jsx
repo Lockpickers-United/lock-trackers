@@ -7,8 +7,9 @@ import {enqueueSnackbar} from 'notistack'
 
 function FirebaseTestButton() {
 
+    const verbose = false
     const {testDoc, updateTestDoc} = useContext(DBContext)
-    console.log('testDoc', testDoc)
+    verbose && console.log('testDoc', testDoc)
 
     const handleSave = useCallback(async () => {
         try {
@@ -19,7 +20,6 @@ function FirebaseTestButton() {
             enqueueSnackbar('Error while updating testDoc', ex)
         }
     }, [updateTestDoc])
-
 
     return (
         <Tooltip title={'Test!'} arrow disableFocusListener>

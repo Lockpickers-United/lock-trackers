@@ -8,7 +8,7 @@ const LoadingContext = React.createContext({})
 const urls = {locksData, lockListings}
 
 export function LoadingProvider({children}) {
-
+    const verbose = false
     const {data, loading, error} = useData({urls})
     const {locksData, lockListings} = data || {}
 
@@ -25,7 +25,7 @@ export function LoadingProvider({children}) {
 
     const refreshData = useCallback(async () => {
         const dbProfiles = await getSellerProfiles()
-        console.log('sellers', dbProfiles)
+        verbose && console.log('sellers', dbProfiles)
 
         setSellerProfiles(dbProfiles)
 
@@ -35,8 +35,8 @@ export function LoadingProvider({children}) {
             }
         )
         setSellerIdMap(sellerIdMap)
-        console.log('sellerIdMap', sellerIdMap)
-    }, [getSellerProfiles])
+        verbose && console.log('sellerIdMap', sellerIdMap)
+    }, [getSellerProfiles, verbose])
     // eslint-disable-line
 
     // Initial data load
@@ -112,7 +112,7 @@ export function LoadingProvider({children}) {
                     const thisMake = /\w+/.test(listing.make) ? listing.make : ''
                     const thisModel = /\w+/.test(listing.model) ? listing.model : ''
                     thisLock.makeModels =  [{make: thisMake, model: thisModel}]
-                    
+
                     const lockingMechanisms = listing.mechanism
                         ? listing.mechanism.split(',')
                         : null
@@ -128,12 +128,12 @@ export function LoadingProvider({children}) {
                 }
 
                 if (!thisLock || !thisLock.makeModels) {
-                    console.log('no lock or makeModels', thisLock)
+                    console.error('no lock or makeModels', thisLock)
                     return false
                 }
 
                 if (!thisLock.makeModels[0].make && !thisLock.makeModels[0].model) {
-                    console.log('neither make nor model', thisLock)
+                    console.error('neither make nor model', thisLock)
                     return false
                 }
 
@@ -183,7 +183,7 @@ export function LoadingProvider({children}) {
         )
         : []
 
-    console.log('allListings', allListings)
+    verbose && console.log('allListings', allListings)
 
     const validListings = allListings.filter(listing => listing.isValid)
     //console.log('validListings', validListings)

@@ -12,7 +12,6 @@ import VersionCheckerLB from '../app/VersionCheckerLB.jsx'
 import Tracker from '../app/Tracker.jsx'
 
 function Nav({extras, route}) {
-    console.log(route)
     return (
         <React.Fragment>
             <AppBar position='fixed' sx={{boxShadow: 'none'}}>

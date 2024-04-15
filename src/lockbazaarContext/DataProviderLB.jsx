@@ -7,9 +7,11 @@ import fuzzysort from 'fuzzysort'
 import removeAccents from 'remove-accents'
 import LoadingContext from './LoadingContextLB.jsx'
 import belts, {beltSort, beltSortReverse} from '../data/belts'
+import AppContext from '../app/AppContext.jsx'
 
 export function DataProvider({children}) {
 
+    const {verbose} = useContext(AppContext)
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sellerId, sort, image, profileUpdated, ...filters} = allFilters
     const {allEntries, allLocks} = useContext(LoadingContext)
@@ -17,7 +19,7 @@ export function DataProvider({children}) {
     const lockBelts = useMemo(() => belts, [])
     const lockData = useMemo(() => allLocks, [allLocks])
 
-    console.log('lockData', lockData)
+    verbose && console.log('lockData', lockData)
 
     const getLockFromId = useCallback(lockId => {
         return lockData?.find(({id}) => id === lockId)
@@ -100,7 +102,7 @@ export function DataProvider({children}) {
                 }))
             : filtered
 
-        console.log('searched', searched)
+        verbose && console.log('searched', searched)
 
         return search
         ? searched
@@ -119,7 +121,7 @@ export function DataProvider({children}) {
                 }
             })
 
-    }, [filters, mappedEntries, search, sort])
+    }, [filters, mappedEntries, search, sort, verbose])
 
     const value = useMemo(() => ({
         lockBelts,

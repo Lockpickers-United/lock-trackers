@@ -7,23 +7,19 @@ const AppContext = React.createContext({})
 export function AppProvider({children}) {
     const {user} = useContext(AuthContext)
     const [beta, setBeta] = useLocalStorage('beta', true)
-    const [modMode, setModMode] = useLocalStorage('modMode', true)
 
     const handleSetBeta = useCallback(value => {
         setBeta(value)
     }, [setBeta])
 
-    const handleSetModMode = useCallback(value => {
-        setModMode(value)
-    }, [setModMode])
+    const verbose = false
 
     const value = useMemo(() => ({
         admin: adminUids.includes(user?.uid),
         beta,
         setBeta: handleSetBeta,
-        modMode,
-        setModMode: handleSetModMode
-    }), [user?.uid, beta, handleSetBeta, modMode, handleSetModMode])
+        verbose
+    }), [user?.uid, beta, handleSetBeta, verbose])
 
     return (
         <AppContext.Provider value={value}>

@@ -1,10 +1,12 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react'
 import {GoogleAuthProvider, signInWithPopup, signOut} from 'firebase/auth'
 import {auth} from '../auth/firebase'
+import AppContext from './AppContext.jsx'
 
 const AuthContext = React.createContext({})
 
 export function AuthProvider({children}) {
+    const {verbose} = useContext(AppContext)
     const [user, setUser] = useState({})
     const [authLoaded, setAuthLoaded] = useState(false)
 
@@ -12,20 +14,20 @@ export function AuthProvider({children}) {
         const unregisterAuthObserver = auth.onAuthStateChanged(user => {
             setAuthLoaded(true)
             setUser(user)
-            console.log('user', user)
+            verbose && console.log('user', user)
 
         })
         return () => unregisterAuthObserver()
-    }, [])
+    }, [verbose])
 
     useEffect(() => {
-        const foo = auth?.currentUser?.getIdTokenResult()
+        const foo = auth?.currentUser?.getIdTokenResult() // eslint-disable-line
             .then((idTokenResult) => {
                 // Confirm the user is an Admin.
-                console.log('token', idTokenResult.claims)
+                verbose && console.log('token', idTokenResult.claims)
             })
             .catch((error) => {
-                console.log(error)
+                console.error(error)
             })
     })
 
