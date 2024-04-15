@@ -173,6 +173,24 @@ function TopNav(route) {
                 </div>
             }
 
+            {!route.route &&
+                <div>
+                    <div style={{display: 'flex', marginTop: 9, padding: 0}}>
+                        <div style={{padding: 0}}>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/speedpicks')}>
+                                <SP_logo fill={spFill} style={{height: 30}}/>
+                            </Button>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/lockbazaar')}>
+                                <LB_logo fill={lbFill} style={{height: 30}}/>
+                            </Button>
+                        </div>
+                    </div>
+                    <div style={{height: 12}}/>
+                </div>
+            }
+
         </React.Fragment>
 
     )
