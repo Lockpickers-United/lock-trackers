@@ -13,13 +13,6 @@ import DataContext from '../context/DataContext'
 import {useTheme} from '@mui/material/styles'
 import useWindowSize from '../util/useWindowSize.jsx'
 import ErrorIcon from '@mui/icons-material/Error'
-import {makeStyles} from '@mui/styles'
-
-const useStyles = makeStyles({
-    alert : {
-        color: '#E15C07FF'
-    }
-})
 
 const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
@@ -110,9 +103,8 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
         ...divFlexStyle
     }
 
-    const classes = useStyles()
     const expandIcon = entry.status === 'rejected'
-        ? <ErrorIcon  className={classes.alert}/>
+        ? <ErrorIcon style={{color: '#E15C07FF'}}/>
         : <ExpandMoreIcon/>
 
     const timeString = entry.status === 'rejected'
