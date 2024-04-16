@@ -1,4 +1,4 @@
-const url = import.meta.env && import.meta.env.VITE_LOCAL_DATA === 'true'
+const url = import.meta.env && import.meta.env.VITE_LOCAL_DATA === 'true' //eslint-disable-line
     ? 'http://localhost:3000/data'
     : 'https://lpubelts.com'
 

@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState, useContext} from 'react'
+import React, {useCallback, useMemo, useContext} from 'react'
 import belts, {allBelts} from '../data/belts'
 import entryName from '../util/entryName'
 import formatTime from '../util/formatTime.jsx'
@@ -14,11 +14,11 @@ import DBContext from '../app/DBContext.jsx'
 export function DataProvider({children}) {
     const verbose = false
 
-    const {user, isLoggedIn} = useContext(AuthContext)
+    const {user} = useContext(AuthContext)
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sort, image, profileUpdated, ...filters} = allFilters
     const {allEntries, allProfiles, allLocks} = useContext(LoadingContext)
-    const {profile, adminFlags} = useContext(DBContext)
+    const {adminFlags} = useContext(DBContext)
 
     verbose && console.log('adminFlags: ', adminFlags)
     //console.log('dp: ', allProfiles)
@@ -29,94 +29,69 @@ export function DataProvider({children}) {
     const bestTimes = useMemo(() => new Map(), [])
     const isMod = !!adminFlags.isSPMod
     //const isMod = !!(user && profile && profile?.isMod)
-    const [updated, setUpdated] = useState(0)
 
     const validEntries = useMemo(() => {
-        return allEntries.map(entry => {
+        return allEntries && lockData
+            ? allEntries.map(entry => {
+                const lockId = entry?.lockId
+                const thisLock = lockData?.find(({id}) => id === lockId)
 
-            const lockId = entry?.lockId
-            const thisLock = lockData?.find(({id}) => id === lockId)
+                if (!thisLock) {
+                    entry.lock = 'Unknown Lock'
+                    entry.version = 'Lock ID not valid'
+                    entry.belt = 'Unknown'
+                    entry.beltIndex = 9
+                    entry.status = 'Pending'
+                } else {
+                    entry.lock = entryName(thisLock, 'short')
+                    entry.version = thisLock?.version
+                    entry.belt = thisLock?.belt
+                    entry.beltIndex = allBelts.indexOf(thisLock?.belt)
+                }
 
-            if (!thisLock) {
-                entry.lock = 'Unknown Lock'
-                entry.version = 'Lock ID not valid'
-                entry.belt = 'Unknown'
-                entry.beltIndex = 9
-                entry.status = 'Pending'
-            } else {
-                entry.lock = entryName(thisLock, 'short')
-                entry.version = thisLock?.version
-                entry.belt = thisLock?.belt
-                entry.beltIndex = allBelts.indexOf(thisLock?.belt)
-            }
+                const pickerId = entry.pickerId
+                entry.pickerName = allProfiles.find(({userId}) => userId === pickerId)
+                    ? allProfiles.find(({userId}) => userId === pickerId).username
+                    : ''
 
-            const pickerId = entry.pickerId
-            entry.pickerName = allProfiles.find(({userId}) => userId === pickerId)
-                ? allProfiles.find(({userId}) => userId === pickerId).username
-                : ''
+                const reviewerId = entry.reviewerId
+                entry.reviewerName = reviewerId && allProfiles.find(({userId}) => userId === reviewerId)
+                    ? allProfiles.find(({userId}) => userId === reviewerId).username
+                    : 'unknown'
 
-            const reviewerId = entry.reviewerId
-            entry.reviewerName = reviewerId && allProfiles.find(({userId}) => userId === reviewerId)
-                ? allProfiles.find(({userId}) => userId === reviewerId).username
-                : 'unknown'
+                const totalTime = (dayjs(entry.openTime) - dayjs(entry.startTime)) / 1000
+                entry.totalTime = totalTime
+                entry.totalTimeString = formatTime(totalTime)
 
-            const totalTime = (dayjs(entry.openTime) - dayjs(entry.startTime)) / 1000
-            entry.totalTime = totalTime
-            entry.totalTimeString = formatTime(totalTime)
+                if (bestTimes.get(lockId) && entry.status === 'approved') {
+                    const bestTime = totalTime > bestTimes.get(lockId) ? bestTimes.get(lockId) : totalTime
+                    bestTimes.set(lockId, bestTime)
+                } else if (entry.status === 'approved') {
+                    bestTimes.set(lockId, totalTime)
+                }
 
-            if (bestTimes.get(lockId) && entry.status === 'approved') {
-                const bestTime = totalTime > bestTimes.get(lockId) ? bestTimes.get(lockId) : totalTime
-                bestTimes.set(lockId, bestTime)
-            } else if (entry.status === 'approved') {
-                bestTimes.set(lockId, totalTime)
-            }
+                return entry
+            })
+            : []
+    }, [allEntries, allProfiles, lockData, bestTimes])
 
-            entry.forceUpdate = updated
+    const bestTimeMap = useMemo(() => {
+        return allEntries && lockData
+            ? allEntries.map(entry => {
+                const lockId = entry?.lockId
+                if (bestTimes.get(lockId) && entry.status === 'approved') {
+                    const bestTime = entry.totalTime > bestTimes.get(lockId) ? bestTimes.get(lockId) : entry.totalTime
+                    bestTimes.set(lockId, bestTime)
+                } else if (entry.status === 'approved') {
+                    bestTimes.set(lockId, entry.totalTime)
+                }
+            })
+            : []
 
-            return entry
-        })
-    }, [allEntries, allProfiles, lockData, bestTimes, updated])
+    }, [allEntries, lockData, bestTimes])
 
-    const mappedEntries = validEntries.map(entry => {
-        if (entry.totalTime === bestTimes.get(entry.lockId)) {
-            entry.isBest = 'true'
-        } else {
-            entry.isBest = 'false'
-        }
-        return entry
-    })
 
-    const getEntryFromId = useCallback(entryId => {
-        return allEntries?.find(({id}) => id === entryId)
-    }, [allEntries])
-
-    /*
-    console.log('userEntries: ', userEntries)
-    console.log('userEntriesApproved: ', userEntriesApproved)
-    console.log('profile?.approvedEntries: ',profile?.approvedEntries)
-    console.log('newApprovedEntries: ', newApprovedEntries)
-   */
-
-    const getLockFromId = useCallback(lockId => {
-        return lockData?.find(({id}) => id === lockId)
-    }, [lockData])
-
-    const getProfileFromId = useCallback(profileId => {
-        return allProfiles?.find(({userId}) => userId === profileId)
-    }, [allProfiles])
-
-    const getNameFromId = useCallback(id => {
-        const entry = getEntryFromId(id)
-        const lock = getLockFromId(entry.lockId)
-        if (lock) {
-            const {makeModels} = lock
-            const {make, model} = makeModels[0]
-            const makeModel = make && make !== model ? `${make} ${model}` : model
-            return makeModel.replace(/[\s/]/g, '_').replace(/\W/g, '')
-        }
-    }, [getEntryFromId, getLockFromId])
-
-    const visibleEntries = useMemo(() => {
+                const visibleEntries = useMemo(() => {
         // Filters as an array
         const filterArray = Object.keys(filters)
             .map(key => {
@@ -127,6 +102,18 @@ export function DataProvider({children}) {
             })
             .flat()
 
+        // map best times
+        const mappedEntries = validEntries
+            ? validEntries.map(entry => {
+                if (entry.totalTime === bestTimes.get(entry.lockId)) {
+                    entry.isBest = 'true'
+                } else {
+                    entry.isBest = 'false'
+                }
+                return entry
+            })
+            : []
+
         // Filter the data
         const filtered = mappedEntries
             .filter(datum => {
@@ -136,7 +123,7 @@ export function DataProvider({children}) {
                         : datum[key] === value
                 })
             })
-            .filter(datum => (datum.pickerId === user?.uid) || isMod || (datum.status !== 'pending' && datum.status !== 'rejected'))
+            .filter(datum => (datum.pickerId === user?.uid) || isMod || !['pending', 'deleted', 'rejected'].includes(datum.status))
             .filter(datum => datum.status !== 'deleted')
 
         // If there is a search term, fuzzy match that
@@ -182,25 +169,44 @@ export function DataProvider({children}) {
                     || a.totalTime - b.totalTime
             })
 
-    }, [filters, isMod, mappedEntries, search, sort, user?.uid])
+    }, [bestTimes, filters, isMod, search, sort, user?.uid, validEntries])
 
     const pendingEntries = useMemo(() => {
         return allEntries.filter(datum => datum.status === 'pending')
     }, [allEntries])
 
-    const DCUpdate = useCallback(value => {
-        setUpdated(value)
-    }, [])
+    const getEntryFromId = useCallback(entryId => {
+        return allEntries?.find(({id}) => id === entryId)
+    }, [allEntries])
+
+    const getLockFromId = useCallback(lockId => {
+        return lockData?.find(({id}) => id === lockId)
+    }, [lockData])
+
+    const getProfileFromId = useCallback(profileId => {
+        return allProfiles?.find(({userId}) => userId === profileId)
+    }, [allProfiles])
+
+    const getNameFromId = useCallback(id => {
+        const entry = getEntryFromId(id)
+        const lock = getLockFromId(entry.lockId)
+        if (lock) {
+            const {makeModels} = lock
+            const {make, model} = makeModels[0]
+            const makeModel = make && make !== model ? `${make} ${model}` : model
+            return makeModel.replace(/[\s/]/g, '_').replace(/\W/g, '')
+        }
+    }, [getEntryFromId, getLockFromId])
 
     const value = useMemo(() => ({
         lockBelts,
         lockData,
         bestTimes,
+        bestTimeMap,
         getLockFromId,
         getEntryFromId,
         getNameFromId,
         getProfileFromId,
-        DCUpdate,
         isMod,
         allEntries,
         visibleEntries,
@@ -209,11 +215,11 @@ export function DataProvider({children}) {
         lockBelts,
         lockData,
         bestTimes,
+        bestTimeMap,
         getLockFromId,
         getEntryFromId,
         getNameFromId,
         getProfileFromId,
-        DCUpdate,
         isMod,
         allEntries,
         visibleEntries,

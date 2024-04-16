@@ -18,7 +18,7 @@ import NoEntriesCard from './NoEntriesCard.jsx'
 
 function Entries() {
 
-    const {bestTimes, visibleEntries, allEntries, newApprovedEntries = []} = useContext(DataContext)
+    const {bestTimes, visibleEntries, allEntries = []} = useContext(DataContext)
     const {expanded, setExpanded} = useContext(ListContext)
     const {filters} = useContext(FilterContext)
     const {beta} = useContext(AppContext)

@@ -1,6 +1,5 @@
 import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react'
 import DBContext from '../app/DBContext.jsx'
-import skeletonData from '../speedpicks/skeletonData.json'
 import AuthContext from '../app/AuthContext.jsx'
 import useData from '../util/useData'
 import {locksData, jsonBackup} from '../data/dataUrls'
@@ -56,15 +55,17 @@ export function LoadingProvider({children}) {
         refreshData()
     }, [refreshData])
 
-    const allEntries = !allDataLoaded ? skeletonData.entry
+    const skeletonEntry = []
+    const allEntries = !allDataLoaded ? skeletonEntry
         : dbUser ? dbEntries
             : jsonEntries
 
-    const allProfiles = !allDataLoaded ? skeletonData.profile
+    const skeletonProfile = []
+    const allProfiles = !allDataLoaded ? skeletonProfile
         : dbUser ? dbProfiles
             : jsonProfiles
 
-    const skeletonLocks = skeletonData.lock
+    const skeletonLocks = []
     const allLocks = jsonLoaded ? locksData : skeletonLocks
 
     const value = useMemo(() => ({
