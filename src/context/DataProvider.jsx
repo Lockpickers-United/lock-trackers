@@ -90,48 +90,12 @@ export function DataProvider({children}) {
         return allEntries?.find(({id}) => id === entryId)
     }, [allEntries])
 
-
-    const userEntries = useMemo(() => {  // eslint-disable-line
-        if (!isLoggedIn) return []
-        const entryIds = []
-        mappedEntries.filter(datum => datum.pickerId === user?.uid)
-            .map(entry => {
-                entryIds.push(entry.id)
-            })
-        return entryIds
-    }, [isLoggedIn, mappedEntries, user?.uid])
-
-    const userEntriesApproved = useMemo(() => {
-        if (!isLoggedIn) return []
-        const entryIds = []
-        mappedEntries.filter(datum => datum.status === 'approved')
-            .filter(datum => datum.pickerId === user?.uid)
-            .map(entry => {
-                entryIds.push(entry.id)
-            })
-        return entryIds
-    }, [isLoggedIn, mappedEntries, user?.uid])
-
-    const newApprovedEntries = useMemo(() => {
-        if (!isLoggedIn) return []
-        const approvedEntries = profile?.approvedEntries
-            ? profile?.approvedEntries
-            : []
-        const entries = []
-        userEntriesApproved.map(id => {
-            if (!approvedEntries.includes(id)) {
-                entries.push(getEntryFromId(id))
-            }
-        })
-        return entries
-    }, [getEntryFromId, isLoggedIn, profile?.approvedEntries, userEntriesApproved])
-
-/*
+    /*
     console.log('userEntries: ', userEntries)
     console.log('userEntriesApproved: ', userEntriesApproved)
     console.log('profile?.approvedEntries: ',profile?.approvedEntries)
     console.log('newApprovedEntries: ', newApprovedEntries)
-*/
+   */
 
     const getLockFromId = useCallback(lockId => {
         return lockData?.find(({id}) => id === lockId)
@@ -240,8 +204,7 @@ export function DataProvider({children}) {
         isMod,
         allEntries,
         visibleEntries,
-        pendingEntries,
-        newApprovedEntries
+        pendingEntries
     }), [
         lockBelts,
         lockData,
@@ -254,8 +217,7 @@ export function DataProvider({children}) {
         isMod,
         allEntries,
         visibleEntries,
-        pendingEntries,
-        newApprovedEntries
+        pendingEntries
     ])
 
     return (

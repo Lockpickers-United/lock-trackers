@@ -15,8 +15,6 @@ import AppContext from '../app/AppContext.jsx'
 import ViewProfileInline from '../profile/ViewProfileInline.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import NoEntriesCard from './NoEntriesCard.jsx'
-import {Backdrop} from '@mui/material'
-import NewApprovedEntryAlert from './NewApprovedEntryAlert.jsx'
 
 function Entries() {
 
@@ -51,22 +49,8 @@ function Entries() {
     const theme = useTheme()
     const background = theme.palette.mode === 'dark' ? '#223' : '#ffffff'
 
-    //const [overlayIsOpen, setOverlayIsOpen] = useState(newApprovedEntries.length > 0)
-    const [overlayIsOpen, setOverlayIsOpen] = useState(false)
-    const handleOverlayClose = useCallback(() => {
-        setOverlayIsOpen(false)
-    }, [])
-    //const handleOverlayOpen = useCallback(() => { setOverlayIsOpen(true) }, [])
-
     return (
         <React.Fragment>
-            <Backdrop
-                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
-                open={overlayIsOpen} onClick={handleOverlayClose}
-            >
-                <NewApprovedEntryAlert newApprovedEntries={newApprovedEntries} bestTimes={bestTimes}/>
-            </Backdrop>
-
             <div style={{
                 minWidth: '320px', maxWidth: 800, height: '100%',
                 padding: pagePadding, backgroundColor: background,
