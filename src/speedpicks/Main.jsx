@@ -9,7 +9,7 @@ function Main() {
 
     const {filters} = useContext(FilterContext)
     const {refreshData, allDataLoaded} = useContext(LoadingContext)
-    const {visibleEntries,bestTimes} = useContext(DataContext)
+    const {visibleEntries} = useContext(DataContext)
 
     // refresh if username has changed
     if (filters['profileUpdated'] === 'true') {
@@ -23,7 +23,7 @@ function Main() {
             {(!allDataLoaded || !visibleEntries) &&
                 <EntriesSkeleton/>
             }
-            {(visibleEntries && allDataLoaded && bestTimes) &&
+            {(visibleEntries && allDataLoaded) &&
                 <Entries/>
             }
         </React.Fragment>
