@@ -24,7 +24,6 @@
         "@emotion/styled": "^11.11.0",
         "@mui/icons-material": "^5.15.4",
         "@mui/material": "^5.15.4",
-        "@mui/styles": "^5.15.14",
         "@mui/x-data-grid": "^7.0.0",
         "@mui/x-date-pickers": "^6.19.4",
         "dayjs": "^1.11.9",
