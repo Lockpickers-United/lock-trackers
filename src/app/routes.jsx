@@ -64,6 +64,13 @@ export default [
         }
     },
     {
+        path: '/reports',
+        lazy: async () => {
+            const {default: ReportsRoute} = await import('../reports/ReportsRoute')
+            return {element: <ReportsRoute/>}
+        }
+    },
+    {
         path: '*',
         loader: () => redirect('/lockbazaar')
     },
