@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {DataGrid} from '@mui/x-data-grid'
-import {Box} from '@mui/material'
+import {Box, Link} from '@mui/material'
 import useWindowSize from '../util/useWindowSize.jsx'
 
 function SellersDataGrid({sellerProfiles, listings}) {
@@ -10,8 +10,6 @@ function SellersDataGrid({sellerProfiles, listings}) {
     const totalListingCount = listings ? listings.length : 0
 
     const rows = sellerProfiles?.map((profile) => {
-
-        console.log(profile)
 
             const sellerListings = listings?.filter(({sellerName}) => sellerName === profile.username)
             return {
@@ -29,7 +27,12 @@ function SellersDataGrid({sellerProfiles, listings}) {
             field: 'username',
             headerName: 'Seller',
             width: 160,
-            editable: false
+            editable: false,
+            renderCell: (cellValues) => {
+                return <Link href={`/#/lockbazaar?sellerName=${cellValues.row.username}`} style={{textDecoration:'none'}}>
+                    {cellValues.row.username}
+                </Link>
+            }
         },
         {
             field: 'listingCount',
@@ -56,7 +59,6 @@ function SellersDataGrid({sellerProfiles, listings}) {
             width: 300,
             editable: false
         }
-
     ]
 
     const {width} = useWindowSize()

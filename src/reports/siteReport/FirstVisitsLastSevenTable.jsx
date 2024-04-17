@@ -22,7 +22,11 @@ const FirstVisitsLastSevenTable = ({data}) => {
     const tableWidth = 400
 
     return (
-        <AdminStatsTable tableData={firstVistsLastSevenDays} tableWidth={tableWidth} fontSize={fontSize}/>
+        <AdminStatsTable
+            tableData={firstVistsLastSevenDays}
+            tableWidth={tableWidth}
+            fontSize={fontSize}
+        />
     )
 }
 

@@ -22,8 +22,6 @@ function ListingsDataGrid({listings}) {
         }
     )
 
-    console.log('rows', rows)
-
     //const rows = validListings
     const columns = [
         {

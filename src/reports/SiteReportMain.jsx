@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import LoadingDisplay from '../util/LoadingDisplay'
 import useData from '../util/useData'
 import usePageTitle from '../util/usePageTitle'
@@ -10,6 +10,8 @@ import FirstVisitsLastSevenTable from './siteReport/FirstVisitsLastSevenTable'
 import PageTrackingTable from './siteReport/PageTrackingTable'
 import SiteReportSummary from './siteReport/SiteReportSummary'
 import PopularCountries from './siteReport/PopularCountries'
+import SellersDataGrid from '../lockbazaarSellers/SellersDataGrid.jsx'
+import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 
 function SiteReportMain() {
     usePageTitle('Site Report')
@@ -21,7 +23,7 @@ function SiteReportMain() {
         ? '24px 24px 32px 24px'
         : '8px 8px 32px 8px'
 
-    const firstHeaderStyle = {margin: '0px 0px 36px 0px', width: '100%', textAlign: 'center', color: '#fff'}
+    const firstHeaderStyle = {margin: '20px 0px 36px 0px', width: '100%', textAlign: 'center', color: '#fff'}
     const headerStyle = {margin: '46px 0px 18px 0px', width: '100%', textAlign: 'center', color: '#fff'}
     const summaryHeaderStyle = siteFull?.firstVistsLastSevenDays?.countryCount
         ? headerStyle
@@ -29,6 +31,9 @@ function SiteReportMain() {
 
     const updateTime = loading ? '--'
         : '(updated: ' + dayjs(siteFull?.metadata.updatedDateTime).format('MM/DD/YY hh:mm') + ` ${siteFull?.metadata.timezone})`
+
+
+    const {allDataLoaded, validListings, sellerProfiles} = useContext(LoadingContextLB)
 
     if (loading) return <LoadingDisplay/>
     else if (error) return null
@@ -39,6 +44,11 @@ function SiteReportMain() {
             marginLeft: 'auto', marginRight: 'auto',
             fontSize: '1.5rem', lineHeight: 0.8
         }}>
+
+            {!!allDataLoaded &&
+                <SellersDataGrid listings={validListings} sellerProfiles={sellerProfiles}/>
+            }
+
             {!!siteFull.firstVistsLastSevenDays.countryCount &&
                 <React.Fragment>
                     <div style={firstHeaderStyle}>First Visits (Last Seven Days)</div>
