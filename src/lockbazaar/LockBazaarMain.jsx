@@ -1,11 +1,15 @@
 import React, {useContext} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
-import LoadingDisplay from '../util/LoadingDisplay.jsx'
 
 import EntriesLB from './EntriesLB.jsx'
+import EntriesSkeletonLB from './EntriesSkeletonLB.jsx'
+
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import {useNavigate} from 'react-router-dom'
+import SellerProfileInline from './SellerProfileInline.jsx'
+import SortFilterBarLB from './SortFilterBarLB.jsx'
+import SearchBox from '../nav/SearchBox.jsx'
 
 function LockBazaarMain() {
     const {allDataLoaded, getSellerFromId} = useContext(LoadingContextLB)
@@ -30,13 +34,47 @@ function LockBazaarMain() {
 
     return (
         <div style={{
-            minWidth: '320px', maxWidth: 800, height: '100%',
+            minWidth: '320px', maxWidth: 720, height: '100%',
             padding: pagePadding, backgroundColor: '#223',
             marginLeft: 'auto', marginRight: 'auto',
             fontSize: '1.5rem', lineHeight: 0.8, textAlign: 'center'
         }}>
 
-            {!allDataLoaded && <LoadingDisplay/>}
+            {!Object.keys(filters).length &&
+                <React.Fragment>
+                    <div style={{
+                        fontSize: '1rem',
+                        lineHeight: '1.2rem',
+                        width: '100%',
+                        textAlign: 'left',
+                        marginTop: 10
+                    }}>
+                        These are user submitted lists of items for sale in
+                        the <a href={'https://discord.com/channels/140129091796992000/1109656237269860383'}
+                               target='_blank'
+                               rel='noopener noreferrer'>
+                        <nobr>#lock-bazaar</nobr>
+                    </a> channel on the Lockpickers United discord server.
+                        We are not vouching for the sellers, please take appropriate precautions as you would with any
+                        bazaar purchase.
+                        You&apos;ll find some handy tips for safe purchases
+                        in <a href={'https://discord.com/channels/140129091796992000/1111777295942828084'}
+                              target='_blank'
+                              rel='noopener noreferrer'>this post</a>.
+                        Sellers maintain &mdash; and are solely responsible for &mdash; all listings.
+                    </div>
+                </React.Fragment>
+            }
+
+            {filters.sellerName &&
+                <SellerProfileInline/>
+            }
+
+            <SortFilterBarLB/>
+
+            <SearchBox label='Listings'/>
+
+            {!allDataLoaded && <EntriesSkeletonLB/>}
             {allDataLoaded && <EntriesLB/>}
 
         </div>
