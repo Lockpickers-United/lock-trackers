@@ -9,6 +9,7 @@ import Nav_Contact from '../assets/Nav_Contact.jsx'
 import Nav_PrivacyPolicy from '../assets/Nav_PrivacyPolicy.jsx'
 import Nav_LockBazaar from '../assets/Nav_LockBazaar.jsx'
 import LB_logo from '../assets/LB_logo.jsx'
+import Nav_Reports from '../assets/Nav_Reports.jsx'
 
 function TopNav(route) {
 
@@ -24,6 +25,7 @@ function TopNav(route) {
     const clFill = location.pathname === '/challengelocks' ? '#fff' : '#777'
     const lbFill = location.pathname === '/lockbazaar' ? '#fff' : '#777'
     const lbsFill = location.pathname === '/lockbazaar/sellers' ? '#fff' : '#777'
+    const repFill = location.pathname === '/reports' ? '#fff' : '#777'
     const spFill = location.pathname === '/speedpicks' ? '#fff' : '#777'
     const prFill = location.pathname === '/profile/edit' ? '#fff' : '#777'
     const coFill = location.pathname === '/contact' ? '#fff' : '#777'
@@ -82,6 +84,27 @@ function TopNav(route) {
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: 30}}/>
+                            </Button>
+                        </div>
+                    </div>
+                    <div style={{height: 12}}/>
+                </div>
+            }
+
+            {route.route === 'rep' &&
+                <div>
+                    <div style={{display: 'flex', marginTop: 9, padding: 0}}>
+                        <div style={{padding: 0}}>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/lockbazaar')}>
+                                <LB_logo fill={lbFill} style={{height: 30}}/>
+                            </Button>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/speedpicks')}>
+                                <SP_logo fill={spFill} style={{height: 30}}/>
+                            </Button>
+                            <Button variant='text' style={buttonSyle}>
+                                <Nav_Reports fill={repFill} style={{height: 30}}/>
                             </Button>
                         </div>
                     </div>

@@ -5,8 +5,6 @@ import dayjs from 'dayjs'
 
 const SiteReportSummaryTable = ({fullData}) => {
 
-    console.log(fullData)
-
     const data = fullData.traffic28days
 
     const daysToReport = 28

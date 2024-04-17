@@ -12,7 +12,7 @@ function ReportsRoute() {
     return (
         <React.Fragment>
 
-            <Nav title='Site Report' route='co'/>
+            <Nav title='Site Report' route='rep'/>
             <SiteReportMain/>
             <Footer/>
             <Tracker feature='sitereport'/>
