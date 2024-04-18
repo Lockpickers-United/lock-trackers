@@ -27,7 +27,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const {user, isLoggedIn} = useContext(AuthContext)
     const {profile} = useContext(DBContext)
     const {updateEntry} = useContext(DBContextSP)
-    const {DCUpdate, isMod = []} = useContext(DataContext)
+    const {isMod = []} = useContext(DataContext)
     const {refreshData} = useContext(LoadingContext)
 
     const isNew = !entry
@@ -49,7 +49,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const lockVersion = lock ? lock.version : ''
     const lockBelt = lock ? lock.belt : ''
     const lockRegex = useMemo(() => /id=(\w{8})/, [])
-    const [bestTime, setBestTime] = useState(entry ? bestTimes.get(lockId) : 0)
+    const [bestTime, setBestTime] = useState(entry ? bestTimes.lockId : 0)
 
     const processURL = useCallback(event => {
         const {value} = event.target
@@ -124,7 +124,6 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
             toggleOpen()
             endEdit()
         }
-        DCUpdate()
         entriesUpdate()
     }
 

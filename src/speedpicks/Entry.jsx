@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
@@ -9,7 +9,6 @@ import BeltStripe from './BeltStripe.jsx'
 import queryString from 'query-string'
 import EntryDetails from './EntryDetails.jsx'
 import EditEntry from './EditEntry.jsx'
-import DataContext from '../context/DataContext'
 import {useTheme} from '@mui/material/styles'
 import useWindowSize from '../util/useWindowSize.jsx'
 import ErrorIcon from '@mui/icons-material/Error'
@@ -17,8 +16,6 @@ import ErrorIcon from '@mui/icons-material/Error'
 const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
     //TODO: handle no lock matching ID (or null)
-
-    const {DCUpdate = []} = useContext(DataContext)
 
     const [editing, setEditing] = useState(false)
 
@@ -50,9 +47,8 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
     const endEdit = useCallback(() => {
         setEditing(false)
-        DCUpdate()
         entriesUpdate()
-    }, [DCUpdate, entriesUpdate])
+    }, [entriesUpdate])
 
     const handleChange = useCallback((_, isExpanded) => {
         onExpand && onExpand(isExpanded ? entry?.id : false)

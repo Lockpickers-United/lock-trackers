@@ -16,7 +16,7 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
     const {user} = useContext(AuthContext)
     const {refreshData} = useContext(LoadingContext)
 
-    const {DCUpdate, isMod = []} = useContext(DataContext)
+    const {isMod = []} = useContext(DataContext)
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
     const handleOpen = useCallback(event => setAnchorEl(event.currentTarget), [])
@@ -29,9 +29,8 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
         await updateEntry(entry)
         enqueueSnackbar(`Entry ${entry.status}.`)
         refreshData()
-        DCUpdate(Math.random())
         entriesUpdate(Math.random())
-    }, [DCUpdate, entriesUpdate, entry, refreshData, updateEntry, user?.uid])
+    }, [entriesUpdate, entry, refreshData, updateEntry, user?.uid])
 
     const deleteEntry = useCallback(async () => {
         entry.status = 'deleted'
@@ -40,9 +39,8 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
         await updateEntry(entry)
         enqueueSnackbar('Entry deleted.')
         refreshData()
-        DCUpdate(Math.random())
         entriesUpdate(Math.random())
-    }, [DCUpdate, entriesUpdate, entry, refreshData, updateEntry, user?.uid])
+    }, [entriesUpdate, entry, refreshData, updateEntry, user?.uid])
 
     const {width} = useWindowSize()
     const mobileLarge428 = width <= 428
