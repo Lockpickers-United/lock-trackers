@@ -17,21 +17,20 @@ export function DataProvider({children}) {
     const {user} = useContext(AuthContext)
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sort, image, profileUpdated, ...filters} = allFilters
-    const {allEntries, allProfiles, allLocks} = useContext(LoadingContext)
+    const {allEntries, allProfiles, allLocks, allDataLoaded} = useContext(LoadingContext)
     const {adminFlags} = useContext(DBContext)
 
     verbose && console.log('adminFlags: ', adminFlags)
     //console.log('dp: ', allProfiles)
     //console.log('dp: ', allLocks)
 
-    const lockBelts = useMemo(() => belts, [])
-    const lockData = useMemo(() => allLocks, [allLocks])
-    const bestTimes = useMemo(() => new Map(), [])
+    const lockBelts = belts
+    const lockData = allLocks
     const isMod = !!adminFlags.isSPMod
     //const isMod = !!(user && profile && profile?.isMod)
 
     const validEntries = useMemo(() => {
-        return allEntries && lockData
+        return (allEntries && allDataLoaded && lockData)
             ? allEntries.map(entry => {
                 const lockId = entry?.lockId
                 const thisLock = lockData?.find(({id}) => id === lockId)
@@ -63,35 +62,26 @@ export function DataProvider({children}) {
                 entry.totalTime = totalTime
                 entry.totalTimeString = formatTime(totalTime)
 
-                if (bestTimes.get(lockId) && entry.status === 'approved') {
-                    const bestTime = totalTime > bestTimes.get(lockId) ? bestTimes.get(lockId) : totalTime
-                    bestTimes.set(lockId, bestTime)
-                } else if (entry.status === 'approved') {
-                    bestTimes.set(lockId, totalTime)
-                }
-
                 return entry
             })
             : []
-    }, [allEntries, allProfiles, lockData, bestTimes])
+    }, [allEntries, allDataLoaded, lockData, allProfiles])
 
-    const bestTimeMap = useMemo(() => {
-        return allEntries && lockData
-            ? allEntries.map(entry => {
-                const lockId = entry?.lockId
-                if (bestTimes.get(lockId) && entry.status === 'approved') {
-                    const bestTime = entry.totalTime > bestTimes.get(lockId) ? bestTimes.get(lockId) : entry.totalTime
-                    bestTimes.set(lockId, bestTime)
-                } else if (entry.status === 'approved') {
-                    bestTimes.set(lockId, entry.totalTime)
-                }
-            })
-            : []
-
-    }, [allEntries, lockData, bestTimes])
+    const bestTimes = useMemo(() => {
+            return allEntries && lockData
+                ? allEntries
+                    .filter(({status}) => status === 'approved')
+                    .reduce((acc, {lockId, totalTime}) => {
+                        if (!acc[lockId] || totalTime < acc[lockId]) {
+                            acc[lockId] = totalTime
+                        }
+                        return acc
+                    }, {})
+                : {}
+        }, [allEntries, lockData])
 
 
-                const visibleEntries = useMemo(() => {
+    const visibleEntries = useMemo(() => {
         // Filters as an array
         const filterArray = Object.keys(filters)
             .map(key => {
@@ -103,9 +93,9 @@ export function DataProvider({children}) {
             .flat()
 
         // map best times
-        const mappedEntries = validEntries
+        const mappedEntries = validEntries && bestTimes
             ? validEntries.map(entry => {
-                if (entry.totalTime === bestTimes.get(entry.lockId)) {
+                if (entry.totalTime === bestTimes[entry.lockId]) {
                     entry.isBest = 'true'
                 } else {
                     entry.isBest = 'false'
@@ -171,6 +161,8 @@ export function DataProvider({children}) {
 
     }, [bestTimes, filters, isMod, search, sort, user?.uid, validEntries])
 
+    verbose && console.log('visibleEntries', visibleEntries)
+
     const pendingEntries = useMemo(() => {
         return allEntries.filter(datum => datum.status === 'pending')
     }, [allEntries])
@@ -202,7 +194,6 @@ export function DataProvider({children}) {
         lockBelts,
         lockData,
         bestTimes,
-        bestTimeMap,
         getLockFromId,
         getEntryFromId,
         getNameFromId,
@@ -215,7 +206,6 @@ export function DataProvider({children}) {
         lockBelts,
         lockData,
         bestTimes,
-        bestTimeMap,
         getLockFromId,
         getEntryFromId,
         getNameFromId,
@@ -225,6 +215,8 @@ export function DataProvider({children}) {
         visibleEntries,
         pendingEntries
     ])
+
+    if (!allDataLoaded) return null
 
     return (
         <DataContext.Provider value={value}>

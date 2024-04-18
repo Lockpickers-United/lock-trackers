@@ -6,22 +6,15 @@ import Entry from './Entry.jsx'
 import NewEntry from './NewEntry.jsx'
 import SortFilterBar from './SortFilterBar.jsx'
 import {useTheme} from '@mui/material/styles'
-import Accordion from '@mui/material/Accordion'
-import AccordionSummary from '@mui/material/AccordionSummary'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import AccordionDetails from '@mui/material/AccordionDetails'
-import JsonDisplay from '../util/JsonDisplay.jsx'
-import AppContext from '../app/AppContext.jsx'
 import ViewProfileInline from '../profile/ViewProfileInline.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import NoEntriesCard from './NoEntriesCard.jsx'
 
 function Entries() {
 
-    const {bestTimes, visibleEntries, allEntries = []} = useContext(DataContext)
+    const {bestTimes, visibleEntries = []} = useContext(DataContext)
     const {expanded, setExpanded} = useContext(ListContext)
     const {filters} = useContext(FilterContext)
-    const {beta} = useContext(AppContext)
 
     const [view, setView] = useState('all')
     const [updated, setUpdated] = useState(0)
@@ -76,19 +69,6 @@ function Entries() {
 
                 {entries?.length === 0 &&
                     <NoEntriesCard view={view} setView={setView}/>
-                }
-                {beta &&
-                    <div>
-                        <div style={{height: 40}}/>
-                        <Accordion style={{width: '100%'}}>
-                            <AccordionSummary expandIcon={<ExpandMoreIcon/>} style={{fontSize: '1.0rem'}}>
-                                SPEEDPICKS DATA
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <JsonDisplay json={allEntries} jsonName={'allEntries (json + calculated)'}/>
-                            </AccordionDetails>
-                        </Accordion>
-                    </div>
                 }
             </div>
         </React.Fragment>

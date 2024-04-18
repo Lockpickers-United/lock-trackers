@@ -24,8 +24,8 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
     const theme = useTheme()
 
-    entry.bestTime = formatTime(bestTimes.get(entry.lockId))
-    const isBestTime = entry.totalTime === bestTimes.get(entry.lockId)
+    entry.bestTime = formatTime(bestTimes[entry.lockId])
+    const isBestTime = entry.totalTime === bestTimes[entry.lockId]
     const entryColor = entry.status === 'pending'
         ? theme.palette.error.light
         : entry.status === 'rejected'

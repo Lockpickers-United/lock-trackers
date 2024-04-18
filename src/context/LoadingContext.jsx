@@ -55,18 +55,15 @@ export function LoadingProvider({children}) {
         refreshData()
     }, [refreshData])
 
-    const skeletonEntry = []
-    const allEntries = !allDataLoaded ? skeletonEntry
-        : dbUser ? dbEntries
-            : jsonEntries
+    const allEntries = dbUser
+        ? dbEntries
+        : jsonEntries
 
-    const skeletonProfile = []
-    const allProfiles = !allDataLoaded ? skeletonProfile
-        : dbUser ? dbProfiles
-            : jsonProfiles
+    const allProfiles = dbUser
+        ? dbProfiles
+        : jsonProfiles
 
-    const skeletonLocks = []
-    const allLocks = jsonLoaded ? locksData : skeletonLocks
+    const allLocks = locksData
 
     const value = useMemo(() => ({
         allEntries,
@@ -81,6 +78,8 @@ export function LoadingProvider({children}) {
         allDataLoaded,
         refreshData
     ])
+
+    if (!allDataLoaded) return null
 
     return (
         <LoadingContext.Provider value={value}>

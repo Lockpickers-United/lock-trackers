@@ -1,22 +1,164 @@
 {
+   "trafficTotals" : {
+      "browser" : [
+         {
+            "id" : "Chrome",
+            "label" : "Chrome",
+            "value" : "1294"
+         },
+         {
+            "id" : "Safari",
+            "label" : "Safari",
+            "value" : "462"
+         },
+         {
+            "id" : "Firefox",
+            "value" : "413",
+            "label" : "Firefox"
+         },
+         {
+            "value" : "32",
+            "label" : "Edge",
+            "id" : "Edge"
+         },
+         {
+            "id" : "Samsung",
+            "label" : "Samsung",
+            "value" : "27"
+         },
+         {
+            "label" : "Opera",
+            "value" : "13",
+            "id" : "Opera"
+         },
+         {
+            "id" : "Other",
+            "label" : "Other",
+            "value" : 2
+         }
+      ],
+      "platform" : [
+         {
+            "label" : "Mac OS X",
+            "value" : "724",
+            "id" : "Mac OS X"
+         },
+         {
+            "id" : "Android",
+            "value" : "446",
+            "label" : "Android"
+         },
+         {
+            "label" : "Linux",
+            "value" : "375",
+            "id" : "Linux"
+         },
+         {
+            "id" : "iOS",
+            "value" : "349",
+            "label" : "iOS"
+         },
+         {
+            "id" : "Win10.0",
+            "value" : "342",
+            "label" : "Win10.0"
+         },
+         {
+            "id" : "Other",
+            "label" : "Other",
+            "value" : 7
+         }
+      ]
+   },
+   "lockViewsByBelt" : {
+      "description" : "Lock Views By Belt",
+      "data" : [
+         {
+            "label" : "White",
+            "value" : 0.013,
+            "id" : "White"
+         },
+         {
+            "id" : "Yellow",
+            "label" : "Yellow",
+            "value" : 0.018
+         },
+         {
+            "id" : "Orange",
+            "value" : 0.013,
+            "label" : "Orange"
+         },
+         {
+            "value" : 0.065,
+            "label" : "Green",
+            "id" : "Green"
+         },
+         {
+            "id" : "Blue",
+            "value" : 0.137,
+            "label" : "Blue"
+         },
+         {
+            "id" : "Purple",
+            "value" : 0.145,
+            "label" : "Purple"
+         },
+         {
+            "id" : "Brown",
+            "value" : 0.105,
+            "label" : "Brown"
+         },
+         {
+            "id" : "Red",
+            "label" : "Red",
+            "value" : 0.079
+         },
+         {
+            "id" : "Black",
+            "value" : 0.174,
+            "label" : "Black"
+         },
+         {
+            "value" : 0.048,
+            "label" : "Unranked",
+            "id" : "Unranked"
+         }
+      ]
+   },
    "lockViews" : [
       {
+         "id" : "Lock Views",
          "data" : [
             {
-               "x" : "2024-04-01",
-               "y" : "220"
+               "y" : "220",
+               "x" : "2024-04-01"
             },
             {
-               "x" : "2024-04-08",
-               "y" : "775"
+               "y" : "775",
+               "x" : "2024-04-08"
             }
-         ],
-         "id" : "Lock Views"
+         ]
       }
    ],
+   "totals" : {
+      "data" : [
+         {
+            "label" : "Site Vists",
+            "value" : 2243
+         },
+         {
+            "label" : "Lock Views",
+            "value" : 1660
+         },
+         {
+            "value" : 35,
+            "label" : "Countries"
+         }
+      ],
+      "description" : "Since Launch"
+   },
    "hourlyRequests" : [
       {
-         "id" : "User Time",
          "data" : [
             {
                "y" : "43",
@@ -27,48 +169,48 @@
                "y" : "56"
             },
             {
-               "y" : "146",
-               "x" : "2 am"
+               "x" : "2 am",
+               "y" : "146"
             },
             {
                "x" : "3 am",
                "y" : "103"
             },
             {
-               "y" : "180",
-               "x" : "4 am"
+               "x" : "4 am",
+               "y" : "180"
             },
             {
-               "y" : "255",
-               "x" : "5 am"
+               "x" : "5 am",
+               "y" : "255"
             },
             {
-               "y" : "313",
-               "x" : "6 am"
+               "x" : "6 am",
+               "y" : "313"
             },
             {
-               "y" : "438",
-               "x" : "7 am"
+               "x" : "7 am",
+               "y" : "438"
             },
             {
-               "x" : "8 am",
-               "y" : "337"
+               "y" : "337",
+               "x" : "8 am"
             },
             {
                "y" : "646",
                "x" : "9 am"
             },
             {
-               "x" : "10 am",
-               "y" : "239"
+               "y" : "239",
+               "x" : "10 am"
             },
             {
-               "x" : "11 am",
-               "y" : "246"
+               "y" : "246",
+               "x" : "11 am"
             },
             {
-               "x" : "noon",
-               "y" : "275"
+               "y" : "275",
+               "x" : "noon"
             },
             {
                "x" : "1 pm",
@@ -79,12 +221,12 @@
                "x" : "2 pm"
             },
             {
-               "x" : "3 pm",
-               "y" : "481"
+               "y" : "481",
+               "x" : "3 pm"
             },
             {
-               "y" : "563",
-               "x" : "4 pm"
+               "x" : "4 pm",
+               "y" : "563"
             },
             {
                "y" : "374",
@@ -103,28 +245,30 @@
                "y" : "311"
             },
             {
-               "y" : "257",
-               "x" : "9 pm"
+               "x" : "9 pm",
+               "y" : "257"
             },
             {
                "y" : "235",
                "x" : "10 pm"
             },
             {
-               "y" : "42",
-               "x" : "11 pm"
+               "x" : "11 pm",
+               "y" : "42"
             }
-         ]
+         ],
+         "id" : "User Time"
       },
       {
+         "id" : "Server Time",
          "data" : [
             {
-               "x" : "midnight",
-               "y" : "201"
+               "y" : "201",
+               "x" : "midnight"
             },
             {
-               "x" : "1 am",
-               "y" : "119"
+               "y" : "119",
+               "x" : "1 am"
             },
             {
                "x" : "2 am",
@@ -139,28 +283,28 @@
                "x" : "4 am"
             },
             {
-               "y" : "138",
-               "x" : "5 am"
+               "x" : "5 am",
+               "y" : "138"
             },
             {
-               "y" : "189",
-               "x" : "6 am"
+               "x" : "6 am",
+               "y" : "189"
             },
             {
-               "x" : "7 am",
-               "y" : "438"
+               "y" : "438",
+               "x" : "7 am"
             },
             {
                "x" : "8 am",
                "y" : "359"
             },
             {
-               "x" : "9 am",
-               "y" : "399"
+               "y" : "399",
+               "x" : "9 am"
             },
             {
-               "x" : "10 am",
-               "y" : "318"
+               "y" : "318",
+               "x" : "10 am"
             },
             {
                "x" : "11 am",
@@ -171,20 +315,20 @@
                "x" : "noon"
             },
             {
-               "y" : "254",
-               "x" : "1 pm"
+               "x" : "1 pm",
+               "y" : "254"
             },
             {
                "y" : "419",
                "x" : "2 pm"
             },
             {
-               "y" : "457",
-               "x" : "3 pm"
+               "x" : "3 pm",
+               "y" : "457"
             },
             {
-               "x" : "4 pm",
-               "y" : "455"
+               "y" : "455",
+               "x" : "4 pm"
             },
             {
                "x" : "5 pm",
@@ -211,30 +355,12 @@
                "y" : "337"
             },
             {
-               "x" : "11 pm",
-               "y" : "190"
+               "y" : "190",
+               "x" : "11 pm"
             }
-         ],
-         "id" : "Server Time"
+         ]
       }
    ],
-   "totals" : {
-      "description" : "Since Launch",
-      "data" : [
-         {
-            "value" : 2243,
-            "label" : "Site Vists"
-         },
-         {
-            "value" : 1660,
-            "label" : "Lock Views"
-         },
-         {
-            "value" : 35,
-            "label" : "Countries"
-         }
-      ]
-   },
    "dailyAverages" : {
       "data" : [
          {
@@ -242,140 +368,14 @@
             "value" : 23
          },
          {
-            "value" : 80,
-            "label" : "Visits"
+            "label" : "Visits",
+            "value" : 80
          },
          {
-            "label" : "Lock Views",
-            "value" : 59
+            "value" : 59,
+            "label" : "Lock Views"
          }
       ],
       "description" : "Daily Averages"
-   },
-   "trafficTotals" : {
-      "browser" : [
-         {
-            "value" : "1294",
-            "label" : "Chrome",
-            "id" : "Chrome"
-         },
-         {
-            "value" : "462",
-            "label" : "Safari",
-            "id" : "Safari"
-         },
-         {
-            "value" : "413",
-            "label" : "Firefox",
-            "id" : "Firefox"
-         },
-         {
-            "value" : "32",
-            "label" : "Edge",
-            "id" : "Edge"
-         },
-         {
-            "value" : "27",
-            "label" : "Samsung",
-            "id" : "Samsung"
-         },
-         {
-            "value" : "13",
-            "id" : "Opera",
-            "label" : "Opera"
-         },
-         {
-            "id" : "Other",
-            "label" : "Other",
-            "value" : 2
-         }
-      ],
-      "platform" : [
-         {
-            "value" : "724",
-            "label" : "Mac OS X",
-            "id" : "Mac OS X"
-         },
-         {
-            "value" : "446",
-            "label" : "Android",
-            "id" : "Android"
-         },
-         {
-            "value" : "375",
-            "id" : "Linux",
-            "label" : "Linux"
-         },
-         {
-            "value" : "349",
-            "id" : "iOS",
-            "label" : "iOS"
-         },
-         {
-            "value" : "342",
-            "id" : "Win10.0",
-            "label" : "Win10.0"
-         },
-         {
-            "value" : 7,
-            "id" : "Other",
-            "label" : "Other"
-         }
-      ]
-   },
-   "lockViewsByBelt" : {
-      "description" : "Lock Views By Belt",
-      "data" : [
-         {
-            "value" : 0.013,
-            "label" : "White",
-            "id" : "White"
-         },
-         {
-            "value" : 0.018,
-            "id" : "Yellow",
-            "label" : "Yellow"
-         },
-         {
-            "id" : "Orange",
-            "label" : "Orange",
-            "value" : 0.013
-         },
-         {
-            "value" : 0.065,
-            "label" : "Green",
-            "id" : "Green"
-         },
-         {
-            "value" : 0.137,
-            "id" : "Blue",
-            "label" : "Blue"
-         },
-         {
-            "value" : 0.145,
-            "id" : "Purple",
-            "label" : "Purple"
-         },
-         {
-            "id" : "Brown",
-            "label" : "Brown",
-            "value" : 0.105
-         },
-         {
-            "value" : 0.079,
-            "label" : "Red",
-            "id" : "Red"
-         },
-         {
-            "label" : "Black",
-            "id" : "Black",
-            "value" : 0.174
-         },
-         {
-            "id" : "Unranked",
-            "label" : "Unranked",
-            "value" : 0.048
-         }
-      ]
    }
 }

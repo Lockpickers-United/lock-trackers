@@ -32,7 +32,7 @@ function SortFilterBar({view, setView}) {
     }, [addFilter])
 
     const handleDateSort = useCallback(value => () => {
-        const newSort = value === 'dateAsc' ? 'dateDesc' : 'dateAsc'
+        const newSort = value === 'dateDesc' ? 'dateAsc' : 'dateDesc'
         setDateSort(newSort)
         setTimeout(() => addFilter('sort', newSort, true), 0)
     }, [addFilter])
