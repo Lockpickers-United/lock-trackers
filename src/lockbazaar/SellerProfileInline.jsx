@@ -40,7 +40,7 @@ function SellerProfileInline({listing, handleClose}) {
     }
 
     const sellerNoteLines = profile?.sellerNote
-        ? profile?.sellerNote?.split('.')
+        ? profile?.sellerNote?.split('..')
         : null
 
     const fieldValueStyle = {margin: '15px 30px 0px 0px', fontSize: '1rem', lineHeight: '1.1rem'}
