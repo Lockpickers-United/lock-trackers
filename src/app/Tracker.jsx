@@ -7,7 +7,7 @@ function Tracker({feature, ...extraParams}) {
     const file = files[feature] || 'lt.gif'
     const ref = document.referrer || 'none'
     const query = querystring.stringify({trk: feature, r: randomStuff, w: screen.width, ref, ...extraParams})
-    const url = `https://data.locktrackers.com/i/${file}?${query}`
+    const url = `https://data.lpulocks.com/i/${file}?${query}`
     return <img alt='LPU Locks' src={url} width={0} height={0}/>
 }
 
