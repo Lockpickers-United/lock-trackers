@@ -12,6 +12,7 @@ import SiteReportSummary from './siteReport/SiteReportSummary'
 import PopularCountries from './siteReport/PopularCountries'
 import SellersDataGrid from '../lockbazaarSellers/SellersDataGrid.jsx'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
+import TopLocksTable from './siteReport/TopLocksTable.jsx'
 
 function SiteReportMain() {
     usePageTitle('Site Report')
@@ -67,6 +68,9 @@ function SiteReportMain() {
 
             <div style={headerStyle}>Page Tracking</div>
             <PageTrackingTable data={siteFull}/>
+
+            <div style={headerStyle}>Top 50 Locks</div>
+            <TopLocksTable data={siteFull}/>
 
             {!!siteFull.popularCountries1 &&
                 <React.Fragment>

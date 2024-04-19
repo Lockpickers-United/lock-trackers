@@ -1,683 +1,137 @@
 {
-   "screenWidths" : {
-      "data" : [
-         {
-            "lockViews" : 243,
-            "width" : 360,
-            "welcomeViews" : 116
-         },
-         {
-            "welcomeViews" : 206,
-            "width" : 390,
-            "lockViews" : 189
-         },
-         {
-            "welcomeViews" : 23,
-            "lockViews" : 140,
-            "width" : 384
-         },
-         {
-            "width" : 1920,
-            "lockViews" : 133,
-            "welcomeViews" : 224
-         },
-         {
-            "welcomeViews" : 134,
-            "width" : 834,
-            "lockViews" : 120
-         },
-         {
-            "lockViews" : 106,
-            "width" : 412,
-            "welcomeViews" : 96
-         },
-         {
-            "welcomeViews" : 17,
-            "width" : 414,
-            "lockViews" : 102
-         },
-         {
-            "width" : 2560,
-            "lockViews" : 83,
-            "welcomeViews" : 81
-         },
-         {
-            "width" : 393,
-            "lockViews" : 82,
-            "welcomeViews" : 47
-         },
-         {
-            "lockViews" : 76,
-            "width" : 1440,
-            "welcomeViews" : 475
-         },
-         {
-            "width" : 375,
-            "lockViews" : 58,
-            "welcomeViews" : 54
-         },
-         {
-            "width" : 3840,
-            "lockViews" : 46,
-            "welcomeViews" : 326
-         },
-         {
-            "lockViews" : 37,
-            "width" : 428,
-            "welcomeViews" : 14
-         },
-         {
-            "width" : 385,
-            "lockViews" : 34,
-            "welcomeViews" : 16
-         },
-         {
-            "lockViews" : 34,
-            "width" : 1536,
-            "welcomeViews" : 11
-         },
-         {
-            "lockViews" : 29,
-            "width" : 3072,
-            "welcomeViews" : 30
-         },
-         {
-            "welcomeViews" : 4,
-            "lockViews" : 23,
-            "width" : 418
-         },
-         {
-            "welcomeViews" : 14,
-            "width" : 430,
-            "lockViews" : 22
-         },
-         {
-            "welcomeViews" : 41,
-            "width" : 432,
-            "lockViews" : 20
-         },
-         {
-            "welcomeViews" : 21,
-            "lockViews" : 17,
-            "width" : 376
-         },
-         {
-            "lockViews" : 17,
-            "width" : 388,
-            "welcomeViews" : 72
-         },
-         {
-            "lockViews" : 17,
-            "width" : 1728,
-            "welcomeViews" : 2
-         },
-         {
-            "width" : 320,
-            "lockViews" : 6,
-            "welcomeViews" : 9
-         },
-         {
-            "welcomeViews" : 4,
-            "width" : 2048,
-            "lockViews" : 5
-         },
-         {
-            "welcomeViews" : 1,
-            "width" : 3440,
-            "lockViews" : 4
-         },
-         {
-            "lockViews" : 4,
-            "width" : 1297,
-            "welcomeViews" : 1
-         },
-         {
-            "lockViews" : 3,
-            "width" : 448,
-            "welcomeViews" : 5
-         },
-         {
-            "width" : 820,
-            "lockViews" : 3,
-            "welcomeViews" : 1
-         },
-         {
-            "lockViews" : 3,
-            "width" : 810,
-            "welcomeViews" : 2
-         },
-         {
-            "welcomeViews" : 2,
-            "lockViews" : 2,
-            "width" : 2563
-         },
-         {
-            "lockViews" : 1,
-            "width" : 1927,
-            "welcomeViews" : 3
-         },
-         {
-            "welcomeViews" : 32,
-            "lockViews" : 1,
-            "width" : 1194
-         }
-      ],
+   "popularCountries1" : {
+      "title" : "",
       "columns" : [
          {
-            "name" : "Screen Width",
-            "id" : "width",
+            "name" : "Rank",
+            "align" : "center",
+            "id" : "rank"
+         },
+         {
+            "id" : "area",
+            "name" : "Area",
             "align" : "left"
-         },
-         {
-            "align" : "center",
-            "id" : "lockViews",
-            "name" : "Lock Views"
-         },
-         {
-            "align" : "center",
-            "id" : "welcomeViews",
-            "name" : "Welcome Views"
-         }
-      ],
-      "title" : ""
-   },
-   "traffic28days" : {
-      "data" : [
-         {
-            "date" : "2024-04-03",
-            "weekend" : 0,
-            "lockViews" : 20,
-            "visits" : 0,
-            "dateString" : "04/03",
-            "visitors" : 8
-         },
-         {
-            "lockViews" : 20,
-            "visits" : 0,
-            "weekend" : 0,
-            "date" : "2024-04-04",
-            "dateString" : "04/04",
-            "visitors" : 31
-         },
-         {
-            "dateString" : "04/05",
-            "visitors" : 34,
-            "weekend" : 0,
-            "date" : "2024-04-05",
-            "lockViews" : 31,
-            "visits" : 0
-         },
-         {
-            "lockViews" : 12,
-            "visits" : 0,
-            "date" : "2024-04-06",
-            "weekend" : 1,
-            "visitors" : 14,
-            "dateString" : "04/06"
-         },
-         {
-            "visitors" : 40,
-            "dateString" : "04/07",
-            "date" : "2024-04-07",
-            "weekend" : 1,
-            "lockViews" : 137,
-            "visits" : 0
-         },
-         {
-            "lockViews" : 138,
-            "visits" : 49,
-            "date" : "2024-04-08",
-            "weekend" : 0,
-            "dateString" : "04/08",
-            "visitors" : 48
-         },
-         {
-            "lockViews" : 167,
-            "visits" : 171,
-            "weekend" : 0,
-            "date" : "2024-04-09",
-            "visitors" : 33,
-            "dateString" : "04/09"
-         },
-         {
-            "dateString" : "04/10",
-            "visitors" : 47,
-            "weekend" : 0,
-            "date" : "2024-04-10",
-            "lockViews" : 82,
-            "visits" : 175
-         },
-         {
-            "visitors" : 50,
-            "dateString" : "04/11",
-            "lockViews" : 65,
-            "visits" : 391,
-            "date" : "2024-04-11",
-            "weekend" : 0
-         },
-         {
-            "dateString" : "04/12",
-            "visitors" : 30,
-            "date" : "2024-04-12",
-            "weekend" : 0,
-            "lockViews" : 67,
-            "visits" : 414
-         },
-         {
-            "date" : "2024-04-13",
-            "weekend" : 1,
-            "visits" : 199,
-            "lockViews" : 122,
-            "dateString" : "04/13",
-            "visitors" : 56
-         },
-         {
-            "weekend" : 1,
-            "date" : "2024-04-14",
-            "lockViews" : 134,
-            "visits" : 209,
-            "dateString" : "04/14",
-            "visitors" : 52
-         },
-         {
-            "lockViews" : 410,
-            "visits" : 395,
-            "date" : "2024-04-15",
-            "weekend" : 0,
-            "dateString" : "04/15",
-            "visitors" : 118
-         },
-         {
-            "visits" : 240,
-            "lockViews" : 255,
-            "date" : "2024-04-16",
-            "weekend" : 0,
-            "dateString" : "04/16",
-            "visitors" : 72
-         }
-      ],
-      "columns" : [
-         {
-            "align" : "hidden",
-            "id" : "weekend",
-            "name" : "Weekend"
-         },
-         {
-            "name" : "Date",
-            "id" : "date",
-            "align" : "left"
-         },
-         {
-            "name" : "Date",
-            "align" : "left",
-            "id" : "dateString"
-         },
-         {
-            "name" : "Visitors",
-            "align" : "center",
-            "id" : "visitors"
          },
          {
             "id" : "visits",
             "align" : "center",
             "name" : "Visits"
-         },
-         {
-            "align" : "center",
-            "id" : "lockViews",
-            "name" : "Views"
          }
       ],
-      "title" : ""
-   },
-   "popularCountries1" : {
       "data" : [
          {
-            "visits" : 1369,
-            "area" : "United States",
-            "rank" : 1
+            "visits" : 1363,
+            "rank" : 1,
+            "area" : "United States"
          },
          {
-            "visits" : 509,
+            "visits" : 504,
             "area" : "Germany",
             "rank" : 2
          },
          {
-            "area" : "United Kingdom",
+            "visits" : 109,
             "rank" : 3,
-            "visits" : 98
+            "area" : "United Kingdom"
          },
          {
-            "visits" : 58,
-            "rank" : 4,
-            "area" : "Australia"
+            "visits" : 59,
+            "area" : "Australia",
+            "rank" : 4
          },
          {
-            "visits" : 56,
             "area" : "Netherlands",
-            "rank" : 5
+            "rank" : 5,
+            "visits" : 59
          },
          {
-            "area" : "Portugal",
+            "visits" : 40,
             "rank" : 6,
-            "visits" : 38
+            "area" : "Portugal"
          },
          {
-            "visits" : 31,
+            "rank" : 7,
             "area" : "Canada",
-            "rank" : 7
+            "visits" : 36
          },
          {
-            "visits" : 10,
+            "rank" : 8,
             "area" : "Saudi Arabia",
-            "rank" : 8
+            "visits" : 10
          },
          {
+            "area" : "Bulgaria",
             "rank" : 9,
-            "area" : "Hungary",
-            "visits" : 8
+            "visits" : 9
          },
          {
-            "visits" : 8,
+            "rank" : 10,
             "area" : "Italy",
-            "rank" : 10
+            "visits" : 9
          },
          {
-            "visits" : 6,
+            "visits" : 7,
             "rank" : 11,
-            "area" : "Bulgaria"
+            "area" : "Hungary"
          },
          {
-            "rank" : 12,
             "area" : "Spain",
+            "rank" : 12,
+            "visits" : 7
+         },
+         {
+            "area" : "Ireland",
+            "rank" : 13,
             "visits" : 6
          },
          {
-            "area" : "Japan",
-            "rank" : 13,
-            "visits" : 5
-         },
-         {
-            "rank" : 14,
-            "area" : "Poland",
-            "visits" : 5
-         },
-         {
-            "rank" : 15,
-            "area" : "Finland",
-            "visits" : 4
-         },
-         {
-            "visits" : 4,
-            "rank" : 16,
-            "area" : "Georgia"
-         },
-         {
-            "visits" : 4,
-            "area" : "Ireland",
-            "rank" : 17
-         },
-         {
-            "rank" : 18,
-            "area" : "Austria",
-            "visits" : 3
-         }
-      ],
-      "columns" : [
-         {
-            "name" : "Rank",
-            "id" : "rank",
-            "align" : "center"
-         },
-         {
-            "id" : "area",
-            "align" : "left",
-            "name" : "Area"
-         },
-         {
-            "align" : "center",
-            "id" : "visits",
-            "name" : "Visits"
-         }
-      ],
-      "title" : ""
-   },
-   "firstVistsLastSevenDays" : {
-      "countryCount" : 17,
-      "data" : [
-         {
-            "visits" : 1,
-            "firstVisit" : "04/11/24",
-            "country" : "Bangladesh"
-         },
-         {
-            "visits" : 4,
-            "firstVisit" : "04/11/24",
-            "country" : "Ireland"
-         },
-         {
-            "visits" : 10,
-            "country" : "Saudi Arabia",
-            "firstVisit" : "04/11/24"
-         },
-         {
             "visits" : 5,
-            "country" : "Japan",
-            "firstVisit" : "04/12/24"
+            "rank" : 14,
+            "area" : "Poland"
          },
          {
-            "country" : "Denmark",
-            "firstVisit" : "04/13/24",
-            "visits" : 2
+            "visits" : 4,
+            "rank" : 15,
+            "area" : "Finland"
          },
          {
-            "country" : "Hong Kong",
-            "firstVisit" : "04/13/24",
-            "visits" : 2
-         },
-         {
-            "visits" : 38,
-            "country" : "Portugal",
-            "firstVisit" : "04/13/24"
-         },
-         {
-            "country" : "United States",
-            "firstVisit" : "04/13/24",
-            "visits" : 1369
-         },
-         {
-            "visits" : 1,
-            "country" : "India",
-            "firstVisit" : "04/14/24"
-         },
-         {
-            "country" : "Italy",
-            "firstVisit" : "04/14/24",
-            "visits" : 8
-         },
-         {
-            "firstVisit" : "04/15/24",
-            "country" : "Austria",
-            "visits" : 3
-         },
-         {
-            "visits" : 6,
-            "country" : "Bulgaria",
-            "firstVisit" : "04/15/24"
-         },
-         {
-            "visits" : 1,
-            "firstVisit" : "04/15/24",
-            "country" : "Jamaica"
-         },
-         {
-            "firstVisit" : "04/15/24",
-            "country" : "Romania",
-            "visits" : 1
-         },
-         {
-            "firstVisit" : "04/16/24",
-            "country" : "Costa Rica",
-            "visits" : 1
-         },
-         {
-            "country" : "Georgia",
-            "firstVisit" : "04/16/24",
+            "area" : "Georgia",
+            "rank" : 16,
             "visits" : 4
          },
-         {
-            "country" : "Taiwan",
-            "firstVisit" : "04/16/24",
-            "visits" : 1
-         }
-      ],
-      "title" : "",
-      "columns" : [
-         {
-            "name" : "Country",
-            "id" : "country",
-            "align" : "left"
-         },
-         {
-            "align" : "center",
-            "id" : "firstVisit",
-            "name" : "First Visit"
-         },
-         {
-            "id" : "visits",
-            "align" : "center",
-            "name" : "Visits"
-         }
-      ]
-   },
-   "popularCountries2" : {
-      "columns" : [
-         {
-            "name" : "Rank",
-            "id" : "rank",
-            "align" : "center"
-         },
-         {
-            "id" : "area",
-            "align" : "left",
-            "name" : "Area"
-         },
-         {
-            "align" : "center",
-            "id" : "visits",
-            "name" : "Visits"
-         }
-      ],
-      "data" : [
          {
             "visits" : 3,
-            "rank" : 20,
-            "area" : "Sweden"
+            "rank" : 17,
+            "area" : "Austria"
          },
          {
-            "area" : "Denmark",
-            "rank" : 21,
-            "visits" : 2
+            "visits" : 3,
+            "area" : "Japan",
+            "rank" : 18
          },
          {
-            "rank" : 22,
-            "area" : "Hong Kong",
-            "visits" : 2
-         },
-         {
-            "visits" : 2,
-            "rank" : 23,
-            "area" : "Israel"
-         },
-         {
-            "rank" : 24,
-            "area" : "Bahamas",
-            "visits" : 1
-         },
-         {
-            "rank" : 25,
-            "area" : "Bangladesh",
-            "visits" : 1
-         },
-         {
-            "area" : "Costa Rica",
-            "rank" : 26,
-            "visits" : 1
-         },
-         {
-            "visits" : 1,
-            "area" : "Croatia",
-            "rank" : 27
-         },
-         {
-            "rank" : 28,
-            "area" : "France",
-            "visits" : 1
-         },
-         {
-            "visits" : 1,
-            "rank" : 29,
-            "area" : "India"
-         },
-         {
-            "rank" : 30,
-            "area" : "Jamaica",
-            "visits" : 1
-         },
-         {
-            "visits" : 1,
-            "area" : "Romania",
-            "rank" : 31
-         },
-         {
-            "rank" : 32,
-            "area" : "Russian Federation",
-            "visits" : 1
-         },
-         {
-            "area" : "Serbia",
-            "rank" : 33,
-            "visits" : 1
-         },
-         {
-            "visits" : 1,
-            "area" : "Slovakia",
-            "rank" : 34
-         },
-         {
-            "visits" : 1,
-            "area" : "Switzerland",
-            "rank" : 35
-         },
-         {
-            "visits" : 1,
-            "area" : "Taiwan",
-            "rank" : 36
-         },
-         {
-            "visits" : 1,
-            "area" : "Ukraine",
-            "rank" : 37
+            "visits" : 3,
+            "area" : "Sweden",
+            "rank" : 19
          }
       ]
    },
    "pageTracking" : {
-      "title" : "",
       "columns" : [
          {
-            "align" : "left",
             "id" : "date",
+            "align" : "left",
             "name" : "Date"
          },
          {
             "align" : "center",
-            "id" : "lockbazaar",
-            "name" : "Lock Bazaar"
+            "name" : "Lock Bazaar",
+            "id" : "lockbazaar"
          },
          {
-            "name" : "Speed Picks",
+            "id" : "speedpicks",
             "align" : "center",
-            "id" : "speedpicks"
+            "name" : "Speed Picks"
          },
          {
             "id" : "editprofile",
@@ -685,181 +139,1065 @@
             "name" : "Edit Profile"
          },
          {
+            "id" : "challengelocks",
             "name" : "Challeng Locks",
-            "align" : "center",
-            "id" : "challengelocks"
-         },
-         {
-            "id" : "other",
-            "align" : "center",
-            "name" : "Other"
-         },
-         {
-            "name" : "Error",
-            "id" : "error",
             "align" : "center"
          },
          {
-            "id" : "total",
+            "name" : "Other",
             "align" : "center",
-            "name" : "Total"
+            "id" : "other"
+         },
+         {
+            "align" : "center",
+            "name" : "Error",
+            "id" : "error"
+         },
+         {
+            "id" : "total",
+            "name" : "Total",
+            "align" : "center"
          }
       ],
+      "title" : "",
       "data" : [
          {
+            "speedpicks" : 33,
+            "editprofile" : 15,
+            "lockbazaar" : 73,
+            "date" : "04/05/24",
+            "total" : 146,
+            "error" : 25,
+            "other" : 0,
+            "challengelocks" : 0
+         },
+         {
+            "speedpicks" : 22,
+            "editprofile" : 3,
+            "lockbazaar" : 10,
+            "date" : "04/06/24",
+            "error" : 2,
             "total" : 37,
-            "error" : 0,
-            "lockbazaar" : 26,
-            "editprofile" : 0,
-            "speedpicks" : 11,
-            "date" : "04/03/24",
             "challengelocks" : 0,
             "other" : 0
          },
          {
-            "other" : 0,
-            "challengelocks" : 1,
-            "speedpicks" : 48,
-            "date" : "04/04/24",
-            "editprofile" : 17,
-            "lockbazaar" : 69,
-            "error" : 9,
-            "total" : 144
-         },
-         {
-            "date" : "04/05/24",
-            "speedpicks" : 33,
-            "challengelocks" : 0,
-            "other" : 0,
-            "lockbazaar" : 73,
-            "editprofile" : 15,
-            "error" : 25,
-            "total" : 146
-         },
-         {
-            "speedpicks" : 22,
-            "date" : "04/06/24",
-            "other" : 0,
-            "challengelocks" : 0,
-            "lockbazaar" : 10,
-            "editprofile" : 3,
-            "error" : 2,
-            "total" : 37
-         },
-         {
-            "error" : 25,
-            "total" : 220,
-            "challengelocks" : 4,
-            "other" : 0,
             "date" : "04/07/24",
+            "total" : 220,
+            "error" : 25,
+            "other" : 0,
+            "challengelocks" : 4,
             "speedpicks" : 69,
             "editprofile" : 11,
             "lockbazaar" : 111
          },
          {
-            "editprofile" : 4,
-            "lockbazaar" : 93,
+            "date" : "04/08/24",
+            "error" : 12,
+            "total" : 139,
             "challengelocks" : 1,
             "other" : 0,
             "speedpicks" : 29,
-            "date" : "04/08/24",
-            "total" : 139,
-            "error" : 12
+            "editprofile" : 4,
+            "lockbazaar" : 93
          },
          {
-            "total" : 171,
             "error" : 13,
-            "editprofile" : 13,
-            "lockbazaar" : 103,
-            "other" : 0,
+            "total" : 171,
+            "date" : "04/09/24",
             "challengelocks" : 2,
+            "other" : 0,
             "speedpicks" : 40,
-            "date" : "04/09/24"
+            "lockbazaar" : 103,
+            "editprofile" : 13
          },
          {
+            "date" : "04/10/24",
+            "error" : 9,
+            "total" : 175,
             "challengelocks" : 5,
             "other" : 0,
-            "date" : "04/10/24",
             "speedpicks" : 65,
             "editprofile" : 13,
-            "lockbazaar" : 83,
-            "error" : 9,
-            "total" : 175
+            "lockbazaar" : 83
          },
          {
-            "lockbazaar" : 178,
-            "editprofile" : 20,
-            "date" : "04/11/24",
             "speedpicks" : 135,
-            "other" : 0,
-            "challengelocks" : 3,
+            "editprofile" : 20,
+            "lockbazaar" : 178,
+            "date" : "04/11/24",
+            "error" : 52,
             "total" : 388,
-            "error" : 52
-         },
-         {
-            "challengelocks" : 9,
-            "other" : 20,
-            "date" : "04/12/24",
-            "speedpicks" : 179,
-            "editprofile" : 15,
-            "lockbazaar" : 161,
-            "error" : 19,
-            "total" : 403
-         },
-         {
-            "editprofile" : 1,
-            "lockbazaar" : 133,
-            "other" : 0,
             "challengelocks" : 3,
-            "speedpicks" : 62,
-            "date" : "04/13/24",
-            "total" : 199,
-            "error" : 0
+            "other" : 0
          },
          {
-            "editprofile" : 3,
+            "other" : 10,
+            "challengelocks" : 5,
+            "total" : 238,
+            "error" : 19,
+            "date" : "04/12/24",
+            "lockbazaar" : 87,
+            "editprofile" : 10,
+            "speedpicks" : 107
+         },
+         {
+            "speedpicks" : 39,
+            "lockbazaar" : 101,
+            "editprofile" : 1,
+            "total" : 143,
+            "error" : 0,
+            "date" : "04/13/24",
+            "other" : 0,
+            "challengelocks" : 2
+         },
+         {
             "lockbazaar" : 126,
+            "editprofile" : 3,
+            "speedpicks" : 22,
             "other" : 0,
             "challengelocks" : 0,
-            "speedpicks" : 22,
-            "date" : "04/14/24",
             "total" : 210,
-            "error" : 59
+            "error" : 59,
+            "date" : "04/14/24"
          },
          {
+            "lockbazaar" : 255,
+            "editprofile" : 12,
+            "speedpicks" : 101,
             "challengelocks" : 6,
             "other" : 2,
-            "date" : "04/15/24",
-            "speedpicks" : 101,
-            "editprofile" : 12,
-            "lockbazaar" : 255,
             "error" : 20,
-            "total" : 396
+            "total" : 396,
+            "date" : "04/15/24"
          },
          {
-            "lockbazaar" : 138,
             "editprofile" : 3,
+            "lockbazaar" : 138,
             "speedpicks" : 86,
-            "date" : "04/16/24",
             "challengelocks" : 4,
             "other" : 0,
-            "total" : 240,
-            "error" : 9
+            "date" : "04/16/24",
+            "error" : 9,
+            "total" : 240
          },
          {
-            "total" : 2905,
-            "error" : 254,
-            "lockbazaar" : 1559,
-            "editprofile" : 130,
-            "speedpicks" : 902,
+            "speedpicks" : 36,
+            "editprofile" : 5,
+            "lockbazaar" : 151,
+            "date" : "04/17/24",
+            "error" : 9,
+            "total" : 217,
+            "challengelocks" : 3,
+            "other" : 13
+         },
+         {
+            "challengelocks" : 0,
+            "other" : 2,
+            "error" : 0,
+            "total" : 24,
+            "date" : "04/18/24",
+            "lockbazaar" : 16,
+            "editprofile" : 1,
+            "speedpicks" : 5
+         },
+         {
+            "speedpicks" : 789,
+            "editprofile" : 114,
+            "lockbazaar" : 1525,
             "date" : "total",
-            "challengelocks" : 38,
-            "other" : 22
+            "error" : 254,
+            "total" : 2744,
+            "challengelocks" : 35,
+            "other" : 27
          }
       ]
    },
+   "traffic28days" : {
+      "data" : [
+         {
+            "weekend" : 0,
+            "visitors" : 8,
+            "lockViews" : 20,
+            "dateString" : "04/03",
+            "date" : "2024-04-03",
+            "visits" : 0
+         },
+         {
+            "visitors" : 31,
+            "weekend" : 0,
+            "lockViews" : 20,
+            "visits" : 0,
+            "date" : "2024-04-04",
+            "dateString" : "04/04"
+         },
+         {
+            "lockViews" : 31,
+            "visitors" : 34,
+            "weekend" : 0,
+            "visits" : 0,
+            "date" : "2024-04-05",
+            "dateString" : "04/05"
+         },
+         {
+            "weekend" : 1,
+            "visitors" : 14,
+            "lockViews" : 12,
+            "dateString" : "04/06",
+            "date" : "2024-04-06",
+            "visits" : 0
+         },
+         {
+            "visitors" : 40,
+            "weekend" : 1,
+            "lockViews" : 137,
+            "visits" : 0,
+            "date" : "2024-04-07",
+            "dateString" : "04/07"
+         },
+         {
+            "dateString" : "04/08",
+            "date" : "2024-04-08",
+            "visits" : 49,
+            "lockViews" : 138,
+            "weekend" : 0,
+            "visitors" : 48
+         },
+         {
+            "weekend" : 0,
+            "visitors" : 33,
+            "lockViews" : 167,
+            "dateString" : "04/09",
+            "date" : "2024-04-09",
+            "visits" : 171
+         },
+         {
+            "lockViews" : 82,
+            "visitors" : 47,
+            "weekend" : 0,
+            "date" : "2024-04-10",
+            "visits" : 175,
+            "dateString" : "04/10"
+         },
+         {
+            "weekend" : 0,
+            "visitors" : 50,
+            "lockViews" : 65,
+            "dateString" : "04/11",
+            "visits" : 391,
+            "date" : "2024-04-11"
+         },
+         {
+            "lockViews" : 34,
+            "visitors" : 30,
+            "weekend" : 0,
+            "visits" : 250,
+            "date" : "2024-04-12",
+            "dateString" : "04/12"
+         },
+         {
+            "dateString" : "04/13",
+            "date" : "2024-04-13",
+            "visits" : 143,
+            "lockViews" : 102,
+            "weekend" : 1,
+            "visitors" : 56
+         },
+         {
+            "weekend" : 1,
+            "visitors" : 52,
+            "lockViews" : 134,
+            "dateString" : "04/14",
+            "date" : "2024-04-14",
+            "visits" : 209
+         },
+         {
+            "weekend" : 0,
+            "visitors" : 118,
+            "lockViews" : 410,
+            "dateString" : "04/15",
+            "date" : "2024-04-15",
+            "visits" : 395
+         },
+         {
+            "date" : "2024-04-16",
+            "visits" : 240,
+            "dateString" : "04/16",
+            "visitors" : 72,
+            "weekend" : 0,
+            "lockViews" : 255
+         },
+         {
+            "lockViews" : 180,
+            "weekend" : 0,
+            "visitors" : 99,
+            "dateString" : "04/17",
+            "date" : "2024-04-17",
+            "visits" : 216
+         },
+         {
+            "lockViews" : 28,
+            "visitors" : 18,
+            "weekend" : 0,
+            "visits" : 24,
+            "date" : "2024-04-18",
+            "dateString" : "04/18"
+         }
+      ],
+      "columns" : [
+         {
+            "align" : "hidden",
+            "name" : "Weekend",
+            "id" : "weekend"
+         },
+         {
+            "align" : "left",
+            "name" : "Date",
+            "id" : "date"
+         },
+         {
+            "name" : "Date",
+            "align" : "left",
+            "id" : "dateString"
+         },
+         {
+            "id" : "visitors",
+            "name" : "Visitors",
+            "align" : "center"
+         },
+         {
+            "name" : "Visits",
+            "align" : "center",
+            "id" : "visits"
+         },
+         {
+            "align" : "center",
+            "name" : "Views",
+            "id" : "lockViews"
+         }
+      ],
+      "title" : ""
+   },
+   "popularCountries2" : {
+      "data" : [
+         {
+            "rank" : 21,
+            "area" : "Denmark",
+            "visits" : 2
+         },
+         {
+            "visits" : 2,
+            "area" : "Hong Kong",
+            "rank" : 22
+         },
+         {
+            "visits" : 2,
+            "area" : "Israel",
+            "rank" : 23
+         },
+         {
+            "area" : "Taiwan",
+            "rank" : 24,
+            "visits" : 2
+         },
+         {
+            "visits" : 1,
+            "area" : "Bahamas",
+            "rank" : 25
+         },
+         {
+            "visits" : 1,
+            "area" : "Bangladesh",
+            "rank" : 26
+         },
+         {
+            "visits" : 1,
+            "area" : "Belgium",
+            "rank" : 27
+         },
+         {
+            "rank" : 28,
+            "area" : "Costa Rica",
+            "visits" : 1
+         },
+         {
+            "area" : "Croatia",
+            "rank" : 29,
+            "visits" : 1
+         },
+         {
+            "rank" : 30,
+            "area" : "France",
+            "visits" : 1
+         },
+         {
+            "rank" : 31,
+            "area" : "India",
+            "visits" : 1
+         },
+         {
+            "rank" : 32,
+            "area" : "Jamaica",
+            "visits" : 1
+         },
+         {
+            "area" : "Luxembourg",
+            "rank" : 33,
+            "visits" : 1
+         },
+         {
+            "visits" : 1,
+            "rank" : 34,
+            "area" : "Romania"
+         },
+         {
+            "visits" : 1,
+            "area" : "Russian Federation",
+            "rank" : 35
+         },
+         {
+            "area" : "Serbia",
+            "rank" : 36,
+            "visits" : 1
+         },
+         {
+            "rank" : 37,
+            "area" : "Singapore",
+            "visits" : 1
+         },
+         {
+            "visits" : 1,
+            "area" : "Slovakia",
+            "rank" : 38
+         },
+         {
+            "rank" : 39,
+            "area" : "Switzerland",
+            "visits" : 1
+         }
+      ],
+      "columns" : [
+         {
+            "name" : "Rank",
+            "align" : "center",
+            "id" : "rank"
+         },
+         {
+            "id" : "area",
+            "name" : "Area",
+            "align" : "left"
+         },
+         {
+            "id" : "visits",
+            "align" : "center",
+            "name" : "Visits"
+         }
+      ]
+   },
+   "topLocks" : {
+      "data" : [
+         {
+            "views" : 69,
+            "version" : null,
+            "name" : "A.S.I. Inc. Royal Guardian",
+            "rank" : 1
+         },
+         {
+            "name" : "Abloy Classic",
+            "rank" : 2,
+            "views" : 62,
+            "version" : null
+         },
+         {
+            "rank" : 3,
+            "name" : "Medeco Original, Biaxial, M3",
+            "version" : "≥ 5 pins ******",
+            "views" : 50
+         },
+         {
+            "rank" : 4,
+            "name" : "PACLOCK 90A Pro",
+            "version" : null,
+            "views" : 37
+         },
+         {
+            "rank" : 5,
+            "name" : "ASSA dp4400, dp11 / Ruko Garant+ / TrioVing dp",
+            "version" : "6 pin with 10 sliders",
+            "views" : 34
+         },
+         {
+            "name" : "IKON R10 / Lockwood MT5 / Mul-T-Lock MT5+, 800",
+            "rank" : 6,
+            "views" : 33,
+            "version" : "not mastered"
+         },
+         {
+            "views" : 30,
+            "version" : "with butterfly discs",
+            "name" : "ABUS Plus",
+            "rank" : 7
+         },
+         {
+            "views" : 26,
+            "version" : null,
+            "name" : "Abloy Protec2",
+            "rank" : 8
+         },
+         {
+            "rank" : 9,
+            "name" : "American Lock 1100 / A1100",
+            "version" : null,
+            "views" : 26
+         },
+         {
+            "rank" : 10,
+            "name" : "LIPS 8300 / Nemef NF2, NF3",
+            "version" : null,
+            "views" : 26
+         },
+         {
+            "version" : "Barrel spools and matching countermilling",
+            "views" : 25,
+            "rank" : 11,
+            "name" : "ASSA 600, Max+ Restricted"
+         },
+         {
+            "rank" : 12,
+            "name" : "ASSA d12, P600, Neptun 1900 / Ruko Merkur / TrioVing d12 level 1 (aka d13 no long pin)",
+            "version" : "barrel drivers, forked keypins",
+            "views" : 22
+         },
+         {
+            "version" : null,
+            "views" : 22,
+            "rank" : 13,
+            "name" : "DOM Plura"
+         },
+         {
+            "rank" : 14,
+            "name" : "Lockwood 334B45, 356S63, 214A40, 215A40, 270S70",
+            "version" : "with spools",
+            "views" : 22
+         },
+         {
+            "name" : "Any SFIC format lock",
+            "rank" : 15,
+            "views" : 21,
+            "version" : "**"
+         },
+         {
+            "rank" : 16,
+            "name" : "ASSA 700",
+            "version" : "gin/tree pins and matching countermilling in ≥ 4 chambers, ≥ 2 tree pins",
+            "views" : 21
+         },
+         {
+            "name" : "Mul-T-Lock Jr, Classic, Interactive",
+            "rank" : 17,
+            "views" : 20,
+            "version" : "5 pin stacks, ≥ 4 spooled drivers"
+         },
+         {
+            "views" : 19,
+            "version" : "6 pin, with gin spools and matched countermilling",
+            "name" : "ASSA 600",
+            "rank" : 18
+         },
+         {
+            "views" : 19,
+            "version" : "6 pin with 5 finger pins",
+            "name" : "ASSA Twin Combi, Triton, Neptun 4900 / TrioVing System 10, Twin Control",
+            "rank" : 19
+         },
+         {
+            "name" : "ASSA Twin Exclusive, Twin 6000",
+            "rank" : 20,
+            "views" : 19,
+            "version" : "6 barrel drivers, 5 side pins"
+         },
+         {
+            "name" : "GOAL V18, GP",
+            "rank" : 21,
+            "views" : 19,
+            "version" : "≥17 pins"
+         },
+         {
+            "rank" : 22,
+            "name" : "Master Lock #3",
+            "version" : null,
+            "views" : 19
+         },
+         {
+            "views" : 18,
+            "version" : null,
+            "name" : "DOM RS 8",
+            "rank" : 23
+         },
+         {
+            "name" : "Abloy Sentry",
+            "rank" : 24,
+            "views" : 17,
+            "version" : null
+         },
+         {
+            "name" : "ALPHA Z cam lock",
+            "rank" : 25,
+            "views" : 16,
+            "version" : null
+         },
+         {
+            "version" : null,
+            "views" : 16,
+            "rank" : 26,
+            "name" : "Bricard Serial S"
+         },
+         {
+            "name" : "Abloy High Profile",
+            "rank" : 27,
+            "views" : 15,
+            "version" : null
+         },
+         {
+            "name" : "ASSA Twin Maximum, Twin Pro, Twin v10, Twin 2, Twin Global",
+            "rank" : 28,
+            "views" : 15,
+            "version" : "barrel driver, 6 stacks with 5 side pins"
+         },
+         {
+            "rank" : 29,
+            "name" : "DOM Diamant",
+            "version" : null,
+            "views" : 15
+         },
+         {
+            "rank" : 30,
+            "name" : "DOM RS Sigma",
+            "version" : null,
+            "views" : 15
+         },
+         {
+            "version" : "9-pins, mushroom drivers",
+            "views" : 15,
+            "rank" : 31,
+            "name" : "Lockman Megacross"
+         },
+         {
+            "version" : "with shark fins",
+            "views" : 14,
+            "rank" : 32,
+            "name" : "DOM ix 10"
+         },
+         {
+            "views" : 13,
+            "version" : null,
+            "name" : "ABUS 72/40",
+            "rank" : 33
+         },
+         {
+            "rank" : 34,
+            "name" : "ABUS EC700, EC800",
+            "version" : null,
+            "views" : 13
+         },
+         {
+            "views" : 13,
+            "version" : "<15 pins",
+            "name" : "ALPHA FB",
+            "rank" : 35
+         },
+         {
+            "views" : 12,
+            "version" : null,
+            "name" : "Abloy Exec",
+            "rank" : 36
+         },
+         {
+            "rank" : 37,
+            "name" : "Any SFIC with security pins",
+            "version" : "**",
+            "views" : 11
+         },
+         {
+            "version" : "6 sliders",
+            "views" : 11,
+            "rank" : 38,
+            "name" : "ASSA Desmo"
+         },
+         {
+            "version" : "6 pins **",
+            "views" : 11,
+            "rank" : 39,
+            "name" : "Corbin Russwin Emhart"
+         },
+         {
+            "version" : null,
+            "views" : 11,
+            "rank" : 40,
+            "name" : "DOM ix 10 kg"
+         },
+         {
+            "version" : "< 2 standard drivers",
+            "views" : 11,
+            "rank" : 41,
+            "name" : "GOAL Z"
+         },
+         {
+            "version" : null,
+            "views" : 11,
+            "rank" : 42,
+            "name" : "Illinois Duo"
+         },
+         {
+            "views" : 11,
+            "version" : null,
+            "name" : "Medeco M4",
+            "rank" : 43
+         },
+         {
+            "name" : "PACLOCK UCS",
+            "rank" : 44,
+            "views" : 11,
+            "version" : null
+         },
+         {
+            "name" : "Van Lock ",
+            "rank" : 45,
+            "views" : 11,
+            "version" : null
+         },
+         {
+            "name" : "ABUS Cisa",
+            "rank" : 46,
+            "views" : 10,
+            "version" : null
+         },
+         {
+            "version" : "6-7 pin",
+            "views" : 10,
+            "rank" : 47,
+            "name" : "Alfa 'pExtra' / Gege pExtra"
+         },
+         {
+            "version" : "12 sliders, 0 mastered",
+            "views" : 10,
+            "rank" : 48,
+            "name" : "Australian Lock Co. BiLock"
+         },
+         {
+            "rank" : 49,
+            "name" : "Kaba Quattro, experT",
+            "version" : "15-20 pins",
+            "views" : 10
+         },
+         {
+            "version" : null,
+            "views" : 10,
+            "rank" : 50,
+            "name" : "Master Lock 140, 141"
+         }
+      ],
+      "title" : "Most Popular Locks",
+      "columns" : [
+         {
+            "id" : "rank",
+            "name" : "Rank",
+            "align" : "center"
+         },
+         {
+            "name" : "Name",
+            "align" : "left",
+            "id" : "name"
+         },
+         {
+            "id" : "version",
+            "name" : "Version",
+            "align" : "left"
+         },
+         {
+            "align" : "center",
+            "name" : "Visits",
+            "id" : "views"
+         }
+      ]
+   },
+   "screenWidths" : {
+      "data" : [
+         {
+            "welcomeViews" : 124,
+            "width" : 360,
+            "lockViews" : 315
+         },
+         {
+            "welcomeViews" : 219,
+            "lockViews" : 181,
+            "width" : 390
+         },
+         {
+            "width" : 1920,
+            "lockViews" : 164,
+            "welcomeViews" : 222
+         },
+         {
+            "welcomeViews" : 25,
+            "width" : 384,
+            "lockViews" : 140
+         },
+         {
+            "lockViews" : 124,
+            "width" : 412,
+            "welcomeViews" : 112
+         },
+         {
+            "lockViews" : 115,
+            "width" : 834,
+            "welcomeViews" : 126
+         },
+         {
+            "width" : 414,
+            "lockViews" : 103,
+            "welcomeViews" : 24
+         },
+         {
+            "welcomeViews" : 76,
+            "lockViews" : 98,
+            "width" : 2560
+         },
+         {
+            "width" : 393,
+            "lockViews" : 92,
+            "welcomeViews" : 57
+         },
+         {
+            "width" : 1440,
+            "lockViews" : 75,
+            "welcomeViews" : 447
+         },
+         {
+            "welcomeViews" : 59,
+            "lockViews" : 66,
+            "width" : 375
+         },
+         {
+            "width" : 428,
+            "lockViews" : 52,
+            "welcomeViews" : 16
+         },
+         {
+            "width" : 3840,
+            "lockViews" : 45,
+            "welcomeViews" : 315
+         },
+         {
+            "welcomeViews" : 16,
+            "lockViews" : 34,
+            "width" : 385
+         },
+         {
+            "welcomeViews" : 11,
+            "lockViews" : 34,
+            "width" : 1536
+         },
+         {
+            "lockViews" : 29,
+            "width" : 3072,
+            "welcomeViews" : 30
+         },
+         {
+            "width" : 418,
+            "lockViews" : 23,
+            "welcomeViews" : 4
+         },
+         {
+            "welcomeViews" : 18,
+            "width" : 430,
+            "lockViews" : 23
+         },
+         {
+            "welcomeViews" : 39,
+            "width" : 432,
+            "lockViews" : 21
+         },
+         {
+            "lockViews" : 17,
+            "width" : 1728,
+            "welcomeViews" : 2
+         },
+         {
+            "welcomeViews" : 74,
+            "lockViews" : 17,
+            "width" : 388
+         },
+         {
+            "welcomeViews" : 18,
+            "width" : 376,
+            "lockViews" : 14
+         },
+         {
+            "welcomeViews" : 4,
+            "width" : 2048,
+            "lockViews" : 6
+         },
+         {
+            "width" : 320,
+            "lockViews" : 6,
+            "welcomeViews" : 10
+         },
+         {
+            "welcomeViews" : 1,
+            "width" : 1297,
+            "lockViews" : 4
+         },
+         {
+            "welcomeViews" : 1,
+            "width" : 3440,
+            "lockViews" : 4
+         },
+         {
+            "welcomeViews" : 5,
+            "lockViews" : 3,
+            "width" : 448
+         },
+         {
+            "width" : 810,
+            "lockViews" : 3,
+            "welcomeViews" : 2
+         },
+         {
+            "lockViews" : 3,
+            "width" : 820,
+            "welcomeViews" : 1
+         },
+         {
+            "lockViews" : 2,
+            "width" : 2563,
+            "welcomeViews" : 2
+         },
+         {
+            "welcomeViews" : 18,
+            "width" : 1194,
+            "lockViews" : 1
+         },
+         {
+            "welcomeViews" : 3,
+            "lockViews" : 1,
+            "width" : 1927
+         }
+      ],
+      "columns" : [
+         {
+            "name" : "Screen Width",
+            "align" : "left",
+            "id" : "width"
+         },
+         {
+            "name" : "Lock Views",
+            "align" : "center",
+            "id" : "lockViews"
+         },
+         {
+            "align" : "center",
+            "name" : "Welcome Views",
+            "id" : "welcomeViews"
+         }
+      ],
+      "title" : ""
+   },
+   "firstVistsLastSevenDays" : {
+      "data" : [
+         {
+            "visits" : 2,
+            "firstVisit" : "04/13/24",
+            "country" : "Denmark"
+         },
+         {
+            "country" : "Hong Kong",
+            "firstVisit" : "04/13/24",
+            "visits" : 2
+         },
+         {
+            "visits" : 1,
+            "firstVisit" : "04/14/24",
+            "country" : "India"
+         },
+         {
+            "visits" : 9,
+            "firstVisit" : "04/14/24",
+            "country" : "Italy"
+         },
+         {
+            "visits" : 3,
+            "firstVisit" : "04/15/24",
+            "country" : "Austria"
+         },
+         {
+            "country" : "Bulgaria",
+            "firstVisit" : "04/15/24",
+            "visits" : 9
+         },
+         {
+            "visits" : 1,
+            "country" : "Jamaica",
+            "firstVisit" : "04/15/24"
+         },
+         {
+            "firstVisit" : "04/15/24",
+            "country" : "Romania",
+            "visits" : 1
+         },
+         {
+            "country" : "Costa Rica",
+            "firstVisit" : "04/16/24",
+            "visits" : 1
+         },
+         {
+            "firstVisit" : "04/16/24",
+            "country" : "Georgia",
+            "visits" : 4
+         },
+         {
+            "visits" : 2,
+            "country" : "Taiwan",
+            "firstVisit" : "04/16/24"
+         },
+         {
+            "firstVisit" : "04/17/24",
+            "country" : "Belgium",
+            "visits" : 1
+         },
+         {
+            "visits" : 1,
+            "country" : "Singapore",
+            "firstVisit" : "04/17/24"
+         },
+         {
+            "firstVisit" : "04/18/24",
+            "country" : "Luxembourg",
+            "visits" : 1
+         }
+      ],
+      "countryCount" : 14,
+      "columns" : [
+         {
+            "name" : "Country",
+            "align" : "left",
+            "id" : "country"
+         },
+         {
+            "id" : "firstVisit",
+            "name" : "First Visit",
+            "align" : "center"
+         },
+         {
+            "name" : "Visits",
+            "align" : "center",
+            "id" : "visits"
+         }
+      ],
+      "title" : ""
+   },
    "metadata" : {
-      "updatedDateTime" : "2024-04-17T19:03:20",
-      "timezone" : "EDT"
+      "timezone" : "EDT",
+      "updatedDateTime" : "2024-04-19T11:28:30"
    }
 }
