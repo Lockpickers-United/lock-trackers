@@ -27,9 +27,8 @@ function Nav({extras, route}) {
                         display: 'flex'
                     }}>
                         <TopNav route={route}/>
-                        {route === 'sp' &&
-                            <VersionCheckerCode/>
-                        }
+                        <VersionCheckerCode/>
+
                         {route === 'lb' &&
                             <VersionCheckerLB/>
                         }
