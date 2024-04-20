@@ -11,14 +11,18 @@ import menuConfig from './menuConfig'
 import Button from '@mui/material/Button'
 import LPU_text_logo from '../assets/LPU-text-logo.jsx'
 import LPU_LOCKS_header from '../assets/LPU_LOCKS_header.jsx'
+import DBContext from '../app/DBContext.jsx'
 
 function MainMenu() {
-    const {admin, beta} = useContext(AppContext)
+    const {beta} = useContext(AppContext)
+    const {adminFlags} = useContext(DBContext)
     const [open, setOpen] = useState(false)
     const [openTitle, setOpenTitle] = useState('More from LPU') // TODO: don't do this once there are more
 
     const handleHotkey = useCallback(() => setOpen(!open), [open])
     useHotkeys('m', handleHotkey)
+    
+    const admin = (adminFlags.isAdmin || adminFlags.isSeller || adminFlags.isLBMod || adminFlags.isSPMod)
 
     const openDrawer = useCallback(() => {
         setOpen(true)

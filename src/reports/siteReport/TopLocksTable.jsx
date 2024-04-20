@@ -5,8 +5,6 @@ import useWindowSize from '../../util/useWindowSize'
 const PageTrackingTable = ({data}) => {
     const {topLocks} = data
 
-    console.log(topLocks)
-
     const {width} = useWindowSize()
     const mobile360 = width <= 360
     const mobile395 = width <= 395

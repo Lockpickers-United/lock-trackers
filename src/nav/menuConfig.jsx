@@ -4,7 +4,7 @@ import LockPersonIcon from '@mui/icons-material/LockPerson'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import LPU_logo from '../assets/LPU_logo.jsx'
-
+import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 export default [
     {
         title: 'Lock Bazaar',
@@ -25,6 +25,12 @@ export default [
         title: 'Challenge Locks',
         icon: <LockPersonIcon fontSize='small'/>,
         path: '/challengelocks'
+    },
+    {
+        admin: true,
+        title: 'Reports',
+        icon: <InsertChartOutlinedIcon fontSize='small'/>,
+        path: '/reports'
     },
     {
         title: 'More from LPU',
