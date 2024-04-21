@@ -10,9 +10,14 @@ import {useNavigate} from 'react-router-dom'
 import SellerProfileInline from './SellerProfileInline.jsx'
 import SortFilterBarLB from './SortFilterBarLB.jsx'
 import SearchBox from '../nav/SearchBox.jsx'
+import DBContext from '../app/DBContext.jsx'
+import SignInButton from '../auth/SignInButton'
+import AuthContext from '../app/AuthContext.jsx'
 
 function LockBazaarMain() {
     const {allDataLoaded, getSellerFromId} = useContext(LoadingContextLB)
+    const {profile} = useContext(DBContext)
+    const {isLoggedIn} = useContext(AuthContext)
     const {filters} = useContext(FilterContext)
 
     const {width} = useWindowSize()
@@ -41,7 +46,6 @@ function LockBazaarMain() {
         }}>
 
             {!Object.keys(filters).length &&
-                <React.Fragment>
                     <div style={{
                         fontSize: '1rem',
                         lineHeight: '1.2rem',
@@ -63,10 +67,31 @@ function LockBazaarMain() {
                               rel='noopener noreferrer'>this post</a>.
                         Sellers maintain &mdash; and are solely responsible for &mdash; all listings.
                     </div>
-                </React.Fragment>
             }
 
-            {filters.sellerName &&
+            {(filters?.collection === 'Watchlist' && (profile?.watchlist?.length === 0 || !profile?.watchlist)) &&
+                <div style={{
+                    fontSize: '1rem',
+                    lineHeight: '1.2rem',
+                    width: '100%',
+                    textAlign: 'left',
+                    marginTop: 10
+                }}>
+                    <div style={{fontSize:'1.2rem', fontWeight:600, marginBottom:10, marginTop:15}}>Your Watchlist</div>
+                    There aren&#39;t any available listings in your Watchlist. Click the heart icon in the details for any lock to add it to your list.
+                    Items you&#39;ve flagged will appear here.
+                </div>
+            }
+
+            {!isLoggedIn &&
+                <div style={{fontSize: '1rem', lineHeight: '1.2rem', textAlign: 'left', marginTop:15, marginBottom:20, display:'flex'}}>
+                    <div style={{ marginTop:9, marginRight:15}}>You need to be signed in order to add items to a watchlist.</div>
+                    <div style={{fontSize: '1rem', width:200}}><SignInButton/></div>
+                    </div>
+                    }
+
+
+                    {filters.sellerName &&
                 <SellerProfileInline/>
             }
 

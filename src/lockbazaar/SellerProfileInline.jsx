@@ -26,7 +26,7 @@ function SellerProfileInline({listing, handleClose}) {
         ? sellerIdMap[listing.sellerName]
         : sellerIdMap[filtersMap.get('sellerName')]
     const profile = getSellerFromId(thisSellerId)
-    const profileName = profile?.username ? profile?.username : 'No matching profile.'
+    const profileName = profile?.username ? profile?.username : ''
     const safeName = profileName.replace(/[\s/]/g, '_').replace(/\W/g, '')
 
     const sellerShipsTo = profile?.sellerShipsTo?.length === 6
