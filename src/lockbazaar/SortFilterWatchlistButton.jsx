@@ -24,7 +24,7 @@ function SortFilterWatchlistButton() {
     console.log('watchlistView', watchlistView)
 
     const hasWatchlist = useMemo(() => {
-        return !!profile?.watchlist
+        return !!profile?.watchlist && profile.watchlist.length > 0
     }, [profile?.watchlist])
 
     const handleChange = useCallback((event) => {

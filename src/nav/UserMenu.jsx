@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState} from 'react'
+import React, {useCallback, useContext, useMemo, useState} from 'react'
 import Avatar from '@mui/material/Avatar'
 import Divider from '@mui/material/Divider'
 import ListItemIcon from '@mui/material/ListItemIcon'
@@ -16,11 +16,17 @@ import SignInButton from '../auth/SignInButton'
 import AuthContext from '../app/AuthContext'
 import DBContext from '../app/DBContext'
 import {useNavigate} from 'react-router-dom'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 
 function UserMenu() {
     const navigate = useNavigate()
     const {isLoggedIn, user, logout} = useContext(AuthContext)
     const {profile} = useContext(DBContext)
+
+    const hasWatchlist = useMemo(() => {
+        return !!profile?.watchlist && profile.watchlist.length > 0
+    }, [profile?.watchlist])
 
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
@@ -85,6 +91,14 @@ function UserMenu() {
                                     <AccountBoxIcon/>
                                 </ListItemIcon>
                                 <ListItemText>View Profile</ListItemText>
+                            </MenuItem>
+                        }
+                        {hasWatchlist &&
+                            <MenuItem onClick={handleClick('/lockbazaar?collection=Watchlist')}>
+                                <ListItemIcon>
+                                    <FavoriteIcon/>
+                                </ListItemIcon>
+                                <ListItemText>Your Watchlist</ListItemText>
                             </MenuItem>
                         }
                         <Divider/>
