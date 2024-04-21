@@ -15,21 +15,13 @@ export const LBFilterFields = [
     {label: 'Belt', fieldName: 'lockBelt', sort: beltSort},
     {label: 'Seller Name', fieldName: 'sellerName'},
     {label: 'Location', fieldName: 'country'},
-    {label: 'Ships To', fieldName: 'shipsTo'}
+    {label: 'Ships To', fieldName: 'shipsTo'},
+    {label: 'Collection', fieldName: 'collection', userBased: true}
+
 ]
 
 export const spFilterFields = [
     {label: 'Picker ID', fieldName: 'pickerId'},
     {label: 'Approved', fieldName: 'approved'},
     {label: 'Belt', fieldName: 'belt', sort: beltSort}
-]
-
-export const dialFilterFields = [
-    {label: 'Make', fieldName: 'make'},
-    {label: 'Fence Type', fieldName: 'fence'},
-    {label: 'UL Group', fieldName: 'group'},
-    {label: 'Wheels', fieldName: 'wheels'},
-    {label: 'Digits', fieldName: 'digits'},
-    {label: 'Features', fieldName: 'features'},
-    {label: 'Content', fieldName: 'content'}
 ]

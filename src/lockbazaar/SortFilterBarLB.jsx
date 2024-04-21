@@ -3,6 +3,9 @@ import {ToggleButton, ToggleButtonGroup} from '@mui/material'
 import FilterContext from '../context/FilterContext'
 import useWindowSize from '../util/useWindowSize.jsx'
 import FilterButton from '../filters/FilterButton.jsx'
+import SortFilterWatchlistButton from './SortFilterWatchlistButton.jsx'
+
+
 
 function SortFilterBar() {
 
@@ -117,11 +120,13 @@ function SortFilterBar() {
                             )}
                         </ToggleButtonGroup>
                         <FilterButton/>
+                        <SortFilterWatchlistButton/>
                     </div>
                 }
                 {filterCount === 0 &&
                     <div>
                         <FilterButton/>
+                        <SortFilterWatchlistButton/>
                     </div>
                 }
             </div>

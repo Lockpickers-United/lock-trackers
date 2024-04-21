@@ -21,7 +21,7 @@ function MainMenu() {
 
     const handleHotkey = useCallback(() => setOpen(!open), [open])
     useHotkeys('m', handleHotkey)
-    
+
     const admin = (adminFlags.isAdmin || adminFlags.isSeller || adminFlags.isLBMod || adminFlags.isSPMod)
 
     const openDrawer = useCallback(() => {

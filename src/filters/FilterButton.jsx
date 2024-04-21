@@ -62,7 +62,7 @@ function FilterButton({onFiltersChanged, extraFilters = []}) {
             }
             {filterCount === 0 &&
                 <Button variant='contained' size='small'
-                        onClick={handleClick} endIcon={<FilterAltIcon/>} style={{margin: '8px 15px 3px 0px'}}>
+                        onClick={handleClick} endIcon={<FilterAltIcon/>} style={{margin: '8px 0px 3px 0px'}}>
                     filters
                 </Button>
             }

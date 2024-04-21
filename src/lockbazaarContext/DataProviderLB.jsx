@@ -8,13 +8,17 @@ import removeAccents from 'remove-accents'
 import LoadingContext from './LoadingContextLB.jsx'
 import belts, {beltSort, beltSortReverse} from '../data/belts'
 import AppContext from '../app/AppContext.jsx'
+import DBContext from '../app/DBContext.jsx'
 
 export function DataProvider({children}) {
 
-    const {verbose} = useContext(AppContext)
+    const {verbose, beta} = useContext(AppContext)
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sellerId, sort, image, profileUpdated, ...filters} = allFilters
     const {allEntries, allLocks} = useContext(LoadingContext)
+    const {profile} = useContext(DBContext)
+
+    console.log('beta', beta)
 
     const lockBelts = useMemo(() => belts, [])
     const lockData = useMemo(() => allLocks, [allLocks])
@@ -52,10 +56,13 @@ export function DataProvider({children}) {
                     entry.belt.startsWith('Black') ? 'Is Black' : undefined,
                     entry.belt !== 'Unranked' ? 'Is Ranked' : undefined
                 ].flat().filter(x => x),
+                collection: [
+                    profile?.watchlist?.includes?.(entry.id) ? 'Watchlist' : ''
+                ],
                 simpleBelt: entry.belt.replace(/\s\d/g, ''),
                 lockBelt: entry.belt.replace(/\s\d/g, '')
             }))
-    }, [allEntries])
+    }, [allEntries, profile?.watchlist])
 
     const getEntryFromId = useCallback(entryId => {
         return allEntries?.find(({id}) => id === entryId)
@@ -95,7 +102,7 @@ export function DataProvider({children}) {
 
         // If there is a search term, fuzzy match that
         const searched = search
-            ? fuzzysort.go(removeAccents(search), filtered, {keys: fuzzySortKeys, threshold:-25000})
+            ? fuzzysort.go(removeAccents(search), filtered, {keys: fuzzySortKeys, threshold: -25000})
                 .map(result => ({
                     ...result.obj,
                     score: result.score
@@ -105,8 +112,8 @@ export function DataProvider({children}) {
         verbose && console.log('searched', searched)
 
         return search
-        ? searched
-        : searched.sort((a, b) => {
+            ? searched
+            : searched.sort((a, b) => {
                 if (sort === 'belt') {
                     return beltSort(a.belt, b.belt)
                         || entryName(a, 'short').localeCompare(entryName(b, 'short'))

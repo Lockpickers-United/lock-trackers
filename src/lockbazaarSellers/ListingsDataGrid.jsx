@@ -17,10 +17,11 @@ function ListingsDataGrid({listings}) {
                 belt: (lock?.belt && lock.belt !== 'Unranked') ? lock.belt : '',
                 lockId: listing.id,
                 id: index,
+                row: listing.rowNum+1,
                 version: lock?.version ? lock.version : ''
             }
         }
-    )
+    ).sort(function(a, b){ return a.sellerName.localeCompare(b.sellerName)})
 
     //const rows = validListings
     const columns = [
@@ -28,6 +29,12 @@ function ListingsDataGrid({listings}) {
             field: 'sellerName',
             headerName: 'Seller',
             width: 110,
+            editable: false
+        },
+        {
+            field: 'row',
+            headerName: 'Row #',
+            width: 60,
             editable: false
         },
         {

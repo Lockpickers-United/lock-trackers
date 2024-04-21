@@ -9,7 +9,9 @@ import {
     getDocs,
     query,
     where,
-    collection
+    collection,
+    arrayUnion,
+    arrayRemove
 } from 'firebase/firestore'
 import AuthContext from './AuthContext'
 import {enqueueSnackbar} from 'notistack'
@@ -74,7 +76,6 @@ export function DBProvider({children}) {
         )
         return (await Promise.all(sellers))
     }, [dbError, getAdminProfiles])
-
 
 
     // ADMIN SUBSCRIPTION //
@@ -152,7 +153,7 @@ export function DBProvider({children}) {
         }
     }, [authLoaded, isLoggedIn, knownVersions, user])
 
-// UPDATES
+// UPDATE VERSION //
 
     function clean(string) {
         return string.replace(/(<([^>]+)>)/gi, '')
@@ -180,6 +181,7 @@ export function DBProvider({children}) {
     }, [dbError, knownVersions, profile?.username, user?.uid])
 
 // PROFILE //
+
     const updateProfile = useCallback(async (localProfile) => {
         if (dbError) return false
         const ref = doc(db, 'profiles', user?.uid)
@@ -206,7 +208,46 @@ export function DBProvider({children}) {
     }, [getProfile])
 
 
-    const [testDoc,setTestDoc] = useState({})
+// COLLECTIONS //
+
+    const addToLockCollection = useCallback(async (key, entryId) => {
+        if (dbError) return false
+        const ref = doc(db, 'profiles', user.uid)
+        await runTransaction(db, async transaction => {
+            const sfDoc = await transaction.get(ref)
+            if (!sfDoc.exists()) {
+                transaction.set(ref, {
+                    [key]: [entryId]
+                })
+            } else {
+                transaction.update(ref, {
+                    [key]: arrayUnion(entryId)
+                })
+            }
+        })
+        enqueueSnackbar('Added to your Watchlist.')
+    }, [dbError, user])
+
+    const removeFromLockCollection = useCallback(async (key, entryId) => {
+        if (dbError) return false
+        const ref = doc(db, 'profiles', user.uid)
+        await runTransaction(db, async transaction => {
+            const sfDoc = await transaction.get(ref)
+            if (!sfDoc.exists()) {
+                transaction.set(ref, {
+                    [key]: [entryId]
+                })
+            } else {
+                transaction.update(ref, {
+                    [key]: arrayRemove(entryId)
+                })
+            }
+        })
+        enqueueSnackbar('Removed from your Watchlist.')
+    }, [dbError, user])
+
+
+    const [testDoc, setTestDoc] = useState({})
 
     // TESTING SUBSCRIPTION //
     useEffect(() => {
@@ -246,8 +287,6 @@ export function DBProvider({children}) {
     }, [dbError])
 
 
-
-
 // VALUE & PROVIDER //
     const value = useMemo(() => ({
         dbLoaded,
@@ -256,6 +295,8 @@ export function DBProvider({children}) {
         getProfileName,
         adminFlags,
         updateProfile,
+        addToLockCollection,
+        removeFromLockCollection,
         getDbProfiles,
         getSellerProfiles,
         newVersionAvailable,
@@ -267,6 +308,8 @@ export function DBProvider({children}) {
         getProfileName,
         adminFlags,
         updateProfile,
+        addToLockCollection,
+        removeFromLockCollection,
         profile,
         getDbProfiles,
         getSellerProfiles,

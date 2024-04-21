@@ -6,11 +6,9 @@ import useWindowSize from '../util/useWindowSize.jsx'
 
 function SellersDataGrid({sellerProfiles, listings}) {
 
-
     const totalListingCount = listings ? listings.length : 0
 
     const rows = sellerProfiles?.map((profile) => {
-
             const sellerListings = listings?.filter(({sellerName}) => sellerName === profile.username)
             return {
                 ...profile,
@@ -19,7 +17,7 @@ function SellersDataGrid({sellerProfiles, listings}) {
                 listingCount: sellerListings ? sellerListings.length : 0
             }
         }
-    ).sort((a, b) => {a.username.localeCompare(b.username)}) //TODO: not working
+    ).sort(function(a, b){ return a.username.localeCompare(b.username)})
 
     //const rows = validListings
     const columns = [
