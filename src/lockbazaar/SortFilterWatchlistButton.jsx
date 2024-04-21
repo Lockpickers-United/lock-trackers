@@ -6,7 +6,6 @@ import SignInButton from '../auth/SignInButton'
 import AuthContext from '../app/AuthContext'
 import DBContext from '../app/DBContext'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import FilterContext from '../context/FilterContext.jsx'
 
 function SortFilterWatchlistButton() {
@@ -20,8 +19,6 @@ function SortFilterWatchlistButton() {
     const watchlistView = useMemo(() => {
         return filters.collection === 'Watchlist'
     }, [filters.collection])
-
-    console.log('watchlistView', watchlistView)
 
     const hasWatchlist = useMemo(() => {
         return !!profile?.watchlist && profile.watchlist.length > 0
@@ -45,7 +42,7 @@ function SortFilterWatchlistButton() {
 
     const watchlistIcon = watchlistView
         ? <FavoriteIcon fontSize={'medium'} color={hasWatchlist ? 'error' : 'inherit'}/>
-        : <FavoriteBorderIcon fontSize={'medium'} color={hasWatchlist ? 'error' : 'inherit'}/>
+        : <FavoriteIcon fontSize={'medium'} color={hasWatchlist ? 'error' : 'inherit'}/>
 
     return (
         <React.Fragment>
