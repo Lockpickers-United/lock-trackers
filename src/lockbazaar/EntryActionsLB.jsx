@@ -17,9 +17,11 @@ const EntryDetails = ({entry}) => {
                 <WatchlistButton id={entry.id} fontSize='medium'/>
             }
             <CopyEntryTextButton entry={entry} fontSize='small'/>
-            <CopyLinkToEntryButton entry={entry} fontSize='medium'/>
             {!entry.id.includes('lb_') &&
-                <OpenLPULinkButton entry={entry} fontSize='small'/>
+                <React.Fragment>
+                    <CopyLinkToEntryButton entry={entry} fontSize='medium'/>
+                    <OpenLPULinkButton entry={entry} fontSize='small'/>
+                </React.Fragment>
             }
         </div>
     )
