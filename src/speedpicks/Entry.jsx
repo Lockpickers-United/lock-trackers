@@ -4,7 +4,6 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {ListItemText} from '@mui/material'
-import formatTime from '../util/formatTime.jsx'
 import BeltStripe from './BeltStripe.jsx'
 import queryString from 'query-string'
 import EntryDetails from './EntryDetails.jsx'
@@ -13,7 +12,7 @@ import {useTheme} from '@mui/material/styles'
 import useWindowSize from '../util/useWindowSize.jsx'
 import ErrorIcon from '@mui/icons-material/Error'
 
-const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
+const Entry = ({entry, expanded, onExpand, entriesUpdate}) => {
 
     //TODO: handle no lock matching ID (or null)
 
@@ -21,8 +20,7 @@ const Entry = ({entry, expanded, onExpand, bestTimes, entriesUpdate}) => {
 
     const theme = useTheme()
 
-    entry.bestTime = formatTime(bestTimes[entry.lockId])
-    const isBestTime = entry.totalTime === bestTimes[entry.lockId]
+    const isBestTime = entry.rank === 'Fastest'
     const entryColor = entry.status === 'pending'
         ? theme.palette.error.light
         : entry.status === 'rejected'

@@ -4,7 +4,7 @@ import DataContext from '../context/DataContext'
 import ListContext from '../context/ListContext.jsx'
 import Entry from './Entry.jsx'
 import NewEntry from './NewEntry.jsx'
-import SortFilterBar from './SortFilterBar.jsx'
+import SortFilterBarSP from './SortFilterBarSP.jsx'
 import {useTheme} from '@mui/material/styles'
 import ViewProfileInline from '../profile/ViewProfileInline.jsx'
 import FilterContext from '../context/FilterContext.jsx'
@@ -45,12 +45,30 @@ function Entries() {
     return (
         <React.Fragment>
             <div style={{
-                minWidth: '320px', maxWidth: 800, height: '100%',
+                minWidth: '320px', maxWidth: 720, height: '100%',
                 padding: pagePadding, backgroundColor: background,
                 marginLeft: 'auto', marginRight: 'auto',
                 fontSize: '1.5rem', lineHeight: 0.8
             }}>
-                <SortFilterBar view={view} setView={setView}/>
+                {!Object.keys(filters).length &&
+
+                    <div style={{
+                        fontSize: '1rem',
+                        lineHeight: '1.2rem',
+                        width: '100%',
+                        textAlign: 'left',
+                        marginTop: 10
+                    }}>
+                        Check out who&#39;s got the fastest pick times from across the community and share your best
+                        picks! Join
+                        the conversation on the <a href={'https://discord.com/invite/ZDgWeJUh'}
+                                                   target='_blank'
+                                                   rel='noopener noreferrer'>#unLOCKED discord</a>.
+
+                    </div>
+                }
+                <SortFilterBarSP view={view} setView={setView}/>
+                <div style={{height: 5}}/>
 
                 {filters.pickerId &&
                     <ViewProfileInline/>

@@ -96,7 +96,7 @@ export function DataProvider({children}) {
         const mappedEntries = validEntries && bestTimes
             ? validEntries.map(entry => {
                 if (entry.totalTime === bestTimes[entry.lockId]) {
-                    entry.isBest = 'true'
+                    entry.rank = 'Fastest'
                 } else {
                     entry.isBest = 'false'
                 }
@@ -132,6 +132,10 @@ export function DataProvider({children}) {
                         || a.totalTime - b.totalTime
                 } else if (sort === 'belt') {
                     return a.beltIndex - b.beltIndex
+                        || a.lock.localeCompare(b.lock)
+                        || a.totalTime - b.totalTime
+                } else if (sort === 'beltDesc') {
+                    return b.beltIndex - a.beltIndex
                         || a.lock.localeCompare(b.lock)
                         || a.totalTime - b.totalTime
                 } else if (sort === 'picker') {

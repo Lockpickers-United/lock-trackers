@@ -4,7 +4,7 @@ import FilterContext from '../context/FilterContext'
 import DataContext from '../context/DataContext.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 
-function SortFilterBar({view, setView}) {
+function SortFilterBarORIGINAL({view, setView}) {
 
     const {isMod = []} = useContext(DataContext)
     const {filters, addFilter, clearFilters, setFilters} = useContext(FilterContext)
@@ -126,4 +126,4 @@ function SortFilterBar({view, setView}) {
     )
 }
 
-export default SortFilterBar
+export default SortFilterBarORIGINAL

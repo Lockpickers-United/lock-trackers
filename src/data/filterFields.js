@@ -21,7 +21,7 @@ export const LBFilterFields = [
 ]
 
 export const spFilterFields = [
-    {label: 'Picker ID', fieldName: 'pickerId'},
-    {label: 'Approved', fieldName: 'approved'},
-    {label: 'Belt', fieldName: 'belt', sort: beltSort}
+    {label: 'Belt', fieldName: 'belt', sort: beltSort},
+    {label: 'Picker', fieldName: 'pickerName'},
+    {label: 'Rank', fieldName: 'rank'}
 ]

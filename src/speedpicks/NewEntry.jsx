@@ -2,7 +2,6 @@ import React, {useCallback, useContext, useState} from 'react'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
 import EditEntry from './EditEntry.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 import DBContext from '../app/DBContext.jsx'
@@ -44,8 +43,8 @@ const NewEntry = ({entriesUpdate}) => {
                            backgroundColor: 'transparent',
                        }}>
                 <AccordionSummary>
-                    <div style={{fontSize: '1.0rem', textAlign: 'right', width: '100%', paddingRight: 10}}>
-                        <Button variant='contained' style={{}} endIcon={<AddCircleIcon/>}>
+                    <div style={{fontSize: '.9rem', textAlign: 'center', width: '100%'}}>
+                        <Button variant='contained' size='small' style={{backgroundColor:'#d0770f'}} >
                             New Entry
                         </Button>
                     </div>

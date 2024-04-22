@@ -1,6 +1,6 @@
 import React from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
-import SortFilterBar from './SortFilterBar.jsx'
+import SortFilterBarSP from './SortFilterBarSP.jsx'
 import {useTheme} from '@mui/material/styles'
 import SkeletonEntry from './SkeletonEntry.jsx'
 
@@ -27,7 +27,7 @@ function Entries() {
             marginLeft: 'auto', marginRight: 'auto',
             fontSize: '1.5rem', lineHeight: 0.8
         }}>
-            <SortFilterBar/>
+            <SortFilterBarSP/>
 
 
             <SkeletonEntry height={10}/>
