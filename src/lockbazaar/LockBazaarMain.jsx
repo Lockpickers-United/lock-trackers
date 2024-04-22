@@ -83,7 +83,7 @@ function LockBazaarMain() {
                 </div>
             }
 
-            {!isLoggedIn &&
+            {(!isLoggedIn && filters?.collection === 'Watchlist') &&
                 <div style={{fontSize: '1rem', lineHeight: '1.2rem', textAlign: 'left', marginTop:15, marginBottom:20, display:'flex'}}>
                     <div style={{ marginTop:9, marginRight:15}}>You need to be signed in order to add items to a watchlist.</div>
                     <div style={{fontSize: '1rem', width:200}}><SignInButton/></div>
