@@ -236,7 +236,7 @@ export function LoadingProvider({children}) {
         const countriesFull = lockListings
             .map((listing) => {
                 let terse = listing?.country?.replace('United States of America', 'United States')
-                terse = terse.replace('Netherlands (Kingdom of the)', 'Netherlands')
+                terse = terse?.replace('Netherlands (Kingdom of the)', 'Netherlands')
                 return listing.country ? terse : null
             }).flat()
         const countryUnique = [...new Set(countriesFull)]
