@@ -9,33 +9,30 @@ import LoadingContext from './LoadingContextLB.jsx'
 import belts, {beltSort, beltSortReverse} from '../data/belts'
 import AppContext from '../app/AppContext.jsx'
 import DBContext from '../app/DBContext.jsx'
+import WatchlistContextLB from './WatchlistContextLB.jsx'
 
 export function DataProvider({children}) {
 
-    const {verbose, beta} = useContext(AppContext)
+    const {verbose, beta} = useContext(AppContext)  //eslint-disable-line
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sellerId, sort, image, profileUpdated, ...filters} = allFilters
     const {allEntries, allLocks} = useContext(LoadingContext)
     const {profile} = useContext(DBContext)
-
-    console.log('beta', beta)
+    const {combinedEntries} = useContext(WatchlistContextLB)
 
     const lockBelts = useMemo(() => belts, [])
-    const lockData = useMemo(() => allLocks, [allLocks])
-
-    verbose && console.log('lockData', lockData)
 
     const getLockFromId = useCallback(lockId => {
-        return lockData?.find(({id}) => id === lockId)
-    }, [lockData])
-
+        return allLocks?.find(({id}) => id === lockId)
+    }, [allLocks])
 
     const mappedEntries = useMemo(() => {
-        return allEntries
-            .filter(listing => (!listing.makeModels?.make && !listing.makeModels?.model))
+        return combinedEntries
+            ? combinedEntries
+            .filter(listing => (!listing?.makeModels?.make && !listing?.makeModels?.model))
             .map(entry => ({
                 ...entry,
-                makes: entry.makeModels.map(({make}) => make),
+                makes: entry.makeModels ? entry.makeModels.map(({make}) => make) : [],
                 fuzzy: removeAccents(
                     entry.makeModels
                         .map(({make, model}) => [make, model])
@@ -62,11 +59,12 @@ export function DataProvider({children}) {
                 simpleBelt: entry.belt.replace(/\s\d/g, ''),
                 lockBelt: entry.belt.replace(/\s\d/g, '')
             }))
-    }, [allEntries, profile?.watchlist])
+            : []
+    }, [combinedEntries, profile?.watchlist])
 
     const getEntryFromId = useCallback(entryId => {
-        return allEntries?.find(({id}) => id === entryId)
-    }, [allEntries])
+        return combinedEntries?.find(({id}) => id === entryId)
+    }, [combinedEntries])
 
     const getNameFromId = useCallback(id => {
         const entry = getEntryFromId(id)
@@ -132,7 +130,7 @@ export function DataProvider({children}) {
 
     const value = useMemo(() => ({
         lockBelts,
-        lockData,
+        allLocks,
         getLockFromId,
         getEntryFromId,
         getNameFromId,
@@ -140,7 +138,7 @@ export function DataProvider({children}) {
         visibleEntries
     }), [
         lockBelts,
-        lockData,
+        allLocks,
         getLockFromId,
         getEntryFromId,
         getNameFromId,

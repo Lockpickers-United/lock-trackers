@@ -13,9 +13,11 @@ import SearchBox from '../nav/SearchBox.jsx'
 import DBContext from '../app/DBContext.jsx'
 import SignInButton from '../auth/SignInButton'
 import AuthContext from '../app/AuthContext.jsx'
+import DataContext from '../context/DataContext.jsx'
 
 function LockBazaarMain() {
     const {allDataLoaded, getSellerFromId} = useContext(LoadingContextLB)
+    const {visibleEntries = []} = useContext(DataContext)
     const {profile} = useContext(DBContext)
     const {isLoggedIn} = useContext(AuthContext)
     const {filters} = useContext(FilterContext)
@@ -28,7 +30,6 @@ function LockBazaarMain() {
 
     const navigate = useNavigate()
     if (filters.viewSeller) {
-
         if (getSellerFromId(filters.viewSeller)) {
             const sellerName = getSellerFromId(filters.viewSeller).username
             navigate(`/lockbazaar?sellerName=${sellerName}`)
@@ -46,27 +47,27 @@ function LockBazaarMain() {
         }}>
 
             {!Object.keys(filters).length &&
-                    <div style={{
-                        fontSize: '1rem',
-                        lineHeight: '1.2rem',
-                        width: '100%',
-                        textAlign: 'left',
-                        marginTop: 10
-                    }}>
-                        These are user submitted lists of items for sale in
-                        the <a href={'https://discord.com/channels/140129091796992000/1109656237269860383'}
-                               target='_blank'
-                               rel='noopener noreferrer'>
-                        <nobr>#lock-bazaar</nobr>
-                    </a> channel on the Lockpickers United discord server.
-                        We are not vouching for the sellers, please take appropriate precautions as you would with any
-                        bazaar purchase.
-                        You&apos;ll find some handy tips for safe purchases
-                        in <a href={'https://discord.com/channels/140129091796992000/1111777295942828084'}
-                              target='_blank'
-                              rel='noopener noreferrer'>this post</a>.
-                        Sellers maintain &mdash; and are solely responsible for &mdash; all listings.
-                    </div>
+                <div style={{
+                    fontSize: '1rem',
+                    lineHeight: '1.2rem',
+                    width: '100%',
+                    textAlign: 'left',
+                    marginTop: 10
+                }}>
+                    These are user submitted lists of items for sale in
+                    the <a href={'https://discord.com/channels/140129091796992000/1109656237269860383'}
+                           target='_blank'
+                           rel='noopener noreferrer'>
+                    <nobr>#lock-bazaar</nobr>
+                </a> channel on the Lockpickers United discord server.
+                    We are not vouching for the sellers, please take appropriate precautions as you would with any
+                    bazaar purchase.
+                    You&apos;ll find some handy tips for safe purchases
+                    in <a href={'https://discord.com/channels/140129091796992000/1111777295942828084'}
+                          target='_blank'
+                          rel='noopener noreferrer'>this post</a>.
+                    Sellers maintain &mdash; and are solely responsible for &mdash; all listings.
+                </div>
             }
 
             {(filters?.collection === 'Watchlist' && (profile?.watchlist?.length === 0 || !profile?.watchlist)) &&
@@ -77,21 +78,31 @@ function LockBazaarMain() {
                     textAlign: 'left',
                     marginTop: 10
                 }}>
-                    <div style={{fontSize:'1.2rem', fontWeight:600, marginBottom:10, marginTop:15}}>Your Watchlist</div>
-                    There aren&#39;t any available listings in your Watchlist. Click the heart icon in the details for any lock to add it to your list.
+                    <div style={{fontSize: '1.2rem', fontWeight: 600, marginBottom: 10, marginTop: 15}}>Your Watchlist
+                    </div>
+                    There aren&#39;t any available listings in your Watchlist. Click the heart icon in the details for
+                    any lock to add it to your list.
                     Items you&#39;ve flagged will appear here.
                 </div>
             }
 
             {(!isLoggedIn && filters?.collection === 'Watchlist') &&
-                <div style={{fontSize: '1rem', lineHeight: '1.2rem', textAlign: 'left', marginTop:15, marginBottom:20, display:'flex'}}>
-                    <div style={{ marginTop:9, marginRight:15}}>You need to be signed in order to add items to a watchlist.</div>
-                    <div style={{fontSize: '1rem', width:200}}><SignInButton/></div>
+                <div style={{
+                    fontSize: '1rem',
+                    lineHeight: '1.2rem',
+                    textAlign: 'left',
+                    marginTop: 15,
+                    marginBottom: 20,
+                    display: 'flex'
+                }}>
+                    <div style={{marginTop: 9, marginRight: 15}}>You need to be signed in order to add items to a
+                        watchlist.
                     </div>
-                    }
+                    <div style={{fontSize: '1rem', width: 200}}><SignInButton/></div>
+                </div>
+            }
 
-
-                    {filters.sellerName &&
+            {filters.sellerName &&
                 <SellerProfileInline/>
             }
 
@@ -100,7 +111,7 @@ function LockBazaarMain() {
             <SearchBox label='Listings'/>
 
             {!allDataLoaded && <EntriesSkeletonLB/>}
-            {allDataLoaded && <EntriesLB/>}
+            {allDataLoaded && <EntriesLB entries={visibleEntries}/>}
 
         </div>
     )

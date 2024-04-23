@@ -9,6 +9,7 @@ import {FilterProvider} from '../context/FilterContext.jsx'
 import {DataProvider} from '../lockbazaarContext/DataProviderLB.jsx'
 import {ListProvider} from '../context/ListContext.jsx'
 import {LBFilterFields} from '../data/filterFields'
+import {WatchlistProvider} from '../lockbazaarContext/WatchlistContextLB.jsx'
 
 
 function LockBazaarRoute() {
@@ -18,14 +19,16 @@ function LockBazaarRoute() {
     return (
         <LoadingProvider>
             <FilterProvider filterFields={LBFilterFields}>
-                <DataProvider>
-                    <ListProvider>
-                        <Nav title='Lock Bazaar' route='lb'/>
-                        <LockBazaarMain/>
-                        <Footer/>
-                        <Tracker feature='lockbazaar'/>
-                    </ListProvider>
-                </DataProvider>
+                <WatchlistProvider>
+                    <DataProvider>
+                        <ListProvider>
+                            <Nav title='Lock Bazaar' route='lb'/>
+                            <LockBazaarMain/>
+                            <Footer/>
+                            <Tracker feature='lockbazaar'/>
+                        </ListProvider>
+                    </DataProvider>
+                </WatchlistProvider>
             </FilterProvider>
         </LoadingProvider>
 

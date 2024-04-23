@@ -199,9 +199,7 @@ export function LoadingProvider({children}) {
         })
 
     //console.log('validLockIds', validLockIds)
-    let uniqueLockIds = [...new Set(validLockIds)]
-
-    //console.log('uniqueLockIds', uniqueLockIds)
+    let uniqueLockIds = useMemo(() => [...new Set(validLockIds)],[validLockIds])
 
     const allEntries = uniqueLockIds.map((id) => {
         const [lockId, samelineIndex] = id.split('-')
@@ -264,6 +262,7 @@ export function LoadingProvider({children}) {
         validListings,
         allEntries,
         allLocks,
+        uniqueLockIds,
         getLockFromId,
         getSellerFromId,
         sellerIdMap
@@ -273,6 +272,7 @@ export function LoadingProvider({children}) {
         validListings,
         allEntries,
         allLocks,
+        uniqueLockIds,
         getLockFromId,
         getSellerFromId,
         sellerIdMap
