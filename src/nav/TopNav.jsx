@@ -159,12 +159,12 @@ function TopNav(route) {
                     <div style={{display: 'flex', marginTop: 9, padding: 0}}>
                         <div style={{padding: 0}}>
                             <Button variant='text' style={buttonSyle}
-                                    onClick={handleButtonClick('/speedpicks')}>
-                                <SP_logo fill={spFill} style={{height: 30}}/>
-                            </Button>
-                            <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/lockbazaar')}>
                                 <LB_logo fill={lbFill} style={{height: 30}}/>
+                            </Button>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/speedpicks')}>
+                                <SP_logo fill={spFill} style={{height: 30}}/>
                             </Button>
                             <Button variant='text' style={buttonSyle}>
                                 <Nav_Contact fill={coFill} style={{height: 30}}/>
@@ -180,12 +180,12 @@ function TopNav(route) {
                     <div style={{display: 'flex', marginTop: 9, padding: 0}}>
                         <div style={{padding: 0}}>
                             <Button variant='text' style={buttonSyle}
-                                    onClick={handleButtonClick('/speedpicks')}>
-                                <SP_logo fill={spFill} style={{height: 30}}/>
-                            </Button>
-                            <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/lockbazaar')}>
                                 <LB_logo fill={lbFill} style={{height: 30}}/>
+                            </Button>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/speedpicks')}>
+                                <SP_logo fill={spFill} style={{height: 30}}/>
                             </Button>
                             <Button variant='text' style={buttonSyle}>
                                 <Nav_PrivacyPolicy fill={privFill} style={{height: 30}}/>
@@ -201,12 +201,12 @@ function TopNav(route) {
                     <div style={{display: 'flex', marginTop: 9, padding: 0}}>
                         <div style={{padding: 0}}>
                             <Button variant='text' style={buttonSyle}
-                                    onClick={handleButtonClick('/speedpicks')}>
-                                <SP_logo fill={spFill} style={{height: 30}}/>
-                            </Button>
-                            <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/lockbazaar')}>
                                 <LB_logo fill={lbFill} style={{height: 30}}/>
+                            </Button>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/speedpicks')}>
+                                <SP_logo fill={spFill} style={{height: 30}}/>
                             </Button>
                         </div>
                     </div>
