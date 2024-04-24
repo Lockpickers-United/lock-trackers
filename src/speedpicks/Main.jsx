@@ -3,7 +3,7 @@ import Entries from './Entries.jsx'
 import EntriesSkeleton from './SkeletonEntries.jsx'
 import LoadingContext from '../context/LoadingContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
-import DataContext from '../context/DataContext.jsx'
+import DataContext from '../app/DataContext.jsx'
 
 function Main() {
 

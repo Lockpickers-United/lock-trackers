@@ -13,7 +13,7 @@ import SearchBox from '../nav/SearchBox.jsx'
 import DBContext from '../app/DBContext.jsx'
 import SignInButton from '../auth/SignInButton'
 import AuthContext from '../app/AuthContext.jsx'
-import DataContext from '../context/DataContext.jsx'
+import DataContext from '../app/DataContext.jsx'
 
 function LockBazaarMain() {
     const {allDataLoaded, getSellerFromId} = useContext(LoadingContextLB)

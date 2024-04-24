@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import FieldValue from '../util/FieldValue.jsx'
 import EntryFunctions from './EntryFunctions.jsx'
 import AuthContext from '../app/AuthContext.jsx'
-import DataContext from '../context/DataContext'
+import DataContext from '../app/DataContext.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 import EntryComments from './EntryComments.jsx'
 

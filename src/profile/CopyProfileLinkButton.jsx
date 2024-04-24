@@ -5,7 +5,7 @@ import {enqueueSnackbar} from 'notistack'
 import React, {useCallback, useContext} from 'react'
 import AuthContext from '../app/AuthContext'
 import FilterContext from '../context/FilterContext.jsx'
-import DataContext from '../context/DataContext.jsx'
+import DataContext from '../app/DataContext.jsx'
 
 function CopyProfileLinkButton() {
     const {user} = useContext(AuthContext)

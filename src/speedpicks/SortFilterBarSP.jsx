@@ -4,7 +4,7 @@ import FilterContext from '../context/FilterContext'
 import useWindowSize from '../util/useWindowSize.jsx'
 import FilterButton from '../filters/FilterButton.jsx'
 import AdminFilterButtonSP from '../filters/AdminFilterButtonSP.jsx'
-import DataContext from '../context/DataContext.jsx'
+import DataContext from '../app/DataContext.jsx'
 
 function SortFilterBarSP() {
 

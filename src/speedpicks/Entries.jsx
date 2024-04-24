@@ -1,6 +1,6 @@
 import React, {useCallback, useContext, useDeferredValue, useState, useMemo} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
-import DataContext from '../context/DataContext'
+import DataContext from '../app/DataContext.jsx'
 import ListContext from '../context/ListContext.jsx'
 import Entry from './Entry.jsx'
 import NewEntry from './NewEntry.jsx'
