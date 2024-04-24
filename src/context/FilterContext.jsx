@@ -17,7 +17,6 @@ export function FilterProvider({children, filterFields = []}) {
 
     const setFilters = useCallback(newFilters => {
         const {sort} = filters
-
         Object.keys(newFilters)
             .forEach(key => {
                 if (!newFilters[key]) {
@@ -30,6 +29,7 @@ export function FilterProvider({children, filterFields = []}) {
     }, [filters, setSearchParams])
 
     const addFilters = useCallback((keyValues, replace) => {
+        console.log('keyValues',keyValues)
         keyValues.forEach(({key, value}) => {
             if (!value && replace) {
                 searchParams.delete(key)

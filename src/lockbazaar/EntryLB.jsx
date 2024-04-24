@@ -17,12 +17,23 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 import EntrySellersDisplay from './EntrySellersDisplay.jsx'
+import DataContext from '../app/DataContext.jsx'
 
 const Entry = ({entry, expanded, onExpand}) => {
 
     const {getSellerFromId} = useContext(LoadingContextLB)
     const {filters, addFilter} = useContext(FilterContext)
 
+    const {groupedIds} = useContext(DataContext)
+    const parentId = entry.id.replace(/(\w+)-*.*/, '$1')
+    const otherIds = groupedIds[parentId].filter(x => x!==entry.id)
+
+    if (otherIds.length > 111110) {
+        console.log('entry.id', entry.id)
+        console.log('parentId', parentId)
+        console.log('groupedIds[parentId]', groupedIds[parentId])
+        console.log('otherIds', otherIds)
+    }
 
     const countryListings = filters.country
         ? entry.listings
@@ -121,7 +132,7 @@ const Entry = ({entry, expanded, onExpand}) => {
     const summarySellersWidth = !smallWindow ? '20%' : '100%'
 
     return (
-        <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters>
+        <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters={false}>
             <AccordionSummary expandIcon={<ExpandMoreIcon/>}
                               sx={{
                                   '& .MuiAccordionSummary-content': {
@@ -179,7 +190,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                         <div style={{
                             margin: '8px 0px 0px 0px',
                             width: summarySellersWidth,
-                            display: 'flex',
+                            display: 'flex'
                         }}>
                             <EntrySellersDisplay sortSellers={sortSellers} handleFilter={handleFilter}
                                                  sellerButtonDisabled={sellerButtonDisabled}/>
@@ -202,7 +213,8 @@ const Entry = ({entry, expanded, onExpand}) => {
                     }
                     <AccordionActions disableSpacing style={{backgroundColor: '#272727'}}>
                         <EntryActionsLB entry={entry}/>
-                        <Tracker feature='lock' id={entry.id} lockMake={entry?.makeModels[0].make} lockModel={entry?.makeModels[0].model}/>
+                        <Tracker feature='lock' id={entry.id} lockMake={entry?.makeModels[0].make}
+                                 lockModel={entry?.makeModels[0].model}/>
                     </AccordionActions>
                 </React.Fragment>
             }

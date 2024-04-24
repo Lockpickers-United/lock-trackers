@@ -17,14 +17,19 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 import EntrySellersDisplay from './EntrySellersDisplay.jsx'
+import DataContext from '../app/DataContext.jsx'
+import EntryYMALDisplay from './EntryYMALDisplay.jsx'
 
 const EntryNoListingsLB = ({entry, expanded, onExpand}) => {
 
     const {getSellerFromId} = useContext(LoadingContextLB)
     const {filters, addFilter} = useContext(FilterContext)
 
-    const hasListings = !!entry.listings
+    const {groupedIds} = useContext(DataContext)
+    const parentId = entry.id.replace(/(\w+)-*.*/, '$1')
+    const otherIds = groupedIds[parentId].filter(x => x !== entry.id)
 
+    const hasListings = !!entry.listings
     const countryListings = filters.country
         ? entry.listings
             .map(listing => {
@@ -125,7 +130,7 @@ const EntryNoListingsLB = ({entry, expanded, onExpand}) => {
     const summarySellersWidth = !smallWindow ? '20%' : '100%'
 
     return (
-        <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters>
+        <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters={false}>
             <AccordionSummary expandIcon={<ExpandMoreIcon/>}
                               sx={{
                                   '& .MuiAccordionSummary-content': {
@@ -193,9 +198,9 @@ const EntryNoListingsLB = ({entry, expanded, onExpand}) => {
                                 <div style={{
                                     margin: '8px 0px 0px 0px',
                                     display: 'flex',
-                                    fontSize:'0.9rem',
-                                    lineHeight:'1.2rem',
-                                    color:'#999'
+                                    fontSize: '0.9rem',
+                                    lineHeight: '1.2rem',
+                                    color: '#999'
                                 }}>
                                     No listings available
                                 </div>
@@ -206,6 +211,18 @@ const EntryNoListingsLB = ({entry, expanded, onExpand}) => {
                 {sellerView &&
                     <div style={{}}>
                         <EntryDetailsLB listings={sellersListings} sellerView={sellerView}/>
+                    </div>
+                }
+                {otherIds.length > 0 &&
+                    <div style={{
+                        margin: '8px 0px 0px 30px',
+                        display: 'flex',
+                        fontSize: '1rem',
+                        lineHeight: '1.2rem',
+                        color: '#aaa',
+                    }}>
+                        <span style={{marginTop: 5}}>You might also like:</span>
+                        <EntryYMALDisplay ids={otherIds}/>
                     </div>
                 }
             </AccordionSummary>

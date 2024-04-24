@@ -29,36 +29,36 @@ export function DataProvider({children}) {
     const mappedEntries = useMemo(() => {
         return combinedEntries
             ? combinedEntries
-            .filter(listing => (!listing?.makeModels?.make && !listing?.makeModels?.model))
-            .map(entry => ({
-                ...entry,
-                makes: entry.makeModels ? entry.makeModels.map(({make}) => make) : [],
-                fuzzy: removeAccents(
-                    entry.makeModels
-                        .map(({make, model}) => [make, model])
-                        .flat()
-                        .filter(a => a)
-                        .concat([
-                            entry.version,
-                            entry.notes,
-                            entry.belt
-                        ])
-                        .join(',')
-                ),
-                content: [
-                    entry.media?.some(m => !m.fullUrl.match(/youtube\.com/)) ? 'Has Images' : 'No Images',
-                    entry.media?.some(m => m.fullUrl.match(/youtube\.com/)) ? 'Has Video' : 'No Video',
-                    entry.links?.length > 0 ? 'Has Links' : 'No Links',
-                    dayjs(entry.lastUpdated).isAfter(dayjs().subtract(1, 'days')) ? 'Updated Recently' : undefined,
-                    entry.belt.startsWith('Black') ? 'Is Black' : undefined,
-                    entry.belt !== 'Unranked' ? 'Is Ranked' : undefined
-                ].flat().filter(x => x),
-                collection: [
-                    profile?.watchlist?.includes?.(entry.id) ? 'Watchlist' : ''
-                ],
-                simpleBelt: entry.belt.replace(/\s\d/g, ''),
-                lockBelt: entry.belt.replace(/\s\d/g, '')
-            }))
+                .filter(listing => (!listing?.makeModels?.make && !listing?.makeModels?.model))
+                .map(entry => ({
+                    ...entry,
+                    makes: entry.makeModels ? entry.makeModels.map(({make}) => make) : [],
+                    fuzzy: removeAccents(
+                        entry.makeModels
+                            .map(({make, model}) => [make, model])
+                            .flat()
+                            .filter(a => a)
+                            .concat([
+                                entry.version,
+                                entry.notes,
+                                entry.belt
+                            ])
+                            .join(',')
+                    ),
+                    content: [
+                        entry.media?.some(m => !m.fullUrl.match(/youtube\.com/)) ? 'Has Images' : 'No Images',
+                        entry.media?.some(m => m.fullUrl.match(/youtube\.com/)) ? 'Has Video' : 'No Video',
+                        entry.links?.length > 0 ? 'Has Links' : 'No Links',
+                        dayjs(entry.lastUpdated).isAfter(dayjs().subtract(1, 'days')) ? 'Updated Recently' : undefined,
+                        entry.belt.startsWith('Black') ? 'Is Black' : undefined,
+                        entry.belt !== 'Unranked' ? 'Is Ranked' : undefined
+                    ].flat().filter(x => x),
+                    collection: [
+                        profile?.watchlist?.includes?.(entry.id) ? 'Watchlist' : ''
+                    ],
+                    simpleBelt: entry.belt.replace(/\s\d/g, ''),
+                    lockBelt: entry.belt.replace(/\s\d/g, '')
+                }))
             : []
     }, [combinedEntries, profile?.watchlist])
 
@@ -128,12 +128,32 @@ export function DataProvider({children}) {
 
     }, [filters, mappedEntries, search, sort, verbose])
 
+    const groupedIds = visibleEntries.reduce((acc, entry) => {
+        const id = entry.id.replace(/(\w+)-*.*/, '$1')
+        if (!acc[id]) {
+            acc[id] = []
+        }
+        acc[id].push(entry.id)
+        return acc
+    }, {})
+
+    const allGroupedIds = mappedEntries.reduce((acc, entry) => {
+        const id = entry.id.replace(/(\w+)-*.*/, '$1')
+        if (!acc[id]) {
+            acc[id] = []
+        }
+        acc[id].push(entry.id)
+        return acc
+    }, {})
+
     const value = useMemo(() => ({
         lockBelts,
         allLocks,
         getLockFromId,
         getEntryFromId,
         getNameFromId,
+        allGroupedIds,
+        groupedIds,
         allEntries,
         visibleEntries
     }), [
@@ -142,6 +162,8 @@ export function DataProvider({children}) {
         getLockFromId,
         getEntryFromId,
         getNameFromId,
+        allGroupedIds,
+        groupedIds,
         allEntries,
         visibleEntries
     ])

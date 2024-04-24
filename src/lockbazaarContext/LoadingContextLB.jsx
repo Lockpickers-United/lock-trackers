@@ -55,6 +55,24 @@ export function LoadingProvider({children}) {
         return localLocksData?.find(({id}) => id === lockId) || null
     }, [localLocksData])
 
+    const getLockLineFromId = useCallback(lockId => {
+        const [thisId, samelineInt] = lockId.split('-')
+        const entry = allLocks?.find(({id}) => id === thisId)
+        const entryClone = entry ? {...entry} : null
+
+        if (entryClone) {
+            entryClone.makeModels = samelineInt && samelineInt > 0
+                ? [{
+                    make: entry?.makeModels[samelineInt - 1]?.make,
+                    model: entry?.makeModels[samelineInt - 1]?.model
+                }]
+                : entry?.makeModels
+            entryClone.id = lockId
+        }
+        return entryClone
+    }, [allLocks])
+
+
     const getSellerFromId = useCallback(thisId => {
         return sellerProfiles?.find(({userId}) => userId === thisId)
     }, [sellerProfiles])
@@ -111,7 +129,7 @@ export function LoadingProvider({children}) {
 
                     const thisMake = /\w+/.test(listing.make) ? listing.make : ''
                     const thisModel = /\w+/.test(listing.model) ? listing.model : ''
-                    thisLock.makeModels =  [{make: thisMake, model: thisModel}]
+                    thisLock.makeModels = [{make: thisMake, model: thisModel}]
 
                     const lockingMechanisms = listing.mechanism
                         ? listing.mechanism.split(',')
@@ -199,7 +217,7 @@ export function LoadingProvider({children}) {
         })
 
     //console.log('validLockIds', validLockIds)
-    let uniqueLockIds = useMemo(() => [...new Set(validLockIds)],[validLockIds])
+    let uniqueLockIds = useMemo(() => [...new Set(validLockIds)], [validLockIds])
 
     const allEntries = uniqueLockIds.map((id) => {
         const [lockId, samelineIndex] = id.split('-')
@@ -264,6 +282,7 @@ export function LoadingProvider({children}) {
         allLocks,
         uniqueLockIds,
         getLockFromId,
+        getLockLineFromId,
         getSellerFromId,
         sellerIdMap
     }), [
@@ -274,6 +293,7 @@ export function LoadingProvider({children}) {
         allLocks,
         uniqueLockIds,
         getLockFromId,
+        getLockLineFromId,
         getSellerFromId,
         sellerIdMap
     ])
