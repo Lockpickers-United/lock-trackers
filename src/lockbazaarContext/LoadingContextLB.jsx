@@ -114,7 +114,7 @@ export function LoadingProvider({children}) {
                     : 0
 
                 const isLPUListing = (availableInt > 0 && isLPUbeltsLock(thisId))
-                    && !(makeModelCount > 1 && !samelineInt)
+                    //&& !(makeModelCount > 1 && !samelineInt)
                     && !(makeModelCount > 1 && samelineInt > makeModelCount)
 
             let badListing

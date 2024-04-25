@@ -79,7 +79,7 @@ const NewEntry = ({entriesUpdate}) => {
                             >
                                 <AccordionSummary>
                                     <div style={{fontSize: '1rem', lineHeight: '1.2rem'}}>
-                                        <a href='#'>Click here</a> for
+                                        <a onClick={toggleOpenRules}>Click here</a> for
                                         submission rules and information.
                                     </div>
                                 </AccordionSummary>

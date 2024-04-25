@@ -28,7 +28,15 @@ function RulesInfo() {
                         pick in one
                         take, following the same video rules for each lock as described in the <a
                             href='https://lpubelts.com/#/info' target='_blank'
-                            rel='noopener noreferrer'>LPU belt requirements</a>.
+                            rel='noopener noreferrer'>LPU belt requirements</a>:
+                        <blockquote>
+                            Ensure clarity and proper light showing all parts of the lock during gutting process
+                            (The lock can be fully gutted and a zoom in after to show parts is acceptable).
+                            Please avoid using the Shorts format on YouTube, it does not allow for rewinding to
+                            see anything that was missed without watching the whole video over ...
+                            Your video proof must show the lock picked and gutted in one continuous shot with no cuts.
+                            The video should be clear, well lit, and the lock should stay in frame at all times.
+                        </blockquote>
                     </li>
                     <li style={liStyle}>Locks that can be gutted must be gutted in the same take to clearly show the
                         pins and
