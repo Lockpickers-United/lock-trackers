@@ -133,16 +133,19 @@ export function DataProvider({children}) {
         if (!acc[id]) {
             acc[id] = []
         }
-        acc[id].push(entry.id)
+        entry.listings && acc[id].push(entry.id)
+        acc[id].sort()
         return acc
     }, {})
 
     const allGroupedIds = mappedEntries.reduce((acc, entry) => {
+
         const id = entry.id.replace(/(\w+)-*.*/, '$1')
         if (!acc[id]) {
             acc[id] = []
         }
-        acc[id].push(entry.id)
+        entry.listings && acc[id].push(entry.id)
+        acc[id].sort()
         return acc
     }, {})
 

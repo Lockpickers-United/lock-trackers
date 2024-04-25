@@ -92,6 +92,7 @@ export function LoadingProvider({children}) {
         return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value)
     }
 
+    let badListings = []
     const allListings = jsonLoaded ?
         lockListings.map((listing) => {
 
@@ -100,28 +101,46 @@ export function LoadingProvider({children}) {
                     return false
                 }
 
+                let samelineInt = !isNaN(parseInt(listing.samelineIndex))
+                    ? parseInt(listing.samelineIndex)
+                    : null
+
                 let thisId = lockRegex.test(listing.url)
                     ? listing.url.match(lockRegex)[1]
                     : null
 
-                const isLPUlock = isLPUbeltsLock(thisId)
-                const isLPUListing = (availableInt > 0 && isLPUlock)
+                const makeModelCount = isLPUbeltsLock(thisId)
+                    ? getLockFromId(thisId).makeModels.length
+                    : 0
+
+                const isLPUListing = (availableInt > 0 && isLPUbeltsLock(thisId))
+                    && !(makeModelCount > 1 && !samelineInt)
+                    && !(makeModelCount > 1 && samelineInt > makeModelCount)
+
+            let badListing
+                if (
+                    isLPUbeltsLock(thisId) && ((makeModelCount > 1 && !samelineInt)
+                        || (makeModelCount > 1 && samelineInt > makeModelCount)
+                    )) {
+                    // console.log('bad listing', makeModelCount, samelineInt, listing)
+                    badListings.push(listing)
+                    badListing = 'X'
+                }
+
+                if (isNaN(samelineInt) || !isLPUListing) {
+                    samelineInt = null
+                }
 
                 let thisLock
 
                 if (isLPUListing) {
                     thisLock = getLockFromId(thisId)
-                    if (isLPUListing && !thisLock) {
+                    if (!thisLock) {
                         return false
                     }
                 }
 
-                let samelineInt = parseInt(listing.samelineIndex)
-                if (isNaN(samelineInt) || !isLPUListing) {
-                    samelineInt = null
-                }
-
-                if (listing && !isLPUListing) {
+                if (!isLPUListing) {
                     thisLock = {}
                     thisId = 'lb_' + genHexString(8)
                     thisLock.id = thisId
@@ -155,17 +174,11 @@ export function LoadingProvider({children}) {
                     return false
                 }
 
-                const lockName = samelineInt && samelineInt > 0
-                    ? thisLock?.makeModels[samelineInt - 1]?.make + ' ' + thisLock?.makeModels[samelineInt - 1]?.model
-                    : entryName(thisLock, 'short')
-
-                const lockMake = samelineInt
-                    ? thisLock?.makeModels[samelineInt - 1]?.make
-                    : thisLock?.makeModels[0]?.make
-
-                const lockModel = samelineInt
-                    ? thisLock?.makeModels[samelineInt - 1]?.model
-                    : thisLock?.makeModels[0]?.model
+                const lpubeltsName = isLPUListing
+                    ? entryName(thisLock, 'any', 1)
+                    : null
+                const sheetMake = listing.make
+                const sheetModel = listing.model
 
                 const samelineInfo = samelineInt ? '-' + samelineInt : ''
                 const newId = thisId + samelineInfo
@@ -176,9 +189,10 @@ export function LoadingProvider({children}) {
 
                 return {
                     id: newId,
-                    lockName: lockName,
-                    lockMake: lockMake,
-                    lockModel: lockModel,
+                    lpubeltsName: lpubeltsName,
+                    sheetMake: sheetMake,
+                    sheetModel: sheetModel,
+                    badListing: badListing,
                     //TODO get from sellerId
                     sellerName: listing.name,
                     shipsTo: listing.shipsTo,
@@ -272,6 +286,7 @@ export function LoadingProvider({children}) {
         return entry
     })
 
+    //console.log(badListings)
     const allDataLoaded = ((!!sellerProfiles && jsonLoaded))
 
     const value = useMemo(() => ({

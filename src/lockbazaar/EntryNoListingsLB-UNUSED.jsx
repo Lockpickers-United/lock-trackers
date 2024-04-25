@@ -20,7 +20,7 @@ import EntrySellersDisplay from './EntrySellersDisplay.jsx'
 import DataContext from '../app/DataContext.jsx'
 import EntryYMALDisplay from './EntryYMALDisplay.jsx'
 
-const EntryNoListingsLB = ({entry, expanded, onExpand}) => {
+const EntryNoListingsLBUNUSED = ({entry, expanded, onExpand}) => {
 
     const {getSellerFromId} = useContext(LoadingContextLB)
     const {filters, addFilter} = useContext(FilterContext)
@@ -30,6 +30,7 @@ const EntryNoListingsLB = ({entry, expanded, onExpand}) => {
     const otherIds = groupedIds[parentId].filter(x => x !== entry.id)
 
     const hasListings = !!entry.listings
+
     const countryListings = filters.country
         ? entry.listings
             .map(listing => {
@@ -245,4 +246,4 @@ const EntryNoListingsLB = ({entry, expanded, onExpand}) => {
     )
 }
 
-export default EntryNoListingsLB
+export default EntryNoListingsLBUNUSED

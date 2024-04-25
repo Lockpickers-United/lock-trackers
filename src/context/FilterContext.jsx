@@ -29,7 +29,6 @@ export function FilterProvider({children, filterFields = []}) {
     }, [filters, setSearchParams])
 
     const addFilters = useCallback((keyValues, replace) => {
-        console.log('keyValues',keyValues)
         keyValues.forEach(({key, value}) => {
             if (!value && replace) {
                 searchParams.delete(key)

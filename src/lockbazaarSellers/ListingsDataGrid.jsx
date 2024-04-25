@@ -10,7 +10,7 @@ function ListingsDataGrid({listings}) {
     const {getLockFromId} = useContext(LoadingContextLB)
 
     const rows = listings.map((listing, index) => {
-            const id = listing.id.split('|')[0]
+            const id = listing.id.split('-')[0]
             const lock = getLockFromId(id)
             return {
                 ...listing,
@@ -38,20 +38,28 @@ function ListingsDataGrid({listings}) {
             editable: false
         },
         {
-            field: 'lockMake',
+            field: 'sheetMake',
             headerName: 'Make',
             width: 110,
             editable: false
         },
         {
-            field: 'lockModel',
+            field: 'sheetModel',
             headerName: 'Model',
             width: 100,
             editable: false
         },
         {
-            field: 'version',
-            headerName: 'Version',
+            field: 'badListing',
+            headerName: 'Bad Listing',
+            width: 100,
+            editable: false,
+            align: 'center',
+            headerAlign: 'center'
+        },
+        {
+            field: 'lpubeltsName',
+            headerName: 'lpubeltsName',
             width: 190,
             editable: false
         },

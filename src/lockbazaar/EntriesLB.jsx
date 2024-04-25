@@ -2,7 +2,6 @@ import React, {useCallback, useContext, useDeferredValue, useState} from 'react'
 import ListContext from '../context/ListContext'
 import NoEntriesCardLB from './NoEntriesCardLB.jsx'
 import EntryLB from './EntryLB.jsx'
-import EntryNoListingsLB from './EntryNoListingsLB.jsx'
 
 function EntriesLB({entries}) {
 
@@ -34,7 +33,7 @@ function EntriesLB({entries}) {
                         />
                     }
                     { !entry.listings &&
-                        <EntryNoListingsLB
+                        <EntryLB
                             key={entry.id}
                             entry={entry}
                             expanded={entry.id === defExpanded}
