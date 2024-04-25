@@ -14,7 +14,6 @@ import FilterContext from '../context/FilterContext.jsx'
 import EntryActionsLB from './EntryActionsLB.jsx'
 import EntryDetailsLB from './EntryDetailsLB.jsx'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 import EntrySellersDisplay from './EntrySellersDisplay.jsx'
 import DataContext from '../app/DataContext.jsx'
@@ -22,7 +21,6 @@ import EntryYMALDisplay from './EntryYMALDisplay.jsx'
 
 const Entry = ({entry, expanded, onExpand}) => {
 
-    const {getSellerFromId} = useContext(LoadingContextLB)
     const {filters, addFilter} = useContext(FilterContext)
 
     const {allGroupedIds} = useContext(DataContext)
@@ -56,17 +54,18 @@ const Entry = ({entry, expanded, onExpand}) => {
         ? shippableListings.filter(listing => listing.sellerName === filters.sellerName)
         : shippableListings
 
+
     const sellerButtonDisabled = sellerView
 
     const allSellers = hasListings
         ? sellersListings.map((listing) => {
-                return getSellerFromId(listing.sellerId)
+            return listing.sellerName
             }
         )
         : []
 
+
     const uniqueSellers = [...new Set(allSellers)].sort()
-    const sortSellers = uniqueSellers.sort((item1, item2) => item1.username.localeCompare(item2.username))
 
     const [scrolled, setScrolled] = useState(false)
     const ref = useRef(null)
@@ -193,7 +192,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                             display: 'flex'
                         }}>
                             {hasListings &&
-                                <EntrySellersDisplay sortSellers={sortSellers} handleFilter={handleFilter}
+                                <EntrySellersDisplay sellerNames={uniqueSellers} handleFilter={handleFilter}
                                                      sellerButtonDisabled={sellerButtonDisabled}/>
                             }
                             {!hasListings &&

@@ -2,15 +2,15 @@ import React, {useCallback, useContext, useEffect, useMemo, useState} from 'reac
 import DBContext from '../app/DBContext.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 import useData from '../util/useData'
-import {locksData, jsonBackup} from '../data/dataUrls'
+import {allLocks, jsonBackup} from '../data/dataUrls'
 import DBContextSP from '../speedpicks/DBContextSP.jsx'
 
 const LoadingContext = React.createContext({})
-const urls = {locksData, jsonBackup}
+const urls = {allLocks, jsonBackup}
 
 export function LoadingProvider({children}) {
     const {data, loading, error} = useData({urls})
-    const {locksData, jsonBackup} = data || {}
+    const {allLocks, jsonBackup} = data || {}
     const jsonLoaded = (!loading && !error && !!data)
 
     const {authLoaded} = useContext(AuthContext)
@@ -62,9 +62,7 @@ export function LoadingProvider({children}) {
     const allProfiles = dbUser
         ? dbProfiles
         : jsonProfiles
-
-    const allLocks = locksData
-
+    
     const value = useMemo(() => ({
         allEntries,
         allProfiles,

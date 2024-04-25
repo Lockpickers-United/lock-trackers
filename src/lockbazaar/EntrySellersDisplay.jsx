@@ -2,9 +2,9 @@ import React from 'react'
 import Button from '@mui/material/Button'
 import useWindowSize from '../util/useWindowSize.jsx'
 
-function EntrySellersDisplay({sortSellers, handleFilter, sellerButtonDisabled}) {
+function EntrySellersDisplay({sellerNames, handleFilter, sellerButtonDisabled}) {
 
-    const sellersText = sortSellers.length > 1 ? 'Sellers' : 'Seller'
+    const sellersText = sellerNames.length > 1 ? 'Sellers' : 'Seller'
 
     const {width} = useWindowSize()
     const mobile424 = width <= 424
@@ -16,7 +16,7 @@ function EntrySellersDisplay({sortSellers, handleFilter, sellerButtonDisabled}) 
             <div style={{margin: '6px 10px 3px 0px', fontSize: '.85rem', color: '#999'}}>
                 {sellersText}:
             </div>
-            {sortSellers.map((seller, index) =>
+            {sellerNames.map((seller, index) =>
                 <Button variant='text' size='small'
                         key={index}
                         style={{
@@ -26,11 +26,11 @@ function EntrySellersDisplay({sortSellers, handleFilter, sellerButtonDisabled}) 
                             textAlign: 'left'
                         }}
                         color='primary'
-                        value={seller?.username}
+                        value={seller}
                         onClick={handleFilter}
                         disabled={sellerButtonDisabled}
                 >
-                    {seller?.username}
+                    {seller}
                 </Button>
             )}
         </div>

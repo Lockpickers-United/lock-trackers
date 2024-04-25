@@ -31,7 +31,7 @@ function useData({url, urls, loadFn}) {
             setLoading(false)
             setError(false)
         } catch (ex) {
-            console.error('Error loading data.', ex)
+            console.error('Error loading data.', url, ex)
             enqueueSnackbar('Error loading data. Please reload the page.', {
                 autoHideDuration: null,
                 action: <Button color='secondary' onClick={() => window.location.reload()}>Refresh</Button>
