@@ -1,8 +1,15 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import ListingDetailsRow from './ListingDetailsRow.jsx'
 import WatchlistButton from './WatchlistButton.jsx'
+import DataContext from '../app/DataContext.jsx'
+import EntryYMALDisplay from './EntryYMALDisplay.jsx'
 
 const EntryDetailsLB = ({entry, listings, sellerView}) => {
+
+    const {allGroupedIds} = useContext(DataContext)
+    const parentId = entry.id.replace(/(\w+)-*.*/, '$1')
+    const otherIds = allGroupedIds[parentId].filter(x => x !== entry.id)
+    const hasListings = !!entry.listings
 
     const margin = sellerView
         ? '0px 0px 0px 40px'
@@ -27,6 +34,11 @@ const EntryDetailsLB = ({entry, listings, sellerView}) => {
                     <ListingDetailsRow listing={listing} sellerView={sellerView}/>
                 </div>
             )}
+            {(otherIds.length > 0 && hasListings) &&
+                <div style={{marginBottom:10, marginTop:10, borderTop: '1px solid #444'}}>
+                    <EntryYMALDisplay otherIds={otherIds}/>
+                </div>
+            }
             {!sellerView &&
                 <div style={{borderTop: '1px solid #444', margin: '0px 0px 0px 15px'}}/>
             }

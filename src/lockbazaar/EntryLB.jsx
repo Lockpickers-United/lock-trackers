@@ -24,10 +24,8 @@ const Entry = ({entry, expanded, onExpand}) => {
     const {filters, addFilter} = useContext(FilterContext)
 
     const {allGroupedIds} = useContext(DataContext)
-
     const parentId = entry.id.replace(/(\w+)-*.*/, '$1')
-    const otherIds = allGroupedIds[parentId].filter(x => x!==entry.id)
-
+    const otherIds = allGroupedIds[parentId].filter(x => x !== entry.id)
     const hasListings = !!entry.listings
 
     const countryListings = filters.country
@@ -59,7 +57,7 @@ const Entry = ({entry, expanded, onExpand}) => {
 
     const allSellers = hasListings
         ? sellersListings.map((listing) => {
-            return listing.sellerName
+                return listing.sellerName
             }
         )
         : []
@@ -215,16 +213,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                     </div>
                 }
                 {(otherIds.length > 0 && !hasListings) &&
-                    <div style={{
-                        margin: '8px 0px 0px 30px',
-                        display: 'flex',
-                        fontSize: '1rem',
-                        lineHeight: '1.2rem',
-                        color: '#aaa',
-                    }}>
-                        <span style={{marginTop: 5}}>You might also like:</span>
-                        <EntryYMALDisplay ids={otherIds}/>
-                    </div>
+                    <EntryYMALDisplay otherIds={otherIds}/>
                 }
             </AccordionSummary>
             {
