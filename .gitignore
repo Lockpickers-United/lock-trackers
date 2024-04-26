@@ -34,3 +34,5 @@ public/version.json
 public/sitemap.txt
 public/sitemap.xml
 public/data/*
+public/versionCode.json
+public/lockBazaarData.json

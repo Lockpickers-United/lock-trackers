@@ -12,7 +12,7 @@ function VersionCheckerCode() {
     const checkVersion = async first => {
         //console.log('version: ', version)
         try {
-            const response = await fetch('https://data.locktrackers.com/lockbazaar/version.json', {cache: 'no-cache'})
+            const response = await fetch('https://lpulocks.com/version.json', {cache: 'no-cache'})
             const {version: newVersion} = (await response.json())
             if (first && !initial) {
                 setInitial(newVersion)

@@ -62,7 +62,7 @@ export function LoadingProvider({children}) {
     const allProfiles = dbUser
         ? dbProfiles
         : jsonProfiles
-    
+
     const value = useMemo(() => ({
         allEntries,
         allProfiles,
