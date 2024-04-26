@@ -211,7 +211,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                 </div>
                 {sellerView &&
                     <div style={{}}>
-                        <EntryDetailsLB listings={sellersListings} sellerView={sellerView}/>
+                        <EntryDetailsLB entry={entry} listings={sellersListings} sellerView={sellerView}/>
                     </div>
                 }
                 {(otherIds.length > 0 && !hasListings) &&
@@ -232,7 +232,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                 <React.Fragment>
                     {!sellerView &&
                         <AccordionDetails style={{backgroundColor: '#272727'}} sx={{padding: '8px 16px 0px 16px'}}>
-                            <EntryDetailsLB listings={sellersListings} sellerView={sellerView}/>
+                            <EntryDetailsLB entry={entry} listings={sellersListings} sellerView={sellerView}/>
                         </AccordionDetails>
                     }
                     <AccordionActions disableSpacing style={{backgroundColor: '#272727'}}>

@@ -5,7 +5,7 @@ import CopyEntryTextButton from './CopyEntryTextButton.jsx'
 import OpenLPULinkButton from './OpenLPULinkButton.jsx'
 import WatchlistButton from './WatchlistButton.jsx'
 
-const EntryDetails = ({entry}) => {
+const EntryActions = ({entry}) => {
 
     const {width} = useWindowSize()
     const mobileLarge428 = width <= 428
@@ -14,7 +14,7 @@ const EntryDetails = ({entry}) => {
     return (
         <div style={divStyle}>
             {!entry.id.includes('lb_') &&
-                <WatchlistButton id={entry.id} fontSize='medium'/>
+                <WatchlistButton id={entry.id} dense={true} fontSize='medium'/>
             }
             <CopyEntryTextButton entry={entry} fontSize='small'/>
             {!entry.id.includes('lb_') &&
@@ -27,4 +27,4 @@ const EntryDetails = ({entry}) => {
     )
 }
 
-export default EntryDetails
+export default EntryActions

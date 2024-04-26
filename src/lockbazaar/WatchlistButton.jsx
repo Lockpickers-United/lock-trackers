@@ -6,8 +6,9 @@ import SignInButton from '../auth/SignInButton'
 import AuthContext from '../app/AuthContext'
 import DBContext from '../app/DBContext'
 import FavoriteIcon from '@mui/icons-material/Favorite'
+import Button from '@mui/material/Button'
 
-function WatchlistButton({id, fontSize}) {
+function WatchlistButton({id, fontSize, dense}) {
     const {isLoggedIn} = useContext(AuthContext)
     const {profile, addToLockCollection, removeFromLockCollection} = useContext(DBContext)
     const [anchorEl, setAnchorEl] = useState(null)
@@ -36,31 +37,29 @@ function WatchlistButton({id, fontSize}) {
         <React.Fragment>
             <Tooltip title={tooltipText} arrow disableFocusListener>
                 <IconButton onClick={handleChange} style={{height: 40, width: 40}}>
-                    {isCollected &&
-                        <FavoriteIcon fontSize={fontSize} color={isCollected ? 'error' : 'inherit'}/>
-                    }
-                    {!isCollected &&
-                        <FavoriteIcon fontSize={fontSize} color={isCollected ? 'error' : 'inherit'}/>
-                    }
+                    <FavoriteIcon fontSize={fontSize} color={isCollected ? 'error' : 'inherit'}/>
                 </IconButton>
+                {!dense &&
+                    <Button onClick={handleChange} color={isCollected ? 'error' : 'inherit'}>{tooltipText}</Button>
+                }
             </Tooltip>
             {(!isLoggedIn && open) &&
-            <Popover
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left'
-                }}
-            >
-                <div style={{padding: 20}}>
-                    You must be signed in<br/>
-                    to use a Watchlist.<br/>
-                    <br/>
-                    <SignInButton onClick={handleClose}/>
-                </div>
-            </Popover>
+                <Popover
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left'
+                    }}
+                >
+                    <div style={{padding: 20}}>
+                        You must be signed in<br/>
+                        to use a Watchlist.<br/>
+                        <br/>
+                        <SignInButton onClick={handleClose}/>
+                    </div>
+                </Popover>
             }
         </React.Fragment>
     )

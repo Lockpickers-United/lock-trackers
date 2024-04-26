@@ -1,7 +1,8 @@
 import React from 'react'
 import ListingDetailsRow from './ListingDetailsRow.jsx'
+import WatchlistButton from './WatchlistButton.jsx'
 
-const EntryDetailsLB = ({listings, sellerView}) => {
+const EntryDetailsLB = ({entry, listings, sellerView}) => {
 
     const margin = sellerView
         ? '0px 0px 0px 40px'
@@ -9,7 +10,11 @@ const EntryDetailsLB = ({listings, sellerView}) => {
 
     return (
         <React.Fragment>
-            <div style={{height: 10}}/>
+            <div style={{textAlign: 'center', marginBottom:8}}>
+                {!entry?.id?.includes('lb_') &&
+                    <WatchlistButton id={entry.id} fontSize='small'/>
+                }
+            </div>
 
             {listings.map((listing, index) =>
                 <div key={index} style={{

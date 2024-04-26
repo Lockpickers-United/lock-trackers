@@ -6,13 +6,13 @@ import CachedIcon from '@mui/icons-material/Cached'
 
 function VersionCheckerCode() {
     //if (import.meta.env.DEV) return null
-    const [initial, setInitial] = useState()
-    const [version, setVersion] = useState()
+    const [initial, setInitial] = useState('')
+    const [version, setVersion] = useState('')
 
     const checkVersion = async first => {
         //console.log('version: ', version)
         try {
-            const response = await fetch('https://lpulocks.com/version.json', {cache: 'no-cache'})
+            const response = await fetch('https://lpulocks.com/data/version.json', {cache: 'no-cache'})
             const {version: newVersion} = (await response.json())
             if (first && !initial) {
                 setInitial(newVersion)
