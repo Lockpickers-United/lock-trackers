@@ -2,7 +2,7 @@ import React, {useCallback, useMemo, useEffect, useRef, useState, useContext} fr
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
-import {AccordionActions} from '@mui/material'
+import AccordionActions from '@mui/material/AccordionActions'
 import BeltStripe from '../speedpicks/BeltStripe.jsx'
 import queryString from 'query-string'
 import Stack from '@mui/material/Stack'

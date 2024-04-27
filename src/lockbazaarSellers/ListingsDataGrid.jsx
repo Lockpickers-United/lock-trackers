@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 
 import {DataGrid} from '@mui/x-data-grid'
-import {Box} from '@mui/material'
+import Box from '@mui/material/Box'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 

@@ -1,5 +1,6 @@
 import React, {useContext, useCallback, useState} from 'react'
-import {ToggleButton, ToggleButtonGroup} from '@mui/material'
+import ToggleButton from '@mui/material/ToggleButton'
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import FilterContext from '../context/FilterContext'
 import DataContext from '../app/DataContext.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'

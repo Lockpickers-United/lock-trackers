@@ -1,7 +1,7 @@
 import React from 'react'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
-import {Skeleton} from '@mui/material'
+import Skeleton from '@mui/material/Skeleton'
 
 function EntriesSkeleton() {
 

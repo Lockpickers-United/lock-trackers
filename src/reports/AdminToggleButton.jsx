@@ -1,5 +1,5 @@
 import React from 'react'
-import {ToggleButton} from '@mui/material'
+import ToggleButton from '@mui/material/ToggleButton'
 
 function AdminToggleButton({handleButtonClick, dataset, newDataset, label, color}) {
     return (

@@ -1,7 +1,8 @@
 import React from 'react'
 
 import {DataGrid} from '@mui/x-data-grid'
-import {Box, Link} from '@mui/material'
+import Box from '@mui/material/Box'
+import Link from '@mui/material/Link'
 import useWindowSize from '../util/useWindowSize.jsx'
 
 function SellersDataGrid({sellerProfiles, listings}) {

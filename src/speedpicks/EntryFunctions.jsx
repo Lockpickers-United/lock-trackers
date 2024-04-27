@@ -6,7 +6,7 @@ import useWindowSize from '../util/useWindowSize.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 import LoadingContext from '../context/LoadingContext.jsx'
 import {enqueueSnackbar} from 'notistack'
-import {Backdrop} from '@mui/material'
+import Backdrop from '@mui/material/Backdrop'
 import EntryCommentAdd from './EntryCommentAdd.jsx'
 import DBContextSP from './DBContextSP.jsx'
 
