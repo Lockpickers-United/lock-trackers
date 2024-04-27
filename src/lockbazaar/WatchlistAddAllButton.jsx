@@ -8,42 +8,57 @@ import DBContext from '../app/DBContext'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import Button from '@mui/material/Button'
 
-function WatchlistButton({id, fontSize, dense}) {
+function WatchlistAddAllButton({entry, fontSize, dense}) {
+
     const {isLoggedIn} = useContext(AuthContext)
     const {profile, addToLockCollection, removeFromLockCollection} = useContext(DBContext)
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
     const handleClose = useCallback(() => setAnchorEl(null), [])
 
-    const isCollected = useMemo(() => {
-        return profile?.watchlist?.includes(id)
-    }, [id, profile?.watchlist])
+    const allIds = entry.makeModels.length > 1
+    ? entry.makeModels.map((makeModel, index) => {
+        return entry.id + '-' + (index+1)
+        })
+        : entry.id
 
-    const handleChange = useCallback((event) => {
+    //const isCollected = useMemo(() => {
+     //   return profile?.watchlist?.includes(id)
+   // }, [id, profile?.watchlist])
+
+    const areCollected = useMemo(() => {
+        return allIds.every(r => profile.watchlist.includes(r))
+    }, [allIds, profile.watchlist])
+
+    const handleChange = useCallback(async (event) => {
         event.preventDefault()
         setAnchorEl(event.currentTarget)
         if (isLoggedIn) {
-            if (!isCollected) {
-                addToLockCollection('watchlist', id)
+            if (!areCollected) {
+                for (let i = 0; i < allIds.length-1; i++) {
+                    await addToLockCollection('watchlist', allIds[i], true)
+                }
+                await addToLockCollection('watchlist', allIds[allIds.length-1])
             } else {
-                removeFromLockCollection('watchlist', id)
+                for (let i = 0; i < allIds.length-1; i++) {
+                    await removeFromLockCollection('watchlist', allIds[i], true)
+                }
+                await removeFromLockCollection('watchlist', allIds[allIds.length-1])
             }
         }
-    }, [addToLockCollection, id, isCollected, isLoggedIn, removeFromLockCollection])
+    }, [isLoggedIn, areCollected, allIds, addToLockCollection, removeFromLockCollection])
 
-    const tooltipText = isCollected ? 'In Watchlist' : 'Add to Watchlist'
+    const tooltipText = areCollected ? 'Remove All' : 'Add All'
 
     return (
         <React.Fragment>
             <Tooltip title={tooltipText} arrow disableFocusListener>
-                <React.Fragment>
-                    <IconButton onClick={handleChange} style={{height: 40, width: 40}}>
-                        <FavoriteIcon fontSize={fontSize} color={isCollected ? 'error' : 'inherit'}/>
-                    </IconButton>
-                    {!dense &&
-                        <Button onClick={handleChange} color={isCollected ? 'error' : 'inherit'}>{tooltipText}</Button>
-                    }
-                </React.Fragment>
+                <IconButton onClick={handleChange} style={{height: 40, width: 40}}>
+                    <FavoriteIcon fontSize={fontSize} color={areCollected ? 'error' : 'inherit'}/>
+                </IconButton>
+                {!dense &&
+                    <Button onClick={handleChange} color={areCollected ? 'error' : 'inherit'}>{tooltipText}</Button>
+                }
             </Tooltip>
             {(!isLoggedIn && open) &&
                 <Popover
@@ -67,4 +82,4 @@ function WatchlistButton({id, fontSize, dense}) {
     )
 }
 
-export default WatchlistButton
+export default WatchlistAddAllButton

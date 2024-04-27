@@ -14,6 +14,7 @@ import DBContext from '../app/DBContext.jsx'
 import SignInButton from '../auth/SignInButton'
 import AuthContext from '../app/AuthContext.jsx'
 import DataContext from '../app/DataContext.jsx'
+import WatchlistAddLPUbeltsButton from './WatchlistAddLPUbeltsButton.jsx'
 
 function LockBazaarMain() {
     const {allDataLoaded, getSellerFromId} = useContext(LoadingContextLB)
@@ -109,6 +110,8 @@ function LockBazaarMain() {
             <SortFilterBarLB/>
 
             <SearchBox label='Listings'/>
+
+            {(allDataLoaded && filters?.collection === 'Watchlist') && <WatchlistAddLPUbeltsButton/>}
 
             {!allDataLoaded && <EntriesSkeletonLB/>}
             {allDataLoaded && <EntriesLB entries={visibleEntries}/>}
