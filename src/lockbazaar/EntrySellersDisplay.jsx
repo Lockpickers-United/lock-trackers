@@ -9,7 +9,7 @@ function EntrySellersDisplay({sellerNames, handleFilter, sellerButtonDisabled}) 
     const {width} = useWindowSize()
     const mobile424 = width <= 424
 
-    const sellerFlexStyle =  !mobile424 ? {} :  {display: 'flex', marginLeft:30}
+    const sellerFlexStyle =  !mobile424 ? {} :  {display: '', marginLeft:15}
 
     return (
         <div style={sellerFlexStyle}>

@@ -23,6 +23,8 @@ function LockBazaarMain() {
     const {isLoggedIn} = useContext(AuthContext)
     const {filters} = useContext(FilterContext)
 
+    const watchlistView = !!filters && filters?.collection === 'Watchlist'
+    
     const {width} = useWindowSize()
     const smallWindow = width <= 560
     const pagePadding = !smallWindow
@@ -71,7 +73,13 @@ function LockBazaarMain() {
                 </div>
             }
 
-            {(filters?.collection === 'Watchlist' && (profile?.watchlist?.length === 0 || !profile?.watchlist)) &&
+            {(watchlistView) &&
+                <div style={{fontSize: '1.2rem', fontWeight: 600, marginBottom: 10, marginTop: 20, textAlign:'left'}}>
+                Your Watchlist
+            </div>
+            }
+
+            {(isLoggedIn && watchlistView && (profile?.watchlist?.length === 0 || !profile?.watchlist)) &&
                 <div style={{
                     fontSize: '1rem',
                     lineHeight: '1.2rem',
@@ -79,15 +87,13 @@ function LockBazaarMain() {
                     textAlign: 'left',
                     marginTop: 10
                 }}>
-                    <div style={{fontSize: '1.2rem', fontWeight: 600, marginBottom: 10, marginTop: 15}}>Your Watchlist
-                    </div>
                     There aren&#39;t any available listings in your Watchlist. Click the heart icon in the details for
                     any lock to add it to your list.
                     Items you&#39;ve flagged will appear here.
                 </div>
             }
 
-            {(!isLoggedIn && filters?.collection === 'Watchlist') &&
+            {(!isLoggedIn && watchlistView) &&
                 <div style={{
                     fontSize: '1rem',
                     lineHeight: '1.2rem',
@@ -111,7 +117,7 @@ function LockBazaarMain() {
 
             <SearchBox label='Listings'/>
 
-            {(allDataLoaded && filters?.collection === 'Watchlist') && <WatchlistAddLPUbeltsButton/>}
+            {(allDataLoaded && watchlistView) && <WatchlistAddLPUbeltsButton/>}
 
             {!allDataLoaded && <EntriesSkeletonLB/>}
             {allDataLoaded && <EntriesLB entries={visibleEntries}/>}

@@ -18,6 +18,7 @@ import useWindowSize from '../util/useWindowSize.jsx'
 import EntrySellersDisplay from './EntrySellersDisplay.jsx'
 import DataContext from '../app/DataContext.jsx'
 import EntryYMALDisplay from './EntryYMALDisplay.jsx'
+import WatchlistButton from './WatchlistButton.jsx'
 
 const Entry = ({entry, expanded, onExpand}) => {
 
@@ -52,7 +53,6 @@ const Entry = ({entry, expanded, onExpand}) => {
         ? shippableListings.filter(listing => listing.sellerName === filters.sellerName)
         : shippableListings
 
-
     const sellerButtonDisabled = sellerView
 
     const allSellers = hasListings
@@ -61,7 +61,6 @@ const Entry = ({entry, expanded, onExpand}) => {
             }
         )
         : []
-
 
     const uniqueSellers = [...new Set(allSellers)].sort()
 
@@ -124,9 +123,10 @@ const Entry = ({entry, expanded, onExpand}) => {
     const {width} = useWindowSize()
     const smallWindow = width <= 480
 
-    const nameDivWidth = !smallWindow ? '65%' : '70%'
+    const nameDivWidth = !smallWindow ? '65%' : '60%'
     const summaryFlexStyle = !smallWindow ? {display: 'flex'} : {}
     const summarySellersWidth = !smallWindow ? '20%' : '100%'
+    const watchlistButtonDense = smallWindow
 
     return (
         <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters={false}>
@@ -182,6 +182,12 @@ const Entry = ({entry, expanded, onExpand}) => {
                                 />
                             }
                         </div>
+                        {(sellerView && entry?.isLPUbeltsLock) &&
+                            <div style={{margin: '0px 0px 0px 10px', width: '10%', display: 'flex', alignItems: 'center'}}>
+                            <WatchlistButton id={entry.id} dense={watchlistButtonDense} fontSize='small'/>
+                            </div>
+                        }
+
                     </div>
                     {!sellerView &&
                         <div style={{

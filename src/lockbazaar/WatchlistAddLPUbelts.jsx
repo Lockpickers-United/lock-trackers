@@ -13,7 +13,6 @@ import ListItemText from '@mui/material/ListItemText'
 import WatchlistButton from './WatchlistButton.jsx'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 import WatchlistAddAllButton from './WatchlistAddAllButton.jsx'
-
 const WatchlistAddLPUbelts = () => {
     const {getLockFromId, getLockLinesInfoFromId} = useContext(LoadingContextLB)
 
@@ -46,7 +45,7 @@ const WatchlistAddLPUbelts = () => {
     }
 
     const lockURLError = !!lockURL && (!lockRegex.test(lockURL) || !lock)
-    const lockURLHelperText = lockURLError ? 'Unable to find valid lock ID in URL' : 'paste lpubelts.com URL here to choose a lock'
+    const lockURLHelperText = lockURLError ? 'Unable to find valid lock ID in URL' : 'Paste lpubelts.com URL here to choose a lock'
     const lockURLValid = isValidHttpUrl(lockURL) && lock
     const lockLaunchColor = lockURLValid ? '#fff' : '#666'
 
@@ -100,7 +99,7 @@ const WatchlistAddLPUbelts = () => {
             </div>
             <br/>
 
-            <div style={{display: 'flex', placeItems: 'center', width: '90%'}}>
+            <div style={{display: 'flex', placeItems: 'center'}}>
                 {lockName &&
                     <div style={{display: 'flex', placeItems: 'center', width: '100%'}}>
                         {lock.makeModels.length === 1 &&

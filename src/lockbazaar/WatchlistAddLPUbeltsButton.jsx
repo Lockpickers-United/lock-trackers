@@ -32,7 +32,7 @@ const WatchlistAddLPUbeltsButton = () => {
                        }}>
                 <AccordionSummary>
                     <div style={{fontSize: '.9rem', textAlign: 'center', width: '100%'}}>
-                        <Button variant='contained' size='small' style={{backgroundColor: '#609cce'}}>
+                        <Button variant='contained' size='small' style={{backgroundColor: '#609cce', textTransform: 'none'}}>
                             Add LPUbelts Lock to Watchlist
                         </Button>
                     </div>

@@ -11,18 +11,18 @@ const EntryDetailsLB = ({entry, listings, sellerView}) => {
     const otherIds = allGroupedIds[parentId].filter(x => x !== entry.id)
     const hasListings = !!entry.listings
 
+
     const margin = sellerView
         ? '0px 0px 0px 40px'
         : '0px 0px 0px 15px'
 
     return (
         <React.Fragment>
-            <div style={{textAlign: 'center', marginBottom:8}}>
-                {!entry?.id?.includes('lb_') &&
+            {(entry?.isLPUbeltsLock && !sellerView) &&
+                <div style={{textAlign: 'center', marginBottom: 8, marginLeft:15, width: '100%'}}>
                     <WatchlistButton id={entry.id} fontSize='small'/>
-                }
-            </div>
-
+                </div>
+            }
             {listings.map((listing, index) =>
                 <div key={index} style={{
                     textOverflow: 'ellipsis',
@@ -35,7 +35,7 @@ const EntryDetailsLB = ({entry, listings, sellerView}) => {
                 </div>
             )}
             {(otherIds.length > 0 && hasListings) &&
-                <div style={{marginBottom:10, marginTop:10, borderTop: '1px solid #444'}}>
+                <div style={{marginBottom: 10, marginTop: 10, borderTop: '1px solid #444'}}>
                     <EntryYMALDisplay otherIds={otherIds}/>
                 </div>
             }
