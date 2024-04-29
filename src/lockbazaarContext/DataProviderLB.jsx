@@ -15,7 +15,7 @@ export function DataProvider({children}) {
 
     const {verbose, beta} = useContext(AppContext)  //eslint-disable-line
     const {filters: allFilters} = useContext(FilterContext)
-    const {search, id, tab, name, sellerId, sort, image, profileUpdated, ...filters} = allFilters
+    const {search, id, tab, name, sellerId, sort, image, profileUpdated, add, ...filters} = allFilters
     const {allEntries, allLocks} = useContext(LoadingContext)
     const {profile} = useContext(DBContext)
     const {combinedEntries} = useContext(WatchlistContextLB)

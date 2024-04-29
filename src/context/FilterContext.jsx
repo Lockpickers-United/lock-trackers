@@ -125,7 +125,8 @@ const nonFilters = [
     'sort',
     'image',
     'profileUpdated',
-    'sellerId'
+    'sellerId',
+    'add'
 ]
 
 export default FilterContext

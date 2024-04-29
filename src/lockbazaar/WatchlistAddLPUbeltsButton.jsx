@@ -11,7 +11,7 @@ import WatchlistAddLPUbelts from './WatchlistAddLPUbelts.jsx'
 
 const WatchlistAddLPUbeltsButton = () => {
 
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(window.location.hash.includes('add'))
     const toggleOpen = useCallback(() => {
         setOpen(!open)
     }, [open])

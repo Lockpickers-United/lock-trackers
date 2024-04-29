@@ -25,7 +25,7 @@ function SortFilterBar() {
     }, [removeFilter, removeFilters])
 
     const filterValues = useMemo(() => {
-        const {search, id, tab, name, sort, image, ...rest} = filters
+        const {search, id, tab, name, sort, image, add, ...rest} = filters
         return Object.keys(rest)
             .map(key => {
                 const value = filters[key]
