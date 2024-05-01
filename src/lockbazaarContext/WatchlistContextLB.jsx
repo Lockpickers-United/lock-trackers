@@ -1,7 +1,8 @@
-import React, {useContext, useMemo} from 'react'
+import React, {useContext, useMemo, useCallback} from 'react'
 import DBContext from '../app/DBContext.jsx'
 import AppContext from '../app/AppContext.jsx'
 import LoadingContext from './LoadingContextLB.jsx'
+import useData from '../util/useData'
 
 const WatchlistContext = React.createContext({})
 
@@ -11,12 +12,28 @@ export function WatchlistProvider({children}) {
     const {allDataLoaded, allEntries, uniqueLockIds, getLockLineFromId} = useContext(LoadingContext)
     const {profile} = useContext(DBContext)
 
-    const watchlistIds = useMemo(() => profile?.watchlist || [], [profile?.watchlist])
 
+    const getLpuWishlist = useCallback((id) => {
+        const token = '81750a99'
+        const url = `https://explore.lpubelts.com/wishlist/?token=${token}&id=${id}`
+        const {data, loading, error} = useData({url})
+        const lpuWishlist = data ? data[1].wishlist : []
+        const jsonLoaded = (!loading && !error && !!data)
+        return jsonLoaded ? lpuWishlist : []
+
+    }, [])
+    //console.log('wishlist', getLpuWishlist('GGplAdctTfVDLVvYsfIADJmfp8f2'))
+
+
+    const watchlistIds = useMemo(() => profile?.watchlist || [], [profile?.watchlist])
     const watchlistEntries = useMemo(() => {
-        return watchlistIds.filter(x => !uniqueLockIds.includes(x)).map((id) => {
-            return getLockLineFromId(id)
-        })
+        return watchlistIds
+            .filter(id => !uniqueLockIds.includes(id))
+            .map((id) => {
+                const entry = getLockLineFromId(id)
+                if (entry) { entry.newListingsDate = new Date('1969-01-01') }
+                return entry
+            })
     }, [watchlistIds, uniqueLockIds, getLockLineFromId])
 
     const combinedEntries = useMemo(() => {
@@ -28,9 +45,11 @@ export function WatchlistProvider({children}) {
     }, [allDataLoaded, allEntries, watchlistEntries])
 
     const value = useMemo(() => ({
-        combinedEntries
+        combinedEntries,
+        getLpuWishlist
     }), [
-        combinedEntries
+        combinedEntries,
+        getLpuWishlist
     ])
 
     return (

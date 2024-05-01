@@ -15,6 +15,7 @@ function useData({url, urls, loadFn}) {
             if (url) {
                 const response = await fetch(url, {cache: 'no-store'})
                 value = await response.json()
+                console.log('value',value)
             } else if (urls) {
                 value = {}
                 const promises = Object.keys(urls)
@@ -23,6 +24,8 @@ function useData({url, urls, loadFn}) {
                         value[key] = await response.json()
                     })
                 await Promise.all(promises)
+                console.log('value',value)
+
             } else if (loadFn) {
                 value = await loadFn()
             }

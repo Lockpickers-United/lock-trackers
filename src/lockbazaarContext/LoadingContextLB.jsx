@@ -12,6 +12,7 @@ export function LoadingProvider({children}) {
 
     const sellerProfiles = useMemo(() => lockBazaarData?.sellerProfiles || [], [lockBazaarData?.sellerProfiles])
     const sellerIdMap = useMemo(() => lockBazaarData?.sellerIdMap || [], [lockBazaarData?.sellerIdMap])
+    const validListings = useMemo(() => lockBazaarData?.validListings || [], [lockBazaarData?.validListings])
     const badListings = useMemo(() => lockBazaarData?.badListings || [], [lockBazaarData?.badListings])
 
     const getLockFromId = useCallback(lockId => {
@@ -53,11 +54,7 @@ export function LoadingProvider({children}) {
         return sellerProfiles?.find(({userId}) => userId === thisId)
     }, [sellerProfiles])
 
-    const allListings = useMemo(() => lockBazaarData?.allListings || [], [lockBazaarData?.allListings])
-    const validListings = allListings.filter(listing => listing.isValid)
-
     const validLockIds = validListings
-        .filter(listing => listing.isValid)
         .map((listing) => {
             return listing.id
         })

@@ -121,6 +121,9 @@ export function DataProvider({children}) {
                 } else if (sort === 'popularity') {
                     return b.views - a.views
                         || entryName(a, 'short').localeCompare(entryName(b, 'short'))
+                } else if (sort === 'newListings') {
+                    return Math.floor(dayjs(b.newListingsDate).valueOf() / 60000) * 60000 - Math.floor(dayjs(a.newListingsDate).valueOf() / 60000) * 60000
+                        || entryName(a, 'short').localeCompare(entryName(b, 'short'))
                 } else {
                     return entryName(a, 'short').localeCompare(entryName(b, 'short'))
                 }

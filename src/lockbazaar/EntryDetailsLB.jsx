@@ -11,7 +11,6 @@ const EntryDetailsLB = ({entry, listings, sellerView}) => {
     const otherIds = allGroupedIds[parentId].filter(x => x !== entry.id)
     const hasListings = !!entry.listings
 
-
     const margin = sellerView
         ? '0px 0px 0px 40px'
         : '0px 0px 0px 15px'
