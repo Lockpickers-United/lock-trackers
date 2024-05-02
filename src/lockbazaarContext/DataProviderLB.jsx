@@ -16,15 +16,10 @@ export function DataProvider({children}) {
     const {verbose, beta} = useContext(AppContext)  //eslint-disable-line
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sellerId, sort, image, profileUpdated, add, ...filters} = allFilters
-    const {allEntries, allLocks} = useContext(LoadingContext)
+    const {allEntries, allLocks, getLockFromId} = useContext(LoadingContext)
     const {profile} = useContext(DBContext)
     const {combinedEntries} = useContext(WatchlistContextLB)
-
     const lockBelts = useMemo(() => belts, [])
-
-    const getLockFromId = useCallback(lockId => {
-        return allLocks?.find(({id}) => id === lockId)
-    }, [allLocks])
 
     const mappedEntries = useMemo(() => {
         return combinedEntries
@@ -46,15 +41,11 @@ export function DataProvider({children}) {
                             .join(',')
                     ),
                     content: [
-                        entry.media?.some(m => !m.fullUrl.match(/youtube\.com/)) ? 'Has Images' : 'No Images',
-                        entry.media?.some(m => m.fullUrl.match(/youtube\.com/)) ? 'Has Video' : 'No Video',
-                        entry.links?.length > 0 ? 'Has Links' : 'No Links',
-                        dayjs(entry.lastUpdated).isAfter(dayjs().subtract(1, 'days')) ? 'Updated Recently' : undefined,
                         entry.belt.startsWith('Black') ? 'Is Black' : undefined,
                         entry.belt !== 'Unranked' ? 'Is Ranked' : undefined
                     ].flat().filter(x => x),
                     collection: [
-                        profile?.watchlist?.includes?.(entry.id) ? 'Watchlist' : ''
+                        profile?.watchlist?.includes?.(entry.id) ? 'Watchlist' : 'Not in Watchlist'
                     ],
                     simpleBelt: entry.belt.replace(/\s\d/g, ''),
                     lockBelt: entry.belt.replace(/\s\d/g, '')
@@ -62,22 +53,8 @@ export function DataProvider({children}) {
             : []
     }, [combinedEntries, profile?.watchlist])
 
-    const getEntryFromId = useCallback(entryId => {
-        return combinedEntries?.find(({id}) => id === entryId)
-    }, [combinedEntries])
+    const filteredEntries = useMemo(() => {
 
-    const getNameFromId = useCallback(id => {
-        const entry = getEntryFromId(id)
-        const lock = getLockFromId(entry.lockId)
-        if (lock) {
-            const {makeModels} = lock
-            const {make, model} = makeModels[0]
-            const makeModel = make && make !== model ? `${make} ${model}` : model
-            return makeModel.replace(/[\s/]/g, '_').replace(/\W/g, '')
-        }
-    }, [getEntryFromId, getLockFromId])
-
-    const visibleEntries = useMemo(() => {
         // Filters as an array
         const filterArray = Object.keys(filters)
             .map(key => {
@@ -89,7 +66,7 @@ export function DataProvider({children}) {
             .flat()
 
         // Filter the data
-        const filtered = mappedEntries
+        return mappedEntries
             .filter(datum => {
                 return filterArray.every(({key, value}) => {
                     return Array.isArray(datum[key])
@@ -98,14 +75,24 @@ export function DataProvider({children}) {
                 })
             })
 
+    }, [filters, mappedEntries])
+
+    // USE LISTINGS UP TO HERE? //
+
+    // INJECT WATCHLIST //
+
+    // USE ENTRIES //
+
+    const visibleEntries = useMemo(() => {
+
         // If there is a search term, fuzzy match that
         const searched = search
-            ? fuzzysort.go(removeAccents(search), filtered, {keys: fuzzySortKeys, threshold: -25000})
+            ? fuzzysort.go(removeAccents(search), filteredEntries, {keys: fuzzySortKeys, threshold: -25000})
                 .map(result => ({
                     ...result.obj,
                     score: result.score
                 }))
-            : filtered
+            : filteredEntries
 
         verbose && console.log('searched', searched)
 
@@ -129,7 +116,23 @@ export function DataProvider({children}) {
                 }
             })
 
-    }, [filters, mappedEntries, search, sort, verbose])
+    }, [filteredEntries, search, sort, verbose])
+
+    const getEntryFromId = useCallback(entryId => {
+        return combinedEntries?.find(({id}) => id === entryId)
+    }, [combinedEntries])
+
+    const getNameFromId = useCallback(id => {
+        const entry = getEntryFromId(id)
+        const lock = getLockFromId(entry.lockId)
+        if (lock) {
+            const {makeModels} = lock
+            const {make, model} = makeModels[0]
+            const makeModel = make && make !== model ? `${make} ${model}` : model
+            return makeModel.replace(/[\s/]/g, '_').replace(/\W/g, '')
+        }
+    }, [getEntryFromId, getLockFromId])
+
 
     const groupedIds = visibleEntries.reduce((acc, entry) => {
         const id = entry.id.replace(/(\w+)-*.*/, '$1')
@@ -142,7 +145,6 @@ export function DataProvider({children}) {
     }, {})
 
     const allGroupedIds = mappedEntries.reduce((acc, entry) => {
-
         const id = entry.id.replace(/(\w+)-*.*/, '$1')
         if (!acc[id]) {
             acc[id] = []

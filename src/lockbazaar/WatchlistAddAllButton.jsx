@@ -21,7 +21,7 @@ function WatchlistAddAllButton({entry, fontSize, dense}) {
             return entry.id + '-' + (index + 1)
         })
         : entry.id
-    
+
     const areCollected = useMemo(() => {
         return allIds.every(r => profile.watchlist.includes(r))
     }, [allIds, profile.watchlist])

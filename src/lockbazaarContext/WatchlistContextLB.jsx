@@ -20,7 +20,6 @@ export function WatchlistProvider({children}) {
         const lpuWishlist = data ? data[1].wishlist : []
         const jsonLoaded = (!loading && !error && !!data)
         return jsonLoaded ? lpuWishlist : []
-
     }, [])
     //console.log('wishlist', getLpuWishlist('GGplAdctTfVDLVvYsfIADJmfp8f2'))
 

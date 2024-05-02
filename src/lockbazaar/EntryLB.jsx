@@ -28,6 +28,8 @@ const Entry = ({entry, expanded, onExpand}) => {
     const parentId = entry.id.replace(/(\w+)-*.*/, '$1')
     const otherIds = allGroupedIds[parentId].filter(x => x !== entry.id)
     const hasListings = !!entry.listings
+    const sellerView = !!filters.sellerName
+    const watchlistView = !!filters && filters?.collection === 'Watchlist'
 
     const countryListings = filters.country
         ? entry.listings
@@ -46,8 +48,6 @@ const Entry = ({entry, expanded, onExpand}) => {
             .filter(listing => !!listing.shipsTo)
             .filter(listing => listing.shipsTo.some(r => [filters.shipsTo].includes(r)))
         : hasListings ? countryListings : []
-
-    const sellerView = !!filters.sellerName
 
     const sellersListings = sellerView
         ? shippableListings.filter(listing => listing.sellerName === filters.sellerName)
@@ -123,10 +123,42 @@ const Entry = ({entry, expanded, onExpand}) => {
     const {width} = useWindowSize()
     const smallWindow = width <= 480
 
-    const nameDivWidth = !smallWindow ? '65%' : '60%'
+    const nameDivWidth = !smallWindow
+        ? '65%'
+        : watchlistView
+            ? '100%'
+            : '70%'
+
+    const nameTextStyle = entry.belt === 'Unranked'
+        ? {color: '#ccc', marginLeft: '5px'}
+        : !hasListings
+            ? {color: '#aaa', marginLeft: '5px'}
+            : {marginLeft: '5px'}
+
+    const versionTextStyle = entry.belt === 'Unranked'
+        ? {color: '#ccc'}
+        : !hasListings
+            ? {color: '#aaa'}
+            : {}
     const summaryFlexStyle = !smallWindow ? {display: 'flex'} : {}
     const summarySellersWidth = !smallWindow ? '20%' : '100%'
-    const watchlistButtonDense = smallWindow
+
+    const noListingsStyle = !smallWindow
+        ? {
+            margin: '8px 0px 0px 0px',
+            display: 'flex',
+            fontSize: '0.9rem',
+            lineHeight: '1.2rem',
+            color: '#999'
+        }
+        : {
+            margin: '0px 0px 5px 15px',
+            display: 'flex',
+            fontSize: '1rem',
+            lineHeight: '1.2rem',
+            fontWeight: 600,
+            color: '#999'
+        }
 
     return (
         <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters={false}>
@@ -136,6 +168,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                                       display: 'block'
                                   }
                               }}>
+
                 <div style={summaryFlexStyle}>
                     <div style={{display: 'flex', width: '80%'}}>
                         <BeltStripe value={entry.belt}/>
@@ -145,14 +178,10 @@ const Entry = ({entry, expanded, onExpand}) => {
                             flexShrink: 0,
                             flexDirection: 'column'
                         }}>
-                            <FieldValue
-                                value={makeModels}
-                                textStyle={entry.belt === 'Unranked' ? {
-                                    color: '#aaa',
-                                    marginLeft: '0px'
-                                } : {marginLeft: '0px'}}
-                                style={{marginBottom: '2px', fontSize: '.5rem'}}
-                            />
+                            <div
+                                style={nameTextStyle}
+                                //style={{marginBottom: '2px', fontSize: '.5rem'}}
+                            >{makeModels}</div>
 
                             {
                                 !!entry.version &&
@@ -160,31 +189,45 @@ const Entry = ({entry, expanded, onExpand}) => {
                                     name='Version'
                                     value={<Typography
                                         style={{fontSize: '0.95rem', lineHeight: 1.25}}>{entry.version}</Typography>}
-                                    textStyle={entry.belt === 'Unranked' ? {color: '#aaa'} : {}}
+                                    textStyle={versionTextStyle}
                                 />
                             }
                         </div>
-                        <div style={{margin: '8px 0px 0px 0px', width: '40%', display: 'flex', alignItems: 'center'}}>
-                            {
-                                entry.lockingMechanisms?.length > 0 &&
-                                <FieldValue
-                                    value={
-                                        <Stack direction='row' spacing={0} sx={{flexWrap: 'wrap'}}>
-                                            {entry.lockingMechanisms?.map((lockingMechanism, index) =>
-                                                <FilterChip
-                                                    key={index}
-                                                    value={lockingMechanism}
-                                                    field='lockingMechanisms'
-                                                />
-                                            )}
-                                        </Stack>
-                                    }
-                                />
-                            }
-                        </div>
+
+                        {(!watchlistView || !smallWindow) &&
+                            <div style={{
+                                margin: '8px 0px 0px 0px',
+                                width: '40%',
+                                display: 'flex',
+                                alignItems: 'center'
+                            }}>
+                                {
+                                    entry.lockingMechanisms?.length > 0 &&
+                                    <FieldValue
+                                        value={
+                                            <Stack direction='row' spacing={0} sx={{flexWrap: 'wrap'}}>
+                                                {entry.lockingMechanisms?.map((lockingMechanism, index) =>
+                                                    <FilterChip
+                                                        key={index}
+                                                        value={lockingMechanism}
+                                                        field='lockingMechanisms'
+                                                    />
+                                                )}
+                                            </Stack>
+                                        }
+                                    />
+                                }
+                            </div>
+                        }
+
                         {(sellerView && entry?.isLPUbeltsLock) &&
-                            <div style={{margin: '0px 0px 0px 10px', width: '10%', display: 'flex', alignItems: 'center'}}>
-                            <WatchlistButton id={entry.id} dense={watchlistButtonDense} fontSize='small'/>
+                            <div style={{
+                                margin: '0px 0px 0px 10px',
+                                width: '10%',
+                                display: 'flex',
+                                alignItems: 'center'
+                            }}>
+                                <WatchlistButton id={entry.id} dense={smallWindow} fontSize='small'/>
                             </div>
                         }
 
@@ -200,13 +243,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                                                      sellerButtonDisabled={sellerButtonDisabled}/>
                             }
                             {!hasListings &&
-                                <div style={{
-                                    margin: '8px 0px 0px 0px',
-                                    display: 'flex',
-                                    fontSize: '0.9rem',
-                                    lineHeight: '1.2rem',
-                                    color: '#999'
-                                }}>
+                                <div style={noListingsStyle}>
                                     No listings available
                                 </div>
                             }
