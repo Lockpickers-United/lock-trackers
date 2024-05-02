@@ -210,36 +210,36 @@ export function DBProvider({children}) {
 
 // COLLECTIONS //
 
-    const addToLockCollection = useCallback(async (key, entryId, quiet) => {
+    const addToLockCollection = useCallback(async (key, entryIds, quiet) => {
         if (dbError) return false
         const ref = doc(db, 'profiles', user.uid)
         await runTransaction(db, async transaction => {
             const sfDoc = await transaction.get(ref)
             if (!sfDoc.exists()) {
                 transaction.set(ref, {
-                    [key]: [entryId]
+                    [key]: [...entryIds]
                 })
             } else {
                 transaction.update(ref, {
-                    [key]: arrayUnion(entryId)
+                    [key]: arrayUnion(...entryIds)
                 })
             }
         })
         !quiet && enqueueSnackbar('Added to your Watchlist.')
     }, [dbError, user])
 
-    const removeFromLockCollection = useCallback(async (key, entryId, quiet) => {
+    const removeFromLockCollection = useCallback(async (key, entryIds, quiet) => {
         if (dbError) return false
         const ref = doc(db, 'profiles', user.uid)
         await runTransaction(db, async transaction => {
             const sfDoc = await transaction.get(ref)
             if (!sfDoc.exists()) {
                 transaction.set(ref, {
-                    [key]: [entryId]
+                    [key]: entryIds
                 })
             } else {
                 transaction.update(ref, {
-                    [key]: arrayRemove(entryId)
+                    [key]: arrayRemove(...entryIds)
                 })
             }
         })

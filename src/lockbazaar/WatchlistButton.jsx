@@ -24,9 +24,9 @@ function WatchlistButton({id, fontSize, dense}) {
         setAnchorEl(event.currentTarget)
         if (isLoggedIn) {
             if (!isCollected) {
-                addToLockCollection('watchlist', id)
+                addToLockCollection('watchlist', [id])
             } else {
-                removeFromLockCollection('watchlist', id)
+                removeFromLockCollection('watchlist', [id])
             }
         }
     }, [addToLockCollection, id, isCollected, isLoggedIn, removeFromLockCollection])

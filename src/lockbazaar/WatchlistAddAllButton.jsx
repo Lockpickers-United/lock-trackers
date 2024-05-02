@@ -21,11 +21,7 @@ function WatchlistAddAllButton({entry, fontSize, dense}) {
             return entry.id + '-' + (index + 1)
         })
         : entry.id
-
-    //const isCollected = useMemo(() => {
-    //   return profile?.watchlist?.includes(id)
-    // }, [id, profile?.watchlist])
-
+    
     const areCollected = useMemo(() => {
         return allIds.every(r => profile.watchlist.includes(r))
     }, [allIds, profile.watchlist])
@@ -35,15 +31,9 @@ function WatchlistAddAllButton({entry, fontSize, dense}) {
         setAnchorEl(event.currentTarget)
         if (isLoggedIn) {
             if (!areCollected) {
-                for (let i = 0; i < allIds.length - 1; i++) {
-                    await addToLockCollection('watchlist', allIds[i], true)
-                }
-                await addToLockCollection('watchlist', allIds[allIds.length - 1])
+                await addToLockCollection('watchlist', allIds)
             } else {
-                for (let i = 0; i < allIds.length - 1; i++) {
-                    await removeFromLockCollection('watchlist', allIds[i], true)
-                }
-                await removeFromLockCollection('watchlist', allIds[allIds.length - 1])
+                await removeFromLockCollection('watchlist', allIds)
             }
         }
     }, [isLoggedIn, areCollected, allIds, addToLockCollection, removeFromLockCollection])
@@ -53,7 +43,7 @@ function WatchlistAddAllButton({entry, fontSize, dense}) {
     return (
         <React.Fragment>
             <Tooltip title={tooltipText} arrow disableFocusListener>
-                <div style={{display:'flex'}}>
+                <div style={{display: 'flex'}}>
                     <IconButton onClick={handleChange} style={{height: 40, width: 40}}>
                         <FavoriteIcon fontSize={fontSize} color={areCollected ? 'error' : 'inherit'}/>
                     </IconButton>
