@@ -1,29 +1,22 @@
 import React, {useContext, useState, useCallback, useMemo} from 'react'
 import Backdrop from '@mui/material/Backdrop'
-import belts from '../data/belts'
 import Button from '@mui/material/Button'
-import entryName from '../util/entryName'
 import InfoIcon from '@mui/icons-material/Info'
 import InputAdornment from '@mui/material/InputAdornment'
 import LaunchIcon from '@mui/icons-material/Launch'
 import LockIcon from '@mui/icons-material/Lock'
 import WatchlistLpuCopyLinkInfo from './WatchlistLpuCopyLinkInfo.jsx'
 import TextField from '@mui/material/TextField'
-import ListItemText from '@mui/material/ListItemText'
-import WatchlistButton from './WatchlistButton.jsx'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
-import WatchlistAddAllButton from './WatchlistAddAllButton.jsx'
+import WatchlistAddLockDetails from './WatchlistAddLockDetails.jsx'
+
 const WatchlistAddLPUbelts = () => {
-    const {getLockFromId, getLockLinesInfoFromId} = useContext(LoadingContextLB)
+    const {getLockFromId} = useContext(LoadingContextLB)
 
     const [lockURL, setLockURL] = useState('')
     const [lockId, setLockId] = useState('')
     const [lock, setLock] = useState(null)
-    const lockName = lock ? entryName(lock, 'short') : ''
-    const lockVersion = lock ? lock.version : ''
-    const lockBelt = lock ? lock.belt : ''
     const lockRegex = useMemo(() => /id=(\w{8})/, [])
-    const samelines = getLockLinesInfoFromId(lockId)
 
     const processURL = useCallback(event => {
         const {value} = event.target
@@ -36,13 +29,7 @@ const WatchlistAddLPUbelts = () => {
         setLockId(thisId)
     }, [getLockFromId, lockRegex])
 
-
-    const {color: backgroundColor} = belts[lockBelt] || {}
-    const beltStyle = {
-        width: 8,
-        height: 35,
-        backgroundColor
-    }
+    const lpuURL = lockId ? `https://lpubelts.com/#/locks?id=${lockId}` : ''
 
     const lockURLError = !!lockURL && (!lockRegex.test(lockURL) || !lock)
     const lockURLHelperText = lockURLError ? 'Unable to find valid lock ID in URL' : 'Paste lpubelts.com URL here to choose a lock'
@@ -92,84 +79,16 @@ const WatchlistAddLPUbelts = () => {
                     <Button type='text'
                             style={buttonStyle}
                             disabled={!lockURLValid}>
-                        <a href={lockURL} target='_blank' rel='noreferrer'>
+                        <a href={lpuURL} target='_blank' rel='noreferrer'>
                             <LaunchIcon style={{fontSize: 'large', color: lockLaunchColor}}/></a>
                     </Button>
                 </div>
             </div>
             <br/>
 
-            <div style={{display: 'flex', placeItems: 'center'}}>
-                {lockName &&
-                    <div style={{display: 'flex', placeItems: 'center', width: '100%'}}>
-                        {lock.makeModels.length === 1 &&
-                            <table style={{}}>
-                                <tbody>
-                                <tr>
-                                    <td style={beltStyle}/>
-                                    <td>
-                                        <ListItemText
-                                            primary={lockName}
-                                            primaryTypographyProps={{fontWeight: 600}}
-                                            secondary={lockVersion}
-                                            secondaryTypographyProps={{}}
-                                            style={{padding: '0px 0px 0px 10px'}}
-                                        />
-                                    </td>
-                                    <td style={{paddingLeft:10}}>
-                                        <WatchlistButton id={lockId} dense={true}/>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        }
-                        {samelines.length > 1 &&
-                            <table style={{width: '100%'}}>
-                                <tbody>
-                                <tr>
-                                    <td style={beltStyle} rowSpan={samelines.length + 1}/>
-                                    <td>
-                                        <ListItemText
-                                            primary={lockName}
-                                            primaryTypographyProps={{fontWeight: 600}}
-                                            secondary={lockVersion}
-                                            secondaryTypographyProps={{}}
-                                            style={{padding: '0px 0px 0px 10px'}}
-                                        />
-                                        <table style={{}}>
-                                            <tbody>
-                                            {samelines.map((sameline, index) =>
-                                                <tr key={index} style={{}}>
-                                                    <td style={{paddingLeft:20}}>
-                                                        <ListItemText
-                                                            primary={sameline.name}
-                                                            primaryTypographyProps={{fontWeight: 600}}
-                                                            style={{padding: '0px 0px 0px 10px'}}
-                                                        />
-                                                    </td>
-                                                    <td style={{paddingLeft:10}}>
-                                                        <WatchlistButton id={sameline.id} dense={true}/>
-                                                    </td>
-                                                </tr>
-                                            )}
-                                            </tbody>
-                                        </table>
-
-                                    </td>
-                                    <td style={{verticalAlign:'top'}}>
-                                        <WatchlistAddAllButton entry={lock} fontSize={'small'}/>
-                                    </td>
-                                </tr>
-
-
-                                </tbody>
-                            </table>
-                        }
-
-                    </div>
-                }
-            </div>
-
+            {lock &&
+                <WatchlistAddLockDetails lock={lock}/>
+            }
 
             <Backdrop
                 sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}

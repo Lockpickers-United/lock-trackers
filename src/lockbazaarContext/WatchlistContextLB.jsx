@@ -18,8 +18,9 @@ export function WatchlistProvider({children}) {
         const url = `https://explore.lpubelts.com/wishlist/?token=${token}&id=${id}`
         const {data, loading, error} = useData({url})
         const lpuWishlist = data ? data[1].wishlist : []
+        const lpuWishlistStatus = data ? data[1].status : []
         const jsonLoaded = (!loading && !error && !!data)
-        return jsonLoaded ? lpuWishlist : []
+        return jsonLoaded ? {lpuWishlistStatus,lpuWishlist} : {}
     }, [])
     //console.log('wishlist', getLpuWishlist('GGplAdctTfVDLVvYsfIADJmfp8f2'))
 

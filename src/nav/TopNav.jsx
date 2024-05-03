@@ -23,7 +23,7 @@ function TopNav(route) {
     }, [navigate])
 
     const clFill = location.pathname === '/challengelocks' ? '#fff' : '#777'
-    const lbFill = location.pathname === '/lockbazaar' ? '#fff' : '#777'
+    const lbFill = (location.pathname === '/lockbazaar' || location.pathname === '/import') ? '#fff' : '#777'
     const lbsFill = location.pathname === '/lockbazaar/sellers' ? '#fff' : '#777'
     const repFill = location.pathname === '/reports' ? '#fff' : '#777'
     const spFill = location.pathname === '/speedpicks' ? '#fff' : '#777'

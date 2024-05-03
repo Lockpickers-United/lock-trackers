@@ -5,12 +5,26 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import LPU_logo from '../assets/LPU_logo.jsx'
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import SavingsOutlinedIcon from '@mui/icons-material/SavingsOutlined'
 
 export default [
     {
         title: 'Lock Bazaar',
         icon: <ShoppingCartIcon fontSize='small'/>,
         path: '/lockbazaar'
+    },
+    {
+        title: 'Your Watchlist',
+        icon: <FavoriteBorderIcon fontSize='small'/>,
+        path: '/lockbazaar?collection=Watchlist',
+        indent: true
+    },
+    {
+        title: 'Import from LPUbelts',
+        icon: <SavingsOutlinedIcon fontSize='small'/>,
+        path: '/import',
+        indent: true
     },
     {
         title: 'Seller Info',

@@ -2,7 +2,7 @@ import React from 'react'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
-import lpubeltsCopyLink from '../resources/lpubeltsCopyLinkSps.png'
+import lpubeltsCopyProfileLink from '../resources/lpubeltsCopyProfileLink.gif'
 import useWindowSize from '../util/useWindowSize.jsx'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 
@@ -24,19 +24,18 @@ function LpuCopyLinkInfo() {
                 <CardContent>
                     <div style={divFlexStyle}>
                         <div style={{fontSize: '0.9rem', lineHeight: '1.3rem', marginRight: 30}}>
-                            New! You can now add locks listed on <a href='https://lpubelts.com' target='_blank'
-                                                    rel='noopener noreferrer'>LPUbelts.com</a> to your Watchlist.
+                            New! You can now import your Wishlist from <a href='https://lpubelts.com' target='_blank'
+                                                    rel='noopener noreferrer'>LPUbelts.com</a>.
                             We use the LPUbelts URL to look up the details.<br/><br/>
 
-                            The easiest way to get the URL is to click the Copy Link icon at the bottom right of any
-                            lock entry  on LPUbelts.com.<br/><br/>
+                            The easiest way to get the URL is to click the Copy Link icon at the top right of your View Profile page LPUbelts.com.<br/><br/>
 
-                            You can also copy the link from your browser window when looking at a specific lock.
-                            We use the information in the URL -- specifically the element &lsquo;id=XXXXXXXX&rsquo; --
-                            to match your submission to its corresponding lock.
+                            You can also copy the link from your browser window when looking at your profile.
+                            We use the information in the URL -- specifically the element &lsquo;/profile/XXXXXXXX&rsquo; --
+                            to find your Wishlist.
                         </div>
                         <div>
-                            <img alt='LPU' src={lpubeltsCopyLink} width={200}/>
+                            <img alt='LPU' src={lpubeltsCopyProfileLink} width={200}/>
                         </div>
                     </div>
                 </CardContent>

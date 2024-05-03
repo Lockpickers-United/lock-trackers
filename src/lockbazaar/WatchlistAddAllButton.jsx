@@ -48,7 +48,7 @@ function WatchlistAddAllButton({entry, fontSize, dense}) {
                         <FavoriteIcon fontSize={fontSize} color={areCollected ? 'error' : 'inherit'}/>
                     </IconButton>
                     {!dense &&
-                        <Button onClick={handleChange} color={areCollected ? 'error' : 'inherit'}>{tooltipText}</Button>
+                        <Button onClick={handleChange} style={{lineHeight:'1.1rem'}} color={areCollected ? 'error' : 'inherit'}>{tooltipText}</Button>
                     }
                 </div>
             </Tooltip>

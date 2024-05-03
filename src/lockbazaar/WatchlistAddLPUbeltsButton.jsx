@@ -3,8 +3,6 @@ import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AuthContext from '../app/AuthContext.jsx'
-import DBContext from '../app/DBContext.jsx'
-import EditProfilePage from '../profile/EditProfilePage.jsx'
 import SignInButton from '../auth/SignInButton.jsx'
 import Button from '@mui/material/Button'
 import WatchlistAddLPUbelts from './WatchlistAddLPUbelts.jsx'
@@ -16,10 +14,7 @@ const WatchlistAddLPUbeltsButton = () => {
         setOpen(!open)
     }, [open])
 
-    const {user, isLoggedIn} = useContext(AuthContext)
-    const {profile} = useContext(DBContext)
-    const noUsername = isLoggedIn && user && !profile?.username
-    const editOK = isLoggedIn && profile?.username
+    const {isLoggedIn} = useContext(AuthContext)
 
     return (
             <Accordion expanded={open} onChange={toggleOpen}
@@ -50,8 +45,7 @@ const WatchlistAddLPUbeltsButton = () => {
                                 }}><SignInButton/></div>
                             </div>
                     }
-                    {noUsername && <EditProfilePage/>}
-                    {editOK &&
+                    {isLoggedIn &&
                         <WatchlistAddLPUbelts/>
                     }
                 </AccordionDetails>

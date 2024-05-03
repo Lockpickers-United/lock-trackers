@@ -12,7 +12,7 @@ function MainMenuItem({menuItem, openTitle, onOpen, onClose, child}) {
     const navigate = useNavigate()
     const location = useLocation()
     const searchParams = queryString.parse(location.search)
-    const {children, title, params, path, icon, separator} = menuItem
+    const {children, title, params, path, icon, separator, indent} = menuItem
 
     const isCurrentPath = location.pathname === path
     const isCurrentParams = Object.keys(params || [])
@@ -44,7 +44,9 @@ function MainMenuItem({menuItem, openTitle, onOpen, onClose, child}) {
 
     const style = child
         ? {padding: '10px 0px 10px 48px', margin: '0px 0px 2px 0px', color}
-        : {padding: '14px 0px 14px 24px', color}
+        : indent
+            ? {padding: '14px 30px 14px 40px', color}
+            : {padding: '14px 30px 14px 24px', color}
 
     const coloredIcon = icon
         ? React.cloneElement(icon, {style: {color}})
@@ -61,7 +63,7 @@ function MainMenuItem({menuItem, openTitle, onOpen, onClose, child}) {
 
             <MenuItem style={style} onClick={handleClick} dense={child}>
                 {coloredIcon &&
-                    <ListItemIcon style={{height:20}}>
+                    <ListItemIcon style={{height: 20}}>
                         {coloredIcon}
                     </ListItemIcon>
                 }
