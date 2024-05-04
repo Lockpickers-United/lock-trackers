@@ -103,7 +103,7 @@ function SortFilterBar() {
                     <ToggleButton selected={sort === 'popularity'} style={{padding: 7}} value={'lock'}
                                   onClick={handleSort('popularity')}>Popular</ToggleButton>
                     <ToggleButton selected={sort === 'newListings'} style={{padding: 7}} value={'lock'}
-                                  onClick={handleSort('newListings')}>New Listings</ToggleButton>
+                                  onClick={handleSort('newListings')}>New&nbsp;Listings</ToggleButton>
                 </ToggleButtonGroup>
             </div>
             <div style={{textAlign: 'right', flexGrow: 1}}>

@@ -11,7 +11,7 @@ function LoadingDisplay() {
                 placeItems: 'center',
                 width: '100%',
                 alignItems: 'center',
-                height: 500,
+                height: 200,
                 marginRight:'auto',
                 marginLeft:'auto'
             }}>

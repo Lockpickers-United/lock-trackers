@@ -3,6 +3,7 @@ import ListingDetailsRow from './ListingDetailsRow.jsx'
 import WatchlistButton from './WatchlistButton.jsx'
 import DataContext from '../app/DataContext.jsx'
 import EntryYMALDisplay from './EntryYMALDisplay.jsx'
+import dayjs from 'dayjs'
 
 const EntryDetailsLB = ({entry, listings, sellerView}) => {
 
@@ -11,6 +12,8 @@ const EntryDetailsLB = ({entry, listings, sellerView}) => {
     const otherIds = allGroupedIds[parentId].filter(x => x !== entry.id)
     const hasListings = !!entry.listings
 
+    const newListingsDate = dayjs(entry.newListingsDate).format('MM/DD/YY')
+
     const margin = sellerView
         ? '0px 0px 0px 40px'
         : '0px 0px 0px 15px'
@@ -18,8 +21,23 @@ const EntryDetailsLB = ({entry, listings, sellerView}) => {
     return (
         <React.Fragment>
             {(entry?.isLPUbeltsLock && !sellerView) &&
-                <div style={{textAlign: 'center', marginBottom: 8, marginLeft:15, width: '100%'}}>
+                <div style={{
+                    textAlign: 'center',
+                    marginBottom: 8,
+                    marginLeft: 15,
+                    width: '100%',
+                    fontSize: '.9rem',
+                    display: 'flex'
+                }}>
                     <WatchlistButton id={entry.id} fontSize='small'/>
+                    <div style={{
+                        textAlign: 'right',
+                        marginTop: 10,
+                        marginRight: 15,
+                        width: '100%',
+                        fontSize: '.9rem',
+                    }}>
+                        New listings {newListingsDate}</div>
                 </div>
             }
             {listings.map((listing, index) =>

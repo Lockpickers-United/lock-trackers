@@ -3,20 +3,21 @@ import {enqueueSnackbar} from 'notistack'
 import React, {useCallback, useEffect, useMemo, useState} from 'react'
 
 function useData({url, urls, loadFn}) {
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [data, setData] = useState(null)
     const [error, setError] = useState(false)
 
     const loadData = useCallback(async () => {
 
         if (url || urls) try {
-            setLoading(true)
 
             let value
             if (url) {
+                setLoading(true)
                 const response = await fetch(url, {cache: 'no-store'})
                 value = await response.json()
             } else if (urls) {
+                setLoading(true)
                 value = {}
                 const promises = Object.keys(urls)
                     .map(async key => {

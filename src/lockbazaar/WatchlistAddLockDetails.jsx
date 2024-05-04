@@ -32,7 +32,7 @@ const WatchlistAddLockDetails = ({lock}) => {
                                       display: 'block'
                                   }
                               }}>
-                <div style={{display: 'flex', placeItems: 'center'}}>
+                <div style={{display: 'flex', placeItems: 'center', padding:'4px 0px 4px 0px'}}>
                     <BeltStripe value={lock.belt}/>
 
                     <div style={{margin: 0, width: '100%', textAlign: 'left'}}>

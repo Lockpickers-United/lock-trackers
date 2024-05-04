@@ -1,13 +1,10 @@
 import React, {useContext} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
-
-import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 import SignInButton from '../auth/SignInButton'
 import AuthContext from '../app/AuthContext.jsx'
 import ImportGetURL from './ImportGetURL.jsx'
 
 function LockBazaarMain() {
-    const {allDataLoaded} = useContext(LoadingContextLB)
     const {isLoggedIn} = useContext(AuthContext)
 
     const {width} = useWindowSize()
@@ -25,8 +22,7 @@ function LockBazaarMain() {
         }}>
 
             <div style={{fontSize: '1rem', lineHeight:'1.2rem', fontWeight: 400, marginBottom: 30, marginTop: 20, textAlign: 'left'}}>
-                <div style={{fontSize: '1.2rem', fontWeight: 600, marginBottom:15}}>Import LPUbelts Wishlist (beta)</div>
-
+                <div style={{fontSize: '1.2rem', fontWeight: 600, marginBottom:15}}>Import LPUbelts Wishlist</div>
                 New! You can now import your Wishlist from LPUbelts.com.
                 We use the LPUbelts URL to look up the details.
                 The easiest way to get the URL is to click the Copy Link icon at the top right
@@ -50,7 +46,7 @@ function LockBazaarMain() {
                 </div>
             }
 
-            {(allDataLoaded) && <ImportGetURL/>}
+            <ImportGetURL/>
 
         </div>
     )

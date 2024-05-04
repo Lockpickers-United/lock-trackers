@@ -13,6 +13,7 @@ import useData from '../util/useData.jsx'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 import DBContext from '../app/DBContext.jsx'
 import {enqueueSnackbar} from 'notistack'
+import LoadingDisplay from '../util/LoadingDisplay.jsx'
 
 const ImportGetURL = () => {
     const {updateProfile, profile = {}} = useContext(DBContext)
@@ -90,7 +91,7 @@ const ImportGetURL = () => {
     return (
 
         <div style={{margin: 0, width: '100%', textAlign: 'left'}}>
-            <div style={{display: 'flex', placeItems: 'center', marginBottom:20}}>
+            <div style={{display: 'flex', placeItems: 'center', marginBottom: 0}}>
                 <TextField variant='outlined'
                            color='secondary'
                            label='Profile URL'
@@ -133,7 +134,7 @@ const ImportGetURL = () => {
                     </Button>
                 }
 
-                {profileURL && (profileURL !== profile?.LPUBeltsProfile) &&
+                {!profileURLError && profileURL && (profileURL !== profile?.LPUBeltsProfile) &&
                     <Button variant='text' disabled={!profileSuccess} onClick={() => {
                         handleSave()
                     }}>
@@ -143,11 +144,20 @@ const ImportGetURL = () => {
 
             </div>
 
+            {(profileSuccess && !lpuWishlist) &&
+                <div style={{fontSize:'1.1rem', lineHeight:'1.4rem', textAlign:'center', padding:'30px 70px'}}>
+                    There are no items in your LPUbelts wishlist.
+                </div>
+            }
+
             {(lpuWishlistStatus && profileAuthError) &&
                 <div>Something went wrong. Please try again later. {lpuWishlistStatus}</div>
             }
 
-            {wishlistLocks.map((entry) =>
+            {(loading) &&
+                <LoadingDisplay/>
+            }
+            {jsonLoaded && wishlistLocks.map((entry) =>
                 <WatchlistAddLockDetails key={entry.id} lock={entry}/>
             )}
 

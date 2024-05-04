@@ -7,6 +7,7 @@ import AuthContext from '../app/AuthContext'
 import DBContext from '../app/DBContext'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import Button from '@mui/material/Button'
+import useWindowSize from '../util/useWindowSize.jsx'
 
 function WatchlistButton({id, fontSize, dense}) {
     const {isLoggedIn} = useContext(AuthContext)
@@ -31,7 +32,14 @@ function WatchlistButton({id, fontSize, dense}) {
         }
     }, [addToLockCollection, id, isCollected, isLoggedIn, removeFromLockCollection])
 
-    const tooltipText = isCollected ? 'In Watchlist' : 'Add to Watchlist'
+    const {width} = useWindowSize()
+    const smallWindow = width <= 400
+
+    const tooltipText = isCollected
+        ? 'In Watchlist'
+        : smallWindow
+            ? '+ Watchlist'
+            : 'Add to Watchlist'
 
     return (
         <React.Fragment>
@@ -46,8 +54,9 @@ function WatchlistButton({id, fontSize, dense}) {
 
                 {!dense &&
 
-                    <div style={{display:'flex', alignItems:'center', width:'100%'}}>
-                        <Button size='small' startIcon={<FavoriteIcon />} onClick={handleChange} color={isCollected ? 'error' : 'inherit'}>
+                    <div style={{display: 'flex', alignItems: 'center', width: '100%'}}>
+                        <Button size='small' startIcon={<FavoriteIcon/>} onClick={handleChange}
+                                color={isCollected ? 'error' : 'inherit'}>
                             <nobr>{tooltipText}</nobr>
                         </Button>
                     </div>
