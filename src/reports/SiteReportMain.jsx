@@ -18,6 +18,8 @@ function SiteReportMain() {
     usePageTitle('Site Report')
     const {data, loading, error} = useData({urls})
     const {siteFull, siteSummary} = data || {}
+    const jsonLoaded = (!loading && !error && !!data)
+
     const {width} = useWindowSize()
     const smallWindow = width < 560
     const pagePadding = !smallWindow
@@ -33,12 +35,11 @@ function SiteReportMain() {
     const updateTime = loading ? '--'
         : '(updated: ' + dayjs(siteFull?.metadata.updatedDateTime).format('MM/DD/YY hh:mm') + ` ${siteFull?.metadata.timezone})`
 
-
     const {allDataLoaded, validListings, sellerProfiles} = useContext(LoadingContextLB)
 
     if (loading) return <LoadingDisplay/>
     else if (error) return null
-    return (
+    else if (jsonLoaded) return (
         <div style={{
             minWidth: '320px', maxWidth: 900, height: '100%',
             padding: pagePadding, backgroundColor: '#292929',
@@ -50,7 +51,7 @@ function SiteReportMain() {
                 <SellersDataGrid listings={validListings} sellerProfiles={sellerProfiles}/>
             }
 
-            {!!siteFull.firstVistsLastSevenDays.countryCount &&
+            {!!siteFull?.firstVistsLastSevenDays?.countryCount &&
                 <React.Fragment>
                     <div style={firstHeaderStyle}>First Visits (Last Seven Days)</div>
                     <FirstVisitsLastSevenTable data={siteFull} tableWidth={'50%'}/>
@@ -72,7 +73,7 @@ function SiteReportMain() {
             <div style={headerStyle}>Top 50 Locks</div>
             <TopLocksTable data={siteFull}/>
 
-            {!!siteFull.popularCountries1 &&
+            {!!siteFull?.popularCountries1 &&
                 <React.Fragment>
                     <div style={headerStyle}>Popular Countries</div>
                     <PopularCountries data={siteFull}/>

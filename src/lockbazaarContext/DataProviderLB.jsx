@@ -16,7 +16,7 @@ export function DataProvider({children}) {
     const {verbose, beta} = useContext(AppContext)  //eslint-disable-line
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sellerId, sort, image, profileUpdated, add, ...filters} = allFilters
-    const {allEntries, allLocks, getLockFromId} = useContext(LoadingContext)
+    const {allEntries, allLocks, getLockFromId, samelineViews} = useContext(LoadingContext)
     const {profile} = useContext(DBContext)
     const {combinedEntries} = useContext(WatchlistContextLB)
     const lockBelts = useMemo(() => belts, [])
@@ -48,11 +48,12 @@ export function DataProvider({children}) {
                         profile?.watchlist?.includes?.(entry.id) ? 'Watchlist' : 'Not in Watchlist'
                     ],
                     simpleBelt: entry.belt.replace(/\s\d/g, ''),
-                    lockBelt: entry.belt.replace(/\s\d/g, '')
+                    lockBelt: entry.belt.replace(/\s\d/g, ''),
+                    samelineViews: samelineViews[entry.id] || 1
                 }))
             : []
-    }, [combinedEntries, profile?.watchlist])
-
+    }, [combinedEntries, profile?.watchlist, samelineViews])
+    
     const filteredEntries = useMemo(() => {
 
         // Filters as an array
@@ -106,7 +107,8 @@ export function DataProvider({children}) {
                     return beltSortReverse(a.belt, b.belt)
                         || entryName(a, 'short').localeCompare(entryName(b, 'short'))
                 } else if (sort === 'popularity') {
-                    return b.views - a.views
+                    return b.samelineViews - a.samelineViews
+                        || b.views - a.views
                         || entryName(a, 'short').localeCompare(entryName(b, 'short'))
                 } else if (sort === 'newListings') {
                     return Math.floor(dayjs(b.newListingsDate).valueOf() / 60000) * 60000 - Math.floor(dayjs(a.newListingsDate).valueOf() / 60000) * 60000

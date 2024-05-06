@@ -1,56 +1,161 @@
 {
+   "dailyAverages" : {
+      "data" : [
+         {
+            "label" : "Visitors",
+            "value" : 61
+         },
+         {
+            "label" : "Visits",
+            "value" : 179
+         },
+         {
+            "label" : "Lock Views",
+            "value" : 182
+         }
+      ],
+      "description" : "Daily Averages"
+   },
    "lockViewsByBelt" : {
-      "description" : "Lock Views By Belt",
       "data" : [
          {
             "id" : "White",
-            "label" : "White",
-            "value" : 0.014
+            "value" : 0.017,
+            "label" : "White"
          },
          {
-            "value" : 0.018,
+            "label" : "Yellow",
             "id" : "Yellow",
-            "label" : "Yellow"
+            "value" : 0.031
          },
          {
-            "label" : "Orange",
+            "value" : 0.033,
             "id" : "Orange",
-            "value" : 0.015
+            "label" : "Orange"
          },
          {
+            "value" : 0.085,
             "id" : "Green",
-            "label" : "Green",
-            "value" : 0.064
+            "label" : "Green"
          },
          {
-            "value" : 0.129,
+            "label" : "Blue",
             "id" : "Blue",
-            "label" : "Blue"
+            "value" : 0.093
          },
          {
-            "id" : "Purple",
             "label" : "Purple",
-            "value" : 0.134
+            "value" : 0.111,
+            "id" : "Purple"
          },
          {
-            "value" : 0.111,
             "id" : "Brown",
+            "value" : 0.08,
             "label" : "Brown"
          },
          {
-            "value" : 0.082,
-            "label" : "Red",
-            "id" : "Red"
+            "value" : 0.061,
+            "id" : "Red",
+            "label" : "Red"
          },
          {
             "label" : "Black",
-            "id" : "Black",
-            "value" : 0.191
+            "value" : 0.171,
+            "id" : "Black"
          },
          {
-            "value" : 0.043,
-            "label" : "Unranked",
-            "id" : "Unranked"
+            "id" : "Unranked",
+            "value" : 0.029,
+            "label" : "Unranked"
+         }
+      ],
+      "description" : "Lock Views By Belt"
+   },
+   "totals" : {
+      "description" : "Since Launch",
+      "data" : [
+         {
+            "label" : "Site Vists",
+            "value" : 5008
+         },
+         {
+            "label" : "Lock Views",
+            "value" : 5180
+         },
+         {
+            "label" : "Countries",
+            "value" : 44
+         }
+      ]
+   },
+   "trafficTotals" : {
+      "browser" : [
+         {
+            "label" : "Chrome",
+            "id" : "Chrome",
+            "value" : 2932
+         },
+         {
+            "label" : "Safari",
+            "value" : 1079,
+            "id" : "Safari"
+         },
+         {
+            "value" : 759,
+            "id" : "Firefox",
+            "label" : "Firefox"
+         },
+         {
+            "label" : "Edge",
+            "id" : "Edge",
+            "value" : 102
+         },
+         {
+            "label" : "Samsung",
+            "id" : "Samsung",
+            "value" : 82
+         },
+         {
+            "id" : "Opera",
+            "value" : 51,
+            "label" : "Opera"
+         },
+         {
+            "label" : "Other",
+            "value" : 3,
+            "id" : "Other"
+         }
+      ],
+      "platform" : [
+         {
+            "label" : "Mac OS X",
+            "value" : 1485,
+            "id" : "Mac OS X"
+         },
+         {
+            "label" : "Android",
+            "id" : "Android",
+            "value" : 1260
+         },
+         {
+            "id" : "Win10.0",
+            "value" : 914,
+            "label" : "Win10.0"
+         },
+         {
+            "id" : "iOS",
+            "value" : 872,
+            "label" : "iOS"
+         },
+         {
+            "id" : "Linux",
+            "value" : 453,
+            "label" : "Linux"
+         },
+         {
+            "label" : "Other",
+            "value" : 24,
+            "id" : "Other"
          }
       ]
    },
@@ -59,323 +164,226 @@
          "id" : "Lock Views",
          "data" : [
             {
-               "y" : "220",
+               "y" : 220,
                "x" : "2024-04-01"
             },
             {
-               "x" : "2024-04-08",
-               "y" : "722"
+               "y" : 722,
+               "x" : "2024-04-08"
+            },
+            {
+               "y" : 1588,
+               "x" : "2024-04-15"
+            },
+            {
+               "x" : "2024-04-22",
+               "y" : 1419
             }
          ]
       }
    ],
-   "trafficTotals" : {
-      "platform" : [
-         {
-            "value" : "681",
-            "label" : "Mac OS X",
-            "id" : "Mac OS X"
-         },
-         {
-            "value" : "470",
-            "id" : "Android",
-            "label" : "Android"
-         },
-         {
-            "value" : "386",
-            "id" : "iOS",
-            "label" : "iOS"
-         },
-         {
-            "label" : "Linux",
-            "id" : "Linux",
-            "value" : "358"
-         },
-         {
-            "id" : "Win10.0",
-            "label" : "Win10.0",
-            "value" : "356"
-         },
-         {
-            "value" : 12,
-            "id" : "Other",
-            "label" : "Other"
-         }
-      ],
-      "browser" : [
-         {
-            "value" : "1287",
-            "id" : "Chrome",
-            "label" : "Chrome"
-         },
-         {
-            "value" : "477",
-            "label" : "Safari",
-            "id" : "Safari"
-         },
-         {
-            "value" : "417",
-            "label" : "Firefox",
-            "id" : "Firefox"
-         },
-         {
-            "value" : "37",
-            "id" : "Samsung",
-            "label" : "Samsung"
-         },
-         {
-            "value" : "31",
-            "id" : "Edge",
-            "label" : "Edge"
-         },
-         {
-            "label" : "Opera",
-            "id" : "Opera",
-            "value" : "13"
-         },
-         {
-            "value" : 1,
-            "id" : "Other",
-            "label" : "Other"
-         }
-      ]
-   },
-   "totals" : {
-      "data" : [
-         {
-            "value" : 2263,
-            "label" : "Site Vists"
-         },
-         {
-            "label" : "Lock Views",
-            "value" : 1815
-         },
-         {
-            "value" : 38,
-            "label" : "Countries"
-         }
-      ],
-      "description" : "Since Launch"
-   },
    "hourlyRequests" : [
       {
          "data" : [
             {
                "x" : "midnight",
-               "y" : "59"
+               "y" : 203
             },
             {
-               "y" : "48",
+               "y" : 188,
                "x" : "1 am"
             },
             {
                "x" : "2 am",
-               "y" : "155"
+               "y" : 284
             },
             {
                "x" : "3 am",
-               "y" : "110"
+               "y" : 208
             },
             {
                "x" : "4 am",
-               "y" : "207"
+               "y" : 399
             },
             {
                "x" : "5 am",
-               "y" : "275"
+               "y" : 538
             },
             {
-               "x" : "6 am",
-               "y" : "313"
+               "y" : 675,
+               "x" : "6 am"
             },
             {
-               "x" : "7 am",
-               "y" : "356"
+               "y" : 834,
+               "x" : "7 am"
             },
             {
-               "y" : "372",
-               "x" : "8 am"
+               "x" : "8 am",
+               "y" : 917
             },
             {
-               "y" : "689",
+               "y" : 1330,
                "x" : "9 am"
             },
             {
-               "y" : "273",
+               "y" : 696,
                "x" : "10 am"
             },
             {
-               "y" : "273",
-               "x" : "11 am"
+               "x" : "11 am",
+               "y" : 830
             },
             {
-               "y" : "286",
-               "x" : "noon"
+               "x" : "noon",
+               "y" : 753
             },
             {
-               "x" : "1 pm",
-               "y" : "247"
+               "y" : 865,
+               "x" : "1 pm"
             },
             {
-               "y" : "356",
+               "y" : 753,
                "x" : "2 pm"
             },
             {
-               "y" : "488",
-               "x" : "3 pm"
+               "x" : "3 pm",
+               "y" : 852
             },
             {
                "x" : "4 pm",
-               "y" : "583"
+               "y" : 971
             },
             {
-               "x" : "5 pm",
-               "y" : "359"
+               "y" : 997,
+               "x" : "5 pm"
             },
             {
-               "y" : "349",
-               "x" : "6 pm"
+               "x" : "6 pm",
+               "y" : 701
             },
             {
                "x" : "7 pm",
-               "y" : "314"
+               "y" : 938
             },
             {
                "x" : "8 pm",
-               "y" : "311"
+               "y" : 676
             },
             {
                "x" : "9 pm",
-               "y" : "276"
+               "y" : 520
             },
             {
-               "y" : "242",
-               "x" : "10 pm"
+               "x" : "10 pm",
+               "y" : 517
             },
             {
-               "y" : "62",
+               "y" : 227,
                "x" : "11 pm"
             }
          ],
          "id" : "User Time"
       },
       {
-         "id" : "Server Time",
          "data" : [
             {
-               "y" : "221",
+               "y" : 413,
                "x" : "midnight"
             },
             {
-               "y" : "101",
+               "y" : 278,
                "x" : "1 am"
             },
             {
-               "y" : "136",
+               "y" : 342,
                "x" : "2 am"
             },
             {
-               "y" : "410",
+               "y" : 568,
                "x" : "3 am"
             },
             {
-               "y" : "209",
+               "y" : 408,
                "x" : "4 am"
             },
             {
-               "y" : "168",
-               "x" : "5 am"
+               "x" : "5 am",
+               "y" : 478
             },
             {
-               "y" : "192",
-               "x" : "6 am"
+               "x" : "6 am",
+               "y" : 517
             },
             {
                "x" : "7 am",
-               "y" : "354"
+               "y" : 850
             },
             {
-               "x" : "8 am",
-               "y" : "383"
+               "y" : 1060,
+               "x" : "8 am"
             },
             {
-               "y" : "435",
-               "x" : "9 am"
+               "x" : "9 am",
+               "y" : 1051
             },
             {
-               "x" : "10 am",
-               "y" : "354"
+               "y" : 856,
+               "x" : "10 am"
             },
             {
                "x" : "11 am",
-               "y" : "296"
+               "y" : 801
             },
             {
-               "y" : "362",
-               "x" : "noon"
+               "x" : "noon",
+               "y" : 821
             },
             {
-               "x" : "1 pm",
-               "y" : "249"
+               "y" : 712,
+               "x" : "1 pm"
             },
             {
-               "y" : "423",
-               "x" : "2 pm"
+               "x" : "2 pm",
+               "y" : 842
             },
             {
-               "x" : "3 pm",
-               "y" : "463"
+               "y" : 845,
+               "x" : "3 pm"
             },
             {
-               "y" : "464",
-               "x" : "4 pm"
+               "x" : "4 pm",
+               "y" : 820
             },
             {
                "x" : "5 pm",
-               "y" : "357"
+               "y" : 961
             },
             {
-               "y" : "184",
+               "y" : 506,
                "x" : "6 pm"
             },
             {
-               "x" : "7 pm",
-               "y" : "146"
+               "y" : 685,
+               "x" : "7 pm"
             },
             {
                "x" : "8 pm",
-               "y" : "216"
+               "y" : 486
             },
             {
-               "x" : "9 pm",
-               "y" : "332"
+               "y" : 593,
+               "x" : "9 pm"
             },
             {
-               "y" : "342",
-               "x" : "10 pm"
+               "x" : "10 pm",
+               "y" : 635
             },
             {
-               "y" : "207",
-               "x" : "11 pm"
+               "x" : "11 pm",
+               "y" : 345
             }
-         ]
+         ],
+         "id" : "Server Time"
       }
-   ],
-   "dailyAverages" : {
-      "description" : "Daily Averages",
-      "data" : [
-         {
-            "label" : "Visitors",
-            "value" : 27
-         },
-         {
-            "label" : "Visits",
-            "value" : 81
-         },
-         {
-            "label" : "Lock Views",
-            "value" : 65
-         }
-      ]
-   }
+   ]
 }

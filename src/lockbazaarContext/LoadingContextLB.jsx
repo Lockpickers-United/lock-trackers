@@ -1,19 +1,21 @@
 import React, {useCallback, useMemo} from 'react'
 import useData from '../util/useData'
-import {allLocks, lockBazaarData} from '../data/dataUrls'
+import {allLocks, lockBazaarData, samelineViewsJson} from '../data/dataUrls'
 
 const LoadingContext = React.createContext({})
-const urls = {allLocks, lockBazaarData}
+const urls = {allLocks, lockBazaarData, samelineViewsJson}
 
 export function LoadingProvider({children}) {
     const {data, loading, error} = useData({urls})
-    const {allLocks, lockBazaarData} = data || {}
+    const {allLocks, lockBazaarData, samelineViewsJson} = data || {}
     const jsonLoaded = (!loading && !error && !!data)
+
 
     const sellerProfiles = useMemo(() => lockBazaarData?.sellerProfiles || [], [lockBazaarData?.sellerProfiles])
     const sellerIdMap = useMemo(() => lockBazaarData?.sellerIdMap || [], [lockBazaarData?.sellerIdMap])
     const validListings = useMemo(() => lockBazaarData?.validListings || [], [lockBazaarData?.validListings])
     const badListings = useMemo(() => lockBazaarData?.badListings || [], [lockBazaarData?.badListings])
+    const samelineViews = useMemo(() => samelineViewsJson?.samelineViews || [], [samelineViewsJson?.samelineViews])
 
     const getLockFromId = useCallback(lockId => {
         return allLocks?.find(({id}) => id === lockId) || null
@@ -76,7 +78,8 @@ export function LoadingProvider({children}) {
         getLockLinesInfoFromId,
         getSellerFromId,
         sellerIdMap,
-        badListings
+        badListings,
+        samelineViews
     }), [
         allDataLoaded,
         sellerProfiles,
@@ -89,7 +92,8 @@ export function LoadingProvider({children}) {
         getLockLinesInfoFromId,
         getSellerFromId,
         sellerIdMap,
-        badListings
+        badListings,
+        samelineViews
     ])
 
     return (
