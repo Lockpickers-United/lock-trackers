@@ -26,8 +26,8 @@ function LockBazaarMain() {
                 New! You can now import your Wishlist from LPUbelts.com.
                 We use the LPUbelts URL to look up the details.
                 The easiest way to get the URL is to click the Copy Link icon at the top right
-                of your View Profile page on <a href='https://lpubelts.com' target='_blank'
-                                                rel='noopener noreferrer'>LPUbelts.com</a>.
+                of your <a href='https://lpubelts.com/#/profile/view' target='_blank'
+                           rel='noopener noreferrer'>View Profile page on LPUbelts.com</a>.
             </div>
 
             {(!isLoggedIn) &&

@@ -53,7 +53,7 @@ export function DataProvider({children}) {
                 }))
             : []
     }, [combinedEntries, profile?.watchlist, samelineViews])
-    
+
     const filteredEntries = useMemo(() => {
 
         // Filters as an array

@@ -14,10 +14,13 @@ import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 import DBContext from '../app/DBContext.jsx'
 import {enqueueSnackbar} from 'notistack'
 import LoadingDisplay from '../util/LoadingDisplay.jsx'
+import AuthContext from '../app/AuthContext.jsx'
 
 const ImportGetURL = () => {
     const {updateProfile, profile = {}} = useContext(DBContext)
     const {getLockFromId} = useContext(LoadingContextLB)
+    const {authLoaded, isLoggedIn} = useContext(AuthContext)
+
 
     const idRegex = useMemo(() => /profile\/(\w{28})\W*/, [])
 
@@ -48,6 +51,12 @@ const ImportGetURL = () => {
             enqueueSnackbar('Error while updating profile', ex)
         }
     }, [profile, profileURL, updateProfile])
+
+    const handleLinkClick = (event) => {
+        event.preventDefault()
+        window.open('https://lpubelts.com/#/profile/view', '_blank', 'noopener,noreferrer')
+    }
+
 
     const [debouncedValue] = useDebounce(profileId, 250)
 
@@ -125,6 +134,12 @@ const ImportGetURL = () => {
             </div>
 
             <div style={{width: '100%', textAlign: 'right'}}>
+
+                {(authLoaded && isLoggedIn && !profile?.LPUBeltsProfile && !profileURL) &&
+                    <Button variant='text' onClick={handleLinkClick}>
+                        View Profile on LPUbelts.com
+                    </Button>
+                }
 
                 {(profile?.LPUBeltsProfile && !profileURL) &&
                     <Button variant='text' disabled={!profile?.LPUBeltsProfile} onClick={() => {

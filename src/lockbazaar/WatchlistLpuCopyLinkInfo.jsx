@@ -24,11 +24,11 @@ function LpuCopyLinkInfo() {
                 <CardContent>
                     <div style={divFlexStyle}>
                         <div style={{fontSize: '0.9rem', lineHeight: '1.3rem', marginRight: 30}}>
-                            New! You can now import your Wishlist from <a href='https://lpubelts.com' target='_blank'
-                                                    rel='noopener noreferrer'>LPUbelts.com</a>.
-                            We use the LPUbelts URL to look up the details.<br/><br/>
+                            New! You can now import your Wishlist from <a href='https://lpubelts.com/#/profile/view' target='_blank'
+                                                    rel='noopener noreferrer'>your LPUbelts.com profile</a>.
+                            <br/><br/>
 
-                            The easiest way to get the URL is to click the Copy Link icon at the top right of your View Profile page LPUbelts.com.<br/><br/>
+                            We use the LPUbelts URL to look up the details. The easiest way to get the URL is to click the Copy Link icon at the top right of your View Profile page LPUbelts.com.<br/><br/>
 
                             You can also copy the link from your browser window when looking at your profile.
                             We use the information in the URL -- specifically the element &lsquo;/profile/XXXXXXXX&rsquo; --
