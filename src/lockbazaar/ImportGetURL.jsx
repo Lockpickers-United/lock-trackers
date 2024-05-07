@@ -57,14 +57,13 @@ const ImportGetURL = () => {
         window.open('https://lpubelts.com/#/profile/view', '_blank', 'noopener,noreferrer')
     }
 
-
     const [debouncedValue] = useDebounce(profileId, 250)
 
     const token = '81750a99'
-    const url = `https://explore.lpubelts.com/wishlist/?token=${token}&id=${debouncedValue}`
+    const url = (authLoaded && isLoggedIn) ? `https://explore.lpubelts.com/wishlist/?token=${token}&id=${debouncedValue}` : ''
     const {data, loading, error} = useData(debouncedValue ? {url} : {})
     const jsonLoaded = (!loading && !error && !!data)
-    const lpuWishlist = jsonLoaded ? data[1].wishlist : []
+    const lpuWishlist = (authLoaded && isLoggedIn && jsonLoaded) ? data[1].wishlist : []
     const lpuWishlistStatus = jsonLoaded ? data[1].status : ''
 
     const profileSuccess = lpuWishlistStatus === '200 OK'
@@ -77,7 +76,12 @@ const ImportGetURL = () => {
         })
         : []
 
-    //console.log('wishlist', debouncedValue, lpuWishlistStatus, lpuWishlist)
+    /*
+    if(lpuWishlistStatus) console.log(lpuWishlistStatus)
+    if (profile) console.log('LPUlocks username', profile.username)
+    if (debouncedValue) console.log('LPUbelts id', debouncedValue)
+    if (wishlistLocks) console.log('wishlistLocks', wishlistLocks)
+    */
 
     const lpuUrl = debouncedValue ? `https://lpubelts.com/#/profile/${profileId}` : ''
 
@@ -96,95 +100,102 @@ const ImportGetURL = () => {
         setOverlayIsOpen(true)
     }, [])
 
-
     return (
+        <React.Fragment>
+            {isLoggedIn &&
+                <div style={{margin: 0, width: '100%', textAlign: 'left'}}>
+                    <div style={{display: 'flex', placeItems: 'center', marginBottom: 0}}>
+                        <TextField variant='outlined'
+                                   color='secondary'
+                                   label='Profile URL'
+                                   value={profileURL}
+                                   onChange={handleChange}
+                                   InputProps={{
+                                       startAdornment: (
+                                           <InputAdornment position='start'>
+                                               <LockIcon style={{fontSize: 'medium'}}/>
+                                           </InputAdornment>
+                                       )
+                                   }}
+                                   style={{width: '90%'}}
+                                   size='small'
+                                   error={profileURLError}
+                                   helperText={profileURLHelperText}
+                        />
+                        <div>
+                            <Button type='text' style={buttonStyle}
+                                    sx={{color: '#fff', marginBottom: '10px'}}
+                                    onClick={handleOverlayOpen}>
+                                <InfoIcon style={{fontSize: 'large'}}/>
+                            </Button>
+                            <Button type='text'
+                                    style={buttonStyle}
+                                    disabled={!profileURLValid}>
+                                <a href={lpuUrl} target='_blank' rel='noreferrer'>
+                                    <LaunchIcon style={{fontSize: 'large', color: lockLaunchColor}}/></a>
+                            </Button>
+                        </div>
+                    </div>
 
-        <div style={{margin: 0, width: '100%', textAlign: 'left'}}>
-            <div style={{display: 'flex', placeItems: 'center', marginBottom: 0}}>
-                <TextField variant='outlined'
-                           color='secondary'
-                           label='Profile URL'
-                           value={profileURL}
-                           onChange={handleChange}
-                           InputProps={{
-                               startAdornment: (
-                                   <InputAdornment position='start'>
-                                       <LockIcon style={{fontSize: 'medium'}}/>
-                                   </InputAdornment>
-                               )
-                           }}
-                           style={{width: '90%'}}
-                           size='small'
-                           error={profileURLError}
-                           helperText={profileURLHelperText}
-                />
-                <div>
-                    <Button type='text' style={buttonStyle}
-                            sx={{color: '#fff', marginBottom: '10px'}}
-                            onClick={handleOverlayOpen}>
-                        <InfoIcon style={{fontSize: 'large'}}/>
-                    </Button>
-                    <Button type='text'
-                            style={buttonStyle}
-                            disabled={!profileURLValid}>
-                        <a href={lpuUrl} target='_blank' rel='noreferrer'>
-                            <LaunchIcon style={{fontSize: 'large', color: lockLaunchColor}}/></a>
-                    </Button>
+                    <div style={{width: '100%', textAlign: 'right'}}>
+
+                        {(authLoaded && isLoggedIn && !profile?.LPUBeltsProfile && !profileURL) &&
+                            <Button variant='text' onClick={handleLinkClick}>
+                                View Profile on LPUbelts.com
+                            </Button>
+                        }
+
+                        {(profile?.LPUBeltsProfile && !profileURL) &&
+                            <Button variant='text' disabled={!profile?.LPUBeltsProfile} onClick={() => {
+                                processURL(profile?.LPUBeltsProfile)
+                            }}>
+                                Get Link from Profile
+                            </Button>
+                        }
+
+                        {!profileURLError && profileURL && (profileURL !== profile?.LPUBeltsProfile) &&
+                            <Button variant='text' disabled={!profileSuccess} onClick={() => {
+                                handleSave()
+                            }}>
+                                Save Link to Profile
+                            </Button>
+                        }
+
+                    </div>
+
+                    {(profileSuccess && !lpuWishlist) &&
+                        <div style={{
+                            fontSize: '1.1rem',
+                            lineHeight: '1.4rem',
+                            textAlign: 'center',
+                            padding: '30px 70px'
+                        }}>
+                            There are no items in your LPUbelts wishlist.
+                        </div>
+                    }
+
+                    {(lpuWishlistStatus && profileAuthError) &&
+                        <div>Something went wrong. Please try again later. {lpuWishlistStatus}</div>
+                    }
+
+                    {(loading) &&
+                        <LoadingDisplay/>
+                    }
+                    {jsonLoaded && wishlistLocks.map((entry) =>
+                        <WatchlistAddLockDetails key={entry.id} lock={entry}/>
+                    )}
+
+
+                    <Backdrop
+                        sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                        open={overlayIsOpen} onClick={handleOverlayClose}
+                    >
+                        <WatchlistLpuCopyLinkInfo/>
+                    </Backdrop>
+
                 </div>
-            </div>
-
-            <div style={{width: '100%', textAlign: 'right'}}>
-
-                {(authLoaded && isLoggedIn && !profile?.LPUBeltsProfile && !profileURL) &&
-                    <Button variant='text' onClick={handleLinkClick}>
-                        View Profile on LPUbelts.com
-                    </Button>
-                }
-
-                {(profile?.LPUBeltsProfile && !profileURL) &&
-                    <Button variant='text' disabled={!profile?.LPUBeltsProfile} onClick={() => {
-                        processURL(profile?.LPUBeltsProfile)
-                    }}>
-                        Get Link from Profile
-                    </Button>
-                }
-
-                {!profileURLError && profileURL && (profileURL !== profile?.LPUBeltsProfile) &&
-                    <Button variant='text' disabled={!profileSuccess} onClick={() => {
-                        handleSave()
-                    }}>
-                        Save Link to Profile
-                    </Button>
-                }
-
-            </div>
-
-            {(profileSuccess && !lpuWishlist) &&
-                <div style={{fontSize:'1.1rem', lineHeight:'1.4rem', textAlign:'center', padding:'30px 70px'}}>
-                    There are no items in your LPUbelts wishlist.
-                </div>
             }
-
-            {(lpuWishlistStatus && profileAuthError) &&
-                <div>Something went wrong. Please try again later. {lpuWishlistStatus}</div>
-            }
-
-            {(loading) &&
-                <LoadingDisplay/>
-            }
-            {jsonLoaded && wishlistLocks.map((entry) =>
-                <WatchlistAddLockDetails key={entry.id} lock={entry}/>
-            )}
-
-
-            <Backdrop
-                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
-                open={overlayIsOpen} onClick={handleOverlayClose}
-            >
-                <WatchlistLpuCopyLinkInfo/>
-            </Backdrop>
-
-        </div>
+        </React.Fragment>
     )
 }
 

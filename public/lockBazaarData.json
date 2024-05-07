@@ -1,12 +1,12 @@
 {
   "sellerProfiles": [
     {
+      "belt": "Blue",
+      "modified": "2024-04-16T21:20:14+02:00",
+      "discordUsername": "fabianoh130",
       "country": "Netherlands (Kingdom of the)",
       "created": "2024-04-13T21:11:52+02:00",
-      "discordUsername": "fabianoh130",
       "sellerNote": "My lockshop: www.fabianoh130.nl",
-      "belt": "Blue",
-      "username": "fabianoh130",
       "sellerShipsTo": [
         "Africa",
         "Asia",
@@ -15,73 +15,73 @@
         "North America",
         "South America"
       ],
-      "modified": "2024-04-16T21:20:14+02:00",
+      "username": "fabianoh130",
       "userId": "3iOqRv3v8jNhpvvfV9OMTj5joP12",
       "spreadsheetId": "1DKNTIr6wKhEZUUvmKNlMQWL9nC-GnlNpOgfsHwOXWVQ"
     },
     {
-      "modified": "2024-04-05T12:29:28-05:00",
+      "created": "2024-04-05T12:29:08-05:00",
+      "belt": "Red",
+      "redditUsername": "Rxpert83",
       "username": "Rxpert",
+      "modified": "2024-04-05T12:29:28-05:00",
+      "spreadsheetId": "1R9GtWZoOx_XjpPZWmSmYd31ukPOsU-9s_Et_P5xK2gw",
+      "country": "United States of America",
+      "discordUsername": "Rxpert",
       "LPUBeltsProfile": "https://lpubelts.com/#/profile/0oQdsctEO8ZF3V4qPz8QhGAc7qM2?name=Rxpert",
+      "isSeller": true,
       "sellerShipsTo": [
         "North America"
       ],
-      "discordUsername": "Rxpert",
-      "redditUsername": "Rxpert83",
-      "created": "2024-04-05T12:29:08-05:00",
-      "country": "United States of America",
-      "belt": "Red",
-      "spreadsheetId": "1R9GtWZoOx_XjpPZWmSmYd31ukPOsU-9s_Et_P5xK2gw",
-      "isSeller": true,
       "watchlist": [],
       "userId": "51beJ56eklR1zQeTy9uzqNUZNb42"
     },
     {
-      "spreadsheetId": "1_Dk619Y3Zj_zsLHKLxGZlRdgSUH1pF0u2BxFScgJPXc",
-      "username": "amvgaert",
-      "belt": "Blue",
-      "spreadsheetRange": "Locks 4 Sale!A6:M",
-      "discordUsername": "amvgaert",
       "sellerEmail": "amvgaert@gmail.com",
-      "created": "2024-03-28T17:04:21-05:00",
+      "discordUsername": "amvgaert",
+      "username": "amvgaert",
       "country": "United States of America",
-      "isSeller": true,
-      "modified": "2024-03-31T08:46:24-05:00",
+      "spreadsheetRange": "Locks 4 Sale!A6:M",
+      "created": "2024-03-28T17:04:21-05:00",
       "sellerShipsTo": [
         "Europe",
         "North America",
         "Australia & Oceania"
       ],
+      "belt": "Blue",
+      "modified": "2024-03-31T08:46:24-05:00",
+      "spreadsheetId": "1_Dk619Y3Zj_zsLHKLxGZlRdgSUH1pF0u2BxFScgJPXc",
+      "isSeller": true,
       "userId": "8AglvJL9k7dN9uqevAV5JXYyzVQ2"
     },
     {
-      "isSeller": true,
-      "country": "United States of America",
-      "modified": "2024-04-07T18:18:42-04:00",
-      "username": "Lockskipper",
+      "watchlist": [
+        "da09d849"
+      ],
       "belt": "Green",
+      "created": "2024-03-27T19:46:02-04:00",
+      "sellerEmail": "lockskipper@gmail.com",
+      "modified": "2024-04-07T18:18:42-04:00",
+      "discordUsername": "Skipper-76 ",
       "sellerShipsTo": [
         "Europe",
         "North America",
         "Australia & Oceania"
       ],
-      "watchlist": [
-        "da09d849"
-      ],
-      "discordUsername": "Skipper-76 ",
+      "username": "Lockskipper",
       "sellerNote": "All Prices are US Dollars..Contact me for shipping quote..US shipping: $6-10 in most cases",
-      "sellerEmail": "lockskipper@gmail.com",
+      "country": "United States of America",
       "spreadsheetId": "1TK8ghd7dgZ8q1n_HNXx7c152qlry44I6RNmuwMH7cxk",
-      "created": "2024-03-27T19:46:02-04:00",
+      "isSeller": true,
       "userId": "8F4GE8rBqnOBPIhqwi7Z2Ios8b63"
     },
     {
-      "modified": "2024-04-19T11:03:44+01:00",
-      "belt": "Orange",
-      "username": "escape goat",
-      "created": "2024-04-15T13:57:00+01:00",
-      "LPUBeltsProfile": "https://lpubelts.com/#/profile/ydmRY2wuIQWpFeX61US8x6cfWdV2?name=escape_goat",
+      "discordUsername": "escape goat",
       "sellerNote": "Hi! \n\nI am a member of TOOOL UK, active in LockPickers United, and most lockpicking/locksport discord servers. .. ..\nPlease feel free to ask others regarding my repuation for your own assurance and confidence in buying from me. ..\n..\nHappy to ship worldwide. ..\nI accept PayPal Friends&Family and bank transfer only. ..\nAll prices are in GBP, and payment in GBP please. .. \n..\nContact me on discord: escape_goat or escape goat#0200\n",
+      "username": "escape goat",
+      "belt": "Orange",
+      "modified": "2024-04-19T11:03:44+01:00",
+      "country": "United Kingdom of Great Britain and Northern Ireland",
       "sellerShipsTo": [
         "South America",
         "North America",
@@ -90,12 +90,13 @@
         "Asia",
         "Africa"
       ],
-      "country": "United Kingdom of Great Britain and Northern Ireland",
-      "discordUsername": "escape goat",
+      "created": "2024-04-15T13:57:00+01:00",
+      "LPUBeltsProfile": "https://lpubelts.com/#/profile/ydmRY2wuIQWpFeX61US8x6cfWdV2?name=escape_goat",
       "userId": "9wdR4wTVYBfVWzHpX1KUuzfwW1u2",
       "spreadsheetId": "1YjvFqYpRIPRE_z_U-cjRWq-C382kGw0PawTr7xKklwo"
     },
     {
+      "redditUsername": "mgsecure",
       "sellerShipsTo": [
         "North America",
         "Australia & Oceania"
@@ -106,11 +107,14 @@
         "sp_9f782d81"
       ],
       "country": "United States of America",
-      "isLBMod": true,
-      "username": "mgsecure",
       "belt": "Black",
-      "LPUBeltsProfile": "https://lpubelts.com/#/profile/GGplAdctTfVDLVvYsfIADJmfp8f2",
+      "sellerNote": "Just a test account..Items not actually for sale..https://lpulocks.com",
+      "sellerEmail": "mg@mgsecure.com",
+      "username": "mgsecure",
+      "created": "2024-02-27T09:35:25-05:00",
       "discordUsername": "mgsecure",
+      "isMod": false,
+      "modified": "2024-04-25T11:00:57-07:00",
       "watchlist": [
         "29ab2852",
         "6b2e5290",
@@ -129,44 +133,38 @@
         "6e59ba12-2",
         "6e59ba12-3",
         "6e59ba12-4",
-        "48cf387f",
         "649eaebc-1",
         "ab1e901f",
         "3ac43ea8",
-        "3515caae-1",
-        "1459e2c6"
+        "1459e2c6",
+        "da09d849",
+        "48cf387f"
       ],
-      "sellerEmail": "mg@mgsecure.com",
-      "modified": "2024-04-25T11:00:57-07:00",
-      "created": "2024-02-27T09:35:25-05:00",
-      "redditUsername": "mgsecure",
-      "sellerNote": "Just a test account..Items not actually for sale..https://lpulocks.com",
-      "isMod": false,
+      "LPUBeltsProfile": "https://lpubelts.com/#/profile/GGplAdctTfVDLVvYsfIADJmfp8f2",
+      "isLBMod": true,
       "userId": "ClbjuilBEHgbzO4UZl4y3GStlEz2",
       "spreadsheetId": "1UXTsaqGuH7-DHik4qGjratQdywAsQ7FPTmFXaZI5ScM"
     },
     {
+      "redditUsername": "Phalangical",
       "country": "United States of America",
-      "username": "Phalangical",
-      "isSeller": true,
-      "created": "2024-04-04T19:39:32-05:00",
-      "sellerEmail": "young.scottw@gmail.com",
       "sellerShipsTo": [
         "North America"
       ],
-      "LPUBeltsProfile": "https://lpubelts.com/#/profile/IXTvChbGnQOMxeDmfJdGXTUZinw2",
-      "belt": "Purple",
-      "redditUsername": "Phalangical",
-      "spreadsheetId": "1UFcTNlNqmdzXnGbzMgcO5qsqvBLQbh-WGHd8EZESU8E",
-      "discordUsername": "phalangical",
+      "isSeller": true,
+      "username": "Phalangical",
       "modified": "2024-04-05T09:57:03-05:00",
+      "belt": "Purple",
+      "LPUBeltsProfile": "https://lpubelts.com/#/profile/IXTvChbGnQOMxeDmfJdGXTUZinw2",
+      "discordUsername": "phalangical",
+      "created": "2024-04-04T19:39:32-05:00",
+      "spreadsheetId": "1UFcTNlNqmdzXnGbzMgcO5qsqvBLQbh-WGHd8EZESU8E",
+      "sellerEmail": "young.scottw@gmail.com",
       "userId": "FQqRueKxsjW52rCQ8sOGkNwxnvZ2"
     },
     {
       "redditUsername": "",
-      "country": "Sweden",
-      "discordUsername": "H.J",
-      "belt": "Green",
+      "LPUBeltsProfile": "https://lpubelts.com/#/profile/mzhcU8EDkhX9N8KT1k4sHJ1Zuho2?name=HJ",
       "sellerShipsTo": [
         "Europe",
         "South America",
@@ -175,55 +173,49 @@
         "Asia",
         "Africa"
       ],
-      "modified": "2024-05-04T21:23:45+02:00",
-      "username": "HJ",
-      "LPUBeltsProfile": "https://lpubelts.com/#/profile/mzhcU8EDkhX9N8KT1k4sHJ1Zuho2?name=HJ",
-      "created": "2024-05-04T12:29:09+02:00",
+      "discordUsername": "H.J",
+      "modified": "2024-05-05T13:15:47+02:00",
       "sellerEmail": "Hannes.Jarudd@gmail.com",
+      "created": "2024-05-04T12:29:09+02:00",
+      "username": "HJ",
+      "belt": "Green",
+      "country": "Sweden",
       "userId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
       "spreadsheetId": "1snqNKmwexelUtG4mb-kq_ZhTRrv8BUFZuBsphXSdMpE"
     },
     {
-      "discordUsername": "JayDee",
-      "redditUsername": "--JayDee",
-      "created": "2024-04-07T02:50:39+02:00",
-      "username": "JayDee",
-      "spreadsheetId": "1B3nw8NlXZuGu6fRZuOSUjLo6TxM8yfwSjbn_YL7g0GQ",
-      "isSeller": true,
       "country": "Netherlands (Kingdom of the)",
+      "redditUsername": "--JayDee",
       "modified": "2024-04-07T02:51:09+02:00",
+      "discordUsername": "JayDee",
+      "created": "2024-04-07T02:50:39+02:00",
+      "isSeller": true,
+      "spreadsheetId": "1B3nw8NlXZuGu6fRZuOSUjLo6TxM8yfwSjbn_YL7g0GQ",
+      "username": "JayDee",
       "userId": "NPEwFfM1fZgSTXBiWGpJpg7lWui2"
     },
     {
+      "spreadsheetRange": "Sheet1!A4:M",
+      "modified": "2024-04-01T08:26:09-04:00",
+      "country": "United States of America",
+      "LPUBeltsProfile": "https://lpubelts.com/#/profile/AiS1jGKvjhVb4vOhmzVFzx2VNko2?name=FloridaManPicks",
+      "belt": "Black",
+      "spreadsheetId": "1eT3kh6vzOEXKWIeHdgmbIIkSQ0wrcAZJODOVhN-0NTE",
+      "discordUsername": "FloridaManPicksLocks",
       "isSeller": true,
       "username": "Florida Man Picks",
-      "country": "United States of America",
-      "redditUsername": "reddit_user_912",
-      "modified": "2024-04-01T08:26:09-04:00",
-      "sellerEmail": "floridamanpickslocks@gmail.com",
-      "spreadsheetRange": "Sheet1!A4:M",
-      "discordUsername": "FloridaManPicksLocks",
-      "spreadsheetId": "1eT3kh6vzOEXKWIeHdgmbIIkSQ0wrcAZJODOVhN-0NTE",
       "created": "2024-03-28T19:50:15-04:00",
+      "sellerEmail": "floridamanpickslocks@gmail.com",
+      "redditUsername": "reddit_user_912",
       "sellerShipsTo": [
         "North America"
       ],
-      "belt": "Black",
-      "LPUBeltsProfile": "https://lpubelts.com/#/profile/AiS1jGKvjhVb4vOhmzVFzx2VNko2?name=FloridaManPicks",
       "userId": "QL17XEy4hyZZby9AyALRkgVYswF3"
     },
     {
       "discordUsername": "Clefmentine",
-      "sellerEmail": "Clefmentine.lock@gmail.com",
-      "country": "France",
-      "sellerNote": "I ship worlwide but i'm based in France so easier to EU. Contact me on discord for shipping informations.",
-      "modified": "2024-04-22T00:27:16+02:00",
-      "isSeller": true,
-      "belt": "Black",
-      "created": "2024-04-02T18:41:25+02:00",
       "spreadsheetId": "1mE2dBFLCvaiY2jKZZafI5xCfR1VvJbysiJjwcR0l6jw",
-      "LPUBeltsProfile": "https://lpubelts.com/#/profile/tbaq0CWuDTXerA0eUi0kGASVb1Z2?name=Clefmentine",
-      "username": "Clefmentine",
+      "redditUsername": "",
       "sellerShipsTo": [
         "Africa",
         "Asia",
@@ -232,16 +224,21 @@
         "North America",
         "South America"
       ],
-      "redditUsername": "",
+      "country": "France",
+      "modified": "2024-04-22T00:27:16+02:00",
+      "username": "Clefmentine",
+      "isSeller": true,
+      "sellerNote": "I ship worlwide but i'm based in France so easier to EU. Contact me on discord for shipping informations.",
+      "created": "2024-04-02T18:41:25+02:00",
+      "LPUBeltsProfile": "https://lpubelts.com/#/profile/tbaq0CWuDTXerA0eUi0kGASVb1Z2?name=Clefmentine",
+      "sellerEmail": "Clefmentine.lock@gmail.com",
+      "belt": "Black",
       "userId": "TmsFB01ZjiMI1lrIyW8g4XLNJvc2"
     },
     {
-      "username": "yabende",
-      "modified": "2024-03-29T13:42:29+01:00",
-      "belt": "Black",
-      "LPUBeltsProfile": "https://lpubelts.com/#/profile/Gg9KxwHOwBf03QAIdOgZbfW3hRo1?name=Private",
-      "redditUsername": "yabende",
+      "spreadsheetId": "1s5iia82ihLEHuKA6ogDTZeWjoJM597uUua6LkUYj26U",
       "created": "2024-03-29T13:41:41+01:00",
+      "discordUsername": "yabende",
       "sellerShipsTo": [
         "Africa",
         "Asia",
@@ -250,104 +247,104 @@
         "South America",
         "Australia & Oceania"
       ],
-      "spreadsheetId": "1s5iia82ihLEHuKA6ogDTZeWjoJM597uUua6LkUYj26U",
-      "discordUsername": "yabende",
+      "belt": "Black",
+      "username": "yabende",
       "country": "Poland",
+      "modified": "2024-03-29T13:42:29+01:00",
       "isSeller": true,
+      "LPUBeltsProfile": "https://lpubelts.com/#/profile/Gg9KxwHOwBf03QAIdOgZbfW3hRo1?name=Private",
+      "redditUsername": "yabende",
       "userId": "WG4BCLpSy3TFNUG1TtewUoTkgu33"
     },
     {
-      "country": "United States of America",
+      "LPUBeltsProfile": "https://lpubelts.com/#/profile/WMSvvuutyShfvBBYB3PmDe4fmeS2?name=NiXXeD",
+      "redditUsername": "TheNiXXeD",
       "modified": "2024-03-28T09:44:32-05:00",
-      "discordUsername": "nixxed",
-      "username": "NiXXeD",
+      "country": "United States of America",
+      "created": "2024-03-28T09:44:00-05:00",
       "belt": "Black",
+      "discordUsername": "nixxed",
       "sellerShipsTo": [
         "North America"
       ],
-      "redditUsername": "TheNiXXeD",
-      "created": "2024-03-28T09:44:00-05:00",
-      "LPUBeltsProfile": "https://lpubelts.com/#/profile/WMSvvuutyShfvBBYB3PmDe4fmeS2?name=NiXXeD",
+      "username": "NiXXeD",
       "userId": "X3phSmxfnoQypUN8L5zVqUGbZb13",
       "spreadsheetId": "11hnlj17dcg56Hrpx41zlMxBB2UKbUAAXU0xEAfqiKzM"
     },
     {
+      "discordUsername": "Wyte",
+      "country": "United States of America",
+      "isSeller": true,
       "redditUsername": "Wyte2",
       "sellerEmail": "Wyte927@gmail.com",
       "username": "Wyte",
-      "spreadsheetId": "1MrD08QwWAs_3_HJwV3kJQK9YLbbkFif5Wb0MEL6f9fc",
-      "modified": "2024-04-05T17:38:08-04:00",
-      "country": "United States of America",
-      "discordUsername": "Wyte",
-      "created": "2024-04-04T15:17:59-04:00",
-      "isSeller": true,
       "sellerShipsTo": [
         "North America"
       ],
       "sellerNote": "Shipping worldwide, all prices in USD..Usa shipping likely $9 unless large",
       "belt": "Black",
+      "modified": "2024-04-05T17:38:08-04:00",
+      "created": "2024-04-04T15:17:59-04:00",
+      "spreadsheetId": "1MrD08QwWAs_3_HJwV3kJQK9YLbbkFif5Wb0MEL6f9fc",
       "userId": "a8KESW9kDSZEyuyZdWJcU8fTXmt2"
     },
     {
-      "isSeller": true,
+      "discordUsername": "The Big Lebowski",
       "country": "Netherlands (Kingdom of the)",
       "belt": "Blue",
-      "discordUsername": "The Big Lebowski",
-      "sellerShipsTo": [
-        "Europe",
-        "North America",
-        "Australia & Oceania",
-        "South America",
-        "Asia",
-        "Africa"
-      ],
       "spreadsheetId": "1ptr_KtuBp6-U3XOwVq9GaQ6NiDiygF2OAsID7yGzBF8",
+      "isSeller": true,
       "LPUBeltsProfile": "biglebowsky",
       "username": "The Big Lebowski",
       "redditUsername": "biglebowsky",
       "modified": "2024-04-05T19:38:25+02:00",
       "created": "2024-04-04T23:00:19+02:00",
+      "sellerShipsTo": [
+        "Europe",
+        "North America",
+        "Australia & Oceania",
+        "South America",
+        "Asia",
+        "Africa"
+      ],
       "userId": "c81e8Sx3whNXRRGZnLD8N6ow0z22"
     },
     {
-      "discordUsername": "cmfxa",
-      "redditUsername": "cmfxa",
       "created": "2024-04-21T05:00:40-05:00",
-      "username": "cmfxa",
       "modified": "2024-04-21T05:00:50-05:00",
+      "username": "cmfxa",
+      "redditUsername": "cmfxa",
+      "discordUsername": "cmfxa",
       "userId": "czNhhmzm46X2EEOxZPc9NgJQ86v2",
       "spreadsheetId": "1iqWI0vPFUrO57o3oK7Kpv-5KFkRxN8XC4KQzLTBqugc"
     },
     {
-      "LPUBeltsProfile": "https://lpubelts.com/#/profile/BnILHfxHm1S8BS3Nj4jeFTC9cdf2?name=IanMoone845",
       "sellerShipsTo": [
         "Europe",
         "North America",
         "Australia & Oceania"
       ],
-      "modified": "2024-04-07T20:33:00+02:00",
-      "isSeller": true,
-      "country": "Netherlands (Kingdom of the)",
       "spreadsheetId": "1_5eymn6IDVXcQQNc_d3UEg6YCM6AhFTIi8EVtz9yqHY",
+      "country": "Netherlands (Kingdom of the)",
       "discordUsername": "BlackMoone845",
+      "LPUBeltsProfile": "https://lpubelts.com/#/profile/BnILHfxHm1S8BS3Nj4jeFTC9cdf2?name=IanMoone845",
       "redditUsername": "IanMoone845",
+      "modified": "2024-04-07T20:33:00+02:00",
       "belt": "Black",
       "username": "BlackMoone845",
       "created": "2024-04-02T20:10:33+02:00",
+      "isSeller": true,
       "userId": "gFtlkLePREbMiz2O06tuTovFuvr1"
     },
     {
-      "belt": "Black",
-      "modified": "2024-04-10T01:40:07+01:00",
-      "username": "PeaceWeapon",
-      "LPUBeltsProfile": "https://lpubelts.com/#/profile/mZyfQIARjCP1uJJJc7ioMAALV9v2?name=PeaceWeapon",
-      "created": "2024-04-08T21:43:56+01:00",
-      "sellerNote": "I send anywhere, always with tracking when available.. Price of shipping depends on weight of package.. Bazaar is being updated, I have more items on my store on https://peaceweapon.onlineweb.shop/..Shipping costs can be found there too.",
       "redditUsername": "PeaceWeapon84",
-      "discordUsername": "Peace (Peaceweapon)",
-      "country": "Portugal",
+      "modified": "2024-04-10T01:40:07+01:00",
       "spreadsheetId": "1bBR6mCoP8wMSHRK4b2MVWVFEfpke2FtT4QK-IjcQiNU",
       "isSeller": true,
+      "LPUBeltsProfile": "https://lpubelts.com/#/profile/mZyfQIARjCP1uJJJc7ioMAALV9v2?name=PeaceWeapon",
+      "sellerNote": "I send anywhere, always with tracking when available.. Price of shipping depends on weight of package.. Bazaar is being updated, I have more items on my store on https://peaceweapon.onlineweb.shop/..Shipping costs can be found there too.",
+      "username": "PeaceWeapon",
+      "created": "2024-04-08T21:43:56+01:00",
       "sellerShipsTo": [
         "Europe",
         "Australia & Oceania",
@@ -356,16 +353,19 @@
         "Asia",
         "Africa"
       ],
+      "country": "Portugal",
+      "discordUsername": "Peace (Peaceweapon)",
+      "belt": "Black",
       "userId": "mv7cD0u2lhVuJSnaIxmwocGIBme2"
     },
     {
       "username": "Red Wanderer",
+      "LPUBeltsProfile": "https://lpubelts.com/#/profile/XoUDXU5McjTuVnPA1xfmzytcKuy2?name=Red_Wanderer",
+      "modified": "2024-04-20T15:31:15-07:00",
+      "country": "United States of America",
+      "created": "2024-04-20T15:30:29-07:00",
       "belt": "Black",
       "discordUsername": "red_wanderer",
-      "country": "United States of America",
-      "modified": "2024-04-20T15:31:15-07:00",
-      "LPUBeltsProfile": "https://lpubelts.com/#/profile/XoUDXU5McjTuVnPA1xfmzytcKuy2?name=Red_Wanderer",
-      "created": "2024-04-20T15:30:29-07:00",
       "userId": "rSv0AIEP0mhQw53MFp53vtY0AIL2",
       "spreadsheetId": "1WZCPwEyqtT0551z6_m4E6qmhFRsNSLZxBVZanLH4BDw"
     }
@@ -6121,141 +6121,11 @@
     },
     null,
     null,
-    {
-      "rowNum": 2,
-      "name": "HJ",
-      "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
-      "shipsTo": [
-        "Europe",
-        "South America",
-        "North America",
-        "Australia & Oceania",
-        "Asia",
-        "Africa"
-      ],
-      "country": "Sweden",
-      "make": "ASSA",
-      "model": "Twin combi 6k",
-      "belt": "Black",
-      "mechanism": "Pin-tumbler",
-      "format": "Oval",
-      "condition": "Used",
-      "keys": "1",
-      "available": "1",
-      "price": "650sek",
-      "photo": "https://imgur.com/a/nuwIFQn",
-      "notes": "old style with gins",
-      "url": "https://lpubelts.com/?id=f93c57fc&name=ABUS_S6&tab=Blue#/locks?tab=search&search=assa&id=104776ef&name=ASSA_Twin_6000",
-      "samelineIndex": ""
-    },
-    {
-      "rowNum": 3,
-      "name": "HJ",
-      "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
-      "shipsTo": [
-        "Europe",
-        "South America",
-        "North America",
-        "Australia & Oceania",
-        "Asia",
-        "Africa"
-      ],
-      "country": "Sweden",
-      "make": "ASSA",
-      "model": "Twin combi 6k",
-      "belt": "Black",
-      "mechanism": "Pin-tumbler",
-      "format": "Oval",
-      "condition": "Used",
-      "keys": "1",
-      "available": "1",
-      "price": "650sek",
-      "photo": "https://imgur.com/a/ywlSC42",
-      "notes": "old style with gins",
-      "url": "https://lpubelts.com/?id=f93c57fc&name=ABUS_S6&tab=Blue#/locks?tab=search&search=assa&id=104776ef&name=ASSA_Twin_6000",
-      "samelineIndex": ""
-    },
-    {
-      "rowNum": 4,
-      "name": "HJ",
-      "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
-      "shipsTo": [
-        "Europe",
-        "South America",
-        "North America",
-        "Australia & Oceania",
-        "Asia",
-        "Africa"
-      ],
-      "country": "Sweden",
-      "make": "ASSA",
-      "model": "Twin combi 6k",
-      "belt": "Black",
-      "mechanism": "Pin-tumbler",
-      "format": "Oval",
-      "condition": "Used",
-      "keys": "1",
-      "available": "1",
-      "price": "650sek",
-      "photo": "https://imgur.com/a/66sldDE",
-      "notes": "old style with gins",
-      "url": "https://lpubelts.com/?id=f93c57fc&name=ABUS_S6&tab=Blue#/locks?tab=search&search=assa&id=104776ef&name=ASSA_Twin_6000",
-      "samelineIndex": ""
-    },
-    {
-      "rowNum": 5,
-      "name": "HJ",
-      "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
-      "shipsTo": [
-        "Europe",
-        "South America",
-        "North America",
-        "Australia & Oceania",
-        "Asia",
-        "Africa"
-      ],
-      "country": "Sweden",
-      "make": "ASSA",
-      "model": "Twin combi 6k",
-      "belt": "Black",
-      "mechanism": "Pin-tumbler",
-      "format": "Oval",
-      "condition": "Used",
-      "keys": "1",
-      "available": "1",
-      "price": "650sek",
-      "photo": "https://imgur.com/a/YM4N8N5",
-      "notes": "old style with gins",
-      "url": "https://lpubelts.com/?id=f93c57fc&name=ABUS_S6&tab=Blue#/locks?tab=search&search=assa&id=104776ef&name=ASSA_Twin_6000",
-      "samelineIndex": ""
-    },
-    {
-      "rowNum": 6,
-      "name": "HJ",
-      "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
-      "shipsTo": [
-        "Europe",
-        "South America",
-        "North America",
-        "Australia & Oceania",
-        "Asia",
-        "Africa"
-      ],
-      "country": "Sweden",
-      "make": "ASSA",
-      "model": "Twin combi 6k",
-      "belt": "Black",
-      "mechanism": "Pin-tumbler",
-      "format": "Oval",
-      "condition": "Used",
-      "keys": "1",
-      "available": "1",
-      "price": "650sek",
-      "photo": "https://imgur.com/a/NPyCKWS",
-      "notes": "old style with gins",
-      "url": "https://lpubelts.com/?id=f93c57fc&name=ABUS_S6&tab=Blue#/locks?tab=search&search=assa&id=104776ef&name=ASSA_Twin_6000",
-      "samelineIndex": ""
-    },
+    null,
+    null,
+    null,
+    null,
+    null,
     {
       "rowNum": 7,
       "name": "HJ",
@@ -6270,7 +6140,7 @@
       ],
       "country": "Sweden",
       "make": "ASSA",
-      "model": "Twin combi 6k",
+      "model": "Twin 6000",
       "belt": "Black",
       "mechanism": "Pin-tumbler",
       "format": "Oval",
@@ -6278,9 +6148,9 @@
       "keys": "1",
       "available": "1",
       "price": "650sek",
-      "photo": "https://imgur.com/a/MXTV4Vo",
+      "photo": "https://imgur.com/a/nuwIFQn",
       "notes": "old style with gins",
-      "url": "https://lpubelts.com/?id=f93c57fc&name=ABUS_S6&tab=Blue#/locks?tab=search&search=assa&id=104776ef&name=ASSA_Twin_6000",
+      "url": "https://lpubelts.com/#/locks?tab=Black&id=104776ef&name=ASSA_Twin_6000",
       "samelineIndex": ""
     },
     {
@@ -6297,7 +6167,7 @@
       ],
       "country": "Sweden",
       "make": "ASSA",
-      "model": "Twin combi 6k",
+      "model": "Twin 6000",
       "belt": "Black",
       "mechanism": "Pin-tumbler",
       "format": "Oval",
@@ -6305,9 +6175,9 @@
       "keys": "1",
       "available": "1",
       "price": "650sek",
-      "photo": "https://imgur.com/a/mdzpQTY",
+      "photo": "https://imgur.com/a/ywlSC42",
       "notes": "old style with gins",
-      "url": "https://lpubelts.com/?id=f93c57fc&name=ABUS_S6&tab=Blue#/locks?tab=search&search=assa&id=104776ef&name=ASSA_Twin_6000",
+      "url": "https://lpubelts.com/#/locks?tab=Black&id=104776ef&name=ASSA_Twin_6000",
       "samelineIndex": ""
     },
     {
@@ -6324,7 +6194,7 @@
       ],
       "country": "Sweden",
       "make": "ASSA",
-      "model": "Twin combi 6k",
+      "model": "Twin 6000",
       "belt": "Black",
       "mechanism": "Pin-tumbler",
       "format": "Oval",
@@ -6332,9 +6202,9 @@
       "keys": "1",
       "available": "1",
       "price": "650sek",
-      "photo": "https://imgur.com/a/f7I9bAE",
+      "photo": "https://imgur.com/a/66sldDE",
       "notes": "old style with gins",
-      "url": "https://lpubelts.com/?id=f93c57fc&name=ABUS_S6&tab=Blue#/locks?tab=search&search=assa&id=104776ef&name=ASSA_Twin_6000",
+      "url": "https://lpubelts.com/#/locks?tab=Black&id=104776ef&name=ASSA_Twin_6000",
       "samelineIndex": ""
     },
     {
@@ -6351,7 +6221,7 @@
       ],
       "country": "Sweden",
       "make": "ASSA",
-      "model": "Twin combi 6k",
+      "model": "Twin 6000",
       "belt": "Black",
       "mechanism": "Pin-tumbler",
       "format": "Oval",
@@ -6359,9 +6229,9 @@
       "keys": "1",
       "available": "1",
       "price": "650sek",
-      "photo": "https://imgur.com/a/3dTgACn",
+      "photo": "https://imgur.com/a/YM4N8N5",
       "notes": "old style with gins",
-      "url": "https://lpubelts.com/?id=f93c57fc&name=ABUS_S6&tab=Blue#/locks?tab=search&search=assa&id=104776ef&name=ASSA_Twin_6000",
+      "url": "https://lpubelts.com/#/locks?tab=Black&id=104776ef&name=ASSA_Twin_6000",
       "samelineIndex": ""
     },
     {
@@ -6378,7 +6248,7 @@
       ],
       "country": "Sweden",
       "make": "ASSA",
-      "model": "Twin combi 6k",
+      "model": "Twin 6000",
       "belt": "Black",
       "mechanism": "Pin-tumbler",
       "format": "Oval",
@@ -6386,9 +6256,9 @@
       "keys": "1",
       "available": "1",
       "price": "650sek",
-      "photo": "https://imgur.com/a/5aX6xvr",
+      "photo": "https://imgur.com/a/NPyCKWS",
       "notes": "old style with gins",
-      "url": "https://lpubelts.com/?id=f93c57fc&name=ABUS_S6&tab=Blue#/locks?tab=search&search=assa&id=104776ef&name=ASSA_Twin_6000",
+      "url": "https://lpubelts.com/#/locks?tab=Black&id=104776ef&name=ASSA_Twin_6000",
       "samelineIndex": ""
     },
     {
@@ -6405,7 +6275,7 @@
       ],
       "country": "Sweden",
       "make": "ASSA",
-      "model": "Twin combi 6k",
+      "model": "Twin 6000",
       "belt": "Black",
       "mechanism": "Pin-tumbler",
       "format": "Oval",
@@ -6413,9 +6283,9 @@
       "keys": "1",
       "available": "1",
       "price": "650sek",
-      "photo": "https://imgur.com/a/XMf4K18",
+      "photo": "https://imgur.com/a/MXTV4Vo",
       "notes": "old style with gins",
-      "url": "https://lpubelts.com/?id=f93c57fc&name=ABUS_S6&tab=Blue#/locks?tab=search&search=assa&id=104776ef&name=ASSA_Twin_6000",
+      "url": "https://lpubelts.com/#/locks?tab=Black&id=104776ef&name=ASSA_Twin_6000",
       "samelineIndex": ""
     },
     {
@@ -6432,7 +6302,142 @@
       ],
       "country": "Sweden",
       "make": "ASSA",
-      "model": "Twin combi 6k",
+      "model": "Twin 6000",
+      "belt": "Black",
+      "mechanism": "Pin-tumbler",
+      "format": "Oval",
+      "condition": "Used",
+      "keys": "1",
+      "available": "1",
+      "price": "650sek",
+      "photo": "https://imgur.com/a/mdzpQTY",
+      "notes": "old style with gins",
+      "url": "https://lpubelts.com/#/locks?tab=Black&id=104776ef&name=ASSA_Twin_6000",
+      "samelineIndex": ""
+    },
+    {
+      "rowNum": 14,
+      "name": "HJ",
+      "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
+      "shipsTo": [
+        "Europe",
+        "South America",
+        "North America",
+        "Australia & Oceania",
+        "Asia",
+        "Africa"
+      ],
+      "country": "Sweden",
+      "make": "ASSA",
+      "model": "Twin 6000",
+      "belt": "Black",
+      "mechanism": "Pin-tumbler",
+      "format": "Oval",
+      "condition": "Used",
+      "keys": "1",
+      "available": "1",
+      "price": "650sek",
+      "photo": "https://imgur.com/a/f7I9bAE",
+      "notes": "old style with gins",
+      "url": "https://lpubelts.com/#/locks?tab=Black&id=104776ef&name=ASSA_Twin_6000",
+      "samelineIndex": ""
+    },
+    {
+      "rowNum": 15,
+      "name": "HJ",
+      "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
+      "shipsTo": [
+        "Europe",
+        "South America",
+        "North America",
+        "Australia & Oceania",
+        "Asia",
+        "Africa"
+      ],
+      "country": "Sweden",
+      "make": "ASSA",
+      "model": "Twin 6000",
+      "belt": "Black",
+      "mechanism": "Pin-tumbler",
+      "format": "Oval",
+      "condition": "Used",
+      "keys": "1",
+      "available": "1",
+      "price": "650sek",
+      "photo": "https://imgur.com/a/3dTgACn",
+      "notes": "old style with gins",
+      "url": "https://lpubelts.com/#/locks?tab=Black&id=104776ef&name=ASSA_Twin_6000",
+      "samelineIndex": ""
+    },
+    {
+      "rowNum": 16,
+      "name": "HJ",
+      "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
+      "shipsTo": [
+        "Europe",
+        "South America",
+        "North America",
+        "Australia & Oceania",
+        "Asia",
+        "Africa"
+      ],
+      "country": "Sweden",
+      "make": "ASSA",
+      "model": "Twin 6000",
+      "belt": "Black",
+      "mechanism": "Pin-tumbler",
+      "format": "Oval",
+      "condition": "Used",
+      "keys": "1",
+      "available": "1",
+      "price": "650sek",
+      "photo": "https://imgur.com/a/5aX6xvr",
+      "notes": "old style with gins",
+      "url": "https://lpubelts.com/#/locks?tab=Black&id=104776ef&name=ASSA_Twin_6000",
+      "samelineIndex": ""
+    },
+    {
+      "rowNum": 17,
+      "name": "HJ",
+      "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
+      "shipsTo": [
+        "Europe",
+        "South America",
+        "North America",
+        "Australia & Oceania",
+        "Asia",
+        "Africa"
+      ],
+      "country": "Sweden",
+      "make": "ASSA",
+      "model": "Twin 6000",
+      "belt": "Black",
+      "mechanism": "Pin-tumbler",
+      "format": "Oval",
+      "condition": "Used",
+      "keys": "1",
+      "available": "1",
+      "price": "650sek",
+      "photo": "https://imgur.com/a/XMf4K18",
+      "notes": "old style with gins",
+      "url": "https://lpubelts.com/#/locks?tab=Black&id=104776ef&name=ASSA_Twin_6000",
+      "samelineIndex": ""
+    },
+    {
+      "rowNum": 18,
+      "name": "HJ",
+      "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
+      "shipsTo": [
+        "Europe",
+        "South America",
+        "North America",
+        "Australia & Oceania",
+        "Asia",
+        "Africa"
+      ],
+      "country": "Sweden",
+      "make": "ASSA",
+      "model": "Twin 6000",
       "belt": "Black",
       "mechanism": "Pin-tumbler",
       "format": "Oval",
@@ -6442,12 +6447,12 @@
       "price": "650sek",
       "photo": "https://imgur.com/a/dByKixJ",
       "notes": "old style with gins",
-      "url": "https://lpubelts.com/?id=f93c57fc&name=ABUS_S6&tab=Blue#/locks?tab=search&search=assa&id=104776ef&name=ASSA_Twin_6000",
+      "url": "https://lpubelts.com/#/locks?tab=Black&id=104776ef&name=ASSA_Twin_6000",
       "samelineIndex": ""
     },
     null,
     {
-      "rowNum": 15,
+      "rowNum": 20,
       "name": "HJ",
       "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
       "shipsTo": [
@@ -6470,12 +6475,14 @@
       "price": "350sek",
       "photo": "https://imgur.com/a/S2o6wHf",
       "notes": "",
-      "url": "https://lpubelts.com/?id=f93c57fc&name=ABUS_S6&tab=Blue#/locks?tab=search&search=assa&id=f133510b&name=ASSA_700",
+      "url": "https://lpubelts.com/#/locks?tab=Black&id=f133510b&name=ASSA_700",
       "samelineIndex": ""
     },
     null,
+    null,
+    null,
     {
-      "rowNum": 17,
+      "rowNum": 24,
       "name": "HJ",
       "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
       "shipsTo": [
@@ -6498,11 +6505,11 @@
       "price": "400sek",
       "photo": "https://imgur.com/a/5m2mT3t",
       "notes": "3 finger pins",
-      "url": "",
+      "url": "https://lpubelts.com/#/locks?tab=Brown&id=fd7b514a&name=ASSA_Twin_Combi_1800_4800",
       "samelineIndex": ""
     },
     {
-      "rowNum": 18,
+      "rowNum": 25,
       "name": "HJ",
       "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
       "shipsTo": [
@@ -6523,9 +6530,37 @@
       "keys": "1",
       "available": "1",
       "price": "400sek",
+      "photo": "https://imgur.com/a/iqPZdah",
+      "notes": "3 finger pins",
+      "url": "https://lpubelts.com/#/locks?tab=Brown&id=fd7b514a&name=ASSA_Twin_Combi_1800_4800",
+      "samelineIndex": ""
+    },
+    null,
+    {
+      "rowNum": 27,
+      "name": "HJ",
+      "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
+      "shipsTo": [
+        "Europe",
+        "South America",
+        "North America",
+        "Australia & Oceania",
+        "Asia",
+        "Africa"
+      ],
+      "country": "Sweden",
+      "make": "Rosengren",
+      "model": "32A81S",
+      "belt": "Black",
+      "mechanism": "Disc detainer",
+      "format": "Sdb lock",
+      "condition": "Used",
+      "keys": "1",
+      "available": "8",
+      "price": "350sek",
       "photo": "",
       "notes": "",
-      "url": "",
+      "url": "https://lpubelts.com/#/locks?tab=search&search=rosengren&id=db63c882&name=Rosengrens_32A81S_32C81P",
       "samelineIndex": ""
     },
     null,
@@ -12058,11 +12093,107 @@
       "url": "https://share.lpubelts.com/?id=b29a8b44&name=ABUS_EC700_EC800",
       "samelineIndex": "1"
     },
+    {
+      "rowNum": 34,
+      "name": "BlackMoone845",
+      "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
+      "shipsTo": [
+        "Europe",
+        "North America",
+        "Australia & Oceania"
+      ],
+      "country": "Netherlands (Kingdom of the)",
+      "make": "BKS",
+      "model": "Janus",
+      "belt": "Red",
+      "mechanism": "HPC",
+      "format": "Double euro",
+      "condition": "",
+      "keys": "2",
+      "available": "2",
+      "price": "€ 50",
+      "photo": "",
+      "notes": "",
+      "url": "https://share.lpubelts.com/?id=3af2407a&name=BKS_Janus",
+      "samelineIndex": ""
+    },
+    {
+      "rowNum": 35,
+      "name": "BlackMoone845",
+      "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
+      "shipsTo": [
+        "Europe",
+        "North America",
+        "Australia & Oceania"
+      ],
+      "country": "Netherlands (Kingdom of the)",
+      "make": "BKS",
+      "model": "Janus",
+      "belt": "Red",
+      "mechanism": "HPC",
+      "format": "Half euro",
+      "condition": "",
+      "keys": "1",
+      "available": "1",
+      "price": "€ 30",
+      "photo": "",
+      "notes": "",
+      "url": "https://share.lpubelts.com/?id=3af2407a&name=BKS_Janus",
+      "samelineIndex": ""
+    },
+    {
+      "rowNum": 36,
+      "name": "BlackMoone845",
+      "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
+      "shipsTo": [
+        "Europe",
+        "North America",
+        "Australia & Oceania"
+      ],
+      "country": "Netherlands (Kingdom of the)",
+      "make": "Anker",
+      "model": "3800",
+      "belt": "Red",
+      "mechanism": "Dimple/Magnetic sliders",
+      "format": "Double euro",
+      "condition": "",
+      "keys": "2+",
+      "available": "5",
+      "price": "€ 60",
+      "photo": "",
+      "notes": "",
+      "url": "https://share.lpubelts.com/?id=cc8cfd45&name=MIWA_Anker_3800",
+      "samelineIndex": ""
+    },
+    {
+      "rowNum": 37,
+      "name": "BlackMoone845",
+      "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
+      "shipsTo": [
+        "Europe",
+        "North America",
+        "Australia & Oceania"
+      ],
+      "country": "Netherlands (Kingdom of the)",
+      "make": "Anker",
+      "model": "3800",
+      "belt": "Red",
+      "mechanism": "Dimple/Magnetic sliders",
+      "format": "Half euro",
+      "condition": "",
+      "keys": "2+",
+      "available": "5",
+      "price": "€ 30.0",
+      "photo": "",
+      "notes": "",
+      "url": "https://share.lpubelts.com/?id=cc8cfd45&name=MIWA_Anker_3800",
+      "samelineIndex": ""
+    },
     null,
     null,
     null,
     {
-      "rowNum": 37,
+      "rowNum": 41,
       "name": "BlackMoone845",
       "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
       "shipsTo": [
@@ -12086,7 +12217,7 @@
       "samelineIndex": ""
     },
     {
-      "rowNum": 38,
+      "rowNum": 42,
       "name": "BlackMoone845",
       "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
       "shipsTo": [
@@ -12110,7 +12241,7 @@
       "samelineIndex": ""
     },
     {
-      "rowNum": 39,
+      "rowNum": 43,
       "name": "BlackMoone845",
       "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
       "shipsTo": [
@@ -12134,7 +12265,7 @@
       "samelineIndex": ""
     },
     {
-      "rowNum": 40,
+      "rowNum": 44,
       "name": "BlackMoone845",
       "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
       "shipsTo": [
@@ -12158,7 +12289,7 @@
       "samelineIndex": ""
     },
     {
-      "rowNum": 41,
+      "rowNum": 45,
       "name": "BlackMoone845",
       "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
       "shipsTo": [
@@ -12182,7 +12313,7 @@
       "samelineIndex": ""
     },
     {
-      "rowNum": 42,
+      "rowNum": 46,
       "name": "BlackMoone845",
       "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
       "shipsTo": [
@@ -13049,11 +13180,30 @@
       "notes": "No key, but I believe it's 108.",
       "url": "",
       "samelineIndex": ""
+    },
+    {
+      "rowNum": 22,
+      "name": "Red Wanderer",
+      "sellerId": "rSv0AIEP0mhQw53MFp53vtY0AIL2",
+      "country": "United States of America",
+      "make": "Whale",
+      "model": "Top Security",
+      "belt": "Unranked",
+      "mechanism": "Dimple",
+      "format": "Padlock",
+      "condition": "Used",
+      "keys": "2",
+      "available": "4",
+      "price": "$15",
+      "photo": "",
+      "notes": "",
+      "url": "",
+      "samelineIndex": ""
     }
   ],
   "validListings": [
     {
-      "id": "lb_eb00645a",
+      "id": "lb_515eb083",
       "lpubeltsName": "",
       "sheetMake": "DOM",
       "sheetModel": "IX gamma",
@@ -13152,7 +13302,7 @@
       "lockBelt": "Black"
     },
     {
-      "id": "lb_b036a61d",
+      "id": "lb_ea3f595a",
       "lpubeltsName": "",
       "sheetMake": "Zeis Ikon",
       "sheetModel": "15RS",
@@ -13317,7 +13467,7 @@
       "lockBelt": "Purple"
     },
     {
-      "id": "lb_a5d0428a",
+      "id": "lb_e71ed654",
       "lpubeltsName": "",
       "sheetMake": "Dorma Kaba",
       "sheetModel": "pExtra",
@@ -13680,7 +13830,7 @@
       "lockBelt": "White"
     },
     {
-      "id": "lb_d38bb3fc",
+      "id": "lb_b1ee6277",
       "lpubeltsName": "",
       "sheetMake": "Fabianoh130",
       "sheetModel": "Lighted follower",
@@ -13937,7 +14087,7 @@
       "lockBelt": "Black"
     },
     {
-      "id": "lb_821ab141",
+      "id": "lb_fb66f087",
       "lpubeltsName": "",
       "sheetMake": "Honest Dong Shi",
       "sheetModel": "Dimple set",
@@ -13965,7 +14115,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_cdb36aee",
+      "id": "lb_4ad84e16",
       "lpubeltsName": "",
       "sheetMake": "Sparrows",
       "sheetModel": "Disc Pick",
@@ -14173,7 +14323,7 @@
       "lockBelt": "Black"
     },
     {
-      "id": "lb_ff754499",
+      "id": "lb_85f87b36",
       "lpubeltsName": "",
       "sheetMake": "American Lock",
       "sheetModel": "Tubular",
@@ -14203,7 +14353,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_78ec5ccf",
+      "id": "lb_462c2048",
       "lpubeltsName": "",
       "sheetMake": "American Lock",
       "sheetModel": "10 Series",
@@ -14233,7 +14383,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_7fe097ee",
+      "id": "lb_73e6fc5b",
       "lpubeltsName": "",
       "sheetMake": "American Lock",
       "sheetModel": "Edge",
@@ -14263,7 +14413,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_b8ccd928",
+      "id": "lb_a206efa8",
       "lpubeltsName": "",
       "sheetMake": "American Lock",
       "sheetModel": "3200",
@@ -14293,7 +14443,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_d91ec984",
+      "id": "lb_afb46b76",
       "lpubeltsName": "",
       "sheetMake": "American Lock",
       "sheetModel": "3260",
@@ -14323,7 +14473,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_79761444",
+      "id": "lb_8ce174bf",
       "lpubeltsName": "",
       "sheetMake": "American Lock",
       "sheetModel": "3650",
@@ -14353,7 +14503,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_71d51ef8",
+      "id": "lb_98cca0fe",
       "lpubeltsName": "",
       "sheetMake": "American Lock",
       "sheetModel": "5570",
@@ -14383,7 +14533,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_9a91d683",
+      "id": "lb_d3b30eb8",
       "lpubeltsName": "",
       "sheetMake": "Arrow",
       "sheetModel": "Standard",
@@ -14893,7 +15043,7 @@
       "lockBelt": "Black"
     },
     {
-      "id": "lb_db3dc529",
+      "id": "lb_9510307b",
       "lpubeltsName": "",
       "sheetMake": "ASSA",
       "sheetModel": "Twin 6000",
@@ -14923,7 +15073,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_b469a0cd",
+      "id": "lb_a4990dc7",
       "lpubeltsName": "",
       "sheetMake": "ASSA",
       "sheetModel": "Twin 6000",
@@ -14953,7 +15103,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_9d29d23d",
+      "id": "lb_3b3ee37d",
       "lpubeltsName": "",
       "sheetMake": "ASSA",
       "sheetModel": "Twin Exclusive",
@@ -15013,7 +15163,7 @@
       "lockBelt": "Black"
     },
     {
-      "id": "lb_6956cc58",
+      "id": "lb_7184909e",
       "lpubeltsName": "",
       "sheetMake": "ASSA",
       "sheetModel": "V-10",
@@ -15043,7 +15193,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_b1909e94",
+      "id": "lb_22a88432",
       "lpubeltsName": "",
       "sheetMake": "ASSA",
       "sheetModel": "V-10",
@@ -15073,7 +15223,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_06285cfd",
+      "id": "lb_91c47ab3",
       "lpubeltsName": "",
       "sheetMake": "ASSA",
       "sheetModel": "V-10",
@@ -15373,7 +15523,7 @@
       "lockBelt": "Black"
     },
     {
-      "id": "lb_e6545f23",
+      "id": "lb_df4a7eb4",
       "lpubeltsName": "",
       "sheetMake": "Brady",
       "sheetModel": "LOTO",
@@ -15463,7 +15613,7 @@
       "lockBelt": "Brown"
     },
     {
-      "id": "lb_15b306be",
+      "id": "lb_405f53e9",
       "lpubeltsName": "",
       "sheetMake": "DOM",
       "sheetModel": "S",
@@ -15613,7 +15763,7 @@
       "lockBelt": "Purple"
     },
     {
-      "id": "lb_3d96ac32",
+      "id": "lb_80598b70",
       "lpubeltsName": "",
       "sheetMake": "Kaba",
       "sheetModel": "Standard",
@@ -15673,7 +15823,7 @@
       "lockBelt": "Green"
     },
     {
-      "id": "lb_d8b09bbc",
+      "id": "lb_30dbe0d2",
       "lpubeltsName": "",
       "sheetMake": "Lockwood",
       "sheetModel": "Standard",
@@ -15703,7 +15853,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_def0e971",
+      "id": "lb_29282bf1",
       "lpubeltsName": "",
       "sheetMake": "Lockwood",
       "sheetModel": "Standard",
@@ -15733,7 +15883,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_6a12503c",
+      "id": "lb_32129bef",
       "lpubeltsName": "",
       "sheetMake": "Lockwood",
       "sheetModel": "Standard",
@@ -15763,7 +15913,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_fbac6feb",
+      "id": "lb_20a2cb70",
       "lpubeltsName": "",
       "sheetMake": "Lockwood",
       "sheetModel": "Standard",
@@ -15793,7 +15943,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_11d483c6",
+      "id": "lb_792678b2",
       "lpubeltsName": "",
       "sheetMake": "Lockwood",
       "sheetModel": "Standard",
@@ -15823,7 +15973,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_0f69645c",
+      "id": "lb_c35a72af",
       "lpubeltsName": "",
       "sheetMake": "Lockwood",
       "sheetModel": "Standard",
@@ -16093,7 +16243,7 @@
       "lockBelt": "White"
     },
     {
-      "id": "lb_602cb576",
+      "id": "lb_5fd5bfd4",
       "lpubeltsName": "",
       "sheetMake": "Master Lock",
       "sheetModel": "6230",
@@ -16423,7 +16573,7 @@
       "lockBelt": "Red"
     },
     {
-      "id": "lb_8d2c855e",
+      "id": "lb_0478418f",
       "lpubeltsName": "",
       "sheetMake": "Medeco",
       "sheetModel": "XT",
@@ -16633,7 +16783,7 @@
       "lockBelt": "Brown"
     },
     {
-      "id": "lb_035921e5",
+      "id": "lb_cee57417",
       "lpubeltsName": "",
       "sheetMake": "S&G",
       "sheetModel": "881",
@@ -16663,7 +16813,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_087c0147",
+      "id": "lb_93361460",
       "lpubeltsName": "",
       "sheetMake": "S&G",
       "sheetModel": "6500",
@@ -16843,7 +16993,7 @@
       "lockBelt": "Green"
     },
     {
-      "id": "lb_76ebeba2",
+      "id": "lb_918ded09",
       "lpubeltsName": "",
       "sheetMake": "Schlage",
       "sheetModel": "SFIC Padlock",
@@ -16903,7 +17053,7 @@
       "lockBelt": "Purple"
     },
     {
-      "id": "lb_727dcaba",
+      "id": "lb_608fd596",
       "lpubeltsName": "",
       "sheetMake": "U-Change",
       "sheetModel": "U-Change",
@@ -16993,7 +17143,7 @@
       "lockBelt": "Blue"
     },
     {
-      "id": "lb_84e1527b",
+      "id": "lb_35de5478",
       "lpubeltsName": "",
       "sheetMake": "WB",
       "sheetModel": "Standard",
@@ -17023,7 +17173,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_98f03a11",
+      "id": "lb_0eff8f67",
       "lpubeltsName": "",
       "sheetMake": "WB",
       "sheetModel": "Standard",
@@ -17053,7 +17203,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_bbd96f56",
+      "id": "lb_449efaec",
       "lpubeltsName": "",
       "sheetMake": "Yale",
       "sheetModel": "SDB",
@@ -17083,7 +17233,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_a32bc82a",
+      "id": "lb_335a4c59",
       "lpubeltsName": "",
       "sheetMake": "Zeiss Ikon",
       "sheetModel": "PO",
@@ -18013,7 +18163,7 @@
       "lockBelt": "Green"
     },
     {
-      "id": "lb_81861476",
+      "id": "lb_e58cc150",
       "lpubeltsName": "",
       "sheetMake": "Unity",
       "sheetModel": "Unity 50mm",
@@ -18193,7 +18343,7 @@
       "lockBelt": "Red"
     },
     {
-      "id": "lb_7aad61ec",
+      "id": "lb_87552822",
       "lpubeltsName": "",
       "sheetMake": "Wilkos",
       "sheetModel": "Mortise deadlock",
@@ -18452,7 +18602,7 @@
       "lockBelt": "Green"
     },
     {
-      "id": "lb_00ca50f7",
+      "id": "lb_9f4e479d",
       "lpubeltsName": "",
       "sheetMake": "ABUS",
       "sheetModel": "82TI/70",
@@ -18480,7 +18630,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_3a7d8d02",
+      "id": "lb_19004f40",
       "lpubeltsName": "",
       "sheetMake": "ABUS",
       "sheetModel": "83/45",
@@ -18508,7 +18658,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_52907234",
+      "id": "lb_60b90606",
       "lpubeltsName": "",
       "sheetMake": "ABUS",
       "sheetModel": "83/45",
@@ -18536,7 +18686,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_123b59e2",
+      "id": "lb_18dcb001",
       "lpubeltsName": "",
       "sheetMake": "ABUS",
       "sheetModel": "83KnK/55 w/o core",
@@ -18564,7 +18714,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_5e318138",
+      "id": "lb_5d83e4a9",
       "lpubeltsName": "",
       "sheetMake": "ACE",
       "sheetModel": "True Value Padlock",
@@ -18592,7 +18742,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_4e9a4407",
+      "id": "lb_6f1c9025",
       "lpubeltsName": "",
       "sheetMake": "Alan's Nau-Tal",
       "sheetModel": "Lever",
@@ -18788,7 +18938,7 @@
       "lockBelt": "Green"
     },
     {
-      "id": "lb_1497e740",
+      "id": "lb_ff3c0b7c",
       "lpubeltsName": "",
       "sheetMake": "American Lock",
       "sheetModel": "3200 w/Best SFIC Core",
@@ -18816,7 +18966,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_edd7ce0b",
+      "id": "lb_44ac67d2",
       "lpubeltsName": "",
       "sheetMake": "American Lock",
       "sheetModel": "Round Body Brass",
@@ -18844,7 +18994,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_c892f0dc",
+      "id": "lb_afa83b02",
       "lpubeltsName": "",
       "sheetMake": "Armory",
       "sheetModel": "Eight Lever Lock",
@@ -18872,7 +19022,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_cc05fc17",
+      "id": "lb_436db8b3",
       "lpubeltsName": "",
       "sheetMake": "Brady Safekey",
       "sheetModel": "LOTO Pump Lock",
@@ -18900,7 +19050,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_b59cb997",
+      "id": "lb_0af299ec",
       "lpubeltsName": "",
       "sheetMake": "Brinks",
       "sheetModel": "642",
@@ -18928,7 +19078,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_084c74f7",
+      "id": "lb_eb4906bd",
       "lpubeltsName": "",
       "sheetMake": "Do it",
       "sheetModel": "Padlock",
@@ -18956,7 +19106,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_3c3bebfe",
+      "id": "lb_3f9319c1",
       "lpubeltsName": "",
       "sheetMake": "Favorite",
       "sheetModel": "6-Lever",
@@ -18984,7 +19134,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_2fabb06c",
+      "id": "lb_12b451fd",
       "lpubeltsName": "",
       "sheetMake": "Fortress",
       "sheetModel": "Interlock",
@@ -19012,7 +19162,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_0bbe3681",
+      "id": "lb_4c034966",
       "lpubeltsName": "",
       "sheetMake": "Generic",
       "sheetModel": "Disc Padlock",
@@ -19040,7 +19190,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_657de4ec",
+      "id": "lb_363b7bcf",
       "lpubeltsName": "",
       "sheetMake": "Godrej",
       "sheetModel": "Nav-Tal 6-Lever",
@@ -19068,7 +19218,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_ba413841",
+      "id": "lb_3e1a86eb",
       "lpubeltsName": "",
       "sheetMake": "IFAM",
       "sheetModel": "E40",
@@ -19096,7 +19246,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_73dcd027",
+      "id": "lb_538f0e09",
       "lpubeltsName": "",
       "sheetMake": "Ilco",
       "sheetModel": "The Club",
@@ -19124,7 +19274,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_76234f75",
+      "id": "lb_ab407bd1",
       "lpubeltsName": "",
       "sheetMake": "ERA",
       "sheetModel": "Lever Lock",
@@ -19152,7 +19302,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_5a21a422",
+      "id": "lb_8796a5c4",
       "lpubeltsName": "",
       "sheetMake": "Keyosk",
       "sheetModel": "Guard 40mm",
@@ -19180,7 +19330,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_441e759d",
+      "id": "lb_3b33e265",
       "lpubeltsName": "",
       "sheetMake": "Lockwood",
       "sheetModel": "110/20",
@@ -19264,7 +19414,7 @@
       "lockBelt": "Green"
     },
     {
-      "id": "lb_30f34046",
+      "id": "lb_1dcca12e",
       "lpubeltsName": "",
       "sheetMake": "Lockwood",
       "sheetModel": "Oval",
@@ -19292,7 +19442,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_bc3da469",
+      "id": "lb_ad1bdfe2",
       "lpubeltsName": "",
       "sheetMake": "Lockwood",
       "sheetModel": "Oval",
@@ -19320,7 +19470,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_d0fd483e",
+      "id": "lb_9a67f322",
       "lpubeltsName": "",
       "sheetMake": "Mako SFIC",
       "sheetModel": "Mortise",
@@ -19376,7 +19526,7 @@
       "lockBelt": "Orange"
     },
     {
-      "id": "lb_76f7cd96",
+      "id": "lb_9ee238fc",
       "lpubeltsName": "",
       "sheetMake": "Master Lock",
       "sheetModel": "311",
@@ -19488,7 +19638,7 @@
       "lockBelt": "Green"
     },
     {
-      "id": "lb_6c4e84a9",
+      "id": "lb_74abd047",
       "lpubeltsName": "",
       "sheetMake": "Master Lock",
       "sheetModel": "No. 15",
@@ -19516,7 +19666,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_42d26f6a",
+      "id": "lb_4c8abff5",
       "lpubeltsName": "",
       "sheetMake": "Master Lock 7035 Pro",
       "sheetModel": "",
@@ -19544,7 +19694,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_495a6f68",
+      "id": "lb_e4d49ac0",
       "lpubeltsName": "",
       "sheetMake": "Medeco",
       "sheetModel": "Biaxial",
@@ -19572,7 +19722,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_c08f6dd7",
+      "id": "lb_0949baa2",
       "lpubeltsName": "",
       "sheetMake": "Mr No",
       "sheetModel": "Padlock",
@@ -19600,7 +19750,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_bcc9688f",
+      "id": "lb_cae9d6bf",
       "lpubeltsName": "",
       "sheetMake": "Mul-T-Lock",
       "sheetModel": "Mortise",
@@ -19656,7 +19806,7 @@
       "lockBelt": "Black"
     },
     {
-      "id": "lb_e0fe3dde",
+      "id": "lb_904a7be8",
       "lpubeltsName": "",
       "sheetMake": "Nu-Set",
       "sheetModel": "4273-3",
@@ -19684,7 +19834,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_6b94feb6",
+      "id": "lb_9f486439",
       "lpubeltsName": "",
       "sheetMake": "PACLOCK",
       "sheetModel": "UCS-4A",
@@ -19712,7 +19862,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_82042a76",
+      "id": "lb_a409c0a1",
       "lpubeltsName": "",
       "sheetMake": "PACLOCK",
       "sheetModel": "150",
@@ -19740,7 +19890,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_53e1542c",
+      "id": "lb_23271814",
       "lpubeltsName": "",
       "sheetMake": "PACLOCK",
       "sheetModel": "UCS-10A",
@@ -19824,7 +19974,7 @@
       "lockBelt": "Green"
     },
     {
-      "id": "lb_32ecb490",
+      "id": "lb_8b2d123f",
       "lpubeltsName": "",
       "sheetMake": "Papaiz",
       "sheetModel": "CR 30",
@@ -19852,7 +20002,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_46927c2e",
+      "id": "lb_56f52608",
       "lpubeltsName": "",
       "sheetMake": "Qvand",
       "sheetModel": "LOTO",
@@ -19908,7 +20058,7 @@
       "lockBelt": "Blue"
     },
     {
-      "id": "lb_79299490",
+      "id": "lb_c3a9bba8",
       "lpubeltsName": "",
       "sheetMake": "Sargent",
       "sheetModel": "Mortise",
@@ -19936,7 +20086,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_1fd4e35a",
+      "id": "lb_68ea48b6",
       "lpubeltsName": "",
       "sheetMake": "Sargent",
       "sheetModel": "Mortise Assa Abloy",
@@ -19964,7 +20114,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_d38d4f32",
+      "id": "lb_54576386",
       "lpubeltsName": "",
       "sheetMake": "Seclox-Elzett",
       "sheetModel": "2048/35",
@@ -19992,7 +20142,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_cf3a3552",
+      "id": "lb_994f0dfd",
       "lpubeltsName": "",
       "sheetMake": "Squire",
       "sheetModel": "CP Combination Lock",
@@ -20020,7 +20170,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_f2c6ab5f",
+      "id": "lb_b935d343",
       "lpubeltsName": "",
       "sheetMake": "Sterling",
       "sheetModel": "BPL242",
@@ -20048,7 +20198,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_ead1ed2d",
+      "id": "lb_facdabe5",
       "lpubeltsName": "",
       "sheetMake": "Tifon",
       "sheetModel": "30mm",
@@ -20076,7 +20226,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_987b32c8",
+      "id": "lb_beea814d",
       "lpubeltsName": "",
       "sheetMake": "Wilson Bohannan",
       "sheetModel": "001",
@@ -20104,7 +20254,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_1b70b959",
+      "id": "lb_992b342c",
       "lpubeltsName": "",
       "sheetMake": "Yale",
       "sheetModel": "Vintage Brass Body",
@@ -20132,10 +20282,10 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -20160,15 +20310,15 @@
       ],
       "photo": "https://imgur.com/a/nuwIFQn",
       "price": "650sek",
-      "rowNum": 2,
+      "rowNum": 7,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -20193,15 +20343,15 @@
       ],
       "photo": "https://imgur.com/a/ywlSC42",
       "price": "650sek",
-      "rowNum": 3,
+      "rowNum": 8,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -20226,15 +20376,15 @@
       ],
       "photo": "https://imgur.com/a/66sldDE",
       "price": "650sek",
-      "rowNum": 4,
+      "rowNum": 9,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -20259,15 +20409,15 @@
       ],
       "photo": "https://imgur.com/a/YM4N8N5",
       "price": "650sek",
-      "rowNum": 5,
+      "rowNum": 10,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -20292,15 +20442,15 @@
       ],
       "photo": "https://imgur.com/a/NPyCKWS",
       "price": "650sek",
-      "rowNum": 6,
+      "rowNum": 11,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -20325,15 +20475,15 @@
       ],
       "photo": "https://imgur.com/a/MXTV4Vo",
       "price": "650sek",
-      "rowNum": 7,
+      "rowNum": 12,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -20358,15 +20508,15 @@
       ],
       "photo": "https://imgur.com/a/mdzpQTY",
       "price": "650sek",
-      "rowNum": 8,
+      "rowNum": 13,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -20391,15 +20541,15 @@
       ],
       "photo": "https://imgur.com/a/f7I9bAE",
       "price": "650sek",
-      "rowNum": 9,
+      "rowNum": 14,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -20424,15 +20574,15 @@
       ],
       "photo": "https://imgur.com/a/3dTgACn",
       "price": "650sek",
-      "rowNum": 10,
+      "rowNum": 15,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -20457,15 +20607,15 @@
       ],
       "photo": "https://imgur.com/a/5aX6xvr",
       "price": "650sek",
-      "rowNum": 11,
+      "rowNum": 16,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -20490,15 +20640,15 @@
       ],
       "photo": "https://imgur.com/a/XMf4K18",
       "price": "650sek",
-      "rowNum": 12,
+      "rowNum": 17,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -20523,13 +20673,13 @@
       ],
       "photo": "https://imgur.com/a/dByKixJ",
       "price": "650sek",
-      "rowNum": 13,
+      "rowNum": 18,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "f133510b",
+      "lpubeltsName": "ASSA 700 (gin/tree pins and matching countermilling in ≥ 4 chambers, ≥ 2 tree pins)",
       "sheetMake": "ASSA",
       "sheetModel": "700",
       "badListing": "",
@@ -20556,16 +20706,16 @@
       ],
       "photo": "https://imgur.com/a/S2o6wHf",
       "price": "350sek",
-      "rowNum": 15,
+      "rowNum": 20,
       "notes": "",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "lb_086e6eff",
+      "id": "lb_77c9703d",
       "lpubeltsName": "",
       "sheetMake": "ASSA",
       "sheetModel": "Twin combi 4800",
-      "badListing": "",
+      "badListing": "X",
       "sellerName": "HJ",
       "shipsTo": [
         "Europe",
@@ -20589,16 +20739,16 @@
       ],
       "photo": "https://imgur.com/a/5m2mT3t",
       "price": "400sek",
-      "rowNum": 17,
+      "rowNum": 24,
       "notes": "3 finger pins",
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_ed877449",
+      "id": "lb_490237d4",
       "lpubeltsName": "",
       "sheetMake": "ASSA",
       "sheetModel": "Twin combi 4800",
-      "badListing": "",
+      "badListing": "X",
       "sellerName": "HJ",
       "shipsTo": [
         "Europe",
@@ -20620,9 +20770,42 @@
       "lockingMechanism": [
         "Pin-tumbler"
       ],
-      "photo": null,
+      "photo": "https://imgur.com/a/iqPZdah",
       "price": "400sek",
-      "rowNum": 18,
+      "rowNum": 25,
+      "notes": "3 finger pins",
+      "lockBelt": "Unranked"
+    },
+    {
+      "id": "lb_3bfef116",
+      "lpubeltsName": "",
+      "sheetMake": "Rosengren",
+      "sheetModel": "32A81S",
+      "badListing": "X",
+      "sellerName": "HJ",
+      "shipsTo": [
+        "Europe",
+        "South America",
+        "North America",
+        "Australia & Oceania",
+        "Asia",
+        "Africa"
+      ],
+      "country": "Sweden",
+      "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
+      "avail": "8",
+      "format": "Sdb lock",
+      "samelineIndex": "",
+      "isValid": true,
+      "isLPUListing": false,
+      "keys": "1",
+      "condition": "Used",
+      "lockingMechanism": [
+        "Disc detainer"
+      ],
+      "photo": null,
+      "price": "350sek",
+      "rowNum": 27,
       "notes": "",
       "lockBelt": "Unranked"
     },
@@ -21527,7 +21710,7 @@
       "lockBelt": "Brown"
     },
     {
-      "id": "lb_0477b216",
+      "id": "lb_9a518a11",
       "lpubeltsName": "",
       "sheetMake": "Ruko",
       "sheetModel": "1200",
@@ -21577,7 +21760,7 @@
       "lockBelt": "Purple"
     },
     {
-      "id": "lb_cc53b5c7",
+      "id": "lb_5b7e8cd4",
       "lpubeltsName": "",
       "sheetMake": "Keso",
       "sheetModel": "2000 omega",
@@ -22927,7 +23110,7 @@
       "lockBelt": "Black"
     },
     {
-      "id": "lb_3f5d0cc6",
+      "id": "lb_8d647d5e",
       "lpubeltsName": "",
       "sheetMake": "BASI",
       "sheetModel": "T250",
@@ -22952,7 +23135,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_8b70df41",
+      "id": "lb_bd2feacb",
       "lpubeltsName": "",
       "sheetMake": "Kaba",
       "sheetModel": "Titancombi",
@@ -22977,7 +23160,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_23490ddc",
+      "id": "lb_53360089",
       "lpubeltsName": "",
       "sheetMake": "Habo",
       "sheetModel": "",
@@ -23002,7 +23185,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_a82a7ffc",
+      "id": "lb_7964b97a",
       "lpubeltsName": "",
       "sheetMake": "Mauer elite 2A",
       "sheetModel": "Elite 2A (E2A)",
@@ -23052,7 +23235,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_95e59c6f",
+      "id": "lb_96d972a7",
       "lpubeltsName": "",
       "sheetMake": "Tierkey",
       "sheetModel": "2-row",
@@ -23077,7 +23260,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_9a34be8d",
+      "id": "lb_e47f0319",
       "lpubeltsName": "",
       "sheetMake": "Tostem",
       "sheetModel": "WN",
@@ -23102,7 +23285,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_ae9f3572",
+      "id": "lb_157b2424",
       "lpubeltsName": "",
       "sheetMake": "Tostem",
       "sheetModel": "WX",
@@ -23127,7 +23310,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_92a4343a",
+      "id": "lb_b223d25f",
       "lpubeltsName": "",
       "sheetMake": "Sun cam lock",
       "sheetModel": "sun",
@@ -23152,7 +23335,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_7db7a67b",
+      "id": "lb_5857daaf",
       "lpubeltsName": "",
       "sheetMake": "Giken",
       "sheetModel": "giken",
@@ -23177,7 +23360,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_e897466a",
+      "id": "lb_9cb0c6fa",
       "lpubeltsName": "",
       "sheetMake": "Pachinko Locks",
       "sheetModel": "",
@@ -23202,7 +23385,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_48b1f21f",
+      "id": "lb_74d16df4",
       "lpubeltsName": "",
       "sheetMake": "MIWA",
       "sheetModel": "Mini ds",
@@ -23227,7 +23410,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_8a31f98f",
+      "id": "lb_e1e15f00",
       "lpubeltsName": "",
       "sheetMake": "Clover",
       "sheetModel": "Wavelock",
@@ -23252,7 +23435,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_2870f405",
+      "id": "lb_b07fae68",
       "lpubeltsName": "",
       "sheetMake": "Guard",
       "sheetModel": "electron",
@@ -23277,7 +23460,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_44d283a9",
+      "id": "lb_6b8646d4",
       "lpubeltsName": "",
       "sheetMake": "electron",
       "sheetModel": "electron",
@@ -23302,7 +23485,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_e30b39fc",
+      "id": "lb_b27a6830",
       "lpubeltsName": "",
       "sheetMake": "Keiden",
       "sheetModel": "lock-to-lock",
@@ -23327,7 +23510,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_3a449852",
+      "id": "lb_d2035ed5",
       "lpubeltsName": "",
       "sheetMake": "MIWA",
       "sheetModel": "Magnetic Card lock",
@@ -23352,7 +23535,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_3dc09de2",
+      "id": "lb_2e691fbc",
       "lpubeltsName": "",
       "sheetMake": "Keiden",
       "sheetModel": "Magnet",
@@ -23377,7 +23560,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_32a2e5a6",
+      "id": "lb_b863758b",
       "lpubeltsName": "",
       "sheetMake": "Magnet safe lock",
       "sheetModel": "Magnet safe lock",
@@ -23402,7 +23585,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_99cf0150",
+      "id": "lb_53172f4d",
       "lpubeltsName": "",
       "sheetMake": "CJL",
       "sheetModel": "S8",
@@ -23427,7 +23610,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_e2e3ad1e",
+      "id": "lb_fbf39dd5",
       "lpubeltsName": "",
       "sheetMake": "TrioVing",
       "sheetModel": "6-pin",
@@ -23816,7 +23999,7 @@
       "lockBelt": "Brown"
     },
     {
-      "id": "lb_c40ac372",
+      "id": "lb_4e1992ed",
       "lpubeltsName": "",
       "sheetMake": "ASSA",
       "sheetModel": "cabinet lock",
@@ -23971,7 +24154,7 @@
       "lockBelt": "Green"
     },
     {
-      "id": "lb_eda4500b",
+      "id": "lb_e41372c4",
       "lpubeltsName": "",
       "sheetMake": "random",
       "sheetModel": "random",
@@ -24202,7 +24385,7 @@
       "lockBelt": "Purple"
     },
     {
-      "id": "lb_d901b5f7",
+      "id": "lb_48bf3094",
       "lpubeltsName": "",
       "sheetMake": "Fichet",
       "sheetModel": "484",
@@ -24235,7 +24418,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_a8033ae6",
+      "id": "lb_d0cd1713",
       "lpubeltsName": "",
       "sheetMake": "CES",
       "sheetModel": "",
@@ -24367,7 +24550,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_b7ebfdf2",
+      "id": "lb_012c1565",
       "lpubeltsName": "",
       "sheetMake": "Thirard",
       "sheetModel": "5g",
@@ -24532,7 +24715,7 @@
       "lockBelt": "Blue"
     },
     {
-      "id": "lb_27572fe1",
+      "id": "lb_73dc963b",
       "lpubeltsName": "",
       "sheetMake": "jet",
       "sheetModel": "",
@@ -24796,7 +24979,7 @@
       "lockBelt": "Brown"
     },
     {
-      "id": "lb_7e10c526",
+      "id": "lb_c68b026f",
       "lpubeltsName": "",
       "sheetMake": "Vachette",
       "sheetModel": "Radialis",
@@ -24829,7 +25012,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_b77ad1ae",
+      "id": "lb_85f12474",
       "lpubeltsName": "",
       "sheetMake": "U-Shin",
       "sheetModel": "Showa",
@@ -25284,7 +25467,7 @@
       "lockBelt": "Brown"
     },
     {
-      "id": "lb_f1e1032b",
+      "id": "lb_ee4e40a6",
       "lpubeltsName": "",
       "sheetMake": "Tostem",
       "sheetModel": "lixil (?)",
@@ -25704,7 +25887,7 @@
       "lockBelt": "Black"
     },
     {
-      "id": "lb_39d01880",
+      "id": "lb_515ec8e1",
       "lpubeltsName": "",
       "sheetMake": "Sima",
       "sheetModel": "Magnet",
@@ -25798,7 +25981,7 @@
       "lockBelt": "Red"
     },
     {
-      "id": "lb_ee28b3d7",
+      "id": "lb_c69a6724",
       "lpubeltsName": "",
       "sheetMake": "iLOQ",
       "sheetModel": "H50S.3 High Security Electronic padlock",
@@ -25831,7 +26014,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_23b4a6ea",
+      "id": "lb_870fcbd5",
       "lpubeltsName": "",
       "sheetMake": "Abloy",
       "sheetModel": "330 disc detainer padlock",
@@ -25864,7 +26047,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_01cfa162",
+      "id": "lb_7f1a0d10",
       "lpubeltsName": "",
       "sheetMake": "ABUS",
       "sheetModel": "90/50 padlock",
@@ -25897,7 +26080,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_2e16ee29",
+      "id": "lb_52d9783d",
       "lpubeltsName": "",
       "sheetMake": "Multipick",
       "sheetModel": "Dimple+Eurocilinder practice lock",
@@ -25996,7 +26179,7 @@
       "lockBelt": "Purple"
     },
     {
-      "id": "lb_e2434931",
+      "id": "lb_29247cf7",
       "lpubeltsName": "",
       "sheetMake": "LIPS",
       "sheetModel": "Octro/Keso",
@@ -26029,7 +26212,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_7df1bdf9",
+      "id": "lb_f31284ee",
       "lpubeltsName": "",
       "sheetMake": "LIPS",
       "sheetModel": "Octro/Keso",
@@ -26161,7 +26344,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_382c5534",
+      "id": "lb_cb83f451",
       "lpubeltsName": "",
       "sheetMake": "Nemef",
       "sheetModel": "KB",
@@ -26194,7 +26377,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_90ca96fd",
+      "id": "lb_b32a88c1",
       "lpubeltsName": "",
       "sheetMake": "Master Lock",
       "sheetModel": "875",
@@ -26218,7 +26401,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_e3761f5e",
+      "id": "lb_097b1419",
       "lpubeltsName": "",
       "sheetMake": "Master Lock",
       "sheetModel": "930",
@@ -26242,7 +26425,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_9f07e345",
+      "id": "lb_deca95eb",
       "lpubeltsName": "",
       "sheetMake": "Medeco",
       "sheetModel": "Biaxial",
@@ -26266,7 +26449,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_7fa2d16c",
+      "id": "lb_328e5e47",
       "lpubeltsName": "",
       "sheetMake": "Medeco",
       "sheetModel": "Biaxial",
@@ -26290,7 +26473,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_ac175330",
+      "id": "lb_22a16220",
       "lpubeltsName": "",
       "sheetMake": "Medeco",
       "sheetModel": "Original",
@@ -26314,7 +26497,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_45c1bdb4",
+      "id": "lb_1868331a",
       "lpubeltsName": "",
       "sheetMake": "Medeco",
       "sheetModel": "Original",
@@ -26338,7 +26521,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_a49d9ca0",
+      "id": "lb_85d0c17e",
       "lpubeltsName": "",
       "sheetMake": "Medeco",
       "sheetModel": "Original",
@@ -26362,7 +26545,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_151d168c",
+      "id": "lb_802162f9",
       "lpubeltsName": "",
       "sheetMake": "Mul-T-Lock",
       "sheetModel": "Classic",
@@ -26386,7 +26569,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_a1c6e50e",
+      "id": "lb_2aaa5b99",
       "lpubeltsName": "",
       "sheetMake": "Mul-T-Lock",
       "sheetModel": "Classic",
@@ -26410,7 +26593,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_3e7d8be7",
+      "id": "lb_d1e63fe9",
       "lpubeltsName": "",
       "sheetMake": "Mul-T-Lock",
       "sheetModel": "Classic",
@@ -26434,7 +26617,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_9cc348ff",
+      "id": "lb_0049a949",
       "lpubeltsName": "",
       "sheetMake": "Mul-T-Lock",
       "sheetModel": "Classic",
@@ -26458,7 +26641,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_91a76f60",
+      "id": "lb_b899259f",
       "lpubeltsName": "",
       "sheetMake": "Mul-T-Lock",
       "sheetModel": "Classic",
@@ -26482,7 +26665,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_9f02f237",
+      "id": "lb_78d9b1a6",
       "lpubeltsName": "",
       "sheetMake": "Nemef",
       "sheetModel": "KB",
@@ -26506,7 +26689,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_6b51a74e",
+      "id": "lb_45368911",
       "lpubeltsName": "",
       "sheetMake": "Nemef",
       "sheetModel": "NF2",
@@ -26530,7 +26713,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_78dcc383",
+      "id": "lb_b2ad69e1",
       "lpubeltsName": "",
       "sheetMake": "Nemef",
       "sheetModel": "NF3",
@@ -26554,7 +26737,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_17cb1290",
+      "id": "lb_f82319a0",
       "lpubeltsName": "",
       "sheetMake": "Nemef",
       "sheetModel": "NF3",
@@ -26578,7 +26761,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_97cbd629",
+      "id": "lb_0ae58968",
       "lpubeltsName": "",
       "sheetMake": "Nemef",
       "sheetModel": "NF4",
@@ -26602,7 +26785,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_f496b9a4",
+      "id": "lb_3a740111",
       "lpubeltsName": "",
       "sheetMake": "DOM",
       "sheetModel": "RN",
@@ -26626,7 +26809,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_faccd9b2",
+      "id": "lb_bfbb7d56",
       "lpubeltsName": "",
       "sheetMake": "DOM",
       "sheetModel": "Plura",
@@ -26650,7 +26833,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_647d62a2",
+      "id": "lb_a8dbcbf4",
       "lpubeltsName": "",
       "sheetMake": "DOM",
       "sheetModel": "5KG",
@@ -26674,7 +26857,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_c9c8b706",
+      "id": "lb_f3ba02dc",
       "lpubeltsName": "",
       "sheetMake": "Winkhaus",
       "sheetModel": "XR",
@@ -26698,7 +26881,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_f65a3d90",
+      "id": "lb_1c86edab",
       "lpubeltsName": "",
       "sheetMake": "BEST",
       "sheetModel": "MX8 (Cormax)",
@@ -26722,7 +26905,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_afa837f5",
+      "id": "lb_2a8aaf08",
       "lpubeltsName": "",
       "sheetMake": "BEST",
       "sheetModel": "Construction Core",
@@ -26746,7 +26929,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_274d337c",
+      "id": "lb_4e06a0d2",
       "lpubeltsName": "",
       "sheetMake": "Hafele",
       "sheetModel": "",
@@ -26770,7 +26953,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_b917d6d7",
+      "id": "lb_347fbf7c",
       "lpubeltsName": "",
       "sheetMake": "Kwikset",
       "sheetModel": "",
@@ -26794,7 +26977,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_a0c54536",
+      "id": "lb_89c6b150",
       "lpubeltsName": "",
       "sheetMake": "Marks",
       "sheetModel": "",
@@ -26818,7 +27001,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_56e846a7",
+      "id": "lb_95021e3f",
       "lpubeltsName": "",
       "sheetMake": "No-Name",
       "sheetModel": "SFIC Housing",
@@ -26842,7 +27025,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_ffff332f",
+      "id": "lb_2b2ee896",
       "lpubeltsName": "",
       "sheetMake": "No-Name",
       "sheetModel": "Schlage LFIC",
@@ -27586,7 +27769,127 @@
       "lockBelt": "Red"
     },
     {
-      "id": "lb_90c37c95",
+      "id": "3af2407a",
+      "lpubeltsName": "BKS Janus (< 14 pins)",
+      "sheetMake": "BKS",
+      "sheetModel": "Janus",
+      "badListing": "",
+      "sellerName": "BlackMoone845",
+      "shipsTo": [
+        "Europe",
+        "North America",
+        "Australia & Oceania"
+      ],
+      "country": "Netherlands (Kingdom of the)",
+      "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
+      "avail": "2",
+      "format": "Double euro",
+      "samelineIndex": "",
+      "isValid": true,
+      "isLPUListing": true,
+      "keys": "2",
+      "condition": "",
+      "lockingMechanism": [
+        "HPC"
+      ],
+      "photo": null,
+      "price": "€ 50",
+      "rowNum": 34,
+      "notes": "",
+      "lockBelt": "Red"
+    },
+    {
+      "id": "3af2407a",
+      "lpubeltsName": "BKS Janus (< 14 pins)",
+      "sheetMake": "BKS",
+      "sheetModel": "Janus",
+      "badListing": "",
+      "sellerName": "BlackMoone845",
+      "shipsTo": [
+        "Europe",
+        "North America",
+        "Australia & Oceania"
+      ],
+      "country": "Netherlands (Kingdom of the)",
+      "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
+      "avail": "1",
+      "format": "Half euro",
+      "samelineIndex": "",
+      "isValid": true,
+      "isLPUListing": true,
+      "keys": "1",
+      "condition": "",
+      "lockingMechanism": [
+        "HPC"
+      ],
+      "photo": null,
+      "price": "€ 30",
+      "rowNum": 35,
+      "notes": "",
+      "lockBelt": "Red"
+    },
+    {
+      "id": "cc8cfd45",
+      "lpubeltsName": "MIWA/Anker 3800",
+      "sheetMake": "Anker",
+      "sheetModel": "3800",
+      "badListing": "",
+      "sellerName": "BlackMoone845",
+      "shipsTo": [
+        "Europe",
+        "North America",
+        "Australia & Oceania"
+      ],
+      "country": "Netherlands (Kingdom of the)",
+      "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
+      "avail": "5",
+      "format": "Double euro",
+      "samelineIndex": "",
+      "isValid": true,
+      "isLPUListing": true,
+      "keys": "2+",
+      "condition": "",
+      "lockingMechanism": [
+        "Dimple/Magnetic sliders"
+      ],
+      "photo": null,
+      "price": "€ 60",
+      "rowNum": 36,
+      "notes": "",
+      "lockBelt": "Red"
+    },
+    {
+      "id": "cc8cfd45",
+      "lpubeltsName": "MIWA/Anker 3800",
+      "sheetMake": "Anker",
+      "sheetModel": "3800",
+      "badListing": "",
+      "sellerName": "BlackMoone845",
+      "shipsTo": [
+        "Europe",
+        "North America",
+        "Australia & Oceania"
+      ],
+      "country": "Netherlands (Kingdom of the)",
+      "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
+      "avail": "5",
+      "format": "Half euro",
+      "samelineIndex": "",
+      "isValid": true,
+      "isLPUListing": true,
+      "keys": "2+",
+      "condition": "",
+      "lockingMechanism": [
+        "Dimple/Magnetic sliders"
+      ],
+      "photo": null,
+      "price": "€ 30.0",
+      "rowNum": 37,
+      "notes": "",
+      "lockBelt": "Red"
+    },
+    {
+      "id": "lb_be4ec002",
       "lpubeltsName": "",
       "sheetMake": "Ivana (Anker collaboration)",
       "sheetModel": "Necoloc",
@@ -27611,12 +27914,12 @@
       ],
       "photo": null,
       "price": "€ 25",
-      "rowNum": 37,
+      "rowNum": 41,
       "notes": "My estimated belt; green, maybe blue. Very tight tolerances",
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_1da5eda3",
+      "id": "lb_2d6a808a",
       "lpubeltsName": "",
       "sheetMake": "LIPS",
       "sheetModel": "Standard cylinder",
@@ -27641,12 +27944,12 @@
       ],
       "photo": "https://imgur.com/a/vNGba3B",
       "price": "€ 8",
-      "rowNum": 38,
+      "rowNum": 42,
       "notes": "My estimated belt: green. Available in euro format / RIM (mortise?)",
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_667aaf7c",
+      "id": "lb_7b2787e5",
       "lpubeltsName": "",
       "sheetMake": "Nemef",
       "sheetModel": "NNB",
@@ -27671,12 +27974,12 @@
       ],
       "photo": "https://imgur.com/a/KoiSXgj",
       "price": "€ 15",
-      "rowNum": 39,
+      "rowNum": 43,
       "notes": "My estimated belt: green",
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_93fd55fc",
+      "id": "lb_847cd534",
       "lpubeltsName": "",
       "sheetMake": "StarX",
       "sheetModel": "",
@@ -27701,12 +28004,12 @@
       ],
       "photo": "https://imgur.com/a/hkbzycw",
       "price": "€ 15",
-      "rowNum": 40,
+      "rowNum": 44,
       "notes": "My estimated belt: green",
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_46bcb294",
+      "id": "lb_13cb7d64",
       "lpubeltsName": "",
       "sheetMake": "Nemef",
       "sheetModel": "Standard cylinder",
@@ -27731,12 +28034,12 @@
       ],
       "photo": null,
       "price": "€ 15",
-      "rowNum": 41,
+      "rowNum": 45,
       "notes": "",
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_2f9a92c6",
+      "id": "lb_9ef6c8a8",
       "lpubeltsName": "",
       "sheetMake": "Winkhaus",
       "sheetModel": "XR",
@@ -27761,7 +28064,7 @@
       ],
       "photo": null,
       "price": "€ 20",
-      "rowNum": 42,
+      "rowNum": 46,
       "notes": "Can cut for half price, many available; My estimated belt: Green",
       "lockBelt": "Unranked"
     },
@@ -28569,7 +28872,7 @@
       "lockBelt": "Black"
     },
     {
-      "id": "lb_5e798d25",
+      "id": "lb_a978ce9c",
       "lpubeltsName": "",
       "sheetMake": "MIWA",
       "sheetModel": "U9",
@@ -28669,7 +28972,7 @@
       "lockBelt": "Brown"
     },
     {
-      "id": "lb_bad9eb5e",
+      "id": "lb_af9fee7d",
       "lpubeltsName": "",
       "sheetMake": "U Shin Showa",
       "sheetModel": "Generic PT",
@@ -28769,7 +29072,7 @@
       "lockBelt": "Orange"
     },
     {
-      "id": "lb_f4fbf627",
+      "id": "lb_e3b7d2fa",
       "lpubeltsName": "",
       "sheetMake": "ASSA",
       "sheetModel": "Twin Combi",
@@ -28794,7 +29097,7 @@
       "lockBelt": "Unranked"
     },
     {
-      "id": "lb_b57154e7",
+      "id": "lb_d75ce2fa",
       "lpubeltsName": "",
       "sheetMake": "S&G",
       "sheetModel": "Environmental",
@@ -28816,6 +29119,31 @@
       "price": "$35",
       "rowNum": 21,
       "notes": "No key, but I believe it's 108.",
+      "lockBelt": "Unranked"
+    },
+    {
+      "id": "lb_38d69620",
+      "lpubeltsName": "",
+      "sheetMake": "Whale",
+      "sheetModel": "Top Security",
+      "badListing": "",
+      "sellerName": "Red Wanderer",
+      "country": "United States of America",
+      "sellerId": "rSv0AIEP0mhQw53MFp53vtY0AIL2",
+      "avail": "4",
+      "format": "Padlock",
+      "samelineIndex": "",
+      "isValid": true,
+      "isLPUListing": false,
+      "keys": "2",
+      "condition": "Used",
+      "lockingMechanism": [
+        "Dimple"
+      ],
+      "photo": null,
+      "price": "$15",
+      "rowNum": 22,
+      "notes": "",
       "lockBelt": "Unranked"
     }
   ],
@@ -33427,10 +33755,10 @@
       "lockBelt": "Blue"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -33455,15 +33783,15 @@
       ],
       "photo": "https://imgur.com/a/nuwIFQn",
       "price": "650sek",
-      "rowNum": 2,
+      "rowNum": 7,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -33488,15 +33816,15 @@
       ],
       "photo": "https://imgur.com/a/ywlSC42",
       "price": "650sek",
-      "rowNum": 3,
+      "rowNum": 8,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -33521,15 +33849,15 @@
       ],
       "photo": "https://imgur.com/a/66sldDE",
       "price": "650sek",
-      "rowNum": 4,
+      "rowNum": 9,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -33554,15 +33882,15 @@
       ],
       "photo": "https://imgur.com/a/YM4N8N5",
       "price": "650sek",
-      "rowNum": 5,
+      "rowNum": 10,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -33587,15 +33915,15 @@
       ],
       "photo": "https://imgur.com/a/NPyCKWS",
       "price": "650sek",
-      "rowNum": 6,
+      "rowNum": 11,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -33620,15 +33948,15 @@
       ],
       "photo": "https://imgur.com/a/MXTV4Vo",
       "price": "650sek",
-      "rowNum": 7,
+      "rowNum": 12,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -33653,15 +33981,15 @@
       ],
       "photo": "https://imgur.com/a/mdzpQTY",
       "price": "650sek",
-      "rowNum": 8,
+      "rowNum": 13,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -33686,15 +34014,15 @@
       ],
       "photo": "https://imgur.com/a/f7I9bAE",
       "price": "650sek",
-      "rowNum": 9,
+      "rowNum": 14,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -33719,15 +34047,15 @@
       ],
       "photo": "https://imgur.com/a/3dTgACn",
       "price": "650sek",
-      "rowNum": 10,
+      "rowNum": 15,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -33752,15 +34080,15 @@
       ],
       "photo": "https://imgur.com/a/5aX6xvr",
       "price": "650sek",
-      "rowNum": 11,
+      "rowNum": 16,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -33785,15 +34113,15 @@
       ],
       "photo": "https://imgur.com/a/XMf4K18",
       "price": "650sek",
-      "rowNum": 12,
+      "rowNum": 17,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "104776ef",
+      "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
       "sheetMake": "ASSA",
-      "sheetModel": "Twin combi 6k",
+      "sheetModel": "Twin 6000",
       "badListing": "",
       "sellerName": "HJ",
       "shipsTo": [
@@ -33818,13 +34146,13 @@
       ],
       "photo": "https://imgur.com/a/dByKixJ",
       "price": "650sek",
-      "rowNum": 13,
+      "rowNum": 18,
       "notes": "old style with gins",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
-      "id": "f93c57fc",
-      "lpubeltsName": "ABUS S6+",
+      "id": "f133510b",
+      "lpubeltsName": "ASSA 700 (gin/tree pins and matching countermilling in ≥ 4 chambers, ≥ 2 tree pins)",
       "sheetMake": "ASSA",
       "sheetModel": "700",
       "badListing": "",
@@ -33851,9 +34179,9 @@
       ],
       "photo": "https://imgur.com/a/S2o6wHf",
       "price": "350sek",
-      "rowNum": 15,
+      "rowNum": 20,
       "notes": "",
-      "lockBelt": "Blue"
+      "lockBelt": "Black"
     },
     {
       "id": "cf5bd73b-1",
@@ -39047,6 +39375,126 @@
       "lockBelt": "Red"
     },
     {
+      "id": "3af2407a",
+      "lpubeltsName": "BKS Janus (< 14 pins)",
+      "sheetMake": "BKS",
+      "sheetModel": "Janus",
+      "badListing": "",
+      "sellerName": "BlackMoone845",
+      "shipsTo": [
+        "Europe",
+        "North America",
+        "Australia & Oceania"
+      ],
+      "country": "Netherlands (Kingdom of the)",
+      "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
+      "avail": "2",
+      "format": "Double euro",
+      "samelineIndex": "",
+      "isValid": true,
+      "isLPUListing": true,
+      "keys": "2",
+      "condition": "",
+      "lockingMechanism": [
+        "HPC"
+      ],
+      "photo": null,
+      "price": "€ 50",
+      "rowNum": 34,
+      "notes": "",
+      "lockBelt": "Red"
+    },
+    {
+      "id": "3af2407a",
+      "lpubeltsName": "BKS Janus (< 14 pins)",
+      "sheetMake": "BKS",
+      "sheetModel": "Janus",
+      "badListing": "",
+      "sellerName": "BlackMoone845",
+      "shipsTo": [
+        "Europe",
+        "North America",
+        "Australia & Oceania"
+      ],
+      "country": "Netherlands (Kingdom of the)",
+      "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
+      "avail": "1",
+      "format": "Half euro",
+      "samelineIndex": "",
+      "isValid": true,
+      "isLPUListing": true,
+      "keys": "1",
+      "condition": "",
+      "lockingMechanism": [
+        "HPC"
+      ],
+      "photo": null,
+      "price": "€ 30",
+      "rowNum": 35,
+      "notes": "",
+      "lockBelt": "Red"
+    },
+    {
+      "id": "cc8cfd45",
+      "lpubeltsName": "MIWA/Anker 3800",
+      "sheetMake": "Anker",
+      "sheetModel": "3800",
+      "badListing": "",
+      "sellerName": "BlackMoone845",
+      "shipsTo": [
+        "Europe",
+        "North America",
+        "Australia & Oceania"
+      ],
+      "country": "Netherlands (Kingdom of the)",
+      "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
+      "avail": "5",
+      "format": "Double euro",
+      "samelineIndex": "",
+      "isValid": true,
+      "isLPUListing": true,
+      "keys": "2+",
+      "condition": "",
+      "lockingMechanism": [
+        "Dimple/Magnetic sliders"
+      ],
+      "photo": null,
+      "price": "€ 60",
+      "rowNum": 36,
+      "notes": "",
+      "lockBelt": "Red"
+    },
+    {
+      "id": "cc8cfd45",
+      "lpubeltsName": "MIWA/Anker 3800",
+      "sheetMake": "Anker",
+      "sheetModel": "3800",
+      "badListing": "",
+      "sellerName": "BlackMoone845",
+      "shipsTo": [
+        "Europe",
+        "North America",
+        "Australia & Oceania"
+      ],
+      "country": "Netherlands (Kingdom of the)",
+      "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
+      "avail": "5",
+      "format": "Half euro",
+      "samelineIndex": "",
+      "isValid": true,
+      "isLPUListing": true,
+      "keys": "2+",
+      "condition": "",
+      "lockingMechanism": [
+        "Dimple/Magnetic sliders"
+      ],
+      "photo": null,
+      "price": "€ 30.0",
+      "rowNum": 37,
+      "notes": "",
+      "lockBelt": "Red"
+    },
+    {
       "id": "7d9d715d",
       "lpubeltsName": "TESA TE-5",
       "sheetMake": "TESA",
@@ -40002,7 +40450,7 @@
   ],
   "allEntries": [
     {
-      "id": "lb_eb00645a",
+      "id": "lb_515eb083",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -40035,7 +40483,7 @@
       ],
       "listings": [
         {
-          "id": "lb_eb00645a",
+          "id": "lb_515eb083",
           "lpubeltsName": "",
           "sheetMake": "DOM",
           "sheetModel": "IX gamma",
@@ -40225,7 +40673,7 @@
       "newListingsDate": "2024-05-01T16:03:57.906Z"
     },
     {
-      "id": "lb_b036a61d",
+      "id": "lb_ea3f595a",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -40258,7 +40706,7 @@
       ],
       "listings": [
         {
-          "id": "lb_b036a61d",
+          "id": "lb_ea3f595a",
           "lpubeltsName": "",
           "sheetMake": "Zeis Ikon",
           "sheetModel": "15RS",
@@ -40621,7 +41069,7 @@
       "newListingsDate": "2024-05-01T16:03:57.906Z"
     },
     {
-      "id": "lb_a5d0428a",
+      "id": "lb_e71ed654",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -40654,7 +41102,7 @@
       ],
       "listings": [
         {
-          "id": "lb_a5d0428a",
+          "id": "lb_e71ed654",
           "lpubeltsName": "",
           "sheetMake": "Dorma Kaba",
           "sheetModel": "pExtra",
@@ -41660,7 +42108,7 @@
       "newListingsDate": "2024-05-01T16:03:57.906Z"
     },
     {
-      "id": "lb_d38bb3fc",
+      "id": "lb_b1ee6277",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -41693,7 +42141,7 @@
       ],
       "listings": [
         {
-          "id": "lb_d38bb3fc",
+          "id": "lb_b1ee6277",
           "lpubeltsName": "",
           "sheetMake": "Fabianoh130",
           "sheetModel": "Lighted follower",
@@ -42710,7 +43158,7 @@
       "newListingsDate": "2024-05-01T16:03:57.907Z"
     },
     {
-      "id": "lb_821ab141",
+      "id": "lb_fb66f087",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -42738,7 +43186,7 @@
       ],
       "listings": [
         {
-          "id": "lb_821ab141",
+          "id": "lb_fb66f087",
           "lpubeltsName": "",
           "sheetMake": "Honest Dong Shi",
           "sheetModel": "Dimple set",
@@ -42770,7 +43218,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_cdb36aee",
+      "id": "lb_4ad84e16",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -42798,7 +43246,7 @@
       ],
       "listings": [
         {
-          "id": "lb_cdb36aee",
+          "id": "lb_4ad84e16",
           "lpubeltsName": "",
           "sheetMake": "Sparrows",
           "sheetModel": "Disc Pick",
@@ -43333,7 +43781,7 @@
       "newListingsDate": "2024-05-01T16:03:57.907Z"
     },
     {
-      "id": "lb_ff754499",
+      "id": "lb_85f87b36",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -43361,7 +43809,7 @@
       ],
       "listings": [
         {
-          "id": "lb_ff754499",
+          "id": "lb_85f87b36",
           "lpubeltsName": "",
           "sheetMake": "American Lock",
           "sheetModel": "Tubular",
@@ -43395,7 +43843,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_78ec5ccf",
+      "id": "lb_462c2048",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -43423,7 +43871,7 @@
       ],
       "listings": [
         {
-          "id": "lb_78ec5ccf",
+          "id": "lb_462c2048",
           "lpubeltsName": "",
           "sheetMake": "American Lock",
           "sheetModel": "10 Series",
@@ -43457,7 +43905,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_7fe097ee",
+      "id": "lb_73e6fc5b",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -43485,7 +43933,7 @@
       ],
       "listings": [
         {
-          "id": "lb_7fe097ee",
+          "id": "lb_73e6fc5b",
           "lpubeltsName": "",
           "sheetMake": "American Lock",
           "sheetModel": "Edge",
@@ -43519,7 +43967,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_b8ccd928",
+      "id": "lb_a206efa8",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -43547,7 +43995,7 @@
       ],
       "listings": [
         {
-          "id": "lb_b8ccd928",
+          "id": "lb_a206efa8",
           "lpubeltsName": "",
           "sheetMake": "American Lock",
           "sheetModel": "3200",
@@ -43581,7 +44029,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_d91ec984",
+      "id": "lb_afb46b76",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -43609,7 +44057,7 @@
       ],
       "listings": [
         {
-          "id": "lb_d91ec984",
+          "id": "lb_afb46b76",
           "lpubeltsName": "",
           "sheetMake": "American Lock",
           "sheetModel": "3260",
@@ -43643,7 +44091,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_79761444",
+      "id": "lb_8ce174bf",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -43671,7 +44119,7 @@
       ],
       "listings": [
         {
-          "id": "lb_79761444",
+          "id": "lb_8ce174bf",
           "lpubeltsName": "",
           "sheetMake": "American Lock",
           "sheetModel": "3650",
@@ -43705,7 +44153,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_71d51ef8",
+      "id": "lb_98cca0fe",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -43733,7 +44181,7 @@
       ],
       "listings": [
         {
-          "id": "lb_71d51ef8",
+          "id": "lb_98cca0fe",
           "lpubeltsName": "",
           "sheetMake": "American Lock",
           "sheetModel": "5570",
@@ -43767,7 +44215,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_9a91d683",
+      "id": "lb_d3b30eb8",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -43795,7 +44243,7 @@
       ],
       "listings": [
         {
-          "id": "lb_9a91d683",
+          "id": "lb_d3b30eb8",
           "lpubeltsName": "",
           "sheetMake": "Arrow",
           "sheetModel": "Standard",
@@ -43965,6 +44413,7 @@
       ],
       "country": [
         "United States",
+        "Sweden",
         "Netherlands",
         "Portugal"
       ],
@@ -43972,6 +44421,7 @@
         "8AglvJL9k7dN9uqevAV5JXYyzVQ2",
         "8AglvJL9k7dN9uqevAV5JXYyzVQ2",
         "8AglvJL9k7dN9uqevAV5JXYyzVQ2",
+        "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
         "NPEwFfM1fZgSTXBiWGpJpg7lWui2",
         "QL17XEy4hyZZby9AyALRkgVYswF3",
         "QL17XEy4hyZZby9AyALRkgVYswF3",
@@ -43983,6 +44433,7 @@
         "amvgaert",
         "amvgaert",
         "amvgaert",
+        "HJ",
         "JayDee",
         "Florida Man Picks",
         "Florida Man Picks",
@@ -44079,6 +44530,39 @@
           "price": "$50",
           "rowNum": 23,
           "notes": "ASSA 700 Oval - Little Clicky Due To New Pins & Used Key (All Torpedo Key Pins 3 or 4 Tree Driver)",
+          "lockBelt": "Black"
+        },
+        {
+          "id": "f133510b",
+          "lpubeltsName": "ASSA 700 (gin/tree pins and matching countermilling in ≥ 4 chambers, ≥ 2 tree pins)",
+          "sheetMake": "ASSA",
+          "sheetModel": "700",
+          "badListing": "",
+          "sellerName": "HJ",
+          "shipsTo": [
+            "Europe",
+            "South America",
+            "North America",
+            "Australia & Oceania",
+            "Asia",
+            "Africa"
+          ],
+          "country": "Sweden",
+          "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
+          "avail": "1",
+          "format": "Oval",
+          "samelineIndex": "",
+          "isValid": true,
+          "isLPUListing": true,
+          "keys": "1",
+          "condition": "Used",
+          "lockingMechanism": [
+            "Pin-tumbler"
+          ],
+          "photo": "https://imgur.com/a/S2o6wHf",
+          "price": "350sek",
+          "rowNum": 20,
+          "notes": "",
           "lockBelt": "Black"
         },
         {
@@ -44253,7 +44737,7 @@
         }
       ],
       "isLPUbeltsLock": true,
-      "newListingsDate": "2024-05-02T17:20:05.014Z"
+      "newListingsDate": "2024-05-05T11:30:04.450Z"
     },
     {
       "id": "7168d463-1",
@@ -45280,7 +45764,7 @@
       "newListingsDate": "2024-05-01T16:03:57.908Z"
     },
     {
-      "id": "lb_db3dc529",
+      "id": "lb_9510307b",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -45308,7 +45792,7 @@
       ],
       "listings": [
         {
-          "id": "lb_db3dc529",
+          "id": "lb_9510307b",
           "lpubeltsName": "",
           "sheetMake": "ASSA",
           "sheetModel": "Twin 6000",
@@ -45342,7 +45826,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_b469a0cd",
+      "id": "lb_a4990dc7",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -45370,7 +45854,7 @@
       ],
       "listings": [
         {
-          "id": "lb_b469a0cd",
+          "id": "lb_a4990dc7",
           "lpubeltsName": "",
           "sheetMake": "ASSA",
           "sheetModel": "Twin 6000",
@@ -45404,7 +45888,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_9d29d23d",
+      "id": "lb_3b3ee37d",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -45432,7 +45916,7 @@
       ],
       "listings": [
         {
-          "id": "lb_9d29d23d",
+          "id": "lb_3b3ee37d",
           "lpubeltsName": "",
           "sheetMake": "ASSA",
           "sheetModel": "Twin Exclusive",
@@ -45539,7 +46023,7 @@
       "newListingsDate": "2024-05-01T16:03:57.908Z"
     },
     {
-      "id": "lb_6956cc58",
+      "id": "lb_7184909e",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -45567,7 +46051,7 @@
       ],
       "listings": [
         {
-          "id": "lb_6956cc58",
+          "id": "lb_7184909e",
           "lpubeltsName": "",
           "sheetMake": "ASSA",
           "sheetModel": "V-10",
@@ -45601,7 +46085,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_b1909e94",
+      "id": "lb_22a88432",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -45629,7 +46113,7 @@
       ],
       "listings": [
         {
-          "id": "lb_b1909e94",
+          "id": "lb_22a88432",
           "lpubeltsName": "",
           "sheetMake": "ASSA",
           "sheetModel": "V-10",
@@ -45663,7 +46147,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_06285cfd",
+      "id": "lb_91c47ab3",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -45691,7 +46175,7 @@
       ],
       "listings": [
         {
-          "id": "lb_06285cfd",
+          "id": "lb_91c47ab3",
           "lpubeltsName": "",
           "sheetMake": "ASSA",
           "sheetModel": "V-10",
@@ -46269,7 +46753,7 @@
       "newListingsDate": "2024-05-01T16:03:57.908Z"
     },
     {
-      "id": "lb_e6545f23",
+      "id": "lb_df4a7eb4",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -46297,7 +46781,7 @@
       ],
       "listings": [
         {
-          "id": "lb_e6545f23",
+          "id": "lb_df4a7eb4",
           "lpubeltsName": "",
           "sheetMake": "Brady",
           "sheetModel": "LOTO",
@@ -46528,7 +47012,7 @@
       "newListingsDate": "2024-05-01T16:03:57.908Z"
     },
     {
-      "id": "lb_15b306be",
+      "id": "lb_405f53e9",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -46556,7 +47040,7 @@
       ],
       "listings": [
         {
-          "id": "lb_15b306be",
+          "id": "lb_405f53e9",
           "lpubeltsName": "",
           "sheetMake": "DOM",
           "sheetModel": "S",
@@ -46810,7 +47294,7 @@
       "newListingsDate": "2024-05-01T16:03:57.909Z"
     },
     {
-      "id": "lb_3d96ac32",
+      "id": "lb_80598b70",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -46838,7 +47322,7 @@
       ],
       "listings": [
         {
-          "id": "lb_3d96ac32",
+          "id": "lb_80598b70",
           "lpubeltsName": "",
           "sheetMake": "Kaba",
           "sheetModel": "Standard",
@@ -46937,7 +47421,7 @@
       "newListingsDate": "2024-05-03T20:10:04.344Z"
     },
     {
-      "id": "lb_d8b09bbc",
+      "id": "lb_30dbe0d2",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -46965,7 +47449,7 @@
       ],
       "listings": [
         {
-          "id": "lb_d8b09bbc",
+          "id": "lb_30dbe0d2",
           "lpubeltsName": "",
           "sheetMake": "Lockwood",
           "sheetModel": "Standard",
@@ -46999,7 +47483,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_def0e971",
+      "id": "lb_29282bf1",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -47027,7 +47511,7 @@
       ],
       "listings": [
         {
-          "id": "lb_def0e971",
+          "id": "lb_29282bf1",
           "lpubeltsName": "",
           "sheetMake": "Lockwood",
           "sheetModel": "Standard",
@@ -47061,7 +47545,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_6a12503c",
+      "id": "lb_32129bef",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -47089,7 +47573,7 @@
       ],
       "listings": [
         {
-          "id": "lb_6a12503c",
+          "id": "lb_32129bef",
           "lpubeltsName": "",
           "sheetMake": "Lockwood",
           "sheetModel": "Standard",
@@ -47123,7 +47607,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_fbac6feb",
+      "id": "lb_20a2cb70",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -47151,7 +47635,7 @@
       ],
       "listings": [
         {
-          "id": "lb_fbac6feb",
+          "id": "lb_20a2cb70",
           "lpubeltsName": "",
           "sheetMake": "Lockwood",
           "sheetModel": "Standard",
@@ -47185,7 +47669,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_11d483c6",
+      "id": "lb_792678b2",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -47213,7 +47697,7 @@
       ],
       "listings": [
         {
-          "id": "lb_11d483c6",
+          "id": "lb_792678b2",
           "lpubeltsName": "",
           "sheetMake": "Lockwood",
           "sheetModel": "Standard",
@@ -47247,7 +47731,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_0f69645c",
+      "id": "lb_c35a72af",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -47275,7 +47759,7 @@
       ],
       "listings": [
         {
-          "id": "lb_0f69645c",
+          "id": "lb_c35a72af",
           "lpubeltsName": "",
           "sheetMake": "Lockwood",
           "sheetModel": "Standard",
@@ -47809,7 +48293,7 @@
       "newListingsDate": "2024-05-01T16:03:57.909Z"
     },
     {
-      "id": "lb_602cb576",
+      "id": "lb_5fd5bfd4",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -47837,7 +48321,7 @@
       ],
       "listings": [
         {
-          "id": "lb_602cb576",
+          "id": "lb_5fd5bfd4",
           "lpubeltsName": "",
           "sheetMake": "Master Lock",
           "sheetModel": "6230",
@@ -48143,7 +48627,7 @@
       "newListingsDate": "2024-05-01T16:03:57.909Z"
     },
     {
-      "id": "lb_8d2c855e",
+      "id": "lb_0478418f",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -48171,7 +48655,7 @@
       ],
       "listings": [
         {
-          "id": "lb_8d2c855e",
+          "id": "lb_0478418f",
           "lpubeltsName": "",
           "sheetMake": "Medeco",
           "sheetModel": "XT",
@@ -48440,7 +48924,7 @@
       "newListingsDate": "2024-05-01T16:03:57.909Z"
     },
     {
-      "id": "lb_035921e5",
+      "id": "lb_cee57417",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -48468,7 +48952,7 @@
       ],
       "listings": [
         {
-          "id": "lb_035921e5",
+          "id": "lb_cee57417",
           "lpubeltsName": "",
           "sheetMake": "S&G",
           "sheetModel": "881",
@@ -48502,7 +48986,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_087c0147",
+      "id": "lb_93361460",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -48530,7 +49014,7 @@
       ],
       "listings": [
         {
-          "id": "lb_087c0147",
+          "id": "lb_93361460",
           "lpubeltsName": "",
           "sheetMake": "S&G",
           "sheetModel": "6500",
@@ -48827,7 +49311,7 @@
       "newListingsDate": "2024-05-01T16:03:57.910Z"
     },
     {
-      "id": "lb_76ebeba2",
+      "id": "lb_918ded09",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -48855,7 +49339,7 @@
       ],
       "listings": [
         {
-          "id": "lb_76ebeba2",
+          "id": "lb_918ded09",
           "lpubeltsName": "",
           "sheetMake": "Schlage",
           "sheetModel": "SFIC Padlock",
@@ -48958,7 +49442,7 @@
       "newListingsDate": "2024-05-01T16:03:57.910Z"
     },
     {
-      "id": "lb_727dcaba",
+      "id": "lb_608fd596",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -48986,7 +49470,7 @@
       ],
       "listings": [
         {
-          "id": "lb_727dcaba",
+          "id": "lb_608fd596",
           "lpubeltsName": "",
           "sheetMake": "U-Change",
           "sheetModel": "U-Change",
@@ -49149,7 +49633,7 @@
       "newListingsDate": "2024-05-01T16:03:57.910Z"
     },
     {
-      "id": "lb_84e1527b",
+      "id": "lb_35de5478",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -49177,7 +49661,7 @@
       ],
       "listings": [
         {
-          "id": "lb_84e1527b",
+          "id": "lb_35de5478",
           "lpubeltsName": "",
           "sheetMake": "WB",
           "sheetModel": "Standard",
@@ -49211,7 +49695,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_98f03a11",
+      "id": "lb_0eff8f67",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -49239,7 +49723,7 @@
       ],
       "listings": [
         {
-          "id": "lb_98f03a11",
+          "id": "lb_0eff8f67",
           "lpubeltsName": "",
           "sheetMake": "WB",
           "sheetModel": "Standard",
@@ -49273,7 +49757,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_bbd96f56",
+      "id": "lb_449efaec",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -49301,7 +49785,7 @@
       ],
       "listings": [
         {
-          "id": "lb_bbd96f56",
+          "id": "lb_449efaec",
           "lpubeltsName": "",
           "sheetMake": "Yale",
           "sheetModel": "SDB",
@@ -49335,7 +49819,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_a32bc82a",
+      "id": "lb_335a4c59",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -49363,7 +49847,7 @@
       ],
       "listings": [
         {
-          "id": "lb_a32bc82a",
+          "id": "lb_335a4c59",
           "lpubeltsName": "",
           "sheetMake": "Zeiss Ikon",
           "sheetModel": "PO",
@@ -50634,7 +51118,7 @@
       "newListingsDate": "2024-05-01T16:03:57.911Z"
     },
     {
-      "id": "lb_81861476",
+      "id": "lb_e58cc150",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -50664,7 +51148,7 @@
       ],
       "listings": [
         {
-          "id": "lb_81861476",
+          "id": "lb_e58cc150",
           "lpubeltsName": "",
           "sheetMake": "Unity",
           "sheetModel": "Unity 50mm",
@@ -50836,7 +51320,7 @@
       "newListingsDate": "2024-05-01T16:03:57.911Z"
     },
     {
-      "id": "lb_7aad61ec",
+      "id": "lb_87552822",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -50869,7 +51353,7 @@
       ],
       "listings": [
         {
-          "id": "lb_7aad61ec",
+          "id": "lb_87552822",
           "lpubeltsName": "",
           "sheetMake": "Wilkos",
           "sheetModel": "Mortise deadlock",
@@ -51433,7 +51917,7 @@
       "newListingsDate": "2024-05-01T16:03:57.911Z"
     },
     {
-      "id": "lb_00ca50f7",
+      "id": "lb_9f4e479d",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -51461,7 +51945,7 @@
       ],
       "listings": [
         {
-          "id": "lb_00ca50f7",
+          "id": "lb_9f4e479d",
           "lpubeltsName": "",
           "sheetMake": "ABUS",
           "sheetModel": "82TI/70",
@@ -51493,7 +51977,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_3a7d8d02",
+      "id": "lb_19004f40",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -51521,7 +52005,7 @@
       ],
       "listings": [
         {
-          "id": "lb_3a7d8d02",
+          "id": "lb_19004f40",
           "lpubeltsName": "",
           "sheetMake": "ABUS",
           "sheetModel": "83/45",
@@ -51553,7 +52037,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_52907234",
+      "id": "lb_60b90606",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -51581,7 +52065,7 @@
       ],
       "listings": [
         {
-          "id": "lb_52907234",
+          "id": "lb_60b90606",
           "lpubeltsName": "",
           "sheetMake": "ABUS",
           "sheetModel": "83/45",
@@ -51613,7 +52097,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_123b59e2",
+      "id": "lb_18dcb001",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -51639,7 +52123,7 @@
       ],
       "listings": [
         {
-          "id": "lb_123b59e2",
+          "id": "lb_18dcb001",
           "lpubeltsName": "",
           "sheetMake": "ABUS",
           "sheetModel": "83KnK/55 w/o core",
@@ -51671,7 +52155,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_5e318138",
+      "id": "lb_5d83e4a9",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -51699,7 +52183,7 @@
       ],
       "listings": [
         {
-          "id": "lb_5e318138",
+          "id": "lb_5d83e4a9",
           "lpubeltsName": "",
           "sheetMake": "ACE",
           "sheetModel": "True Value Padlock",
@@ -51731,7 +52215,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_4e9a4407",
+      "id": "lb_6f1c9025",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -51759,7 +52243,7 @@
       ],
       "listings": [
         {
-          "id": "lb_4e9a4407",
+          "id": "lb_6f1c9025",
           "lpubeltsName": "",
           "sheetMake": "Alan's Nau-Tal",
           "sheetModel": "Lever",
@@ -51791,7 +52275,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_1497e740",
+      "id": "lb_ff3c0b7c",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -51817,7 +52301,7 @@
       ],
       "listings": [
         {
-          "id": "lb_1497e740",
+          "id": "lb_ff3c0b7c",
           "lpubeltsName": "",
           "sheetMake": "American Lock",
           "sheetModel": "3200 w/Best SFIC Core",
@@ -51849,7 +52333,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_edd7ce0b",
+      "id": "lb_44ac67d2",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -51877,7 +52361,7 @@
       ],
       "listings": [
         {
-          "id": "lb_edd7ce0b",
+          "id": "lb_44ac67d2",
           "lpubeltsName": "",
           "sheetMake": "American Lock",
           "sheetModel": "Round Body Brass",
@@ -51909,7 +52393,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_c892f0dc",
+      "id": "lb_afa83b02",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -51937,7 +52421,7 @@
       ],
       "listings": [
         {
-          "id": "lb_c892f0dc",
+          "id": "lb_afa83b02",
           "lpubeltsName": "",
           "sheetMake": "Armory",
           "sheetModel": "Eight Lever Lock",
@@ -51969,7 +52453,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_cc05fc17",
+      "id": "lb_436db8b3",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -51997,7 +52481,7 @@
       ],
       "listings": [
         {
-          "id": "lb_cc05fc17",
+          "id": "lb_436db8b3",
           "lpubeltsName": "",
           "sheetMake": "Brady Safekey",
           "sheetModel": "LOTO Pump Lock",
@@ -52029,7 +52513,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_b59cb997",
+      "id": "lb_0af299ec",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -52057,7 +52541,7 @@
       ],
       "listings": [
         {
-          "id": "lb_b59cb997",
+          "id": "lb_0af299ec",
           "lpubeltsName": "",
           "sheetMake": "Brinks",
           "sheetModel": "642",
@@ -52089,7 +52573,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_084c74f7",
+      "id": "lb_eb4906bd",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -52117,7 +52601,7 @@
       ],
       "listings": [
         {
-          "id": "lb_084c74f7",
+          "id": "lb_eb4906bd",
           "lpubeltsName": "",
           "sheetMake": "Do it",
           "sheetModel": "Padlock",
@@ -52149,7 +52633,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_3c3bebfe",
+      "id": "lb_3f9319c1",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -52177,7 +52661,7 @@
       ],
       "listings": [
         {
-          "id": "lb_3c3bebfe",
+          "id": "lb_3f9319c1",
           "lpubeltsName": "",
           "sheetMake": "Favorite",
           "sheetModel": "6-Lever",
@@ -52209,7 +52693,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_2fabb06c",
+      "id": "lb_12b451fd",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -52237,7 +52721,7 @@
       ],
       "listings": [
         {
-          "id": "lb_2fabb06c",
+          "id": "lb_12b451fd",
           "lpubeltsName": "",
           "sheetMake": "Fortress",
           "sheetModel": "Interlock",
@@ -52269,7 +52753,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_0bbe3681",
+      "id": "lb_4c034966",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -52297,7 +52781,7 @@
       ],
       "listings": [
         {
-          "id": "lb_0bbe3681",
+          "id": "lb_4c034966",
           "lpubeltsName": "",
           "sheetMake": "Generic",
           "sheetModel": "Disc Padlock",
@@ -52329,7 +52813,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_657de4ec",
+      "id": "lb_363b7bcf",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -52357,7 +52841,7 @@
       ],
       "listings": [
         {
-          "id": "lb_657de4ec",
+          "id": "lb_363b7bcf",
           "lpubeltsName": "",
           "sheetMake": "Godrej",
           "sheetModel": "Nav-Tal 6-Lever",
@@ -52389,7 +52873,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_ba413841",
+      "id": "lb_3e1a86eb",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -52417,7 +52901,7 @@
       ],
       "listings": [
         {
-          "id": "lb_ba413841",
+          "id": "lb_3e1a86eb",
           "lpubeltsName": "",
           "sheetMake": "IFAM",
           "sheetModel": "E40",
@@ -52449,7 +52933,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_73dcd027",
+      "id": "lb_538f0e09",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -52477,7 +52961,7 @@
       ],
       "listings": [
         {
-          "id": "lb_73dcd027",
+          "id": "lb_538f0e09",
           "lpubeltsName": "",
           "sheetMake": "Ilco",
           "sheetModel": "The Club",
@@ -52509,7 +52993,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_76234f75",
+      "id": "lb_ab407bd1",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -52537,7 +53021,7 @@
       ],
       "listings": [
         {
-          "id": "lb_76234f75",
+          "id": "lb_ab407bd1",
           "lpubeltsName": "",
           "sheetMake": "ERA",
           "sheetModel": "Lever Lock",
@@ -52569,7 +53053,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_5a21a422",
+      "id": "lb_8796a5c4",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -52597,7 +53081,7 @@
       ],
       "listings": [
         {
-          "id": "lb_5a21a422",
+          "id": "lb_8796a5c4",
           "lpubeltsName": "",
           "sheetMake": "Keyosk",
           "sheetModel": "Guard 40mm",
@@ -52629,7 +53113,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_441e759d",
+      "id": "lb_3b33e265",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -52657,7 +53141,7 @@
       ],
       "listings": [
         {
-          "id": "lb_441e759d",
+          "id": "lb_3b33e265",
           "lpubeltsName": "",
           "sheetMake": "Lockwood",
           "sheetModel": "110/20",
@@ -52814,7 +53298,7 @@
       "newListingsDate": "2024-05-01T16:03:57.913Z"
     },
     {
-      "id": "lb_30f34046",
+      "id": "lb_1dcca12e",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -52842,7 +53326,7 @@
       ],
       "listings": [
         {
-          "id": "lb_30f34046",
+          "id": "lb_1dcca12e",
           "lpubeltsName": "",
           "sheetMake": "Lockwood",
           "sheetModel": "Oval",
@@ -52874,7 +53358,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_bc3da469",
+      "id": "lb_ad1bdfe2",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -52902,7 +53386,7 @@
       ],
       "listings": [
         {
-          "id": "lb_bc3da469",
+          "id": "lb_ad1bdfe2",
           "lpubeltsName": "",
           "sheetMake": "Lockwood",
           "sheetModel": "Oval",
@@ -52934,7 +53418,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_d0fd483e",
+      "id": "lb_9a67f322",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -52960,7 +53444,7 @@
       ],
       "listings": [
         {
-          "id": "lb_d0fd483e",
+          "id": "lb_9a67f322",
           "lpubeltsName": "",
           "sheetMake": "Mako SFIC",
           "sheetModel": "Mortise",
@@ -53054,7 +53538,7 @@
       "newListingsDate": "2024-05-01T16:03:57.913Z"
     },
     {
-      "id": "lb_76f7cd96",
+      "id": "lb_9ee238fc",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -53082,7 +53566,7 @@
       ],
       "listings": [
         {
-          "id": "lb_76f7cd96",
+          "id": "lb_9ee238fc",
           "lpubeltsName": "",
           "sheetMake": "Master Lock",
           "sheetModel": "311",
@@ -53239,7 +53723,7 @@
       "newListingsDate": "2024-05-01T16:03:57.913Z"
     },
     {
-      "id": "lb_6c4e84a9",
+      "id": "lb_74abd047",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -53267,7 +53751,7 @@
       ],
       "listings": [
         {
-          "id": "lb_6c4e84a9",
+          "id": "lb_74abd047",
           "lpubeltsName": "",
           "sheetMake": "Master Lock",
           "sheetModel": "No. 15",
@@ -53299,7 +53783,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_42d26f6a",
+      "id": "lb_4c8abff5",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -53327,7 +53811,7 @@
       ],
       "listings": [
         {
-          "id": "lb_42d26f6a",
+          "id": "lb_4c8abff5",
           "lpubeltsName": "",
           "sheetMake": "Master Lock 7035 Pro",
           "sheetModel": "",
@@ -53359,7 +53843,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_495a6f68",
+      "id": "lb_e4d49ac0",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -53385,7 +53869,7 @@
       ],
       "listings": [
         {
-          "id": "lb_495a6f68",
+          "id": "lb_e4d49ac0",
           "lpubeltsName": "",
           "sheetMake": "Medeco",
           "sheetModel": "Biaxial",
@@ -53417,7 +53901,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_c08f6dd7",
+      "id": "lb_0949baa2",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -53445,7 +53929,7 @@
       ],
       "listings": [
         {
-          "id": "lb_c08f6dd7",
+          "id": "lb_0949baa2",
           "lpubeltsName": "",
           "sheetMake": "Mr No",
           "sheetModel": "Padlock",
@@ -53477,7 +53961,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_bcc9688f",
+      "id": "lb_cae9d6bf",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -53505,7 +53989,7 @@
       ],
       "listings": [
         {
-          "id": "lb_bcc9688f",
+          "id": "lb_cae9d6bf",
           "lpubeltsName": "",
           "sheetMake": "Mul-T-Lock",
           "sheetModel": "Mortise",
@@ -53650,7 +54134,7 @@
       "newListingsDate": "2024-05-01T16:03:57.913Z"
     },
     {
-      "id": "lb_e0fe3dde",
+      "id": "lb_904a7be8",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -53678,7 +54162,7 @@
       ],
       "listings": [
         {
-          "id": "lb_e0fe3dde",
+          "id": "lb_904a7be8",
           "lpubeltsName": "",
           "sheetMake": "Nu-Set",
           "sheetModel": "4273-3",
@@ -53710,7 +54194,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_6b94feb6",
+      "id": "lb_9f486439",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -53738,7 +54222,7 @@
       ],
       "listings": [
         {
-          "id": "lb_6b94feb6",
+          "id": "lb_9f486439",
           "lpubeltsName": "",
           "sheetMake": "PACLOCK",
           "sheetModel": "UCS-4A",
@@ -53770,7 +54254,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_82042a76",
+      "id": "lb_a409c0a1",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -53798,7 +54282,7 @@
       ],
       "listings": [
         {
-          "id": "lb_82042a76",
+          "id": "lb_a409c0a1",
           "lpubeltsName": "",
           "sheetMake": "PACLOCK",
           "sheetModel": "150",
@@ -53830,7 +54314,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_53e1542c",
+      "id": "lb_23271814",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -53858,7 +54342,7 @@
       ],
       "listings": [
         {
-          "id": "lb_53e1542c",
+          "id": "lb_23271814",
           "lpubeltsName": "",
           "sheetMake": "PACLOCK",
           "sheetModel": "UCS-10A",
@@ -53890,7 +54374,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_32ecb490",
+      "id": "lb_8b2d123f",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -53918,7 +54402,7 @@
       ],
       "listings": [
         {
-          "id": "lb_32ecb490",
+          "id": "lb_8b2d123f",
           "lpubeltsName": "",
           "sheetMake": "Papaiz",
           "sheetModel": "CR 30",
@@ -53950,7 +54434,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_46927c2e",
+      "id": "lb_56f52608",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -53978,7 +54462,7 @@
       ],
       "listings": [
         {
-          "id": "lb_46927c2e",
+          "id": "lb_56f52608",
           "lpubeltsName": "",
           "sheetMake": "Qvand",
           "sheetModel": "LOTO",
@@ -54075,7 +54559,7 @@
       "newListingsDate": "2024-05-01T16:03:57.914Z"
     },
     {
-      "id": "lb_79299490",
+      "id": "lb_c3a9bba8",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -54103,7 +54587,7 @@
       ],
       "listings": [
         {
-          "id": "lb_79299490",
+          "id": "lb_c3a9bba8",
           "lpubeltsName": "",
           "sheetMake": "Sargent",
           "sheetModel": "Mortise",
@@ -54135,7 +54619,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_1fd4e35a",
+      "id": "lb_68ea48b6",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -54163,7 +54647,7 @@
       ],
       "listings": [
         {
-          "id": "lb_1fd4e35a",
+          "id": "lb_68ea48b6",
           "lpubeltsName": "",
           "sheetMake": "Sargent",
           "sheetModel": "Mortise Assa Abloy",
@@ -54195,7 +54679,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_d38d4f32",
+      "id": "lb_54576386",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -54223,7 +54707,7 @@
       ],
       "listings": [
         {
-          "id": "lb_d38d4f32",
+          "id": "lb_54576386",
           "lpubeltsName": "",
           "sheetMake": "Seclox-Elzett",
           "sheetModel": "2048/35",
@@ -54255,7 +54739,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_cf3a3552",
+      "id": "lb_994f0dfd",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -54283,7 +54767,7 @@
       ],
       "listings": [
         {
-          "id": "lb_cf3a3552",
+          "id": "lb_994f0dfd",
           "lpubeltsName": "",
           "sheetMake": "Squire",
           "sheetModel": "CP Combination Lock",
@@ -54315,7 +54799,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_f2c6ab5f",
+      "id": "lb_b935d343",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -54343,7 +54827,7 @@
       ],
       "listings": [
         {
-          "id": "lb_f2c6ab5f",
+          "id": "lb_b935d343",
           "lpubeltsName": "",
           "sheetMake": "Sterling",
           "sheetModel": "BPL242",
@@ -54375,7 +54859,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_ead1ed2d",
+      "id": "lb_facdabe5",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -54403,7 +54887,7 @@
       ],
       "listings": [
         {
-          "id": "lb_ead1ed2d",
+          "id": "lb_facdabe5",
           "lpubeltsName": "",
           "sheetMake": "Tifon",
           "sheetModel": "30mm",
@@ -54435,7 +54919,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_987b32c8",
+      "id": "lb_beea814d",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -54463,7 +54947,7 @@
       ],
       "listings": [
         {
-          "id": "lb_987b32c8",
+          "id": "lb_beea814d",
           "lpubeltsName": "",
           "sheetMake": "Wilson Bohannan",
           "sheetModel": "001",
@@ -54495,7 +54979,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_1b70b959",
+      "id": "lb_992b342c",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -54523,7 +55007,7 @@
       ],
       "listings": [
         {
-          "id": "lb_1b70b959",
+          "id": "lb_992b342c",
           "lpubeltsName": "",
           "sheetMake": "Yale",
           "sheetModel": "Vintage Brass Body",
@@ -54555,21 +55039,29 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "f93c57fc",
-      "belt": "Blue",
+      "id": "104776ef",
+      "belt": "Black 2",
       "makeModels": [
         {
-          "make": "ABUS",
-          "model": "S6+"
+          "make": "ASSA",
+          "model": "Twin 6000"
         }
       ],
+      "version": "gin drivers, 6 stacks with 5 side pins",
       "lockingMechanisms": [
-        "Pin-tumbler"
+        "Pin-tumbler",
+        "Sidepins"
+      ],
+      "features": [
+        "Gin spool drivers",
+        "Undercut milling",
+        "Sidepins",
+        "Active sidebar"
       ],
       "media": null,
-      "views": 1451,
-      "lastUpdated": "2023-07-25T11:20:19.889Z",
       "links": null,
+      "views": 1973,
+      "lastUpdated": "2024-02-08T02:04:15.209Z",
       "shipsTo": [
         "Europe",
         "South America",
@@ -54582,7 +55074,6 @@
         "Sweden"
       ],
       "seller": [
-        "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
         "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
         "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
         "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
@@ -54608,15 +55099,14 @@
         "HJ",
         "HJ",
         "HJ",
-        "HJ",
         "HJ"
       ],
       "listings": [
         {
-          "id": "f93c57fc",
-          "lpubeltsName": "ABUS S6+",
+          "id": "104776ef",
+          "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
           "sheetMake": "ASSA",
-          "sheetModel": "Twin combi 6k",
+          "sheetModel": "Twin 6000",
           "badListing": "",
           "sellerName": "HJ",
           "shipsTo": [
@@ -54641,15 +55131,15 @@
           ],
           "photo": "https://imgur.com/a/nuwIFQn",
           "price": "650sek",
-          "rowNum": 2,
+          "rowNum": 7,
           "notes": "old style with gins",
-          "lockBelt": "Blue"
+          "lockBelt": "Black"
         },
         {
-          "id": "f93c57fc",
-          "lpubeltsName": "ABUS S6+",
+          "id": "104776ef",
+          "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
           "sheetMake": "ASSA",
-          "sheetModel": "Twin combi 6k",
+          "sheetModel": "Twin 6000",
           "badListing": "",
           "sellerName": "HJ",
           "shipsTo": [
@@ -54674,15 +55164,15 @@
           ],
           "photo": "https://imgur.com/a/ywlSC42",
           "price": "650sek",
-          "rowNum": 3,
+          "rowNum": 8,
           "notes": "old style with gins",
-          "lockBelt": "Blue"
+          "lockBelt": "Black"
         },
         {
-          "id": "f93c57fc",
-          "lpubeltsName": "ABUS S6+",
+          "id": "104776ef",
+          "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
           "sheetMake": "ASSA",
-          "sheetModel": "Twin combi 6k",
+          "sheetModel": "Twin 6000",
           "badListing": "",
           "sellerName": "HJ",
           "shipsTo": [
@@ -54707,15 +55197,15 @@
           ],
           "photo": "https://imgur.com/a/66sldDE",
           "price": "650sek",
-          "rowNum": 4,
+          "rowNum": 9,
           "notes": "old style with gins",
-          "lockBelt": "Blue"
+          "lockBelt": "Black"
         },
         {
-          "id": "f93c57fc",
-          "lpubeltsName": "ABUS S6+",
+          "id": "104776ef",
+          "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
           "sheetMake": "ASSA",
-          "sheetModel": "Twin combi 6k",
+          "sheetModel": "Twin 6000",
           "badListing": "",
           "sellerName": "HJ",
           "shipsTo": [
@@ -54740,15 +55230,15 @@
           ],
           "photo": "https://imgur.com/a/YM4N8N5",
           "price": "650sek",
-          "rowNum": 5,
+          "rowNum": 10,
           "notes": "old style with gins",
-          "lockBelt": "Blue"
+          "lockBelt": "Black"
         },
         {
-          "id": "f93c57fc",
-          "lpubeltsName": "ABUS S6+",
+          "id": "104776ef",
+          "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
           "sheetMake": "ASSA",
-          "sheetModel": "Twin combi 6k",
+          "sheetModel": "Twin 6000",
           "badListing": "",
           "sellerName": "HJ",
           "shipsTo": [
@@ -54773,15 +55263,15 @@
           ],
           "photo": "https://imgur.com/a/NPyCKWS",
           "price": "650sek",
-          "rowNum": 6,
+          "rowNum": 11,
           "notes": "old style with gins",
-          "lockBelt": "Blue"
+          "lockBelt": "Black"
         },
         {
-          "id": "f93c57fc",
-          "lpubeltsName": "ABUS S6+",
+          "id": "104776ef",
+          "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
           "sheetMake": "ASSA",
-          "sheetModel": "Twin combi 6k",
+          "sheetModel": "Twin 6000",
           "badListing": "",
           "sellerName": "HJ",
           "shipsTo": [
@@ -54806,15 +55296,15 @@
           ],
           "photo": "https://imgur.com/a/MXTV4Vo",
           "price": "650sek",
-          "rowNum": 7,
+          "rowNum": 12,
           "notes": "old style with gins",
-          "lockBelt": "Blue"
+          "lockBelt": "Black"
         },
         {
-          "id": "f93c57fc",
-          "lpubeltsName": "ABUS S6+",
+          "id": "104776ef",
+          "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
           "sheetMake": "ASSA",
-          "sheetModel": "Twin combi 6k",
+          "sheetModel": "Twin 6000",
           "badListing": "",
           "sellerName": "HJ",
           "shipsTo": [
@@ -54839,15 +55329,15 @@
           ],
           "photo": "https://imgur.com/a/mdzpQTY",
           "price": "650sek",
-          "rowNum": 8,
+          "rowNum": 13,
           "notes": "old style with gins",
-          "lockBelt": "Blue"
+          "lockBelt": "Black"
         },
         {
-          "id": "f93c57fc",
-          "lpubeltsName": "ABUS S6+",
+          "id": "104776ef",
+          "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
           "sheetMake": "ASSA",
-          "sheetModel": "Twin combi 6k",
+          "sheetModel": "Twin 6000",
           "badListing": "",
           "sellerName": "HJ",
           "shipsTo": [
@@ -54872,15 +55362,15 @@
           ],
           "photo": "https://imgur.com/a/f7I9bAE",
           "price": "650sek",
-          "rowNum": 9,
+          "rowNum": 14,
           "notes": "old style with gins",
-          "lockBelt": "Blue"
+          "lockBelt": "Black"
         },
         {
-          "id": "f93c57fc",
-          "lpubeltsName": "ABUS S6+",
+          "id": "104776ef",
+          "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
           "sheetMake": "ASSA",
-          "sheetModel": "Twin combi 6k",
+          "sheetModel": "Twin 6000",
           "badListing": "",
           "sellerName": "HJ",
           "shipsTo": [
@@ -54905,15 +55395,15 @@
           ],
           "photo": "https://imgur.com/a/3dTgACn",
           "price": "650sek",
-          "rowNum": 10,
+          "rowNum": 15,
           "notes": "old style with gins",
-          "lockBelt": "Blue"
+          "lockBelt": "Black"
         },
         {
-          "id": "f93c57fc",
-          "lpubeltsName": "ABUS S6+",
+          "id": "104776ef",
+          "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
           "sheetMake": "ASSA",
-          "sheetModel": "Twin combi 6k",
+          "sheetModel": "Twin 6000",
           "badListing": "",
           "sellerName": "HJ",
           "shipsTo": [
@@ -54938,15 +55428,15 @@
           ],
           "photo": "https://imgur.com/a/5aX6xvr",
           "price": "650sek",
-          "rowNum": 11,
+          "rowNum": 16,
           "notes": "old style with gins",
-          "lockBelt": "Blue"
+          "lockBelt": "Black"
         },
         {
-          "id": "f93c57fc",
-          "lpubeltsName": "ABUS S6+",
+          "id": "104776ef",
+          "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
           "sheetMake": "ASSA",
-          "sheetModel": "Twin combi 6k",
+          "sheetModel": "Twin 6000",
           "badListing": "",
           "sellerName": "HJ",
           "shipsTo": [
@@ -54971,15 +55461,15 @@
           ],
           "photo": "https://imgur.com/a/XMf4K18",
           "price": "650sek",
-          "rowNum": 12,
+          "rowNum": 17,
           "notes": "old style with gins",
-          "lockBelt": "Blue"
+          "lockBelt": "Black"
         },
         {
-          "id": "f93c57fc",
-          "lpubeltsName": "ABUS S6+",
+          "id": "104776ef",
+          "lpubeltsName": "ASSA Twin 6000 (gin drivers, 6 stacks with 5 side pins)",
           "sheetMake": "ASSA",
-          "sheetModel": "Twin combi 6k",
+          "sheetModel": "Twin 6000",
           "badListing": "",
           "sellerName": "HJ",
           "shipsTo": [
@@ -55004,49 +55494,16 @@
           ],
           "photo": "https://imgur.com/a/dByKixJ",
           "price": "650sek",
-          "rowNum": 13,
+          "rowNum": 18,
           "notes": "old style with gins",
-          "lockBelt": "Blue"
-        },
-        {
-          "id": "f93c57fc",
-          "lpubeltsName": "ABUS S6+",
-          "sheetMake": "ASSA",
-          "sheetModel": "700",
-          "badListing": "",
-          "sellerName": "HJ",
-          "shipsTo": [
-            "Europe",
-            "South America",
-            "North America",
-            "Australia & Oceania",
-            "Asia",
-            "Africa"
-          ],
-          "country": "Sweden",
-          "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
-          "avail": "1",
-          "format": "Oval",
-          "samelineIndex": "",
-          "isValid": true,
-          "isLPUListing": true,
-          "keys": "1",
-          "condition": "Used",
-          "lockingMechanism": [
-            "Pin-tumbler"
-          ],
-          "photo": "https://imgur.com/a/S2o6wHf",
-          "price": "350sek",
-          "rowNum": 15,
-          "notes": "",
-          "lockBelt": "Blue"
+          "lockBelt": "Black"
         }
       ],
       "isLPUbeltsLock": true,
-      "newListingsDate": "2024-05-04T19:19:24.817Z"
+      "newListingsDate": "2024-05-05T11:30:04.439Z"
     },
     {
-      "id": "lb_086e6eff",
+      "id": "lb_77c9703d",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -55079,11 +55536,11 @@
       ],
       "listings": [
         {
-          "id": "lb_086e6eff",
+          "id": "lb_77c9703d",
           "lpubeltsName": "",
           "sheetMake": "ASSA",
           "sheetModel": "Twin combi 4800",
-          "badListing": "",
+          "badListing": "X",
           "sellerName": "HJ",
           "shipsTo": [
             "Europe",
@@ -55107,7 +55564,7 @@
           ],
           "photo": "https://imgur.com/a/5m2mT3t",
           "price": "400sek",
-          "rowNum": 17,
+          "rowNum": 24,
           "notes": "3 finger pins",
           "lockBelt": "Unranked"
         }
@@ -55116,7 +55573,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_ed877449",
+      "id": "lb_490237d4",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -55149,11 +55606,11 @@
       ],
       "listings": [
         {
-          "id": "lb_ed877449",
+          "id": "lb_490237d4",
           "lpubeltsName": "",
           "sheetMake": "ASSA",
           "sheetModel": "Twin combi 4800",
-          "badListing": "",
+          "badListing": "X",
           "sellerName": "HJ",
           "shipsTo": [
             "Europe",
@@ -55175,9 +55632,79 @@
           "lockingMechanism": [
             "Pin-tumbler"
           ],
-          "photo": null,
+          "photo": "https://imgur.com/a/iqPZdah",
           "price": "400sek",
-          "rowNum": 18,
+          "rowNum": 25,
+          "notes": "3 finger pins",
+          "lockBelt": "Unranked"
+        }
+      ],
+      "isLPUbeltsLock": false,
+      "newListingsDate": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "lb_3bfef116",
+      "belt": "Unranked",
+      "makeModels": [
+        {
+          "make": "Rosengren",
+          "model": "32A81S"
+        }
+      ],
+      "lockingMechanisms": [
+        "Disc detainer"
+      ],
+      "views": 0,
+      "media": null,
+      "links": null,
+      "shipsTo": [
+        "Europe",
+        "South America",
+        "North America",
+        "Australia & Oceania",
+        "Asia",
+        "Africa"
+      ],
+      "country": [
+        "Sweden"
+      ],
+      "seller": [
+        "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2"
+      ],
+      "sellerName": [
+        "HJ"
+      ],
+      "listings": [
+        {
+          "id": "lb_3bfef116",
+          "lpubeltsName": "",
+          "sheetMake": "Rosengren",
+          "sheetModel": "32A81S",
+          "badListing": "X",
+          "sellerName": "HJ",
+          "shipsTo": [
+            "Europe",
+            "South America",
+            "North America",
+            "Australia & Oceania",
+            "Asia",
+            "Africa"
+          ],
+          "country": "Sweden",
+          "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
+          "avail": "8",
+          "format": "Sdb lock",
+          "samelineIndex": "",
+          "isValid": true,
+          "isLPUListing": false,
+          "keys": "1",
+          "condition": "Used",
+          "lockingMechanism": [
+            "Disc detainer"
+          ],
+          "photo": null,
+          "price": "350sek",
+          "rowNum": 27,
           "notes": "",
           "lockBelt": "Unranked"
         }
@@ -57414,7 +57941,7 @@
       "newListingsDate": "2024-05-01T16:03:57.915Z"
     },
     {
-      "id": "lb_0477b216",
+      "id": "lb_9a518a11",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -57440,7 +57967,7 @@
       ],
       "listings": [
         {
-          "id": "lb_0477b216",
+          "id": "lb_9a518a11",
           "lpubeltsName": "",
           "sheetMake": "Ruko",
           "sheetModel": "1200",
@@ -57469,7 +57996,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_cc53b5c7",
+      "id": "lb_5b7e8cd4",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -57495,7 +58022,7 @@
       ],
       "listings": [
         {
-          "id": "lb_cc53b5c7",
+          "id": "lb_5b7e8cd4",
           "lpubeltsName": "",
           "sheetMake": "Keso",
           "sheetModel": "2000 omega",
@@ -58381,15 +58908,23 @@
         "f09ce6b3"
       ],
       "lastUpdated": "2023-11-23T18:53:56.025Z",
-      "shipsTo": [],
+      "shipsTo": [
+        "Europe",
+        "North America",
+        "Australia & Oceania"
+      ],
       "country": [
         "Netherlands"
       ],
       "seller": [
-        "NPEwFfM1fZgSTXBiWGpJpg7lWui2"
+        "NPEwFfM1fZgSTXBiWGpJpg7lWui2",
+        "gFtlkLePREbMiz2O06tuTovFuvr1",
+        "gFtlkLePREbMiz2O06tuTovFuvr1"
       ],
       "sellerName": [
-        "JayDee"
+        "JayDee",
+        "BlackMoone845",
+        "BlackMoone845"
       ],
       "listings": [
         {
@@ -58416,10 +58951,70 @@
           "rowNum": 82,
           "notes": "11 or 12 pins or so",
           "lockBelt": "Red"
+        },
+        {
+          "id": "3af2407a",
+          "lpubeltsName": "BKS Janus (< 14 pins)",
+          "sheetMake": "BKS",
+          "sheetModel": "Janus",
+          "badListing": "",
+          "sellerName": "BlackMoone845",
+          "shipsTo": [
+            "Europe",
+            "North America",
+            "Australia & Oceania"
+          ],
+          "country": "Netherlands (Kingdom of the)",
+          "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
+          "avail": "2",
+          "format": "Double euro",
+          "samelineIndex": "",
+          "isValid": true,
+          "isLPUListing": true,
+          "keys": "2",
+          "condition": "",
+          "lockingMechanism": [
+            "HPC"
+          ],
+          "photo": null,
+          "price": "€ 50",
+          "rowNum": 34,
+          "notes": "",
+          "lockBelt": "Red"
+        },
+        {
+          "id": "3af2407a",
+          "lpubeltsName": "BKS Janus (< 14 pins)",
+          "sheetMake": "BKS",
+          "sheetModel": "Janus",
+          "badListing": "",
+          "sellerName": "BlackMoone845",
+          "shipsTo": [
+            "Europe",
+            "North America",
+            "Australia & Oceania"
+          ],
+          "country": "Netherlands (Kingdom of the)",
+          "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
+          "avail": "1",
+          "format": "Half euro",
+          "samelineIndex": "",
+          "isValid": true,
+          "isLPUListing": true,
+          "keys": "1",
+          "condition": "",
+          "lockingMechanism": [
+            "HPC"
+          ],
+          "photo": null,
+          "price": "€ 30",
+          "rowNum": 35,
+          "notes": "",
+          "lockBelt": "Red"
         }
       ],
       "isLPUbeltsLock": true,
-      "newListingsDate": "2024-05-01T16:03:57.916Z"
+      "newListingsDate": "2024-05-05T21:40:04.897Z"
     },
     {
       "id": "e3bd3faf",
@@ -58510,17 +59105,25 @@
       "links": null,
       "views": 253,
       "lastUpdated": "2023-07-25T11:20:19.902Z",
-      "shipsTo": [],
+      "shipsTo": [
+        "Europe",
+        "North America",
+        "Australia & Oceania"
+      ],
       "country": [
         "Netherlands"
       ],
       "seller": [
         "NPEwFfM1fZgSTXBiWGpJpg7lWui2",
-        "NPEwFfM1fZgSTXBiWGpJpg7lWui2"
+        "NPEwFfM1fZgSTXBiWGpJpg7lWui2",
+        "gFtlkLePREbMiz2O06tuTovFuvr1",
+        "gFtlkLePREbMiz2O06tuTovFuvr1"
       ],
       "sellerName": [
         "JayDee",
-        "JayDee"
+        "JayDee",
+        "BlackMoone845",
+        "BlackMoone845"
       ],
       "listings": [
         {
@@ -58572,10 +59175,70 @@
           "rowNum": 85,
           "notes": "",
           "lockBelt": "Red"
+        },
+        {
+          "id": "cc8cfd45",
+          "lpubeltsName": "MIWA/Anker 3800",
+          "sheetMake": "Anker",
+          "sheetModel": "3800",
+          "badListing": "",
+          "sellerName": "BlackMoone845",
+          "shipsTo": [
+            "Europe",
+            "North America",
+            "Australia & Oceania"
+          ],
+          "country": "Netherlands (Kingdom of the)",
+          "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
+          "avail": "5",
+          "format": "Double euro",
+          "samelineIndex": "",
+          "isValid": true,
+          "isLPUListing": true,
+          "keys": "2+",
+          "condition": "",
+          "lockingMechanism": [
+            "Dimple/Magnetic sliders"
+          ],
+          "photo": null,
+          "price": "€ 60",
+          "rowNum": 36,
+          "notes": "",
+          "lockBelt": "Red"
+        },
+        {
+          "id": "cc8cfd45",
+          "lpubeltsName": "MIWA/Anker 3800",
+          "sheetMake": "Anker",
+          "sheetModel": "3800",
+          "badListing": "",
+          "sellerName": "BlackMoone845",
+          "shipsTo": [
+            "Europe",
+            "North America",
+            "Australia & Oceania"
+          ],
+          "country": "Netherlands (Kingdom of the)",
+          "sellerId": "gFtlkLePREbMiz2O06tuTovFuvr1",
+          "avail": "5",
+          "format": "Half euro",
+          "samelineIndex": "",
+          "isValid": true,
+          "isLPUListing": true,
+          "keys": "2+",
+          "condition": "",
+          "lockingMechanism": [
+            "Dimple/Magnetic sliders"
+          ],
+          "photo": null,
+          "price": "€ 30.0",
+          "rowNum": 37,
+          "notes": "",
+          "lockBelt": "Red"
         }
       ],
       "isLPUbeltsLock": true,
-      "newListingsDate": "2024-05-01T16:03:57.916Z"
+      "newListingsDate": "2024-05-05T21:40:04.898Z"
     },
     {
       "id": "9094ca58-1",
@@ -60702,7 +61365,7 @@
       "newListingsDate": "2024-05-01T16:03:57.917Z"
     },
     {
-      "id": "lb_3f5d0cc6",
+      "id": "lb_8d647d5e",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -60728,7 +61391,7 @@
       ],
       "listings": [
         {
-          "id": "lb_3f5d0cc6",
+          "id": "lb_8d647d5e",
           "lpubeltsName": "",
           "sheetMake": "BASI",
           "sheetModel": "T250",
@@ -60757,7 +61420,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_8b70df41",
+      "id": "lb_bd2feacb",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -60783,7 +61446,7 @@
       ],
       "listings": [
         {
-          "id": "lb_8b70df41",
+          "id": "lb_bd2feacb",
           "lpubeltsName": "",
           "sheetMake": "Kaba",
           "sheetModel": "Titancombi",
@@ -60812,7 +61475,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_23490ddc",
+      "id": "lb_53360089",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -60838,7 +61501,7 @@
       ],
       "listings": [
         {
-          "id": "lb_23490ddc",
+          "id": "lb_53360089",
           "lpubeltsName": "",
           "sheetMake": "Habo",
           "sheetModel": "",
@@ -60867,7 +61530,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_a82a7ffc",
+      "id": "lb_7964b97a",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -60893,7 +61556,7 @@
       ],
       "listings": [
         {
-          "id": "lb_a82a7ffc",
+          "id": "lb_7964b97a",
           "lpubeltsName": "",
           "sheetMake": "Mauer elite 2A",
           "sheetModel": "Elite 2A (E2A)",
@@ -61054,7 +61717,7 @@
       "newListingsDate": "2024-05-01T16:03:57.917Z"
     },
     {
-      "id": "lb_95e59c6f",
+      "id": "lb_96d972a7",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -61080,7 +61743,7 @@
       ],
       "listings": [
         {
-          "id": "lb_95e59c6f",
+          "id": "lb_96d972a7",
           "lpubeltsName": "",
           "sheetMake": "Tierkey",
           "sheetModel": "2-row",
@@ -61109,7 +61772,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_9a34be8d",
+      "id": "lb_e47f0319",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -61135,7 +61798,7 @@
       ],
       "listings": [
         {
-          "id": "lb_9a34be8d",
+          "id": "lb_e47f0319",
           "lpubeltsName": "",
           "sheetMake": "Tostem",
           "sheetModel": "WN",
@@ -61164,7 +61827,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_ae9f3572",
+      "id": "lb_157b2424",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -61190,7 +61853,7 @@
       ],
       "listings": [
         {
-          "id": "lb_ae9f3572",
+          "id": "lb_157b2424",
           "lpubeltsName": "",
           "sheetMake": "Tostem",
           "sheetModel": "WX",
@@ -61219,7 +61882,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_92a4343a",
+      "id": "lb_b223d25f",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -61245,7 +61908,7 @@
       ],
       "listings": [
         {
-          "id": "lb_92a4343a",
+          "id": "lb_b223d25f",
           "lpubeltsName": "",
           "sheetMake": "Sun cam lock",
           "sheetModel": "sun",
@@ -61274,7 +61937,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_7db7a67b",
+      "id": "lb_5857daaf",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -61300,7 +61963,7 @@
       ],
       "listings": [
         {
-          "id": "lb_7db7a67b",
+          "id": "lb_5857daaf",
           "lpubeltsName": "",
           "sheetMake": "Giken",
           "sheetModel": "giken",
@@ -61329,7 +61992,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_e897466a",
+      "id": "lb_9cb0c6fa",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -61353,7 +62016,7 @@
       ],
       "listings": [
         {
-          "id": "lb_e897466a",
+          "id": "lb_9cb0c6fa",
           "lpubeltsName": "",
           "sheetMake": "Pachinko Locks",
           "sheetModel": "",
@@ -61382,7 +62045,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_48b1f21f",
+      "id": "lb_74d16df4",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -61408,7 +62071,7 @@
       ],
       "listings": [
         {
-          "id": "lb_48b1f21f",
+          "id": "lb_74d16df4",
           "lpubeltsName": "",
           "sheetMake": "MIWA",
           "sheetModel": "Mini ds",
@@ -61437,7 +62100,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_8a31f98f",
+      "id": "lb_e1e15f00",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -61463,7 +62126,7 @@
       ],
       "listings": [
         {
-          "id": "lb_8a31f98f",
+          "id": "lb_e1e15f00",
           "lpubeltsName": "",
           "sheetMake": "Clover",
           "sheetModel": "Wavelock",
@@ -61492,7 +62155,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_2870f405",
+      "id": "lb_b07fae68",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -61518,7 +62181,7 @@
       ],
       "listings": [
         {
-          "id": "lb_2870f405",
+          "id": "lb_b07fae68",
           "lpubeltsName": "",
           "sheetMake": "Guard",
           "sheetModel": "electron",
@@ -61547,7 +62210,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_44d283a9",
+      "id": "lb_6b8646d4",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -61573,7 +62236,7 @@
       ],
       "listings": [
         {
-          "id": "lb_44d283a9",
+          "id": "lb_6b8646d4",
           "lpubeltsName": "",
           "sheetMake": "electron",
           "sheetModel": "electron",
@@ -61602,7 +62265,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_e30b39fc",
+      "id": "lb_b27a6830",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -61628,7 +62291,7 @@
       ],
       "listings": [
         {
-          "id": "lb_e30b39fc",
+          "id": "lb_b27a6830",
           "lpubeltsName": "",
           "sheetMake": "Keiden",
           "sheetModel": "lock-to-lock",
@@ -61657,7 +62320,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_3a449852",
+      "id": "lb_d2035ed5",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -61683,7 +62346,7 @@
       ],
       "listings": [
         {
-          "id": "lb_3a449852",
+          "id": "lb_d2035ed5",
           "lpubeltsName": "",
           "sheetMake": "MIWA",
           "sheetModel": "Magnetic Card lock",
@@ -61712,7 +62375,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_3dc09de2",
+      "id": "lb_2e691fbc",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -61738,7 +62401,7 @@
       ],
       "listings": [
         {
-          "id": "lb_3dc09de2",
+          "id": "lb_2e691fbc",
           "lpubeltsName": "",
           "sheetMake": "Keiden",
           "sheetModel": "Magnet",
@@ -61767,7 +62430,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_32a2e5a6",
+      "id": "lb_b863758b",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -61793,7 +62456,7 @@
       ],
       "listings": [
         {
-          "id": "lb_32a2e5a6",
+          "id": "lb_b863758b",
           "lpubeltsName": "",
           "sheetMake": "Magnet safe lock",
           "sheetModel": "Magnet safe lock",
@@ -61822,7 +62485,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_99cf0150",
+      "id": "lb_53172f4d",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -61846,7 +62509,7 @@
       ],
       "listings": [
         {
-          "id": "lb_99cf0150",
+          "id": "lb_53172f4d",
           "lpubeltsName": "",
           "sheetMake": "CJL",
           "sheetModel": "S8",
@@ -61875,7 +62538,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_e2e3ad1e",
+      "id": "lb_fbf39dd5",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -61901,7 +62564,7 @@
       ],
       "listings": [
         {
-          "id": "lb_e2e3ad1e",
+          "id": "lb_fbf39dd5",
           "lpubeltsName": "",
           "sheetMake": "TrioVing",
           "sheetModel": "6-pin",
@@ -61999,7 +62662,7 @@
       "newListingsDate": "2024-05-02T22:00:04.614Z"
     },
     {
-      "id": "lb_c40ac372",
+      "id": "lb_4e1992ed",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -62027,7 +62690,7 @@
       ],
       "listings": [
         {
-          "id": "lb_c40ac372",
+          "id": "lb_4e1992ed",
           "lpubeltsName": "",
           "sheetMake": "ASSA",
           "sheetModel": "cabinet lock",
@@ -62304,7 +62967,7 @@
       "newListingsDate": "2024-05-01T16:03:57.918Z"
     },
     {
-      "id": "lb_eda4500b",
+      "id": "lb_e41372c4",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -62337,7 +63000,7 @@
       ],
       "listings": [
         {
-          "id": "lb_eda4500b",
+          "id": "lb_e41372c4",
           "lpubeltsName": "",
           "sheetMake": "random",
           "sheetModel": "random",
@@ -62740,7 +63403,7 @@
       "newListingsDate": "2024-05-01T16:03:57.918Z"
     },
     {
-      "id": "lb_d901b5f7",
+      "id": "lb_48bf3094",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -62773,7 +63436,7 @@
       ],
       "listings": [
         {
-          "id": "lb_d901b5f7",
+          "id": "lb_48bf3094",
           "lpubeltsName": "",
           "sheetMake": "Fichet",
           "sheetModel": "484",
@@ -62810,7 +63473,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_a8033ae6",
+      "id": "lb_d0cd1713",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -62843,7 +63506,7 @@
       ],
       "listings": [
         {
-          "id": "lb_a8033ae6",
+          "id": "lb_d0cd1713",
           "lpubeltsName": "",
           "sheetMake": "CES",
           "sheetModel": "",
@@ -63093,7 +63756,7 @@
       "newListingsDate": "2024-05-01T16:03:57.918Z"
     },
     {
-      "id": "lb_b7ebfdf2",
+      "id": "lb_012c1565",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -63126,7 +63789,7 @@
       ],
       "listings": [
         {
-          "id": "lb_b7ebfdf2",
+          "id": "lb_012c1565",
           "lpubeltsName": "",
           "sheetMake": "Thirard",
           "sheetModel": "5g",
@@ -63413,7 +64076,7 @@
       "newListingsDate": "2024-05-01T16:03:57.918Z"
     },
     {
-      "id": "lb_27572fe1",
+      "id": "lb_73dc963b",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -63446,7 +64109,7 @@
       ],
       "listings": [
         {
-          "id": "lb_27572fe1",
+          "id": "lb_73dc963b",
           "lpubeltsName": "",
           "sheetMake": "jet",
           "sheetModel": "",
@@ -63700,7 +64363,7 @@
       "newListingsDate": "2024-05-01T16:03:57.918Z"
     },
     {
-      "id": "lb_7e10c526",
+      "id": "lb_c68b026f",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -63731,7 +64394,7 @@
       ],
       "listings": [
         {
-          "id": "lb_7e10c526",
+          "id": "lb_c68b026f",
           "lpubeltsName": "",
           "sheetMake": "Vachette",
           "sheetModel": "Radialis",
@@ -63768,7 +64431,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_b77ad1ae",
+      "id": "lb_85f12474",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -63799,7 +64462,7 @@
       ],
       "listings": [
         {
-          "id": "lb_b77ad1ae",
+          "id": "lb_85f12474",
           "lpubeltsName": "",
           "sheetMake": "U-Shin",
           "sheetModel": "Showa",
@@ -64206,7 +64869,7 @@
       "newListingsDate": "2024-05-01T16:03:57.919Z"
     },
     {
-      "id": "lb_f1e1032b",
+      "id": "lb_ee4e40a6",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -64232,7 +64895,7 @@
       ],
       "listings": [
         {
-          "id": "lb_f1e1032b",
+          "id": "lb_ee4e40a6",
           "lpubeltsName": "",
           "sheetMake": "Tostem",
           "sheetModel": "lixil (?)",
@@ -64485,7 +65148,7 @@
       "newListingsDate": "2024-05-01T16:03:57.919Z"
     },
     {
-      "id": "lb_39d01880",
+      "id": "lb_515ec8e1",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -64511,7 +65174,7 @@
       ],
       "listings": [
         {
-          "id": "lb_39d01880",
+          "id": "lb_515ec8e1",
           "lpubeltsName": "",
           "sheetMake": "Sima",
           "sheetModel": "Magnet",
@@ -64696,7 +65359,7 @@
       "newListingsDate": "2024-05-01T16:03:57.919Z"
     },
     {
-      "id": "lb_ee28b3d7",
+      "id": "lb_c69a6724",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -64727,7 +65390,7 @@
       ],
       "listings": [
         {
-          "id": "lb_ee28b3d7",
+          "id": "lb_c69a6724",
           "lpubeltsName": "",
           "sheetMake": "iLOQ",
           "sheetModel": "H50S.3 High Security Electronic padlock",
@@ -64764,7 +65427,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_23b4a6ea",
+      "id": "lb_870fcbd5",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -64797,7 +65460,7 @@
       ],
       "listings": [
         {
-          "id": "lb_23b4a6ea",
+          "id": "lb_870fcbd5",
           "lpubeltsName": "",
           "sheetMake": "Abloy",
           "sheetModel": "330 disc detainer padlock",
@@ -64834,7 +65497,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_01cfa162",
+      "id": "lb_7f1a0d10",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -64865,7 +65528,7 @@
       ],
       "listings": [
         {
-          "id": "lb_01cfa162",
+          "id": "lb_7f1a0d10",
           "lpubeltsName": "",
           "sheetMake": "ABUS",
           "sheetModel": "90/50 padlock",
@@ -64902,7 +65565,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_2e16ee29",
+      "id": "lb_52d9783d",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -64935,7 +65598,7 @@
       ],
       "listings": [
         {
-          "id": "lb_2e16ee29",
+          "id": "lb_52d9783d",
           "lpubeltsName": "",
           "sheetMake": "Multipick",
           "sheetModel": "Dimple+Eurocilinder practice lock",
@@ -64972,7 +65635,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_e2434931",
+      "id": "lb_29247cf7",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -65005,7 +65668,7 @@
       ],
       "listings": [
         {
-          "id": "lb_e2434931",
+          "id": "lb_29247cf7",
           "lpubeltsName": "",
           "sheetMake": "LIPS",
           "sheetModel": "Octro/Keso",
@@ -65042,7 +65705,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_7df1bdf9",
+      "id": "lb_f31284ee",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -65075,7 +65738,7 @@
       ],
       "listings": [
         {
-          "id": "lb_7df1bdf9",
+          "id": "lb_f31284ee",
           "lpubeltsName": "",
           "sheetMake": "LIPS",
           "sheetModel": "Octro/Keso",
@@ -65257,7 +65920,7 @@
       "newListingsDate": "2024-05-01T16:03:57.919Z"
     },
     {
-      "id": "lb_382c5534",
+      "id": "lb_cb83f451",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -65288,7 +65951,7 @@
       ],
       "listings": [
         {
-          "id": "lb_382c5534",
+          "id": "lb_cb83f451",
           "lpubeltsName": "",
           "sheetMake": "Nemef",
           "sheetModel": "KB",
@@ -65325,7 +65988,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_90ca96fd",
+      "id": "lb_b32a88c1",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -65351,7 +66014,7 @@
       ],
       "listings": [
         {
-          "id": "lb_90ca96fd",
+          "id": "lb_b32a88c1",
           "lpubeltsName": "",
           "sheetMake": "Master Lock",
           "sheetModel": "875",
@@ -65379,7 +66042,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_e3761f5e",
+      "id": "lb_097b1419",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -65405,7 +66068,7 @@
       ],
       "listings": [
         {
-          "id": "lb_e3761f5e",
+          "id": "lb_097b1419",
           "lpubeltsName": "",
           "sheetMake": "Master Lock",
           "sheetModel": "930",
@@ -65433,7 +66096,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_9f07e345",
+      "id": "lb_deca95eb",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -65459,7 +66122,7 @@
       ],
       "listings": [
         {
-          "id": "lb_9f07e345",
+          "id": "lb_deca95eb",
           "lpubeltsName": "",
           "sheetMake": "Medeco",
           "sheetModel": "Biaxial",
@@ -65487,7 +66150,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_7fa2d16c",
+      "id": "lb_328e5e47",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -65513,7 +66176,7 @@
       ],
       "listings": [
         {
-          "id": "lb_7fa2d16c",
+          "id": "lb_328e5e47",
           "lpubeltsName": "",
           "sheetMake": "Medeco",
           "sheetModel": "Biaxial",
@@ -65541,7 +66204,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_ac175330",
+      "id": "lb_22a16220",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -65567,7 +66230,7 @@
       ],
       "listings": [
         {
-          "id": "lb_ac175330",
+          "id": "lb_22a16220",
           "lpubeltsName": "",
           "sheetMake": "Medeco",
           "sheetModel": "Original",
@@ -65595,7 +66258,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_45c1bdb4",
+      "id": "lb_1868331a",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -65621,7 +66284,7 @@
       ],
       "listings": [
         {
-          "id": "lb_45c1bdb4",
+          "id": "lb_1868331a",
           "lpubeltsName": "",
           "sheetMake": "Medeco",
           "sheetModel": "Original",
@@ -65649,7 +66312,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_a49d9ca0",
+      "id": "lb_85d0c17e",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -65675,7 +66338,7 @@
       ],
       "listings": [
         {
-          "id": "lb_a49d9ca0",
+          "id": "lb_85d0c17e",
           "lpubeltsName": "",
           "sheetMake": "Medeco",
           "sheetModel": "Original",
@@ -65703,7 +66366,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_151d168c",
+      "id": "lb_802162f9",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -65729,7 +66392,7 @@
       ],
       "listings": [
         {
-          "id": "lb_151d168c",
+          "id": "lb_802162f9",
           "lpubeltsName": "",
           "sheetMake": "Mul-T-Lock",
           "sheetModel": "Classic",
@@ -65757,7 +66420,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_a1c6e50e",
+      "id": "lb_2aaa5b99",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -65783,7 +66446,7 @@
       ],
       "listings": [
         {
-          "id": "lb_a1c6e50e",
+          "id": "lb_2aaa5b99",
           "lpubeltsName": "",
           "sheetMake": "Mul-T-Lock",
           "sheetModel": "Classic",
@@ -65811,7 +66474,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_3e7d8be7",
+      "id": "lb_d1e63fe9",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -65837,7 +66500,7 @@
       ],
       "listings": [
         {
-          "id": "lb_3e7d8be7",
+          "id": "lb_d1e63fe9",
           "lpubeltsName": "",
           "sheetMake": "Mul-T-Lock",
           "sheetModel": "Classic",
@@ -65865,7 +66528,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_9cc348ff",
+      "id": "lb_0049a949",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -65891,7 +66554,7 @@
       ],
       "listings": [
         {
-          "id": "lb_9cc348ff",
+          "id": "lb_0049a949",
           "lpubeltsName": "",
           "sheetMake": "Mul-T-Lock",
           "sheetModel": "Classic",
@@ -65919,7 +66582,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_91a76f60",
+      "id": "lb_b899259f",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -65945,7 +66608,7 @@
       ],
       "listings": [
         {
-          "id": "lb_91a76f60",
+          "id": "lb_b899259f",
           "lpubeltsName": "",
           "sheetMake": "Mul-T-Lock",
           "sheetModel": "Classic",
@@ -65973,7 +66636,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_9f02f237",
+      "id": "lb_78d9b1a6",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -65999,7 +66662,7 @@
       ],
       "listings": [
         {
-          "id": "lb_9f02f237",
+          "id": "lb_78d9b1a6",
           "lpubeltsName": "",
           "sheetMake": "Nemef",
           "sheetModel": "KB",
@@ -66027,7 +66690,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_6b51a74e",
+      "id": "lb_45368911",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -66053,7 +66716,7 @@
       ],
       "listings": [
         {
-          "id": "lb_6b51a74e",
+          "id": "lb_45368911",
           "lpubeltsName": "",
           "sheetMake": "Nemef",
           "sheetModel": "NF2",
@@ -66081,7 +66744,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_78dcc383",
+      "id": "lb_b2ad69e1",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -66107,7 +66770,7 @@
       ],
       "listings": [
         {
-          "id": "lb_78dcc383",
+          "id": "lb_b2ad69e1",
           "lpubeltsName": "",
           "sheetMake": "Nemef",
           "sheetModel": "NF3",
@@ -66135,7 +66798,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_17cb1290",
+      "id": "lb_f82319a0",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -66161,7 +66824,7 @@
       ],
       "listings": [
         {
-          "id": "lb_17cb1290",
+          "id": "lb_f82319a0",
           "lpubeltsName": "",
           "sheetMake": "Nemef",
           "sheetModel": "NF3",
@@ -66189,7 +66852,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_97cbd629",
+      "id": "lb_0ae58968",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -66215,7 +66878,7 @@
       ],
       "listings": [
         {
-          "id": "lb_97cbd629",
+          "id": "lb_0ae58968",
           "lpubeltsName": "",
           "sheetMake": "Nemef",
           "sheetModel": "NF4",
@@ -66243,7 +66906,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_f496b9a4",
+      "id": "lb_3a740111",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -66269,7 +66932,7 @@
       ],
       "listings": [
         {
-          "id": "lb_f496b9a4",
+          "id": "lb_3a740111",
           "lpubeltsName": "",
           "sheetMake": "DOM",
           "sheetModel": "RN",
@@ -66297,7 +66960,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_faccd9b2",
+      "id": "lb_bfbb7d56",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -66323,7 +66986,7 @@
       ],
       "listings": [
         {
-          "id": "lb_faccd9b2",
+          "id": "lb_bfbb7d56",
           "lpubeltsName": "",
           "sheetMake": "DOM",
           "sheetModel": "Plura",
@@ -66351,7 +67014,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_647d62a2",
+      "id": "lb_a8dbcbf4",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -66377,7 +67040,7 @@
       ],
       "listings": [
         {
-          "id": "lb_647d62a2",
+          "id": "lb_a8dbcbf4",
           "lpubeltsName": "",
           "sheetMake": "DOM",
           "sheetModel": "5KG",
@@ -66405,7 +67068,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_c9c8b706",
+      "id": "lb_f3ba02dc",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -66431,7 +67094,7 @@
       ],
       "listings": [
         {
-          "id": "lb_c9c8b706",
+          "id": "lb_f3ba02dc",
           "lpubeltsName": "",
           "sheetMake": "Winkhaus",
           "sheetModel": "XR",
@@ -66459,7 +67122,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_f65a3d90",
+      "id": "lb_1c86edab",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -66486,7 +67149,7 @@
       ],
       "listings": [
         {
-          "id": "lb_f65a3d90",
+          "id": "lb_1c86edab",
           "lpubeltsName": "",
           "sheetMake": "BEST",
           "sheetModel": "MX8 (Cormax)",
@@ -66514,7 +67177,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_afa837f5",
+      "id": "lb_2a8aaf08",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -66540,7 +67203,7 @@
       ],
       "listings": [
         {
-          "id": "lb_afa837f5",
+          "id": "lb_2a8aaf08",
           "lpubeltsName": "",
           "sheetMake": "BEST",
           "sheetModel": "Construction Core",
@@ -66568,7 +67231,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_274d337c",
+      "id": "lb_4e06a0d2",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -66594,7 +67257,7 @@
       ],
       "listings": [
         {
-          "id": "lb_274d337c",
+          "id": "lb_4e06a0d2",
           "lpubeltsName": "",
           "sheetMake": "Hafele",
           "sheetModel": "",
@@ -66622,7 +67285,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_b917d6d7",
+      "id": "lb_347fbf7c",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -66648,7 +67311,7 @@
       ],
       "listings": [
         {
-          "id": "lb_b917d6d7",
+          "id": "lb_347fbf7c",
           "lpubeltsName": "",
           "sheetMake": "Kwikset",
           "sheetModel": "",
@@ -66676,7 +67339,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_a0c54536",
+      "id": "lb_89c6b150",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -66702,7 +67365,7 @@
       ],
       "listings": [
         {
-          "id": "lb_a0c54536",
+          "id": "lb_89c6b150",
           "lpubeltsName": "",
           "sheetMake": "Marks",
           "sheetModel": "",
@@ -66730,7 +67393,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_56e846a7",
+      "id": "lb_95021e3f",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -66754,7 +67417,7 @@
       ],
       "listings": [
         {
-          "id": "lb_56e846a7",
+          "id": "lb_95021e3f",
           "lpubeltsName": "",
           "sheetMake": "No-Name",
           "sheetModel": "SFIC Housing",
@@ -66782,7 +67445,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_ffff332f",
+      "id": "lb_2b2ee896",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -66808,7 +67471,7 @@
       ],
       "listings": [
         {
-          "id": "lb_ffff332f",
+          "id": "lb_2b2ee896",
           "lpubeltsName": "",
           "sheetMake": "No-Name",
           "sheetModel": "Schlage LFIC",
@@ -67501,7 +68164,7 @@
       "newListingsDate": "2024-05-01T16:03:57.921Z"
     },
     {
-      "id": "lb_90c37c95",
+      "id": "lb_be4ec002",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -67531,7 +68194,7 @@
       ],
       "listings": [
         {
-          "id": "lb_90c37c95",
+          "id": "lb_be4ec002",
           "lpubeltsName": "",
           "sheetMake": "Ivana (Anker collaboration)",
           "sheetModel": "Necoloc",
@@ -67556,7 +68219,7 @@
           ],
           "photo": null,
           "price": "€ 25",
-          "rowNum": 37,
+          "rowNum": 41,
           "notes": "My estimated belt; green, maybe blue. Very tight tolerances",
           "lockBelt": "Unranked"
         }
@@ -67565,7 +68228,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_1da5eda3",
+      "id": "lb_2d6a808a",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -67595,7 +68258,7 @@
       ],
       "listings": [
         {
-          "id": "lb_1da5eda3",
+          "id": "lb_2d6a808a",
           "lpubeltsName": "",
           "sheetMake": "LIPS",
           "sheetModel": "Standard cylinder",
@@ -67620,7 +68283,7 @@
           ],
           "photo": "https://imgur.com/a/vNGba3B",
           "price": "€ 8",
-          "rowNum": 38,
+          "rowNum": 42,
           "notes": "My estimated belt: green. Available in euro format / RIM (mortise?)",
           "lockBelt": "Unranked"
         }
@@ -67629,7 +68292,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_667aaf7c",
+      "id": "lb_7b2787e5",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -67659,7 +68322,7 @@
       ],
       "listings": [
         {
-          "id": "lb_667aaf7c",
+          "id": "lb_7b2787e5",
           "lpubeltsName": "",
           "sheetMake": "Nemef",
           "sheetModel": "NNB",
@@ -67684,7 +68347,7 @@
           ],
           "photo": "https://imgur.com/a/KoiSXgj",
           "price": "€ 15",
-          "rowNum": 39,
+          "rowNum": 43,
           "notes": "My estimated belt: green",
           "lockBelt": "Unranked"
         }
@@ -67693,7 +68356,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_93fd55fc",
+      "id": "lb_847cd534",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -67723,7 +68386,7 @@
       ],
       "listings": [
         {
-          "id": "lb_93fd55fc",
+          "id": "lb_847cd534",
           "lpubeltsName": "",
           "sheetMake": "StarX",
           "sheetModel": "",
@@ -67748,7 +68411,7 @@
           ],
           "photo": "https://imgur.com/a/hkbzycw",
           "price": "€ 15",
-          "rowNum": 40,
+          "rowNum": 44,
           "notes": "My estimated belt: green",
           "lockBelt": "Unranked"
         }
@@ -67757,7 +68420,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_46bcb294",
+      "id": "lb_13cb7d64",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -67787,7 +68450,7 @@
       ],
       "listings": [
         {
-          "id": "lb_46bcb294",
+          "id": "lb_13cb7d64",
           "lpubeltsName": "",
           "sheetMake": "Nemef",
           "sheetModel": "Standard cylinder",
@@ -67812,7 +68475,7 @@
           ],
           "photo": null,
           "price": "€ 15",
-          "rowNum": 41,
+          "rowNum": 45,
           "notes": "",
           "lockBelt": "Unranked"
         }
@@ -67821,7 +68484,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_2f9a92c6",
+      "id": "lb_9ef6c8a8",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -67851,7 +68514,7 @@
       ],
       "listings": [
         {
-          "id": "lb_2f9a92c6",
+          "id": "lb_9ef6c8a8",
           "lpubeltsName": "",
           "sheetMake": "Winkhaus",
           "sheetModel": "XR",
@@ -67876,7 +68539,7 @@
           ],
           "photo": null,
           "price": "€ 20",
-          "rowNum": 42,
+          "rowNum": 46,
           "notes": "Can cut for half price, many available; My estimated belt: Green",
           "lockBelt": "Unranked"
         }
@@ -68927,7 +69590,7 @@
       "newListingsDate": "2024-05-01T16:03:57.921Z"
     },
     {
-      "id": "lb_5e798d25",
+      "id": "lb_a978ce9c",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -68951,7 +69614,7 @@
       ],
       "listings": [
         {
-          "id": "lb_5e798d25",
+          "id": "lb_a978ce9c",
           "lpubeltsName": "",
           "sheetMake": "MIWA",
           "sheetModel": "U9",
@@ -68980,7 +69643,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_bad9eb5e",
+      "id": "lb_af9fee7d",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -69006,7 +69669,7 @@
       ],
       "listings": [
         {
-          "id": "lb_bad9eb5e",
+          "id": "lb_af9fee7d",
           "lpubeltsName": "",
           "sheetMake": "U Shin Showa",
           "sheetModel": "Generic PT",
@@ -69035,7 +69698,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_f4fbf627",
+      "id": "lb_e3b7d2fa",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -69061,7 +69724,7 @@
       ],
       "listings": [
         {
-          "id": "lb_f4fbf627",
+          "id": "lb_e3b7d2fa",
           "lpubeltsName": "",
           "sheetMake": "ASSA",
           "sheetModel": "Twin Combi",
@@ -69090,7 +69753,7 @@
       "newListingsDate": "1970-01-01T00:00:00.000Z"
     },
     {
-      "id": "lb_b57154e7",
+      "id": "lb_d75ce2fa",
       "belt": "Unranked",
       "makeModels": [
         {
@@ -69116,7 +69779,7 @@
       ],
       "listings": [
         {
-          "id": "lb_b57154e7",
+          "id": "lb_d75ce2fa",
           "lpubeltsName": "",
           "sheetMake": "S&G",
           "sheetModel": "Environmental",
@@ -69138,6 +69801,61 @@
           "price": "$35",
           "rowNum": 21,
           "notes": "No key, but I believe it's 108.",
+          "lockBelt": "Unranked"
+        }
+      ],
+      "isLPUbeltsLock": false,
+      "newListingsDate": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "lb_38d69620",
+      "belt": "Unranked",
+      "makeModels": [
+        {
+          "make": "Whale",
+          "model": "Top Security"
+        }
+      ],
+      "lockingMechanisms": [
+        "Dimple"
+      ],
+      "views": 0,
+      "media": null,
+      "links": null,
+      "shipsTo": [],
+      "country": [
+        "United States"
+      ],
+      "seller": [
+        "rSv0AIEP0mhQw53MFp53vtY0AIL2"
+      ],
+      "sellerName": [
+        "Red Wanderer"
+      ],
+      "listings": [
+        {
+          "id": "lb_38d69620",
+          "lpubeltsName": "",
+          "sheetMake": "Whale",
+          "sheetModel": "Top Security",
+          "badListing": "",
+          "sellerName": "Red Wanderer",
+          "country": "United States of America",
+          "sellerId": "rSv0AIEP0mhQw53MFp53vtY0AIL2",
+          "avail": "4",
+          "format": "Padlock",
+          "samelineIndex": "",
+          "isValid": true,
+          "isLPUListing": false,
+          "keys": "2",
+          "condition": "Used",
+          "lockingMechanism": [
+            "Dimple"
+          ],
+          "photo": null,
+          "price": "$15",
+          "rowNum": 22,
+          "notes": "",
           "lockBelt": "Unranked"
         }
       ],
@@ -69291,6 +70009,87 @@
       "photo": "https://imgur.com/a/6p1FaDY",
       "notes": "Lockwood 311/57 (Retired Ably Style)",
       "url": "https://share.lpubelts.com/?id=331c9d36&name=Lockwood_334B45_356S63_214A40_215A40_270S70",
+      "samelineIndex": ""
+    },
+    {
+      "rowNum": 24,
+      "name": "HJ",
+      "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
+      "shipsTo": [
+        "Europe",
+        "South America",
+        "North America",
+        "Australia & Oceania",
+        "Asia",
+        "Africa"
+      ],
+      "country": "Sweden",
+      "make": "ASSA",
+      "model": "Twin combi 4800",
+      "belt": "Brown",
+      "mechanism": "Pin-tumbler",
+      "format": "Oval",
+      "condition": "Used",
+      "keys": "1",
+      "available": "1",
+      "price": "400sek",
+      "photo": "https://imgur.com/a/5m2mT3t",
+      "notes": "3 finger pins",
+      "url": "https://lpubelts.com/#/locks?tab=Brown&id=fd7b514a&name=ASSA_Twin_Combi_1800_4800",
+      "samelineIndex": ""
+    },
+    {
+      "rowNum": 25,
+      "name": "HJ",
+      "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
+      "shipsTo": [
+        "Europe",
+        "South America",
+        "North America",
+        "Australia & Oceania",
+        "Asia",
+        "Africa"
+      ],
+      "country": "Sweden",
+      "make": "ASSA",
+      "model": "Twin combi 4800",
+      "belt": "Brown",
+      "mechanism": "Pin-tumbler",
+      "format": "Oval",
+      "condition": "Used",
+      "keys": "1",
+      "available": "1",
+      "price": "400sek",
+      "photo": "https://imgur.com/a/iqPZdah",
+      "notes": "3 finger pins",
+      "url": "https://lpubelts.com/#/locks?tab=Brown&id=fd7b514a&name=ASSA_Twin_Combi_1800_4800",
+      "samelineIndex": ""
+    },
+    {
+      "rowNum": 27,
+      "name": "HJ",
+      "sellerId": "KfJ6dU7Oh1M2BsiDEymZMIFZCFc2",
+      "shipsTo": [
+        "Europe",
+        "South America",
+        "North America",
+        "Australia & Oceania",
+        "Asia",
+        "Africa"
+      ],
+      "country": "Sweden",
+      "make": "Rosengren",
+      "model": "32A81S",
+      "belt": "Black",
+      "mechanism": "Disc detainer",
+      "format": "Sdb lock",
+      "condition": "Used",
+      "keys": "1",
+      "available": "8",
+      "price": "350sek",
+      "photo": "",
+      "notes": "",
+      "url": "https://lpubelts.com/#/locks?tab=search&search=rosengren&id=db63c882&name=Rosengrens_32A81S_32C81P",
       "samelineIndex": ""
     },
     {
@@ -69451,5 +70250,5 @@
       "samelineIndex": ""
     }
   ],
-  "version": "Sat May 04 2024 12:30:04 GMT-0700 (Pacific Daylight Time)"
+  "version": "Mon May 06 2024 14:00:05 GMT-0700 (Pacific Daylight Time)"
 }
