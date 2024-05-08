@@ -13,9 +13,6 @@ const EntryDetailsLB = ({entry, listings, sellerView, listingsArray}) => {
     const otherIds = allGroupedIds[parentId] ? allGroupedIds[parentId].filter(x => x !== entry.id) : []
     const hasListings = !!listings
 
-
-    console.log(entry, listings, listingsArray)
-
     const newListingsDate = dayjs(entry.newListingsDate).format('MM/DD/YY')
 
     const margin = sellerView

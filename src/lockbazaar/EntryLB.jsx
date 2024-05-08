@@ -53,10 +53,7 @@ const Entry = ({entry, expanded, onExpand}) => {
         ? shippableListings.filter(listing => listing.sellerName === filters.sellerName)
         : shippableListings
 
-
     const listingsArray = [{ 'id':entry.id, 'listings':sellersListings }]
-
-    console.log('listingsArray', entry.id, listingsArray)
 
     const sellerButtonDisabled = sellerView
 

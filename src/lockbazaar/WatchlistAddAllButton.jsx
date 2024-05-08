@@ -27,6 +27,7 @@ function WatchlistAddAllButton({entry}) {
 
     const handleChange = useCallback(async (event) => {
         event.preventDefault()
+        event.stopPropagation()
         setAnchorEl(event.currentTarget)
         if (isLoggedIn) {
             if (!areCollected) {

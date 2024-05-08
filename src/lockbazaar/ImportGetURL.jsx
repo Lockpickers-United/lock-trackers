@@ -184,6 +184,8 @@ const ImportGetURL = () => {
                     {(loading) &&
                         <LoadingDisplay/>
                     }
+
+                    <div style={{height:30}}/>
                     {jsonLoaded && wishlistLocks.map((entry) =>
                         <WatchlistAddLockEntry
                             key={entry.id}

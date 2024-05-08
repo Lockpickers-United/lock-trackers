@@ -92,7 +92,7 @@ const WatchlistAddLockEntry = ({lock, expanded, onExpand}) => {
 
     return (
         <Accordion expanded={expanded} onChange={handleChange} style={style} key={lock.id} ref={ref}
-                   disableGutters={true}>
+                   disableGutters={false}>
             <AccordionSummary expandIcon={expandIcon}
                               sx={{
                                   '& .MuiAccordionSummary-content': {
@@ -126,7 +126,7 @@ const WatchlistAddLockEntry = ({lock, expanded, onExpand}) => {
                                 alignItems: 'center',
                                 fontSize: '1rem'
                             }}>
-                                <Button>{getListingCountFromId(lock.id)}</Button>
+                                <Button style={{whiteSpace:'preserve nowrap'}}>{getListingCountFromId(lock.id)}</Button>
                             </div>
                         }
 
@@ -171,7 +171,7 @@ const WatchlistAddLockEntry = ({lock, expanded, onExpand}) => {
                                                             </td>
                                                             <td style={{paddingLeft: 20, fontSize: '1rem'}}>
 
-                                                                <Button>{getListingCountFromId(sameline.id)}</Button>
+                                                                <Button style={{whiteSpace:'preserve nowrap'}}>{getListingCountFromId(sameline.id)}</Button>
                                                             </td>
                                                             <td style={{paddingLeft: 10}}>
                                                                 <WatchlistButton id={sameline.id} dense={true}/>

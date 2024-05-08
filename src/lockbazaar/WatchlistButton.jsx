@@ -22,6 +22,7 @@ function WatchlistButton({id, fontSize, dense}) {
 
     const handleChange = useCallback((event) => {
         event.preventDefault()
+        event.stopPropagation()
         setAnchorEl(event.currentTarget)
         if (isLoggedIn) {
             if (!isCollected) {
