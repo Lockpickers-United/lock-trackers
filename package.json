@@ -10,7 +10,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "yarn versionFile && NODE_ENV=production vite build",
+        "build": "yarn lint && yarn versionFile && NODE_ENV=production vite build",
         "preview": "vite preview",
         "lint": "eslint \"./src/**\" \"./scripts/**\"",
         "versionFile": "node ./scripts/versionCode.js",
@@ -18,7 +18,7 @@
         "copyFiles": "node ./scripts/copyFiles.js",
         "ci-pr": "yarn lint && yarn build",
         "ci-build": "yarn versionFile && yarn run build && yarn copyFiles",
-        "test": "yarn versionFile && yarn run build"
+        "test": "yarn lint && yarn versionFile && yarn run build"
     },
     "dependencies": {
         "@emotion/react": "^11.11.3",
