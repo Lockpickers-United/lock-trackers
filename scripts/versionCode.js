@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-const date = {version: new Date()}
-console.log(date)
+const version = {version: new Date()}
+console.log(version)
 
-fs.writeFileSync('./public/versionTest.json', JSON.stringify(date))
+fs.writeFileSync('./public/versionCode.json', JSON.stringify(version))
