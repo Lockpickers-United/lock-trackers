@@ -8,7 +8,7 @@ import LockIcon from '@mui/icons-material/Lock'
 import WatchlistLpuCopyLinkInfo from './WatchlistLpuCopyLinkInfo.jsx'
 import TextField from '@mui/material/TextField'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
-import WatchlistAddLockDetails from './WatchlistAddLockDetails.jsx'
+import WatchlistAddLockEntry from './WatchlistAddLockEntry.jsx'
 
 const WatchlistAddLPUbelts = () => {
     const {getLockFromId} = useContext(LoadingContextLB)
@@ -87,7 +87,7 @@ const WatchlistAddLPUbelts = () => {
             <br/>
 
             {lock &&
-                <WatchlistAddLockDetails lock={lock}/>
+                <WatchlistAddLockEntry lock={lock}/>
             }
 
             <Backdrop

@@ -53,6 +53,11 @@ const Entry = ({entry, expanded, onExpand}) => {
         ? shippableListings.filter(listing => listing.sellerName === filters.sellerName)
         : shippableListings
 
+
+    const listingsArray = [{ 'id':entry.id, 'listings':sellersListings }]
+
+    console.log('listingsArray', entry.id, listingsArray)
+
     const sellerButtonDisabled = sellerView
 
     const allSellers = hasListings
@@ -252,7 +257,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                 </div>
                 {sellerView &&
                     <div style={{}}>
-                        <EntryDetailsLB entry={entry} listings={sellersListings} sellerView={sellerView}/>
+                        <EntryDetailsLB entry={entry} listings={sellersListings} sellerView={sellerView} listingsArray={listingsArray}/>
                     </div>
                 }
                 {(otherIds.length > 0 && !hasListings) &&
@@ -264,7 +269,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                 <React.Fragment>
                     {!sellerView &&
                         <AccordionDetails style={{backgroundColor: '#272727'}} sx={{padding: '8px 16px 0px 16px'}}>
-                            <EntryDetailsLB entry={entry} listings={sellersListings} sellerView={sellerView}/>
+                            <EntryDetailsLB entry={entry} listings={sellersListings} sellerView={sellerView} listingsArray={listingsArray}/>
                         </AccordionDetails>
                     }
                     <AccordionActions disableSpacing style={{backgroundColor: '#272727'}}>

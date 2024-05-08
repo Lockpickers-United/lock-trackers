@@ -17,6 +17,11 @@ export function LoadingProvider({children}) {
     const badListings = useMemo(() => lockBazaarData?.badListings || [], [lockBazaarData?.badListings])
     const samelineViews = useMemo(() => samelineViewsJson?.samelineViews || [], [samelineViewsJson?.samelineViews])
 
+    const getListingsFromId = useCallback(lockId => {
+        const listings = validListings?.filter(({id}) => id === lockId) || null
+        return listings
+    }, [validListings])
+
     const getLockFromId = useCallback(lockId => {
         return allLocks?.find(({id}) => id === lockId) || null
     }, [allLocks])
@@ -46,7 +51,7 @@ export function LoadingProvider({children}) {
                     model: entry?.makeModels[samelineInt - 1]?.model
                 }]
                 : entry?.makeModels
-
+            entryClone.name = entry?.makeModels[samelineInt - 1]?.make + ' ' + entry?.makeModels[samelineInt - 1]?.model
             entryClone.id = lockId
         }
         return entryClone
@@ -76,6 +81,7 @@ export function LoadingProvider({children}) {
         getLockFromId,
         getLockLineFromId,
         getLockLinesInfoFromId,
+        getListingsFromId,
         getSellerFromId,
         sellerIdMap,
         badListings,
@@ -90,6 +96,7 @@ export function LoadingProvider({children}) {
         getLockFromId,
         getLockLineFromId,
         getLockLinesInfoFromId,
+        getListingsFromId,
         getSellerFromId,
         sellerIdMap,
         badListings,

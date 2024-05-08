@@ -1,4 +1,3 @@
-import IconButton from '@mui/material/IconButton'
 import React, {useCallback, useContext, useMemo, useState} from 'react'
 import Tooltip from '@mui/material/Tooltip'
 import Popover from '@mui/material/Popover'
@@ -8,7 +7,7 @@ import DBContext from '../app/DBContext'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import Button from '@mui/material/Button'
 
-function WatchlistAddAllButton({entry, fontSize, dense}) {
+function WatchlistAddAllButton({entry}) {
 
     const {isLoggedIn} = useContext(AuthContext)
     const {profile, addToLockCollection, removeFromLockCollection} = useContext(DBContext)
@@ -43,13 +42,11 @@ function WatchlistAddAllButton({entry, fontSize, dense}) {
     return (
         <React.Fragment>
             <Tooltip title={tooltipText} arrow disableFocusListener>
-                <div style={{display: 'flex'}}>
-                    <IconButton onClick={handleChange} style={{height: 40, width: 40}}>
-                        <FavoriteIcon fontSize={fontSize} color={areCollected ? 'error' : 'inherit'}/>
-                    </IconButton>
-                    {!dense &&
-                        <Button onClick={handleChange} style={{lineHeight:'1.1rem'}} color={areCollected ? 'error' : 'inherit'}>{tooltipText}</Button>
-                    }
+                <div style={{alignItems: 'left'}}>
+                    <Button size='small' startIcon={<FavoriteIcon/>} onClick={handleChange}
+                            color={areCollected ? 'error' : 'inherit'} style={{alignItems: 'left'}}>
+                        <nobr>{tooltipText}</nobr>
+                    </Button>
                 </div>
             </Tooltip>
             {(!isLoggedIn && open) &&

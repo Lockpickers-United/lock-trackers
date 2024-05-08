@@ -121,17 +121,28 @@ export function DataProvider({children}) {
     }, [filteredEntries, search, sort, verbose])
 
     const getEntryFromId = useCallback(entryId => {
-        return combinedEntries?.find(({id}) => id === entryId)
-    }, [combinedEntries])
+        return allEntries?.find(({id}) => id === entryId)
+    }, [allEntries])
+
+    const getListingCountFromId = useCallback(entryId => {
+        const entry = getEntryFromId(entryId)
+        return entry?.listings
+            ? entry?.listings.length === 1
+                ? '1 Listing'
+                : `${entry?.listings.length} Listings`
+            : ''
+    }, [getEntryFromId])
 
     const getNameFromId = useCallback(id => {
         const entry = getEntryFromId(id)
-        const lock = getLockFromId(entry.lockId)
+        const lock = getLockFromId(entry?.lockId)
         if (lock) {
             const {makeModels} = lock
             const {make, model} = makeModels[0]
             const makeModel = make && make !== model ? `${make} ${model}` : model
             return makeModel.replace(/[\s/]/g, '_').replace(/\W/g, '')
+        } else {
+            return null
         }
     }, [getEntryFromId, getLockFromId])
 
@@ -161,6 +172,7 @@ export function DataProvider({children}) {
         allLocks,
         getLockFromId,
         getEntryFromId,
+        getListingCountFromId,
         getNameFromId,
         allGroupedIds,
         groupedIds,
@@ -171,6 +183,7 @@ export function DataProvider({children}) {
         allLocks,
         getLockFromId,
         getEntryFromId,
+        getListingCountFromId,
         getNameFromId,
         allGroupedIds,
         groupedIds,

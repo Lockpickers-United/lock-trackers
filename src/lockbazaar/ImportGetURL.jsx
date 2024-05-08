@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useMemo, useContext} from 'react'
+import React, {useState, useCallback, useMemo, useContext, useDeferredValue} from 'react'
 import Backdrop from '@mui/material/Backdrop'
 import Button from '@mui/material/Button'
 import InfoIcon from '@mui/icons-material/Info'
@@ -7,7 +7,7 @@ import LaunchIcon from '@mui/icons-material/Launch'
 import LockIcon from '@mui/icons-material/Lock'
 import WatchlistLpuCopyLinkInfo from './WatchlistLpuCopyLinkInfo.jsx'
 import TextField from '@mui/material/TextField'
-import WatchlistAddLockDetails from './WatchlistAddLockDetails.jsx'
+import WatchlistAddLockEntry from './WatchlistAddLockEntry.jsx'
 import {useDebounce} from 'use-debounce'
 import useData from '../util/useData.jsx'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
@@ -15,12 +15,15 @@ import DBContext from '../app/DBContext.jsx'
 import {enqueueSnackbar} from 'notistack'
 import LoadingDisplay from '../util/LoadingDisplay.jsx'
 import AuthContext from '../app/AuthContext.jsx'
+import ListContext from '../context/ListContext.jsx'
 
 const ImportGetURL = () => {
     const {updateProfile, profile = {}} = useContext(DBContext)
     const {getLockFromId} = useContext(LoadingContextLB)
     const {authLoaded, isLoggedIn} = useContext(AuthContext)
 
+    const {expanded, setExpanded} = useContext(ListContext)
+    const defExpanded = useDeferredValue(expanded)
 
     const idRegex = useMemo(() => /profile\/(\w{28})\W*/, [])
 
@@ -182,7 +185,12 @@ const ImportGetURL = () => {
                         <LoadingDisplay/>
                     }
                     {jsonLoaded && wishlistLocks.map((entry) =>
-                        <WatchlistAddLockDetails key={entry.id} lock={entry}/>
+                        <WatchlistAddLockEntry
+                            key={entry.id}
+                            lock={entry}
+                            expanded={entry.id === defExpanded}
+                            onExpand={setExpanded}
+                        />
                     )}
 
 
