@@ -24,7 +24,6 @@ const WatchlistAddLPUbeltsButton = () => {
         navigate('/import')
     }, [navigate])
 
-
     return (
         <Accordion expanded={open} onChange={toggleOpen}
                    style={{
@@ -37,11 +36,11 @@ const WatchlistAddLPUbeltsButton = () => {
             <AccordionSummary>
                 <div style={{fontSize: '.9rem', textAlign: 'center', width: '100%'}}>
                     <Button variant='contained' size='small'
-                            style={{backgroundColor: '#609cce', textTransform: 'none', marginRight: 10}}>
+                            style={{backgroundColor: '#a5a5a5', textTransform: 'none', margin: '4px 10px'}}>
                         Add LPUbelts Lock to Watchlist
                     </Button>
                     <Button variant='contained' size='small' onClick={handleClick}
-                            style={{backgroundColor: '#609cce', textTransform: 'none', marginLeft: 10}}>
+                            style={{backgroundColor: '#a5a5a5', textTransform: 'none', margin: '4px 10px'}}>
                         New! Import Your LPUbelts Wishlist
                     </Button>
                 </div>

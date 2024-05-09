@@ -15,6 +15,7 @@ import SignInButton from '../auth/SignInButton'
 import AuthContext from '../app/AuthContext.jsx'
 import DataContext from '../app/DataContext.jsx'
 import WatchlistAddLPUbeltsButton from './WatchlistAddLPUbeltsButton.jsx'
+import SystemMessage from './SystemMessage.jsx'
 
 function LockBazaarMain() {
     const {allDataLoaded, getSellerFromId} = useContext(LoadingContextLB)
@@ -49,6 +50,8 @@ function LockBazaarMain() {
             fontSize: '1.5rem', lineHeight: 0.8, textAlign: 'center'
         }}>
 
+            <SystemMessage/>
+            
             {!Object.keys(filters).length &&
                 <div style={{
                     fontSize: '1rem',
