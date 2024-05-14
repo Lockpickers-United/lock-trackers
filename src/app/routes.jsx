@@ -78,6 +78,13 @@ export default [
         }
     },
     {
+        path: '/reports/watchlist',
+        lazy: async () => {
+            const {default: WatchlistReportRoute} = await import('../reports/WatchlistReportRoute')
+            return {element: <WatchlistReportRoute/>}
+        }
+    },
+    {
         path: '*',
         loader: () => redirect('/lockbazaar')
     },

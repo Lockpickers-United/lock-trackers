@@ -7,6 +7,7 @@ import LPU_logo from '../assets/LPU_logo.jsx'
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import SavingsOutlinedIcon from '@mui/icons-material/SavingsOutlined'
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 
 export default [
     {
@@ -43,9 +44,16 @@ export default [
     },
     {
         admin: true,
-        title: 'Reports',
+        title: 'Site Report',
         icon: <InsertChartOutlinedIcon fontSize='small'/>,
-        path: '/reports'
+        path: '/reports',
+        separator: true
+    },
+    {
+        admin: true,
+        title: 'Watchlist Report',
+        icon: <VisibilityOutlinedIcon fontSize='small'/>,
+        path: '/reports/watchlist'
     },
     {
         title: 'More from LPU',

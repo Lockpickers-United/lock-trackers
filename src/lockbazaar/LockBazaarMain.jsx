@@ -51,7 +51,7 @@ function LockBazaarMain() {
         }}>
 
             <SystemMessage/>
-            
+
             {!Object.keys(filters).length &&
                 <div style={{
                     fontSize: '1rem',

@@ -27,6 +27,7 @@
         "@mui/material": "^5.15.4",
         "@mui/x-data-grid": "^7.0.0",
         "@mui/x-date-pickers": "^6.19.4",
+        "@nivo/bar": "^0.86.0",
         "@nivo/line": "^0.85.1",
         "dayjs": "^1.11.9",
         "firebase": "^10.6.0",

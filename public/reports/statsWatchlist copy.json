@@ -1,0 +1,2787 @@
+{
+   "beltSaveData" : {
+      "data" : [
+         {
+            "totalSaves" : 1,
+            "savesPerc" : 0.004,
+            "belt" : "White"
+         },
+         {
+            "belt" : "Yellow",
+            "savesPerc" : 0.004,
+            "totalSaves" : 1
+         },
+         {
+            "savesPerc" : 0.004,
+            "belt" : "Orange",
+            "totalSaves" : 1
+         },
+         {
+            "totalSaves" : 12,
+            "savesPerc" : 0.052,
+            "belt" : "Green"
+         },
+         {
+            "totalSaves" : 21,
+            "belt" : "Blue",
+            "savesPerc" : 0.092
+         },
+         {
+            "totalSaves" : 43,
+            "belt" : "Purple",
+            "savesPerc" : 0.188
+         },
+         {
+            "totalSaves" : 50,
+            "belt" : "Brown",
+            "savesPerc" : 0.218
+         },
+         {
+            "savesPerc" : 0.114,
+            "belt" : "Red",
+            "totalSaves" : 26
+         },
+         {
+            "belt" : "Black",
+            "savesPerc" : 0.266,
+            "totalSaves" : 61
+         },
+         {
+            "savesPerc" : 0.057,
+            "belt" : "Unranked",
+            "totalSaves" : 13
+         }
+      ],
+      "title" : "",
+      "columns" : [
+         {
+            "name" : "Belt",
+            "id" : "belt",
+            "align" : "left"
+         },
+         {
+            "name" : "Total Saves",
+            "id" : "totalSaves",
+            "align" : "center"
+         },
+         {
+            "align" : "center",
+            "id" : "savesPerc",
+            "name" : "Saves %"
+         }
+      ]
+   },
+   "savesByBelt" : [
+      {
+         "id" : "White",
+         "value" : 0.00436681222707424,
+         "label" : "White",
+         "count" : 1
+      },
+      {
+         "count" : 1,
+         "label" : "Yellow",
+         "value" : 0.00436681222707424,
+         "id" : "Yellow"
+      },
+      {
+         "value" : 0.00436681222707424,
+         "id" : "Orange",
+         "count" : 1,
+         "label" : "Orange"
+      },
+      {
+         "value" : 0.0524017467248908,
+         "id" : "Green",
+         "count" : 12,
+         "label" : "Green"
+      },
+      {
+         "id" : "Blue",
+         "value" : 0.091703056768559,
+         "label" : "Blue",
+         "count" : 21
+      },
+      {
+         "value" : 0.187772925764192,
+         "id" : "Purple",
+         "count" : 43,
+         "label" : "Purple"
+      },
+      {
+         "id" : "Brown",
+         "value" : 0.218340611353712,
+         "label" : "Brown",
+         "count" : 50
+      },
+      {
+         "label" : "Red",
+         "count" : 26,
+         "id" : "Red",
+         "value" : 0.11353711790393
+      },
+      {
+         "count" : 61,
+         "label" : "Black",
+         "value" : 0.266375545851528,
+         "id" : "Black"
+      },
+      {
+         "count" : 13,
+         "label" : "Unranked",
+         "value" : 0.0567685589519651,
+         "id" : "Unranked"
+      }
+   ],
+   "metadata" : {
+      "updatedDateTime" : "2024-05-11T17:23:02",
+      "timezone" : "EDT"
+   },
+   "allLockSaves" : {
+      "title" : "",
+      "data" : [
+         {
+            "saves" : 4,
+            "rank" : 1,
+            "lock" : "Abloy Classic",
+            "version" : null,
+            "belt" : "Brown"
+         },
+         {
+            "belt" : "Brown",
+            "version" : null,
+            "rank" : 2,
+            "lock" : "Schlage Everest Primus",
+            "saves" : 4
+         },
+         {
+            "version" : null,
+            "belt" : "Brown",
+            "rank" : 3,
+            "lock" : "Schlage Primus",
+            "saves" : 4
+         },
+         {
+            "saves" : 3,
+            "lock" : "ASSA 600",
+            "rank" : 4,
+            "version" : "Barrel spools and matching countermilling",
+            "belt" : "Purple"
+         },
+         {
+            "lock" : "GOAL P",
+            "rank" : 5,
+            "version" : "6 pin",
+            "belt" : "Brown",
+            "saves" : 3
+         },
+         {
+            "saves" : 2,
+            "lock" : "ABUS EC700",
+            "rank" : 6,
+            "belt" : "Red",
+            "version" : null
+         },
+         {
+            "saves" : 2,
+            "rank" : 7,
+            "lock" : "ABUS EC750",
+            "belt" : "Blue",
+            "version" : "serrated pin version, not 700/800"
+         },
+         {
+            "saves" : 2,
+            "version" : null,
+            "belt" : "Red",
+            "rank" : 8,
+            "lock" : "ABUS EC800"
+         },
+         {
+            "version" : "6 pin, with gin spools and matched countermilling",
+            "belt" : "Red",
+            "rank" : 9,
+            "lock" : "ASSA 600",
+            "saves" : 2
+         },
+         {
+            "rank" : 10,
+            "lock" : "ASSA 700",
+            "belt" : "Black",
+            "version" : "gin/tree pins and matching countermilling in ≥ 4 chambers, ≥ 2 tree pins",
+            "saves" : 2
+         },
+         {
+            "rank" : 11,
+            "lock" : "ASSA d12",
+            "belt" : "Brown",
+            "version" : "barrel drivers, forked keypins",
+            "saves" : 2
+         },
+         {
+            "saves" : 2,
+            "lock" : "ASSA Desmo",
+            "rank" : 12,
+            "version" : "8 sliders, no mastered pins",
+            "belt" : "Brown"
+         },
+         {
+            "belt" : "Black",
+            "version" : "barrel driver, 6 stacks with 5 side pins",
+            "rank" : 13,
+            "lock" : "ASSA Twin 2",
+            "saves" : 2
+         },
+         {
+            "saves" : 2,
+            "lock" : "Australian Lock Co. BiLock",
+            "rank" : 14,
+            "belt" : "Black",
+            "version" : "12 sliders, 0 mastered"
+         },
+         {
+            "rank" : 15,
+            "lock" : "Chubb Biaxial",
+            "belt" : "Purple",
+            "version" : null,
+            "saves" : 2
+         },
+         {
+            "saves" : 2,
+            "version" : "≥ 2 mastered chambers **",
+            "belt" : "Black",
+            "rank" : 16,
+            "lock" : "Corbin Russwin Emhart"
+         },
+         {
+            "saves" : 2,
+            "belt" : "Red",
+            "version" : "6 pins **",
+            "lock" : "Corbin Russwin Emhart",
+            "rank" : 17
+         },
+         {
+            "belt" : "Black",
+            "version" : "≥17 pins",
+            "lock" : "GOAL GP",
+            "rank" : 18,
+            "saves" : 2
+         },
+         {
+            "version" : "5 pins",
+            "belt" : "Blue",
+            "lock" : "GOAL S",
+            "rank" : 19,
+            "saves" : 2
+         },
+         {
+            "belt" : "Black",
+            "version" : "≥17 pins",
+            "rank" : 20,
+            "lock" : "GOAL V18",
+            "saves" : 2
+         },
+         {
+            "version" : "< 2 standard drivers",
+            "belt" : "Black",
+            "lock" : "GOAL Z",
+            "rank" : 21,
+            "saves" : 2
+         },
+         {
+            "saves" : 2,
+            "lock" : "Master Lock #19",
+            "rank" : 22,
+            "belt" : "Purple",
+            "version" : null
+         },
+         {
+            "saves" : 2,
+            "belt" : "Brown",
+            "version" : "***",
+            "lock" : "Medeco M3 Camlock",
+            "rank" : 23
+         },
+         {
+            "version" : null,
+            "belt" : "Red",
+            "lock" : "Medeco M4",
+            "rank" : 24,
+            "saves" : 2
+         },
+         {
+            "saves" : 2,
+            "version" : "≥ 5 pins ******",
+            "belt" : "Purple",
+            "rank" : 25,
+            "lock" : "Medeco Original Camlock"
+         },
+         {
+            "saves" : 2,
+            "rank" : 26,
+            "lock" : "PACLOCK 90A Pro",
+            "belt" : "Blue",
+            "version" : null
+         },
+         {
+            "saves" : 2,
+            "rank" : 27,
+            "lock" : "Ruko Combi 900",
+            "version" : null,
+            "belt" : "Purple"
+         },
+         {
+            "saves" : 1,
+            "belt" : "Unranked",
+            "version" : null,
+            "rank" : 28,
+            "lock" : "A.S.I. Inc. Royal Guardian"
+         },
+         {
+            "version" : null,
+            "belt" : "Black",
+            "rank" : 29,
+            "lock" : "Abloy Exec",
+            "saves" : 1
+         },
+         {
+            "version" : null,
+            "belt" : "Red",
+            "lock" : "Abloy High Profile",
+            "rank" : 30,
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Black",
+            "rank" : 31,
+            "lock" : "Abloy Protec2"
+         },
+         {
+            "saves" : 1,
+            "belt" : "Green",
+            "version" : null,
+            "rank" : 32,
+            "lock" : "ABUS Bravus 1000"
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Purple",
+            "rank" : 33,
+            "lock" : "ABUS Bravus 4000"
+         },
+         {
+            "belt" : "Blue",
+            "version" : "serrated pin version, not 700/800",
+            "rank" : 34,
+            "lock" : "ABUS EC850",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "rank" : 35,
+            "lock" : "ABUS Magtec 1500",
+            "version" : null,
+            "belt" : "Green"
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Purple",
+            "lock" : "ABUS TS5000",
+            "rank" : 36
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Purple",
+            "lock" : "Agent LS5",
+            "rank" : 37
+         },
+         {
+            "saves" : 1,
+            "lock" : "Aldon Corporation Hot Dog Lock",
+            "rank" : 38,
+            "belt" : "Purple",
+            "version" : null
+         },
+         {
+            "belt" : "Green",
+            "version" : null,
+            "rank" : 39,
+            "lock" : "Alfa  \"AP 1000\"",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "rank" : 40,
+            "lock" : "Alfa \"pExtra\"",
+            "version" : "6-7 pin",
+            "belt" : "Purple"
+         },
+         {
+            "rank" : 41,
+            "lock" : "ALPHA Z cam lock",
+            "version" : null,
+            "belt" : "Blue",
+            "saves" : 1
+         },
+         {
+            "belt" : "Green",
+            "version" : "1100 but with 6 pin stacks",
+            "rank" : 42,
+            "lock" : "American Lock 1160",
+            "saves" : 1
+         },
+         {
+            "belt" : "White",
+            "version" : null,
+            "rank" : 43,
+            "lock" : "Any Cutaway Lock",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Unranked",
+            "lock" : "Arrow ChoICe HS SFIC",
+            "rank" : 44
+         },
+         {
+            "rank" : 45,
+            "lock" : "ASSA 500",
+            "belt" : "Brown",
+            "version" : "5 stacks of pins, gin drivers and matching countermilling",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "lock" : "ASSA 700",
+            "rank" : 46,
+            "belt" : "Red",
+            "version" : "with gin drivers and matched sleeve"
+         },
+         {
+            "saves" : 1,
+            "rank" : 47,
+            "lock" : "ASSA dp11",
+            "belt" : "Black",
+            "version" : "6 pin with 10 sliders"
+         },
+         {
+            "version" : "6 pin with 10 sliders",
+            "belt" : "Black",
+            "rank" : 48,
+            "lock" : "ASSA dp4400",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "lock" : "ASSA Neptun 1900",
+            "rank" : 49,
+            "belt" : "Brown",
+            "version" : "barrel drivers, forked keypins"
+         },
+         {
+            "saves" : 1,
+            "belt" : "Brown",
+            "version" : "barrel drivers, forked keypins",
+            "lock" : "ASSA P600",
+            "rank" : 50
+         },
+         {
+            "lock" : "ASSA Twin 6000",
+            "rank" : 51,
+            "version" : "gin drivers, 6 stacks with 5 side pins",
+            "belt" : "Black",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "belt" : "Black",
+            "version" : "6 barrel drivers, 5 side pins",
+            "rank" : 52,
+            "lock" : "ASSA Twin 6000"
+         },
+         {
+            "saves" : 1,
+            "lock" : "ASSA Twin Combi",
+            "rank" : 53,
+            "version" : "6 pin with 5 finger pins",
+            "belt" : "Black"
+         },
+         {
+            "belt" : "Black",
+            "version" : "6 barrel drivers, 5 side pins",
+            "lock" : "ASSA Twin Exclusive",
+            "rank" : 54,
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "belt" : "Black",
+            "version" : "barrel driver, 6 stacks with 5 side pins",
+            "lock" : "ASSA Twin Global",
+            "rank" : 55
+         },
+         {
+            "lock" : "ASSA Twin Maximum",
+            "rank" : 56,
+            "version" : "barrel driver, 6 stacks with 5 side pins",
+            "belt" : "Black",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "rank" : 57,
+            "lock" : "ASSA Twin Pro",
+            "version" : "barrel driver, 6 stacks with 5 side pins",
+            "belt" : "Black"
+         },
+         {
+            "belt" : "Black",
+            "version" : "barrel driver, 6 stacks with 5 side pins",
+            "rank" : 58,
+            "lock" : "ASSA Twin v10",
+            "saves" : 1
+         },
+         {
+            "version" : "12 sliders, 1-2 mastered",
+            "belt" : "Black",
+            "rank" : 59,
+            "lock" : "Australian Lock Co. BiLock",
+            "saves" : 1
+         },
+         {
+            "rank" : 60,
+            "lock" : "Australian Lock Co. BiLock ASIO",
+            "belt" : "Black",
+            "version" : "2nd/3rd gen",
+            "saves" : 1
+         },
+         {
+            "version" : "picked to control",
+            "belt" : "Black",
+            "rank" : 61,
+            "lock" : "Australian Lock Co. BiLock Exclusive",
+            "saves" : 1
+         },
+         {
+            "lock" : "Australian Lock Co. Galaxy",
+            "rank" : 62,
+            "version" : null,
+            "belt" : "Brown",
+            "saves" : 1
+         },
+         {
+            "rank" : 63,
+            "lock" : "Avocet ABS",
+            "version" : null,
+            "belt" : "Purple",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "rank" : 64,
+            "lock" : "BASI K10",
+            "belt" : "Brown",
+            "version" : null
+         },
+         {
+            "saves" : 1,
+            "rank" : 65,
+            "lock" : "BiLock Clone ",
+            "version" : null,
+            "belt" : "Green"
+         },
+         {
+            "belt" : "Black",
+            "version" : "14 or more pins",
+            "rank" : 66,
+            "lock" : "BKS Janus",
+            "saves" : 1
+         },
+         {
+            "rank" : 67,
+            "lock" : "Bowley Door Lock",
+            "version" : null,
+            "belt" : "Black",
+            "saves" : 1
+         },
+         {
+            "version" : null,
+            "belt" : "Unranked",
+            "lock" : "Bowley Rotasera",
+            "rank" : 68,
+            "saves" : 1
+         },
+         {
+            "lock" : "Bramah bp17",
+            "rank" : 69,
+            "version" : null,
+            "belt" : "Red",
+            "saves" : 1
+         },
+         {
+            "lock" : "Bricard Supersureté",
+            "rank" : 70,
+            "belt" : "Purple",
+            "version" : null,
+            "saves" : 1
+         },
+         {
+            "rank" : 71,
+            "lock" : "Brinks laminated padlock",
+            "belt" : "Yellow",
+            "version" : "40mm or larger, Weatherproof or not",
+            "saves" : 1
+         },
+         {
+            "rank" : 72,
+            "lock" : "Capitol magnetic cam lock",
+            "version" : null,
+            "belt" : "Purple",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "rank" : 73,
+            "lock" : "CAWI 7113",
+            "version" : null,
+            "belt" : "Unranked"
+         },
+         {
+            "saves" : 1,
+            "rank" : 74,
+            "lock" : "CAWI 7123",
+            "belt" : "Unranked",
+            "version" : null
+         },
+         {
+            "belt" : "Unranked",
+            "version" : null,
+            "rank" : 75,
+            "lock" : "CAWI Protector 7143",
+            "saves" : 1
+         },
+         {
+            "version" : null,
+            "belt" : "Purple",
+            "lock" : "CEI 'Five Colors'",
+            "rank" : 76,
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "belt" : "Unranked",
+            "version" : null,
+            "rank" : 77,
+            "lock" : "Chain Key Lock "
+         },
+         {
+            "belt" : "Unranked",
+            "version" : "rounded shaft key, 10 wafers",
+            "lock" : "Chubb AVA",
+            "rank" : 78,
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "rank" : 79,
+            "lock" : "CISM Atlas",
+            "belt" : "Red",
+            "version" : null
+         },
+         {
+            "saves" : 1,
+            "version" : "20 pins",
+            "belt" : "Black",
+            "rank" : 80,
+            "lock" : "Clavis T-20"
+         },
+         {
+            "saves" : 1,
+            "lock" : "Corbin Russwin Master Ring",
+            "rank" : 81,
+            "belt" : "Purple",
+            "version" : "***"
+         },
+         {
+            "belt" : "Blue",
+            "version" : "tapered spools, trees, no milling",
+            "lock" : "Dejo 7 pin",
+            "rank" : 82,
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Black",
+            "lock" : "DOM Diamant",
+            "rank" : 83
+         },
+         {
+            "rank" : 84,
+            "lock" : "DOM ix Twido",
+            "belt" : "Purple",
+            "version" : null,
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Blue",
+            "lock" : "DOM Plura",
+            "rank" : 85
+         },
+         {
+            "belt" : "Red",
+            "version" : null,
+            "lock" : "DOM RS 8",
+            "rank" : 86,
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "lock" : "DOM System D",
+            "rank" : 87,
+            "belt" : "Brown",
+            "version" : null
+         },
+         {
+            "version" : null,
+            "belt" : "Brown",
+            "lock" : "Dorma DC500, DC5400",
+            "rank" : 88,
+            "saves" : 1
+         },
+         {
+            "rank" : 89,
+            "lock" : "Eagle 'Supr-Security' (with shutter)",
+            "version" : null,
+            "belt" : "Brown",
+            "saves" : 1
+         },
+         {
+            "belt" : "Black",
+            "version" : null,
+            "rank" : 90,
+            "lock" : "EVVA MCS gen 1",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "rank" : 91,
+            "lock" : "EVVA MCS gen 2",
+            "version" : null,
+            "belt" : "Black"
+         },
+         {
+            "rank" : 92,
+            "lock" : "Federal Locks U-systems (UCF/UCH/UCS/UUS)-3100",
+            "belt" : "Purple",
+            "version" : null,
+            "saves" : 1
+         },
+         {
+            "version" : "no false gates",
+            "belt" : "Purple",
+            "rank" : 93,
+            "lock" : "Fichet 450",
+            "saves" : 1
+         },
+         {
+            "lock" : "Fichet 450",
+            "rank" : 94,
+            "version" : "w/ false gates, 0 mastered levers",
+            "belt" : "Black",
+            "saves" : 1
+         },
+         {
+            "rank" : 95,
+            "lock" : "Fichet 484",
+            "version" : "w/ false gates, 0 mastered levers",
+            "belt" : "Black",
+            "saves" : 1
+         },
+         {
+            "rank" : 96,
+            "lock" : "Fichet 666",
+            "belt" : "Brown",
+            "version" : null,
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "version" : "interior",
+            "belt" : "Unranked",
+            "rank" : 97,
+            "lock" : "Fichet 787"
+         },
+         {
+            "saves" : 1,
+            "belt" : "Black",
+            "version" : "outside cylinder - upgrade of indoor cylinder",
+            "rank" : 98,
+            "lock" : "Fichet F3D"
+         },
+         {
+            "rank" : 99,
+            "lock" : "Fichet-Bauche M2B",
+            "version" : null,
+            "belt" : "Black",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "lock" : "Fichet-Bauche M3B",
+            "rank" : 100,
+            "version" : null,
+            "belt" : "Black"
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Brown",
+            "lock" : "Fichet-Bauche Monopole",
+            "rank" : 101
+         },
+         {
+            "belt" : "Black",
+            "version" : null,
+            "lock" : "Fichet-Bauche MxB",
+            "rank" : 102,
+            "saves" : 1
+         },
+         {
+            "belt" : "Red",
+            "version" : null,
+            "rank" : 103,
+            "lock" : "Fontaine Dynaxis",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Brown",
+            "rank" : 104,
+            "lock" : "FTH Thirard Cobra"
+         },
+         {
+            "version" : null,
+            "belt" : "Red",
+            "rank" : 105,
+            "lock" : "FTH Thirard Surveyor",
+            "saves" : 1
+         },
+         {
+            "rank" : 106,
+            "lock" : "Gege AP 1000",
+            "belt" : "Green",
+            "version" : null,
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "rank" : 107,
+            "lock" : "Gege AP2000",
+            "belt" : "Blue",
+            "version" : null
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Blue",
+            "lock" : "Gege AP3000",
+            "rank" : 108
+         },
+         {
+            "saves" : 1,
+            "belt" : "Purple",
+            "version" : "6-7 pin",
+            "rank" : 109,
+            "lock" : "Gege pExtra"
+         },
+         {
+            "lock" : "Gerda Rim 6000",
+            "rank" : 110,
+            "belt" : "Brown",
+            "version" : null,
+            "saves" : 1
+         },
+         {
+            "rank" : 111,
+            "lock" : "Gerda Tytan ZX",
+            "belt" : "Brown",
+            "version" : null,
+            "saves" : 1
+         },
+         {
+            "version" : "14-16 pins",
+            "belt" : "Black",
+            "rank" : 112,
+            "lock" : "GOAL GP",
+            "saves" : 1
+         },
+         {
+            "belt" : "Black",
+            "version" : "14-16 pins",
+            "lock" : "GOAL V18",
+            "rank" : 113,
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "lock" : "GOAL V18, GP",
+            "rank" : 114,
+            "belt" : "Black",
+            "version" : "≥17 pins"
+         },
+         {
+            "lock" : "Heracles Vigie",
+            "rank" : 115,
+            "version" : null,
+            "belt" : "Red",
+            "saves" : 1
+         },
+         {
+            "rank" : 116,
+            "lock" : "Hori Trident",
+            "belt" : "Black",
+            "version" : "T-spool drivers",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "lock" : "IKON M",
+            "rank" : 117,
+            "version" : null,
+            "belt" : "Black"
+         },
+         {
+            "lock" : "IKON R10 / Lockwood MT5 / Mul-T-Lock MT5+, 800",
+            "rank" : 118,
+            "belt" : "Black",
+            "version" : "not mastered",
+            "saves" : 1
+         },
+         {
+            "belt" : "Red",
+            "version" : null,
+            "lock" : "IKON Verso",
+            "rank" : 119,
+            "saves" : 1
+         },
+         {
+            "lock" : "IKON WSW",
+            "rank" : 120,
+            "version" : "7 sliders, upgrade of WSW with 5 sliders",
+            "belt" : "Black",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Purple",
+            "rank" : 121,
+            "lock" : "Illinois Duo"
+         },
+         {
+            "saves" : 1,
+            "rank" : 122,
+            "lock" : "Inceca pump lock with flat key",
+            "belt" : "Unranked",
+            "version" : null
+         },
+         {
+            "version" : null,
+            "belt" : "Purple",
+            "rank" : 123,
+            "lock" : "Ingersoll 10 lever padlock",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "belt" : "Brown",
+            "version" : null,
+            "rank" : 124,
+            "lock" : "Izis "
+         },
+         {
+            "saves" : 1,
+            "rank" : 125,
+            "lock" : "JPM 405",
+            "version" : null,
+            "belt" : "Brown"
+         },
+         {
+            "saves" : 1,
+            "version" : "≥13 pins",
+            "belt" : "Red",
+            "lock" : "Kaba Ace",
+            "rank" : 126
+         },
+         {
+            "rank" : 127,
+            "lock" : "Kromer Protector (BP55K)",
+            "version" : null,
+            "belt" : "Black",
+            "saves" : 1
+         },
+         {
+            "rank" : 128,
+            "lock" : "Kromer Protector (Non-BP55K)",
+            "belt" : "Black",
+            "version" : null,
+            "saves" : 1
+         },
+         {
+            "rank" : 129,
+            "lock" : "Laperche Rols",
+            "version" : null,
+            "belt" : "Brown",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "rank" : 130,
+            "lock" : "Lockman Megacross",
+            "belt" : "Black",
+            "version" : "with pyramid drivers (SP?)"
+         },
+         {
+            "version" : "with spools",
+            "belt" : "Blue",
+            "rank" : 131,
+            "lock" : "Lockwood 214A40",
+            "saves" : 1
+         },
+         {
+            "lock" : "Lockwood 215A40",
+            "rank" : 132,
+            "version" : "with spools",
+            "belt" : "Blue",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "version" : "with spools",
+            "belt" : "Blue",
+            "lock" : "Lockwood 270S70",
+            "rank" : 133
+         },
+         {
+            "saves" : 1,
+            "belt" : "Green",
+            "version" : "tapered/beveled drivers",
+            "lock" : "Lockwood 334B45",
+            "rank" : 134
+         },
+         {
+            "rank" : 135,
+            "lock" : "Lockwood 334B45",
+            "belt" : "Blue",
+            "version" : "with spools",
+            "saves" : 1
+         },
+         {
+            "rank" : 136,
+            "lock" : "Lockwood 356S63",
+            "version" : "with spools",
+            "belt" : "Blue",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "rank" : 137,
+            "lock" : "Lockwood Twin",
+            "version" : null,
+            "belt" : "Purple"
+         },
+         {
+            "saves" : 1,
+            "belt" : "Blue",
+            "version" : null,
+            "rank" : 138,
+            "lock" : "Lockwood V7"
+         },
+         {
+            "saves" : 1,
+            "belt" : "Purple",
+            "version" : null,
+            "rank" : 139,
+            "lock" : "Magnum Atlantic"
+         },
+         {
+            "lock" : "Magnum Mont Blanc",
+            "rank" : 140,
+            "version" : null,
+            "belt" : "Brown",
+            "saves" : 1
+         },
+         {
+            "belt" : "Green",
+            "version" : null,
+            "rank" : 141,
+            "lock" : "Master Lock 410 LOTO (Lockout Tagout)",
+            "saves" : 1
+         },
+         {
+            "lock" : "Master Lock 532",
+            "rank" : 142,
+            "belt" : "Orange",
+            "version" : null,
+            "saves" : 1
+         },
+         {
+            "belt" : "Brown",
+            "version" : null,
+            "rank" : 143,
+            "lock" : "Mauer NW4",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Brown",
+            "rank" : 144,
+            "lock" : "Mauer NW5"
+         },
+         {
+            "saves" : 1,
+            "belt" : "Brown",
+            "version" : null,
+            "lock" : "Mauer NW6",
+            "rank" : 145
+         },
+         {
+            "saves" : 1,
+            "belt" : "Purple",
+            "version" : null,
+            "lock" : "Mauer Red Line GM",
+            "rank" : 146
+         },
+         {
+            "lock" : "Medeco Biaxial",
+            "rank" : 147,
+            "version" : "≥ 5 pins ******",
+            "belt" : "Purple",
+            "saves" : 1
+         },
+         {
+            "rank" : 148,
+            "lock" : "Medeco Biaxial Camlock",
+            "belt" : "Brown",
+            "version" : "***",
+            "saves" : 1
+         },
+         {
+            "version" : "≥ 5 pins ******",
+            "belt" : "Purple",
+            "lock" : "Medeco Original",
+            "rank" : 149,
+            "saves" : 1
+         },
+         {
+            "belt" : "Black",
+            "version" : null,
+            "lock" : "MIWA LB",
+            "rank" : 150,
+            "saves" : 1
+         },
+         {
+            "belt" : "Purple",
+            "version" : null,
+            "lock" : "Mottura 3D Key",
+            "rank" : 151,
+            "saves" : 1
+         },
+         {
+            "lock" : "Mottura Champions C55",
+            "rank" : 152,
+            "version" : null,
+            "belt" : "Red",
+            "saves" : 1
+         },
+         {
+            "version" : null,
+            "belt" : "Green",
+            "rank" : 153,
+            "lock" : "Mul-T-Lock 7X7",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "belt" : "Blue",
+            "version" : "4 pins, spooled drivers",
+            "rank" : 154,
+            "lock" : "Mul-T-Lock Classic"
+         },
+         {
+            "rank" : 155,
+            "lock" : "Mul-T-Lock Interactive",
+            "version" : "4 pins, spooled drivers",
+            "belt" : "Blue",
+            "saves" : 1
+         },
+         {
+            "belt" : "Black",
+            "version" : "not mastered",
+            "rank" : 156,
+            "lock" : "Mul-T-Lock MT5+",
+            "saves" : 1
+         },
+         {
+            "rank" : 157,
+            "lock" : "Mul-T-Lock Omega Plus",
+            "version" : null,
+            "belt" : "Purple",
+            "saves" : 1
+         },
+         {
+            "version" : "10 lever, pre-1973",
+            "belt" : "Black",
+            "lock" : "NATO Mersey",
+            "rank" : 158,
+            "saves" : 1
+         },
+         {
+            "rank" : 159,
+            "lock" : "NATO Mersey",
+            "version" : "14 lever",
+            "belt" : "Black",
+            "saves" : 1
+         },
+         {
+            "rank" : 160,
+            "lock" : "Omellow R3",
+            "belt" : "Unranked",
+            "version" : null,
+            "saves" : 1
+         },
+         {
+            "rank" : 161,
+            "lock" : "Opnus Memolis",
+            "version" : null,
+            "belt" : "Black",
+            "saves" : 1
+         },
+         {
+            "belt" : "Red",
+            "version" : null,
+            "rank" : 162,
+            "lock" : "Picard Vigie",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Purple",
+            "rank" : 163,
+            "lock" : "Picard VTX"
+         },
+         {
+            "version" : null,
+            "belt" : "Unranked",
+            "lock" : "Picard VTX",
+            "rank" : 164,
+            "saves" : 1
+         },
+         {
+            "version" : null,
+            "belt" : "Purple",
+            "lock" : "Pollux 5",
+            "rank" : 165,
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "belt" : "Brown",
+            "version" : null,
+            "lock" : "Pollux 7",
+            "rank" : 166
+         },
+         {
+            "saves" : 1,
+            "rank" : 167,
+            "lock" : "Ruko 500",
+            "belt" : "Brown",
+            "version" : "5 stacks of pins, gin drivers and matching countermilling"
+         },
+         {
+            "rank" : 168,
+            "lock" : "Ruko 700",
+            "version" : "with gin drivers and matched sleeve",
+            "belt" : "Red",
+            "saves" : 1
+         },
+         {
+            "version" : "6 pin with 10 sliders",
+            "belt" : "Black",
+            "rank" : 169,
+            "lock" : "Ruko Garant+",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "rank" : 170,
+            "lock" : "Ruko Merkur",
+            "belt" : "Brown",
+            "version" : "barrel drivers, forked keypins"
+         },
+         {
+            "rank" : 171,
+            "lock" : "Schlage Everest",
+            "belt" : "Green",
+            "version" : null,
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Purple",
+            "lock" : "Schlage Everest 29SL",
+            "rank" : 172
+         },
+         {
+            "saves" : 1,
+            "belt" : "Brown",
+            "version" : null,
+            "rank" : 173,
+            "lock" : "Securemme Evo K64"
+         },
+         {
+            "belt" : "Unranked",
+            "version" : null,
+            "lock" : "Sepa 5000",
+            "rank" : 174,
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "belt" : "Green",
+            "version" : null,
+            "rank" : 175,
+            "lock" : "Solon Super-Lock Company Nix Pix"
+         },
+         {
+            "rank" : 176,
+            "lock" : "Sémag Euromag",
+            "version" : null,
+            "belt" : "Red",
+            "saves" : 1
+         },
+         {
+            "lock" : "TESA T-10",
+            "rank" : 177,
+            "belt" : "Brown",
+            "version" : null,
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "lock" : "TESA T-12",
+            "rank" : 178,
+            "belt" : "Brown",
+            "version" : null
+         },
+         {
+            "lock" : "Thirard Federal 2",
+            "rank" : 179,
+            "version" : null,
+            "belt" : "Purple",
+            "saves" : 1
+         },
+         {
+            "belt" : "Purple",
+            "version" : null,
+            "rank" : 180,
+            "lock" : "Thirard Federal S",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Purple",
+            "lock" : "Titan T250",
+            "rank" : 181
+         },
+         {
+            "saves" : 1,
+            "belt" : "Brown",
+            "version" : "barrel drivers, forked keypins",
+            "lock" : "TrioVing d12 level 1 (aka d13 no long pin)",
+            "rank" : 182
+         },
+         {
+            "belt" : "Black",
+            "version" : "6 pin with 10 sliders",
+            "lock" : "TrioVing dp",
+            "rank" : 183,
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Purple",
+            "lock" : "UCEM T200",
+            "rank" : 184
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Black",
+            "rank" : 185,
+            "lock" : "UrbanAlps Stealth Key SK2"
+         },
+         {
+            "saves" : 1,
+            "belt" : "Purple",
+            "version" : null,
+            "rank" : 186,
+            "lock" : "Vachette Axi'Home"
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Red",
+            "rank" : 187,
+            "lock" : "Vachette Axi'Tec"
+         },
+         {
+            "belt" : "Brown",
+            "version" : null,
+            "rank" : 188,
+            "lock" : "Van Lock ",
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Green",
+            "rank" : 189,
+            "lock" : "Viro Palladium PV"
+         },
+         {
+            "version" : null,
+            "belt" : "Black",
+            "lock" : "Western Electric 30B",
+            "rank" : 190,
+            "saves" : 1
+         },
+         {
+            "saves" : 1,
+            "version" : null,
+            "belt" : "Black",
+            "rank" : 191,
+            "lock" : "Western Electric 30C"
+         },
+         {
+            "saves" : 1,
+            "rank" : 192,
+            "lock" : "Xylok ",
+            "belt" : "Red",
+            "version" : null
+         },
+         {
+            "saves" : 1,
+            "rank" : 193,
+            "lock" : "Yale 500 series",
+            "version" : null,
+            "belt" : "Blue"
+         },
+         {
+            "saves" : 1,
+            "rank" : 194,
+            "lock" : "Yale 5000",
+            "belt" : "Purple",
+            "version" : null
+         }
+      ],
+      "columns" : [
+         {
+            "align" : "center",
+            "name" : "#",
+            "id" : "rank"
+         },
+         {
+            "align" : "left",
+            "id" : "lock",
+            "name" : "Lock"
+         },
+         {
+            "id" : "version",
+            "name" : "Version",
+            "align" : "left"
+         },
+         {
+            "id" : "belt",
+            "name" : "Belt",
+            "align" : "left"
+         },
+         {
+            "align" : "center",
+            "name" : "Saves",
+            "id" : "saves"
+         }
+      ]
+   },
+   "summary" : {
+      "columns" : [
+         {
+            "id" : "stats",
+            "name" : "Stats",
+            "align" : "left"
+         },
+         {
+            "id" : "totalUsers",
+            "name" : "Total Users",
+            "align" : "center"
+         },
+         {
+            "align" : "center",
+            "name" : "List Users",
+            "id" : "listUsers"
+         },
+         {
+            "align" : "center",
+            "name" : "Total Saves",
+            "id" : "totalSaves"
+         },
+         {
+            "name" : "% List Users",
+            "id" : "percentListUsers",
+            "align" : "center"
+         },
+         {
+            "align" : "center",
+            "name" : "Average Items",
+            "id" : "averageItems"
+         }
+      ],
+      "data" : [
+         {
+            "stats" : "2024-05-11",
+            "averageItems" : 13,
+            "totalSaves" : 229,
+            "totalUsers" : 81,
+            "listUsers" : 17,
+            "percentListUsers" : "20%"
+         },
+         {
+            "totalUsers" : 0,
+            "percentListUsers" : "0.0%",
+            "listUsers" : 0,
+            "totalSaves" : 0,
+            "averageItems" : "0.0",
+            "stats" : "Change"
+         }
+      ],
+      "title" : ""
+   },
+   "dailyTableData" : {
+      "columns" : [
+         {
+            "align" : "left",
+            "name" : "Date",
+            "id" : "date"
+         },
+         {
+            "id" : "totalUsers",
+            "name" : "Total Users",
+            "align" : "center"
+         },
+         {
+            "align" : "center",
+            "name" : "List Users",
+            "id" : "listUsers"
+         },
+         {
+            "align" : "center",
+            "name" : "Total Saves",
+            "id" : "totalSaves"
+         },
+         {
+            "id" : "newUsers",
+            "name" : "New Users",
+            "align" : "center"
+         }
+      ],
+      "title" : "",
+      "data" : [
+         {
+            "totalSaves" : 0,
+            "newUsers" : 21,
+            "date" : "2024-03-13",
+            "totalUsers" : 21,
+            "listUsers" : 0
+         },
+         {
+            "date" : "2024-03-14",
+            "totalUsers" : 22,
+            "listUsers" : 0,
+            "totalSaves" : 0,
+            "newUsers" : 1
+         },
+         {
+            "listUsers" : 0,
+            "date" : "2024-03-15",
+            "totalUsers" : 22,
+            "newUsers" : 0,
+            "totalSaves" : 0
+         },
+         {
+            "newUsers" : 2,
+            "totalSaves" : 0,
+            "listUsers" : 0,
+            "totalUsers" : 24,
+            "date" : "2024-03-16"
+         },
+         {
+            "newUsers" : 1,
+            "totalSaves" : 0,
+            "listUsers" : 0,
+            "date" : "2024-03-17",
+            "totalUsers" : 25
+         },
+         {
+            "totalSaves" : 0,
+            "newUsers" : 1,
+            "totalUsers" : 26,
+            "date" : "2024-03-18",
+            "listUsers" : 0
+         },
+         {
+            "listUsers" : 0,
+            "date" : "2024-03-19",
+            "totalUsers" : 26,
+            "newUsers" : 0,
+            "totalSaves" : 0
+         },
+         {
+            "newUsers" : 2,
+            "totalSaves" : 0,
+            "listUsers" : 0,
+            "date" : "2024-03-20",
+            "totalUsers" : 28
+         },
+         {
+            "date" : "2024-03-21",
+            "totalUsers" : 29,
+            "listUsers" : 0,
+            "totalSaves" : 0,
+            "newUsers" : 1
+         },
+         {
+            "listUsers" : 0,
+            "date" : "2024-03-22",
+            "totalUsers" : 29,
+            "newUsers" : 0,
+            "totalSaves" : 0
+         },
+         {
+            "newUsers" : 0,
+            "totalSaves" : 0,
+            "listUsers" : 0,
+            "totalUsers" : 29,
+            "date" : "2024-03-23"
+         },
+         {
+            "totalUsers" : 31,
+            "date" : "2024-03-24",
+            "listUsers" : 0,
+            "totalSaves" : 0,
+            "newUsers" : 2
+         },
+         {
+            "listUsers" : 0,
+            "date" : "2024-03-25",
+            "totalUsers" : 32,
+            "newUsers" : 1,
+            "totalSaves" : 0
+         },
+         {
+            "totalSaves" : 0,
+            "newUsers" : 2,
+            "date" : "2024-03-26",
+            "totalUsers" : 34,
+            "listUsers" : 0
+         },
+         {
+            "date" : "2024-03-27",
+            "totalUsers" : 34,
+            "listUsers" : 0,
+            "totalSaves" : 0,
+            "newUsers" : 0
+         },
+         {
+            "date" : "2024-03-28",
+            "totalUsers" : 38,
+            "listUsers" : 0,
+            "totalSaves" : 0,
+            "newUsers" : 4
+         },
+         {
+            "totalSaves" : 0,
+            "newUsers" : 2,
+            "date" : "2024-03-29",
+            "totalUsers" : 40,
+            "listUsers" : 0
+         },
+         {
+            "totalSaves" : 0,
+            "newUsers" : 0,
+            "totalUsers" : 40,
+            "date" : "2024-03-30",
+            "listUsers" : 0
+         },
+         {
+            "totalSaves" : 0,
+            "newUsers" : 0,
+            "date" : "2024-03-31",
+            "totalUsers" : 40,
+            "listUsers" : 0
+         },
+         {
+            "newUsers" : 1,
+            "totalSaves" : 0,
+            "listUsers" : 0,
+            "date" : "2024-04-01",
+            "totalUsers" : 41
+         },
+         {
+            "totalSaves" : 0,
+            "newUsers" : 1,
+            "date" : "2024-04-02",
+            "totalUsers" : 42,
+            "listUsers" : 0
+         },
+         {
+            "listUsers" : 0,
+            "date" : "2024-04-03",
+            "totalUsers" : 42,
+            "newUsers" : 0,
+            "totalSaves" : 0
+         },
+         {
+            "newUsers" : 3,
+            "totalSaves" : 0,
+            "listUsers" : 0,
+            "totalUsers" : 45,
+            "date" : "2024-04-04"
+         },
+         {
+            "newUsers" : 1,
+            "totalSaves" : 0,
+            "listUsers" : 0,
+            "totalUsers" : 46,
+            "date" : "2024-04-05"
+         },
+         {
+            "newUsers" : 0,
+            "totalSaves" : 0,
+            "listUsers" : 0,
+            "totalUsers" : 46,
+            "date" : "2024-04-06"
+         },
+         {
+            "totalSaves" : 0,
+            "newUsers" : 1,
+            "date" : "2024-04-07",
+            "totalUsers" : 47,
+            "listUsers" : 0
+         },
+         {
+            "totalSaves" : 0,
+            "newUsers" : 2,
+            "totalUsers" : 49,
+            "date" : "2024-04-08",
+            "listUsers" : 0
+         },
+         {
+            "listUsers" : 0,
+            "date" : "2024-04-09",
+            "totalUsers" : 49,
+            "newUsers" : 0,
+            "totalSaves" : 0
+         },
+         {
+            "totalUsers" : 51,
+            "date" : "2024-04-10",
+            "listUsers" : 0,
+            "totalSaves" : 0,
+            "newUsers" : 2
+         },
+         {
+            "date" : "2024-04-11",
+            "totalUsers" : 51,
+            "listUsers" : 0,
+            "totalSaves" : 0,
+            "newUsers" : 0
+         },
+         {
+            "totalUsers" : 52,
+            "date" : "2024-04-12",
+            "listUsers" : 0,
+            "totalSaves" : 0,
+            "newUsers" : 1
+         },
+         {
+            "totalSaves" : 0,
+            "newUsers" : 1,
+            "totalUsers" : 53,
+            "date" : "2024-04-13",
+            "listUsers" : 0
+         },
+         {
+            "date" : "2024-04-14",
+            "totalUsers" : 53,
+            "listUsers" : 0,
+            "totalSaves" : 0,
+            "newUsers" : 0
+         },
+         {
+            "newUsers" : 2,
+            "totalSaves" : 0,
+            "listUsers" : 0,
+            "date" : "2024-04-15",
+            "totalUsers" : 55
+         },
+         {
+            "totalUsers" : 56,
+            "date" : "2024-04-16",
+            "listUsers" : 0,
+            "totalSaves" : 0,
+            "newUsers" : 1
+         },
+         {
+            "newUsers" : 2,
+            "totalSaves" : 0,
+            "listUsers" : 0,
+            "date" : "2024-04-17",
+            "totalUsers" : 58
+         },
+         {
+            "listUsers" : 0,
+            "date" : "2024-04-18",
+            "totalUsers" : 58,
+            "newUsers" : 0,
+            "totalSaves" : 0
+         },
+         {
+            "totalSaves" : 0,
+            "newUsers" : 2,
+            "date" : "2024-04-19",
+            "totalUsers" : 60,
+            "listUsers" : 0
+         },
+         {
+            "totalUsers" : 61,
+            "date" : "2024-04-20",
+            "listUsers" : 0,
+            "totalSaves" : 0,
+            "newUsers" : 1
+         },
+         {
+            "date" : "2024-04-21",
+            "totalUsers" : 62,
+            "listUsers" : 1,
+            "totalSaves" : 7,
+            "newUsers" : 1
+         },
+         {
+            "date" : "2024-04-22",
+            "totalUsers" : 63,
+            "listUsers" : 3,
+            "totalSaves" : 11,
+            "newUsers" : 1
+         },
+         {
+            "listUsers" : 3,
+            "totalUsers" : 63,
+            "date" : "2024-04-23",
+            "newUsers" : 0,
+            "totalSaves" : 12
+         },
+         {
+            "totalSaves" : 14,
+            "newUsers" : 1,
+            "totalUsers" : 64,
+            "date" : "2024-04-24",
+            "listUsers" : 5
+         },
+         {
+            "listUsers" : 5,
+            "date" : "2024-04-25",
+            "totalUsers" : 65,
+            "newUsers" : 1,
+            "totalSaves" : 16
+         },
+         {
+            "totalSaves" : 20,
+            "newUsers" : 1,
+            "totalUsers" : 66,
+            "date" : "2024-04-26",
+            "listUsers" : 6
+         },
+         {
+            "listUsers" : 5,
+            "date" : "2024-04-27",
+            "totalUsers" : 67,
+            "newUsers" : 1,
+            "totalSaves" : 27
+         },
+         {
+            "totalUsers" : 67,
+            "date" : "2024-04-28",
+            "listUsers" : 7,
+            "totalSaves" : 34,
+            "newUsers" : 0
+         },
+         {
+            "newUsers" : 3,
+            "totalSaves" : 41,
+            "listUsers" : 9,
+            "date" : "2024-04-29",
+            "totalUsers" : 70
+         },
+         {
+            "totalSaves" : 168,
+            "newUsers" : 1,
+            "date" : "2024-04-30",
+            "totalUsers" : 71,
+            "listUsers" : 11
+         },
+         {
+            "date" : "2024-05-01",
+            "totalUsers" : 72,
+            "listUsers" : 11,
+            "totalSaves" : 171,
+            "newUsers" : 1
+         },
+         {
+            "totalSaves" : 171,
+            "newUsers" : 1,
+            "date" : "2024-05-02",
+            "totalUsers" : 73,
+            "listUsers" : 11
+         },
+         {
+            "newUsers" : 0,
+            "totalSaves" : 180,
+            "listUsers" : 12,
+            "totalUsers" : 73,
+            "date" : "2024-05-03"
+         },
+         {
+            "totalSaves" : 198,
+            "newUsers" : 1,
+            "totalUsers" : 74,
+            "date" : "2024-05-04",
+            "listUsers" : 13
+         },
+         {
+            "newUsers" : 1,
+            "totalSaves" : 198,
+            "listUsers" : 13,
+            "date" : "2024-05-05",
+            "totalUsers" : 75
+         },
+         {
+            "totalSaves" : 207,
+            "newUsers" : 2,
+            "date" : "2024-05-06",
+            "totalUsers" : 77,
+            "listUsers" : 14
+         },
+         {
+            "totalSaves" : 234,
+            "newUsers" : 1,
+            "totalUsers" : 78,
+            "date" : "2024-05-07",
+            "listUsers" : 17
+         },
+         {
+            "totalUsers" : 79,
+            "date" : "2024-05-08",
+            "listUsers" : 17,
+            "totalSaves" : 227,
+            "newUsers" : 1
+         },
+         {
+            "listUsers" : 17,
+            "date" : "2024-05-09",
+            "totalUsers" : 81,
+            "newUsers" : 2,
+            "totalSaves" : 227
+         },
+         {
+            "date" : "2024-05-10",
+            "totalUsers" : 81,
+            "listUsers" : 17,
+            "totalSaves" : 229,
+            "newUsers" : 0
+         },
+         {
+            "newUsers" : 0,
+            "totalSaves" : 229,
+            "listUsers" : 17,
+            "date" : "2024-05-11",
+            "totalUsers" : 81
+         }
+      ]
+   },
+   "listSavesByBelt" : [
+      {
+         "Red" : 26,
+         "White" : 1,
+         "Green" : 12,
+         "Yellow" : 1,
+         "Black" : 61,
+         "list" : "All Saves",
+         "Orange" : 1,
+         "Purple" : 43,
+         "Brown" : 50,
+         "Blue" : 21,
+         "Unranked" : 13
+      }
+   ],
+   "lineMetrics" : [
+      {
+         "id" : "Total Saves",
+         "data" : [
+            {
+               "y" : 0,
+               "x" : "2024-03-13"
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-14"
+            },
+            {
+               "x" : "2024-03-15",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-16"
+            },
+            {
+               "x" : "2024-03-17",
+               "y" : 0
+            },
+            {
+               "x" : "2024-03-18",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-19"
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-20"
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-21"
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-22"
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-23"
+            },
+            {
+               "x" : "2024-03-24",
+               "y" : 0
+            },
+            {
+               "x" : "2024-03-25",
+               "y" : 0
+            },
+            {
+               "x" : "2024-03-26",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-27"
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-28"
+            },
+            {
+               "x" : "2024-03-29",
+               "y" : 0
+            },
+            {
+               "x" : "2024-03-30",
+               "y" : 0
+            },
+            {
+               "x" : "2024-03-31",
+               "y" : 0
+            },
+            {
+               "x" : "2024-04-01",
+               "y" : 0
+            },
+            {
+               "x" : "2024-04-02",
+               "y" : 0
+            },
+            {
+               "x" : "2024-04-03",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-04-04"
+            },
+            {
+               "y" : 0,
+               "x" : "2024-04-05"
+            },
+            {
+               "x" : "2024-04-06",
+               "y" : 0
+            },
+            {
+               "x" : "2024-04-07",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-04-08"
+            },
+            {
+               "x" : "2024-04-09",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-04-10"
+            },
+            {
+               "x" : "2024-04-11",
+               "y" : 0
+            },
+            {
+               "x" : "2024-04-12",
+               "y" : 0
+            },
+            {
+               "x" : "2024-04-13",
+               "y" : 0
+            },
+            {
+               "x" : "2024-04-14",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-04-15"
+            },
+            {
+               "y" : 0,
+               "x" : "2024-04-16"
+            },
+            {
+               "x" : "2024-04-17",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-04-18"
+            },
+            {
+               "y" : 0,
+               "x" : "2024-04-19"
+            },
+            {
+               "x" : "2024-04-20",
+               "y" : 0
+            },
+            {
+               "x" : "2024-04-21",
+               "y" : 7
+            },
+            {
+               "x" : "2024-04-22",
+               "y" : 11
+            },
+            {
+               "x" : "2024-04-23",
+               "y" : 12
+            },
+            {
+               "x" : "2024-04-24",
+               "y" : 14
+            },
+            {
+               "y" : 16,
+               "x" : "2024-04-25"
+            },
+            {
+               "y" : 20,
+               "x" : "2024-04-26"
+            },
+            {
+               "y" : 27,
+               "x" : "2024-04-27"
+            },
+            {
+               "y" : 34,
+               "x" : "2024-04-28"
+            },
+            {
+               "x" : "2024-04-29",
+               "y" : 41
+            },
+            {
+               "y" : 168,
+               "x" : "2024-04-30"
+            },
+            {
+               "y" : 171,
+               "x" : "2024-05-01"
+            },
+            {
+               "y" : 171,
+               "x" : "2024-05-02"
+            },
+            {
+               "y" : 180,
+               "x" : "2024-05-03"
+            },
+            {
+               "x" : "2024-05-04",
+               "y" : 198
+            },
+            {
+               "y" : 198,
+               "x" : "2024-05-05"
+            },
+            {
+               "y" : 207,
+               "x" : "2024-05-06"
+            },
+            {
+               "y" : 234,
+               "x" : "2024-05-07"
+            },
+            {
+               "x" : "2024-05-08",
+               "y" : 227
+            },
+            {
+               "x" : "2024-05-09",
+               "y" : 227
+            },
+            {
+               "x" : "2024-05-10",
+               "y" : 229
+            },
+            {
+               "y" : 229,
+               "x" : "2024-05-11"
+            }
+         ]
+      },
+      {
+         "data" : [
+            {
+               "y" : 21,
+               "x" : "2024-03-13"
+            },
+            {
+               "x" : "2024-03-14",
+               "y" : 22
+            },
+            {
+               "y" : 22,
+               "x" : "2024-03-15"
+            },
+            {
+               "x" : "2024-03-16",
+               "y" : 24
+            },
+            {
+               "x" : "2024-03-17",
+               "y" : 25
+            },
+            {
+               "x" : "2024-03-18",
+               "y" : 26
+            },
+            {
+               "x" : "2024-03-19",
+               "y" : 26
+            },
+            {
+               "x" : "2024-03-20",
+               "y" : 28
+            },
+            {
+               "x" : "2024-03-21",
+               "y" : 29
+            },
+            {
+               "x" : "2024-03-22",
+               "y" : 29
+            },
+            {
+               "x" : "2024-03-23",
+               "y" : 29
+            },
+            {
+               "y" : 31,
+               "x" : "2024-03-24"
+            },
+            {
+               "x" : "2024-03-25",
+               "y" : 32
+            },
+            {
+               "y" : 34,
+               "x" : "2024-03-26"
+            },
+            {
+               "y" : 34,
+               "x" : "2024-03-27"
+            },
+            {
+               "x" : "2024-03-28",
+               "y" : 38
+            },
+            {
+               "x" : "2024-03-29",
+               "y" : 40
+            },
+            {
+               "x" : "2024-03-30",
+               "y" : 40
+            },
+            {
+               "y" : 40,
+               "x" : "2024-03-31"
+            },
+            {
+               "y" : 41,
+               "x" : "2024-04-01"
+            },
+            {
+               "x" : "2024-04-02",
+               "y" : 42
+            },
+            {
+               "y" : 42,
+               "x" : "2024-04-03"
+            },
+            {
+               "x" : "2024-04-04",
+               "y" : 45
+            },
+            {
+               "y" : 46,
+               "x" : "2024-04-05"
+            },
+            {
+               "y" : 46,
+               "x" : "2024-04-06"
+            },
+            {
+               "x" : "2024-04-07",
+               "y" : 47
+            },
+            {
+               "x" : "2024-04-08",
+               "y" : 49
+            },
+            {
+               "x" : "2024-04-09",
+               "y" : 49
+            },
+            {
+               "x" : "2024-04-10",
+               "y" : 51
+            },
+            {
+               "y" : 51,
+               "x" : "2024-04-11"
+            },
+            {
+               "y" : 52,
+               "x" : "2024-04-12"
+            },
+            {
+               "y" : 53,
+               "x" : "2024-04-13"
+            },
+            {
+               "y" : 53,
+               "x" : "2024-04-14"
+            },
+            {
+               "x" : "2024-04-15",
+               "y" : 55
+            },
+            {
+               "y" : 56,
+               "x" : "2024-04-16"
+            },
+            {
+               "y" : 58,
+               "x" : "2024-04-17"
+            },
+            {
+               "x" : "2024-04-18",
+               "y" : 58
+            },
+            {
+               "x" : "2024-04-19",
+               "y" : 60
+            },
+            {
+               "y" : 61,
+               "x" : "2024-04-20"
+            },
+            {
+               "y" : 62,
+               "x" : "2024-04-21"
+            },
+            {
+               "y" : 63,
+               "x" : "2024-04-22"
+            },
+            {
+               "x" : "2024-04-23",
+               "y" : 63
+            },
+            {
+               "x" : "2024-04-24",
+               "y" : 64
+            },
+            {
+               "x" : "2024-04-25",
+               "y" : 65
+            },
+            {
+               "x" : "2024-04-26",
+               "y" : 66
+            },
+            {
+               "x" : "2024-04-27",
+               "y" : 67
+            },
+            {
+               "y" : 67,
+               "x" : "2024-04-28"
+            },
+            {
+               "x" : "2024-04-29",
+               "y" : 70
+            },
+            {
+               "y" : 71,
+               "x" : "2024-04-30"
+            },
+            {
+               "x" : "2024-05-01",
+               "y" : 72
+            },
+            {
+               "y" : 73,
+               "x" : "2024-05-02"
+            },
+            {
+               "y" : 73,
+               "x" : "2024-05-03"
+            },
+            {
+               "y" : 74,
+               "x" : "2024-05-04"
+            },
+            {
+               "x" : "2024-05-05",
+               "y" : 75
+            },
+            {
+               "x" : "2024-05-06",
+               "y" : 77
+            },
+            {
+               "y" : 78,
+               "x" : "2024-05-07"
+            },
+            {
+               "y" : 79,
+               "x" : "2024-05-08"
+            },
+            {
+               "y" : 81,
+               "x" : "2024-05-09"
+            },
+            {
+               "y" : 81,
+               "x" : "2024-05-10"
+            },
+            {
+               "y" : 81,
+               "x" : "2024-05-11"
+            }
+         ],
+         "id" : "Total Users"
+      },
+      {
+         "id" : "List Users",
+         "data" : [
+            {
+               "y" : 0,
+               "x" : "2024-03-13"
+            },
+            {
+               "x" : "2024-03-14",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-15"
+            },
+            {
+               "x" : "2024-03-16",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-17"
+            },
+            {
+               "x" : "2024-03-18",
+               "y" : 0
+            },
+            {
+               "x" : "2024-03-19",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-20"
+            },
+            {
+               "x" : "2024-03-21",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-22"
+            },
+            {
+               "x" : "2024-03-23",
+               "y" : 0
+            },
+            {
+               "x" : "2024-03-24",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-25"
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-26"
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-27"
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-28"
+            },
+            {
+               "x" : "2024-03-29",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-30"
+            },
+            {
+               "y" : 0,
+               "x" : "2024-03-31"
+            },
+            {
+               "y" : 0,
+               "x" : "2024-04-01"
+            },
+            {
+               "x" : "2024-04-02",
+               "y" : 0
+            },
+            {
+               "x" : "2024-04-03",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-04-04"
+            },
+            {
+               "y" : 0,
+               "x" : "2024-04-05"
+            },
+            {
+               "x" : "2024-04-06",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-04-07"
+            },
+            {
+               "x" : "2024-04-08",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-04-09"
+            },
+            {
+               "x" : "2024-04-10",
+               "y" : 0
+            },
+            {
+               "x" : "2024-04-11",
+               "y" : 0
+            },
+            {
+               "x" : "2024-04-12",
+               "y" : 0
+            },
+            {
+               "x" : "2024-04-13",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-04-14"
+            },
+            {
+               "x" : "2024-04-15",
+               "y" : 0
+            },
+            {
+               "x" : "2024-04-16",
+               "y" : 0
+            },
+            {
+               "x" : "2024-04-17",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-04-18"
+            },
+            {
+               "x" : "2024-04-19",
+               "y" : 0
+            },
+            {
+               "y" : 0,
+               "x" : "2024-04-20"
+            },
+            {
+               "x" : "2024-04-21",
+               "y" : 1
+            },
+            {
+               "x" : "2024-04-22",
+               "y" : 3
+            },
+            {
+               "x" : "2024-04-23",
+               "y" : 3
+            },
+            {
+               "y" : 5,
+               "x" : "2024-04-24"
+            },
+            {
+               "x" : "2024-04-25",
+               "y" : 5
+            },
+            {
+               "y" : 6,
+               "x" : "2024-04-26"
+            },
+            {
+               "x" : "2024-04-27",
+               "y" : 5
+            },
+            {
+               "y" : 7,
+               "x" : "2024-04-28"
+            },
+            {
+               "y" : 9,
+               "x" : "2024-04-29"
+            },
+            {
+               "y" : 11,
+               "x" : "2024-04-30"
+            },
+            {
+               "y" : 11,
+               "x" : "2024-05-01"
+            },
+            {
+               "y" : 11,
+               "x" : "2024-05-02"
+            },
+            {
+               "x" : "2024-05-03",
+               "y" : 12
+            },
+            {
+               "y" : 13,
+               "x" : "2024-05-04"
+            },
+            {
+               "x" : "2024-05-05",
+               "y" : 13
+            },
+            {
+               "y" : 14,
+               "x" : "2024-05-06"
+            },
+            {
+               "y" : 17,
+               "x" : "2024-05-07"
+            },
+            {
+               "x" : "2024-05-08",
+               "y" : 17
+            },
+            {
+               "x" : "2024-05-09",
+               "y" : 17
+            },
+            {
+               "y" : 17,
+               "x" : "2024-05-10"
+            },
+            {
+               "y" : 17,
+               "x" : "2024-05-11"
+            }
+         ]
+      }
+   ]
+}
