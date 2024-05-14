@@ -15,6 +15,7 @@ import {
 } from 'firebase/firestore'
 import AuthContext from './AuthContext'
 import {enqueueSnackbar} from 'notistack'
+import dayjs from 'dayjs'
 
 const DBContext = React.createContext({})
 
@@ -196,6 +197,19 @@ export function DBProvider({children}) {
         await updateVersion()
     }, [dbError, updateVersion, user?.uid])
 
+    const updateLastMessageDate = useCallback(async (delta) => {
+        if (dbError) return false
+        const ref = doc(db, 'profiles', user.uid)
+        await runTransaction(db, async transaction => {
+            const sfDoc = await transaction.get(ref)
+            if (!sfDoc.exists()) {
+                transaction.set(ref, delta)
+            } else {
+                transaction.update(ref, delta)
+            }
+        })
+    }, [dbError, user])
+
     const getProfile = useCallback(async userId => {
         const ref = doc(db, 'profiles', userId)
         const value = await getDoc(ref)
@@ -212,7 +226,7 @@ export function DBProvider({children}) {
 
     const addToLockCollection = useCallback(async (key, entryIds, quiet) => {
         if (dbError) return false
-        const ref = doc(db, 'profiles', user.uid)
+        const ref = doc(db, 'profiles', user?.uid)
         await runTransaction(db, async transaction => {
             const sfDoc = await transaction.get(ref)
             if (!sfDoc.exists()) {
@@ -225,8 +239,9 @@ export function DBProvider({children}) {
                 })
             }
         })
+        await updateLastMessageDate({lastNewEntryDismiss: dayjs().format()})
         !quiet && enqueueSnackbar('Added to your Watchlist.')
-    }, [dbError, user])
+    }, [dbError, updateLastMessageDate, user?.uid])
 
     const removeFromLockCollection = useCallback(async (key, entryIds, quiet) => {
         if (dbError) return false
@@ -295,6 +310,7 @@ export function DBProvider({children}) {
         getProfileName,
         adminFlags,
         updateProfile,
+        updateLastMessageDate,
         addToLockCollection,
         removeFromLockCollection,
         getDbProfiles,
@@ -308,6 +324,7 @@ export function DBProvider({children}) {
         getProfileName,
         adminFlags,
         updateProfile,
+        updateLastMessageDate,
         addToLockCollection,
         removeFromLockCollection,
         profile,

@@ -12,7 +12,6 @@ export function WatchlistProvider({children}) {
     const {allDataLoaded, allEntries, uniqueLockIds, getLockLineFromId} = useContext(LoadingContext)
     const {profile} = useContext(DBContext)
 
-
     const getLpuWishlist = useCallback((id) => {
         const token = '81750a99'
         const url = `https://explore.lpubelts.com/wishlist/?token=${token}&id=${id}`
@@ -45,9 +44,13 @@ export function WatchlistProvider({children}) {
     }, [allDataLoaded, allEntries, watchlistEntries])
 
     const value = useMemo(() => ({
+        watchlistIds,
+        watchlistEntries,
         combinedEntries,
         getLpuWishlist
     }), [
+        watchlistIds,
+        watchlistEntries,
         combinedEntries,
         getLpuWishlist
     ])

@@ -15,7 +15,7 @@ import SignInButton from '../auth/SignInButton'
 import AuthContext from '../app/AuthContext.jsx'
 import DataContext from '../app/DataContext.jsx'
 import WatchlistAddLPUbeltsButton from './WatchlistAddLPUbeltsButton.jsx'
-import SystemMessage from './SystemMessage.jsx'
+import MessageContext from '../app/MessageContext.jsx'
 
 function LockBazaarMain() {
     const {allDataLoaded, getSellerFromId} = useContext(LoadingContextLB)
@@ -23,6 +23,7 @@ function LockBazaarMain() {
     const {profile} = useContext(DBContext)
     const {isLoggedIn} = useContext(AuthContext)
     const {filters} = useContext(FilterContext)
+    const {systemMessage} = useContext(MessageContext)
 
     const watchlistView = !!filters && filters?.collection === 'Watchlist'
     
@@ -50,9 +51,9 @@ function LockBazaarMain() {
             fontSize: '1.5rem', lineHeight: 0.8, textAlign: 'center'
         }}>
 
-            <SystemMessage/>
+            {systemMessage}
 
-            {!Object.keys(filters).length &&
+            {(!Object.keys(filters).length && !systemMessage && !profile) &&
                 <div style={{
                     fontSize: '1rem',
                     lineHeight: '1.2rem',
