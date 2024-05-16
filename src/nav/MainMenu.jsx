@@ -15,14 +15,12 @@ import DBContext from '../app/DBContext.jsx'
 
 function MainMenu() {
     const {beta} = useContext(AppContext)
-    const {adminFlags} = useContext(DBContext)
+    const {admin} = useContext(DBContext)
     const [open, setOpen] = useState(false)
     const [openTitle, setOpenTitle] = useState('More from LPU') // TODO: don't do this once there are more
 
     const handleHotkey = useCallback(() => setOpen(!open), [open])
     useHotkeys('m', handleHotkey)
-
-    const admin = (adminFlags.isAdmin || adminFlags.isSeller || adminFlags.isLBMod || adminFlags.isSPMod)
 
     const openDrawer = useCallback(() => {
         setOpen(true)

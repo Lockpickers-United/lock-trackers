@@ -12,7 +12,6 @@ import LoadingContext from './LoadingContext.jsx'
 import DBContext from '../app/DBContext.jsx'
 
 export function DataProvider({children}) {
-    const verbose = false
 
     const {user} = useContext(AuthContext)
     const {filters: allFilters} = useContext(FilterContext)
@@ -20,14 +19,9 @@ export function DataProvider({children}) {
     const {allEntries, allProfiles, allLocks, allDataLoaded} = useContext(LoadingContext)
     const {adminFlags} = useContext(DBContext)
 
-    verbose && console.log('adminFlags: ', adminFlags)
-    //console.log('dp: ', allProfiles)
-    //console.log('dp: ', allLocks)
-
     const lockBelts = belts
     const lockData = allLocks
     const isMod = !!adminFlags.isSPMod
-    //const isMod = !!(user && profile && profile?.isMod)
 
     const validEntries = useMemo(() => {
         return (allEntries && allDataLoaded && lockData)
@@ -164,8 +158,6 @@ export function DataProvider({children}) {
             })
 
     }, [bestTimes, filters, isMod, search, sort, user?.uid, validEntries])
-
-    verbose && console.log('visibleEntries', visibleEntries)
 
     const pendingEntries = useMemo(() => {
         return allEntries.filter(datum => datum.status === 'pending')

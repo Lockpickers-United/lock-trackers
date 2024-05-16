@@ -103,6 +103,9 @@ export function DBProvider({children}) {
         }
     }, [authLoaded, isLoggedIn, user])
 
+    const admin = (adminFlags?.isAdmin || adminFlags?.isSeller || adminFlags?.isLBMod || adminFlags?.isSPMod)
+
+
 // PROFILE SUBSCRIPTION //
     useEffect(() => {
         if (isLoggedIn) {
@@ -308,6 +311,7 @@ export function DBProvider({children}) {
         profile,
         getProfile,
         getProfileName,
+        admin,
         adminFlags,
         updateProfile,
         updateLastMessageDate,
@@ -322,6 +326,7 @@ export function DBProvider({children}) {
         dbLoaded,
         getProfile,
         getProfileName,
+        admin,
         adminFlags,
         updateProfile,
         updateLastMessageDate,

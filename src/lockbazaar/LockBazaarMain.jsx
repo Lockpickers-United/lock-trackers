@@ -34,7 +34,7 @@ function LockBazaarMain() {
         : '8px 8px 32px 8px'
 
     const navigate = useNavigate()
-    if (filters.viewSeller) {
+    if (filters?.viewSeller) {
         if (getSellerFromId(filters.viewSeller)) {
             const sellerName = getSellerFromId(filters.viewSeller).username
             navigate(`/lockbazaar?sellerName=${sellerName}`)
@@ -53,7 +53,7 @@ function LockBazaarMain() {
 
             {systemMessage}
 
-            {(!Object.keys(filters).length && !systemMessage && !profile) &&
+            {(!Object.keys(filters).length && !systemMessage && !profile?.created) &&
                 <div style={{
                     fontSize: '1rem',
                     lineHeight: '1.2rem',

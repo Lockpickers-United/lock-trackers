@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext, useEffect} from 'react'
 import Tracker from '../app/Tracker'
 import Footer from '../nav/Footer'
 import Nav from '../nav/Nav'
@@ -9,10 +9,22 @@ import {ListProvider} from '../context/ListContext.jsx'
 import {LBFilterFields} from '../data/filterFields'
 
 import WatchlistReportMain from './WatchlistReportMain.jsx'
+import {useNavigate} from 'react-router-dom'
+import AuthContext from '../app/AuthContext.jsx'
+import DBContext from '../app/DBContext.jsx'
 
 function ReportsRoute() {
 
     document.title = 'LPU Locks - Watchlist Report'
+
+    const {authLoaded} = useContext(AuthContext)
+    const {admin} = useContext(DBContext)
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (authLoaded && !admin) {
+            navigate('/')
+        }
+    }, [admin, authLoaded, navigate])
 
     return (
         <LoadingProvider>
