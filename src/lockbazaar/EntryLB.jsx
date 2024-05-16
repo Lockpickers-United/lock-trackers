@@ -266,7 +266,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                 <React.Fragment>
                     {!sellerView &&
                         <AccordionDetails style={{backgroundColor: '#272727'}} sx={{padding: '8px 16px 0px 16px'}}>
-                            <EntryDetailsLB entry={entry} listings={sellersListings} sellerView={sellerView} listingsArray={listingsArray}/>
+                            <EntryDetailsLB entry={entry} sellerView={sellerView} listingsArray={listingsArray}/>
                         </AccordionDetails>
                     }
                     <AccordionActions disableSpacing style={{backgroundColor: '#272727'}}>

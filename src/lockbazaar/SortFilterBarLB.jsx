@@ -82,7 +82,7 @@ function SortFilterBar() {
     const mobileLarge428 = width <= 428
 
     const divStyle = {
-        margin: '16px 0px 10px 0px', opacity: 0.8
+        margin: '16px 0px 15px 0px', opacity: 0.8
     }
     const divFlexStyle = !mobileLarge428 ? {display: 'flex'} : {}
     const combinedDivStyle = {

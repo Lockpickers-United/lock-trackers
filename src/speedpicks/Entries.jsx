@@ -61,7 +61,7 @@ function Entries() {
                     }}>
                         Check out who&#39;s got the fastest pick times from across the community and share your best
                         picks! Join
-                        the conversation on the <a href={'https://discord.com/invite/ZDgWeJUh'}
+                        the conversation on the <a href={'https://discord.gg/BQDN5fa9ff'}
                                                    target='_blank'
                                                    rel='noopener noreferrer'>#unLOCKED discord</a>.
 

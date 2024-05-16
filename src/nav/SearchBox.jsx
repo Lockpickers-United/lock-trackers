@@ -88,7 +88,7 @@ function SearchBox({label, extraFilters = []}) {
     } : {}
 
     return (
-        <div style={{marginBottom:15}}>
+        <div style={{marginBottom:20}}>
             <TextField
                 placeholder={`Search ${label}`}
                 InputProps={{

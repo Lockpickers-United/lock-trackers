@@ -6,12 +6,13 @@ import EntryYMALDisplay from './EntryYMALDisplay.jsx'
 import dayjs from 'dayjs'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 
-const EntryDetailsLB = ({entry, listings, sellerView, listingsArray}) => {
+const EntryDetailsLB = ({entry, sellerView, listingsArray}) => {
     const {getLockLineFromId} = useContext(LoadingContextLB)
     const {allGroupedIds} = useContext(DataContext)
     const parentId = entry?.id.replace(/(\w+)-*.*/, '$1')
     const otherIds = allGroupedIds[parentId] ? allGroupedIds[parentId].filter(x => x !== entry.id) : []
-    const hasListings = !!listings
+
+    const hasListings = listingsArray[0].listings?.length > 0
 
     const newListingsDate = dayjs(entry.newListingsDate).format('MM/DD/YY')
 
