@@ -1,164 +1,4 @@
 {
-   "dailyAverages" : {
-      "data" : [
-         {
-            "label" : "Visitors",
-            "value" : 61
-         },
-         {
-            "label" : "Visits",
-            "value" : 179
-         },
-         {
-            "label" : "Lock Views",
-            "value" : 182
-         }
-      ],
-      "description" : "Daily Averages"
-   },
-   "lockViewsByBelt" : {
-      "data" : [
-         {
-            "id" : "White",
-            "value" : 0.017,
-            "label" : "White"
-         },
-         {
-            "label" : "Yellow",
-            "id" : "Yellow",
-            "value" : 0.031
-         },
-         {
-            "value" : 0.033,
-            "id" : "Orange",
-            "label" : "Orange"
-         },
-         {
-            "value" : 0.085,
-            "id" : "Green",
-            "label" : "Green"
-         },
-         {
-            "label" : "Blue",
-            "id" : "Blue",
-            "value" : 0.093
-         },
-         {
-            "label" : "Purple",
-            "value" : 0.111,
-            "id" : "Purple"
-         },
-         {
-            "id" : "Brown",
-            "value" : 0.08,
-            "label" : "Brown"
-         },
-         {
-            "value" : 0.061,
-            "id" : "Red",
-            "label" : "Red"
-         },
-         {
-            "label" : "Black",
-            "value" : 0.171,
-            "id" : "Black"
-         },
-         {
-            "id" : "Unranked",
-            "value" : 0.029,
-            "label" : "Unranked"
-         }
-      ],
-      "description" : "Lock Views By Belt"
-   },
-   "totals" : {
-      "description" : "Since Launch",
-      "data" : [
-         {
-            "label" : "Site Vists",
-            "value" : 5008
-         },
-         {
-            "label" : "Lock Views",
-            "value" : 5180
-         },
-         {
-            "label" : "Countries",
-            "value" : 44
-         }
-      ]
-   },
-   "trafficTotals" : {
-      "browser" : [
-         {
-            "label" : "Chrome",
-            "id" : "Chrome",
-            "value" : 2932
-         },
-         {
-            "label" : "Safari",
-            "value" : 1079,
-            "id" : "Safari"
-         },
-         {
-            "value" : 759,
-            "id" : "Firefox",
-            "label" : "Firefox"
-         },
-         {
-            "label" : "Edge",
-            "id" : "Edge",
-            "value" : 102
-         },
-         {
-            "label" : "Samsung",
-            "id" : "Samsung",
-            "value" : 82
-         },
-         {
-            "id" : "Opera",
-            "value" : 51,
-            "label" : "Opera"
-         },
-         {
-            "label" : "Other",
-            "value" : 3,
-            "id" : "Other"
-         }
-      ],
-      "platform" : [
-         {
-            "label" : "Mac OS X",
-            "value" : 1485,
-            "id" : "Mac OS X"
-         },
-         {
-            "label" : "Android",
-            "id" : "Android",
-            "value" : 1260
-         },
-         {
-            "id" : "Win10.0",
-            "value" : 914,
-            "label" : "Win10.0"
-         },
-         {
-            "id" : "iOS",
-            "value" : 872,
-            "label" : "iOS"
-         },
-         {
-            "id" : "Linux",
-            "value" : 453,
-            "label" : "Linux"
-         },
-         {
-            "label" : "Other",
-            "value" : 24,
-            "id" : "Other"
-         }
-      ]
-   },
    "lockViews" : [
       {
          "id" : "Lock Views",
@@ -172,12 +12,20 @@
                "x" : "2024-04-08"
             },
             {
-               "y" : 1588,
-               "x" : "2024-04-15"
+               "x" : "2024-04-15",
+               "y" : 1588
             },
             {
                "x" : "2024-04-22",
                "y" : 1419
+            },
+            {
+               "x" : "2024-04-29",
+               "y" : 1379
+            },
+            {
+               "y" : 897,
+               "x" : "2024-05-06"
             }
          ]
       }
@@ -187,203 +35,363 @@
          "data" : [
             {
                "x" : "midnight",
-               "y" : 203
+               "y" : 282
             },
             {
-               "y" : 188,
-               "x" : "1 am"
+               "x" : "1 am",
+               "y" : 256
             },
             {
                "x" : "2 am",
-               "y" : 284
+               "y" : 356
             },
             {
-               "x" : "3 am",
-               "y" : 208
+               "y" : 296,
+               "x" : "3 am"
             },
             {
                "x" : "4 am",
-               "y" : 399
+               "y" : 460
             },
             {
                "x" : "5 am",
-               "y" : 538
+               "y" : 656
             },
             {
-               "y" : 675,
+               "y" : 846,
                "x" : "6 am"
             },
             {
-               "y" : 834,
+               "y" : 1087,
                "x" : "7 am"
             },
             {
-               "x" : "8 am",
-               "y" : 917
+               "y" : 1227,
+               "x" : "8 am"
             },
             {
-               "y" : 1330,
-               "x" : "9 am"
+               "x" : "9 am",
+               "y" : 1500
             },
             {
-               "y" : 696,
-               "x" : "10 am"
+               "x" : "10 am",
+               "y" : 1013
             },
             {
                "x" : "11 am",
-               "y" : 830
+               "y" : 1015
             },
             {
                "x" : "noon",
-               "y" : 753
+               "y" : 1057
             },
             {
-               "y" : 865,
+               "y" : 1283,
                "x" : "1 pm"
             },
             {
-               "y" : 753,
-               "x" : "2 pm"
+               "x" : "2 pm",
+               "y" : 1105
             },
             {
-               "x" : "3 pm",
-               "y" : 852
+               "y" : 1149,
+               "x" : "3 pm"
             },
             {
                "x" : "4 pm",
-               "y" : 971
+               "y" : 1453
             },
             {
-               "y" : 997,
+               "y" : 1397,
                "x" : "5 pm"
             },
             {
                "x" : "6 pm",
-               "y" : 701
+               "y" : 978
             },
             {
                "x" : "7 pm",
-               "y" : 938
+               "y" : 1258
             },
             {
                "x" : "8 pm",
-               "y" : 676
+               "y" : 942
             },
             {
-               "x" : "9 pm",
-               "y" : 520
+               "y" : 849,
+               "x" : "9 pm"
             },
             {
                "x" : "10 pm",
-               "y" : 517
+               "y" : 755
             },
             {
-               "y" : 227,
+               "y" : 456,
                "x" : "11 pm"
             }
          ],
          "id" : "User Time"
       },
       {
+         "id" : "Server Time",
          "data" : [
             {
-               "y" : 413,
+               "y" : 542,
                "x" : "midnight"
             },
             {
-               "y" : 278,
+               "y" : 364,
                "x" : "1 am"
             },
             {
-               "y" : 342,
+               "y" : 437,
                "x" : "2 am"
             },
             {
-               "y" : 568,
+               "y" : 680,
                "x" : "3 am"
             },
             {
-               "y" : 408,
-               "x" : "4 am"
+               "x" : "4 am",
+               "y" : 538
             },
             {
-               "x" : "5 am",
-               "y" : 478
+               "y" : 582,
+               "x" : "5 am"
             },
             {
                "x" : "6 am",
-               "y" : 517
+               "y" : 660
             },
             {
-               "x" : "7 am",
-               "y" : 850
+               "y" : 1181,
+               "x" : "7 am"
             },
             {
-               "y" : 1060,
+               "y" : 1453,
                "x" : "8 am"
             },
             {
                "x" : "9 am",
-               "y" : 1051
+               "y" : 1238
             },
             {
-               "y" : 856,
-               "x" : "10 am"
+               "x" : "10 am",
+               "y" : 1095
             },
             {
-               "x" : "11 am",
-               "y" : 801
+               "y" : 1019,
+               "x" : "11 am"
             },
             {
-               "x" : "noon",
-               "y" : 821
+               "y" : 1141,
+               "x" : "noon"
             },
             {
-               "y" : 712,
+               "y" : 1082,
                "x" : "1 pm"
             },
             {
-               "x" : "2 pm",
-               "y" : 842
+               "y" : 1169,
+               "x" : "2 pm"
             },
             {
-               "y" : 845,
+               "y" : 1224,
                "x" : "3 pm"
             },
             {
-               "x" : "4 pm",
-               "y" : 820
+               "y" : 1311,
+               "x" : "4 pm"
             },
             {
-               "x" : "5 pm",
-               "y" : 961
+               "y" : 1353,
+               "x" : "5 pm"
             },
             {
-               "y" : 506,
-               "x" : "6 pm"
+               "x" : "6 pm",
+               "y" : 707
             },
             {
-               "y" : 685,
+               "y" : 944,
                "x" : "7 pm"
             },
             {
                "x" : "8 pm",
-               "y" : 486
+               "y" : 695
             },
             {
-               "y" : 593,
-               "x" : "9 pm"
+               "x" : "9 pm",
+               "y" : 852
             },
             {
-               "x" : "10 pm",
-               "y" : 635
+               "y" : 830,
+               "x" : "10 pm"
             },
             {
-               "x" : "11 pm",
-               "y" : 345
+               "y" : 580,
+               "x" : "11 pm"
             }
-         ],
-         "id" : "Server Time"
+         ]
       }
-   ]
+   ],
+   "lockViewsByBelt" : {
+      "description" : "Lock Views By Belt",
+      "data" : [
+         {
+            "value" : 0.023,
+            "label" : "White",
+            "id" : "White"
+         },
+         {
+            "id" : "Yellow",
+            "label" : "Yellow",
+            "value" : 0.031
+         },
+         {
+            "id" : "Orange",
+            "label" : "Orange",
+            "value" : 0.03
+         },
+         {
+            "value" : 0.096,
+            "id" : "Green",
+            "label" : "Green"
+         },
+         {
+            "label" : "Blue",
+            "id" : "Blue",
+            "value" : 0.104
+         },
+         {
+            "value" : 0.119,
+            "id" : "Purple",
+            "label" : "Purple"
+         },
+         {
+            "id" : "Brown",
+            "label" : "Brown",
+            "value" : 0.081
+         },
+         {
+            "label" : "Red",
+            "id" : "Red",
+            "value" : 0.068
+         },
+         {
+            "value" : 0.176,
+            "id" : "Black",
+            "label" : "Black"
+         },
+         {
+            "value" : 0.031,
+            "id" : "Unranked",
+            "label" : "Unranked"
+         }
+      ]
+   },
+   "trafficTotals" : {
+      "browser" : [
+         {
+            "label" : "Chrome",
+            "id" : "Chrome",
+            "value" : 3848
+         },
+         {
+            "label" : "Safari",
+            "id" : "Safari",
+            "value" : 1675
+         },
+         {
+            "value" : 949,
+            "id" : "Firefox",
+            "label" : "Firefox"
+         },
+         {
+            "id" : "Edge",
+            "label" : "Edge",
+            "value" : 207
+         },
+         {
+            "value" : 153,
+            "label" : "Opera",
+            "id" : "Opera"
+         },
+         {
+            "label" : "Samsung",
+            "id" : "Samsung",
+            "value" : 93
+         },
+         {
+            "value" : 4,
+            "label" : "Other",
+            "id" : "Other"
+         }
+      ],
+      "platform" : [
+         {
+            "label" : "Mac OS X",
+            "id" : "Mac OS X",
+            "value" : 1916
+         },
+         {
+            "id" : "Android",
+            "label" : "Android",
+            "value" : 1799
+         },
+         {
+            "value" : 1347,
+            "label" : "iOS",
+            "id" : "iOS"
+         },
+         {
+            "id" : "Win10.0",
+            "label" : "Win10.0",
+            "value" : 1320
+         },
+         {
+            "value" : 522,
+            "id" : "Linux",
+            "label" : "Linux"
+         },
+         {
+            "value" : 25,
+            "label" : "Other",
+            "id" : "Other"
+         }
+      ]
+   },
+   "totals" : {
+      "description" : "Since Launch",
+      "data" : [
+         {
+            "label" : "Site Vists",
+            "value" : 6929
+         },
+         {
+            "label" : "Lock Views",
+            "value" : 7146
+         },
+         {
+            "label" : "Countries",
+            "value" : 45
+         }
+      ]
+   },
+   "dailyAverages" : {
+      "description" : "Daily Averages",
+      "data" : [
+         {
+            "value" : 59,
+            "label" : "Visitors"
+         },
+         {
+            "label" : "Visits",
+            "value" : 161
+         },
+         {
+            "value" : 185,
+            "label" : "Lock Views"
+         }
+      ]
+   }
 }

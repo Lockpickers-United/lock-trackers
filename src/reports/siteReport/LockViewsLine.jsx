@@ -35,8 +35,8 @@ function LockViewsLine({data}) {
                 }}
                 curve='natural'
                 axisBottom={{
-                    format: '%b',
-                    tickValues: 'every 1 month',
+                    format: '%b %d',
+                    tickValues: 'every 1 week',
                     legendOffset: -12
                 }}
                 axisLeft={{

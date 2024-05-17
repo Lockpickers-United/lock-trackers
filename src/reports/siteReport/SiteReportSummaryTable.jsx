@@ -20,6 +20,20 @@ const SiteReportSummaryTable = ({fullData}) => {
         data: data.data.filter(lastN)
     }
 
+    const totalVisits = tabledata.data.reduce((acc, row) => {
+        return acc + row.visits
+    }, 0)
+    const totalLockViews = tabledata.data.reduce((acc, row) => {
+        return acc + row.lockViews
+    }, 0)
+    const averages = {
+        date: 'Ave',
+        dateString: 'Average',
+        visits: Math.round(totalVisits / daysToReport),
+        lockViews: Math.round(totalLockViews / daysToReport)
+    }
+    tabledata.data.push(averages)
+
     const {width} = useWindowSize()
     const mobile360 = width <= 360
     const mobile395 = width <= 395
@@ -38,12 +52,12 @@ const SiteReportSummaryTable = ({fullData}) => {
     const tableHeight = 340
 
     return (
-            <AdminStatsTable
-                tableData={tabledata}
-                tableWidth={tableWidth}
-                tableHeight={tableHeight}
-                fontSize={fontSize}
-            />
+        <AdminStatsTable
+            tableData={tabledata}
+            tableWidth={tableWidth}
+            tableHeight={tableHeight}
+            fontSize={fontSize}
+        />
     )
 }
 

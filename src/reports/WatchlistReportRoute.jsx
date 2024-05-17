@@ -18,13 +18,13 @@ function ReportsRoute() {
     document.title = 'LPU Locks - Watchlist Report'
 
     const {authLoaded} = useContext(AuthContext)
-    const {admin} = useContext(DBContext)
+    const {dbLoaded, admin} = useContext(DBContext)
     const navigate = useNavigate()
     useEffect(() => {
-        if (authLoaded && !admin) {
+        if (authLoaded && dbLoaded && !admin) {
             navigate('/')
         }
-    }, [admin, authLoaded, navigate])
+    }, [admin, authLoaded, dbLoaded, navigate])
 
     return (
         <LoadingProvider>

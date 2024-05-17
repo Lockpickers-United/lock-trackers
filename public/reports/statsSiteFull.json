@@ -1,808 +1,132 @@
 {
-   "traffic28days" : {
-      "title" : "",
-      "columns" : [
-         {
-            "id" : "weekend",
-            "align" : "hidden",
-            "name" : "Weekend"
-         },
-         {
-            "name" : "Date",
-            "align" : "left",
-            "id" : "date"
-         },
-         {
-            "id" : "dateString",
-            "align" : "left",
-            "name" : "Date"
-         },
-         {
-            "id" : "visitors",
-            "name" : "Visitors",
-            "align" : "center"
-         },
-         {
-            "id" : "visits",
-            "align" : "center",
-            "name" : "Visits"
-         },
-         {
-            "id" : "lockViews",
-            "name" : "Views",
-            "align" : "center"
-         }
-      ],
-      "data" : [
-         {
-            "visitors" : 52,
-            "lockViews" : 134,
-            "visits" : 209,
-            "date" : "2024-04-14",
-            "dateString" : "04/14",
-            "weekend" : 1
-         },
-         {
-            "date" : "2024-04-15",
-            "dateString" : "04/15",
-            "weekend" : 0,
-            "visitors" : 118,
-            "lockViews" : 410,
-            "visits" : 395
-         },
-         {
-            "dateString" : "04/16",
-            "date" : "2024-04-16",
-            "weekend" : 0,
-            "visits" : 240,
-            "visitors" : 72,
-            "lockViews" : 255
-         },
-         {
-            "visitors" : 99,
-            "lockViews" : 180,
-            "visits" : 216,
-            "date" : "2024-04-17",
-            "dateString" : "04/17",
-            "weekend" : 0
-         },
-         {
-            "lockViews" : 166,
-            "visitors" : 76,
-            "visits" : 193,
-            "weekend" : 0,
-            "dateString" : "04/18",
-            "date" : "2024-04-18"
-         },
-         {
-            "weekend" : 0,
-            "dateString" : "04/19",
-            "date" : "2024-04-19",
-            "lockViews" : 209,
-            "visitors" : 66,
-            "visits" : 165
-         },
-         {
-            "weekend" : 1,
-            "date" : "2024-04-20",
-            "dateString" : "04/20",
-            "visits" : 106,
-            "lockViews" : 188,
-            "visitors" : 39
-         },
-         {
-            "visits" : 146,
-            "lockViews" : 180,
-            "visitors" : 62,
-            "weekend" : 1,
-            "date" : "2024-04-21",
-            "dateString" : "04/21"
-         },
-         {
-            "lockViews" : 383,
-            "visitors" : 88,
-            "visits" : 271,
-            "weekend" : 0,
-            "date" : "2024-04-22",
-            "dateString" : "04/22"
-         },
-         {
-            "weekend" : 0,
-            "dateString" : "04/23",
-            "date" : "2024-04-23",
-            "lockViews" : 200,
-            "visitors" : 70,
-            "visits" : 160
-         },
-         {
-            "dateString" : "04/24",
-            "date" : "2024-04-24",
-            "weekend" : 0,
-            "visitors" : 64,
-            "lockViews" : 261,
-            "visits" : 302
-         },
-         {
-            "date" : "2024-04-25",
-            "dateString" : "04/25",
-            "weekend" : 0,
-            "visits" : 150,
-            "visitors" : 58,
-            "lockViews" : 151
-         },
-         {
-            "lockViews" : 166,
-            "visitors" : 50,
-            "visits" : 125,
-            "weekend" : 0,
-            "dateString" : "04/26",
-            "date" : "2024-04-26"
-         },
-         {
-            "lockViews" : 128,
-            "visitors" : 60,
-            "visits" : 134,
-            "weekend" : 1,
-            "date" : "2024-04-27",
-            "dateString" : "04/27"
-         },
-         {
-            "date" : "2024-04-28",
-            "dateString" : "04/28",
-            "weekend" : 1,
-            "visits" : 135,
-            "visitors" : 55,
-            "lockViews" : 130
-         },
-         {
-            "date" : "2024-04-29",
-            "dateString" : "04/29",
-            "weekend" : 0,
-            "visitors" : 107,
-            "lockViews" : 355,
-            "visits" : 273
-         },
-         {
-            "weekend" : 0,
-            "dateString" : "04/30",
-            "date" : "2024-04-30",
-            "visits" : 113,
-            "lockViews" : 158,
-            "visitors" : 66
-         },
-         {
-            "dateString" : "05/01",
-            "date" : "2024-05-01",
-            "weekend" : 0,
-            "visitors" : 57,
-            "lockViews" : 191,
-            "visits" : 172
-         },
-         {
-            "date" : "2024-05-02",
-            "dateString" : "05/02",
-            "weekend" : 0,
-            "visitors" : 43,
-            "lockViews" : 196,
-            "visits" : 89
-         },
-         {
-            "dateString" : "05/03",
-            "date" : "2024-05-03",
-            "weekend" : 0,
-            "visits" : 146,
-            "visitors" : 52,
-            "lockViews" : 151
-         },
-         {
-            "visitors" : 38,
-            "lockViews" : 180,
-            "visits" : 90,
-            "dateString" : "05/04",
-            "date" : "2024-05-04",
-            "weekend" : 1
-         },
-         {
-            "lockViews" : 148,
-            "visitors" : 50,
-            "visits" : 137,
-            "weekend" : 1,
-            "dateString" : "05/05",
-            "date" : "2024-05-05"
-         },
-         {
-            "visits" : 246,
-            "visitors" : 42,
-            "lockViews" : 112,
-            "dateString" : "05/06",
-            "date" : "2024-05-06",
-            "weekend" : 0
-         },
-         {
-            "weekend" : 0,
-            "dateString" : "05/07",
-            "date" : "2024-05-07",
-            "visits" : 130,
-            "lockViews" : 215,
-            "visitors" : 65
-         },
-         {
-            "visitors" : 60,
-            "lockViews" : 215,
-            "visits" : 140,
-            "date" : "2024-05-08",
-            "dateString" : "05/08",
-            "weekend" : 0
-         },
-         {
-            "visits" : 160,
-            "visitors" : 42,
-            "lockViews" : 101,
-            "dateString" : "05/09",
-            "date" : "2024-05-09",
-            "weekend" : 0
-         },
-         {
-            "lockViews" : 13,
-            "visitors" : 47,
-            "visits" : 253,
-            "weekend" : 0,
-            "date" : "2024-05-10",
-            "dateString" : "05/10"
-         },
-         {
-            "visits" : 123,
-            "lockViews" : 141,
-            "visitors" : 53,
-            "weekend" : 1,
-            "date" : "2024-05-11",
-            "dateString" : "05/11"
-         }
-      ]
-   },
-   "samelineViews" : {
-      "eed91da5-2" : 4,
-      "3ac43ea8" : 1,
-      "eec4bd4a" : 15,
-      "6efe5f67-3" : 5,
-      "fb51b475" : 17,
-      "9659ad59" : 8,
-      "6af6f704" : 25,
-      "87ee7a61" : 2,
-      "6c0ec943" : 19,
-      "ea1afad0-1" : 8,
-      "305473cf-1" : 13,
-      "30a4fef5-2" : 17,
-      "e87f0ca2" : 48,
-      "c5b7e63b-2" : 7,
-      "7168d463-1" : 27,
-      "96bb2cf7" : 13,
-      "8307d77f" : 6,
-      "df8081fa" : 12,
-      "1fe0ba0d-1" : 5,
-      "f93c57fc" : 4,
-      "48323cde" : 11,
-      "fb5a9eb7" : 66,
-      "054731a5" : 36,
-      "58307da0" : 28,
-      "305473cf" : 1,
-      "87ee7a61-1" : 2,
-      "1459e2c6" : 20,
-      "ea6539c8" : 17,
-      "d98f267e" : 11,
-      "7168d463" : 13,
-      "74a00ae3" : 36,
-      "1a7a23d4-1" : 4,
-      "96bb2cf7-1" : 1,
-      "f1857cef" : 10,
-      "204066fa" : 9,
-      "d261a3ba" : 11,
-      "d3ad5a73" : 7,
-      "bc1ed715" : 31,
-      "6dd5a34b" : 4,
-      "6e59ba12-4" : 43,
-      "e151c916" : 15,
-      "8c2983b5-4" : 4,
-      "a0ec1618-1" : 27,
-      "109531f4" : 3,
-      "cb471080" : 14,
-      "843896be" : 6,
-      "23c7988c" : 2,
-      "81338028" : 16,
-      "8d4632d9" : 19,
-      "a5a164ad" : 26,
-      "00cf7717" : 2,
-      "31cd85d7" : 27,
-      "f7452b9f-2" : 1,
-      "ae7d3780-1" : 2,
-      "c800618f" : 17,
-      "6f837bb4" : 156,
-      "a0ec1618" : 15,
-      "109531f4-1" : 27,
-      "8f99236e-2" : 2,
-      "d3ad5a73-1" : 41,
-      "3ca098da" : 2,
-      "94466c21-2" : 13,
-      "3ddfc71c" : 30,
-      "9423b4a4" : 1,
-      "434bdf9d" : 15,
-      "3335df97-3" : 27,
-      "cf5bd73b" : 15,
-      "45e3cde7-1" : 75,
-      "91f40022" : 9,
-      "29ab2852" : 73,
-      "6e59ba12-2" : 14,
-      "ab1e901f" : 39,
-      "110c872d" : 1,
-      "039a239f" : 33,
-      "2455f0ae-2" : 1,
-      "826c31e0-2" : 52,
-      "58f2eac0" : 5,
-      "bce6757d" : 12,
-      "69668831-1" : 1,
-      "3335df97" : 1,
-      "e0a9caf4" : 11,
-      "aec0c82d-2" : 21,
-      "cf5bd73b-1" : 11,
-      "6dc539dd" : 27,
-      "45e3cde7" : 19,
-      "3515caae-1" : 1,
-      "b8783269" : 1,
-      "0bc03ee8-2" : 3,
-      "2c58f220" : 1,
-      "c9494ee8" : 19,
-      "234a8ca8" : 9,
-      "aa7fc00e" : 4,
-      "514c7ec4-2" : 4,
-      "37914cb6" : 5,
-      "f133510b" : 89,
-      "82ea52a4" : 8,
-      "557b2f45-3" : 9,
-      "3f73d2ce-3" : 21,
-      "e3bd3faf" : 27,
-      "4debdca1" : 9,
-      "901b35b2" : 40,
-      "3f73d2ce" : 2,
-      "a0e50505" : 48,
-      "30aa78ef" : 15,
-      "0e1cabed" : 3,
-      "842165cc" : 2,
-      "3f49ccc1-2" : 6,
-      "18e1f45b-1" : 4,
-      "557b2f45" : 13,
-      "5c5701d7-1" : 7,
-      "3eced659" : 12,
-      "9094ca58" : 4,
-      "54087329" : 14,
-      "920b7da1" : 12,
-      "4cd09b3b-2" : 12,
-      "6ca3420d" : 18,
-      "3f73d2ce-1" : 20,
-      "e92d29ad" : 37,
-      "cc8cfd45" : 12,
-      "18e1f45b" : 2,
-      "5c5701d7" : 1,
-      "2929f922-2" : 7,
-      "2ae6a691" : 26,
-      "649eaebc-1" : 43,
-      "71c7270b" : 4,
-      "842165cc-1" : 15,
-      "dbc6670b" : 7,
-      "9da7a5f2" : 16,
-      "562e964e" : 51,
-      "5ab25363" : 4,
-      "93871dad" : 13,
-      "f8445741" : 2,
-      "6e59ba12" : 5,
-      "8c2983b5" : 2,
-      "da8331ef-3" : 22,
-      "e8c7dd5b" : 8,
-      "b5a5e9a5" : 10,
-      "959a6b9d" : 48,
-      "6e59ba12-3" : 1,
-      "61f33761" : 19,
-      "55053299-2" : 46,
-      "0bc03ee8-1" : 1,
-      "3335df97-2" : 16,
-      "3700d537-1" : 6,
-      "826c31e0" : 15,
-      "366d5f50" : 13,
-      "304f5471-2" : 13,
-      "122b5621" : 19,
-      "9215a45f" : 16,
-      "2ae1e0b8" : 82,
-      "6e59ba12-1" : 33,
-      "7786832f" : 9,
-      "ef4e0295-1" : 3,
-      "2455f0ae-1" : 40,
-      "d1272b9f" : 13,
-      "00a2ff18" : 42,
-      "514c7ec4" : 5,
-      "c4f942f0" : 11,
-      "3700d537" : 1,
-      "826c31e0-1" : 47,
-      "6f954c60" : 14,
-      "23437955" : 13,
-      "4f0fbb3f" : 10,
-      "7ea33803" : 15,
-      "7298a640" : 2,
-      "e7f6d089" : 1,
-      "4cd09b3b-1" : 11,
-      "ea1d1d8c" : 45,
-      "1dafd552" : 1,
-      "a0d1bf97" : 1,
-      "3f73d2ce-2" : 19,
-      "7194cc26" : 32,
-      "fdb68dc4" : 9,
-      "c942490e" : 33,
-      "da09d849" : 101,
-      "dd6a3683" : 16,
-      "1dd28bf9" : 39,
-      "649eaebc-2" : 27,
-      "3af2407a" : 21,
-      "5c5a2309" : 1,
-      "9375df98" : 6,
-      "10ab07eb" : 8,
-      "6b2e5290" : 23,
-      "5cba063b" : 20,
-      "d0c510c5" : 4,
-      "4cd09b3b" : 15,
-      "9982c0eb" : 22,
-      "b13f4b57" : 25,
-      "54dc69e8" : 23,
-      "c6529d9c" : 54,
-      "07bc680a" : 25,
-      "0ae75ea0" : 14,
-      "abf55188" : 37,
-      "4f2ed774" : 1,
-      "a2bd7f1e" : 9,
-      "3f49ccc1-1" : 5,
-      "acde7f0c" : 11,
-      "55511995" : 12,
-      "14ece36b" : 4,
-      "a57c1e9b" : 1,
-      "735439dd" : 21,
-      "2ec75ab7" : 7,
-      "b8350901" : 35,
-      "f7b52501-2" : 15,
-      "3f73d2ce-4" : 18,
-      "b29a8b44-1" : 6,
-      "c5b7e63b" : 4,
-      "cc5bbb68" : 5,
-      "1a7a23d4-2" : 4,
-      "c8259a23" : 22,
-      "48323cde-2" : 6,
-      "3e5236c7" : 1,
-      "2e67118d" : 15,
-      "104776ef" : 2,
-      "96591a8f" : 47,
-      "fc627b17" : 47,
-      "305473cf-2" : 1,
-      "4071176d" : 17,
-      "e2e15f47" : 24,
-      "7164f69d" : 15,
-      "b29a8b44" : 25,
-      "c5b7e63b-1" : 5,
-      "5f0834f5" : 20,
-      "3ebbc1f4" : 38,
-      "4993a918" : 39,
-      "d78ca1ba" : 2,
-      "331c9d36" : 34,
-      "e39885f3" : 22,
-      "f7452b9f-1" : 1,
-      "a1233156" : 33,
-      "ae7d3780-2" : 1,
-      "109531f4-2" : 27,
-      "be22f5f1-1" : 8,
-      "8ea170d2" : 24,
-      "57fbcb1b" : 29,
-      "ed3ae6cf" : 5,
-      "94466c21-1" : 25,
-      "898a7138" : 18,
-      "db63c882" : 5,
-      "cad3eff0" : 11,
-      "14481dfb" : 6,
-      "8d67f9b7" : 28,
-      "48cf387f" : 15,
-      "b8350900" : 15,
-      "7d9d715d" : 15,
-      "db380ba0" : 16,
-      "8f99236e" : 8,
-      "5103e650" : 62,
-      "4403a73f" : 2,
-      "e1625c4d" : 45,
-      "dff62f52" : 18,
-      "ff0be785" : 4,
-      "0770580d-1" : 5,
-      "f1e92541" : 2,
-      "9b275fcc" : 5,
-      "135ef1c0" : 9,
-      "f54c8493" : 29,
-      "9406020f" : 9,
-      "40f7d7c7" : 29,
-      "506b242a" : 13,
-      "9aedb834" : 5,
-      "94466c21" : 8
-   },
-   "metadata" : {
-      "updatedDateTime" : "2024-05-12T12:21:06",
-      "timezone" : "EDT"
-   },
    "popularCountries1" : {
       "data" : [
          {
-            "visits" : 4374,
-            "rank" : 1,
-            "area" : "United States"
+            "area" : "United States",
+            "visits" : 4916,
+            "rank" : 1
          },
          {
             "rank" : 2,
-            "area" : "Germany",
-            "visits" : 693
+            "visits" : 731,
+            "area" : "Germany"
          },
          {
-            "area" : "United Kingdom",
             "rank" : 3,
-            "visits" : 233
-         },
-         {
-            "visits" : 230,
-            "rank" : 4,
+            "visits" : 275,
             "area" : "Canada"
          },
          {
-            "visits" : 179,
-            "area" : "Netherlands",
-            "rank" : 5
+            "area" : "United Kingdom",
+            "rank" : 4,
+            "visits" : 252
          },
          {
-            "visits" : 141,
-            "area" : "Australia",
-            "rank" : 6
+            "rank" : 5,
+            "visits" : 195,
+            "area" : "Netherlands"
          },
          {
-            "visits" : 82,
-            "area" : "France",
-            "rank" : 7
+            "visits" : 159,
+            "rank" : 6,
+            "area" : "Australia"
          },
          {
-            "area" : "Portugal",
+            "rank" : 7,
+            "visits" : 101,
+            "area" : "France"
+         },
+         {
             "rank" : 8,
-            "visits" : 46
+            "visits" : 51,
+            "area" : "Portugal"
          },
          {
-            "rank" : 9,
             "area" : "Sweden",
-            "visits" : 33
+            "visits" : 36,
+            "rank" : 9
          },
          {
-            "visits" : 20,
             "area" : "Finland",
-            "rank" : 10
+            "rank" : 10,
+            "visits" : 21
          },
          {
-            "visits" : 17,
+            "visits" : 18,
             "rank" : 11,
             "area" : "Spain"
          },
          {
-            "visits" : 16,
             "rank" : 12,
+            "visits" : 16,
             "area" : "Hungary"
          },
          {
-            "rank" : 13,
             "area" : "Bulgaria",
-            "visits" : 15
+            "visits" : 15,
+            "rank" : 13
          },
          {
-            "rank" : 14,
             "area" : "Italy",
+            "rank" : 14,
             "visits" : 14
          },
          {
+            "area" : "Belgium",
             "rank" : 15,
-            "area" : "Saudi Arabia",
-            "visits" : 10
+            "visits" : 13
          },
          {
+            "area" : "Saudi Arabia",
             "visits" : 10,
-            "rank" : 16,
-            "area" : "Switzerland"
+            "rank" : 16
          },
          {
             "rank" : 17,
-            "area" : "Poland",
-            "visits" : 8
+            "visits" : 10,
+            "area" : "Switzerland"
          },
          {
-            "visits" : 6,
+            "visits" : 9,
             "rank" : 18,
-            "area" : "Denmark"
-         },
-         {
-            "rank" : 19,
-            "area" : "Ireland",
-            "visits" : 6
-         },
-         {
-            "visits" : 5,
-            "rank" : 20,
-            "area" : "Austria"
-         },
-         {
-            "area" : "Belgium",
-            "rank" : 21,
-            "visits" : 5
-         },
-         {
-            "area" : "New Zealand",
-            "rank" : 22,
-            "visits" : 5
-         }
-      ],
-      "columns" : [
-         {
-            "id" : "rank",
-            "name" : "Rank",
-            "align" : "center"
-         },
-         {
-            "id" : "area",
-            "name" : "Area",
-            "align" : "left"
-         },
-         {
-            "id" : "visits",
-            "name" : "Visits",
-            "align" : "center"
-         }
-      ],
-      "title" : ""
-   },
-   "popularCountries2" : {
-      "data" : [
-         {
-            "visits" : 5,
-            "rank" : 24,
-            "area" : "Republic of Korea"
-         },
-         {
-            "visits" : 4,
-            "area" : "Georgia",
-            "rank" : 25
-         },
-         {
-            "visits" : 4,
-            "rank" : 26,
-            "area" : "Japan"
-         },
-         {
-            "visits" : 3,
-            "rank" : 27,
-            "area" : "Hong Kong"
-         },
-         {
-            "rank" : 28,
-            "area" : "Israel",
-            "visits" : 3
-         },
-         {
-            "area" : "Romania",
-            "rank" : 29,
-            "visits" : 3
-         },
-         {
-            "visits" : 3,
-            "rank" : 30,
-            "area" : "Serbia"
-         },
-         {
-            "visits" : 3,
-            "rank" : 31,
             "area" : "Slovakia"
          },
          {
-            "area" : "Bangladesh",
-            "rank" : 32,
-            "visits" : 2
+            "area" : "Denmark",
+            "rank" : 19,
+            "visits" : 8
          },
          {
-            "area" : "Brazil",
-            "rank" : 33,
-            "visits" : 2
+            "rank" : 20,
+            "visits" : 8,
+            "area" : "New Zealand"
          },
          {
-            "visits" : 2,
-            "area" : "Luxembourg",
-            "rank" : 34
+            "visits" : 8,
+            "rank" : 21,
+            "area" : "Poland"
          },
          {
-            "area" : "Russian Federation",
-            "rank" : 35,
-            "visits" : 2
+            "rank" : 22,
+            "visits" : 7,
+            "area" : "Ireland"
          },
          {
-            "rank" : 36,
-            "area" : "Singapore",
-            "visits" : 2
-         },
-         {
-            "area" : "Taiwan",
-            "rank" : 37,
-            "visits" : 2
-         },
-         {
-            "visits" : 1,
-            "rank" : 38,
-            "area" : "Bahamas"
-         },
-         {
-            "area" : "Costa Rica",
-            "rank" : 39,
-            "visits" : 1
-         },
-         {
-            "visits" : 1,
-            "area" : "Croatia",
-            "rank" : 40
-         },
-         {
-            "visits" : 1,
-            "rank" : 41,
-            "area" : "Czech Republic"
-         },
-         {
-            "visits" : 1,
-            "area" : "India",
-            "rank" : 42
-         },
-         {
-            "visits" : 1,
-            "rank" : 43,
-            "area" : "Jamaica"
-         },
-         {
-            "visits" : 1,
-            "rank" : 44,
-            "area" : "Malaysia"
-         },
-         {
-            "visits" : 1,
-            "area" : "Seychelles",
-            "rank" : 45
+            "rank" : 23,
+            "visits" : 7,
+            "area" : "Republic of Korea"
          }
       ],
       "columns" : [
          {
-            "id" : "rank",
             "name" : "Rank",
-            "align" : "center"
-         },
-         {
-            "id" : "area",
-            "name" : "Area",
-            "align" : "left"
-         },
-         {
-            "id" : "visits",
-            "name" : "Visits",
-            "align" : "center"
-         }
-      ]
-   },
-   "firstVistsLastSevenDays" : {
-      "data" : [],
-      "columns" : [
-         {
-            "id" : "country",
-            "name" : "Country",
-            "align" : "left"
-         },
-         {
-            "id" : "firstVisit",
             "align" : "center",
-            "name" : "First Visit"
+            "id" : "rank"
+         },
+         {
+            "name" : "Area",
+            "align" : "left",
+            "id" : "area"
          },
          {
             "name" : "Visits",
@@ -810,208 +134,947 @@
             "id" : "visits"
          }
       ],
-      "countryCount" : 0,
       "title" : ""
+   },
+   "samelineViews" : {
+      "f1857cef" : 10,
+      "48cf387f" : 18,
+      "3700d537-1" : 7,
+      "ea1d1d8c" : 48,
+      "8f99236e-2" : 10,
+      "94466c21-2" : 16,
+      "58f2eac0" : 6,
+      "305473cf" : 1,
+      "2ec75ab7" : 9,
+      "a0e50505" : 48,
+      "109531f4" : 3,
+      "054731a5" : 38,
+      "58307da0" : 33,
+      "d1272b9f" : 16,
+      "2e67118d" : 17,
+      "d3ad5a73" : 7,
+      "9375df98" : 6,
+      "cf5bd73b-1" : 18,
+      "30aa78ef" : 16,
+      "3af2407a" : 26,
+      "3700d537" : 1,
+      "5c5a2309" : 1,
+      "305473cf-1" : 17,
+      "109531f4-1" : 33,
+      "f7b52501-2" : 18,
+      "e1625c4d" : 56,
+      "69668831-1" : 1,
+      "00a2ff18" : 49,
+      "c5b7e63b-2" : 7,
+      "48323cde" : 11,
+      "d3ad5a73-1" : 49,
+      "7164f69d" : 17,
+      "234a8ca8" : 14,
+      "cf5bd73b" : 15,
+      "8ea170d2" : 27,
+      "87ee7a61-1" : 3,
+      "2ae6a691" : 29,
+      "2929f922-2" : 13,
+      "c4f942f0" : 11,
+      "506b242a" : 16,
+      "74a00ae3" : 53,
+      "e151c916" : 17,
+      "45e3cde7-1" : 100,
+      "1dd28bf9" : 42,
+      "514c7ec4-2" : 4,
+      "87ee7a61" : 2,
+      "a5a164ad" : 31,
+      "c800618f" : 22,
+      "c9494ee8" : 25,
+      "898a7138" : 21,
+      "135ef1c0" : 12,
+      "c8259a23" : 23,
+      "ea6539c8" : 17,
+      "45e3cde7" : 19,
+      "82ea52a4" : 8,
+      "71c7270b" : 5,
+      "7298a640" : 2,
+      "6dc539dd" : 30,
+      "ab1e901f" : 43,
+      "5f0834f5" : 21,
+      "920b7da1" : 17,
+      "6f954c60" : 16,
+      "b8350901" : 40,
+      "cc8cfd45" : 12,
+      "b29a8b44-1" : 8,
+      "10ab07eb" : 12,
+      "9da7a5f2" : 18,
+      "f93c57fc" : 4,
+      "3f49ccc1-1" : 5,
+      "94ee12b7" : 3,
+      "a0d1bf97" : 1,
+      "dff62f52" : 22,
+      "7168d463-1" : 30,
+      "aec0c82d-2" : 26,
+      "cad3eff0" : 14,
+      "3335df97-2" : 17,
+      "0e1cabed" : 5,
+      "07bc680a" : 27,
+      "8cc092f5" : 2,
+      "039a239f" : 40,
+      "2455f0ae-2" : 4,
+      "eed91da5-2" : 6,
+      "0bc03ee8-1" : 3,
+      "91f40022" : 9,
+      "acde7f0c" : 13,
+      "f7452b9f-2" : 1,
+      "b29a8b44" : 25,
+      "e39885f3" : 25,
+      "ed3ae6cf" : 6,
+      "b8350900" : 23,
+      "826c31e0-2" : 64,
+      "7168d463" : 13,
+      "fb5a9eb7" : 105,
+      "37914cb6" : 8,
+      "649eaebc-1" : 49,
+      "3ac43ea8" : 1,
+      "ae7d3780-2" : 1,
+      "6e59ba12-2" : 15,
+      "366d5f50" : 16,
+      "d98f267e" : 15,
+      "cc5bbb68" : 8,
+      "901b35b2" : 57,
+      "4071176d" : 17,
+      "81338028" : 17,
+      "f1e92541" : 2,
+      "c942490e" : 40,
+      "e7f6d089" : 1,
+      "e2d201c9" : 3,
+      "a2bd7f1e" : 11,
+      "3ca098da" : 2,
+      "29ab2852" : 83,
+      "6efe5f67-3" : 7,
+      "4cd09b3b-2" : 19,
+      "a1233156" : 34,
+      "8307d77f" : 7,
+      "1459e2c6" : 36,
+      "331c9d36" : 34,
+      "dd6a3683" : 17,
+      "3f73d2ce-2" : 19,
+      "562e964e" : 63,
+      "55053299-2" : 50,
+      "6dd5a34b" : 4,
+      "c6529d9c" : 64,
+      "1a7a23d4-2" : 4,
+      "ea1afad0-1" : 9,
+      "3e5236c7" : 3,
+      "23919b4e" : 6,
+      "e3bd3faf" : 30,
+      "eec4bd4a" : 18,
+      "2455f0ae-1" : 45,
+      "9b275fcc" : 7,
+      "db380ba0" : 17,
+      "842165cc" : 2,
+      "3515caae-1" : 1,
+      "fc627b17" : 61,
+      "18e1f45b" : 2,
+      "db63c882" : 5,
+      "d261a3ba" : 11,
+      "ff0be785" : 5,
+      "122b5621" : 24,
+      "826c31e0" : 15,
+      "3f49ccc1-2" : 6,
+      "be22f5f1-1" : 9,
+      "9215a45f" : 18,
+      "204066fa" : 12,
+      "6c0ec943" : 22,
+      "842165cc-1" : 17,
+      "4debdca1" : 13,
+      "649eaebc-2" : 31,
+      "14481dfb" : 7,
+      "6af6f704" : 28,
+      "18e1f45b-1" : 8,
+      "3335df97" : 1,
+      "db63c882-1" : 4,
+      "4f2ed774" : 1,
+      "aa7fc00e" : 4,
+      "9982c0eb" : 22,
+      "826c31e0-1" : 51,
+      "e87f0ca2" : 59,
+      "e0a9caf4" : 12,
+      "304f5471-2" : 17,
+      "f7452b9f-1" : 1,
+      "fb51b475" : 20,
+      "40f7d7c7" : 32,
+      "0bc03ee8-2" : 3,
+      "f133510b" : 103,
+      "23c7988c" : 2,
+      "96bb2cf7-1" : 1,
+      "4403a73f" : 5,
+      "0770580d-1" : 7,
+      "3f73d2ce-4" : 20,
+      "3f73d2ce" : 2,
+      "55511995" : 13,
+      "ef4e0295-1" : 3,
+      "7d9d715d" : 17,
+      "e2e15f47" : 27,
+      "3eced659" : 16,
+      "4cd09b3b" : 15,
+      "dbc6670b" : 13,
+      "843896be" : 8,
+      "fdb68dc4" : 9,
+      "ae7d3780-1" : 2,
+      "da09d849" : 128,
+      "6e59ba12-1" : 35,
+      "b5a5e9a5" : 13,
+      "96bb2cf7" : 14,
+      "9659ad59" : 9,
+      "87eaa964" : 1,
+      "ea1afad0-2" : 1,
+      "1a7a23d4-1" : 4,
+      "9094ca58" : 4,
+      "7194cc26" : 35,
+      "e8c7dd5b" : 17,
+      "61f33761" : 19,
+      "110c872d" : 1,
+      "5cba063b" : 25,
+      "3f73d2ce-1" : 22,
+      "cb471080" : 14,
+      "14ece36b" : 7,
+      "96591a8f" : 52,
+      "0ae75ea0" : 15,
+      "6e59ba12-4" : 46,
+      "4cd09b3b-1" : 20,
+      "557b2f45-3" : 17,
+      "2ae1e0b8" : 113,
+      "434bdf9d" : 20,
+      "7786832f" : 11,
+      "3ddfc71c" : 34,
+      "2c58f220" : 1,
+      "e92d29ad" : 49,
+      "6e59ba12" : 5,
+      "4f0fbb3f" : 14,
+      "779e7dcb" : 1,
+      "9423b4a4" : 1,
+      "735439dd" : 26,
+      "7ea33803" : 19,
+      "c5b7e63b" : 4,
+      "48323cde-2" : 6,
+      "826c31e0-3" : 2,
+      "3ca24202" : 1,
+      "23437955" : 15,
+      "bc1ed715" : 36,
+      "b13f4b57" : 25,
+      "abf55188" : 42,
+      "f54c8493" : 32,
+      "bce6757d" : 12,
+      "9406020f" : 9,
+      "94466c21-1" : 29,
+      "104776ef" : 2,
+      "93871dad" : 23,
+      "a57c1e9b" : 3,
+      "5c5701d7-1" : 8,
+      "d0c510c5" : 4,
+      "9da8ebe0" : 8,
+      "b8783269" : 1,
+      "f8445741" : 2,
+      "54087329" : 17,
+      "9aedb834" : 6,
+      "c5b7e63b-1" : 6,
+      "30a4fef5-2" : 20,
+      "109531f4-2" : 33,
+      "8f99236e" : 8,
+      "305473cf-2" : 1,
+      "94466c21" : 8,
+      "df8081fa" : 12,
+      "5c5701d7" : 1,
+      "4993a918" : 39,
+      "6f837bb4" : 174,
+      "3335df97-3" : 29,
+      "b8783269-1" : 1,
+      "5103e650" : 75,
+      "6b2e5290" : 33,
+      "a0ec1618" : 15,
+      "00cf7717" : 5,
+      "bf43348b" : 7,
+      "3ebbc1f4" : 48,
+      "959a6b9d" : 60,
+      "da8331ef-3" : 26,
+      "5ab25363" : 4,
+      "86703028" : 2,
+      "54dc69e8" : 27,
+      "31cd85d7" : 30,
+      "1dafd552" : 1,
+      "514c7ec4" : 5,
+      "3f73d2ce-3" : 23,
+      "8d67f9b7" : 28,
+      "a0ec1618-1" : 32,
+      "d78ca1ba" : 2,
+      "57fbcb1b" : 39,
+      "8d4632d9" : 19,
+      "557b2f45" : 13,
+      "6ca3420d" : 18,
+      "6e59ba12-3" : 1,
+      "8c2983b5-4" : 8,
+      "1fe0ba0d-1" : 5,
+      "8c2983b5" : 2
    },
    "pageTracking" : {
       "title" : "",
       "columns" : [
          {
-            "align" : "left",
             "name" : "Date",
-            "id" : "date"
+            "id" : "date",
+            "align" : "left"
          },
          {
-            "id" : "lockbazaar",
             "name" : "Lock Bazaar",
-            "align" : "center"
+            "align" : "center",
+            "id" : "lockbazaar"
          },
          {
             "id" : "speedpicks",
-            "name" : "Speed Picks",
-            "align" : "center"
-         },
-         {
-            "id" : "other",
-            "name" : "Other",
-            "align" : "center"
-         },
-         {
-            "id" : "editprofile",
-            "name" : "Edit Profile",
-            "align" : "center"
-         },
-         {
-            "id" : "challengelocks",
             "align" : "center",
+            "name" : "Speed Picks"
+         },
+         {
+            "align" : "center",
+            "id" : "other",
+            "name" : "Other"
+         },
+         {
+            "name" : "Edit Profile",
+            "id" : "editprofile",
+            "align" : "center"
+         },
+         {
+            "align" : "center",
+            "id" : "challengelocks",
             "name" : "Challenge Locks"
          },
          {
-            "name" : "Error",
             "align" : "center",
-            "id" : "error"
+            "id" : "error",
+            "name" : "Error"
          },
          {
+            "align" : "center",
             "id" : "total",
-            "name" : "Total",
-            "align" : "center"
+            "name" : "Total"
          }
       ],
       "data" : [
          {
-            "editprofile" : 0,
-            "other" : 5,
-            "error" : 0,
-            "challengelocks" : 0,
-            "speedpicks" : 14,
-            "date" : "04/28/24",
-            "lockbazaar" : 116,
-            "total" : 135
-         },
-         {
-            "lockbazaar" : 189,
-            "date" : "04/29/24",
-            "speedpicks" : 60,
-            "total" : 273,
-            "editprofile" : 5,
             "challengelocks" : 3,
-            "error" : 9,
-            "other" : 7
-         },
-         {
-            "lockbazaar" : 91,
-            "speedpicks" : 15,
-            "date" : "04/30/24",
-            "total" : 114,
-            "editprofile" : 1,
-            "challengelocks" : 1,
-            "error" : 2,
-            "other" : 4
-         },
-         {
-            "total" : 174,
-            "lockbazaar" : 127,
-            "speedpicks" : 22,
-            "date" : "05/01/24",
-            "challengelocks" : 0,
-            "other" : 3,
-            "error" : 20,
-            "editprofile" : 2
-         },
-         {
-            "editprofile" : 1,
-            "challengelocks" : 1,
-            "other" : 1,
-            "error" : 0,
-            "lockbazaar" : 75,
-            "date" : "05/02/24",
-            "speedpicks" : 11,
-            "total" : 89
-         },
-         {
             "total" : 147,
             "lockbazaar" : 104,
-            "date" : "05/03/24",
-            "speedpicks" : 23,
-            "challengelocks" : 3,
             "other" : 15,
+            "speedpicks" : 23,
+            "date" : "05/03/24",
             "error" : 0,
             "editprofile" : 2
          },
          {
             "error" : 0,
-            "other" : 12,
-            "challengelocks" : 2,
             "editprofile" : 3,
-            "total" : 89,
+            "other" : 12,
             "speedpicks" : 7,
+            "lockbazaar" : 65,
             "date" : "05/04/24",
-            "lockbazaar" : 65
+            "total" : 89,
+            "challengelocks" : 2
          },
          {
-            "editprofile" : 5,
-            "other" : 20,
-            "error" : 13,
             "challengelocks" : 3,
-            "date" : "05/05/24",
-            "speedpicks" : 6,
+            "total" : 135,
             "lockbazaar" : 88,
-            "total" : 135
+            "speedpicks" : 6,
+            "other" : 20,
+            "date" : "05/05/24",
+            "editprofile" : 5,
+            "error" : 13
          },
          {
             "total" : 246,
-            "lockbazaar" : 104,
-            "speedpicks" : 32,
-            "date" : "05/06/24",
             "challengelocks" : 1,
+            "editprofile" : 6,
             "error" : 50,
+            "speedpicks" : 32,
+            "lockbazaar" : 104,
             "other" : 53,
-            "editprofile" : 6
+            "date" : "05/06/24"
          },
          {
-            "lockbazaar" : 90,
+            "challengelocks" : 0,
+            "total" : 130,
             "date" : "05/07/24",
             "speedpicks" : 24,
-            "total" : 130,
-            "editprofile" : 2,
-            "challengelocks" : 0,
+            "lockbazaar" : 90,
             "other" : 14,
+            "editprofile" : 2,
             "error" : 0
          },
          {
-            "total" : 138,
-            "speedpicks" : 15,
-            "date" : "05/08/24",
-            "lockbazaar" : 92,
-            "other" : 24,
             "error" : 0,
-            "challengelocks" : 4,
-            "editprofile" : 3
+            "editprofile" : 3,
+            "date" : "05/08/24",
+            "speedpicks" : 15,
+            "other" : 24,
+            "lockbazaar" : 92,
+            "total" : 138,
+            "challengelocks" : 4
          },
          {
-            "lockbazaar" : 95,
-            "date" : "05/09/24",
-            "speedpicks" : 11,
             "total" : 160,
-            "editprofile" : 3,
             "challengelocks" : 1,
             "error" : 46,
+            "editprofile" : 3,
+            "date" : "05/09/24",
+            "speedpicks" : 11,
+            "lockbazaar" : 95,
             "other" : 4
          },
          {
-            "lockbazaar" : 107,
-            "date" : "05/10/24",
-            "speedpicks" : 23,
             "total" : 255,
-            "editprofile" : 0,
             "challengelocks" : 0,
             "error" : 122,
-            "other" : 3
+            "editprofile" : 0,
+            "other" : 3,
+            "lockbazaar" : 107,
+            "speedpicks" : 23,
+            "date" : "05/10/24"
          },
          {
-            "other" : 28,
-            "error" : 16,
-            "challengelocks" : 0,
-            "editprofile" : 1,
             "total" : 123,
-            "date" : "05/11/24",
+            "challengelocks" : 0,
+            "error" : 16,
+            "editprofile" : 1,
+            "lockbazaar" : 70,
             "speedpicks" : 8,
-            "lockbazaar" : 70
+            "other" : 28,
+            "date" : "05/11/24"
          },
          {
-            "editprofile" : 34,
-            "challengelocks" : 19,
-            "other" : 193,
-            "error" : 278,
-            "lockbazaar" : 1413,
-            "speedpicks" : 271,
+            "total" : 79,
+            "challengelocks" : 0,
+            "error" : 0,
+            "editprofile" : 0,
+            "lockbazaar" : 61,
+            "speedpicks" : 9,
+            "other" : 9,
+            "date" : "05/12/24"
+         },
+         {
+            "error" : 0,
+            "editprofile" : 0,
+            "other" : 5,
+            "lockbazaar" : 77,
+            "speedpicks" : 26,
+            "date" : "05/13/24",
+            "total" : 108,
+            "challengelocks" : 0
+         },
+         {
+            "date" : "05/14/24",
+            "other" : 11,
+            "speedpicks" : 22,
+            "lockbazaar" : 83,
+            "error" : 2,
+            "editprofile" : 1,
+            "challengelocks" : 1,
+            "total" : 120
+         },
+         {
+            "challengelocks" : 2,
+            "total" : 174,
+            "other" : 9,
+            "speedpicks" : 37,
+            "lockbazaar" : 121,
+            "date" : "05/15/24",
+            "error" : 2,
+            "editprofile" : 3
+         },
+         {
+            "lockbazaar" : 204,
+            "speedpicks" : 31,
+            "other" : 9,
+            "date" : "05/16/24",
+            "error" : 2,
+            "editprofile" : 3,
+            "challengelocks" : 0,
+            "total" : 249
+         },
+         {
+            "error" : 253,
+            "editprofile" : 32,
+            "speedpicks" : 274,
+            "other" : 216,
+            "lockbazaar" : 1361,
             "date" : "total",
-            "total" : 2208
+            "total" : 2153,
+            "challengelocks" : 17
+         }
+      ]
+   },
+   "popularCountries2" : {
+      "columns" : [
+         {
+            "name" : "Rank",
+            "align" : "center",
+            "id" : "rank"
+         },
+         {
+            "name" : "Area",
+            "align" : "left",
+            "id" : "area"
+         },
+         {
+            "name" : "Visits",
+            "align" : "center",
+            "id" : "visits"
+         }
+      ],
+      "data" : [
+         {
+            "area" : "Austria",
+            "rank" : 25,
+            "visits" : 5
+         },
+         {
+            "area" : "Georgia",
+            "visits" : 4,
+            "rank" : 26
+         },
+         {
+            "area" : "Israel",
+            "visits" : 4,
+            "rank" : 27
+         },
+         {
+            "area" : "Japan",
+            "visits" : 4,
+            "rank" : 28
+         },
+         {
+            "visits" : 3,
+            "rank" : 29,
+            "area" : "Hong Kong"
+         },
+         {
+            "area" : "Romania",
+            "visits" : 3,
+            "rank" : 30
+         },
+         {
+            "area" : "Serbia",
+            "rank" : 31,
+            "visits" : 3
+         },
+         {
+            "area" : "Bangladesh",
+            "rank" : 32,
+            "visits" : 2
+         },
+         {
+            "rank" : 33,
+            "visits" : 2,
+            "area" : "Brazil"
+         },
+         {
+            "area" : "Jamaica",
+            "rank" : 34,
+            "visits" : 2
+         },
+         {
+            "visits" : 2,
+            "rank" : 35,
+            "area" : "Luxembourg"
+         },
+         {
+            "rank" : 36,
+            "visits" : 2,
+            "area" : "Russian Federation"
+         },
+         {
+            "area" : "Singapore",
+            "visits" : 2,
+            "rank" : 37
+         },
+         {
+            "area" : "Taiwan",
+            "rank" : 38,
+            "visits" : 2
+         },
+         {
+            "visits" : 1,
+            "rank" : 39,
+            "area" : "Bahamas"
+         },
+         {
+            "visits" : 1,
+            "rank" : 40,
+            "area" : "Costa Rica"
+         },
+         {
+            "area" : "Croatia",
+            "visits" : 1,
+            "rank" : 41
+         },
+         {
+            "rank" : 42,
+            "visits" : 1,
+            "area" : "Czech Republic"
+         },
+         {
+            "area" : "India",
+            "visits" : 1,
+            "rank" : 43
+         },
+         {
+            "rank" : 44,
+            "visits" : 1,
+            "area" : "Malaysia"
+         },
+         {
+            "visits" : 1,
+            "rank" : 45,
+            "area" : "Norway"
+         },
+         {
+            "visits" : 1,
+            "rank" : 46,
+            "area" : "Seychelles"
+         },
+         {
+            "area" : "Ukraine",
+            "rank" : 47,
+            "visits" : 1
+         }
+      ]
+   },
+   "topLocks" : {
+      "title" : "Most Popular Locks",
+      "data" : [
+         {
+            "views" : 860,
+            "rank" : 1,
+            "version" : null,
+            "name" : null
+         },
+         {
+            "rank" : 2,
+            "version" : null,
+            "views" : 174,
+            "name" : "A.S.I. Inc. Royal Guardian"
+         },
+         {
+            "version" : "≥ 5 pins ******",
+            "rank" : 3,
+            "views" : 132,
+            "name" : "Medeco Original, Biaxial, M3"
+         },
+         {
+            "name" : "Abloy Classic",
+            "views" : 128,
+            "version" : null,
+            "rank" : 4
+         },
+         {
+            "name" : "ASSA 600, Max+ Restricted",
+            "rank" : 5,
+            "version" : "Barrel spools and matching countermilling",
+            "views" : 119
+         },
+         {
+            "name" : "American Lock 1100 / A1100",
+            "rank" : 6,
+            "version" : null,
+            "views" : 113
+         },
+         {
+            "version" : null,
+            "rank" : 7,
+            "views" : 105,
+            "name" : "PACLOCK 90A Pro"
+         },
+         {
+            "name" : "ASSA 700",
+            "views" : 103,
+            "rank" : 8,
+            "version" : "gin/tree pins and matching countermilling in ≥ 4 chambers, ≥ 2 tree pins"
+         },
+         {
+            "name" : "ASSA dp4400, dp11 / Ruko Garant+ / TrioVing dp",
+            "views" : 102,
+            "rank" : 9,
+            "version" : "6 pin with 10 sliders"
+         },
+         {
+            "name" : "ASSA Twin Maximum, Twin Pro, Twin v10, Twin 2, Twin Global",
+            "rank" : 10,
+            "version" : "barrel driver, 6 stacks with 5 side pins",
+            "views" : 86
+         },
+         {
+            "name" : "ASSA 600",
+            "rank" : 11,
+            "version" : "6 pin, with gin spools and matched countermilling",
+            "views" : 83
+         },
+         {
+            "name" : "IKON R10 / Lockwood MT5 / Mul-T-Lock MT5+, 800",
+            "rank" : 12,
+            "version" : "not mastered",
+            "views" : 80
+         },
+         {
+            "version" : "< 2 standard drivers",
+            "rank" : 13,
+            "views" : 75,
+            "name" : "GOAL Z"
+         },
+         {
+            "version" : "≥17 pins",
+            "rank" : 14,
+            "views" : 69,
+            "name" : "GOAL V18, GP"
+         },
+         {
+            "version" : "**",
+            "rank" : 15,
+            "views" : 64,
+            "name" : "Any SFIC format lock"
+         },
+         {
+            "name" : "Master Lock #3",
+            "views" : 63,
+            "version" : null,
+            "rank" : 16
+         },
+         {
+            "views" : 61,
+            "version" : null,
+            "rank" : 17,
+            "name" : "Abloy Exec"
+         },
+         {
+            "version" : "5 pins",
+            "rank" : 18,
+            "views" : 60,
+            "name" : "GOAL S"
+         },
+         {
+            "version" : null,
+            "rank" : 19,
+            "views" : 59,
+            "name" : "Abloy Protec2"
+         },
+         {
+            "views" : 57,
+            "version" : null,
+            "rank" : 20,
+            "name" : "Any Cutaway Lock"
+         },
+         {
+            "views" : 56,
+            "version" : null,
+            "rank" : 21,
+            "name" : "ABUS 80TI Titalium"
+         },
+         {
+            "views" : 56,
+            "rank" : 22,
+            "version" : "barrel drivers, forked keypins",
+            "name" : "ASSA d12, P600, Neptun 1900 / Ruko Merkur / TrioVing d12 level 1 (aka d13 no long pin)"
+         },
+         {
+            "name" : "Alfa 'pExtra' / Gege pExtra",
+            "version" : "6-7 pin",
+            "rank" : 23,
+            "views" : 54
+         },
+         {
+            "views" : 53,
+            "rank" : 24,
+            "version" : null,
+            "name" : "ABUS 72/40"
+         },
+         {
+            "name" : "LIPS 8300 / Nemef NF2, NF3",
+            "rank" : 25,
+            "version" : null,
+            "views" : 53
+         },
+         {
+            "version" : null,
+            "rank" : 26,
+            "views" : 52,
+            "name" : "DOM Plura"
+         },
+         {
+            "views" : 50,
+            "rank" : 27,
+            "version" : "6 barrel drivers, 5 side pins",
+            "name" : "ASSA Twin Exclusive, Twin 6000"
+         },
+         {
+            "name" : "Abloy High Profile",
+            "rank" : 28,
+            "version" : null,
+            "views" : 49
+         },
+         {
+            "name" : "Master Lock 140, 141",
+            "views" : 49,
+            "rank" : 29,
+            "version" : null
+         },
+         {
+            "name" : "Medeco M4",
+            "views" : 49,
+            "rank" : 30,
+            "version" : null
+         },
+         {
+            "rank" : 31,
+            "version" : null,
+            "views" : 48,
+            "name" : "ABUS 65/40"
+         },
+         {
+            "name" : "ALPHA Z cam lock",
+            "views" : 48,
+            "rank" : 32,
+            "version" : null
+         },
+         {
+            "name" : "Schlage Everest",
+            "views" : 48,
+            "rank" : 33,
+            "version" : null
+         },
+         {
+            "views" : 47,
+            "version" : "5 pins, 3 or fewer spooled drivers",
+            "rank" : 34,
+            "name" : "Mul-T-Lock Classic, Interactive"
+         },
+         {
+            "version" : "5 pin stacks, ≥ 4 spooled drivers",
+            "rank" : 35,
+            "views" : 47,
+            "name" : "Mul-T-Lock Jr, Classic, Interactive"
+         },
+         {
+            "version" : "6 pin with 5 finger pins",
+            "rank" : 36,
+            "views" : 43,
+            "name" : "ASSA Twin Combi, Triton, Neptun 4900 / TrioVing System 10, Twin Control"
+         },
+         {
+            "name" : "Australian Lock Co. BiLock",
+            "views" : 43,
+            "version" : "12 sliders, 0 mastered",
+            "rank" : 37
+         },
+         {
+            "views" : 42,
+            "version" : null,
+            "rank" : 38,
+            "name" : "DOM RS Sigma"
+         },
+         {
+            "rank" : 39,
+            "version" : null,
+            "views" : 42,
+            "name" : "Mul-T-Lock 7X7"
+         },
+         {
+            "version" : "with butterfly discs",
+            "rank" : 40,
+            "views" : 40,
+            "name" : "ABUS Plus"
+         },
+         {
+            "version" : "6 sliders",
+            "rank" : 41,
+            "views" : 40,
+            "name" : "ASSA Desmo"
+         },
+         {
+            "version" : null,
+            "rank" : 42,
+            "views" : 40,
+            "name" : "Master Lock 410 LOTO (Lockout Tagout)"
+         },
+         {
+            "name" : "DOM Diamant",
+            "version" : null,
+            "rank" : 43,
+            "views" : 39
+         },
+         {
+            "views" : 39,
+            "rank" : 44,
+            "version" : null,
+            "name" : "DOM RS 8"
+         },
+         {
+            "views" : 38,
+            "rank" : 45,
+            "version" : "<15 pins",
+            "name" : "ALPHA FB"
+         },
+         {
+            "rank" : 46,
+            "version" : null,
+            "views" : 36,
+            "name" : "ABUS Cisa"
+         },
+         {
+            "views" : 36,
+            "rank" : 47,
+            "version" : "8 sliders, no mastered pins",
+            "name" : "ASSA Desmo"
+         },
+         {
+            "rank" : 48,
+            "version" : "9 pin",
+            "views" : 35,
+            "name" : "GOAL D9"
+         },
+         {
+            "name" : "GOAL P",
+            "views" : 34,
+            "rank" : 49,
+            "version" : "6 pin"
+         },
+         {
+            "name" : "Kaba Star",
+            "version" : "≥ 5 rows, 16-20 pins",
+            "rank" : 50,
+            "views" : 34
+         }
+      ],
+      "columns" : [
+         {
+            "name" : "Rank",
+            "id" : "rank",
+            "align" : "center"
+         },
+         {
+            "id" : "name",
+            "align" : "left",
+            "name" : "Name"
+         },
+         {
+            "name" : "Version",
+            "align" : "left",
+            "id" : "version"
+         },
+         {
+            "align" : "center",
+            "id" : "views",
+            "name" : "Views"
          }
       ]
    },
    "screenWidths" : {
-      "title" : "",
       "columns" : [
          {
             "id" : "width",
@@ -1019,9 +1082,9 @@
             "name" : "Screen Width"
          },
          {
+            "id" : "lockViews",
             "align" : "center",
-            "name" : "Lock Views",
-            "id" : "lockViews"
+            "name" : "Lock Views"
          },
          {
             "name" : "Welcome Views",
@@ -1031,149 +1094,159 @@
       ],
       "data" : [
          {
+            "welcomeViews" : 191,
             "width" : 384,
-            "welcomeViews" : 172,
-            "lockViews" : 1000
+            "lockViews" : 1053
          },
          {
-            "lockViews" : 712,
-            "width" : 412,
-            "welcomeViews" : 521
-         },
-         {
-            "welcomeViews" : 339,
-            "width" : 360,
-            "lockViews" : 526
+            "welcomeViews" : 597,
+            "lockViews" : 827,
+            "width" : 412
          },
          {
             "width" : 390,
-            "welcomeViews" : 490,
-            "lockViews" : 485
+            "lockViews" : 631,
+            "welcomeViews" : 588
          },
          {
-            "lockViews" : 446,
-            "welcomeViews" : 670,
-            "width" : 1920
+            "lockViews" : 631,
+            "width" : 360,
+            "welcomeViews" : 404
          },
          {
+            "lockViews" : 536,
             "width" : 2560,
-            "welcomeViews" : 922,
-            "lockViews" : 423
+            "welcomeViews" : 993
          },
          {
+            "welcomeViews" : 736,
+            "width" : 1920,
+            "lockViews" : 503
+         },
+         {
+            "lockViews" : 349,
             "width" : 393,
-            "welcomeViews" : 262,
-            "lockViews" : 324
+            "welcomeViews" : 275
          },
          {
-            "welcomeViews" : 348,
+            "welcomeViews" : 385,
             "width" : 834,
-            "lockViews" : 283
+            "lockViews" : 306
          },
          {
-            "lockViews" : 283,
-            "welcomeViews" : 109,
-            "width" : 428
+            "welcomeViews" : 115,
+            "width" : 428,
+            "lockViews" : 301
+         },
+         {
+            "lockViews" : 254,
+            "width" : 430,
+            "welcomeViews" : 113
          },
          {
             "width" : 375,
-            "welcomeViews" : 169,
-            "lockViews" : 170
+            "lockViews" : 227,
+            "welcomeViews" : 213
          },
          {
-            "lockViews" : 166,
-            "welcomeViews" : 70,
-            "width" : 414
+            "lockViews" : 203,
+            "width" : 414,
+            "welcomeViews" : 108
          },
          {
-            "width" : 1440,
-            "welcomeViews" : 601,
-            "lockViews" : 155
+            "welcomeViews" : 614,
+            "lockViews" : 163,
+            "width" : 1440
          },
          {
-            "lockViews" : 143,
-            "width" : 430,
-            "welcomeViews" : 87
-         },
-         {
+            "welcomeViews" : 81,
             "width" : 432,
-            "welcomeViews" : 76,
-            "lockViews" : 102
+            "lockViews" : 109
          },
          {
+            "width" : 744,
             "lockViews" : 99,
-            "welcomeViews" : 11,
-            "width" : 744
+            "welcomeViews" : 11
          },
          {
-            "lockViews" : 83,
-            "welcomeViews" : 328,
-            "width" : 3840
-         },
-         {
-            "lockViews" : 81,
+            "welcomeViews" : 93,
             "width" : 1280,
-            "welcomeViews" : 85
+            "lockViews" : 90
          },
          {
-            "lockViews" : 80,
+            "width" : 3840,
+            "lockViews" : 86,
+            "welcomeViews" : 337
+         },
+         {
             "welcomeViews" : 35,
-            "width" : 810
+            "width" : 810,
+            "lockViews" : 80
          },
          {
-            "lockViews" : 63,
-            "width" : 385,
-            "welcomeViews" : 37
+            "width" : 825,
+            "lockViews" : 73,
+            "welcomeViews" : 22
          },
          {
-            "welcomeViews" : 50,
+            "welcomeViews" : 62,
             "width" : 1536,
-            "lockViews" : 61
+            "lockViews" : 67
          },
          {
-            "lockViews" : 50,
-            "welcomeViews" : 19,
-            "width" : 825
+            "welcomeViews" : 39,
+            "lockViews" : 63,
+            "width" : 385
          },
          {
-            "lockViews" : 37,
-            "welcomeViews" : 45,
-            "width" : 3072
+            "lockViews" : 45,
+            "width" : 3072,
+            "welcomeViews" : 48
          },
          {
             "welcomeViews" : 1,
-            "width" : 1883,
-            "lockViews" : 30
+            "lockViews" : 30,
+            "width" : 1883
          },
          {
-            "lockViews" : 29,
+            "welcomeViews" : 16,
             "width" : 3440,
-            "welcomeViews" : 15
+            "lockViews" : 29
          },
          {
-            "welcomeViews" : 23,
+            "lockViews" : 27,
             "width" : 1512,
-            "lockViews" : 26
+            "welcomeViews" : 25
          },
          {
-            "lockViews" : 25,
-            "welcomeViews" : 7,
-            "width" : 1728
+            "width" : 2048,
+            "lockViews" : 27,
+            "welcomeViews" : 26
+         },
+         {
+            "welcomeViews" : 21,
+            "width" : 1728,
+            "lockViews" : 25
          },
          {
             "lockViews" : 24,
-            "welcomeViews" : 31,
-            "width" : 376
+            "width" : 376,
+            "welcomeViews" : 34
          },
          {
+            "welcomeViews" : 4,
             "lockViews" : 23,
-            "width" : 418,
-            "welcomeViews" : 4
+            "width" : 418
          },
          {
+            "lockViews" : 21,
             "width" : 388,
-            "welcomeViews" : 206,
-            "lockViews" : 21
+            "welcomeViews" : 226
+         },
+         {
+            "welcomeViews" : 24,
+            "width" : 320,
+            "lockViews" : 20
          },
          {
             "lockViews" : 20,
@@ -1181,54 +1254,84 @@
             "welcomeViews" : 2
          },
          {
-            "lockViews" : 17,
-            "welcomeViews" : 5,
-            "width" : 820
+            "welcomeViews" : 13,
+            "width" : 1050,
+            "lockViews" : 19
          },
          {
-            "width" : 2259,
+            "lockViews" : 17,
+            "width" : 820,
+            "welcomeViews" : 7
+         },
+         {
             "welcomeViews" : 1,
+            "width" : 2259,
             "lockViews" : 16
          },
          {
             "lockViews" : 16,
             "width" : 1360,
-            "welcomeViews" : 2
+            "welcomeViews" : 3
          },
          {
-            "welcomeViews" : 22,
-            "width" : 2048,
+            "welcomeViews" : 1,
+            "width" : 1562,
             "lockViews" : 16
          },
          {
-            "width" : 768,
             "welcomeViews" : 6,
+            "width" : 768,
             "lockViews" : 15
          },
          {
+            "welcomeViews" : 8,
             "lockViews" : 12,
-            "width" : 378,
-            "welcomeViews" : 9
+            "width" : 1468
          },
          {
-            "lockViews" : 10,
+            "welcomeViews" : 11,
+            "width" : 378,
+            "lockViews" : 12
+         },
+         {
             "welcomeViews" : 10,
+            "lockViews" : 10,
             "width" : 1925
          },
          {
+            "width" : 448,
             "lockViews" : 10,
-            "welcomeViews" : 9,
-            "width" : 448
+            "welcomeViews" : 9
          },
          {
-            "width" : 1050,
-            "welcomeViews" : 10,
-            "lockViews" : 10
+            "width" : 402,
+            "lockViews" : 7,
+            "welcomeViews" : 2
          },
          {
-            "lockViews" : 8,
-            "welcomeViews" : 18,
-            "width" : 320
+            "width" : 753,
+            "lockViews" : 7,
+            "welcomeViews" : 3
+         },
+         {
+            "lockViews" : 6,
+            "width" : 1032,
+            "welcomeViews" : 3
+         },
+         {
+            "lockViews" : 5,
+            "width" : 1229,
+            "welcomeViews" : 1
+         },
+         {
+            "welcomeViews" : 1,
+            "lockViews" : 4,
+            "width" : 2566
+         },
+         {
+            "lockViews" : 4,
+            "width" : 407,
+            "welcomeViews" : 1
          },
          {
             "welcomeViews" : 1,
@@ -1236,29 +1339,14 @@
             "lockViews" : 4
          },
          {
-            "width" : 1921,
-            "welcomeViews" : 7,
-            "lockViews" : 3
+            "width" : 1366,
+            "lockViews" : 3,
+            "welcomeViews" : 64
          },
          {
             "lockViews" : 3,
-            "width" : 1366,
-            "welcomeViews" : 55
-         },
-         {
-            "lockViews" : 2,
-            "width" : 2563,
-            "welcomeViews" : 2
-         },
-         {
-            "lockViews" : 2,
-            "welcomeViews" : 1,
-            "width" : 339
-         },
-         {
-            "welcomeViews" : 2,
-            "width" : 2189,
-            "lockViews" : 2
+            "width" : 1921,
+            "welcomeViews" : 7
          },
          {
             "lockViews" : 2,
@@ -1266,9 +1354,34 @@
             "welcomeViews" : 4
          },
          {
-            "lockViews" : 1,
+            "welcomeViews" : 2,
+            "lockViews" : 2,
+            "width" : 2189
+         },
+         {
+            "lockViews" : 2,
+            "width" : 1707,
+            "welcomeViews" : 15
+         },
+         {
+            "welcomeViews" : 2,
+            "lockViews" : 2,
+            "width" : 2563
+         },
+         {
+            "welcomeViews" : 1,
+            "lockViews" : 2,
+            "width" : 339
+         },
+         {
             "welcomeViews" : 4,
-            "width" : 1928
+            "width" : 1928,
+            "lockViews" : 1
+         },
+         {
+            "welcomeViews" : 1,
+            "width" : 1483,
+            "lockViews" : 1
          },
          {
             "lockViews" : 1,
@@ -1276,357 +1389,324 @@
             "welcomeViews" : 1
          },
          {
+            "width" : 1194,
             "lockViews" : 1,
-            "welcomeViews" : 9,
-            "width" : 1680
+            "welcomeViews" : 18
          },
          {
-            "width" : 1927,
             "welcomeViews" : 3,
+            "width" : 1927,
             "lockViews" : 1
          },
          {
             "lockViews" : 1,
-            "welcomeViews" : 4,
-            "width" : 2564
+            "width" : 1680,
+            "welcomeViews" : 9
          },
          {
+            "width" : 2564,
             "lockViews" : 1,
-            "welcomeViews" : 4,
-            "width" : 1707
+            "welcomeViews" : 4
          },
          {
-            "lockViews" : 1,
-            "width" : 1194,
-            "welcomeViews" : 18
+            "welcomeViews" : 1,
+            "width" : 1685,
+            "lockViews" : 1
          }
-      ]
+      ],
+      "title" : ""
    },
-   "topLocks" : {
+   "traffic28days" : {
       "data" : [
          {
-            "version" : null,
-            "views" : 156,
-            "rank" : 1,
-            "name" : "A.S.I. Inc. Royal Guardian"
+            "visitors" : 66,
+            "visits" : 165,
+            "date" : "2024-04-19",
+            "dateString" : "04/19",
+            "lockViews" : 209,
+            "weekend" : 0
          },
          {
-            "name" : "Medeco Original, Biaxial, M3",
-            "rank" : 2,
-            "views" : 114,
-            "version" : "≥ 5 pins ******"
+            "dateString" : "04/20",
+            "lockViews" : 188,
+            "weekend" : 1,
+            "date" : "2024-04-20",
+            "visitors" : 39,
+            "visits" : 106
          },
          {
-            "name" : "Abloy Classic",
-            "rank" : 3,
-            "version" : null,
-            "views" : 101
+            "visits" : 146,
+            "visitors" : 62,
+            "date" : "2024-04-21",
+            "weekend" : 1,
+            "lockViews" : 180,
+            "dateString" : "04/21"
          },
          {
-            "name" : "ASSA dp4400, dp11 / Ruko Garant+ / TrioVing dp",
-            "rank" : 4,
-            "version" : "6 pin with 10 sliders",
-            "views" : 96
+            "date" : "2024-04-22",
+            "visitors" : 88,
+            "visits" : 271,
+            "dateString" : "04/22",
+            "lockViews" : 383,
+            "weekend" : 0
          },
          {
-            "name" : "ASSA 600, Max+ Restricted",
-            "rank" : 5,
-            "views" : 94,
-            "version" : "Barrel spools and matching countermilling"
+            "visitors" : 70,
+            "visits" : 160,
+            "date" : "2024-04-23",
+            "dateString" : "04/23",
+            "lockViews" : 200,
+            "weekend" : 0
          },
          {
-            "views" : 89,
-            "version" : "gin/tree pins and matching countermilling in ≥ 4 chambers, ≥ 2 tree pins",
-            "name" : "ASSA 700",
-            "rank" : 6
+            "visits" : 302,
+            "visitors" : 64,
+            "date" : "2024-04-24",
+            "lockViews" : 261,
+            "dateString" : "04/24",
+            "weekend" : 0
          },
          {
-            "rank" : 7,
-            "name" : "American Lock 1100 / A1100",
-            "version" : null,
-            "views" : 82
+            "date" : "2024-04-25",
+            "visits" : 150,
+            "visitors" : 58,
+            "lockViews" : 151,
+            "dateString" : "04/25",
+            "weekend" : 0
          },
          {
-            "version" : "barrel driver, 6 stacks with 5 side pins",
-            "views" : 80,
-            "rank" : 8,
-            "name" : "ASSA Twin Maximum, Twin Pro, Twin v10, Twin 2, Twin Global"
+            "date" : "2024-04-26",
+            "visitors" : 50,
+            "visits" : 125,
+            "dateString" : "04/26",
+            "lockViews" : 166,
+            "weekend" : 0
          },
          {
-            "version" : "6 pin, with gin spools and matched countermilling",
-            "views" : 73,
-            "name" : "ASSA 600",
-            "rank" : 9
+            "visitors" : 60,
+            "visits" : 134,
+            "date" : "2024-04-27",
+            "dateString" : "04/27",
+            "lockViews" : 128,
+            "weekend" : 1
          },
          {
-            "version" : "not mastered",
-            "views" : 70,
-            "rank" : 10,
-            "name" : "IKON R10 / Lockwood MT5 / Mul-T-Lock MT5+, 800"
+            "visits" : 135,
+            "visitors" : 55,
+            "date" : "2024-04-28",
+            "weekend" : 1,
+            "lockViews" : 130,
+            "dateString" : "04/28"
          },
          {
-            "views" : 66,
-            "version" : null,
-            "rank" : 11,
-            "name" : "PACLOCK 90A Pro"
+            "date" : "2024-04-29",
+            "visits" : 273,
+            "visitors" : 107,
+            "lockViews" : 355,
+            "dateString" : "04/29",
+            "weekend" : 0
          },
          {
-            "name" : "GOAL Z",
-            "rank" : 12,
-            "version" : "< 2 standard drivers",
-            "views" : 62
+            "date" : "2024-04-30",
+            "visits" : 113,
+            "visitors" : 66,
+            "lockViews" : 158,
+            "dateString" : "04/30",
+            "weekend" : 0
          },
          {
-            "version" : "≥17 pins",
-            "views" : 57,
-            "name" : "GOAL V18, GP",
-            "rank" : 13
+            "date" : "2024-05-01",
+            "visits" : 172,
+            "visitors" : 57,
+            "weekend" : 0,
+            "lockViews" : 191,
+            "dateString" : "05/01"
          },
          {
-            "name" : "Any SFIC format lock",
-            "rank" : 14,
-            "version" : "**",
-            "views" : 54
+            "visitors" : 43,
+            "visits" : 89,
+            "date" : "2024-05-02",
+            "dateString" : "05/02",
+            "lockViews" : 196,
+            "weekend" : 0
          },
          {
-            "name" : "Master Lock #3",
-            "rank" : 15,
-            "version" : null,
-            "views" : 51
+            "lockViews" : 151,
+            "dateString" : "05/03",
+            "weekend" : 0,
+            "visits" : 146,
+            "visitors" : 52,
+            "date" : "2024-05-03"
          },
          {
-            "name" : "Abloy Protec2",
-            "rank" : 16,
-            "version" : null,
-            "views" : 48
+            "date" : "2024-05-04",
+            "visitors" : 38,
+            "visits" : 90,
+            "weekend" : 1,
+            "dateString" : "05/04",
+            "lockViews" : 180
          },
          {
-            "name" : "ABUS 65/40",
-            "rank" : 17,
-            "version" : null,
-            "views" : 48
+            "weekend" : 1,
+            "dateString" : "05/05",
+            "lockViews" : 148,
+            "visitors" : 50,
+            "visits" : 137,
+            "date" : "2024-05-05"
          },
          {
-            "name" : "ASSA d12, P600, Neptun 1900 / Ruko Merkur / TrioVing d12 level 1 (aka d13 no long pin)",
-            "rank" : 18,
-            "version" : "barrel drivers, forked keypins",
-            "views" : 48
+            "visitors" : 42,
+            "visits" : 246,
+            "date" : "2024-05-06",
+            "weekend" : 0,
+            "dateString" : "05/06",
+            "lockViews" : 112
          },
          {
-            "views" : 48,
-            "version" : "5 pins",
-            "name" : "GOAL S",
-            "rank" : 19
+            "visits" : 130,
+            "visitors" : 65,
+            "date" : "2024-05-07",
+            "weekend" : 0,
+            "lockViews" : 215,
+            "dateString" : "05/07"
          },
          {
-            "views" : 47,
-            "version" : null,
-            "rank" : 20,
-            "name" : "Abloy Exec"
+            "date" : "2024-05-08",
+            "visitors" : 60,
+            "visits" : 140,
+            "weekend" : 0,
+            "dateString" : "05/08",
+            "lockViews" : 215
          },
          {
-            "views" : 47,
-            "version" : null,
-            "name" : "DOM Plura",
-            "rank" : 21
+            "date" : "2024-05-09",
+            "visits" : 160,
+            "visitors" : 42,
+            "lockViews" : 101,
+            "dateString" : "05/09",
+            "weekend" : 0
          },
          {
-            "views" : 46,
-            "version" : "6 barrel drivers, 5 side pins",
-            "name" : "ASSA Twin Exclusive, Twin 6000",
-            "rank" : 22
+            "lockViews" : 13,
+            "dateString" : "05/10",
+            "weekend" : 0,
+            "visits" : 253,
+            "visitors" : 47,
+            "date" : "2024-05-10"
          },
          {
-            "version" : null,
-            "views" : 46,
-            "rank" : 23,
-            "name" : "LIPS 8300 / Nemef NF2, NF3"
+            "weekend" : 1,
+            "lockViews" : 141,
+            "dateString" : "05/11",
+            "visits" : 123,
+            "visitors" : 53,
+            "date" : "2024-05-11"
          },
          {
-            "views" : 45,
-            "version" : null,
-            "rank" : 24,
-            "name" : "ABUS 80TI Titalium"
+            "visitors" : 40,
+            "visits" : 77,
+            "date" : "2024-05-12",
+            "weekend" : 1,
+            "dateString" : "05/12",
+            "lockViews" : 100
          },
          {
-            "views" : 45,
-            "version" : null,
-            "rank" : 25,
-            "name" : "Schlage Everest"
+            "weekend" : 0,
+            "lockViews" : 154,
+            "dateString" : "05/13",
+            "visits" : 107,
+            "visitors" : 46,
+            "date" : "2024-05-13"
          },
          {
-            "views" : 44,
-            "version" : "5 pin stacks, ≥ 4 spooled drivers",
-            "name" : "Mul-T-Lock Jr, Classic, Interactive",
-            "rank" : 26
+            "date" : "2024-05-14",
+            "visitors" : 52,
+            "visits" : 121,
+            "dateString" : "05/14",
+            "lockViews" : 216,
+            "weekend" : 0
          },
          {
-            "views" : 42,
-            "version" : null,
-            "name" : "Medeco M4",
-            "rank" : 27
+            "dateString" : "05/15",
+            "lockViews" : 251,
+            "weekend" : 0,
+            "visitors" : 72,
+            "visits" : 174,
+            "date" : "2024-05-15"
          },
          {
-            "name" : "Mul-T-Lock Classic, Interactive",
-            "rank" : 28,
-            "version" : "5 pins, 3 or fewer spooled drivers",
-            "views" : 42
-         },
-         {
-            "version" : null,
-            "views" : 41,
-            "name" : "Master Lock 140, 141",
-            "rank" : 29
-         },
-         {
-            "name" : "Any Cutaway Lock",
-            "rank" : 30,
-            "views" : 40,
-            "version" : null
-         },
-         {
-            "rank" : 31,
-            "name" : "ASSA Twin Combi, Triton, Neptun 4900 / TrioVing System 10, Twin Control",
-            "views" : 40,
-            "version" : "6 pin with 5 finger pins"
-         },
-         {
-            "version" : "12 sliders, 0 mastered",
-            "views" : 39,
-            "name" : "Australian Lock Co. BiLock",
-            "rank" : 32
-         },
-         {
-            "name" : "DOM RS 8",
-            "rank" : 33,
-            "views" : 39,
-            "version" : null
-         },
-         {
-            "rank" : 34,
-            "name" : "DOM RS Sigma",
-            "version" : null,
-            "views" : 39
-         },
-         {
-            "views" : 38,
-            "version" : "6-7 pin",
-            "name" : "Alfa 'pExtra' / Gege pExtra",
-            "rank" : 35
-         },
-         {
-            "rank" : 36,
-            "name" : "ALPHA Z cam lock",
-            "version" : null,
-            "views" : 38
-         },
-         {
-            "rank" : 37,
-            "name" : "Abloy High Profile",
-            "views" : 37,
-            "version" : null
-         },
-         {
-            "name" : "Mul-T-Lock 7X7",
-            "rank" : 38,
-            "views" : 37,
-            "version" : null
-         },
-         {
-            "rank" : 39,
-            "name" : "ABUS 72/40",
-            "version" : null,
-            "views" : 36
-         },
-         {
-            "name" : "ALPHA FB",
-            "rank" : 40,
-            "views" : 36,
-            "version" : "<15 pins"
-         },
-         {
-            "version" : "with butterfly discs",
-            "views" : 35,
-            "rank" : 41,
-            "name" : "ABUS Plus"
-         },
-         {
-            "version" : "with spools",
-            "views" : 34,
-            "rank" : 42,
-            "name" : "Lockwood 334B45, 356S63, 214A40, 215A40, 270S70"
-         },
-         {
-            "name" : "ASSA Desmo",
-            "rank" : 43,
-            "views" : 33,
-            "version" : "6 sliders"
-         },
-         {
-            "version" : "6 pin",
-            "views" : 33,
-            "rank" : 44,
-            "name" : "GOAL P"
-         },
-         {
-            "views" : 33,
-            "version" : null,
-            "rank" : 45,
-            "name" : "Master Lock 410 LOTO (Lockout Tagout)"
-         },
-         {
-            "name" : "GOAL D9",
-            "rank" : 46,
-            "views" : 32,
-            "version" : "9 pin"
-         },
-         {
-            "name" : "ABUS Cisa",
-            "rank" : 47,
-            "version" : null,
-            "views" : 31
-         },
-         {
-            "rank" : 48,
-            "name" : "ABUS EC700, EC800",
-            "version" : null,
-            "views" : 31
-         },
-         {
-            "version" : "≥ 5 rows, 16-20 pins",
-            "views" : 30,
-            "name" : "Kaba Star",
-            "rank" : 49
-         },
-         {
-            "rank" : 50,
-            "name" : "DOM Diamant",
-            "views" : 29,
-            "version" : null
+            "visits" : 253,
+            "visitors" : 114,
+            "date" : "2024-05-16",
+            "weekend" : 0,
+            "lockViews" : 300,
+            "dateString" : "05/16"
          }
       ],
       "columns" : [
          {
-            "id" : "rank",
-            "align" : "center",
-            "name" : "Rank"
+            "id" : "weekend",
+            "align" : "hidden",
+            "name" : "Weekend"
          },
          {
-            "id" : "name",
             "align" : "left",
-            "name" : "Name"
+            "id" : "date",
+            "name" : "Date"
          },
          {
-            "id" : "version",
-            "name" : "Version",
-            "align" : "left"
+            "align" : "left",
+            "id" : "dateString",
+            "name" : "Date"
          },
          {
-            "id" : "views",
+            "name" : "Visitors",
+            "align" : "center",
+            "id" : "visitors"
+         },
+         {
+            "name" : "Visits",
+            "align" : "center",
+            "id" : "visits"
+         },
+         {
+            "id" : "lockViews",
             "align" : "center",
             "name" : "Views"
          }
       ],
-      "title" : "Most Popular Locks"
+      "title" : ""
+   },
+   "firstVistsLastSevenDays" : {
+      "title" : "",
+      "countryCount" : 1,
+      "data" : [
+         {
+            "country" : "Norway",
+            "visits" : 1,
+            "firstVisit" : "05/15/24"
+         }
+      ],
+      "columns" : [
+         {
+            "name" : "Country",
+            "id" : "country",
+            "align" : "left"
+         },
+         {
+            "name" : "First Visit",
+            "id" : "firstVisit",
+            "align" : "center"
+         },
+         {
+            "align" : "center",
+            "id" : "visits",
+            "name" : "Visits"
+         }
+      ]
+   },
+   "metadata" : {
+      "updatedDateTime" : "2024-05-17T09:47:40",
+      "timezone" : "EDT"
    }
 }

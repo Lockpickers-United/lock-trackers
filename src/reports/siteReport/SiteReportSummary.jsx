@@ -1,7 +1,7 @@
 import React from 'react'
 import useWindowSize from '../../util/useWindowSize'
 import SiteReport28DaysLine from './SiteReport28DaysLine'
-import SiteReport7daysTable from './SiteReportSummaryTable'
+import SiteReportSummaryTable from './SiteReportSummaryTable'
 
 function SiteReportSummary({data}) {
     const {width} = useWindowSize()
@@ -22,7 +22,7 @@ function SiteReportSummary({data}) {
             <div style={{textAlign: 'center'}}>
                 <div style={combinedDivStyle}>
                     <SiteReport28DaysLine lineData={data}/>
-                    <SiteReport7daysTable fullData={data}/>
+                    <SiteReportSummaryTable fullData={data}/>
                 </div>
             </div>
         </React.Fragment>
