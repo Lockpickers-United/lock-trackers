@@ -24,7 +24,6 @@ function YouTubeMain() {
             padding: pagePadding,
             marginLeft: 'auto', marginRight: 'auto'
         }}>
-
             {!allDataLoaded &&
                 <LoadingDisplay/>
             }

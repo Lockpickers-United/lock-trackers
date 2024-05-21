@@ -25,7 +25,7 @@ export function LoadingProvider({children}) {
             fuzzy: channel.snippet.title + ', ' + channel.snippet.customUrl
         }
     })
-    
+
     const allDataLoaded = ((jsonLoaded))
 
     const value = useMemo(() => ({
