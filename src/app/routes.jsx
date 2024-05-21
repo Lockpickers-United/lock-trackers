@@ -85,6 +85,13 @@ export default [
         }
     },
     {
+        path: '/youtube',
+        lazy: async () => {
+            const {default: YouTubeRoute} = await import('../youtube/YouTubeRoute.jsx')
+            return {element: <YouTubeRoute/>}
+        }
+    },
+    {
         path: '*',
         loader: () => redirect('/lockbazaar')
     },

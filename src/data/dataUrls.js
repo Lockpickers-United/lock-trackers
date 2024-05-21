@@ -12,10 +12,11 @@ export const lockBazaarData = '/lockBazaarData.json'
 export const jsonBackup = 'https://data.locktrackers.com/firebase/backup.json'
 export const lockListings = '/listings.json'
 
+export const youtubeData = '/data/youtubeData.json'
+
 export const siteFull = '/reports/statsSiteFull.json'
 export const siteSummary = '/reports/statsSiteSummary.json'
 export const statsWatchlist = '/reports/statsWatchlist.json'
-
 export const samelineViewsJson = '/reports/samelineViews.json'
 
 export const wishlist = 'https://explore.lpubelts.com/wishlist/?token=81750a99&id=GGplAdctTfVDLVvYsfIADJmfp8f2'
