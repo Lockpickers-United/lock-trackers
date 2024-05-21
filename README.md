@@ -1,3 +1,5 @@
 # Lock Trackers
 
-Lock trackers for LPU Speed Picks and Challenge Locks
+LPUlocks.com
+
+Lock trackers for LPU #lock-bazaar listings and Speed Picks
