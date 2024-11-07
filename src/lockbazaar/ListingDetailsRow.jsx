@@ -12,14 +12,15 @@ const ListingDetailsRow = ({listing, sellerView}) => {
     const divFlexStyle = !smallWindow ? {display: 'flex'} : {}
     const sellerButtonWidth = !smallWindow ? 130 : 300
 
+    const parsedUrl = URL.canParse(listing.photo) ? new URL(listing.photo) : null
+    const hostParts = parsedUrl ? parsedUrl?.hostname.split('.') : null
+    const domain = parsedUrl ? `${hostParts[hostParts.length - 2]}.${hostParts[hostParts.length - 1]}` : null
+    const displayLink = listing.photo?.length > 40 ? listing.photo?.substring(0,40) + '...' : listing.photo
+    const photoLinkText = domain ? domain : displayLink
 
+    console.log(listing.photo, displayLink)
 
-    const photoURL = listing.photo ? listing.photo : null
-    const re = /https?:\/\/([\w|.]*)\//g
-    const photoLinkMatches = re.exec(photoURL)
-    const photoLinkText = photoLinkMatches ? photoLinkMatches[1] : listing.photo
-
-    const photoLink = <a href={photoURL} target='_blank' rel='noopener noreferrer'>{photoLinkText}</a>
+    const photoLink = <a href={listing.photo} target='_blank' rel='noopener noreferrer'>{photoLinkText}</a>
 
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
