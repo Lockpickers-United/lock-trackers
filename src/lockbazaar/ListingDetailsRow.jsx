@@ -18,8 +18,6 @@ const ListingDetailsRow = ({listing, sellerView}) => {
     const displayLink = listing.photo?.length > 40 ? listing.photo?.substring(0,40) + '...' : listing.photo
     const photoLinkText = domain ? domain : displayLink
 
-    console.log(listing.photo, displayLink)
-
     const photoLink = <a href={listing.photo} target='_blank' rel='noopener noreferrer'>{photoLinkText}</a>
 
     const [anchorEl, setAnchorEl] = useState(null)
