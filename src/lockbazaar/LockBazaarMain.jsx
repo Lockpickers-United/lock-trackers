@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useCallback, useContext} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
 
 import EntriesLB from './EntriesLB.jsx'
@@ -16,6 +16,7 @@ import AuthContext from '../app/AuthContext.jsx'
 import DataContext from '../app/DataContext.jsx'
 import WatchlistAddLPUbeltsButton from './WatchlistAddLPUbeltsButton.jsx'
 import MessageContext from '../app/MessageContext.jsx'
+import Link from '@mui/material/Link'
 
 function LockBazaarMain() {
     const {allDataLoaded, getSellerFromId} = useContext(LoadingContextLB)
@@ -26,7 +27,7 @@ function LockBazaarMain() {
     const {systemMessage} = useContext(MessageContext)
 
     const watchlistView = !!filters && filters?.collection === 'Watchlist'
-    
+
     const {width} = useWindowSize()
     const smallWindow = width <= 560
     const pagePadding = !smallWindow
@@ -42,6 +43,10 @@ function LockBazaarMain() {
             navigate('/lockbazaar')
         }
     }
+
+    const handleClick = useCallback(link => {
+        navigate(link)
+    }, [navigate])
 
     return (
         <div style={{
@@ -78,10 +83,36 @@ function LockBazaarMain() {
             }
 
             {(watchlistView) &&
-                <div style={{fontSize: '1.2rem', fontWeight: 600, marginBottom: 10, marginTop: 20, textAlign:'left'}}>
-                Your Watchlist
-            </div>
+                <div style={{fontSize: '1.2rem', fontWeight: 600, marginBottom: 10, marginTop: 20, textAlign: 'left'}}>
+                    Your Watchlist
+                </div>
             }
+
+            {filters.giftCertificates &&
+
+                <div style={{}}>
+                    <div style={{
+                        fontSize: '1rem',
+                        lineHeight: '1.3rem',
+                        marginBottom: 10,
+                        marginTop: 20,
+                        textAlign: 'left'
+                    }}>
+                        <div style={{fontSize: '1.3rem', fontWeight: 700, marginBottom: 10}}>NEW! Rafl Gift
+                            Certificates
+                        </div>
+                        Starting this year, people donating pots to
+                        the <strong><a href={'https://lpubelts.com/#/rafl'}
+                                       target='_blank'
+                                       rel='noopener noreferrer'>LPU Charity Raffle</a></strong> have
+                        the option of including &#34;Gift Certificates&#34; redeemable with select #lock-bazaar sellers.
+                        Here&#39;s the list of all items available from sellers who currently accept
+                        Gift Certificates. <Link onClick={() => handleClick('/rafl')}>Click here for the list of Gift Certificate sellers.</Link>
+                    </div>
+
+                </div>
+            }
+
 
             {(isLoggedIn && watchlistView && (profile?.watchlist?.length === 0 || !profile?.watchlist)) &&
                 <div style={{

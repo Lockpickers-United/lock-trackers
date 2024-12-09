@@ -44,22 +44,24 @@ function WatchlistButton({id, fontSize, dense}) {
 
     return (
         <React.Fragment>
-            <Tooltip title={tooltipText} arrow disableFocusListener>
-                {dense &&
-                        <IconButton onClick={handleChange} style={{height: 40, width: 40}}>
-                            <FavoriteIcon fontSize={fontSize} color={isCollected ? 'error' : 'inherit'}/>
-                        </IconButton>
-                }
-                {!dense &&
+            {dense &&
+                <Tooltip title={tooltipText} arrow disableFocusListener>
+                    <IconButton onClick={handleChange} style={{height: 40, width: 40}}>
+                        <FavoriteIcon fontSize={fontSize} color={isCollected ? 'error' : 'inherit'}/>
+                    </IconButton>
+                </Tooltip>
+            }
+            {!dense &&
+                <Tooltip title={tooltipText} arrow disableFocusListener>
                     <div style={{display: 'flex', alignItems: 'center', width: '100%'}}>
                         <Button size='small' startIcon={<FavoriteIcon/>} onClick={handleChange}
                                 color={isCollected ? 'error' : 'inherit'}>
                             <nobr>{tooltipText}</nobr>
                         </Button>
                     </div>
-                }
+                </Tooltip>
+            }
 
-            </Tooltip>
             {(!isLoggedIn && open) &&
                 <Popover
                     open={open}
