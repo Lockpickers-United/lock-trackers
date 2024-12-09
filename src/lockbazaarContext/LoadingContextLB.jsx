@@ -10,7 +10,6 @@ export function LoadingProvider({children}) {
     const {allLocks, lockBazaarData, samelineViewsJson} = data || {}
     const jsonLoaded = (!loading && !error && !!data)
 
-
     const sellerProfiles = useMemo(() => lockBazaarData?.sellerProfiles || [], [lockBazaarData?.sellerProfiles])
     const sellerIdMap = useMemo(() => lockBazaarData?.sellerIdMap || [], [lockBazaarData?.sellerIdMap])
     const validListings = useMemo(() => lockBazaarData?.validListings || [], [lockBazaarData?.validListings])
@@ -18,8 +17,7 @@ export function LoadingProvider({children}) {
     const samelineViews = useMemo(() => samelineViewsJson?.samelineViews || [], [samelineViewsJson?.samelineViews])
 
     const getListingsFromId = useCallback(lockId => {
-        const listings = validListings?.filter(({id}) => id === lockId) || null
-        return listings
+        return validListings?.filter(({id}) => id === lockId) || null
     }, [validListings])
 
     const getLockFromId = useCallback(lockId => {

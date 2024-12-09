@@ -14,10 +14,10 @@ export const LBFilterFields = [
     {label: 'Locking Mechanism', fieldName: 'lockingMechanisms'},
     {label: 'Belt', fieldName: 'lockBelt', sort: beltSort},
     {label: 'Seller Name', fieldName: 'sellerName'},
+    {label: 'Gift Certificates', fieldName: 'giftCertificates'},
     {label: 'Location', fieldName: 'country'},
     {label: 'Ships To', fieldName: 'shipsTo'},
     {label: 'Collection', fieldName: 'collection', userBased: true}
-
 ]
 
 export const spFilterFields = [

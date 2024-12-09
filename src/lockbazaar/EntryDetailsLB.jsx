@@ -7,6 +7,7 @@ import dayjs from 'dayjs'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 
 const EntryDetailsLB = ({entry, sellerView, listingsArray}) => {
+
     const {getLockLineFromId} = useContext(LoadingContextLB)
     const {allGroupedIds} = useContext(DataContext)
     const parentId = entry?.id.replace(/(\w+)-*.*/, '$1')

@@ -71,6 +71,13 @@ export default [
         }
     },
     {
+        path: '/rafl',
+        lazy: async () => {
+            const {default: RaflRoute} = await import('../lockbazaar/RaflRoute')
+            return {element: <RaflRoute/>}
+        }
+    },
+    {
         path: '/reports',
         lazy: async () => {
             const {default: ReportsRoute} = await import('../reports/ReportsRoute')

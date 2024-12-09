@@ -49,7 +49,8 @@ export function DataProvider({children}) {
                     ],
                     simpleBelt: entry.belt.replace(/\s\d/g, ''),
                     lockBelt: entry.belt.replace(/\s\d/g, ''),
-                    samelineViews: samelineViews[entry.id] || 1
+                    samelineViews: samelineViews[entry.id] || 1,
+                    giftCertificates: entry.isRaflSellers ? 'RAFL' : 'none'
                 }))
             : []
     }, [combinedEntries, profile?.watchlist, samelineViews])

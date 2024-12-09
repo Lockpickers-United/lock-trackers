@@ -12,8 +12,6 @@ import LinkIcon from '@mui/icons-material/Link'
 import {enqueueSnackbar} from 'notistack'
 import ListAltIcon from '@mui/icons-material/ListAlt'
 
-// http://localhost:3000/#/speedpicks?pickerId=ClbjuilBEHgbzO4UZl4y3GStlEz2
-
 function SellerProfileInline({listing, handleClose}) {
 
     const {filters, addFilter} = useContext(FilterContext)
