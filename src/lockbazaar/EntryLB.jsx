@@ -53,7 +53,7 @@ const Entry = ({entry, expanded, onExpand}) => {
         ? shippableListings.filter(listing => listing.sellerName === filters.sellerName)
         : shippableListings
 
-    const listingsArray = [{ 'id':entry.id, 'listings':sellersListings }]
+    const listingsArray = [{'id': entry.id, 'listings': sellersListings}]
 
     const sellerButtonDisabled = sellerView
 
@@ -126,7 +126,7 @@ const Entry = ({entry, expanded, onExpand}) => {
     const smallWindow = width <= 480
 
     const nameDivWidth = !smallWindow
-        ? '65%'
+        ? '55%'
         : watchlistView
             ? '100%'
             : '70%'
@@ -162,6 +162,10 @@ const Entry = ({entry, expanded, onExpand}) => {
             color: '#999'
         }
 
+    const watchlistButtonMargin = !smallWindow
+        ? '0px 50px 0px 10px'
+        : '0px 0px 0px 10px'
+
     return (
         <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters={false}>
             <AccordionSummary expandIcon={<ExpandMoreIcon/>}
@@ -172,13 +176,12 @@ const Entry = ({entry, expanded, onExpand}) => {
                               }}>
 
                 <div style={summaryFlexStyle}>
-                    <div style={{display: 'flex', width: '80%'}}>
+                    <div style={{display: 'flex', width: '100%'}}>
                         <BeltStripe value={entry.belt}/>
                         <div style={{
                             margin: '12px 0px 8px 8px',
                             width: nameDivWidth,
-                            flexShrink: 0,
-                            flexDirection: 'column'
+                            flexShrink: 1
                         }}>
                             <div
                                 style={nameTextStyle}
@@ -201,7 +204,8 @@ const Entry = ({entry, expanded, onExpand}) => {
                                 margin: '8px 0px 0px 0px',
                                 width: '40%',
                                 display: 'flex',
-                                alignItems: 'center'
+                                alignItems: 'center',
+                                flexGrow: 1
                             }}>
                                 {
                                     entry.lockingMechanisms?.length > 0 &&
@@ -224,10 +228,11 @@ const Entry = ({entry, expanded, onExpand}) => {
 
                         {(sellerView && entry?.isLPUbeltsLock) &&
                             <div style={{
-                                margin: '0px 0px 0px 10px',
+                                margin: watchlistButtonMargin,
                                 width: '10%',
                                 display: 'flex',
-                                alignItems: 'center'
+                                alignItems: 'center',
+                                justifyItems: 'right'
                             }}>
                                 <WatchlistButton id={entry.id} dense={smallWindow} fontSize='small'/>
                             </div>
@@ -254,7 +259,8 @@ const Entry = ({entry, expanded, onExpand}) => {
                 </div>
                 {sellerView &&
                     <div style={{}}>
-                        <EntryDetailsLB entry={entry} listings={sellersListings} sellerView={sellerView} listingsArray={listingsArray}/>
+                        <EntryDetailsLB entry={entry} listings={sellersListings} sellerView={sellerView}
+                                        listingsArray={listingsArray}/>
                     </div>
                 }
                 {(otherIds.length > 0 && !hasListings) &&
