@@ -20,6 +20,9 @@ function RaflPage() {
             .map((profile) => {
                 return validListings?.find(({sellerName}) => sellerName === profile.username)
             })
+            .sort((a, b) => {
+                return a.sellerName.localeCompare(b.sellerName)
+            })
         : []
 
     const {width} = useWindowSize()

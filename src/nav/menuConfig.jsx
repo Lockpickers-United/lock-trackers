@@ -8,6 +8,7 @@ import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import SavingsOutlinedIcon from '@mui/icons-material/SavingsOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
+import NewReleasesIcon from '@mui/icons-material/NewReleases'
 
 export default [
     {
@@ -26,6 +27,11 @@ export default [
         icon: <SavingsOutlinedIcon fontSize='small'/>,
         path: '/import',
         indent: true
+    },
+    {
+        title: 'RAFL',
+        icon: <NewReleasesIcon fontSize='small'/>,
+        path: '/rafl'
     },
     {
         title: 'Seller Info',
