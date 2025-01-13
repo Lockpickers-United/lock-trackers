@@ -15,7 +15,6 @@ export function AuthProvider({children}) {
             setAuthLoaded(true)
             setUser(user)
             verbose && console.log('user', user)
-
         })
         return () => unregisterAuthObserver()
     }, [verbose])

@@ -18,28 +18,38 @@ export function DataProvider({children}) {
     const {search, id, tab, name, sellerId, sort, image, profileUpdated, add, ...filters} = allFilters
     const {allEntries, allLocks, getLockFromId, samelineViews} = useContext(LoadingContext)
     const {profile} = useContext(DBContext)
-    const {combinedEntries} = useContext(WatchlistContextLB)
+    let {combinedEntries} = useContext(WatchlistContextLB)
     const lockBelts = useMemo(() => belts, [])
+
+    //console.log('combinedEntries', combinedEntries)
+
+    combinedEntries = combinedEntries.filter(x => x)
+    combinedEntries.forEach(entry => {
+        if (!entry.makeModels)
+        console.log('NO entry.makeModels', entry)
+    })
 
     const mappedEntries = useMemo(() => {
         return combinedEntries
             ? combinedEntries
-                .filter(listing => (!listing?.makeModels?.make && !listing?.makeModels?.model))
+                .filter(listing => (!listing?.makeModels || (!listing?.makeModels?.make && !listing?.makeModels?.model)))
                 .map(entry => ({
                     ...entry,
                     makes: entry.makeModels ? entry.makeModels.map(({make}) => make) : [],
-                    fuzzy: removeAccents(
-                        entry.makeModels
-                            .map(({make, model}) => [make, model])
-                            .flat()
-                            .filter(a => a)
-                            .concat([
-                                entry.version,
-                                entry.notes,
-                                entry.belt
-                            ])
-                            .join(',')
-                    ),
+                    fuzzy: entry.makeModels
+                        ? removeAccents(
+                            entry.makeModels
+                                .map(({make, model}) => [make, model])
+                                .flat()
+                                .filter(a => a)
+                                .concat([
+                                    entry.version,
+                                    entry.notes,
+                                    entry.belt
+                                ])
+                                .join(',')
+                        )
+                        : 'unknown',
                     content: [
                         entry.belt.startsWith('Black') ? 'Is Black' : undefined,
                         entry.belt !== 'Unranked' ? 'Is Ranked' : undefined
@@ -137,16 +147,15 @@ export function DataProvider({children}) {
     const getNameFromId = useCallback(id => {
         const entry = getEntryFromId(id)
         const lock = getLockFromId(entry?.lockId)
-        if (lock) {
+        if (lock && lock.makeModels) {
             const {makeModels} = lock
             const {make, model} = makeModels[0]
             const makeModel = make && make !== model ? `${make} ${model}` : model
             return makeModel.replace(/[\s/]/g, '_').replace(/\W/g, '')
         } else {
-            return null
+            return 'unknown'
         }
     }, [getEntryFromId, getLockFromId])
-
 
     const groupedIds = visibleEntries.reduce((acc, entry) => {
         const id = entry.id.replace(/(\w+)-*.*/, '$1')
