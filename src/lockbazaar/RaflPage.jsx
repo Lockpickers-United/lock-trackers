@@ -23,6 +23,7 @@ function RaflPage() {
             .sort((a, b) => {
                 return a.sellerName.localeCompare(b.sellerName)
             })
+            .filter(x => x)
         : []
 
     const {width} = useWindowSize()
