@@ -7,7 +7,7 @@ const CollectionsListUsersSavesLine = ({data}) => {
 
     const {lineMetrics} = data
 
-    console.log(lineMetrics)
+    //console.log(lineMetrics)
 
     const {width} = useWindowSize()
     const mobileSmall = width <= 360

@@ -10,6 +10,7 @@ import belts, {beltSort, beltSortReverse} from '../data/belts'
 import AppContext from '../app/AppContext.jsx'
 import DBContext from '../app/DBContext.jsx'
 import WatchlistContextLB from './WatchlistContextLB.jsx'
+import collectionStatsById from '../data/collectionStatsById.json'
 
 export function DataProvider({children}) {
 
@@ -23,10 +24,10 @@ export function DataProvider({children}) {
 
     //console.log('combinedEntries', combinedEntries)
 
-    combinedEntries = combinedEntries.filter(x => x)
+    combinedEntries = combinedEntries ? combinedEntries.filter(x => x) : []
     combinedEntries.forEach(entry => {
         if (!entry.makeModels)
-        console.log('NO entry.makeModels', entry)
+            console.log('NO entry.makeModels', entry)
     })
 
     const mappedEntries = useMemo(() => {
@@ -60,6 +61,7 @@ export function DataProvider({children}) {
                     simpleBelt: entry.belt.replace(/\s\d/g, ''),
                     lockBelt: entry.belt.replace(/\s\d/g, ''),
                     samelineViews: samelineViews[entry.id] || 1,
+                    collectionSaves: collectionStatsById[entry.id] || 0,
                     giftCertificates: entry.isRaflSellers ? 'RAFL' : 'none'
                 }))
             : []
@@ -118,7 +120,8 @@ export function DataProvider({children}) {
                     return beltSortReverse(a.belt, b.belt)
                         || entryName(a, 'short').localeCompare(entryName(b, 'short'))
                 } else if (sort === 'popularity') {
-                    return b.samelineViews - a.samelineViews
+                    return b.collectionSaves - a.collectionSaves
+                        || b.samelineViews - a.samelineViews
                         || b.views - a.views
                         || entryName(a, 'short').localeCompare(entryName(b, 'short'))
                 } else if (sort === 'newListings') {

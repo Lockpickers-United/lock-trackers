@@ -11,7 +11,7 @@ function LockBazaarSellersMain() {
     const {allDataLoaded, validListings, sellerProfiles} = useContext(LoadingContextLB)
     const {profile, adminFlags = {}} = useContext(DBContext)
 
-    const listings = profile && !adminFlags?.isLBMod
+    const listings = validListings && profile && !adminFlags?.isLBMod
         ? validListings.filter(listing => listing.sellerName === profile?.username)
         : validListings
 
