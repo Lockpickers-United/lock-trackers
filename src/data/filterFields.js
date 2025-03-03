@@ -10,7 +10,6 @@ export const lockFilterFields = [
 ]
 
 export const LBFilterFields = [
-    {label: 'Listing Type', fieldName: 'listingType'},
     {label: 'Make', fieldName: 'makes'},
     {label: 'Locking Mechanism', fieldName: 'lockingMechanisms'},
     {label: 'Belt', fieldName: 'lockBelt', sort: beltSort},
