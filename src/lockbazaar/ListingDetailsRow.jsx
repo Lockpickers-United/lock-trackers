@@ -63,8 +63,13 @@ const ListingDetailsRow = ({listing, sellerView}) => {
                     {listing.notes} <span style={{color: '#777'}}>(Row {listing.rowNum + 1})</span>
                 </div>
             }
+            {listing.otherInfo &&
+                <div style={{padding: '0px 20px 15px 30px', fontSize: '.85rem', textAlign: 'left'}}>
+                    {listing.otherInfo}
+                </div>
+            }
             {listing.packageContents &&
-                <div style={{fontSize:'0.9rem', marginLeft: '20px', marginTop: '10px'}}>
+                <div style={{padding: '0px 20px 15px 30px', fontSize: '.85rem', textAlign: 'left'}}>
                     Package contents:
                     <ul>
                         {listing.packageContents.replace(/\s+,|,\s+/g, ',').split(',').filter(x => x).map((item, index) =>

@@ -207,8 +207,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                                 alignItems: 'center',
                                 flexGrow: 1
                             }}>
-                                {
-                                    entry.lockingMechanisms?.length > 0 &&
+                                {entry.lockingMechanisms?.length > 0 &&
                                     <FieldValue
                                         value={
                                             <Stack direction='row' spacing={0} sx={{flexWrap: 'wrap'}}>
@@ -223,6 +222,23 @@ const Entry = ({entry, expanded, onExpand}) => {
                                         }
                                     />
                                 }
+
+                                {entry.listingType?.length > 0 &&
+                                    <FieldValue
+                                        value={
+                                            <Stack direction='row' spacing={0} sx={{flexWrap: 'wrap'}}>
+                                                {entry.listingType?.filter(listingType => listingType !== 'Lock').map((listingType, index) =>
+                                                    <FilterChip
+                                                        key={index}
+                                                        value={listingType}
+                                                        field='listingType'
+                                                    />
+                                                )}
+                                            </Stack>
+                                        }
+                                    />
+                                }
+
                             </div>
                         }
 
