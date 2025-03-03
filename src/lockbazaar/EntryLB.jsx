@@ -22,6 +22,8 @@ import WatchlistButton from './WatchlistButton.jsx'
 
 const Entry = ({entry, expanded, onExpand}) => {
 
+    console.log('Entry', entry)
+
     const {filters, addFilter} = useContext(FilterContext)
 
     const {allGroupedIds} = useContext(DataContext)
@@ -223,6 +225,23 @@ const Entry = ({entry, expanded, onExpand}) => {
                                         }
                                     />
                                 }
+                                {
+                                    entry.listingType?.length > 0 &&
+                                    <FieldValue
+                                        value={
+                                            <Stack direction='row' spacing={0} sx={{flexWrap: 'wrap'}}>
+                                                {entry.listingType?.filter(listingType => listingType !== 'Lock').map((listingType, index) =>
+                                                    <FilterChip
+                                                        key={index}
+                                                        value={listingType}
+                                                        field='listingType'
+                                                    />
+                                                )}
+                                            </Stack>
+                                        }
+                                    />
+                                }
+
                             </div>
                         }
 
