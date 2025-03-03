@@ -15,7 +15,7 @@ const ListingDetailsRow = ({listing, sellerView}) => {
     const parsedUrl = URL.canParse(listing.photo) ? new URL(listing.photo) : null
     const hostParts = parsedUrl ? parsedUrl?.hostname.split('.') : null
     const domain = parsedUrl ? `${hostParts[hostParts.length - 2]}.${hostParts[hostParts.length - 1]}` : null
-    const displayLink = listing.photo?.length > 40 ? listing.photo?.substring(0,40) + '...' : listing.photo
+    const displayLink = listing.photo?.length > 40 ? listing.photo?.substring(0, 40) + '...' : listing.photo
     const photoLinkText = domain ? domain : displayLink
 
     const photoLink = <a href={listing.photo} target='_blank' rel='noopener noreferrer'>{photoLinkText}</a>
@@ -63,6 +63,17 @@ const ListingDetailsRow = ({listing, sellerView}) => {
                     {listing.notes} <span style={{color: '#777'}}>(Row {listing.rowNum + 1})</span>
                 </div>
             }
+            {listing.packageContents &&
+                <div style={{fontSize:'0.9rem', marginLeft: '20px', marginTop: '10px'}}>
+                    Package contents:
+                    <ul>
+                        {listing.packageContents.replace(/\s+,|,\s+/g, ',').split(',').filter(x => x).map((item, index) =>
+                            <li key={index}>{item}</li>
+                        )}
+                    </ul>
+                </div>
+            }
+
             <div style={{height: 10}}/>
         </React.Fragment>
     )
