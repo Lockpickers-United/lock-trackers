@@ -1,3 +1,5 @@
+/* eslint react/no-unescaped-entities: 0 */  // --> OFF
+
 import React from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
 
@@ -28,7 +30,7 @@ function SellerHowTo() {
                     </li>
 
                     <li style={{marginBottom: 10}}>
-                        Update your sheet to match the standard columns A through M. Please reference
+                        Update your sheet to match the standard columns A through P. Please reference
                         our <b><a
                         href={'https://docs.google.com/spreadsheets/d/1s7lAzU4uuPBesteNVocK9rD7F5UYDrQOgh4hDiP6QXw/edit#gid=0'}
                         target='_blank'
@@ -36,9 +38,11 @@ function SellerHowTo() {
                         spreadsheet</a></b>
 
                         <ul style={{listStyleType: 'disc'}}>
+                            <li style={{marginTop: 5}}>Your listings must be in an actual Google Sheet.
+                                Excel format hosted by Google Sheets will not work with the site.
+                            </li>
                             <li style={{marginTop: 5}}>Only listings with a quantity of 1 or more are displayed on the
-                                site.
-                                Only listings linked to a specific lock on lpubelts.com will have their belt ranking
+                                site. Only listings linked to a specific lock on lpubelts.com will have their belt ranking
                                 shown.
                             </li>
                             <li style={{marginTop: 5}}>For listings that match a specific lock on lpubelts.com:
@@ -50,8 +54,8 @@ function SellerHowTo() {
                             <li style={{marginTop: 5}}>Matching to an lpubelts lock is done by supplying
                                 a valid URL to the lock details on lpubelts.com in the &#34;LPUbelts URL&#34; column.
                             </li>
-                            <li style={{marginTop: 5}}>For locks that are part of a sameline entry containing multiple locks, the &#34;Sameline #&#34; column
-                                column should contain a number indicating which lock in the group you are selling.
+                            <li style={{marginTop: 5}}>For locks that are part of a sameline entry containing multiple locks,
+                                the &#34;Sameline #&#34; column should contain a number indicating which lock in the group you are selling.
                                 So if you are selling a Medeco Biaxial, you&#39;d look
                                 at the <b><a
                                     href={'https://lpubelts.com/#/locks?id=826c31e0&name=Medeco_Original_Biaxial_M3&tab=Purple'}
@@ -62,11 +66,14 @@ function SellerHowTo() {
                             </li>
                             <li style={{marginTop: 5}}>For listings of other locks: the site will display the information in your sheet, with the exception of belt ranking.
                             </li>
+                            <li style={{marginTop: 5}}>There are two additional to the sheet structure: Listing Type (column O)
+                                and Package Contents (column N). Acceptable values for Listing Type are "Lock", "Package",
+                                and "Tools" ("Lock" is the default if the cell is blank or has any other value).
+                                Package Contents should be a comma-separated list of the items included.
+                                (Please try to be brief for each item.)
+                            </li>
                             <li style={{marginTop: 5}}>Unused columns can be blank or hidden, but the site will look for
-                                data
-                                there so please
-                                make sure they
-                                are
+                                data there so please make sure they are
                                 in your sheet and empty even if you don&#39;t intend to use them.
                             </li>
                         </ul>

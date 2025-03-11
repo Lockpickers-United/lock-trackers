@@ -29,9 +29,9 @@ export function LoadingProvider({children}) {
     const allDataLoaded = ((authLoaded && !dbUser && !!jsonEntries && !!jsonProfiles) || (authLoaded && dbUser && !!dbEntries && !!dbProfiles))
 
     const refreshData = useCallback(async () => {
-        console.log('start refreshData')
+        //console.log('start refreshData')
         if (authLoaded && dbUser) {
-            console.log('REFRESHDATA: using dbEntries')
+            //console.log('REFRESHDATA: using dbEntries')
             const newDbEntries = await getDbEntries()
             setDbEntries(newDbEntries)
             const newDbProfiles = await getDbProfiles()

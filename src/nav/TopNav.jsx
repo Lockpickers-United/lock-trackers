@@ -16,6 +16,7 @@ function TopNav(route) {
 
     const navigate = useNavigate()
     const location = useLocation()
+    const {VITE_RAFL_STATE: raflState} = import.meta.env
 
     const buttonSyle = {border: 0, padding: 0, marginRight: 6, minWidth: 30}
 
@@ -51,10 +52,12 @@ function TopNav(route) {
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SpeedPicks fill={spFill} style={{height: 30}}/>
                             </Button>
-                            <Button variant='text' style={buttonSyle}
-                                    onClick={handleButtonClick('/rafl')}>
-                                <RAFL_logo fill={raflFill} style={{height: 30}}/>
-                            </Button>
+                            {raflState !== 'hidden' &&
+                                <Button variant='text' style={buttonSyle}
+                                        onClick={handleButtonClick('/rafl')}>
+                                    <RAFL_logo fill={raflFill} style={{height: 30}}/>
+                                </Button>
+                            }
                         </div>
                     </div>
                     <div style={{height: 12}}/>
@@ -73,10 +76,12 @@ function TopNav(route) {
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: 30}}/>
                             </Button>
-                            <Button variant='text' style={buttonSyle}
-                                    onClick={handleButtonClick('/rafl')}>
-                                <RAFL_logo fill={raflFill} style={{height: 30}}/>
-                            </Button>
+                            {raflState !== 'hidden' &&
+                                <Button variant='text' style={buttonSyle}
+                                        onClick={handleButtonClick('/rafl')}>
+                                    <RAFL_logo fill={raflFill} style={{height: 30}}/>
+                                </Button>
+                            }
                         </div>
                     </div>
                     <div style={{height: 12}}/>
@@ -95,10 +100,12 @@ function TopNav(route) {
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: 30}}/>
                             </Button>
-                            <Button variant='text' style={buttonSyle}
-                                    onClick={handleButtonClick('/rafl')}>
-                                <RAFL_logo fill={raflFill} style={{height: 30}}/>
-                            </Button>
+                            {raflState !== 'hidden' &&
+                                <Button variant='text' style={buttonSyle}
+                                        onClick={handleButtonClick('/rafl')}>
+                                    <RAFL_logo fill={raflFill} style={{height: 30}}/>
+                                </Button>
+                            }
                         </div>
                     </div>
                     <div style={{height: 12}}/>

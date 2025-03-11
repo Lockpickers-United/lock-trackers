@@ -9,6 +9,7 @@ export function LoadingProvider({children}) {
     const {data, loading, error} = useData({urls})
     const {allLocks, lockBazaarData, samelineViewsJson} = data || {}
     const jsonLoaded = (!loading && !error && !!data)
+    const {VITE_RAFL_STATE: raflState} = import.meta.env
 
     const sellerProfiles = useMemo(() => lockBazaarData?.sellerProfiles || [], [lockBazaarData?.sellerProfiles])
     const sellerIdMap = useMemo(() => lockBazaarData?.sellerIdMap || [], [lockBazaarData?.sellerIdMap])
@@ -83,7 +84,8 @@ export function LoadingProvider({children}) {
         getSellerFromId,
         sellerIdMap,
         badListings,
-        samelineViews
+        samelineViews,
+        raflState
     }), [
         allDataLoaded,
         sellerProfiles,
@@ -98,7 +100,8 @@ export function LoadingProvider({children}) {
         getSellerFromId,
         sellerIdMap,
         badListings,
-        samelineViews
+        samelineViews,
+        raflState
     ])
 
     return (

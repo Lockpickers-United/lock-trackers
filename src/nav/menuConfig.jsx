@@ -10,6 +10,8 @@ import SavingsOutlinedIcon from '@mui/icons-material/SavingsOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import NewReleasesIcon from '@mui/icons-material/NewReleases'
 
+const {VITE_RAFL_STATE: raflState} = import.meta.env
+
 export default [
     {
         title: 'Lock Bazaar',
@@ -31,7 +33,8 @@ export default [
     {
         title: 'RAFL',
         icon: <NewReleasesIcon fontSize='small'/>,
-        path: '/rafl'
+        path: '/rafl',
+        hidden: raflState === 'hidden'
     },
     {
         title: 'Seller Info',
