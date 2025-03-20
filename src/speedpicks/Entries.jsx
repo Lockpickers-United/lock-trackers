@@ -1,7 +1,6 @@
-import React, {useCallback, useContext, useDeferredValue, useState, useMemo} from 'react'
+import React, {useCallback, useContext, useState, useMemo} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
 import DataContext from '../app/DataContext.jsx'
-import ListContext from '../context/ListContext.jsx'
 import Entry from './Entry.jsx'
 import NewEntry from './NewEntry.jsx'
 import SortFilterBarSP from './SortFilterBarSP.jsx'
@@ -13,8 +12,8 @@ import NoEntriesCard from './NoEntriesCard.jsx'
 function Entries() {
 
     const {bestTimes, visibleEntries = []} = useContext(DataContext)
-    const {expanded, setExpanded} = useContext(ListContext)
     const {filters} = useContext(FilterContext)
+    const [entryExpanded, setEntryExpanded] = useState(filters.id)
 
     const [view, setView] = useState('all')
     const [updated, setUpdated] = useState(0)
@@ -23,8 +22,6 @@ function Entries() {
         setUpdated(value)
         console.log('entriesUpdate: ', updated)
     }, [updated])
-
-    const defExpanded = useDeferredValue(expanded)
 
     if (!filters.pickerId) document.title = 'LPU Locks - Speed Picks'
 
@@ -79,8 +76,8 @@ function Entries() {
                     <Entry bestTimes={bestTimes}
                            key={entry.id}
                            entry={entry}
-                           expanded={entry.id === defExpanded}
-                           onExpand={setExpanded}
+                           expanded={entry.id === entryExpanded}
+                           onExpand={setEntryExpanded}
                            entriesUpdate={entriesUpdate}
                     />
                 )}

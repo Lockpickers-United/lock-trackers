@@ -302,4 +302,8 @@ const Entry = ({entry, expanded, onExpand}) => {
     )
 }
 
-export default Entry
+export default React.memo(Entry, (prevProps, nextProps) => {
+    return prevProps.entry.id === nextProps.entry.id &&
+        prevProps.expanded === nextProps.expanded &&
+        prevProps.onExpand === nextProps.onExpand
+})
