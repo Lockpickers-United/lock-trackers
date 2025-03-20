@@ -21,10 +21,10 @@ function LockBazaarSellersMain() {
 
             {!allDataLoaded && <LoadingDisplay/>}
 
-            {(allDataLoaded && adminFlags.isSeller) && <ListingsDataGrid listings={listings} profile={profile}/>}
             {(allDataLoaded && adminFlags.isLBMod) &&
                 <SellersDataGrid listings={listings} sellerProfiles={sellerProfiles}/>
             }
+            {(allDataLoaded && adminFlags.isSeller) && <ListingsDataGrid listings={listings} profile={profile}/>}
             <SellerHowTo/>
 
         </React.Fragment>

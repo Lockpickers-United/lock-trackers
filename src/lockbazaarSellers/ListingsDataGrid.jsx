@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 
-import {DataGrid} from '@mui/x-data-grid'
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 import Box from '@mui/material/Box'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
@@ -132,6 +132,7 @@ function ListingsDataGrid({listings}) {
                     disableRowSelectionOnClick
                     ignoreDiacritics
                     sx={{fontSize: '.9rem'}}
+                    slots={{ toolbar: GridToolbar }}
                 />
             </Box>
         </div>
