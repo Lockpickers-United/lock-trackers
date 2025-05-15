@@ -1,0 +1,14 @@
+{
+  "name": "lpulocks-node",
+  "version": "1.0.0",
+  "description": "node support for lpulocks.com",
+  "type": "module",
+  "main": "index.js",
+  "author": "Neal Bayless",
+  "license": "MIT",
+  "dependencies": {
+    "firebase": "^11.7.3",
+    "firebase-admin": "^13.4.0",
+    "nodemailer": "^7.0.3"
+  }
+}

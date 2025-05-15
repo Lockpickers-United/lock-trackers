@@ -9,7 +9,7 @@ if (import.meta.env && import.meta.env.VITE_LOCAL_DATA === 'true') {
 export const allLocks = '/data.json'
 export const lockBazaarData = '/lockBazaarData.json'
 
-export const jsonBackup = 'https://data.locktrackers.com/firebase/backup.json'
+export const jsonBackup = 'https://data.locktrackers.com/speedpicks/backup.json'
 export const lockListings = '/listings.json'
 
 export const siteFull = '/reports/statsSiteFull.json'

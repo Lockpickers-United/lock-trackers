@@ -37,14 +37,6 @@ module.exports = {
         'quotes': ['warn', 'single', {'avoidEscape': true}],
         'eqeqeq': ['warn', 'always'],
         'semi': ['warn', 'never'],
-        'import/extensions': [
-            'warn',
-            'never',
-            {
-                jsx: 'never',
-                json: 'always'
-            }
-        ],
         'import/no-unresolved': 'off',
         'import/namespace': 'off'
     },
