@@ -71,7 +71,6 @@ function SearchBox({label, extraFilters = []}) {
         </InputAdornment>
     ) : null
 
-
     const style = isMobile
         ? {maxWidth: 300}
         : {maxWidth: 350}

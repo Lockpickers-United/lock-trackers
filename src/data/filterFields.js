@@ -21,7 +21,7 @@ export const LBFilterFields = [
 ]
 
 export const spFilterFields = [
+    {label: 'Make', fieldName: 'make'},
     {label: 'Belt', fieldName: 'belt', sort: beltSort},
     {label: 'Picker', fieldName: 'pickerName'},
-    {label: 'Rank', fieldName: 'rank'}
 ]

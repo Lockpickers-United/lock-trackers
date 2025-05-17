@@ -16,11 +16,13 @@ const Entry = ({entry, expanded, onExpand, entriesUpdate}) => {
 
     //TODO: handle no lock matching ID (or null)
 
+    if (expanded) console.log('expanded', entry)
+
     const [editing, setEditing] = useState(false)
 
     const theme = useTheme()
 
-    const isBestTime = entry.rank === 'Fastest'
+    const isBestTime = entry.isBest
     const entryColor = entry.status === 'pending'
         ? theme.palette.error.light
         : entry.status === 'rejected'
@@ -76,17 +78,19 @@ const Entry = ({entry, expanded, onExpand, entriesUpdate}) => {
 
     const style = {maxWidth: 700, marginLeft: 'auto', marginRight: 'auto', borderBottom: '1px solid #444'}
 
+    const {width} = useWindowSize()
+    const breakSize = width <= 427
+    const fontSize = !breakSize ? '1.0rem' : '0.95rem'
+
     const divStyle = {
         margin: '10px 15px 10px 15px',
-        fontSize: '1.0rem',
+        fontSize: fontSize,
         color: entryColor,
         fontWeight: entryWeight,
         display: 'flex',
         placeItems: 'center'
     }
 
-    const {width} = useWindowSize()
-    const breakSize = width <= 427
     const nameDivStyle = {
         minWidth: 110,
         textAlign: 'right'
@@ -107,14 +111,14 @@ const Entry = ({entry, expanded, onExpand, entriesUpdate}) => {
 
     return (
         <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters>
-            <AccordionSummary expandIcon={expandIcon} style={{fontSize: '1.1rem'}}>
+            <AccordionSummary expandIcon={expandIcon} style={{fontSize: fontSize}}>
                 <BeltStripe value={entry.belt}/>
                 <ListItemText
                     primary={entry.lock}
-                    primaryTypographyProps={{fontWeight: 600, color: entryColor, fontSize: '1.0rem'}}
+                    primaryTypographyProps={{fontWeight: 600, color: entryColor, fontSize: fontSize}}
                     secondary={entry.version}
                     secondaryTypographyProps={{color: entryColor}}
-                    style={{padding: '8px 0px 8px 10px'}}
+                    style={{padding: '4px 0px 4px 10px'}}
                 />
                 <div style={combinedDivStyle}>
                     <div style={divStyle}>{entry.pickerName}</div>

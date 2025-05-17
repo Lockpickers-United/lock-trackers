@@ -22,13 +22,14 @@ export function DataProvider({children}) {
     const lockBelts = belts
     const lockData = allLocks
     const isMod = !!adminFlags.isSPMod
+    const reverseBelts = [...allBelts].reverse()
+    reverseBelts.push(reverseBelts.shift())
 
     const validEntries = useMemo(() => {
         return (allEntries && allDataLoaded && lockData)
             ? allEntries.map(entry => {
                 const lockId = entry?.lockId
                 const thisLock = lockData?.find(({id}) => id === lockId)
-
                 if (!thisLock) {
                     entry.lock = 'Unknown Lock'
                     entry.version = 'Lock ID not valid'
@@ -40,6 +41,7 @@ export function DataProvider({children}) {
                     entry.version = thisLock?.version
                     entry.belt = thisLock?.belt
                     entry.beltIndex = allBelts.indexOf(thisLock?.belt)
+                    entry.make = thisLock.makeModels[0]?.make ? thisLock.makeModels[0]?.make : thisLock.makeModels[0]?.model
                 }
 
                 const pickerId = entry.pickerId
@@ -61,19 +63,27 @@ export function DataProvider({children}) {
             : []
     }, [allEntries, allDataLoaded, lockData, allProfiles])
 
-    const bestTimes = useMemo(() => {
-            return allEntries && lockData
-                ? allEntries
-                    .filter(({status}) => status === 'approved')
-                    .reduce((acc, {lockId, totalTime}) => {
-                        if (!acc[lockId] || totalTime < acc[lockId]) {
-                            acc[lockId] = totalTime
-                        }
-                        return acc
-                    }, {})
-                : {}
-        }, [allEntries, lockData])
+    const mappedValidEntries = useMemo(() => {
+        return validEntries
+            ? validEntries.map(entry => ({
+                ...entry,
+                fuzzy: removeAccents(`${entry.lock}, ${entry.pickerName}`)
+            }))
+            : []
+    }, [validEntries])
 
+    const bestTimes = useMemo(() => {
+        return mappedValidEntries && lockData
+            ? mappedValidEntries
+                .filter(({status}) => status === 'approved')
+                .reduce((acc, {lockId, totalTime}) => {
+                    if (!acc[lockId] || totalTime < acc[lockId]) {
+                        acc[lockId] = totalTime
+                    }
+                    return acc
+                }, {})
+            : {}
+    }, [mappedValidEntries, lockData])
 
     const visibleEntries = useMemo(() => {
         // Filters as an array
@@ -87,19 +97,16 @@ export function DataProvider({children}) {
             .flat()
 
         // map best times
-        const mappedEntries = validEntries && bestTimes
-            ? validEntries.map(entry => {
-                if (entry.totalTime === bestTimes[entry.lockId]) {
-                    entry.rank = 'Fastest'
-                } else {
-                    entry.isBest = 'false'
-                }
+        const mappedEntries = mappedValidEntries && bestTimes
+            ? mappedValidEntries.map(entry => {
+                entry.isBest = entry.totalTime === bestTimes[entry.lockId]
+                entry.rank = 'Show All'
                 return entry
             })
             : []
 
         // Filter the data
-        const filtered = mappedEntries
+        const allFiltered = mappedEntries
             .filter(datum => {
                 return filterArray.every(({key, value}) => {
                     return Array.isArray(datum[key])
@@ -110,9 +117,14 @@ export function DataProvider({children}) {
             .filter(datum => (datum.pickerId === user?.uid) || isMod || !['pending', 'deleted', 'rejected'].includes(datum.status))
             .filter(datum => datum.status !== 'deleted')
 
+        const filtered = filters.rank === 'Show All'
+            ? allFiltered
+            : allFiltered.filter(entry => entry.isBest)
+
+
         // If there is a search term, fuzzy match that
         const searched = search
-            ? fuzzysort.go(removeAccents(search), filtered, {keys: fuzzySortKeys})
+            ? fuzzysort.go(removeAccents(search), filtered, {keys: fuzzySortKeys, threshold: -15000})
                 .map(result => ({
                     ...result.obj,
                     score: result.score
@@ -129,7 +141,7 @@ export function DataProvider({children}) {
                         || a.lock.localeCompare(b.lock)
                         || a.totalTime - b.totalTime
                 } else if (sort === 'beltDesc') {
-                    return b.beltIndex - a.beltIndex
+                    return reverseBelts.indexOf(a.belt) - reverseBelts.indexOf(b.belt)
                         || a.lock.localeCompare(b.lock)
                         || a.totalTime - b.totalTime
                 } else if (sort === 'picker') {
@@ -157,7 +169,7 @@ export function DataProvider({children}) {
                     || a.totalTime - b.totalTime
             })
 
-    }, [bestTimes, filters, isMod, search, sort, user?.uid, validEntries])
+    }, [bestTimes, filters, isMod, mappedValidEntries, reverseBelts, search, sort, user?.uid])
 
     const pendingEntries = useMemo(() => {
         return allEntries.filter(datum => datum.status === 'pending')

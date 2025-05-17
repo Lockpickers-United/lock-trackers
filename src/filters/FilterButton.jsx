@@ -1,7 +1,5 @@
-import React, {useCallback, useContext} from 'react'
-import Tooltip from '@mui/material/Tooltip'
+import React, {useCallback, useContext, useState} from 'react'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
-import IconButton from '@mui/material/IconButton'
 import Badge from '@mui/material/Badge'
 import AuthContext from '../app/AuthContext'
 import FilterContext from '../context/FilterContext'
@@ -12,15 +10,15 @@ import Button from '@mui/material/Button'
 import AppContext from '../app/AppContext'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import ToggleButton from '@mui/material/ToggleButton'
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
 function FilterButton({onFiltersChanged, extraFilters = []}) {
     const {isLoggedIn} = useContext(AuthContext)
     const {beta} = useContext(AppContext)
-    const {filterCount, addFilters, filterFields} = useContext(FilterContext)
-    //const [open, setOpen] = useState(false)
-
-    //const openDrawer = useCallback(() => setOpen(true), [])
-    //const closeDrawer = useCallback(() => setOpen(false), [])
+    const {filters, filterCount, addFilter, addFilters, removeFilter, filterFields} = useContext(FilterContext)
+    const {rank} = filters
+    const [showAll, setShowAll] = useState(rank === 'Show All')
 
     const handleAddFilter = useCallback((keyToAdd, valueToAdd) => {
         addFilters([
@@ -30,9 +28,19 @@ function FilterButton({onFiltersChanged, extraFilters = []}) {
             ...extraFilters
         ], true)
         onFiltersChanged && onFiltersChanged()
-    }, [addFilters, onFiltersChanged, extraFilters])
+    }, [addFilters, extraFilters, onFiltersChanged])
 
-    const [anchorEl, setAnchorEl] = React.useState(null)
+    const handleShowAll = useCallback(() => {
+        if (!showAll) {
+            addFilter('rank', 'Show All', true)
+        } else {
+            removeFilter('rank', 'Show All')
+        }
+        onFiltersChanged && onFiltersChanged()
+        setShowAll(!showAll)
+    }, [showAll, onFiltersChanged, addFilter, removeFilter])
+
+    const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
@@ -43,27 +51,27 @@ function FilterButton({onFiltersChanged, extraFilters = []}) {
 
     return (
         <React.Fragment>
-            {filterCount > 0 &&
-                <Tooltip title='Filter' arrow disableFocusListener>
-                    <IconButton color='inherit' onClick={handleClick}>
-                        <Badge
-                            badgeContent={filterCount}
-                            color='error'
-                            overlap='circular'
-                            anchorOrigin={{
-                                vertical: 'top', horizontal: 'right'
-                            }}
-                            variant='dot'
-                        >
-                            <FilterAltIcon/>
-                        </Badge>
-                    </IconButton>
-                </Tooltip>
-            }
             {filterCount === 0 &&
                 <Button variant='contained' size='small'
-                        onClick={handleClick} endIcon={<FilterAltIcon/>} style={{margin: '8px 0px 3px 0px'}}>
-                    filters
+                        onClick={handleClick} endIcon={<FilterAltIcon/>}
+                        style={{margin: '8px 0px 3px 0px', height: 32}}>
+                    FILTERS
+                </Button>
+            }
+            {filterCount > 0 &&
+                <Button variant='contained' size='small'
+                        onClick={handleClick} style={{margin: '8px 0px 3px 0px', height: 32, minWidth: 32}}>
+                    <Badge
+                        badgeContent={filterCount}
+                        color='error'
+                        overlap='circular'
+                        anchorOrigin={{
+                            vertical: 'top', horizontal: 'right'
+                        }}
+                        variant='dot'
+                    >
+                        <FilterAltIcon/>
+                    </Badge>
                 </Button>
             }
             <Menu
@@ -71,6 +79,26 @@ function FilterButton({onFiltersChanged, extraFilters = []}) {
                 anchorEl={anchorEl}
                 onClose={handleClose}
             >
+                <MenuItem>
+                    <div style={{width: '100%', justifyItems: 'center'}}>
+                        <ToggleButtonGroup style={{height: 38, margin: '12px 0px'}}>
+                            <ToggleButton
+                                selected={!showAll}
+                                value={'Fastest'}
+                                variant='outlined'
+                                style={{padding: 7}}
+                                onClick={handleShowAll}
+                            >Fastest</ToggleButton>
+                            <ToggleButton
+                                selected={showAll}
+                                value={'Show All'}
+                                variant='outlined'
+                                style={{padding: 7}}
+                                onClick={handleShowAll}
+                            >Show All</ToggleButton>
+                        </ToggleButtonGroup>
+                    </div>
+                </MenuItem>
 
                 <Stack direction='column' style={{minWidth: 250}}>
                     {filterFields
@@ -98,6 +126,7 @@ function FilterButton({onFiltersChanged, extraFilters = []}) {
                         Done
                     </Button>
                 </MenuItem>
+
             </Menu>
         </React.Fragment>
     )

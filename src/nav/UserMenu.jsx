@@ -38,7 +38,8 @@ function UserMenu() {
         : 'Private'
 
     //TODO: change profile destination and add toggle on view page
-    const profileURL = `/speedpicks?pickerId=${user?.uid}&name=${safeName}`
+
+    const profileURL = `/speedpicks?pickerName=${profile.username}&rank=Show+All`
 
     const sellerURL = adminFlags?.isSeller ? `/lockbazaar?sellerName=${profile.username}` : null
 

@@ -50,12 +50,12 @@ async function getAllData() {
     })
     collections['profiles'] = profiles
 
-    const dbSpeedpicks = new Map()
+    const speedpicks = new Map()
     const pendingEntryIds = []
 
-    const speedPicks = await getDocs(collection(db, 'speedPicks'))
-    speedPicks.forEach((doc) => {
-        dbSpeedpicks[doc.id] = doc.data()
+    const dbSpeedpicks = await getDocs(collection(db, 'speedPicks'))
+    dbSpeedpicks.forEach((doc) => {
+        speedpicks[doc.id] = doc.data()
         numEntries++
         if (doc.data().status === 'approved') {
             approvedEntries++
@@ -66,7 +66,7 @@ async function getAllData() {
             deletedEntries++
         }
     })
-    collections['speedPicks'] = dbSpeedpicks
+    collections['speedPicks'] = speedpicks
 
     const priorPending = JSON.parse(await readFile(`${workDir}/pendingEntries.json`, 'utf8'))
 
@@ -113,7 +113,7 @@ async function getAllData() {
         if (newPending) {
             console.log('new pending entries:')
             newPendingEntryIds.forEach(entryId => {
-                console.log(entryId, profiles[dbSpeedpicks[entryId].pickerId].username)
+                console.log(entryId, profiles[speedpicks[entryId].pickerId].username)
             })
         }
         console.log('Run time: ', new Date().toString())

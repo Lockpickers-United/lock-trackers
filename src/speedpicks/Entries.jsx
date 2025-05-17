@@ -16,12 +16,11 @@ function Entries() {
     const [entryExpanded, setEntryExpanded] = useState(filters.id)
 
     const [view, setView] = useState('all')
-    const [updated, setUpdated] = useState(0)
+    const [updated, setUpdated] = useState(0) // eslint-disable-line
 
     const entriesUpdate = useCallback(value => {
         setUpdated(value)
-        console.log('entriesUpdate: ', updated)
-    }, [updated])
+    }, [])
 
     if (!filters.pickerId) document.title = 'LPU Locks - Speed Picks'
 

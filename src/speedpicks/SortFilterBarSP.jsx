@@ -4,8 +4,10 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import FilterContext from '../context/FilterContext'
 import useWindowSize from '../util/useWindowSize.jsx'
 import FilterButton from '../filters/FilterButton.jsx'
-import AdminFilterButtonSP from '../filters/AdminFilterButtonSP.jsx'
+import AdminFilterButton from '../filters/AdminFilterButton.jsx'
 import DataContext from '../app/DataContext.jsx'
+import SortButton from './SortButton.jsx'
+import SearchBox from '../nav/SearchBox.jsx'
 
 function SortFilterBarSP() {
 
@@ -13,7 +15,6 @@ function SortFilterBarSP() {
 
     const {
         filters,
-        addFilter,
         filterCount,
         removeFilter,
         removeFilters,
@@ -51,8 +52,6 @@ function SortFilterBarSP() {
         return value
     }, [])
 
-    const {sort} = filters
-
     const [highlight, setHighlight] = useState('all')
     if (filters?.status && highlight !== filters?.status) {
         setHighlight(filters?.status)
@@ -61,38 +60,6 @@ function SortFilterBarSP() {
     } else if (!filters?.isBest && !filters?.status && highlight !== 'all') {
         setHighlight('all')
     }
-
-    const [dateSort, setDateSort] = useState('')
-    const dateSortText = sort === 'dateAsc'
-        ? 'Date ⬆'
-        : sort === 'dateDesc'
-            ? 'Date ⬇'
-            : 'Date'
-
-    const handleDateSort = useCallback(value => () => {
-        const newSort = value === 'dateDesc' ? 'dateAsc' : 'dateDesc'
-        setDateSort(newSort)
-        setTimeout(() => addFilter('sort', newSort, true), 0)
-    }, [addFilter])
-
-
-    const [beltSort, setBeltSort] = useState('')
-    const beltSortText = sort === 'belt'
-        ? 'Belt ⬆'
-        : sort === 'beltDesc'
-            ? 'Belt ⬇'
-            : 'Belt'
-
-    const handleBeltSort = useCallback(value => () => {
-        const newSort = value === 'belt' ? 'beltDesc' : 'belt'
-        setBeltSort(newSort)
-        setTimeout(() => addFilter('sort', newSort, true), 0)
-    }, [addFilter])
-
-
-    const handleSort = useCallback(value => () => {
-        setTimeout(() => addFilter('sort', value, true), 0)
-    }, [addFilter])
 
     const {width} = useWindowSize()
     const mobileLarge428 = width <= 428
@@ -108,52 +75,36 @@ function SortFilterBarSP() {
 
     return (
         <div style={combinedDivStyle}>
-            <div style={{textAlign: 'left', marginTop: 10}}>
-                <span style={{fontSize: '.7rem', marginRight: 5}}>SORT</span>
-                <ToggleButtonGroup style={{height: 26}}>
-                    <ToggleButton selected={sort === 'lock' || !sort} style={{padding: 7}} value={'lock'}
-                                  onClick={handleSort('lock')}>Name</ToggleButton>
-                    <ToggleButton selected={sort === 'belt' || sort === 'beltDesc'} style={{padding: 7}}
-                                  value={'belt'}
-                                  onClick={handleBeltSort(beltSort)}>{beltSortText}</ToggleButton>
-                    <ToggleButton selected={sort === 'totalTime'} style={{padding: 7}} value={'belt'}
-                                  onClick={handleSort('totalTime')}>Pick Time</ToggleButton>
-                    {!filters.pickerId &&
-                        <ToggleButton selected={sort === 'picker'} style={{padding: 7}} value={'picker'}
-                                      onClick={handleSort('picker')}>Picker</ToggleButton>
-                    }
-                    <ToggleButton selected={sort === 'dateAsc' || sort === 'dateDesc'} style={{padding: 7}}
-                                  value={'date'}
-                                  onClick={handleDateSort(dateSort)}>{dateSortText}</ToggleButton>
-                </ToggleButtonGroup>
+            <div style={{textAlign: 'left', marginTop: 10, flexGrow: 1}}>
+                <SearchBox label='Speedpicks'/>
             </div>
-            <div style={{textAlign: 'right', flexGrow: 1}}>
+            <div style={{justifyContent: 'right', display: 'flex'}}>
+                <SortButton/>
                 {filterCount > 0 &&
-                    <div>
-                        <span style={{fontSize: '.7rem', marginRight: 5}}>FILTER</span>
-                        <ToggleButtonGroup style={{height: 26, marginTop: 10}}>
-                            {filterValues.map(({key, value: filter}, index) =>
-                                <ToggleButton
-                                    key={index}
-                                    selected={true}
-                                    value={`${cleanChipLabel(filterFieldsByFieldName[key]?.label, filter)}`}
-                                    variant='outlined'
-                                    style={{padding: 7}}
-                                    onClick={handleDeleteFilter(key, filter)}
-                                >{cleanChipLabel(filterFieldsByFieldName[key]?.label, filter)}</ToggleButton>
-                            )}
-                        </ToggleButtonGroup>
-                        <FilterButton/>
-                        {isMod &&
-                            <AdminFilterButtonSP/>
-                        }
-                    </div>
+                        <div>
+                            <FilterButton/>
+                            <ToggleButtonGroup style={{height: 26, marginTop: 10, marginLeft:10}}>
+                                {filterValues.map(({key, value: filter}, index) =>
+                                    <ToggleButton
+                                        key={index}
+                                        selected={true}
+                                        value={`${cleanChipLabel(filterFieldsByFieldName[key]?.label, filter)}`}
+                                        variant='outlined'
+                                        style={{padding: 7}}
+                                        onClick={handleDeleteFilter(key, filter)}
+                                    >{cleanChipLabel(filterFieldsByFieldName[key]?.label, filter)}</ToggleButton>
+                                )}
+                            </ToggleButtonGroup>
+                            {isMod &&
+                                <AdminFilterButton/>
+                            }
+                        </div>
                 }
                 {filterCount === 0 &&
                     <div>
                         <FilterButton/>
                         {isMod &&
-                            <AdminFilterButtonSP/>
+                            <AdminFilterButton/>
                         }
                     </div>
                 }
