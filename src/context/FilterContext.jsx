@@ -127,7 +127,6 @@ const nonFilters = [
     'profileUpdated',
     'sellerId',
     'add',
-    'rank'
 ]
 
 export default FilterContext

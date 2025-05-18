@@ -1,6 +1,6 @@
 import React, {useCallback, useContext} from 'react'
 import Tooltip from '@mui/material/Tooltip'
-import FilterContext from '../context/FilterContext'
+import FilterContext from '../context/FilterContext.jsx'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'

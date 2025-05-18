@@ -7,10 +7,10 @@ import {localUser, prodUser} from '../keys/users.js'
 import {sendEmail} from './util/nodeMailer.js'
 const production = process.env.USER !== localUser
 
-let workDir = `/Users/${localUser}/Documents/GitHub/lock-trackers-new/lpulocks-node/data/working`
-let backupDir = `/Users/${localUser}/Documents/GitHub/lock-trackers-new/lpulocks-node/data/backups`
-let archiveDir = `/Users/${localUser}/Documents/GitHub/lock-trackers-new/lpulocks-node/data/archives`
-let serverDir = `/Users/${localUser}/Documents/GitHub/lock-trackers-new/lpulocks-node/data/server`
+let workDir = `/Users/${localUser}/Documents/GitHub/lpulocks/lpulocks-node/data/working`
+let backupDir = `/Users/${localUser}/Documents/GitHub/lpulocks/lpulocks-node/data/backups`
+let archiveDir = `/Users/${localUser}/Documents/GitHub/lpulocks/lpulocks-node/data/archives`
+let serverDir = `/Users/${localUser}/Documents/GitHub/lpulocks/lpulocks-node/data/server`
 
 if (production) {
     workDir = `/home/${prodUser}/lpulocks-node/data/working`
@@ -32,7 +32,7 @@ async function getAllData() {
     let numProfiles = 0
     let numEntries = 0
     let approvedEntries = 0
-    let pendingEntries = 0
+    let pendingEntryCount = 0
     let deletedEntries = 0
 
     const outputV = new Map()
@@ -51,7 +51,7 @@ async function getAllData() {
     collections['profiles'] = profiles
 
     const speedpicks = new Map()
-    const pendingEntryIds = []
+    const pendingEntries = []
 
     const dbSpeedpicks = await getDocs(collection(db, 'speedPicks'))
     dbSpeedpicks.forEach((doc) => {
@@ -60,8 +60,9 @@ async function getAllData() {
         if (doc.data().status === 'approved') {
             approvedEntries++
         } else if (doc.data().status === 'pending') {
-            pendingEntryIds.push(doc.id)
-            pendingEntries++
+            console.log('pending entry: ', doc.id, doc.data().pickerId)
+            pendingEntries.push({id: doc.id, username: profiles[doc.data().pickerId].username})
+            pendingEntryCount++
         } else if (doc.data().status === 'deleted') {
             deletedEntries++
         }
@@ -72,14 +73,14 @@ async function getAllData() {
 
     const newPendingEntryIds = []
     let newPending = 0
-    pendingEntryIds.forEach(id => {
+    pendingEntries.forEach(id => {
         if (!priorPending.includes(id)) {
             newPendingEntryIds.push(id)
             newPending++
         }
     })
 
-    const pendingEntriesJson = JSON.stringify(pendingEntryIds, null, 2)
+    const pendingEntriesJson = JSON.stringify(pendingEntries, null, 2)
     const newPendingEntriesJson = JSON.stringify(newPendingEntryIds, null, 2)
 
     fullDb['__collections__'] = collections
@@ -106,14 +107,14 @@ async function getAllData() {
         console.log(' ')
         console.log('speedPicks: ', numEntries)
         console.log('  approved entries: ', approvedEntries)
-        console.log('  pending entries: ', pendingEntries)
+        console.log('  pending entries: ', pendingEntryCount)
         newPending && console.log(`    (${newPending} new)`)
         console.log('  deleted entries: ', deletedEntries)
         console.log(' ')
         if (newPending) {
             console.log('new pending entries:')
-            newPendingEntryIds.forEach(entryId => {
-                console.log(entryId, profiles[speedpicks[entryId].pickerId].username)
+            pendingEntries.forEach(entry => {
+                console.log(entry.id, entry.username)
             })
         }
         console.log('Run time: ', new Date().toString())
@@ -127,14 +128,14 @@ async function main() {
         await getAllData()
     } catch (err) {
         try {
-            await sendEmail({
+            if (production) await sendEmail({
                 emailConfig: 'pendingEntry',
                 subject: 'SpeedPicks export failed',
                 text: `SpeedPicks export failed: ${err}`,
                 html: `SpeedPicks export failed: ${err}`,
                 error: true
             })
-            //console.log('Message sent: %s', email.messageId)
+            if (!production) console.log('Error message sent if in production')
         } catch (error) {
             console.error('Message send failure', error)
         }

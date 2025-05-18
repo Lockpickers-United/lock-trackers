@@ -68,13 +68,13 @@ function SortButton() {
             {!sort &&
                 <Button variant='contained' size='small'
                         onClick={handleClick} endIcon={<SortIcon/>}
-                        style={{margin: '8px 10px 3px 0px', height: 32}}>
+                        style={{margin: '8px 10px 3px 10px', height: 32}}>
                     sort
                 </Button>
             }
             {!!sort &&
                 <Button variant='contained' size='small'
-                        onClick={handleClick} style={{margin: '8px 10px 3px 0px', height: 32, minWidth: 32}}>
+                        onClick={handleClick} style={{margin: '8px 10px 3px 10px', height: 32, minWidth: 32}}>
                     <Badge
                         badgeContent={1}
                         color='error'
@@ -98,7 +98,7 @@ function SortButton() {
                 <Stack direction='column' style={{minWidth: 100}}>
                     <MenuItem selected={sort === 'lock' || !sort} value={'lock'}
                               onClick={handleSort('lock')} style={{padding:'10px 16px'}}>
-                        Name
+                        Default
                     </MenuItem>
                     <MenuItem selected={sort === 'belt' || sort === 'beltDesc'} value={'belt'}
                               onClick={handleBeltSort(beltSort)} style={{padding:'10px 16px'}}>

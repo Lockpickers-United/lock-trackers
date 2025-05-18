@@ -1,10 +1,9 @@
 import React, {useCallback, useContext, useMemo} from 'react'
-import FieldValue from '../util/FieldValue'
-import Stack from '@mui/material/Stack'
-import Chip from '@mui/material/Chip'
 import FilterContext from '../context/FilterContext'
+import ToggleButton from '@mui/material/ToggleButton'
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
-function FilterDisplay() {
+function FilterDisplayToggleButtons() {
     const {filters, filterCount, removeFilter, filterFieldsByFieldName} = useContext(FilterContext)
 
     const handleDeleteFilter = useCallback((keyToDelete, valueToDelete) => () => {
@@ -27,36 +26,34 @@ function FilterDisplay() {
         if (label === 'Belt') {
             if (value === 'Unranked') {
                 return label
-            }
-            if (value.includes('Black')) {
+            } else if (value.includes('Black')) {
                 return value.replace(/(Black)\s(\d+)/, '$1 Belt $2')
             } else {
                 return value + ' Belt'
             }
         } else if (label === 'UL Group') {
             return 'Group ' + value
-        } else if (label === 'Wheels') {
-            return `${value} Wheels`
         }
+
         return value
     }, [])
 
     if (filterCount === 0) return null
     return (
-        <FieldValue name='Current Filters' style={{marginBottom: 0}} value={
-            <Stack direction='row' spacing={0} sx={{flexWrap: 'wrap'}} style={{marginRight: -24}}>
-                {filterValues.map(({key, value: filter}, index) =>
-                    <Chip
-                        key={index}
-                        label={`${cleanChipLabel(filterFieldsByFieldName[key]?.label, filter)}`}
-                        variant='outlined'
-                        style={{marginRight: 4, marginBottom: 4}}
-                        onDelete={handleDeleteFilter(key, filter)}
-                    />
-                )}
-            </Stack>
-        }/>
+        <ToggleButtonGroup style={{height: 26, marginTop: 10, marginLeft: 10}}>
+            {filterValues.map(({key, value: filter}, index) =>
+                <ToggleButton
+                    key={index}
+                    selected={true}
+                    value={`${cleanChipLabel(filterFieldsByFieldName[key]?.label, filter)}`}
+                    variant='outlined'
+                    style={{padding: 7}}
+                    onClick={handleDeleteFilter(key, filter)}
+                >{cleanChipLabel(filterFieldsByFieldName[key]?.label, filter)}</ToggleButton>
+            )}
+        </ToggleButtonGroup>
+
     )
 }
 
-export default FilterDisplay
+export default FilterDisplayToggleButtons

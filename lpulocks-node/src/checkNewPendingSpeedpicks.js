@@ -8,13 +8,12 @@ async function main() {
     const production = process.env.USER !== localUser
     const workDir = production
         ? `/home/${prodUser}/lpulocks-node/data/working`
-        : `/Users/${localUser}/Documents/GitHub/lock-trackers-new/lpulocks-node/data/working`
+        : `/Users/${localUser}/Documents/GitHub/lpulocks/lpulocks-node/data/working`
 
     const newPendingEntries = JSON.parse(await fs.promises.readFile(`${workDir}/newPendingEntries.json`, 'utf8'))
     const numEntries = newPendingEntries.length
 
-    console.log('newPendingEntries', newPendingEntries)
-
+    const testingText = !production ? ' (TESTING)' : ''
 
     if (numEntries > 0) {
 
@@ -22,15 +21,15 @@ async function main() {
 
         const html = `<strong>${numEntries} ${entryText} found</strong><br/><br/>`
         let fieldsHtml = html + '<table style="border-width:1px">'
-        newPendingEntries.forEach(entryId => {
-            fieldsHtml += `<tr><td>${entryId}</td><td>https://lpulocks.com/#/speedpicks?id=${entryId}&sort=dateDesc&rank=Show+All</td></tr>`
+        newPendingEntries.forEach(entry => {
+            fieldsHtml += `<tr><td><strong>${entry.username}</strong> - </td><td>https://lpulocks.com/#/speedpicks?id=${entry.id}&sort=dateDesc&status=pending&rank=Show+All</td></tr>`
         })
         fieldsHtml += '</table>'
 
         try {
             await sendEmail({
                 emailConfig: 'pendingEntry',
-                subject: `SpeedPicks: ${numEntries} ${entryText}`,
+                subject: `SpeedPicks: ${numEntries} ${entryText}${testingText}`,
                 text: `SpeedPicks: ${numEntries} ${entryText}`,
                 html: fieldsHtml,
             })
