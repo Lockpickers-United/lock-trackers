@@ -23,7 +23,7 @@ async function main() {
         const html = `<strong>${numEntries} ${entryText} found</strong><br/><br/>`
         let fieldsHtml = html + '<table style="border-width:1px">'
         newPendingEntries.forEach(entryId => {
-            fieldsHtml += `<tr><td>${entryId}</td><td>https://lpulocks.com/#/speedpicks?id=${entryId}&sort=dateDesc</td></tr>`
+            fieldsHtml += `<tr><td>${entryId}</td><td>https://lpulocks.com/#/speedpicks?id=${entryId}&sort=dateDesc&rank=Show+All</td></tr>`
         })
         fieldsHtml += '</table>'
 

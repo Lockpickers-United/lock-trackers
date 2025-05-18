@@ -13,7 +13,7 @@ function PendingChecker() {
     const {pendingEntries, isMod} = useContext(DataContext)
 
     const handleClick = useCallback(() => {
-        navigate('/speedpicks?status=pending')
+        navigate('/speedpicks?status=pending&rank=Show+All')
     }, [navigate])
 
     if (pendingEntries?.length > 0 && isMod) {

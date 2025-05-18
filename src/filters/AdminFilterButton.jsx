@@ -8,10 +8,8 @@ import MenuItem from '@mui/material/MenuItem'
 import KeyIcon from '@mui/icons-material/Key'
 
 function AdminFilterButton({onFiltersChanged, extraFilters = []}) {
-    const {
-        addFilters,
-        removeFilters,
-    } = useContext(FilterContext)
+
+    const { addFilters, removeFilters } = useContext(FilterContext)
 
 
     const handleAddFilter = useCallback((keyToAdd, valueToAdd) => {
@@ -19,6 +17,7 @@ function AdminFilterButton({onFiltersChanged, extraFilters = []}) {
             {key: keyToAdd, value: valueToAdd},
             {key: 'id', value: undefined},
             {key: 'name', value: undefined},
+            {key: 'rank', value: 'Show All'},
             ...extraFilters
         ], true)
         onFiltersChanged && onFiltersChanged()
