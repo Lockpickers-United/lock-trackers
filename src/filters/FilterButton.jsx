@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
-function FilterButton({onFiltersChanged, extraFilters = []}) {
+function FilterButton({onFiltersChanged, extraFilters = [], speedpicks = false}) {
     const {isLoggedIn} = useContext(AuthContext)
     const {beta} = useContext(AppContext)
     const {filters, filterCount, addFilter, addFilters, removeFilter, filterFields} = useContext(FilterContext)
@@ -33,11 +33,12 @@ function FilterButton({onFiltersChanged, extraFilters = []}) {
     const handleShowAll = useCallback(() => {
         if (!showAll) {
             addFilter('rank', 'Show All', true)
+            setShowAll(true)
         } else {
             removeFilter('rank', 'Show All')
+            setShowAll(false)
         }
         onFiltersChanged && onFiltersChanged()
-        setShowAll(!showAll)
     }, [showAll, onFiltersChanged, addFilter, removeFilter])
 
     const [anchorEl, setAnchorEl] = useState(null)
@@ -79,27 +80,30 @@ function FilterButton({onFiltersChanged, extraFilters = []}) {
                 anchorEl={anchorEl}
                 onClose={handleClose}
             >
-                <MenuItem>
-                    <div style={{width: '100%', justifyItems: 'center'}}>
-                        <ToggleButtonGroup style={{height: 38, margin: '12px 0px'}}>
-                            <ToggleButton
-                                selected={!showAll}
-                                value={'Fastest'}
-                                variant='outlined'
-                                style={{padding: 7}}
-                                onClick={handleShowAll}
-                            >Fastest</ToggleButton>
-                            <ToggleButton
-                                selected={showAll}
-                                value={'Show All'}
-                                variant='outlined'
-                                style={{padding: 7}}
-                                onClick={handleShowAll}
-                            >Show All</ToggleButton>
-                        </ToggleButtonGroup>
-                    </div>
-                </MenuItem>
-
+                {speedpicks &&
+                    <MenuItem>
+                        <div style={{width: '100%', justifyItems: 'center'}}>
+                            <ToggleButtonGroup style={{height: 38, margin: '12px 0px'}}>
+                                <ToggleButton
+                                    selected={!showAll}
+                                    disabled={!showAll}
+                                    value={'Fastest'}
+                                    variant='outlined'
+                                    style={{padding: 7}}
+                                    onClick={handleShowAll}
+                                >Fastest</ToggleButton>
+                                <ToggleButton
+                                    selected={showAll}
+                                    disabled={showAll}
+                                    value={'Show All'}
+                                    variant='outlined'
+                                    style={{padding: 7}}
+                                    onClick={handleShowAll}
+                                >Show All</ToggleButton>
+                            </ToggleButtonGroup>
+                        </div>
+                    </MenuItem>
+                }
                 <Stack direction='column' style={{minWidth: 250}}>
                     {filterFields
                         .filter(field => {

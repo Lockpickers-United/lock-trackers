@@ -16,8 +16,6 @@ const Entry = ({entry, expanded, onExpand, entriesUpdate}) => {
 
     //TODO: handle no lock matching ID (or null)
 
-    if (expanded) console.log('expanded', entry)
-
     const [editing, setEditing] = useState(false)
 
     const theme = useTheme()

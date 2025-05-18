@@ -46,23 +46,20 @@ function Entries() {
                 marginLeft: 'auto', marginRight: 'auto',
                 fontSize: '1.5rem', lineHeight: 0.8
             }}>
-                {!Object.keys(filters).length &&
+                <div style={{
+                    fontSize: '1rem',
+                    lineHeight: '1.2rem',
+                    width: '100%',
+                    textAlign: 'left',
+                    marginTop: 10
+                }}>
+                    Check out who&#39;s got the fastest pick times from across the community and share your best
+                    picks! Join
+                    the conversation on the <a href={'https://discord.gg/BQDN5fa9ff'}
+                                               target='_blank'
+                                               rel='noopener noreferrer'>#unLOCKED discord</a>.
 
-                    <div style={{
-                        fontSize: '1rem',
-                        lineHeight: '1.2rem',
-                        width: '100%',
-                        textAlign: 'left',
-                        marginTop: 10
-                    }}>
-                        Check out who&#39;s got the fastest pick times from across the community and share your best
-                        picks! Join
-                        the conversation on the <a href={'https://discord.gg/BQDN5fa9ff'}
-                                                   target='_blank'
-                                                   rel='noopener noreferrer'>#unLOCKED discord</a>.
-
-                    </div>
-                }
+                </div>
                 <SortFilterBarSP view={view} setView={setView}/>
                 <div style={{height: 5}}/>
 

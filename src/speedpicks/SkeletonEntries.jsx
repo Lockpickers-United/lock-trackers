@@ -4,7 +4,7 @@ import SortFilterBarSP from './SortFilterBarSP.jsx'
 import {useTheme} from '@mui/material/styles'
 import SkeletonEntry from './SkeletonEntry.jsx'
 
-function Entries() {
+function SkeletonEntries() {
 
     let skeletons = []
     for (let i = 0; i < 15; i++) {
@@ -42,4 +42,4 @@ function Entries() {
     )
 }
 
-export default Entries
+export default SkeletonEntries

@@ -44,7 +44,7 @@ function SortFilterBarSP() {
                 <SortButton/>
                 {filterCount > 0 &&
                     <div>
-                        <FilterButton/>
+                        <FilterButton speedpicks={true}/>
                         <FilterDisplayToggleButtons/>
                         {isMod &&
                             <AdminFilterButton/>
@@ -53,7 +53,7 @@ function SortFilterBarSP() {
                 }
                 {filterCount === 0 &&
                     <div>
-                        <FilterButton/>
+                        <FilterButton speedpicks={true}/>
                         {isMod &&
                             <AdminFilterButton/>
                         }

@@ -100,6 +100,7 @@ export function DataProvider({children}) {
         const mappedEntries = mappedValidEntries && bestTimes
             ? mappedValidEntries.map(entry => {
                 entry.isBest = entry.totalTime === bestTimes[entry.lockId]
+                entry.bestTime = bestTimes[entry.lockId]
                 entry.rank = 'Show All'
                 return entry
             })

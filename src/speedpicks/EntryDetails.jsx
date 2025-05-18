@@ -6,8 +6,12 @@ import AuthContext from '../app/AuthContext.jsx'
 import DataContext from '../app/DataContext.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 import EntryComments from './EntryComments.jsx'
+import formatTime from '../util/formatTime.jsx'
 
 const EntryDetails = ({entry, startEdit, entriesUpdate}) => {
+
+
+    console.log('EntryDetails', entry)
 
     const {isMod = []} = useContext(DataContext)
     const {user, isLoggedIn} = useContext(AuthContext)
@@ -23,7 +27,8 @@ const EntryDetails = ({entry, startEdit, entriesUpdate}) => {
         ? entry.videoUrl?.substring(0, 65) + '...'
         : entry.videoUrl
 
-    const bestTime = entry.bestTime === 'aN:aN' ? 'pending' : entry.bestTime
+    const bestTime = entry.bestTime === 'aN:aN' ? 'pending' : formatTime(entry.bestTime)
+    const bestTimeColor = entry.isBest ? '#07bb07' : '#de4444'
 
     const {width} = useWindowSize()
     const mobileLarge428 = width <= 428
@@ -79,8 +84,8 @@ const EntryDetails = ({entry, startEdit, entriesUpdate}) => {
                                 style={fieldValueStyle}/>
                     <FieldValue name='Total time' value={entry.totalTimeString}
                                 style={fieldValueStyle}/>
-                    <FieldValue name='Best time' value={`(${bestTime})`}
-                                style={fieldValueStyle}/>
+                    <FieldValue name='Best time' value={`${bestTime}`}
+                                style={{...fieldValueStyle, color: bestTimeColor}}/>
                 </div>
             </div>
             {(isUser || isMod) &&

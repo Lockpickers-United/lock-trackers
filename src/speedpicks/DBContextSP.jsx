@@ -140,7 +140,7 @@ export function DBSPProvider({children}) {
                 }
             })
             await updateVersion()
-            console.log(statusText)
+            //console.log(statusText)
             return statusText
         } catch (e) {
             console.log('error')
