@@ -99,14 +99,13 @@ export function DataProvider({children}) {
 
     const visibleEntries = useMemo(() => {
 
-        // If there is a search term, fuzzy match that
         const searched = search
-            ? fuzzysort.go(removeAccents(search), filteredEntries, {keys: fuzzySortKeys, threshold: -25000})
-                .map(result => ({
-                    ...result.obj,
-                    score: result.score
-                }))
-            : filteredEntries
+                ? fuzzysort.go(removeAccents(search), filteredEntries, {keys: fuzzySortKeys, threshold: -25000})
+                    .map(result => ({
+                        ...result.obj,
+                        score: result.score
+                    }))
+                : filteredEntries
 
         verbose && console.log('searched', searched)
 
@@ -211,5 +210,5 @@ export function DataProvider({children}) {
     )
 }
 
-const fuzzySortKeys = ['fuzzy']
+const fuzzySortKeys = ['fuzzy', 'id']
 

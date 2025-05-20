@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext} from 'react'
 import FilterContext from '../context/FilterContext'
 import useWindowSize from '../util/useWindowSize.jsx'
 import FilterButton from '../filters/FilterButton.jsx'
@@ -11,17 +11,7 @@ import FilterDisplayToggleButtons from '../filters/FilterDisplayToggleButtons.js
 function SortFilterBarSP() {
 
     const {isMod = []} = useContext(DataContext)
-
-    const {filters, filterCount} = useContext(FilterContext)
-
-    const [highlight, setHighlight] = useState('all')
-    if (filters?.status && highlight !== filters?.status) {
-        setHighlight(filters?.status)
-    } else if (filters?.isBest && highlight !== 'isBest') {
-        setHighlight('isBest')
-    } else if (!filters?.isBest && !filters?.status && highlight !== 'all') {
-        setHighlight('all')
-    }
+    const {filterCount} = useContext(FilterContext)
 
     const {width} = useWindowSize()
     const mobileLarge428 = width <= 428

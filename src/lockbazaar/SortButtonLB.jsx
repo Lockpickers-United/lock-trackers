@@ -6,28 +6,13 @@ import MenuItem from '@mui/material/MenuItem'
 import SortIcon from '@mui/icons-material/Sort'
 import Badge from '@mui/material/Badge'
 
-function SortButton() {
+function SortButtonLB() {
     const {
         filters,
         addFilter,
-        removeFilter,
+        removeFilter
     } = useContext(FilterContext)
     const {sort} = filters
-
-    const [dateSort, setDateSort] = useState('')
-    const dateSortText = sort === 'dateAsc'
-        ? 'Date ⬆'
-        : sort === 'dateDesc'
-            ? 'Date ⬇'
-            : 'Date'
-
-    const handleDateSort = useCallback(value => () => {
-        const newSort = value === 'dateDesc' ? 'dateAsc' : 'dateDesc'
-        setDateSort(newSort)
-        setTimeout(() => addFilter('sort', newSort, true), 0)
-        setAnchorEl(null)
-    }, [addFilter])
-
 
     const [beltSort, setBeltSort] = useState('')
     const beltSortText = sort === 'belt'
@@ -92,31 +77,25 @@ function SortButton() {
                 anchorEl={anchorEl}
                 onClose={handleClose}
             >
-                    <MenuItem selected={sort === 'lock' || !sort} value={'lock'}
-                              onClick={handleSort('lock')} style={{padding:'10px 16px', width:150}}>
-                        Default
-                    </MenuItem>
-                    <MenuItem selected={sort === 'belt' || sort === 'beltDesc'} value={'belt'}
-                              onClick={handleBeltSort(beltSort)} style={{padding:'10px 16px'}}>
-                        {beltSortText}
-                    </MenuItem>
-                    <MenuItem selected={sort === 'totalTime'} value={'totalTime'}
-                              onClick={handleSort('totalTime')} style={{padding:'10px 16px'}}>
-                        Pick Time
-                    </MenuItem>
-                    {!filters.pickerId &&
-                        <MenuItem selected={sort === 'picker'} value={'picker'}
-                                          onClick={handleSort('picker')} style={{padding:'10px 16px'}}>
-                            Picker
-                        </MenuItem>
-                    }
-                    <MenuItem selected={sort === 'dateAsc' || sort === 'dateDesc'} value={'date'}
-                                      onClick={handleDateSort(dateSort)} style={{padding:'10px 16px'}}>
-                        {dateSortText}
-                    </MenuItem>
+                <MenuItem selected={sort === 'lock' || !sort} value={'lock'}
+                          onClick={handleSort('lock')} style={{padding: '10px 16px', width: 150}}>
+                    Default
+                </MenuItem>
+                <MenuItem selected={sort === 'belt' || sort === 'beltDesc'} value={'belt'}
+                          onClick={handleBeltSort(beltSort)} style={{padding: '10px 16px'}}>
+                    {beltSortText}
+                </MenuItem>
+                <MenuItem selected={sort === 'popularity'} style={{padding: 7}} value={'lock'}
+                          onClick={handleSort('popularity')}>
+                    Popular
+                </MenuItem>
+                <MenuItem selected={sort === 'newListings'} style={{padding: 7}} value={'lock'}
+                          onClick={handleSort('newListings')}>
+                    New&nbsp;Listings
+                </MenuItem>
             </Menu>
         </React.Fragment>
     )
 }
 
-export default SortButton
+export default SortButtonLB

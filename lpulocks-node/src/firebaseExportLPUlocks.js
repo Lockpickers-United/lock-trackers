@@ -2,21 +2,21 @@ import { writeFile, readFile } from 'fs/promises'
 import {initializeApp} from 'firebase/app'
 import {getFirestore, collection, getDocs, terminate} from 'firebase/firestore'
 import {firebaseConfig} from '../keys/firebaseConfig.js'
+import {sendEmail} from './util/nodeMailer.js'
 
 import {localUser, prodUser} from '../keys/users.js'
-import {sendEmail} from './util/nodeMailer.js'
 const production = process.env.USER !== localUser
 
 let workDir = `/Users/${localUser}/Documents/GitHub/lpulocks/lpulocks-node/data/working`
 let backupDir = `/Users/${localUser}/Documents/GitHub/lpulocks/lpulocks-node/data/backups`
 let archiveDir = `/Users/${localUser}/Documents/GitHub/lpulocks/lpulocks-node/data/archives`
-let serverDir = `/Users/${localUser}/Documents/GitHub/lpulocks/lpulocks-node/data/server`
+let serverDir = `/Users/${localUser}/Documents/GitHub/lpulocks/lpulocks-node/data/server/speedpicks`
 
 if (production) {
     workDir = `/home/${prodUser}/lpulocks-node/data/working`
     backupDir = `/home/${prodUser}/lpulocks-node/data/backups`
     archiveDir = `/home/${prodUser}/lpulocks-node/data/archives`
-    serverDir = `/home/${prodUser}/locktrackers.com.data/speedpicks`
+    serverDir = `/home/${prodUser}/lpulocks.com.data/speedpicks`
 }
 const currentDate = new Date().toISOString().substring(0, 10)
 const currentDay = new Date().toDateString().substring(0, 3)
@@ -60,7 +60,7 @@ async function getAllData() {
         if (doc.data().status === 'approved') {
             approvedEntries++
         } else if (doc.data().status === 'pending') {
-            console.log('pending entry: ', doc.id, doc.data().pickerId)
+            if (!production) console.log('pending entry: ', doc.id, doc.data().pickerId)
             pendingEntries.push({id: doc.id, username: profiles[doc.data().pickerId].username})
             pendingEntryCount++
         } else if (doc.data().status === 'deleted') {
@@ -71,17 +71,17 @@ async function getAllData() {
 
     const priorPending = JSON.parse(await readFile(`${workDir}/pendingEntries.json`, 'utf8'))
 
-    const newPendingEntryIds = []
+    const newPendingEntries = []
     let newPending = 0
-    pendingEntries.forEach(id => {
-        if (!priorPending.includes(id)) {
-            newPendingEntryIds.push(id)
+    pendingEntries.forEach(entry => {
+        if (!priorPending.find(e => e.id === entry.id)) {
+            newPendingEntries.push(entry)
             newPending++
         }
     })
 
     const pendingEntriesJson = JSON.stringify(pendingEntries, null, 2)
-    const newPendingEntriesJson = JSON.stringify(newPendingEntryIds, null, 2)
+    const newPendingEntriesJson = JSON.stringify(newPendingEntries, null, 2)
 
     fullDb['__collections__'] = collections
     const jsonString = JSON.stringify(fullDb, null, 2)

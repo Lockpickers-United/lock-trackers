@@ -9,7 +9,8 @@ import KeyIcon from '@mui/icons-material/Key'
 
 function AdminFilterButton({onFiltersChanged, extraFilters = []}) {
 
-    const { addFilters, removeFilters } = useContext(FilterContext)
+    const {filters, addFilters, removeFilters} = useContext(FilterContext)
+    const {status} = filters
 
 
     const handleAddFilter = useCallback((keyToAdd, valueToAdd) => {
@@ -42,10 +43,11 @@ function AdminFilterButton({onFiltersChanged, extraFilters = []}) {
     return (
         <React.Fragment>
             <Tooltip title='Admin' arrow disableFocusListener>
-                    <Button variant='contained' size='small' color='warning'
-                            onClick={handleClick} style={{margin: '8px 0px 3px 10px', padding: 0, height: 32, width: 32, minWidth: 32}}>
-                            <KeyIcon/>
-                    </Button>
+                <Button variant='contained' size='small' color='warning'
+                        onClick={handleClick}
+                        style={{margin: '8px 0px 3px 10px', padding: 0, height: 32, width: 32, minWidth: 32}}>
+                    <KeyIcon/>
+                </Button>
 
 
             </Tooltip>
@@ -56,20 +58,20 @@ function AdminFilterButton({onFiltersChanged, extraFilters = []}) {
             >
 
                 <Stack direction='column' style={{minWidth: 100}}>
-                    <MenuItem>
-                        <Button style={{width:100}} onClick={() => {
-                            handleAddFilter('status', 'rejected')
-                        }}>Rejected</Button>
+                    <MenuItem selected={status === 'pending'} style={{width: 100, color:'#f1aa55'}} onClick={() => {
+                        handleAddFilter('status', 'pending')
+                    }}>
+                        Pending
                     </MenuItem>
-                    <MenuItem>
-                        <Button style={{width:100}} onClick={() => {
-                            handleAddFilter('status', 'pending')
-                        }}>Pending</Button>
+                    <MenuItem selected={status === 'rejected'} style={{width: 100, color:'#f1aa55'}} onClick={() => {
+                        handleAddFilter('status', 'rejected')
+                    }}>
+                        Rejected
                     </MenuItem>
-                    <MenuItem>
-                        <Button style={{width:100}} onClick={() => {
-                            handleRemoveFilters('status')
-                        }}>All</Button>
+                    <MenuItem selected={status === 'lock' || !status} style={{width: 100, color:'#f1aa55'}} onClick={() => {
+                        handleRemoveFilters('status')
+                    }}>
+                        All
                     </MenuItem>
                 </Stack>
             </Menu>

@@ -10,9 +10,6 @@ import formatTime from '../util/formatTime.jsx'
 
 const EntryDetails = ({entry, startEdit, entriesUpdate}) => {
 
-
-    console.log('EntryDetails', entry)
-
     const {isMod = []} = useContext(DataContext)
     const {user, isLoggedIn} = useContext(AuthContext)
     const isUser = (isLoggedIn && entry.pickerId === user.uid)

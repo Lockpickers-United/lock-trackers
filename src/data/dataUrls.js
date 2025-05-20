@@ -6,11 +6,11 @@ if (import.meta.env && import.meta.env.VITE_LOCAL_DATA === 'true') {
     console.info('Attention: App is using LOCAL DATA.')
 }
 
-export const allLocks = '/data.json'
-export const lockBazaarData = '/lockBazaarData.json'
+export const allLocks = 'https://lpubelts.com/data.json'
+export const lockBazaarData = 'https://data.lpulocks.com/lockbazaar/lockBazaarData.json'
 
-export const jsonBackup = 'https://data.locktrackers.com/speedpicks/backup.json'
-export const lockListings = '/listings.json'
+// TODO switch to https://data.lpulocks.com/
+export const jsonBackup = 'https://data.lpulocks.com/speedpicks/backup.json'
 
 export const siteFull = '/reports/statsSiteFull.json'
 export const siteSummary = '/reports/statsSiteSummary.json'

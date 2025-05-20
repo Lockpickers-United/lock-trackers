@@ -9,7 +9,6 @@ import FilterContext from '../context/FilterContext.jsx'
 import {useNavigate} from 'react-router-dom'
 import SellerProfileInline from './SellerProfileInline.jsx'
 import SortFilterBarLB from './SortFilterBarLB.jsx'
-import SearchBox from '../nav/SearchBox.jsx'
 import DBContext from '../app/DBContext.jsx'
 import SignInButton from '../auth/SignInButton'
 import AuthContext from '../app/AuthContext.jsx'
@@ -149,8 +148,6 @@ function LockBazaarMain() {
             }
 
             <SortFilterBarLB/>
-
-            <SearchBox label='Listings'/>
 
             {(allDataLoaded && watchlistView) && <WatchlistAddLPUbeltsButton/>}
 
