@@ -8,6 +8,7 @@ if (import.meta.env && import.meta.env.VITE_LOCAL_DATA === 'true') {
 
 export const allLocks = 'https://lpubelts.com/data.json'
 export const lockBazaarData = 'https://data.lpulocks.com/lockbazaar/lockBazaarData.json'
+export const badListingData = 'https://data.lpulocks.com/lockbazaar/badListings.json'
 
 // TODO switch to https://data.lpulocks.com/
 export const jsonBackup = 'https://data.lpulocks.com/speedpicks/backup.json'

@@ -79,13 +79,39 @@ async function getAllData() {
             newPending++
         }
     })
+    
+    const newPendingCount = newPendingEntries.length
+    if (newPendingCount > 0) {
+        const entryText = newPendingCount > 1 ? 'new pending entries' : 'new pending entry'
+        const testingText = !production ? ' (TESTING)' : ''
+
+        const html = `<strong>${newPendingCount} ${entryText} found</strong><br/><br/>`
+        let fieldsHtml = html + '<table style="border-width:1px">'
+        newPendingEntries.forEach(entry => {
+            fieldsHtml += `<tr><td><strong>${entry.username}</strong> - </td><td>https://lpulocks.com/#/speedpicks?id=${entry.id}&sort=dateDesc&status=pending&rank=Show+All</td></tr>`
+        })
+        fieldsHtml += '</table>'
+
+        try {
+            await sendEmail({
+                emailConfig: 'pendingEntry',
+                subject: `SpeedPicks: ${newPendingCount} ${entryText}${testingText}`,
+                text: `SpeedPicks: ${newPendingCount} ${entryText}`,
+                html: fieldsHtml,
+            })
+            //console.log('Message sent: %s', email.messageId)
+        } catch (error) {
+            console.error('Message send failure', error)
+        }
+    }
+
+
 
     const pendingEntriesJson = JSON.stringify(pendingEntries, null, 2)
     const newPendingEntriesJson = JSON.stringify(newPendingEntries, null, 2)
 
     fullDb['__collections__'] = collections
     const jsonString = JSON.stringify(fullDb, null, 2)
-
 
     const writes = [
         await writeFile(`${workDir}/pendingEntries.json`, pendingEntriesJson),

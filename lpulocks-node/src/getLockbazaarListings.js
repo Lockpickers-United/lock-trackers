@@ -4,6 +4,7 @@ import validator from 'validator'
 
 import {localUser, prodUser} from '../keys/users.js'
 import {firebaseConfig} from '../keys/firebaseConfig.js'
+import {jsonIt} from './util/jsonIt.js' //eslint-disable-line
 
 const production = process.env.USER !== localUser
 
@@ -353,7 +354,10 @@ async function getAllListings() {
             let badListing = ''
 
             if (isLPUbeltsLock(thisId) && ((makeModelCount > 1 && !samelineInt) || (samelineInt > makeModelCount))) {
-                badListings.push(listing)
+
+                const entryMakeModels = getLockFromId(thisId).makeModels
+
+                badListings.push({...listing, entryMakeModels})
                 badListing = 'X'
             }
 
@@ -449,8 +453,9 @@ async function getAllListings() {
             }
         }
     )
+
     const validListings = allListings.filter(listing => listing.isValid)
-//    const LPUListings = validListings.filter(listing => listing.isLPUListing)
+    //const LPUListings = validListings.filter(listing => listing.isLPUListing)
 
     jsonData.validListings = validListings
     //jsonData.LPUListings = LPUListings
@@ -586,6 +591,7 @@ async function getAllListings() {
             await writeFile(`${serverDir}/version.json`, versionString),
             await writeFile(`${serverDir}/lockBazaarData.json`, JSON.stringify(jsonData, null, 2)),
             await writeFile(`${serverDir}/lockbazzarEntryIds.json`, JSON.stringify(lockbazzarEntryIds, null, 2)),
+            await writeFile(`${serverDir}/badListings.json`, JSON.stringify(badListings, null, 2)),
         ]
         try {
             await Promise.all(writes)

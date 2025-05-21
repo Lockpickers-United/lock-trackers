@@ -83,23 +83,8 @@ export function LoadingProvider({children}) {
         getSellerFromId,
         sellerIdMap,
         samelineViews,
-        raflState
-    }), [
-        allDataLoaded,
-        sellerProfiles,
-        validListings,
-        allEntries,
-        allLocks,
-        uniqueLockIds,
-        getLockFromId,
-        getLockLineFromId,
-        getLockLinesInfoFromId,
-        getListingsFromId,
-        getSellerFromId,
-        sellerIdMap,
-        samelineViews,
-        raflState
-    ])
+        raflState,
+    }), [allDataLoaded, sellerProfiles, validListings, allEntries, allLocks, uniqueLockIds, getLockFromId, getLockLineFromId, getLockLinesInfoFromId, getListingsFromId, getSellerFromId, sellerIdMap, samelineViews, raflState])
 
     return (
         <LoadingContext.Provider value={value}>
