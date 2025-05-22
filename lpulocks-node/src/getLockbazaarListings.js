@@ -12,9 +12,9 @@ const serverDir = production
     ? `/home/${prodUser}/lpulocks.com.data/lockbazaar`
     : `/Users/${localUser}/Documents/GitHub/lpulocks/lpulocks-node/data/server`
 
-const workDir = production // eslint-disable-line
-    ? `/home/${prodUser}/lpulocks-node/data/working`
-    : `/Users/${localUser}/Documents/GitHub/lpulocks/lpulocks-node/data/working`
+const keysDir = production // eslint-disable-line
+    ? `/home/${prodUser}/lpulocks-node/keys`
+    : `/Users/${localUser}/Documents/GitHub/lpulocks/lpulocks-node/keys`
 
 // MAIN DATA OBJECT
 let jsonData = new Map()
@@ -68,8 +68,8 @@ import {authenticate} from '@google-cloud/local-auth'
 import {google} from 'googleapis'
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
-const TOKEN_PATH = '../keys/token.json'
-const CREDENTIALS_PATH = '../keys/credentials.json'
+const TOKEN_PATH = `${keysDir}/token.json`
+const CREDENTIALS_PATH = `${keysDir}/credentials.json`
 
 //Reads previously authorized credentials from the save file.
 async function loadSavedCredentialsIfExist() {

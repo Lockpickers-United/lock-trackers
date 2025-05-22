@@ -1,0 +1,50 @@
+[
+  {
+    "id": "cl_12345678",
+    "name": "Pirrip",
+    "description": "This is an example challenge lock.",
+    "maker": "mgsecure",
+    "location": "USA",
+    "lockingMechanism": "pin-tumbler",
+    "originalLock": "Schlage KIK",
+    "createdAt": "2023-10-01T12:00:00Z",
+    "mainImage":   {
+      "Sequence ID": "0",
+      "Image Title": "Pirrip",
+      "Title": "By: mgsecure",
+      "Subtitle": "CC BY-NC-SA 4.0",
+      "Thumbnail URL": "https://live.staticflickr.com/65535/54537928310_1a519149b1_w.jpg",
+      "Full URL": "https://www.flickr.com/photos/lpubeltapp/54537928310/in/album-72177720326323789/",
+      "Full Image Direct URL": "https://live.staticflickr.com/65535/54537928310_47cb33b43b_o.jpg"
+    },
+    "media": [
+      {
+        "Sequence ID": "1",
+        "Image Title": "Pirrip",
+        "Title": "By: mgsecure",
+        "Subtitle": "CC BY-NC-SA 4.0",
+        "Thumbnail URL": "https://live.staticflickr.com/65535/54537587991_6ffff2aab8_w.jpg",
+        "Full URL": "https://www.flickr.com/photos/lpubeltapp/54537587991/in/album-72177720326323789/",
+        "Full Image Direct URL": "https://live.staticflickr.com/65535/54537587991_22747ce11d_o.jpg"
+      },
+      {
+        "Sequence ID": "2",
+        "Image Title": "Pirrip",
+        "Title": "By: mgsecure",
+        "Subtitle": "CC BY-NC-SA 4.0",
+        "Thumbnail URL": "https://live.staticflickr.com/65535/54537588391_5e94d569c5_w.jpg",
+        "Full URL": "https://www.flickr.com/photos/lpubeltapp/54537588391/in/album-72177720326323789/",
+        "Full Image Direct URL": "https://live.staticflickr.com/65535/54537588391_7c6dd81f5d_o.jpg"
+      },
+      {
+        "Sequence ID": "3",
+        "Image Title": "Pirrip",
+        "Title": "By: mgsecure",
+        "Subtitle": "CC BY-NC-SA 4.0",
+        "Thumbnail URL": "https://live.staticflickr.com/65535/54536707542_f7bcab2978_w.jpg",
+        "Full URL": "https://www.flickr.com/photos/lpubeltapp/54536707542/in/album-72177720326323789/",
+        "Full Image Direct URL": "https://live.staticflickr.com/65535/54536707542_dda39d554b_o.jpg"
+      }
+    ]
+  }
+]
