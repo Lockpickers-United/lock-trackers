@@ -2,7 +2,7 @@ import React, {useContext, useCallback, useState} from 'react'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import FilterContext from '../context/FilterContext'
-import DataContext from '../app/DataContext.jsx'
+import DataContext from '../context/DataContext.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 
 function SortFilterBarORIGINAL({view, setView}) {

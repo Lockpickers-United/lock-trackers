@@ -1,6 +1,6 @@
 import React, {useCallback, useContext, useState, useMemo} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
-import DataContext from '../app/DataContext.jsx'
+import DataContext from '../context/DataContext.jsx'
 import Entry from './Entry.jsx'
 import NewEntry from './NewEntry.jsx'
 import SortFilterBarSP from './SortFilterBarSP.jsx'

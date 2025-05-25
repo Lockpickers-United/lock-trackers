@@ -2,23 +2,29 @@ import React from 'react'
 import Tracker from '../app/Tracker'
 import Footer from '../nav/Footer'
 import Nav from '../nav/Nav'
-
-import CLMain from './CLMain.jsx'
+import ChallengeLocksCardsMain from './ChallengeLocksCardsMain.jsx'
+import {LBFilterFields} from '../data/filterFields.js'
+import {FilterProvider} from '../context/FilterContext.jsx'
+import {DataProvider} from './DataProviderCL.jsx'
+import usePageTitle from '../util/usePageTitle.jsx'
 
 function ChallengeLocksRoute() {
 
-    document.title = 'LPU Locks - Challenge Locks'
+    usePageTitle('Challenge Locks')
 
     return (
-        <React.Fragment>
+        <FilterProvider filterFields={LBFilterFields}>
+            <DataProvider>
 
-            <Nav title='Challenge Locks' route='cl'/>
-            <CLMain/>
-            <Footer/>
-            <Tracker feature='challengelocks'/>
+                <Nav title='Challenge Locks' route='cl'/>
+                <ChallengeLocksCardsMain/>
+                <Footer/>
+                <Tracker feature='challengelocks'/>
 
-        </React.Fragment>
+            </DataProvider>
+        </FilterProvider>
     )
+
 }
 
 export default ChallengeLocksRoute

@@ -1,7 +1,7 @@
 import React, {useCallback, useMemo, useContext} from 'react'
 import entryName from '../util/entryName'
 import dayjs from 'dayjs'
-import DataContext from '../app/DataContext.jsx'
+import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import fuzzysort from 'fuzzysort'
 import removeAccents from 'remove-accents'

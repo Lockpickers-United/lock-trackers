@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import ListingDetailsRow from './ListingDetailsRow.jsx'
 import WatchlistButton from './WatchlistButton.jsx'
-import DataContext from '../app/DataContext.jsx'
+import DataContext from '../context/DataContext.jsx'
 import EntryYMALDisplay from './EntryYMALDisplay.jsx'
 import dayjs from 'dayjs'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'

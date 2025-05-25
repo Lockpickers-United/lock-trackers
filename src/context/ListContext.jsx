@@ -1,5 +1,5 @@
 import React, {useCallback, useContext, useMemo} from 'react'
-import DataContext from '../app/DataContext.jsx'
+import DataContext from './DataContext.jsx'
 import FilterContext from './FilterContext.jsx'
 
 const ListContext = React.createContext({})

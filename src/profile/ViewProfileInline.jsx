@@ -5,7 +5,7 @@ import CardHeader from '@mui/material/CardHeader'
 import FieldValue from '../util/FieldValue.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 import FilterContext from '../context/FilterContext.jsx'
-import DataContext from '../app/DataContext.jsx'
+import DataContext from '../context/DataContext.jsx'
 import CopyProfileLinkButton from './CopyProfileLinkButton.jsx'
 
 // http://localhost:3000/#/speedpicks?pickerId=ClbjuilBEHgbzO4UZl4y3GStlEz2

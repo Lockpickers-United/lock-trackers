@@ -16,7 +16,7 @@ import EntryDetailsLB from './EntryDetailsLB.jsx'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import useWindowSize from '../util/useWindowSize.jsx'
 import EntrySellersDisplay from './EntrySellersDisplay.jsx'
-import DataContext from '../app/DataContext.jsx'
+import DataContext from '../context/DataContext.jsx'
 import EntryYMALDisplay from './EntryYMALDisplay.jsx'
 import WatchlistButton from './WatchlistButton.jsx'
 

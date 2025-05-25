@@ -1,6 +1,6 @@
 import React, {useCallback, useContext, useState} from 'react'
 import Button from '@mui/material/Button'
-import DataContext from '../app/DataContext.jsx'
+import DataContext from '../context/DataContext.jsx'
 import Menu from '@mui/material/Menu'
 import useWindowSize from '../util/useWindowSize.jsx'
 import AuthContext from '../app/AuthContext.jsx'

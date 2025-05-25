@@ -1,0 +1,21 @@
+{
+  "name": "Pirrip",
+  "maker": "mgsecure",
+  "country": "United States of America",
+  "stateProvince": "California",
+  "lockingMechanism": "Pin-tumbler",
+  "originalMake": "Schlage",
+  "lockFormat": "KIK",
+  "description": "Here's the brief description of the lock.",
+  "descriptionFull": "The detailed description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nulla erat, pharetra aliquet laoreet at, ullamcorper in mauris. Vivamus id lectus elit. Quisque et mauris neque. Maecenas id urna erat",
+  "approxBelt": "Brown",
+  "discordUsername": "mgsecure",
+  "redditUsername": "mg-reddit",
+  "userBelt": "Black",
+  "displayName": "no display name",
+  "droppedFileNames": [
+    "pirrip-02.jpg",
+    "pirrip-03.jpg"
+  ],
+  "status": "Pending"
+}

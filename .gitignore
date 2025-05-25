@@ -6,7 +6,7 @@ public/versionCode.json
 public/lockBazaarData.json
 lpulocks-node/keys
 /lpulocks-node/data/*
-
+keys/*
 
 # Logs
 logs

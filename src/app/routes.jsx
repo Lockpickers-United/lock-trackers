@@ -24,9 +24,25 @@ export default [
     {
         path: '/challengelocks',
         lazy: async () => {
-            const {default: ChallengeLocksRoute} = await import('../challengelocks/ChallengeLocksRoute')
-            return {element: <ChallengeLocksRoute/>}
-        }
+            const {default: ChallengeLocksParentRoute} = await import('../challengelocks/ChallengeLocksParentRoute')
+            return {element: <ChallengeLocksParentRoute/>}
+        },
+        children: [
+            {
+                path: '/challengelocks',
+                lazy: async () => {
+                    const {default: ChallengeLocksRoute} = await import('../challengelocks/ChallengeLocksRoute')
+                    return {element: <ChallengeLocksRoute/>}
+                }
+            },
+            {
+                path: '/challengelocks/submit',
+                lazy: async () => {
+                    const {default: SubmitChallengeLockRoute} = await import('../challengelocks/SubmitChallengeLockRoute')
+                    return {element: <SubmitChallengeLockRoute/>}
+                }
+            }
+        ]
     },
     {
         path: '/lockbazaar',

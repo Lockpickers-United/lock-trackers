@@ -1,12 +1,22 @@
 import {useMemo} from 'react'
-import {useWindowSize} from 'usehooks-ts'
 
-export default function useWindowSize2() {
-    const {width, height} = useWindowSize()
+export default function useWindowSize() {
+    let width = undefined,
+        timeout = false,
+        delay = 250
+    function getDimensions() {
+        width = window.innerWidth
+    }
+    window.addEventListener('resize', function() {
+        clearTimeout(timeout)
+        timeout = setTimeout(getDimensions, delay)
+    })
+
+    getDimensions()
 
     return useMemo(() => ({
         width,
-        height,
-        isMobile: width < 650
-    }), [width, height])
+        isMobile: width < 650,
+        flexStyle: width < 650 ? 'block' : 'flex'
+    }), [width])
 }
