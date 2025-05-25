@@ -1,15 +1,16 @@
 [
   {
     "id": "cl_10000000",
-    "title": "Pirrip",
+    "name": "Pirrip",
     "description": "This is an example challenge lock.",
     "maker": "mgsecure",
     "location": "USA",
     "lockingMechanism": "Pin-tumbler",
+    "format": "KIK",
     "originalLock": "Schlage KIK",
     "createdAt": "2023-10-01T12:00:00Z",
     "mainImage":   {
-      "sequenceId": 0,
+      "sequenceId": 1,
       "fullTitle": "Pirrip",
       "title": "By: mgsecure",
       "subtitle": "CC BY-NC-SA 4.0",
@@ -50,11 +51,12 @@
 
   {
     "id": "cl_10000001",
-    "title": "Wendig",
+    "name": "Wendig",
     "description": "This is an example challenge lock.",
     "maker": "mgsecure",
     "location": "USA",
     "lockingMechanism": "Pin-tumbler",
+    "format": "Padlock",
     "originalLock": "Schlage KIK",
     "createdAt": "2023-10-01T12:00:00Z",
     "mainImage":   {
@@ -99,11 +101,12 @@
 
   {
     "id": "cl_10000002",
-    "title": "Zatoichi",
+    "name": "Zatoichi",
     "description": "",
     "maker": "mgsecure",
     "location": "USA",
     "lockingMechanism": "Pin-tumbler",
+    "format": "Euro-cylinder",
     "originalLock": "Schlage KIK",
     "createdAt": "2023-10-01T12:00:00Z",
     "mainImage":   {
@@ -148,11 +151,12 @@
 
   {
     "id": "cl_10000004",
-    "title": "The Last Word",
+    "name": "The Last Word",
     "description": "",
     "maker": "mgsecure",
     "location": "USA",
     "lockingMechanism": "Pin-tumbler",
+    "format": "Oval",
     "originalLock": "Schlage KIK",
     "createdAt": "2023-10-01T12:00:00Z",
     "mainImage":   {
@@ -206,11 +210,12 @@
 
   {
     "id": "cl_10000003",
-    "title": "Lee Perry",
+    "name": "Lee Perry",
     "description": "",
     "maker": "mgsecure",
     "location": "USA",
     "lockingMechanism": "Pin-tumbler",
+    "format": "KIK",
     "originalLock": "Schlage KIK",
     "createdAt": "2023-10-01T12:00:00Z",
     "mainImage":   {

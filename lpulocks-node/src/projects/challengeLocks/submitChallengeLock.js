@@ -141,6 +141,12 @@ export default async function submitChallengeLock(req, res) {
             subtitle: 'CC BY-NC-SA 4.0'
         })))
 
+        entry.thumbnail = (await createThumbnails({
+            inputFile: files.files[0].filepath,
+            width: 300,
+            square: true,
+        })).replace(uploadDir, serverPath)
+
         entry.mainImage = [entry.media[0]]
         const lockName = fields.name?.firstValue()
 

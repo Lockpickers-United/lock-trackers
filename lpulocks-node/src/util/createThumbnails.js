@@ -1,17 +1,24 @@
 import sharp from 'sharp'
 
-export default async function createThumbnails({inputFile, width = 400}) {
+export default async function createThumbnails({inputFile, width = 400, square = false}) {
 
     const pathComponents = inputFile.split('/')
     const filename = pathComponents.pop()
     const filenameParts = filename.match(/(.*)\.(.\w*$)/)
-    const outputFile = `${pathComponents.join('/')}/${filenameParts[1]}-${width}.${filenameParts[2]}`
+    const suffix = square ? '-sq' : ''
+    const outputFile = `${pathComponents.join('/')}/${filenameParts[1]}-${width}${suffix}.${filenameParts[2]}`
     try {
-        // Resize and save all sizes in parallel
+        if (!square) {
             return await sharp(inputFile)
                 .resize({width: width, withoutEnlargement: true})
                 .toFile(outputFile)
-                .then(info => (outputFile)) // eslint-disable-line no-unused-vars
+                .then(info => (outputFile)) // eslint-disable-line
+        } else {
+            return await sharp(inputFile)
+                .resize({width: width, height: width, fit: 'cover', withoutEnlargement: true})
+                .toFile(outputFile)
+                .then(info => (outputFile)) // eslint-disable-line
+        }
     } catch (err) {
         console.error('Image processing failed, details:', err.message)
     }

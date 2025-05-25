@@ -16,6 +16,7 @@ export function DataProvider({children}) {
     const {search, id, tab, name, sort, image, profileUpdated, ...filters} = allFilters
     const {adminFlags} = useContext(DBContext)
 
+
     const isMod = !!adminFlags.isSPMod
 
     const mappedEntries = useMemo(() => {

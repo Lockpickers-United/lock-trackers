@@ -25,3 +25,7 @@ export const spFilterFields = [
     {label: 'Belt', fieldName: 'belt', sort: beltSort},
     {label: 'Picker', fieldName: 'pickerName'},
 ]
+
+export const CLFilterFields = [
+    {label: 'Locking Mechanism', fieldName: 'lockingMechanisms'},
+]
