@@ -8,11 +8,12 @@ import Fade from '@mui/material/Fade'
 import useData from '../util/useData.jsx'
 import {LocalizationProvider} from '@mui/x-date-pickers'
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
+import {DBProviderCL} from './DBContextCL.jsx'
 
 export default function ChallengeLocksParentRoute() {
     const {authLoaded} = useContext(AuthContext)
-    const {adminRole} = useContext(DBContext)
-    const {user, userClaims} = useContext(AuthContext)
+    const {adminRole} = useContext(DBContext)  //eslint-disable-line
+    const {user} = useContext(AuthContext)
     const {getProfile} = useContext(DBContext)
     const navigate = useNavigate()
     const userId = user ? user.uid : null
@@ -28,41 +29,43 @@ export default function ChallengeLocksParentRoute() {
     const {data = {}, loading, error} = useData({loadFn}) // eslint-disable-line
     const profile = data
 
-    // const CLAdmin = ['CLAdmin', 'admin'].some(claim => userClaims.includes(claim)) || adminRole
+    //const CLAdmin = ['CLAdmin', 'admin'].some(claim => userClaims.includes(claim)) || adminRole //eslint-disable-line
 
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DBProviderCL>
 
-        <React.Fragment>
+                <React.Fragment>
 
-            {!authLoaded &&
-                <LoadingDisplay/>
-            }
+                    {!authLoaded &&
+                        <LoadingDisplay/>
+                    }
 
-            {authLoaded && user && <Outlet context={{profile, user}}/>}
+                    {authLoaded && user && <Outlet context={{profile, user}}/>}
 
-            {authLoaded && !user &&
-                <Fade in={true} timeout={1000}>
-                    <div style={{
-                        width: '320px', textAlign: 'center',
-                        padding: 50, marginTop: 100, backgroundColor: '#292929',
-                        marginLeft: 'auto', marginRight: 'auto'
-                    }}>
-                        <Link onClick={() => navigate('/')}
-                              style={{
-                                  color: '#fff',
-                                  textDecorationColor: '#bbb',
-                                  cursor: 'pointer',
-                                  fontSize: '1.0rem'
-                              }}>
-                            nothing to see here
-                        </Link>
-                    </div>
-                </Fade>
-            }
+                    {authLoaded && !user &&
+                        <Fade in={true} timeout={1000}>
+                            <div style={{
+                                width: '320px', textAlign: 'center',
+                                padding: 50, marginTop: 100, backgroundColor: '#292929',
+                                marginLeft: 'auto', marginRight: 'auto'
+                            }}>
+                                <Link onClick={() => navigate('/')}
+                                      style={{
+                                          color: '#fff',
+                                          textDecorationColor: '#bbb',
+                                          cursor: 'pointer',
+                                          fontSize: '1.0rem'
+                                      }}>
+                                    nothing to see here
+                                </Link>
+                            </div>
+                        </Fade>
+                    }
 
-        </React.Fragment>
+                </React.Fragment>
+            </DBProviderCL>
         </LocalizationProvider>
     )
 }

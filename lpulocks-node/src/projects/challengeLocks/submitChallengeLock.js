@@ -12,17 +12,17 @@ import util from 'util'
 import {exec} from 'child_process'
 import dayjs from 'dayjs'
 import createThumbnails from '../../util/createThumbnails.js'
-import {contentUploadRecipients, prodUser} from '../../../keys/users.js'
+import {contentUploadRecipients, prodUser, localUser} from '../../../keys/users.js'
 import admin from 'firebase-admin'
 import {getFirestore} from 'firebase-admin/firestore'
 
 const {writeFile} = fs.promises
-const prod = prodUser === process.env.USER
-const keysDir = prod
+const prodEnvironment = prodUser === process.env.USER
+const keysDir = prodEnvironment
     ? `/home/${process.env.USER}/lpulocks-node/keys`
     : `/Users/${process.env.USER}/Documents/GitHub/lpulocks/lpulocks-node/keys`
 
-const uploadDir = prod
+const uploadDir = prodEnvironment
     ? `/home/${process.env.USER}/lpulocks.com.data/lockbazaar/images`
     : `/Users/${process.env.USER}/Documents/LOCKPICK/LockTrackers/challenge-locks/uploads`
 
@@ -76,6 +76,9 @@ export default async function submitChallengeLock(req, res) {
 
     const {prod} = req.body
     const db = prod ? dbProd : dbDev
+    //const db = dbDev
+
+    const entryId = req.body.id || req.query.id
 
     const form = formidable({
         uploadDir,
@@ -119,14 +122,21 @@ export default async function submitChallengeLock(req, res) {
                 userId: req.user.user_id,
                 userBelt: fields.userBelt?.firstValue(),
                 displayName: fields.displayName?.firstValue(),
-                discordUsername: fields.discordUsername?.firstValue(),
-                redditUsername: fields.redditUsername?.firstValue()
+                username: fields.username?.firstValue(),
+                usernamePlatform: fields.usernamePlatform?.firstValue()
             }],
             dateSubmitted: dayjs().toISOString()
         }
 
+        const lockName = fields.name?.firstValue()
+        const username = fields.username?.firstValue() || 'Unknown'
+
+        console.log('username:', username)
+        console.log('fields:', fields)
+
         entry.media = await Promise.all(filepaths.map(async (filepath, index) => ({
-            title: `By: ${fields.discordUsername || fields.redditUsername}`,
+            imageTitle: lockName,
+            title: `By: ${username}`,
             fullUrl: filepath,
             fullSizeUrl: (await createThumbnails({
                 inputFile: files.files[index].filepath,
@@ -143,19 +153,18 @@ export default async function submitChallengeLock(req, res) {
 
         entry.thumbnail = (await createThumbnails({
             inputFile: files.files[0].filepath,
-            width: 300,
-            square: true,
+            width: 200,
+            square: true
         })).replace(uploadDir, serverPath)
 
         entry.mainImage = [entry.media[0]]
-        const lockName = fields.name?.firstValue()
 
         if (subdirs) {
             const destination = `${uploadDir}/${subdirs}`.replace(/\s+/g, '-')
             const detailsJson = JSON.stringify(fields, null, 2)
             try {
                 await Promise.all([
-                    runCommand(`exiftool -overwrite_original -iptc:Caption-Abstract='By: ${fields.discordUsername || fields.redditUsername}' -Title='${slugify(lockName)}' -gps:all= -UserComment='${fields.id}' '${destination}'`),
+                    runCommand(`exiftool -overwrite_original -iptc:Caption-Abstract='By: ${username}' -Title='${slugify(lockName)}' -gps:all= -UserComment='${fields.id}' '${destination}'`),
                     writeFile(`${destination}/uploadData.json`, detailsJson, 'utf8')
                 ])
             } catch (err) {
@@ -165,7 +174,6 @@ export default async function submitChallengeLock(req, res) {
 
         const ref = db.collection('challenge-locks').doc(entry.id)
         try {
-            //await fetchChallengeLock(ref, '00000001')
             await setChallengeLock(ref, entry, entry.id)
         } catch (error) {
             handleError(res, 'Failed to create Challenge Lock', error, 500)
@@ -222,7 +230,6 @@ async function getChallengeLock(ref, entry, entryId) {
 
 
 ////////////
-
 
 
 async function fetchChallengeLock(ref, entryId) {

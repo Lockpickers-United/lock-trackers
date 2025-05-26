@@ -15,7 +15,7 @@ export default async function createThumbnails({inputFile, width = 400, square =
                 .then(info => (outputFile)) // eslint-disable-line
         } else {
             return await sharp(inputFile)
-                .resize({width: width, height: width, fit: 'cover', withoutEnlargement: true})
+                .resize({width: width, height: width, fit: sharp.fit.cover, position: sharp.strategy.entropy})
                 .toFile(outputFile)
                 .then(info => (outputFile)) // eslint-disable-line
         }

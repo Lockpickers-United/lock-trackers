@@ -4,20 +4,18 @@ import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import fuzzysort from 'fuzzysort'
 import removeAccents from 'remove-accents'
-import AuthContext from '../app/AuthContext.jsx'
-import DBContext from '../app/DBContext.jsx'
+import DBContext from './DBContextCL.jsx'
 
-import allEntries from './challengeLocks.json'
+//import allEntries from './challengeLocks.json'
+
 
 export function DataProvider({children}) {
 
-    const {user} = useContext(AuthContext)
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sort, image, profileUpdated, ...filters} = allFilters
-    const {adminFlags} = useContext(DBContext)
+    const {allEntries} = useContext(DBContext)
 
-
-    const isMod = !!adminFlags.isSPMod
+    const isMod = true
 
     const mappedEntries = useMemo(() => {
         return allEntries
@@ -26,8 +24,7 @@ export function DataProvider({children}) {
                 fuzzy: removeAccents(`${entry.name}, ${entry.maker}`)
             }))
             : []
-    }, [])
-
+    }, [allEntries])
 
     const visibleEntries = useMemo(() => {
         // Filters as an array
@@ -40,9 +37,8 @@ export function DataProvider({children}) {
             })
             .flat()
 
-
         // Filter the data
-        const allFiltered = mappedEntries
+        const filtered = mappedEntries
             .filter(datum => {
                 return filterArray.every(({key, value}) => {
                     return Array.isArray(datum[key])
@@ -50,13 +46,6 @@ export function DataProvider({children}) {
                         : datum[key] === value
                 })
             })
-            .filter(datum => (datum.pickerId === user?.uid) || isMod || !['pending', 'deleted', 'rejected'].includes(datum.status))
-            .filter(datum => datum.status !== 'deleted')
-
-        const filtered = filters.rank === 'Show All'
-            ? allFiltered
-            : allFiltered.filter(entry => entry.isBest)
-
 
         // If there is a search term, fuzzy match that
         const searched = search
@@ -86,19 +75,19 @@ export function DataProvider({children}) {
                 }
             })
             : searched.sort((a, b) => {
-                return a.lock.localeCompare(b.lock)
-                    || a.totalTime - b.totalTime
+                return dayjs(b.dateSubmitted).valueOf() - (dayjs(a.dateSubmitted)).valueOf()
             })
 
-    }, [filters, isMod, mappedEntries, search, sort, user?.uid])
+    }, [filters, mappedEntries, search, sort])
 
     const pendingEntries = useMemo(() => {
-        return allEntries.filter(datum => datum.status === 'pending')
-    }, [])
+        //return allEntries.filter(datum => datum.status === 'pending')
+        return allEntries
+    }, [allEntries])
 
     const getEntryFromId = useCallback(entryId => {
         return allEntries?.find(({id}) => id === entryId)
-    }, [])
+    }, [allEntries])
 
     const [openId, setOpenId] = useState(null)
 
@@ -109,7 +98,7 @@ export function DataProvider({children}) {
         allEntries,
         visibleEntries,
         pendingEntries, openId, setOpenId
-    }), [getEntryFromId, isMod, visibleEntries, pendingEntries, openId, setOpenId])
+    }), [getEntryFromId, isMod, allEntries, visibleEntries, pendingEntries, openId])
 
 
     return (

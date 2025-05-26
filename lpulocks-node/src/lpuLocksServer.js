@@ -7,21 +7,24 @@ import EventEmitter from 'events'
 import dayjs from 'dayjs'
 
 import submitChallengeLock from './projects/challengeLocks/submitChallengeLock.js'
-//import {localUser} from '../keys/users.js'
+import {localUser, prodUser} from '../keys/users.js'
 
 // pm2 start /home/dh_m5s5pf/explore-lpubelts-com-node/exploreLPUbeltsServer.js --watch
 // https://explore.lpubelts.com:8443/rafl-stats
 
-
 //import importRaflData from './projects/importRaflData/importRaflData.js'
 //import {getCharities, raflUtils} from './projects/raflFormUtilities/raflFormUtils.js'
 
-const prod = false
-const ports = prod ? {http: 8080, https: 8443} : {http: 3080, https: 3443}
-const envText = prod ? '' : ' (DEV)'
+const prodServer = true
+const prodDB = false
 
-const keysDir = prod
-    ? `/home/${process.env.USER}/explore-lpubelts-com-node/keys`
+
+const ports = prodServer ? {http: 7080, https: 7443} : {http: 2080, https: 2443}
+const envText = prodServer ? '' : ' (DEV)'
+
+const local = localUser === process.env.USER
+const keysDir = !local
+    ? `/home/${process.env.USER}/lpulocks-node/keys`
     : `/Users/${process.env.USER}/Documents/GitHub/lpulocks/lpulocks-node/keys`
 
 
@@ -43,7 +46,7 @@ myEmitter.on('myEvent', (data) => {
 
 app.post('/submit-challenge-lock', async (req, res) => {
     req.body = req.body || {}
-    req.body.prod = prod
+    req.body.prod = prodDB
     myEmitter.emit('myEvent', 'Challenge Lock Submitted' + envText)
     await submitChallengeLock(req, res).then()
 })

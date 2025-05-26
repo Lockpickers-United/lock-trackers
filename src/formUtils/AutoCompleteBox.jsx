@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField'
 import useWindowSize from '../util/useWindowSize.jsx'
 import Button from '@mui/material/Button'
 
-function AutoCompleteBox({name, changeHandler, options, value, style, disabled = false, reset, placeholder = 'Search...', noOptionsMessage, noOptionsHandler, inputValueHandler}) {
+function AutoCompleteBox({name, changeHandler, options, value = null, style, disabled = false, reset, placeholder = 'Search...', noOptionsMessage, noOptionsHandler, inputValueHandler}) {
     const inputEl = useRef()
     const [open, setOpen] = useState(false)
     const handleBlur = useCallback(() => setOpen(false), [])

@@ -63,7 +63,7 @@ function ImageGallery(props) {
                     shareParams={shareParams}
                 />
             }
-            <ImageList variant='masonry' cols={cols} sx={{marginTop: '2px'}}>
+            <ImageList variant='masonry' cols={cols} sx={{}}>
                 {media.map(({title, subtitle, thumbnailUrl, fullUrl, sequenceId}, index) =>
                     <ImageListItem key={index} style={{marginBottom: 4}}>
                         <img

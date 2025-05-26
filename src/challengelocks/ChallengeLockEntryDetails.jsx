@@ -1,10 +1,10 @@
 import React, {useCallback, useState} from 'react'
 import ChallengeLockImageGallery from './ChallengeLockImageGallery.jsx'
 import dayjs from 'dayjs'
-import FieldValue from '../util/FieldValue.jsx'
-import Typography from '@mui/material/Typography'
 
 export default function ChallengeLockEntryDetails({entry}) {
+
+    console.log('entryId', entry.id)
 
     const [blurred, setBlurred] = useState(true)
     const [showWarning, setShowWarning] = useState(true)
@@ -17,26 +17,8 @@ export default function ChallengeLockEntryDetails({entry}) {
 
     return (
         <div>
-
             <div style={{fontSize: '1.3rem', fontWeight: 600}}>
                 {entry.title}
-            </div>
-
-            <div style={{display: 'flex', marginBottom: 30}}>
-            <FieldValue
-                name='Last Seen'
-                value={<Typography
-                    style={{fontSize: '0.95rem', marginRight: 20}}>
-                    {dayjs(entry.createdAt).format('MM/DD/YY')}
-                </Typography>}
-            />
-            <FieldValue
-                name='Latest Picker'
-                value={<Typography
-                    style={{fontSize: '0.95rem', marginRight: 20}}>
-                    Loose Shirt
-                </Typography>}
-            />
             </div>
 
             <div style={{position: 'relative', zIndex: 1}}>
@@ -56,7 +38,8 @@ export default function ChallengeLockEntryDetails({entry}) {
                      onClick={handleBlur}
                 >
                     <div style={{
-                        fontSize: '1.2rem',
+                        fontSize: '1.1rem',
+                        lineHeight:'1.5rem',
                         fontWeight: 600,
                         filter: 'none',
                         color: '#20397c',

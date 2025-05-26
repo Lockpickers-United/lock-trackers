@@ -82,6 +82,34 @@ export function DBProviderCL({children}) {
         return entries
     }, [dbError])
 
+    const [allEntries, setAllEntries] = useState([])
+    useEffect(() => {
+        async function fetchData() {
+            setAllEntries(await getDbEntries())
+        }
+        fetchData().then()
+    }, [getDbEntries])
+
+
+/*
+    const allEntries = useMemo(async () => {
+        if (!dbLoaded) return []
+        return await getDbEntries()
+            .then(entries => {
+                if (entries && entries.length > 0) {
+                    return entries
+                } else {
+                    console.warn('No entries found in the database.')
+                    return []
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching entries:', error)
+                return []
+            })
+    },[dbLoaded, getDbEntries])
+*/
+
     const updateEntry = useCallback(async entry => {
         console.log('DB, updating entry: ', entry)
         if (dbError) return false
@@ -131,6 +159,7 @@ export function DBProviderCL({children}) {
         profile,
         updateEntry,
         getDbEntries,
+        allEntries,
         newVersionAvailable,
         updateVersion,
     }), [
@@ -138,6 +167,7 @@ export function DBProviderCL({children}) {
         profile,
         updateEntry,
         getDbEntries,
+        allEntries,
         newVersionAvailable,
         updateVersion,
     ])

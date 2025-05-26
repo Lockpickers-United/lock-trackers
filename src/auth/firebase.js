@@ -9,5 +9,7 @@ import {firebaseConfig} from '../../keys/firebaseConfig.js'
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app)
-export const db = getFirestore(app)
+export const db = getFirestore(app, 'locktrackersdev')
 export const analytics = getAnalytics(app)
+
+

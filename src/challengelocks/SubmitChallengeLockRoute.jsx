@@ -12,8 +12,7 @@ import {setDeep, setDeepUnique} from '../util/setDeep.js'
 import LoadingDisplay from '../misc/LoadingDisplay.jsx'
 import {DataProvider} from './DataProviderCL.jsx'
 
-
-function ToolsRoute() {
+function SubmitChallengeLockRoute() {
     usePageTitle('Submit Challenge Lock')
 
     const {data, loading, error} = useData({url: allLocks})
@@ -64,4 +63,4 @@ function ToolsRoute() {
     )
 }
 
-export default ToolsRoute
+export default SubmitChallengeLockRoute

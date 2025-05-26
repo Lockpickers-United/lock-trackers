@@ -5,6 +5,7 @@ import FilterContext from '../context/FilterContext'
 import ImageGallery from '../misc/ImageGallery'
 
 function ChallengeLockImageGallery({entry, blurred}) {
+
     const location = useLocation()
     const {filters, addFilter, removeFilters} = useContext(FilterContext)
 
@@ -27,7 +28,7 @@ function ChallengeLockImageGallery({entry, blurred}) {
 
     const initiallyOpen = isValidImage(openIndex, entry)
 
-    const allMedia = [entry.mainImage, ...entry.media]
+    const allMedia = [...entry.media]
 
     const sequencedMedia = allMedia
         .sort((a, b) => {

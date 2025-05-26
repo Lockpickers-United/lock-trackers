@@ -8,12 +8,10 @@ import LoadingDisplay from '../misc/LoadingDisplay.jsx'
 import Tracker from '../app/Tracker.jsx'
 import SelectBox from '../formUtils/SelectBox.jsx'
 import {uniqueBelts} from '../data/belts'
-import {setDeep, setDeepPush, setDeepUnique} from '../util/setDeep'
 import Link from '@mui/material/Link'
 import ChoiceButtonGroup from '../util/ChoiceButtonGroup.jsx'
 import {useNavigate} from 'react-router-dom'
 import AuthContext from '../app/AuthContext.jsx'
-import DataContext from '../context/DataContext.jsx'
 import {postData} from '../formUtils/postData.jsx'
 import {enqueueSnackbar} from 'notistack'
 import {lockingMechanisms} from './CLSubmitData.js'
@@ -25,6 +23,8 @@ import {jsonIt} from '../../lpulocks-node/src/util/jsonIt.js'
 import {DatePicker} from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
 import clTestData from './clTestData.json'
+import {FormControlLabel, Radio, RadioGroup} from '@mui/material'
+import DBContext from './DBContextCL.jsx'
 
 
 /**
@@ -34,18 +34,18 @@ import clTestData from './clTestData.json'
 
 export default function SubmitChallengeLock({lockData}) {
 
-    const serverUrl = 'http://localhost:3080'
+    const serverUrl = 'https://lpulocks.com:7443'
 
     const {user} = useContext(AuthContext)
-    const {profile} = useContext(DataContext)
+    const {profile} = useContext(DBContext)
     const [mainPhoto, setMainPhoto] = useState([])
     const [files, setFiles] = useState([])
     const [response, setResponse] = useState(undefined)
     const [uploading, setUploading] = useState(false)
     const [uploadError, setUploadError] = useState(undefined)
     const [acReset, setAcReset] = useState(false)
-    const [form, setForm] = useState({id: 'cl_' + genHexString(8)})
-    const [inputValue, setInputValue] = useState(undefined)
+    const [form, setForm] = useState({id: 'cl_' + genHexString(8), usernamePlatform: 'discord'})
+    const [inputValue, setInputValue] = useState(undefined) // eslint-disable-line
     const [location, setLocation] = useState(null)
     const [originalMake, setOriginalMake] = useState(null)
 
@@ -63,40 +63,31 @@ export default function SubmitChallengeLock({lockData}) {
     }, [form])
 
     const handleDateChange = useCallback((dateValue) => {
-        console.log('dateValue', dateValue)
         setForm({...form, ...dateValue})
     }, [form])
 
-    const uploadable = ((form['make'] || form.newBrand)
-            && form.model
-            && form.lockingMechanisms && form.lockingMechanisms.length > 0
-            && (form.redditUsername || form.discordUsername))
-        && files.length > 0
+    const requiredFields = ['name', 'maker', 'createdAt', 'country', 'lockingMechanism', 'username', 'usernamePlatform']
+    const uploadable = requiredFields.every(field => Object.keys(form).includes(field)) && mainPhoto.length > 0
 
     const prefix = form.name?.replace('/', '+')
-    const suffix = form.redditUsername && form.discordUsername
-        ? [form.discordUsername, form.redditUsername].join('_').replace('/', '+')
-        : `${form.redditUsername || form.discordUsername}`.replace('/', '+')
+    const suffix = form.username?.replace('/', '+')
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        //setUploading(true)
+       // setUploading(true)
         const formCopy = {
             ...form,
-            displayName: profile?.displayName || 'no display name',
-            droppedFileNames: files.map(file => file.name),
+            displayName: profile?.username || 'no display name',
+            mainFileName: mainPhoto.length > 0 ? mainPhoto[0].name : undefined,
+            droppedFileNames: mainPhoto.length > 0 ? files.map(file => file.name) : undefined,
             status: 'Pending'
         }
-        delete formCopy.altBrand
-        delete formCopy.newBrand
-
-        console.log('formCopy', formCopy)
 
         const formData = new FormData()
         Object.keys(formCopy).forEach(key => {
             formData.append(key, formCopy[key])
         })
-        const uploadsDir = `${prefix}-${suffix}`.toLowerCase()
+        const uploadsDir = `${prefix}-${suffix}-${form.id}`.toLowerCase()
 
 
         mainPhoto.forEach((file) => {
@@ -110,16 +101,11 @@ export default function SubmitChallengeLock({lockData}) {
 
 
         jsonIt('formCopy', formCopy)
-        for (const entry of formData.entries()) {
-            //console.log(entry[0], entry[1])
-        }
-
 
         const url = `${serverUrl}/submit-challenge-lock`
 
         try {
             const results = await postData({user, url, formData, snackBars: false})
-            enqueueSnackbar('Upload successful', {variant: 'success'})
             setResponse(results)
         } catch (error) {
             setUploadError(`${error}`.replace('Error: ', ''))
@@ -138,9 +124,13 @@ export default function SubmitChallengeLock({lockData}) {
     const handleReload = useCallback(() => {
         files.forEach(file => URL.revokeObjectURL(file.preview))
         setFiles([])
+        mainPhoto.forEach(file => URL.revokeObjectURL(file.preview))
+        setMainPhoto([])
         setAcReset(!acReset)
         setForm({id: genHexString(8)})
         setResponse(undefined)
+        setLocation(null)
+        setOriginalMake(null)
         setUploading(false)
         setUploadError(undefined)
         setTimeout(() => {
@@ -151,7 +141,7 @@ export default function SubmitChallengeLock({lockData}) {
             })
         }, 100)
 
-    }, [acReset, files])
+    }, [acReset, files, mainPhoto])
 
     //TODO: clear form on error OK
     const handleClose = useCallback(() => {
@@ -163,6 +153,11 @@ export default function SubmitChallengeLock({lockData}) {
     const countryList = useMemo(() => {
         return countries.map(country => country.country_area)
     }, [])
+
+    const allMakes = useMemo(() => {
+        return lockData?.allMakes.sort((a, b) => a.localeCompare(b)) || []
+    },[lockData])
+
 
     const options = useMemo(() => {
         return [
@@ -176,17 +171,17 @@ export default function SubmitChallengeLock({lockData}) {
     }, [navigate])
 
     const {isMobile, flexStyle} = useWindowSize()
-    const fullWidth = !isMobile ? 660 : 300
+    //const fullWidth = !isMobile ? 660 : 300
     const paddingLeft = !isMobile ? 16 : 8
 
-    const headerStyle = {fontSize: '1.1rem', fontWeight: 500, marginBottom: 5}
-
+    const headerStyle = {fontSize: '1.1rem', fontWeight: 600, marginBottom: 5}
+    const optionalHeaderStyle = {fontSize: '1.1rem', fontWeight: 400, marginBottom: 5, color: '#ddd'}
 
     return (
 
         <React.Fragment>
             <div style={{marginBottom: 20, marginTop: 1}}>
-                <ChoiceButtonGroup options={options} onChange={handleChange} defaultValue={options[0].label}/>
+                <ChoiceButtonGroup options={options} onChange={handleChange} defaultValue={options[1].label}/>
 
             <Link onClick={handleTestData}>Fill test data</Link>
             </div>
@@ -245,7 +240,7 @@ export default function SubmitChallengeLock({lockData}) {
                             </div>
 
                             <div style={{marginRight: 20}}>
-                                <div style={headerStyle}>Location</div>
+                                <div style={headerStyle}>Origin</div>
                                 <AutoCompleteBox changeHandler={handleFormChange}
                                                  options={countryList} value={location}
                                                  name={'country'} style={{width: 250}}
@@ -257,8 +252,8 @@ export default function SubmitChallengeLock({lockData}) {
 
                             {form.country && statesProvinces[form.country] &&
                                 <div style={{}}>
-                                    <div style={headerStyle}>State/Province <span
-                                        style={{...headerStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
+                                    <div style={optionalHeaderStyle}>State/Province <span
+                                        style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
                                     </div>
                                     <SelectBox changeHandler={handleFormChange}
                                                name='stateProvince' form={form}
@@ -270,20 +265,18 @@ export default function SubmitChallengeLock({lockData}) {
 
                         <div style={{display: flexStyle, marginTop: 30}}>
                             <div style={{marginRight: 20}}>
-                                <div style={headerStyle}>
-                                    Locking Mechanism
-                                </div>
+                                <div style={headerStyle}>Locking Mechanism</div>
                                 <SelectBox changeHandler={handleFormChange}
                                            name='lockingMechanism' form={form}
                                            optionsList={lockingMechanisms} size={'large'}
                                            width={180} multiple={false} defaultValue={''}/>
                             </div>
                             <div style={{marginRight: 20}}>
-                                <div style={{...headerStyle, fontWeight: 400}}>Original Brand <span
-                                    style={{...headerStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
+                                <div style={optionalHeaderStyle}>Original Brand <span
+                                    style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
                                 </div>
                                 <AutoCompleteBox changeHandler={handleFormChange}
-                                                 options={lockData?.allMakes} value={originalMake}
+                                                 options={allMakes} value={originalMake}
                                                  name={'originalMake'} style={{width: 230}}
                                                  reset={acReset}
                                                  inputValueHandler={setInputValue}
@@ -291,8 +284,8 @@ export default function SubmitChallengeLock({lockData}) {
                             </div>
 
                             <div style={{}}>
-                                <div style={{...headerStyle, fontWeight: 400}}>Lock Format <span
-                                    style={{...headerStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
+                                <div style={optionalHeaderStyle}>Lock Format <span
+                                    style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
                                 </div>
                                 <SelectBox changeHandler={handleFormChange}
                                            name='lockFormat' form={form}
@@ -309,28 +302,25 @@ export default function SubmitChallengeLock({lockData}) {
                                 <Dropzone files={mainPhoto} setFiles={setMainPhoto} maxFiles={1}/>
                             </div>
                             <div style={{marginRight: 0, flexGrow: 1, maxWidth: 380}}>
-                                <div style={headerStyle}>
-                                    Other Lock Photos <span style={{...headerStyle, fontWeight: 400}}>(max 10, spoilers OK)</span>
+                                <div style={optionalHeaderStyle}>
+                                    Other Lock Photos <span style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional, spoilers OK)</span>
                                 </div>
                                 <Dropzone files={files} setFiles={setFiles}/>
                             </div>
                         </div>
 
-                        <div style={{display: flexStyle, marginTop: 20}}>
-                            <div style={{flexGrow: 1, maxWidth: fullWidth}}>
-                                <div style={{fontSize: '1.1rem'}}>
-                                    Brief Description <span style={{color: '#aaa'}}>(optional)</span>
+                        <div style={{display: flexStyle, marginTop: 30}}>
+                            <div style={{flexGrow: 1, maxWidth: 450, marginRight: 20}}>
+                                <div style={optionalHeaderStyle}>
+                                    Brief Description <span style={{...optionalHeaderStyle, color: '#aaa'}}>(optional)</span>
                                 </div>
-                                <TextField type='text' name='description' multiline fullWidth rows={2}
+                                <TextField type='text' name='description' multiline fullWidth rows={3}
                                            color='info' style={{}} value={form.description || ''}
                                            maxLength={1200} id='description' onChange={handleFormChange}/>
                             </div>
-                        </div>
-
-                        <div style={{display: flexStyle, marginTop: 20}}>
-                            <div style={{marginRight: 20}}>
-                                <div style={{fontSize: '1.1rem', fontWeight: 400, marginBottom: 5}}>
-                                    Approx. Belt <span style={{color: '#aaa'}}>(optional)</span></div>
+                            <div style={{}}>
+                                <div style={optionalHeaderStyle}>
+                                    Approx. Belt <span style={{...optionalHeaderStyle, color: '#aaa'}}>(optional)</span></div>
                                 <SelectBox changeHandler={handleFormChange}
                                            name='approxBelt' form={form} optionsList={uniqueBelts}
                                            multiple={false} defaultValue={''}
@@ -338,43 +328,40 @@ export default function SubmitChallengeLock({lockData}) {
                             </div>
                         </div>
 
-                        <div style={{display: flexStyle, marginTop: 20}}>
-                            <div style={{flexGrow: 1, maxWidth: fullWidth}}>
-                                <div style={{fontSize: '1.1rem'}}>
-                                    Detailed Description <span style={{color: '#aaa'}}>(optional)</span>
-                                </div>
-                                <TextField type='text' name='descriptionFull' multiline fullWidth rows={5}
-                                           color='info'
-                                           style={{}} value={form.descriptionFull || ''}
-                                           maxLength={1200} id='descriptionFull' onChange={handleFormChange}/>
-                            </div>
-                        </div>
-
-
                         <div style={{marginTop: 30}}>
                             <div style={{marginRight: 50, width: 300}}>
-                                <div style={{fontSize: '1.1rem', fontWeight: 500}}>
+                                <div style={headerStyle}>
                                     Contact Info
                                 </div>
                             </div>
 
                             <div style={{display: flexStyle}}>
-                                <div style={{marginRight: 20}}>
-                                    <div style={{fontSize: '1rem'}}>Discord Username</div>
-                                    <TextField type='text' name='discordUsername' style={{width: 200}}
-                                               onChange={handleFormChange} value={form.discordUsername || ''}
+                                <div style={{marginRight: 15}}>
+                                    <div style={{fontSize: '1rem', fontWeight:600}}>Username</div>
+                                    <TextField type='text' name='username' style={{width: 200}}
+                                               onChange={handleFormChange} value={form.username || ''}
                                                color='info'/>
                                 </div>
 
-                                <div style={{marginRight: 40}}>
-                                    <div style={{fontSize: '1rem'}}>AND/OR Reddit Username</div>
-                                    <TextField type='text' name='redditUsername' style={{width: 200}}
-                                               onChange={handleFormChange} value={form.redditUsername || ''}
-                                               color='info'/>
+                                <div style={{marginTop:18, marginRight: 30}}>
+                                    <RadioGroup
+                                        name="usernamePlatform"
+                                        onChange={handleFormChange}
+                                        size="small"
+                                        defaultValue="discord"
+                                        sx={{
+                                            '& .MuiRadio-root': {
+                                                padding: '7px',
+                                            },
+                                        }}
+                                    >
+                                        <FormControlLabel value="discord" control={<Radio size="small" />} label="Discord" />
+                                        <FormControlLabel value="reddit" control={<Radio size="small" />} label="Reddit"/>
+                                    </RadioGroup>
                                 </div>
 
                                 <div style={{marginTop: 0}}>
-                                    <div style={{fontSize: '1rem'}}>
+                                    <div style={{fontSize: '1rem', color:'#ddd'}}>
                                         Your current belt <span style={{color: '#aaa'}}>(optional)</span>
                                     </div>
                                     <SelectBox changeHandler={handleFormChange}
@@ -388,8 +375,7 @@ export default function SubmitChallengeLock({lockData}) {
                     </div>
 
                     <div style={{marginTop: 30, width: '100%', display: 'flex', justifyContent: 'center'}}>
-                        <Button type='submit' variant='contained' color='info'
-                                disabled={(!uploadable || uploading) && false}>
+                        <Button type='submit' variant='contained' color='info' disabled={!uploadable || uploading}>
                             Submit
                         </Button>
                     </div>
@@ -413,7 +399,7 @@ export default function SubmitChallengeLock({lockData}) {
                                 fontWeight: 500,
                                 marginBottom: 60,
                                 textAlign: 'center'
-                            }}>Lock request submitted!
+                            }}>Challenge Lock submitted!
                             </div>
 
                             <div style={{width: '100%', textAlign: 'center'}}>
