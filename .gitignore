@@ -4,6 +4,7 @@ public/sitemap.xml
 public/data/*
 public/versionCode.json
 public/lockBazaarData.json
+/keys/*
 lpulocks-node/keys
 /lpulocks-node/data/*
 
