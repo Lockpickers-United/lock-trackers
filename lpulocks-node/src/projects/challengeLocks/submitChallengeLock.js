@@ -12,7 +12,7 @@ import util from 'util'
 import {exec} from 'child_process'
 import dayjs from 'dayjs'
 import createThumbnails from '../../util/createThumbnails.js'
-import {contentUploadRecipients, prodUser, localUser} from '../../../keys/users.js'
+import {contentUploadRecipients, prodUser} from '../../../keys/users.js'
 import admin from 'firebase-admin'
 import {getFirestore} from 'firebase-admin/firestore'
 
@@ -76,9 +76,6 @@ export default async function submitChallengeLock(req, res) {
 
     const {prod} = req.body
     const db = prod ? dbProd : dbDev
-    //const db = dbDev
-
-    const entryId = req.body.id || req.query.id
 
     const form = formidable({
         uploadDir,
@@ -108,7 +105,7 @@ export default async function submitChallengeLock(req, res) {
             id: fields.id?.firstValue(),
             name: fields.name?.firstValue(),
             maker: fields.maker?.firstValue(),
-            createdAt: fields.createdAt?.firstValue(),
+            lockCreated: fields.lockCreated?.firstValue(),
             country: fields.country?.firstValue(),
             stateProvince: fields.stateProvince?.firstValue(),
             lockingMechanism: fields.lockingMechanism?.firstValue(),
@@ -117,7 +114,7 @@ export default async function submitChallengeLock(req, res) {
             description: fields.description?.firstValue(),
             descriptionFull: fields.descriptionFull?.firstValue(),
             approximateBelt: fields.approxBelt?.firstValue(),
-            requestedBy: [{
+            submittedBy: [{
                 owner: true,
                 userId: req.user.user_id,
                 userBelt: fields.userBelt?.firstValue(),

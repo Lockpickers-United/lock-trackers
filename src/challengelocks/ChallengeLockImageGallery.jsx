@@ -54,7 +54,7 @@ function ChallengeLockImageGallery({entry, blurred}) {
         <React.Fragment>
             {labeledMedia.map((group, index) =>
                 <React.Fragment key={index}>
-                    <div key={index} style={{filter: blurred ? 'blur(6px)' : 'none'}}>
+                    <div key={index} style={{filter: blurred ? 'blur(10px)' : 'none'}}>
                         {group.label !== 'allMedia' &&
                             <div style={{
                                 borderBottom: '1px solid #bbb',

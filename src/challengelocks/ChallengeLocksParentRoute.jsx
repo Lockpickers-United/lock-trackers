@@ -1,21 +1,20 @@
 import React, {useCallback, useContext} from 'react'
-import {Outlet, useNavigate} from 'react-router-dom'
+import {Outlet} from 'react-router-dom'
 import AuthContext from '../app/AuthContext'
 import DBContext from '../app/DBContext'
 import LoadingDisplay from '../misc/LoadingDisplay.jsx'
-import Link from '@mui/material/Link'
 import Fade from '@mui/material/Fade'
 import useData from '../util/useData.jsx'
 import {LocalizationProvider} from '@mui/x-date-pickers'
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
 import {DBProviderCL} from './DBContextCL.jsx'
+import SignInButton from '../auth/SignInButton.jsx'
 
 export default function ChallengeLocksParentRoute() {
     const {authLoaded} = useContext(AuthContext)
     const {adminRole} = useContext(DBContext)  //eslint-disable-line
     const {user} = useContext(AuthContext)
     const {getProfile} = useContext(DBContext)
-    const navigate = useNavigate()
     const userId = user ? user.uid : null
     const loadFn = useCallback(async () => {
         if (!userId) return null
@@ -47,19 +46,15 @@ export default function ChallengeLocksParentRoute() {
                     {authLoaded && !user &&
                         <Fade in={true} timeout={1000}>
                             <div style={{
-                                width: '320px', textAlign: 'center',
+                                width: '350px', textAlign: 'center',
                                 padding: 50, marginTop: 100, backgroundColor: '#292929',
-                                marginLeft: 'auto', marginRight: 'auto'
+                                marginLeft: 'auto', marginRight: 'auto',
+                                fontSize: '1.4rem', fontWeight: 700
                             }}>
-                                <Link onClick={() => navigate('/')}
-                                      style={{
-                                          color: '#fff',
-                                          textDecorationColor: '#bbb',
-                                          cursor: 'pointer',
-                                          fontSize: '1.0rem'
-                                      }}>
-                                    nothing to see here
-                                </Link>
+                                You must be logged in to view this page.<br/><br/>
+                                <div style={{width: 210, marginLeft: 'auto', marginRight: 'auto'}}>
+                                <SignInButton/>
+                            </div>
                             </div>
                         </Fade>
                     }

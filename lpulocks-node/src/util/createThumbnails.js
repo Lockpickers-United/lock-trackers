@@ -11,11 +11,13 @@ export default async function createThumbnails({inputFile, width = 400, square =
         if (!square) {
             return await sharp(inputFile)
                 .resize({width: width, withoutEnlargement: true})
+                .autoOrient()
                 .toFile(outputFile)
                 .then(info => (outputFile)) // eslint-disable-line
         } else {
             return await sharp(inputFile)
-                .resize({width: width, height: width, fit: sharp.fit.cover, position: sharp.strategy.entropy})
+                .resize({width: width, height: width, fit: sharp.fit.cover})
+                .autoOrient()
                 .toFile(outputFile)
                 .then(info => (outputFile)) // eslint-disable-line
         }

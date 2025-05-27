@@ -4,6 +4,8 @@ import dayjs from 'dayjs'
 
 export default function ChallengeLockEntryDetails({entry}) {
 
+    if (!entry) return null
+
     console.log('entryId', entry.id)
 
     const [blurred, setBlurred] = useState(true)
@@ -13,7 +15,8 @@ export default function ChallengeLockEntryDetails({entry}) {
         setShowWarning(!blurred)
     }, [blurred])
 
-    if (!entry) return null
+    const dateCreated = entry.lockCreated || entry.createdAt
+
 
     return (
         <div>
@@ -59,10 +62,9 @@ export default function ChallengeLockEntryDetails({entry}) {
             <div style={{fontSize: '0.95rem', lineHeight:'1.5rem', fontWeight: 500, marginBottom: 10}}>
                 Name: {entry.name}<br/>
                 Maker: {entry.maker}<br/>
-                Created: {dayjs(entry.createdAt).format('MMM DD, YYYY')}<br/>
+                Created: {dayjs(dateCreated).format('MMM DD, YYYY')}<br/>
                 Submitted: {dayjs(entry.dateSubmitted).format('MMM DD, YYYY')}<br/>
                 Country: {entry.country}<br/>
-                State/Province: {entry.stateProvince}<br/>
                 Format: {entry.lockFormat}<br/>
                 Locking Mechanism: {entry.lockingMechanism}<br/>
                 Original Make: {entry.originalMake}<br/>

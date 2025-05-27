@@ -50,7 +50,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
     const {width, flexStyle} = useWindowSize()
     const smallWindow = width <= 480
 
-    const nameTextStyle = {fontSize: '1.2rem', color: '#fff', fontWeight: 600, marginLeft: 0}
+    const nameTextStyle = {fontSize: '1.2rem', lineHeight: '1.4rem', color: '#fff', fontWeight: 600, marginLeft: 0}
     const makerTextStyle = {fontSize: '1.0rem', color: '#fff', marginLeft: 5, marginTop: 10}
 
     const summaryFlexStyle = !smallWindow ? {display: 'flex'} : {}
@@ -68,10 +68,10 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
                 <div style={summaryFlexStyle}>
                     <div style={{display: 'flex', width: '100%', alignItems: 'center'}}>
 
-                        <img src={entry.thumbnail} style={{height:100, width: 100}} alt={entry.name}/>
+                        <img src={entry.thumbnail} style={{height: 100, width: 100}} alt={entry.name}/>
 
                         <div style={{
-                            margin: 20,
+                            margin: '0px 20px',
                             flexGrow: 1
                         }}>
                             <div style={nameTextStyle}>{entry.name}</div>
@@ -83,10 +83,12 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
                                 value={entry.lockFormat}
                                 field='lockFormat'
                             />
-                            <FilterChip
-                                value={entry.lockingMechanism}
-                                field='lockingMechanism'
-                            />
+                            {entry.lockingMechanism &&
+                                <FilterChip
+                                    value={entry.lockingMechanism}
+                                    field='lockingMechanism'
+                                />
+                            }
                         </div>
                         <div style={{width: 10}}/>
                     </div>
