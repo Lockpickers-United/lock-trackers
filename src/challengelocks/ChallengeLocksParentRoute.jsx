@@ -30,11 +30,9 @@ export default function ChallengeLocksParentRoute() {
 
     //const CLAdmin = ['CLAdmin', 'admin'].some(claim => userClaims.includes(claim)) || adminRole //eslint-disable-line
 
-
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DBProviderCL>
-
                 <React.Fragment>
 
                     {!authLoaded &&

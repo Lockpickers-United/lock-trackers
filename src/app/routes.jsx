@@ -41,6 +41,13 @@ export default [
                     const {default: SubmitChallengeLockRoute} = await import('../challengelocks/SubmitChallengeLockRoute')
                     return {element: <SubmitChallengeLockRoute/>}
                 }
+            },
+            {
+                path: '/challengelocks/checkin',
+                lazy: async () => {
+                    const {default: CheckInRoute} = await import('../challengelocks/CheckInRoute')
+                    return {element: <CheckInRoute/>}
+                }
             }
         ]
     },

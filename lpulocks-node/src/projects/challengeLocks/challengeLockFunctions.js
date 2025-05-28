@@ -15,6 +15,7 @@ import createThumbnails from '../../util/createThumbnails.js'
 import {contentUploadRecipients, prodUser} from '../../../keys/users.js'
 import admin from 'firebase-admin'
 import {getFirestore} from 'firebase-admin/firestore'
+import jsonIt from '../../util/jsonIt.js'
 
 const {writeFile} = fs.promises
 const prodEnvironment = prodUser === process.env.USER
@@ -60,7 +61,65 @@ function handleError(res, message, error, status = 500) {
     res.status(status).send({status, message})
 }
 
-export default async function submitChallengeLock(req, res) {
+function flattenFields(fields) {
+    const flatFields = {}
+    for (const key in fields) {
+        if (Array.isArray(fields[key])) {
+            flatFields[key] = fields[key].length > 0 ? fields[key][0] : ''
+        } else {
+            flatFields[key] = fields[key] || ''
+        }
+    }
+    return flatFields
+}
+
+export async function submitCheckIn(req, res) {
+    try {
+        req.user = await authenticateRequest(req, res)
+    } catch (err) {
+        return handleError(res, err.message, err, 403)
+    }
+
+    console.log('req.body:', req.body)
+    const {prod} = req.body
+    const db = prod ? dbProd : dbDev
+
+    const form = formidable({})
+
+    try {
+        const {fields} = await parseForm(req, form)
+        for (const fieldName in fields) {
+            if (!Array.isArray(fields[fieldName])) {
+                fields[fieldName] = [fields[fieldName]]
+            }
+        }
+
+        jsonIt('fields:', fields)
+
+        const entry = flattenFields(fields)
+        jsonIt('entry:', entry)
+
+        const ref = db.collection('challenge-lock-check-ins').doc(entry.id)
+        try {
+            await setDocument(ref, entry, entry.id)
+        } catch (error) {
+            handleError(res, 'Failed to create Challenge Lock', error, 500)
+        }
+
+        // set lock: approx belt, ratings, latestCheckIn, checkInCount
+
+        console.log('done')
+        return res.status(200).json(entry)
+
+    } catch (err) {
+        return handleError(res, 'Form Parse Error', err)
+    }
+
+
+}
+
+
+export default async function challengeLockFunctions(req, res) {
 
     let subdirs = ''
     let filepaths = []
@@ -70,9 +129,6 @@ export default async function submitChallengeLock(req, res) {
     } catch (err) {
         return handleError(res, err.message, err, 403)
     }
-
-    console.log('req.body:', req.body)
-
 
     const {prod} = req.body
     const db = prod ? dbProd : dbDev
@@ -95,6 +151,7 @@ export default async function submitChallengeLock(req, res) {
 
     try {
         const {fields, files} = await parseForm(req, form)
+
         for (const fieldName in fields) {
             if (!Array.isArray(fields[fieldName])) {
                 fields[fieldName] = [fields[fieldName]]
@@ -171,7 +228,7 @@ export default async function submitChallengeLock(req, res) {
 
         const ref = db.collection('challenge-locks').doc(entry.id)
         try {
-            await setChallengeLock(ref, entry, entry.id)
+            await setDocument(ref, entry, entry.id)
         } catch (error) {
             handleError(res, 'Failed to create Challenge Lock', error, 500)
         }
@@ -205,7 +262,7 @@ export default async function submitChallengeLock(req, res) {
 }
 
 
-async function setChallengeLock(ref, entry, entryId) {
+async function setDocument(ref, entry, entryId) {
     try {
         await ref.set(entry)
         return entry

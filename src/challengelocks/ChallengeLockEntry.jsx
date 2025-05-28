@@ -8,6 +8,8 @@ import FilterChip from '../filters/FilterChip.jsx'
 import ChallengeLockEntryDetails from './ChallengeLockEntryDetails.jsx'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import useWindowSize from '../util/useWindowSize.jsx'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import CheckInButton from './CheckInButton.jsx'
 
 const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
 
@@ -56,7 +58,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
     const summaryFlexStyle = !smallWindow ? {display: 'flex'} : {}
 
     return (
-        <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters={false}>
+        <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters={true}>
             <AccordionSummary expandIcon={<ExpandMoreIcon/>}
                               style={{padding: '0px 16px 0px 0px'}}
                               sx={{
@@ -97,10 +99,16 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
             {
                 expanded &&
                 <React.Fragment>
-                    <AccordionActions disableSpacing style={{backgroundColor: '#272727'}}>
+
+                    <AccordionDetails style={{backgroundColor: '#333'}}>
                         <ChallengeLockEntryDetails entry={entry}/>
                         <Tracker feature='challengeLock' id={entry.id} name={entry?.name}/>
+                    </AccordionDetails>
+
+                    <AccordionActions>
+                        <CheckInButton entry={entry} style={{margin: '4px 20px'}}/>
                     </AccordionActions>
+
                 </React.Fragment>
             }
         </Accordion>

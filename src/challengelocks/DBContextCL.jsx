@@ -56,7 +56,6 @@ export function DBProviderCL({children}) {
         const safeName = profile?.username
             ? profile?.username.replace(/\s/g, '_')
             : user?.uid
-
         const ref = doc(db, 'versions', 'challenge-locks')
         const newVersion = safeName + '_' + new Date().toISOString().substring(0, 21)
         try {
@@ -71,7 +70,7 @@ export function DBProviderCL({children}) {
         }
     }, [dbError, knownVersions, profile?.username, user?.uid])
 
-    // CHALLENGE LOCKS & PROFILES //
+    // CHALLENGE LOCKS //
     const getDbEntries = useCallback(async () => {
         if (dbError) return false
         const entries = []
@@ -153,6 +152,35 @@ export function DBProviderCL({children}) {
         }
     }, [dbError, updateVersion])
 
+    // TODO - not working, remove, use postData instead
+    const createCheckIn = useCallback(async (checkIn) => {
+        let statusText = ''
+        console.log('DB, updating entry: ', checkIn)
+        if (dbError) return false
+        const modified = dayjs().format()
+        const ref = doc(db, '/challenge-lock-check-ins', checkIn.id)
+
+        try {
+            await runTransaction(db, async transaction => {
+                const sfDoc = await transaction.get(ref)
+                const delta = { ...checkIn, modified: modified}
+                if (!sfDoc.exists()) {
+                    transaction.set(ref, delta)
+                    statusText = 'Check-in Created'
+                } else {
+                    statusText = 'Check-in already exists'
+                }
+            })
+            await updateVersion()
+            return statusText
+        } catch (e) {
+            console.error(e)
+            statusText = 'Check-in failed to update.'
+            return statusText
+        }
+    }, [dbError, updateVersion])
+
+
     // value & provider
     const value = useMemo(() => ({
         dbLoaded,
@@ -160,6 +188,7 @@ export function DBProviderCL({children}) {
         updateEntry,
         getDbEntries,
         allEntries,
+        createCheckIn,
         newVersionAvailable,
         updateVersion,
     }), [
@@ -168,6 +197,7 @@ export function DBProviderCL({children}) {
         updateEntry,
         getDbEntries,
         allEntries,
+        createCheckIn,
         newVersionAvailable,
         updateVersion,
     ])

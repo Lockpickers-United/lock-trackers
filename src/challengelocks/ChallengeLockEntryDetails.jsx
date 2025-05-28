@@ -6,8 +6,6 @@ export default function ChallengeLockEntryDetails({entry}) {
 
     if (!entry) return null
 
-    console.log('entryId', entry.id)
-
     const [blurred, setBlurred] = useState(true)
     const [showWarning, setShowWarning] = useState(true)
     const handleBlur = useCallback(() => {
@@ -16,7 +14,6 @@ export default function ChallengeLockEntryDetails({entry}) {
     }, [blurred])
 
     const dateCreated = entry.lockCreated || entry.createdAt
-
 
     return (
         <div>
@@ -68,11 +65,7 @@ export default function ChallengeLockEntryDetails({entry}) {
                 Format: {entry.lockFormat}<br/>
                 Locking Mechanism: {entry.lockingMechanism}<br/>
                 Original Make: {entry.originalMake}<br/>
-            </div>
-
-            <div style={{margin: '30px 0px 10px 0px', fontWeight: 700}}>Description</div>
-            <div style={{fontSize: '0.95rem', lineHeight:'1.3rem', fontWeight: 400, marginBottom: 10}}>
-                {entry.description}
+                Description: {entry.description}<br/>
             </div>
 
 

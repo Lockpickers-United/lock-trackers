@@ -18,7 +18,6 @@ import {lockingMechanisms} from './CLSubmitData.js'
 import countries from '../data/countries.json'
 import lockFormats from '../data/lockFormats.json'
 import AutoCompleteBox from '../formUtils/AutoCompleteBox.jsx'
-import {jsonIt} from '../../lpulocks-node/src/util/jsonIt.js' // eslint-disable-line
 import {DatePicker} from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
 import clTestData from './clTestData.json'
@@ -157,7 +156,8 @@ export default function SubmitChallengeLock({lockData}) {
     const options = useMemo(() => {
         return [
             {label: 'Challenge Locks', page: '/challengelocks'},
-            {label: 'Submit New Lock', page: '/challengelocks/submit'}
+            {label: 'Submit New Lock', page: '/challengelocks/submit'},
+            {label: 'Check In', page: '/challengelocks/checkin'},
         ]
     }, [])
     const navigate = useNavigate()
@@ -176,8 +176,7 @@ export default function SubmitChallengeLock({lockData}) {
 
         <React.Fragment>
             <div style={{marginBottom: 20, marginTop: 1}}>
-                <ChoiceButtonGroup options={options} onChange={handleChange} defaultValue={options[1].label}/>
-
+                <ChoiceButtonGroup options={options} onChange={handleChange} defaultValue={options[1].label}/><br/>
                 <Link onClick={handleTestData}>Fill test data</Link>
             </div>
 

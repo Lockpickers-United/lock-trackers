@@ -2,23 +2,25 @@ import React from 'react'
 import Tracker from '../app/Tracker'
 import Footer from '../nav/Footer'
 import Nav from '../nav/Nav'
-import ChallengeLocksMain from './ChallengeLocksMain.jsx'
 import {CLFilterFields} from '../data/filterFields.js'
 import {FilterProvider} from '../context/FilterContext.jsx'
 import {DataProvider} from './DataProviderCL.jsx'
 import usePageTitle from '../util/usePageTitle.jsx'
 import {ListProvider} from '../context/ListContext.jsx'
+import CheckIn from './CheckIn.jsx'
 
-function ChallengeLocksRoute() {
 
-    usePageTitle('Challenge Locks')
+export default function CheckInRoute() {
+
+
+    usePageTitle('Check in Challenge Lock')
 
     return (
             <FilterProvider filterFields={CLFilterFields}>
                 <DataProvider>
                     <ListProvider>
-                        <Nav title='Challenge Locks' route='cl'/>
-                        <ChallengeLocksMain/>
+                        <Nav title='Check in Challenge Lock' route='cl'/>
+                        <CheckIn/>
                         <Footer/>
                         <Tracker feature='challengelocks'/>
                     </ListProvider>
@@ -27,5 +29,3 @@ function ChallengeLocksRoute() {
     )
 
 }
-
-export default ChallengeLocksRoute

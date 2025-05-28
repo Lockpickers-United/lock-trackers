@@ -21,7 +21,8 @@ function ChallengeLocksCardsMain() {
     const options = useMemo(() => {
         return [
             {label: 'Challenge Locks', page: '/challengelocks'},
-            {label: 'Submit New Lock', page: '/challengelocks/submit'}
+            {label: 'Submit New Lock', page: '/challengelocks/submit'},
+            {label: 'Check In', page: '/challengelocks/checkin'},
         ]
     }, [])
     const navigate = useNavigate()

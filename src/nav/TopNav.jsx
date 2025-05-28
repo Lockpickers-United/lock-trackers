@@ -11,9 +11,10 @@ import Nav_LockBazaar from '../assets/Nav_LockBazaar.jsx'
 import LB_logo from '../assets/LB_logo.jsx'
 import Nav_Reports from '../assets/Nav_Reports.jsx'
 import RAFL_logo from '../assets/RAFL_logo.jsx'
+import useWindowSize from '../util/useWindowSize.jsx'
 
 function TopNav(route) {
-
+    
     const navigate = useNavigate()
     const location = useLocation()
     const {VITE_RAFL_STATE: raflState} = import.meta.env
@@ -34,8 +35,8 @@ function TopNav(route) {
     const coFill = location.pathname === '/contact' ? '#fff' : '#777'
     const privFill = location.pathname === '/privacy' ? '#fff' : '#777'
 
-    //console.log(location.pathname)
-
+const {isMobile} = useWindowSize()
+    const iconSize = isMobile ? 28 : 30
     return (
 
         <React.Fragment>
@@ -46,16 +47,16 @@ function TopNav(route) {
                         <div style={{padding: 0}}>
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/lockbazaar')}>
-                                <LB_logo fill={lbFill} style={{height: 30}}/>
+                                <LB_logo fill={lbFill} style={{height: iconSize}}/>
                             </Button>
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/speedpicks')}>
-                                <SpeedPicks fill={spFill} style={{height: 30}}/>
+                                <SpeedPicks fill={spFill} style={{height: iconSize}}/>
                             </Button>
                             {raflState !== 'hidden' &&
                                 <Button variant='text' style={buttonSyle}
                                         onClick={handleButtonClick('/rafl')}>
-                                    <RAFL_logo fill={raflFill} style={{height: 30}}/>
+                                    <RAFL_logo fill={raflFill} style={{height: iconSize}}/>
                                 </Button>
                             }
                         </div>
@@ -70,16 +71,16 @@ function TopNav(route) {
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/lockbazaar')}
                             >
-                                <Nav_LockBazaar fill={lbFill} style={{height: 30}}/>
+                                <Nav_LockBazaar fill={lbFill} style={{height: iconSize}}/>
                             </Button>
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/speedpicks')}>
-                                <SP_logo fill={spFill} style={{height: 30}}/>
+                                <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
                             {raflState !== 'hidden' &&
                                 <Button variant='text' style={buttonSyle}
                                         onClick={handleButtonClick('/rafl')}>
-                                    <RAFL_logo fill={raflFill} style={{height: 30}}/>
+                                    <RAFL_logo fill={raflFill} style={{height: iconSize}}/>
                                 </Button>
                             }
                         </div>
@@ -94,16 +95,16 @@ function TopNav(route) {
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/lockbazaar')}
                             >
-                                <Nav_LockBazaar fill={lbsFill} style={{height: 30}}/>
+                                <Nav_LockBazaar fill={lbsFill} style={{height: iconSize}}/>
                             </Button>
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/speedpicks')}>
-                                <SP_logo fill={spFill} style={{height: 30}}/>
+                                <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
                             {raflState !== 'hidden' &&
                                 <Button variant='text' style={buttonSyle}
                                         onClick={handleButtonClick('/rafl')}>
-                                    <RAFL_logo fill={raflFill} style={{height: 30}}/>
+                                    <RAFL_logo fill={raflFill} style={{height: iconSize}}/>
                                 </Button>
                             }
                         </div>
@@ -118,14 +119,14 @@ function TopNav(route) {
                         <div style={{padding: 0}}>
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/lockbazaar')}>
-                                <LB_logo fill={lbFill} style={{height: 30}}/>
+                                <LB_logo fill={lbFill} style={{height: iconSize}}/>
                             </Button>
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/speedpicks')}>
-                                <SP_logo fill={spFill} style={{height: 30}}/>
+                                <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
                             <Button variant='text' style={buttonSyle}>
-                                <Nav_Reports fill={repFill} style={{height: 30}}/>
+                                <Nav_Reports fill={repFill} style={{height: iconSize}}/>
                             </Button>
                         </div>
                     </div>
@@ -138,15 +139,15 @@ function TopNav(route) {
                     <div style={{display: 'flex', marginTop: 9, padding: 0}}>
                         <Button variant='text' style={buttonSyle}
                                 onClick={handleButtonClick('/lockbazaar')}>
-                            <LB_logo fill={lbFill} style={{height: 30}}/>
+                            <LB_logo fill={lbFill} style={{height: iconSize}}/>
                         </Button>
                         <Button variant='text' style={buttonSyle}
                                 onClick={handleButtonClick('/speedpicks')}>
-                            <SP_logo fill={spFill} style={{height: 30}}/>
+                            <SP_logo fill={spFill} style={{height: iconSize}}/>
                         </Button>
                         <div style={{padding: 0}}>
                             <Button variant='text' style={buttonSyle}>
-                                <Profile fill={prFill} style={{height: 30}}/>
+                                <Profile fill={prFill} style={{height: iconSize}}/>
                             </Button>
                         </div>
                     </div>
@@ -160,14 +161,14 @@ function TopNav(route) {
                         <div style={{padding: 0}}>
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/lockbazaar')}>
-                                <LB_logo fill={lbFill} style={{height: 30}}/>
+                                <LB_logo fill={lbFill} style={{height: iconSize}}/>
                             </Button>
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/speedpicks')}>
-                                <SP_logo fill={spFill} style={{height: 30}}/>
+                                <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
                             <Button variant='text' style={buttonSyle}>
-                                <ChallengeLocks fill={clFill} style={{height: 30}}/>
+                                <ChallengeLocks fill={clFill} style={{height: iconSize}}/>
                             </Button>
                         </div>
                     </div>
@@ -181,14 +182,14 @@ function TopNav(route) {
                         <div style={{padding: 0}}>
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/lockbazaar')}>
-                                <LB_logo fill={lbFill} style={{height: 30}}/>
+                                <LB_logo fill={lbFill} style={{height: iconSize}}/>
                             </Button>
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/speedpicks')}>
-                                <SP_logo fill={spFill} style={{height: 30}}/>
+                                <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
                             <Button variant='text' style={buttonSyle}>
-                                <Nav_Contact fill={coFill} style={{height: 30}}/>
+                                <Nav_Contact fill={coFill} style={{height: iconSize}}/>
                             </Button>
                         </div>
                     </div>
@@ -202,14 +203,14 @@ function TopNav(route) {
                         <div style={{padding: 0}}>
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/lockbazaar')}>
-                                <LB_logo fill={lbFill} style={{height: 30}}/>
+                                <LB_logo fill={lbFill} style={{height: iconSize}}/>
                             </Button>
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/speedpicks')}>
-                                <SP_logo fill={spFill} style={{height: 30}}/>
+                                <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
                             <Button variant='text' style={buttonSyle}>
-                                <Nav_PrivacyPolicy fill={privFill} style={{height: 30}}/>
+                                <Nav_PrivacyPolicy fill={privFill} style={{height: iconSize}}/>
                             </Button>
                         </div>
                     </div>
@@ -223,11 +224,11 @@ function TopNav(route) {
                         <div style={{padding: 0}}>
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/lockbazaar')}>
-                                <LB_logo fill={lbFill} style={{height: 30}}/>
+                                <LB_logo fill={lbFill} style={{height: iconSize}}/>
                             </Button>
                             <Button variant='text' style={buttonSyle}
                                     onClick={handleButtonClick('/speedpicks')}>
-                                <SP_logo fill={spFill} style={{height: 30}}/>
+                                <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
                         </div>
                     </div>
