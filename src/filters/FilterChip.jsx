@@ -10,7 +10,6 @@ function FilterChip({field, value, label = value, ...props}) {
         event.preventDefault()
         event.stopPropagation()
         if (filtersMap.get(field) !== value) {
-            console.log(field, value)
             addFilter(field, value)
         }
         window.scrollTo({top: 0, behavior: 'smooth'})

@@ -2,13 +2,11 @@ import React, {useContext} from 'react'
 import FilterContext from '../context/FilterContext'
 import useWindowSize from '../util/useWindowSize.jsx'
 import FilterButton from '../filters/FilterButton.jsx'
-import AdminFilterButton from './AdminFilterButton.jsx'
 import DataContext from '../context/DataContext.jsx'
-import SortButton from './SortButton.jsx'
 import SearchBox from '../nav/SearchBox.jsx'
 import FilterDisplayToggleButtons from '../filters/FilterDisplayToggleButtons.jsx'
 
-function SortFilterBarSP() {
+function SortFilterBarSP({label = '', sortButton = null, adminButtons = null, speedpicks = false}) {
 
     const {isMod = []} = useContext(DataContext)
     const {filterCount} = useContext(FilterContext)
@@ -28,24 +26,24 @@ function SortFilterBarSP() {
     return (
         <div style={combinedDivStyle}>
             <div style={{textAlign: 'left', marginTop: 10, flexGrow: 1, color: '#fff', opacity: 1}}>
-                <SearchBox label='Speedpicks'/>
+                <SearchBox label={label}/>
             </div>
             <div style={{justifyContent: 'right', display: 'flex'}}>
-                <SortButton/>
+                {sortButton}
                 {filterCount > 0 &&
                     <div>
-                        <FilterButton speedpicks={true}/>
+                        <FilterButton speedpicks={speedpicks}/>
                         <FilterDisplayToggleButtons/>
                         {isMod &&
-                            <AdminFilterButton/>
+                            <React.Fragment>{adminButtons}</React.Fragment>
                         }
                     </div>
                 }
                 {filterCount === 0 &&
                     <div>
-                        <FilterButton speedpicks={true}/>
+                        <FilterButton speedpicks={speedpicks}/>
                         {isMod &&
-                            <AdminFilterButton/>
+                            <React.Fragment>{adminButtons}</React.Fragment>
                         }
                     </div>
                 }

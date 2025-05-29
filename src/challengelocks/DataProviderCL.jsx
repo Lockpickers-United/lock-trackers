@@ -58,47 +58,52 @@ export function DataProvider({children}) {
 
         return sort
             ? searched.sort((a, b) => {
-                if (sort === 'lock') {
-                    return a.lock.localeCompare(b.lock)
-                        || a.totalTime - b.totalTime
-                } else if (sort === 'dateAsc') {
-                    return dayjs(a.date) - (dayjs(b.date))
-                        || a.lock.localeCompare(b.lock)
-                        || a.totalTime - b.totalTime
-                } else if (sort === 'dateDesc') {
-                    return dayjs(b.date) - (dayjs(a.date))
-                        || a.lock.localeCompare(b.lock)
-                        || a.totalTime - b.totalTime
+                if (sort === 'name') {
+                    return a.name.localeCompare(b.name)
+                } else if (sort === 'createdAsc') {
+                    return dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf()
+                        || a.name.localeCompare(b.name)
+                } else if (sort === 'createdDesc') {
+                    return dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf()
+                        || a.name.localeCompare(b.name)
                 } else {
-                    return a.lock.localeCompare(b.lock)
-                        || a.totalTime - b.totalTime
+                    return a.name.localeCompare(b.name)
                 }
             })
             : searched.sort((a, b) => {
-                return dayjs(b.dateSubmitted).valueOf() - (dayjs(a.dateSubmitted)).valueOf()
+                return a.name.localeCompare(b.name)
             })
 
     }, [filters, mappedEntries, search, sort])
 
-    const pendingEntries = useMemo(() => {
-        //return allEntries.filter(datum => datum.status === 'pending')
-        return allEntries
-    }, [allEntries])
 
     const getEntryFromId = useCallback(entryId => {
         return allEntries?.find(({id}) => id === entryId)
     }, [allEntries])
 
+    // needed for card layout only
     const [openId, setOpenId] = useState(null)
 
+    const makerData = useMemo(() => {
+        return allEntries?.reduce((acc, entry) => {
+            acc[entry.maker] = acc[entry.maker] ? acc[entry.maker] + 1 : 1
+            return acc
+        }, {})
+    }, [allEntries])
 
     const value = useMemo(() => ({
         getEntryFromId,
         isMod,
         allEntries,
         visibleEntries,
-        pendingEntries, openId, setOpenId
-    }), [getEntryFromId, isMod, allEntries, visibleEntries, pendingEntries, openId])
+        makerData,
+        openId, setOpenId
+    }), [getEntryFromId,
+        isMod,
+        allEntries,
+        visibleEntries,
+        makerData,
+        openId])
 
 
     return (

@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import useWindowSize from '../util/useWindowSize.jsx'
@@ -26,7 +26,6 @@ import {jsonIt} from '../util/jsonIt.js'
 import checkInTestData from './checkInTestData.json'
 import FilterContext from '../context/FilterContext.jsx'
 
-
 /**
  * @prop newBrand
  * @prop allMakes
@@ -36,14 +35,13 @@ export default function CheckIn({lockId}) {
 
     const serverUrl = 'https://lpulocks.com:7443'
 
-    const {getEntryFromId} = useContext(DataContext)
+    const {allEntries, getEntryFromId} = useContext(DataContext)
     const {user} = useContext(AuthContext)
-    const {dbLoaded, profile} = useContext(DBContext)
+    const {profile} = useContext(DBContext)
     const [response, setResponse] = useState(undefined)
     const [uploading, setUploading] = useState(false)
     const [uploadError, setUploadError] = useState(undefined)
     const [acReset, setAcReset] = useState(false)
-    const [form, setForm] = useState({id: 'clci_' + genHexString(8), usernamePlatform: 'discord'})
     const [inputValue, setInputValue] = useState(undefined) // eslint-disable-line
     const [location, setLocation] = useState(null)
     const [ratings, setRatings] = useState({})
@@ -51,11 +49,25 @@ export default function CheckIn({lockId}) {
     //     const lockId = 'cl_69dfddd5'
     const {filters} = useContext(FilterContext)
     const lock = getEntryFromId(filters.id) || {}
+    const notValidLock = (Object.keys(allEntries).length > 0 && Object.keys(lock).length === 0)
 
-    if (dbLoaded && Object.keys(lock).length === 0) {
-        console.error('No lock found for id: ' + lockId)
+    const defaultFormData = useMemo(() => {
+        return {
+            id: 'clci_' + genHexString(8),
+            username: profile.discordUsername || '',
+            usernamePlatform: 'discord',
+            lockId: filters.id
+        }
+    }, [filters.id, profile.discordUsername])
+    const [form, setForm] = useState(defaultFormData)
+
+    if (notValidLock) {
+        console.log('** No lock found for id: ' + filters.id)
     }
 
+    useEffect(() => {
+        window.scrollTo({left: 0, top: 0, behavior: 'smooth'})
+    })
 
     const handleTestData = useCallback(() => {
         setForm({...form, ...checkInTestData})
@@ -68,11 +80,13 @@ export default function CheckIn({lockId}) {
         setForm({...form, [name]: value})
     }, [form])
 
+    console.log('form', form)
+
     const handleDateChange = useCallback((dateValue) => {
         setForm({...form, ...dateValue})
     }, [form])
 
-    const requiredFields = ['name', 'maker', 'lockCreated', 'country', 'username', 'usernamePlatform']
+    const requiredFields = ['lockId', 'username', 'usernamePlatform', 'successfulPick']
     const uploadable = requiredFields.every(field => Object.keys(form).includes(field))
 
     const handleSubmit = async (event) => {
@@ -83,7 +97,7 @@ export default function CheckIn({lockId}) {
             lockId: lockId,
             submittedAt: dayjs().toISOString(),
             displayName: profile?.username || 'no display name',
-            userId: user.uid,
+            userId: user.uid
         }
 
         jsonIt('formCopy', formCopy)
@@ -120,7 +134,7 @@ export default function CheckIn({lockId}) {
 
     const handleReload = useCallback(() => {
         setAcReset(!acReset)
-        setForm({id: 'clci_' + genHexString(8), usernamePlatform: 'discord'})
+        setForm(defaultFormData)
         setResponse(undefined)
         setLocation(null)
         setUploading(false)
@@ -133,7 +147,7 @@ export default function CheckIn({lockId}) {
                 behavior: 'smooth'
             })
         }, 100)
-    }, [acReset])
+    }, [acReset, defaultFormData])
 
     //TODO: clear form on error OK?
     const handleClose = useCallback(() => {
@@ -151,7 +165,7 @@ export default function CheckIn({lockId}) {
         return [
             {label: 'Challenge Locks', page: '/challengelocks'},
             {label: 'Submit Lock', page: '/challengelocks/submit'},
-            {label: 'Check In', page: '/challengelocks/checkin'}
+            {label: 'Check In (demo)', page: '/challengelocks/checkin?id=cl_4e29a0d7&name=Pirrip'}
         ]
     }, [])
     const navigate = useNavigate()
@@ -358,7 +372,7 @@ export default function CheckIn({lockId}) {
 
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
                             <Button type='submit' variant='contained' color='info'
-                                    disabled={(!uploadable || uploading) && false}>
+                                    disabled={(!uploadable || uploading)}>
                                 Submit
                             </Button>
                         </div>
@@ -371,6 +385,40 @@ export default function CheckIn({lockId}) {
                     </div>
                 </Dialog>
 
+                <Dialog open={notValidLock} componentsProps={{
+                    backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
+                }}>
+                    <div style={{display: 'flex'}}>
+                        <div style={{backgroundColor: '#444', marginLeft: 'auto', marginRight: 'auto', padding: 40}}>
+                            <div style={{
+                                fontSize: '1.6rem',
+                                lineHeight: '1.9rem',
+                                fontWeight: 500,
+                                marginBottom: 10,
+                                textAlign: 'center'
+                            }}>Not an active challenge lock
+                            </div>
+
+                            <div style={{
+                                fontSize: '1.1rem',
+                                lineHeight: '1.4rem',
+                                fontWeight: 500,
+                                marginBottom: 30,
+                                textAlign: 'center'
+                            }}>Click below to browse the challenge locks page and select a lock to check in.
+                            </div>
+
+                            <div style={{width: '100%', textAlign: 'center'}}>
+                                <Button onClick={() => navigate('/challengelocks')} variant='contained' color='info'
+                                        style={{marginLeft: 'auto', marginRight: 'auto'}}>
+                                    Browse Challenge Locks
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </Dialog>
+
+
                 <Dialog open={!!response && !uploadError} componentsProps={{
                     backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
                 }}>
@@ -381,7 +429,7 @@ export default function CheckIn({lockId}) {
                                 fontWeight: 500,
                                 marginBottom: 60,
                                 textAlign: 'center'
-                            }}>Challenge Lock submitted!
+                            }}>You&#39;re checked in!
                             </div>
 
                             <div style={{width: '100%', textAlign: 'center'}}>

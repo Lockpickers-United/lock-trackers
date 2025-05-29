@@ -25,7 +25,7 @@ function TopNav(route) {
         navigate(newValue)
     }, [navigate])
 
-    const clFill = location.pathname === '/challengelocks' ? '#fff' : '#777'
+    const clFill = location.pathname.includes('/challengelocks') ? '#fff' : '#777'
     const lbFill = (location.pathname === '/lockbazaar' || location.pathname === '/import') ? '#fff' : '#777'
     const lbsFill = location.pathname === '/lockbazaar/sellers' ? '#fff' : '#777'
     const raflFill = location.pathname === '/rafl' ? '#fff' : '#777'
@@ -167,7 +167,8 @@ const {isMobile} = useWindowSize()
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
-                            <Button variant='text' style={buttonSyle}>
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/challengelocks')}>
                                 <ChallengeLocks fill={clFill} style={{height: iconSize}}/>
                             </Button>
                         </div>

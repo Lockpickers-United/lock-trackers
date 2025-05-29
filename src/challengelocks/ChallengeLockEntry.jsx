@@ -49,16 +49,19 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
         textAlign: 'left'
     }
 
-    const {width, flexStyle} = useWindowSize()
-    const smallWindow = width <= 480
+    const {flexStyle, isMobile} = useWindowSize()
 
-    const nameTextStyle = {fontSize: '1.2rem', lineHeight: '1.4rem', color: '#fff', fontWeight: 600, marginLeft: 0}
-    const makerTextStyle = {fontSize: '1.0rem', color: '#fff', marginLeft: 5, marginTop: 10}
+    const nameTextStyle = !isMobile
+        ? {fontSize: '1.2rem', lineHeight: '1.4rem', color: '#fff', fontWeight: 600, marginLeft: 0}
+        : {fontSize: '1.1rem', lineHeight: '1.3rem', color: '#fff', fontWeight: 600, marginLeft: 0}
+    const makerTextStyle = !isMobile
+        ? {fontSize: '1.0rem', color: '#fff', marginLeft: 5, marginTop: 10}
+        : {fontSize: '0.95rem', lineHeight: '1.15rem', color: '#fff', marginLeft: 5, marginTop: 5}
 
-    const summaryFlexStyle = !smallWindow ? {display: 'flex'} : {}
+    const summaryFlexStyle = !isMobile ? {display: 'flex'} : {}
 
     return (
-        <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters={true}>
+        <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters={false}>
             <AccordionSummary expandIcon={<ExpandMoreIcon/>}
                               style={{padding: '0px 16px 0px 0px'}}
                               sx={{
@@ -80,18 +83,20 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
                             <div style={makerTextStyle}>By: {entry.maker}</div>
                         </div>
 
-                        <div style={{display: flexStyle}}>
-                            <FilterChip
-                                value={entry.lockFormat}
-                                field='lockFormat'
-                            />
-                            {entry.lockingMechanism &&
+                        {!isMobile &&
+                            <div style={{display: flexStyle}}>
                                 <FilterChip
-                                    value={entry.lockingMechanism}
-                                    field='lockingMechanism'
+                                    value={entry.lockFormat}
+                                    field='lockFormat'
                                 />
-                            }
-                        </div>
+                                {entry.lockingMechanism &&
+                                    <FilterChip
+                                        value={entry.lockingMechanism}
+                                        field='lockingMechanism'
+                                    />
+                                }
+                            </div>
+                        }
                         <div style={{width: 10}}/>
                     </div>
                 </div>

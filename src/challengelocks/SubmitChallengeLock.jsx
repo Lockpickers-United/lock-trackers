@@ -14,23 +14,23 @@ import {useNavigate} from 'react-router-dom'
 import AuthContext from '../app/AuthContext.jsx'
 import {postData} from '../formUtils/postData.jsx'
 import {enqueueSnackbar} from 'notistack'
-import {lockingMechanisms} from './CLSubmitData.js'
 import countries from '../data/countries.json'
 import lockFormats from '../data/lockFormats.json'
+import lockingMechanisms from '../data/lockingMechanisms.json'
 import AutoCompleteBox from '../formUtils/AutoCompleteBox.jsx'
 import {DatePicker} from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
 import clTestData from './clTestData.json'
 import {FormControlLabel, Radio, RadioGroup} from '@mui/material'
 import DBContext from './DBContextCL.jsx'
-
+import {jsonIt} from '../util/jsonIt.js' //eslint-disable-line
 
 /**
  * @prop newBrand
  * @prop allMakes
  */
 
-export default function SubmitChallengeLock({lockData}) {
+export default function SubmitChallengeLock() {
 
     const serverUrl = 'https://lpulocks.com:7443'
 
@@ -45,18 +45,15 @@ export default function SubmitChallengeLock({lockData}) {
     const [form, setForm] = useState({id: 'cl_' + genHexString(8), usernamePlatform: 'discord'})
     const [inputValue, setInputValue] = useState(undefined) // eslint-disable-line
     const [location, setLocation] = useState(null)
-    const [originalMake, setOriginalMake] = useState(null)
 
     const handleTestData = useCallback(() => {
         setForm({...form, ...clTestData, lockCreated: dayjs('2022-04-17')})
         setLocation(clTestData.country)
-        setOriginalMake(clTestData.originalMake)
     }, [form])
 
     const handleFormChange = useCallback((event) => {
         const {name, value} = event.target
         if (name === 'country') setLocation(value)
-        if (name === 'originalMake') setOriginalMake(value)
         setForm({...form, [name]: value})
     }, [form])
 
@@ -125,7 +122,6 @@ export default function SubmitChallengeLock({lockData}) {
         setForm({id: 'cl_' + genHexString(8), usernamePlatform: 'discord'})
         setResponse(undefined)
         setLocation(null)
-        setOriginalMake(null)
         setUploading(false)
         setUploadError(undefined)
         setTimeout(() => {
@@ -149,15 +145,11 @@ export default function SubmitChallengeLock({lockData}) {
         return countries.map(country => country.country_area)
     }, [])
 
-    const allMakes = useMemo(() => {
-        return lockData?.allMakes.sort((a, b) => a.localeCompare(b)) || []
-    }, [lockData])
-
     const options = useMemo(() => {
         return [
             {label: 'Challenge Locks', page: '/challengelocks'},
             {label: 'Submit New Lock', page: '/challengelocks/submit'},
-            {label: 'Check In', page: '/challengelocks/checkin'},
+            {label: 'Check In (demo)', page: '/challengelocks/checkin?id=cl_4e29a0d7&name=Pirrip'}
         ]
     }, [])
     const navigate = useNavigate()
@@ -283,12 +275,8 @@ export default function SubmitChallengeLock({lockData}) {
                                 <div style={optionalHeaderStyle}>Original Brand <span
                                     style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
                                 </div>
-                                <AutoCompleteBox changeHandler={handleFormChange}
-                                                 options={allMakes} value={originalMake}
-                                                 name={'originalMake'} style={{width: 230}}
-                                                 reset={acReset}
-                                                 inputValueHandler={setInputValue}
-                                />
+                                <TextField type='text' name='originalMake' style={{width: 250}}
+                                           onChange={handleFormChange} value={form.originalMake || ''} color='info'/>
                             </div>
                             <div style={{}}>
                                 <div style={optionalHeaderStyle}>

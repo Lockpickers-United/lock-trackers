@@ -5,6 +5,8 @@ import FilterContext from '../context/FilterContext.jsx'
 import ChallengeLockEntry from './ChallengeLockEntry.jsx'
 import ChoiceButtonGroup from '../util/ChoiceButtonGroup.jsx'
 import {useNavigate} from 'react-router-dom'
+import SortFilterBar from './SortFilterBar.jsx'
+import SortButtonCL from './SortButtonCL.jsx'
 
 function ChallengeLocksCardsMain() {
 
@@ -22,7 +24,7 @@ function ChallengeLocksCardsMain() {
         return [
             {label: 'Challenge Locks', page: '/challengelocks'},
             {label: 'Submit New Lock', page: '/challengelocks/submit'},
-            {label: 'Check In', page: '/challengelocks/checkin'},
+            {label: 'Check In (demo)', page: '/challengelocks/checkin?id=cl_4e29a0d7&name=Pirrip'}
         ]
     }, [])
     const navigate = useNavigate()
@@ -30,6 +32,8 @@ function ChallengeLocksCardsMain() {
         navigate(newValue.page)
     }, [navigate])
 
+    const navSortButton = <SortButtonCL/>
+    const navAdminButton = null
 
     return (
         <React.Fragment>
@@ -44,6 +48,8 @@ function ChallengeLocksCardsMain() {
                 marginLeft: 'auto', marginRight: 'auto',
                 fontSize: '1.5rem', lineHeight: 0.8, textAlign: 'center'
             }}>
+                <SortFilterBar label='Challenge Locks' sortButton={navSortButton} adminButtons={navAdminButton}/>
+
                 {visibleEntries.map((entry) => (
                     <ChallengeLockEntry
                         key={entry.id}

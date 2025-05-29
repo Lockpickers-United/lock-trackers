@@ -27,5 +27,8 @@ export const spFilterFields = [
 ]
 
 export const CLFilterFields = [
-    {label: 'Locking Mechanism', fieldName: 'lockingMechanisms'},
+    {label: 'Maker', fieldName: 'maker'},
+    {label: 'Format', fieldName: 'lockFormat'},
+    {label: 'Locking Mechanism', fieldName: 'lockingMechanism'},
+    {label: 'Origin', fieldName: 'country'},
 ]
