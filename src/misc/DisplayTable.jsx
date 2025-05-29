@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material'
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material'
 
 const DisplayTable = ({
                           tableData,
@@ -10,7 +10,8 @@ const DisplayTable = ({
                           fontWeightData = 400,
                           paddingData = 5,
                           wrap,
-                          showHeader = true
+                          showHeader = true,
+                          alternateRows = true
                       }) => {
     const bodyStyle = {}
 
@@ -27,6 +28,14 @@ const DisplayTable = ({
         ? tableData.columns.filter((column => column.id !== 'date')).filter(x => x)
         : tableData.columns.filter(x => x)
 
+    const alternateRowStyle = alternateRows
+        ? {
+            '&:nth-of-type(even) td, &:nth-of-type(even) th': {backgroundColor: '#191919'},
+            'td, th': {}
+        }
+        : {}
+
+
     return (
         <div>
             <div style={{fontSize: '1.3rem', margin: '10px'}}>{tableData.title}</div>
@@ -37,8 +46,7 @@ const DisplayTable = ({
                                 marginLeft: 'auto',
                                 marginRight: 'auto',
                                 height: tableHeight
-                            }}
-                            component={Paper} elevation={2}>
+                            }}>
                 <Table size='small' stickyHeader={!!tableHeight}>
                     {showHeader &&
                         <TableHead>
@@ -63,10 +71,7 @@ const DisplayTable = ({
                     <TableBody>
                         {tableData.data.map((row, index) =>
                             <TableRow key={index} index={index}
-                                      sx={{
-                                          '&:nth-of-type(even) td, &:nth-of-type(even) th': {backgroundColor: '#191919'},
-                                          'td, th': {}
-                                      }}>
+                                      sx={alternateRowStyle}>
                                 {tableData.columns.map((column, index) =>
                                     <TableCell key={index + 1} style={bodyStyle}
                                                sx={{

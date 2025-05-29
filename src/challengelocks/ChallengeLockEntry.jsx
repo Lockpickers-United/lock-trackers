@@ -10,6 +10,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import useWindowSize from '../util/useWindowSize.jsx'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import CheckInButton from './CheckInButton.jsx'
+import PrintButton from './PrintButton.jsx'
+import CopyLinkToCLButton from './CopyLinkToCLButton.jsx'
+import ReportButton from './ReportButton.jsx'
 
 const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
 
@@ -110,8 +113,16 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
                         <Tracker feature='challengeLock' id={entry.id} name={entry?.name}/>
                     </AccordionDetails>
 
+
                     <AccordionActions>
-                        <CheckInButton entry={entry} style={{margin: '4px 20px'}}/>
+                        <div style={{display: 'flex', width: '100%'}}>
+                            <div style={{flexGrow: 1}}>
+                                <ReportButton entry={entry} style={{color:'#ce5656'}}/>
+                            </div>
+                            <CopyLinkToCLButton entry={entry} style={{}}/>
+                            <PrintButton entry={entry} style={{}}/>
+                            <CheckInButton entry={entry} style={{margin: '4px 20px'}}/>
+                        </div>
                     </AccordionActions>
 
                 </React.Fragment>

@@ -71,6 +71,8 @@ export function DBProviderCL({children}) {
     }, [dbError, knownVersions, profile?.username, user?.uid])
 
     // CHALLENGE LOCKS //
+    const [allEntries, setAllEntries] = useState([])
+
     const getDbEntries = useCallback(async () => {
         if (dbError) return false
         const entries = []
@@ -78,13 +80,13 @@ export function DBProviderCL({children}) {
         querySnapshot.forEach((doc) => {
             entries.push(doc.data())
         })
+        setAllEntries(entries)
         return entries
     }, [dbError])
 
-    const [allEntries, setAllEntries] = useState([])
     useEffect(() => {
         async function fetchData() {
-            setAllEntries(await getDbEntries())
+            await getDbEntries()
         }
         fetchData().then()
     }, [getDbEntries])

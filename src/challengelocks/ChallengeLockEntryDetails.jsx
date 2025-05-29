@@ -15,7 +15,7 @@ export default function ChallengeLockEntryDetails({entry}) {
     const navigate = useNavigate()
     const handleMakerClick = useCallback(() => {
         navigate(`/challengelocks?maker=${entry.maker}`)
-    },[entry.maker, navigate])
+    }, [entry.maker, navigate])
 
     const [blurred, setBlurred] = useState(true)
     const [showWarning, setShowWarning] = useState(true)
@@ -73,10 +73,14 @@ export default function ChallengeLockEntryDetails({entry}) {
                     fontWeight: 400,
                     marginTop: 40
                 }}>
-                    <FieldValue name='Format' value={entry.lockFormat}
-                                headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
-                    <FieldValue name='Locking Mechanism' value={entry.lockingMechanism}
-                                headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
+                    {entry.lockFormat &&
+                        <FieldValue name='Format' value={entry.lockFormat}
+                                    headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
+                    }
+                    {entry.lockingMechanism &&
+                        <FieldValue name='Locking Mechanism' value={entry.lockingMechanism}
+                                    headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
+                    }
                 </div>
             }
 
@@ -93,16 +97,22 @@ export default function ChallengeLockEntryDetails({entry}) {
                     <FieldValue name='Submitted' value={dayjs(entry.dateSubmitted).format('MMM DD, YYYY')}
                                 headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
                 </div>
-                <FieldValue name='Country' value={entry.country}
-                            headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
-                <FieldValue name='Original Make' value={entry.originalMake}
-                            headerStyle={{color: '#999'}} style={{}}/>
+                {entry.country &&
+                    <FieldValue name='Country' value={entry.country}
+                                headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
+                }
+                {entry.originalMake &&
+                    <FieldValue name='Original Make' value={entry.originalMake}
+                                headerStyle={{color: '#999'}} style={{}}/>
+                }
             </div>
 
-            <div style={{fontSize: '0.95rem', lineHeight: '1.5rem', fontWeight: 400, marginTop: 10}}>
-                <FieldValue name='Description' value={entry.description}
-                            headerStyle={{color: '#999'}} style={{}}/>
-            </div>
+            {entry.description &&
+                <div style={{fontSize: '0.95rem', lineHeight: '1.5rem', fontWeight: 400, marginTop: 10}}>
+                    <FieldValue name='Description' value={entry.description}
+                                headerStyle={{color: '#999'}} style={{}}/>
+                </div>
+            }
 
             {makerLockCount > 1 &&
                 <div style={{
@@ -114,7 +124,8 @@ export default function ChallengeLockEntryDetails({entry}) {
                     display: 'flex',
                     justifyContent: 'center'
                 }}>
-                    <Button onClick={handleMakerClick} style={{lineHeight: '1.2rem'}}>All locks from {entry.maker} ({makerLockCount})</Button>
+                    <Button onClick={handleMakerClick} style={{lineHeight: '1.2rem'}}>All locks
+                        from {entry.maker} ({makerLockCount})</Button>
                 </div>
             }
         </div>

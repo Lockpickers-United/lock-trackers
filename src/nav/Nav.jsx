@@ -11,7 +11,7 @@ import VersionCheckerCode from '../app/VersionCheckerCode.jsx'
 import VersionCheckerLB from '../app/VersionCheckerLB.jsx'
 import Tracker from '../app/Tracker.jsx'
 
-function Nav({extras, route}) {
+function Nav({extras, route, showUserMenu = true}) {
     return (
         <React.Fragment>
             <AppBar position='fixed' sx={{boxShadow: 'none'}}>
@@ -42,8 +42,9 @@ function Nav({extras, route}) {
                             <VersionChecker/>
                         </React.Fragment>
                     }
-                    <UserMenu/>
-
+                    {showUserMenu &&
+                        <UserMenu/>
+                    }
                 </Toolbar>
             </AppBar>
 

@@ -35,7 +35,7 @@ export default function SubmitChallengeLock() {
     const serverUrl = 'https://lpulocks.com:7443'
 
     const {user} = useContext(AuthContext)
-    const {profile} = useContext(DBContext)
+    const {profile, getDbEntries} = useContext(DBContext)
     const [mainPhoto, setMainPhoto] = useState([])
     const [files, setFiles] = useState([])
     const [response, setResponse] = useState(undefined)
@@ -45,6 +45,9 @@ export default function SubmitChallengeLock() {
     const [form, setForm] = useState({id: 'cl_' + genHexString(8), usernamePlatform: 'discord'})
     const [inputValue, setInputValue] = useState(undefined) // eslint-disable-line
     const [location, setLocation] = useState(null)
+    const [entryId, setEntryId] = useState(undefined)
+    const [entryName, setEntryName] = useState(undefined)
+    const [checkIn, setCheckIn] = useState(false)
 
     const handleTestData = useCallback(() => {
         setForm({...form, ...clTestData, lockCreated: dayjs('2022-04-17')})
@@ -67,9 +70,12 @@ export default function SubmitChallengeLock() {
     const prefix = form.name?.replace('/', '+')
     const suffix = form.username?.replace('/', '+')
 
-    const handleSubmit = async (event) => {
-        event.preventDefault()
-        setUploading(true)
+    const handleSubmit = async ({doCheckIn = false}) => {
+
+            setCheckIn(doCheckIn)
+
+
+        //setUploading(true)
         const formCopy = {
             ...form,
             displayName: profile?.username || 'no display name',
@@ -93,7 +99,7 @@ export default function SubmitChallengeLock() {
             formData.append('files', file, `${uploadsDir}/${prefix}_${base}_${suffix}${ext}`.toLowerCase())
         })
 
-        console.log('formCopy', formCopy)
+        //console.log('formCopy', formCopy)
 
         const url = `${serverUrl}/submit-challenge-lock`
 
@@ -105,6 +111,8 @@ export default function SubmitChallengeLock() {
             enqueueSnackbar(`Error creating request: ${error}`, {variant: 'error', autoHideDuration: 3000})
             throw error
         } finally {
+            setEntryId(form.id)
+            setEntryName(form.name)
             files.forEach(file => URL.revokeObjectURL(file.preview))
             mainPhoto.forEach(file => URL.revokeObjectURL(file.preview))
             setFiles([])
@@ -113,7 +121,14 @@ export default function SubmitChallengeLock() {
         }
     }
 
-    const handleReload = useCallback(() => {
+    const handleReload = useCallback(async () => {
+        await getDbEntries()
+
+        if (checkIn) {
+            const safeName = entryName.replace(/[\s/]/g, '_').replace(/\W/g, '')
+            navigate(`/challengelocks/checkin?id=${entryId}&name=${safeName}`)
+        }
+
         files.forEach(file => URL.revokeObjectURL(file.preview))
         setFiles([])
         mainPhoto.forEach(file => URL.revokeObjectURL(file.preview))
@@ -132,7 +147,7 @@ export default function SubmitChallengeLock() {
             })
         }, 100)
 
-    }, [acReset, files, mainPhoto])
+    }, [acReset, checkIn, entryId, entryName, files, getDbEntries, mainPhoto, navigate])
 
     //TODO: clear form on error OK?
     const handleClose = useCallback(() => {
@@ -330,8 +345,13 @@ export default function SubmitChallengeLock() {
                             </div>
                         </div>
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
-                            <Button type='submit' variant='contained' color='info' disabled={!uploadable || uploading}>
+                            <Button onClick={() => handleSubmit({doCheckIn: false})} variant='contained' color='info' disabled={!uploadable || uploading}
+                                    style={{marginRight: 20}}>
                                 Submit
+                            </Button>
+                            <Button onClick={() => handleSubmit({doCheckIn: true})} variant='contained' color='info'
+                                    disabled={!uploadable || uploading}>
+                                Submit & Check In
                             </Button>
                         </div>
                     </div>

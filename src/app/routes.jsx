@@ -48,6 +48,13 @@ export default [
                     const {default: CheckInRoute} = await import('../challengelocks/CheckInRoute')
                     return {element: <CheckInRoute/>}
                 }
+            },
+            {
+                path: '/challengelocks/print',
+                lazy: async () => {
+                    const {default: PrintQRCodeRoute} = await import('../challengelocks/PrintQRCodeRoute')
+                    return {element: <PrintQRCodeRoute/>}
+                }
             }
         ]
     },

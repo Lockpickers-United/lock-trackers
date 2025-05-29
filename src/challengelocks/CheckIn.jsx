@@ -31,7 +31,7 @@ import FilterContext from '../context/FilterContext.jsx'
  * @prop allMakes
  */
 
-export default function CheckIn({lockId}) {
+export default function CheckIn() {
 
     const serverUrl = 'https://lpulocks.com:7443'
 
@@ -45,10 +45,12 @@ export default function CheckIn({lockId}) {
     const [inputValue, setInputValue] = useState(undefined) // eslint-disable-line
     const [location, setLocation] = useState(null)
     const [ratings, setRatings] = useState({})
+    const [scrolled, setScrolled] = useState(false)
 
     //     const lockId = 'cl_69dfddd5'
     const {filters} = useContext(FilterContext)
-    const lock = getEntryFromId(filters.id) || {}
+    const lockId = filters.id
+    const lock = getEntryFromId(lockId) || {}
     const notValidLock = (Object.keys(allEntries).length > 0 && Object.keys(lock).length === 0)
 
     const defaultFormData = useMemo(() => {
@@ -56,18 +58,19 @@ export default function CheckIn({lockId}) {
             id: 'clci_' + genHexString(8),
             username: profile.discordUsername || '',
             usernamePlatform: 'discord',
-            lockId: filters.id
+            lockId: lockId
         }
-    }, [filters.id, profile.discordUsername])
+    }, [lockId, profile.discordUsername])
     const [form, setForm] = useState(defaultFormData)
 
     if (notValidLock) {
-        console.log('** No lock found for id: ' + filters.id)
+        console.log('** No lock found for id: ' + lockId)
     }
 
     useEffect(() => {
-        window.scrollTo({left: 0, top: 0, behavior: 'smooth'})
-    })
+        if (!scrolled) window.scrollTo({left: 0, top: 0, behavior: 'smooth'})
+        setScrolled(true)
+    },[scrolled])
 
     const handleTestData = useCallback(() => {
         setForm({...form, ...checkInTestData})
@@ -80,7 +83,7 @@ export default function CheckIn({lockId}) {
         setForm({...form, [name]: value})
     }, [form])
 
-    console.log('form', form)
+    //console.log('form', form)
 
     const handleDateChange = useCallback((dateValue) => {
         setForm({...form, ...dateValue})
@@ -132,7 +135,7 @@ export default function CheckIn({lockId}) {
         }
     }
 
-    const handleReload = useCallback(() => {
+    const handleReload = useCallback(() => { // eslint-disable-line
         setAcReset(!acReset)
         setForm(defaultFormData)
         setResponse(undefined)
@@ -184,18 +187,21 @@ export default function CheckIn({lockId}) {
         {id: 'rating', align: 'left', name: 'Your Rating'}
     ]
     const rows = [
-        {ratingArea: 'Fun', rating: <StarRating ratings={ratings} onChange={onRatingChange} dimension={'fun'}/>},
+        {
+            ratingArea: 'Fun',
+            rating: <StarRating ratings={ratings} onChange={onRatingChange} emptyColor='#777' dimension={'fun'}/>
+        },
         {
             ratingArea: 'Difficulty',
-            rating: <StarRating ratings={ratings} onChange={onRatingChange} dimension={'difficulty'}/>
+            rating: <StarRating ratings={ratings} onChange={onRatingChange} emptyColor='#777' dimension={'difficulty'}/>
         },
         {
             ratingArea: 'Creativity',
-            rating: <StarRating ratings={ratings} onChange={onRatingChange} dimension={'creativity'}/>
+            rating: <StarRating ratings={ratings} onChange={onRatingChange} emptyColor='#777' dimension={'creativity'}/>
         },
         {
             ratingArea: 'Quality/Appearance',
-            rating: <StarRating ratings={ratings} onChange={onRatingChange} dimension={'quality'}/>
+            rating: <StarRating ratings={ratings} onChange={onRatingChange} emptyColor='#777' dimension={'quality'}/>
         }
     ]
     const tableData = {columns: columns, data: rows}
@@ -316,7 +322,7 @@ export default function CheckIn({lockId}) {
                                     Your Ratings <span
                                     style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
                                 </div>
-                                <DisplayTable tableData={tableData} showHeader={false}
+                                <DisplayTable tableData={tableData} showHeader={false} alternateRows={false}
                                               colorData={'#ddd'} fontSize={'1.0rem'} fontWeightData={500}/>
                             </div>
 
@@ -418,7 +424,6 @@ export default function CheckIn({lockId}) {
                     </div>
                 </Dialog>
 
-
                 <Dialog open={!!response && !uploadError} componentsProps={{
                     backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
                 }}>
@@ -433,7 +438,8 @@ export default function CheckIn({lockId}) {
                             </div>
 
                             <div style={{width: '100%', textAlign: 'center'}}>
-                                <Button onClick={handleReload} variant='contained' color='info'
+                                <Button onClick={() => navigate(`/challengelocks?id=${lockId}`)} variant='contained'
+                                        color='info'
                                         style={{marginLeft: 'auto', marginRight: 'auto'}}>
                                     OK
                                 </Button>
@@ -441,7 +447,6 @@ export default function CheckIn({lockId}) {
                         </div>
                     </div>
                 </Dialog>
-
 
                 <Dialog open={!!uploadError} componentsProps={{
                     backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}

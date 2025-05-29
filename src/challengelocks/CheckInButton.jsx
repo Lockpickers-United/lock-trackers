@@ -12,7 +12,9 @@ export default function CheckInButton({entry, style}) {
     },[entry.id, navigate, safeName])
 
     return (
-        <Button variant='contained' onClick={handleClick} style={style}>Check In!</Button>
+        <Button variant='contained' onClick={handleClick} style={style} size={'small'} color='success'>
+            Check In!
+        </Button>
     )
 
 }
