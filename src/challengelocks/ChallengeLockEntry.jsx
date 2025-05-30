@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useRef, useState} from 'react'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionActions from '@mui/material/AccordionActions'
@@ -13,8 +13,13 @@ import CheckInButton from './CheckInButton.jsx'
 import PrintButton from './PrintButton.jsx'
 import CopyLinkToCLButton from './CopyLinkToCLButton.jsx'
 import ReportButton from './ReportButton.jsx'
+import sanitizeValues from '../util/sanitizeText.js'
+import DBContextCL from './DBContextCL.jsx'
 
 const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
+
+    const {getCheckIns} = useContext(DBContextCL)
+    const [checkIns, setCheckIns] = useState([])
 
     const [scrolled, setScrolled] = useState(false)
     const ref = useRef(null)
@@ -28,7 +33,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
             const isMobile = window.innerWidth <= 600
             const offset = isMobile ? 70 : 74
             const {id} = queryString.parse(location.search)
-            const isIdFiltered = id === entry.id
+            const isIdFiltered = id === entry?.id
 
             setScrolled(true)
 
@@ -82,8 +87,8 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
                             margin: '0px 20px',
                             flexGrow: 1
                         }}>
-                            <div style={nameTextStyle}>{entry.name}</div>
-                            <div style={makerTextStyle}>By: {entry.maker}</div>
+                            <div style={nameTextStyle}>{sanitizeValues(entry.name)}</div>
+                            <div style={makerTextStyle}>By: {sanitizeValues(entry.maker)}</div>
                         </div>
 
                         {!isMobile &&
@@ -109,7 +114,8 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
                 <React.Fragment>
 
                     <AccordionDetails style={{backgroundColor: '#333'}}>
-                        <ChallengeLockEntryDetails entry={entry} expanded={expanded} onExpand={onExpand}/>
+                        <ChallengeLockEntryDetails entry={entry} expanded={expanded} onExpand={onExpand}
+                                                   checkIns={checkIns} setCheckIns={setCheckIns} getCheckIns={getCheckIns}/>
                         <Tracker feature='challengeLock' id={entry.id} name={entry?.name}/>
                     </AccordionDetails>
 
@@ -117,7 +123,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
                     <AccordionActions>
                         <div style={{display: 'flex', width: '100%'}}>
                             <div style={{flexGrow: 1}}>
-                                <ReportButton entry={entry} style={{color:'#ce5656'}}/>
+                                <ReportButton entry={entry} style={{color: '#ce5656'}}/>
                             </div>
                             <CopyLinkToCLButton entry={entry} style={{}}/>
                             <PrintButton entry={entry} style={{}}/>

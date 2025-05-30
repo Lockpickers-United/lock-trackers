@@ -25,6 +25,8 @@ import {FormControlLabel, Radio, RadioGroup} from '@mui/material'
 import DBContext from './DBContextCL.jsx'
 import {optionsCL} from '../data/subNavOptions.js'
 import {jsonIt} from '../util/jsonIt.js' //eslint-disable-line
+import sanitizeValues from '../util/sanitizeText.js'
+
 
 /**
  * @prop newBrand
@@ -68,22 +70,26 @@ export default function SubmitChallengeLock() {
     const requiredFields = ['name', 'maker', 'lockCreated', 'country', 'username', 'usernamePlatform']
     const uploadable = requiredFields.every(field => Object.keys(form).includes(field)) && mainPhoto.length > 0
 
-    const prefix = form.name?.replace('/', '+')
-    const suffix = form.username?.replace('/', '+')
+
+    console.log('sanitizeValues(form)', sanitizeValues(form))
+
 
     const handleSubmit = async ({doCheckIn = false}) => {
 
-            setCheckIn(doCheckIn)
+        setCheckIn(doCheckIn)
 
+        setUploading(true)
 
-        //setUploading(true)
         const formCopy = {
-            ...form,
-            displayName: profile?.username || 'no display name',
+            ...sanitizeValues(form),
+            displayName: sanitizeValues(profile?.username) || 'no display name',
             mainFileName: mainPhoto.length > 0 ? mainPhoto[0].name : undefined,
             droppedFileNames: mainPhoto.length > 0 ? files.map(file => file.name) : undefined,
-            status: 'Pending'
+            status: 'active'
         }
+
+        const prefix = formCopy.name?.replace('/', '+')
+        const suffix = formCopy.username?.replace('/', '+')
 
         const formData = new FormData()
         Object.keys(formCopy).forEach(key => {
@@ -107,6 +113,7 @@ export default function SubmitChallengeLock() {
         try {
             const results = await postData({user, url, formData, snackBars: false})
             setResponse(results)
+            await refreshEntries()
         } catch (error) {
             setUploadError(`${error}`.replace('Error: ', ''))
             enqueueSnackbar(`Error creating request: ${error}`, {variant: 'error', autoHideDuration: 3000})
@@ -128,8 +135,6 @@ export default function SubmitChallengeLock() {
     }, [navigate])
 
     const handleReload = useCallback(async () => {
-        await refreshEntries()
-
         if (checkIn) {
             const safeName = entryName.replace(/[\s/]/g, '_').replace(/\W/g, '')
             navigate(`/challengelocks/checkin?id=${entryId}&name=${safeName}`)
@@ -153,7 +158,7 @@ export default function SubmitChallengeLock() {
             })
         }, 100)
 
-    }, [acReset, checkIn, entryId, entryName, files, refreshEntries, mainPhoto, navigate])
+    }, [acReset, checkIn, entryId, entryName, files, mainPhoto, navigate])
 
     //TODO: clear form on error OK?
     const handleClose = useCallback(() => {
@@ -176,8 +181,8 @@ export default function SubmitChallengeLock() {
     return (
 
         <React.Fragment>
-                <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[1].label}/><br/>
-                <Link onClick={handleTestData}>Fill test data</Link>
+            <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[1].label}/><br/>
+            <Link onClick={handleTestData}>Fill test data</Link>
 
 
             <div style={{
@@ -279,10 +284,10 @@ export default function SubmitChallengeLock() {
                                            width={180} multiple={false} defaultValue={''}/>
                             </div>
                             <div style={{marginRight: 20}}>
-                                <div style={optionalHeaderStyle}>Original Brand <span
+                                <div style={optionalHeaderStyle}>Original Lock <span
                                     style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
                                 </div>
-                                <TextField type='text' name='originalMake' style={{width: 250}}
+                                <TextField type='text' name='originalLock' style={{width: 250}}
                                            onChange={handleFormChange} value={form.originalMake || ''} color='info'/>
                             </div>
                             <div style={{}}>
@@ -337,7 +342,8 @@ export default function SubmitChallengeLock() {
                             </div>
                         </div>
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
-                            <Button onClick={() => handleSubmit({doCheckIn: false})} variant='contained' color='info' disabled={!uploadable || uploading}
+                            <Button onClick={() => handleSubmit({doCheckIn: false})} variant='contained' color='info'
+                                    disabled={!uploadable || uploading}
                                     style={{marginRight: 20}}>
                                 Submit
                             </Button>

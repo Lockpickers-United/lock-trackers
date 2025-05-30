@@ -6,7 +6,9 @@ import {
     onSnapshot,
     runTransaction,
     getDocs,
-    collection
+    collection,
+    query,
+    where
 } from 'firebase/firestore'
 import AuthContext from '../app/AuthContext'
 import {enqueueSnackbar} from 'notistack'
@@ -90,6 +92,19 @@ export function DBProviderCL({children}) {
         }
         fetchData().then()
     }, [refreshEntries])
+
+
+    const getCheckIns = useCallback(async (lockId) => {
+        if (dbError) return false
+        const checkIns = []
+        const q = query(collection(db, 'challenge-lock-check-ins'), where('lockId', '==', lockId))
+        const querySnapshot = await getDocs(q)
+        querySnapshot.forEach((doc) => {
+            checkIns.push(doc.data())
+        })
+        console.log('got checkins for lockId:', lockId, checkIns.length)
+        return checkIns.sort((a, b) => dayjs(b.pickDate).isBefore(dayjs(a.pickDate)) ? -1 : 1 )
+    },[dbError])
 
 
 /*
@@ -191,6 +206,7 @@ export function DBProviderCL({children}) {
         refreshEntries,
         allEntries,
         createCheckIn,
+        getCheckIns,
         newVersionAvailable,
         updateVersion,
     }), [
@@ -200,6 +216,7 @@ export function DBProviderCL({children}) {
         refreshEntries,
         allEntries,
         createCheckIn,
+        getCheckIns,
         newVersionAvailable,
         updateVersion,
     ])

@@ -2,7 +2,7 @@ import React from 'react'
 import CircularProgress from '@mui/material/CircularProgress'
 import {circularProgressClasses} from '@mui/material'
 
-export default function LoadingDisplayWhite() {
+export default function LoadingDisplayWhite({color = '#fff'}) {
 
     return (
         <div style={{display: 'flex', placeItems: 'center', width: 40, height: 40}}>
@@ -10,7 +10,7 @@ export default function LoadingDisplayWhite() {
                 variant='indeterminate'
                 disableShrink
                 sx={{
-                    color: (theme) => (theme.palette.mode === 'light' ? '#fff' : '#fff'),
+                    color: (theme) => (theme.palette.mode === 'light' ? color : color),
                     animationDuration: '550ms',
                     [`& .${circularProgressClasses.circle}`]: {
                         strokeLinecap: 'round'

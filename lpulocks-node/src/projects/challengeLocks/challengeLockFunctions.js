@@ -198,7 +198,7 @@ export default async function submitChallengeLock(req, res) {
             country: flatFields.country,
             stateProvince: flatFields.stateProvince,
             lockingMechanism: flatFields.lockingMechanism,
-            originalMake: flatFields.originalMake,
+            originalLock: flatFields.originalMake || flatFields.originalLock,
             lockFormat: flatFields.lockFormat,
             description: flatFields.description,
             descriptionFull: flatFields.descriptionFull,

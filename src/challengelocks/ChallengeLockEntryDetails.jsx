@@ -6,23 +6,46 @@ import useWindowSize from '../util/useWindowSize.jsx'
 import Button from '@mui/material/Button'
 import DataContext from '../context/DataContext.jsx'
 import {useNavigate} from 'react-router-dom'
-import RatingTable from './RatingTable.jsx'
-import Link from '@mui/material/Link'
-import ratingDimensions from '../data/clRatingDimensions.json'
+import ChallengeLockCheckInDisplay from './ChallengeLockCheckInDisplay.jsx'
+import sanitizeValues from '../util/sanitizeText.js'
+import Collapse from '@mui/material/Collapse'
+import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
 
-export default function ChallengeLockEntryDetails({entry, onExpand}) {
+export default function ChallengeLockEntryDetails({entry, onExpand, getCheckIns, checkIns, setCheckIns}) {
     if (!entry) return null
-    
     const {latestUpdate} = entry
 
-    const ratings = latestUpdate
-        ? Object.keys(latestUpdate)
-            .filter(key => key.startsWith('rating'))
-            .reduce((acc, key) => {
-                acc[key.replace('rating','')] = parseInt(latestUpdate[key])
-                return acc
-            }, {})
-        : {}
+    const [showCheckIns, setShowCheckIns] = useState(false)
+    const [loading, setLoading] = useState(false)
+
+    const buttonText = showCheckIns ? 'Hide Check-ins' : 'View All Check-ins'
+
+    const handleCheckInsClick = useCallback(async () => {
+        if (!entry.id) {
+            setCheckIns([])
+            return
+        }
+        if (checkIns.length > 0) {
+            setShowCheckIns(!showCheckIns)
+            return
+        }
+        setLoading(true)
+        try {
+            const data = await getCheckIns(entry.id)
+            setCheckIns(data.filter(checkIn => checkIn.id !== latestUpdate?.id))
+        } catch (err) {
+            console.error('Error fetching check-ins', err)
+            setCheckIns([])
+        } finally {
+            setLoading(false)
+            setShowCheckIns(true)
+        }
+    }, [checkIns, entry.id, getCheckIns, latestUpdate?.id, setCheckIns, showCheckIns])
+
+    const submittedCredit = entry.maker !== entry.submittedBy?.username
+        ? `Submitted by ${entry.submittedBy?.username}`
+        : null
+
 
     const handleChange = useCallback((_, isExpanded) => {
         onExpand && onExpand(isExpanded ? entry.id : false)
@@ -37,10 +60,6 @@ export default function ChallengeLockEntryDetails({entry, onExpand}) {
         navigate(`/challengelocks?maker=${entry.maker}`)
     }, [entry.maker, handleChange, navigate])
 
-    const openInNewTab = (url) => {
-        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
-        if (newWindow) newWindow.opener = null
-    }
 
     const [blurred, setBlurred] = useState(entry.media.length > 1)
     const [showWarning, setShowWarning] = useState(entry.media.length > 1)
@@ -127,74 +146,80 @@ export default function ChallengeLockEntryDetails({entry, onExpand}) {
                     <FieldValue name='Country' value={entry.country}
                                 headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
                 }
-                {entry.originalMake &&
-                    <FieldValue name='Original Make' value={entry.originalMake}
+                {(entry.originalMake || entry.originalLock) &&
+                    <FieldValue name='Original Lock' value={entry.originalMake || entry.originalLock}
                                 headerStyle={{color: '#999'}} style={{}}/>
                 }
             </div>
 
-            {entry.description &&
+            {sanitizeValues(entry.description) &&
                 <div style={{fontSize: '0.95rem', lineHeight: '1.5rem', fontWeight: 400, marginTop: 10}}>
-                    <FieldValue name='Description' value={entry.description}
+                    <FieldValue name='Description' value={sanitizeValues(entry.description)}
                                 headerStyle={{color: '#999'}} style={{}}/>
                 </div>
             }
 
+            {submittedCredit &&
+                <div style={{
+                    fontSize: '0.9rem',
+                    lineHeight: '1.1rem',
+                    fontWeight: 400,
+                    marginTop: 10,
+                    marginRight: 20,
+                    textAlign: 'right',
+                    fontStyle: 'italic'
+                }}>
+                    {submittedCredit}
+                </div>
+            }
+
             {latestUpdate &&
-
-                <FieldValue name='Latest Check-in' headerStyle={{color: '#999'}} style={{marginTop: 15}} value={
-                    <div style={{display: flexStyle}}>
-                        <div style={{
-                            fontSize: '0.95rem',
-                            lineHeight: '1.5rem',
-                            fontWeight: 400,
-                            marginRight: 15
-                        }}>
-                            <div style={{marginRight: 20}}>
-                                {dayjs(latestUpdate.pickdate).format('MMM DD, YYYY')} by {latestUpdate.username}
-                            </div>
-                            <ul style={{paddingLeft: 15, margin: 0}}>
-                                {latestUpdate.country && <li>{latestUpdate.country}</li>}
-                                <li>Succesful pick? {latestUpdate.successfulPick}</li>
-                                {latestUpdate.videoUrl && <li>
-                                    <Link onClick={() => openInNewTab(latestUpdate.videoUrl)}
-                                          style={{color: '#cfcff1'}}>
-                                        {latestUpdate.videoUrl}
-                                    </Link>
-                                </li>}
-                                {latestUpdate.notes && <li>Notes: {latestUpdate.notes}</li>}
-                            </ul>
-
-
-                        </div>
-                        {Object.keys(ratings).length > 0 &&
-                            <RatingTable ratingDimensions={ratingDimensions}
-                                         ratings={ratings}
-                                         readonly={true}
-                                         size={16}
-                                         fontSize={'0.9rem'}
-                                         paddingData={1}
-                                         backgroundColor={'#222'}
-                            />
-                        }
-                    </div>
-
+                <FieldValue name='Latest Check-in' headerStyle={{color: '#999'}} style={{marginTop: 25}} value={
+                    <ChallengeLockCheckInDisplay checkIn={latestUpdate} latest={true}/>
 
                 }
                 />
             }
 
-            {makerLockCount > 1 &&
+            {entry.checkInCount > 1 &&
                 <div style={{
                     fontSize: '0.95rem',
-                    lineHeight: '1.2rem',
+                    lineHeight: '1.5rem',
                     fontWeight: 400,
                     marginTop: 10,
-                    width: '100%',
                     display: 'flex',
                     justifyContent: 'center'
                 }}>
-                    <Button onClick={handleMakerClick} style={{lineHeight: '1.2rem'}}>All locks
+
+                    {loading
+                        ? <LoadingDisplayWhite color={'#CFCFF1'}/>
+                        : <Button onClick={handleCheckInsClick} variant='outlined' size='small'
+                                  style={{marginTop: 10, marginBottom: 10, textTransform: 'none'}}>
+                            {buttonText}
+                        </Button>
+
+
+                    }
+
+
+                </div>
+            }
+
+            <Collapse in={showCheckIns && checkIns.length > 0} timeout='auto'>
+                <div style={{display: flexStyle, borderBottom: '1px solid #aaa', margin: '20px 20px 0px 20px'}}/>
+                {checkIns.map((checkIn, index) => (
+                    <ChallengeLockCheckInDisplay checkIn={checkIn} key={index}/>
+                ))}
+            </Collapse>
+
+            {makerLockCount > 1 &&
+                <div style={{
+                    marginTop: 10,
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'right'
+                }}>
+                    <Button onClick={handleMakerClick}>All locks
                         from {entry.maker} ({makerLockCount})</Button>
                 </div>
             }
