@@ -19,6 +19,8 @@ export default function PrintQRCode() {
     const notValidLock = (Object.keys(allEntries).length > 0 && Object.keys(lock).length === 0)
     const dateCreated = lock.lockCreated || lock.createdAt
 
+    console.log('lock', lock)
+
     const safeName = lock?.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
     const lockUrl = `https://beta.lpulocks.com/#/challengelocks/checkin?id=${lockId}&name=${safeName}`
 
@@ -75,91 +77,92 @@ export default function PrintQRCode() {
                         viewBox={'0 0 256 256'}
                     />
                 </div>
-                <div style={{marginBottom: 10, width: '100%', textAlign: 'center', fontSize:'0.85rem'}}>
+                <div style={{marginBottom: 10, width: '100%', textAlign: 'center', fontSize: '0.85rem'}}>
                     Scan QR code to check in or view lock details
                 </div>
-                    <div style={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        paddingTop: 15,
-                        borderTop: '1px solid #ccc',
-                        justifyContent: 'left'
-                    }}>
-                        <div style={{display: 'flex'}}>
-                            <FieldValue name='Created' value={dayjs(dateCreated).format('MMM DD, YYYY')}
-                                        headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
-                        </div>
+                <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    paddingTop: 15,
+                    borderTop: '1px solid #ccc',
+                    justifyContent: 'left'
+                }}>
+                    <div style={{display: 'flex'}}>
+                        <FieldValue name='Created' value={dayjs(dateCreated).format('MMM DD, YYYY')}
+                                    headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
                         {lock.country &&
                             <FieldValue name='Country' value={lock.country}
                                         headerStyle={{color: '#999'}} style={{marginRight: 40}}/>
                         }
+                    </div>
+                    {lock.latestUpdate &&
                         <div style={{display: 'flex'}}>
-                            <FieldValue name='Latest Check-in' value={dayjs(dateCreated).format('MMM DD, YYYY')}
+                            <FieldValue name='Latest Check-in'
+                                        value={dayjs(lock.latestUpdate?.pickDate).format('MMM DD, YYYY')}
                                         headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
-                        </div>
-                        {lock.country &&
                             <FieldValue name='Checked in by' value={'Picker Name'}
                                         headerStyle={{color: '#999'}} style={{}}/>
-                        }
-                    </div>
-
-                    <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}>
-                        Notes:
-                    </div>
-                    <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
-                    <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
-                    <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
-                    <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
-
-                    <Dialog open={notValidLock} componentsProps={{
-                        backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
-                    }}>
-                        <div style={{display: 'flex'}}>
-                            <div
-                                style={{backgroundColor: '#444', marginLeft: 'auto', marginRight: 'auto', padding: 40}}>
-                                <div style={{
-                                    fontSize: '1.6rem',
-                                    lineHeight: '1.9rem',
-                                    fontWeight: 500,
-                                    marginBottom: 10,
-                                    textAlign: 'center'
-                                }}>Not an active challenge lock
-                                </div>
-
-                                <div style={{
-                                    fontSize: '1.1rem',
-                                    lineHeight: '1.4rem',
-                                    fontWeight: 500,
-                                    marginBottom: 30,
-                                    textAlign: 'center'
-                                }}>Click below to browse the challenge locks page and select a lock to print.
-                                </div>
-
-                                <div style={{width: '100%', textAlign: 'center'}}>
-                                    <Button onClick={() => navigate('/challengelocks')} variant='contained' color='info'
-                                            style={{marginLeft: 'auto', marginRight: 'auto'}}>
-                                        Browse Challenge Locks
-                                    </Button>
-                                </div>
-                            </div>
                         </div>
-                    </Dialog>
-
-                    <div style={{
-                        fontSize: '1.3rem',
-                        lineHeight: '1.6rem',
-                        fontWeight: 500,
-                        marginTop: 20,
-                        textAlign: 'center'
-                    }}>lpulocks.com
-                    </div>
+                    }
                 </div>
 
-                <Tracker feature='challengeLock' id={lock.id} name={lock.name}/>
+                <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}>
+                    Notes:
+                </div>
+                <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
+                <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
+                <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
+                <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
 
+                <Dialog open={notValidLock} componentsProps={{
+                    backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
+                }}>
+                    <div style={{display: 'flex'}}>
+                        <div
+                            style={{backgroundColor: '#444', marginLeft: 'auto', marginRight: 'auto', padding: 40}}>
+                            <div style={{
+                                fontSize: '1.6rem',
+                                lineHeight: '1.9rem',
+                                fontWeight: 500,
+                                marginBottom: 10,
+                                textAlign: 'center'
+                            }}>Not an active challenge lock
+                            </div>
+
+                            <div style={{
+                                fontSize: '1.1rem',
+                                lineHeight: '1.4rem',
+                                fontWeight: 500,
+                                marginBottom: 30,
+                                textAlign: 'center'
+                            }}>Click below to browse the challenge locks page and select a lock to print.
+                            </div>
+
+                            <div style={{width: '100%', textAlign: 'center'}}>
+                                <Button onClick={() => navigate('/challengelocks')} variant='contained' color='info'
+                                        style={{marginLeft: 'auto', marginRight: 'auto'}}>
+                                    Browse Challenge Locks
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </Dialog>
+
+                <div style={{
+                    fontSize: '1.3rem',
+                    lineHeight: '1.6rem',
+                    fontWeight: 500,
+                    marginTop: 20,
+                    textAlign: 'center'
+                }}>lpulocks.com
+                </div>
             </div>
 
+            <Tracker feature='challengeLock' id={lock.id} name={lock.name}/>
 
-            )
-            }
+        </div>
+
+
+    )
+}
 

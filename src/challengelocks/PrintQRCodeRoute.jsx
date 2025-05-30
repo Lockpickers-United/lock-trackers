@@ -15,7 +15,6 @@ export default function PrintQRCodeRoute() {
             <FilterProvider filterFields={CLFilterFields}>
                 <DataProvider>
                     <ListProvider>
-                        <Nav title='Print Challenge Lock' route='cl' showUserMenu={false}/>
                         <PrintQRCode/>
                     </ListProvider>
                 </DataProvider>

@@ -6,7 +6,7 @@ import DataContext from '../context/DataContext.jsx'
 import SearchBox from '../nav/SearchBox.jsx'
 import FilterDisplayToggleButtons from '../filters/FilterDisplayToggleButtons.jsx'
 
-function SortFilterBarSP({label = '', sortButton = null, adminButtons = null, speedpicks = false}) {
+function SortFilterBar({label = '', sortButton = null, adminButtons = null, speedpicks = false}) {
 
     const {isMod = []} = useContext(DataContext)
     const {filterCount} = useContext(FilterContext)
@@ -15,7 +15,7 @@ function SortFilterBarSP({label = '', sortButton = null, adminButtons = null, sp
     const mobileLarge428 = width <= 428
 
     const divStyle = {
-        margin: '16px 0px 10px 0px', opacity: 0.8
+        margin: '0px 0px 10px 0px', opacity: 0.8
     }
     const divFlexStyle = !mobileLarge428 ? {display: 'flex'} : {}
     const combinedDivStyle = {
@@ -25,7 +25,7 @@ function SortFilterBarSP({label = '', sortButton = null, adminButtons = null, sp
 
     return (
         <div style={combinedDivStyle}>
-            <div style={{textAlign: 'left', marginTop: 10, flexGrow: 1, color: '#fff', opacity: 1}}>
+            <div style={{textAlign: 'left', marginTop: 0, flexGrow: 1, color: '#fff', opacity: 1}}>
                 <SearchBox label={label}/>
             </div>
             <div style={{justifyContent: 'right', display: 'flex'}}>
@@ -52,4 +52,4 @@ function SortFilterBarSP({label = '', sortButton = null, adminButtons = null, sp
     )
 }
 
-export default SortFilterBarSP
+export default SortFilterBar

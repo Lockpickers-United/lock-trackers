@@ -35,6 +35,7 @@ export default function ChallengeLockEntryDetails({entry, onExpand}) {
     const navigate = useNavigate()
     const handleMakerClick = useCallback(() => {
         handleChange()
+        window.scrollTo({top: 0, behavior: 'smooth'})
         navigate(`/challengelocks?maker=${entry.maker}`)
     }, [entry.maker, handleChange, navigate])
 

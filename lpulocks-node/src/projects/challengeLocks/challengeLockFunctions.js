@@ -108,9 +108,7 @@ export async function submitCheckIn(req, res) {
 
         ref = db.collection('challenge-locks').doc(entry.lockId)
         const lockEntry = await fetchDocument(ref, entry.lockId)
-
-        jsonIt('lockEntry:', lockEntry)
-
+        
         let updates = {}
         if (!lockEntry.latestUpdate || dayjs(entry.pickDate).isAfter(lockEntry.latestUpdate?.pickDate)) {
             updates.latestUpdate = entry
@@ -135,12 +133,10 @@ export async function submitCheckIn(req, res) {
         updates.checkInCount = (lockEntry.checkInCount || 0) + 1
         updates.successCount = (lockEntry.successCount || 0) + (entry.successfulPick === 'Yes' ? 1 : 0)
 
-
         // SUBMIT UPDATES
         if (Object.keys(updates).length > 0) {
             await updateDocument(ref, updates, entry.lockId)
         }
-
 
         console.log('done')
         return res.status(200).json(entry)
@@ -191,32 +187,34 @@ export default async function submitChallengeLock(req, res) {
             }
         }
 
+        const flatFields = flattenFields(fields)
+        jsonIt('flatFields:', flatFields)
+
         const entry = {
-            id: fields.id?.firstValue(),
-            name: fields.name?.firstValue(),
-            maker: fields.maker?.firstValue(),
-            lockCreated: fields.lockCreated?.firstValue(),
-            country: fields.country?.firstValue(),
-            stateProvince: fields.stateProvince?.firstValue(),
-            lockingMechanism: fields.lockingMechanism?.firstValue(),
-            originalMake: fields.originalMake?.firstValue(),
-            lockFormat: fields.lockFormat?.firstValue(),
-            description: fields.description?.firstValue(),
-            descriptionFull: fields.descriptionFull?.firstValue(),
-            approximateBelt: fields.approxBelt?.firstValue(),
-            submittedBy: [{
-                owner: true,
+            id: flatFields.id,
+            name: flatFields.name,
+            maker: flatFields.maker,
+            lockCreated: flatFields.lockCreated,
+            country: flatFields.country,
+            stateProvince: flatFields.stateProvince,
+            lockingMechanism: flatFields.lockingMechanism,
+            originalMake: flatFields.originalMake,
+            lockFormat: flatFields.lockFormat,
+            description: flatFields.description,
+            descriptionFull: flatFields.descriptionFull,
+            approximateBelt: flatFields.approxBelt,
+            submittedBy: {
                 userId: req.user.user_id,
-                userBelt: fields.userBelt?.firstValue(),
-                displayName: fields.displayName?.firstValue(),
-                username: fields.username?.firstValue(),
-                usernamePlatform: fields.usernamePlatform?.firstValue()
-            }],
+                userBelt: flatFields.userBelt,
+                displayName: flatFields.displayName,
+                username: flatFields.username,
+                usernamePlatform: flatFields.usernamePlatform
+            },
             submittedAt: dayjs().toISOString()
         }
 
-        const lockName = fields.name?.firstValue()
-        const username = fields.username?.firstValue() || 'Unknown'
+        const lockName = flatFields.name
+        const username = flatFields.username || 'Unknown'
 
         console.log('username:', username)
         console.log('fields:', fields)
@@ -244,7 +242,7 @@ export default async function submitChallengeLock(req, res) {
             square: true
         })).replace(uploadDir, serverPath)
 
-        entry.mainImage = [entry.media[0]]
+        //entry.mainImage = [entry.media[0]]
 
         if (subdirs) {
             const destination = `${uploadDir}/${subdirs}`.replace(/\s+/g, '-')
@@ -318,7 +316,6 @@ async function fetchDocument(ref, entryId) {
         return null
     }
 }
-
 
 async function updateDocument(ref, updates, entryId) {
     try {

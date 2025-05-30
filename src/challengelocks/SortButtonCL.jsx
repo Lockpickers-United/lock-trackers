@@ -17,8 +17,8 @@ function SortButtonCL() {
 
     const [checkInSort, setCheckInSort] = useState('')
     const checkInSortText = sort === 'checkInAsc'
-        ? 'Check In Date ⬆'
-        : 'Check In Date ⬇'
+        ? 'Check-in Date ⬆'
+        : 'Check-in Date ⬇'
     const handleCheckInSort = useCallback(value => () => {
         const newSort = value === 'checkInDesc' ? 'checkInAsc' : 'checkInDesc'
         setCheckInSort(newSort)
@@ -100,7 +100,7 @@ function SortButtonCL() {
                           onClick={handleCheckInSort(checkInSort)} style={{padding: '10px 16px'}}>
                     {checkInSortText}
                 </MenuItem>
-                <MenuItem selected={sort === 'checkInCount' || !sort} value={'checkInCount'}
+                <MenuItem selected={sort === 'checkInCount'} value={'checkInCount'}
                           onClick={handleSort('checkInCount')} style={{padding: '10px 16px'}}>
                     Check-in Count
                 </MenuItem>
@@ -112,7 +112,7 @@ function SortButtonCL() {
                     </MenuItem>
                     )}
                 )}
-                <MenuItem selected={sort === 'submittedAt' || !sort} value={'submittedAt'}
+                <MenuItem selected={sort === 'submittedAt'} value={'submittedAt'}
                           onClick={handleSort('submittedAt')} style={{padding: '10px 16px'}}>
                     Date Submitted
                 </MenuItem>
