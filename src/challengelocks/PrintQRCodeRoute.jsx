@@ -1,5 +1,4 @@
 import React from 'react'
-import Nav from '../nav/Nav'
 import {CLFilterFields} from '../data/filterFields.js'
 import {FilterProvider} from '../context/FilterContext.jsx'
 import {DataProvider} from './DataProviderCL.jsx'

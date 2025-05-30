@@ -176,10 +176,8 @@ export default function SubmitChallengeLock() {
     return (
 
         <React.Fragment>
-            <div style={{marginBottom: 20, marginTop: 0}}>
                 <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[1].label}/><br/>
                 <Link onClick={handleTestData}>Fill test data</Link>
-            </div>
 
 
             <div style={{

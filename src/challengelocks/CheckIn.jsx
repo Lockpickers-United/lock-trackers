@@ -61,7 +61,7 @@ export default function CheckIn() {
             username: profile.discordUsername || '',
             usernamePlatform: 'discord',
             lockId: lockId,
-            pickDate: dayjs().toISOString(),
+            pickDate: dayjs().toISOString()
         }
     }, [lockId, profile.discordUsername])
     const [form, setForm] = useState(defaultFormData)
@@ -73,7 +73,7 @@ export default function CheckIn() {
     useEffect(() => {
         if (!scrolled) window.scrollTo({left: 0, top: 0, behavior: 'smooth'})
         setScrolled(true)
-    },[scrolled])
+    }, [scrolled])
 
     const handleTestData = useCallback(() => {
         setForm({...form, ...checkInTestData})
@@ -103,7 +103,7 @@ export default function CheckIn() {
             lockId: lockId,
             submittedAt: dayjs().toISOString(),
             displayName: profile?.username || 'no display name',
-            userId: user.uid,
+            userId: user.uid
         }
 
         jsonIt('formCopy', formCopy)
@@ -172,7 +172,7 @@ export default function CheckIn() {
     const safeName = lock?.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
     const handleLockClick = useCallback(() => {
         navigate(`/challengelocks?id=${lockId}&name=${safeName}`)
-    },[lockId, navigate, safeName])
+    }, [lockId, navigate, safeName])
 
 
     const handleChange = useCallback(newValue => {
@@ -200,10 +200,8 @@ export default function CheckIn() {
     return (
 
         <React.Fragment>
-            <div style={{marginBottom: 20, marginTop: 0}}>
-                <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[2].label}/><br/>
-                <Link onClick={handleTestData}>Fill test data</Link>
-            </div>
+            <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[2].label}/><br/>
+            <Link onClick={handleTestData}>Fill test data</Link>
 
             <div style={{
                 maxWidth: 720, padding: 8, backgroundColor: '#222',
@@ -304,7 +302,8 @@ export default function CheckIn() {
                                     Your Ratings <span
                                     style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
                                 </div>
-                                <RatingTable ratingDimensions={ratingDimensions} onRatingChange={onRatingChange} ratings={ratings}/>
+                                <RatingTable ratingDimensions={ratingDimensions} onRatingChange={onRatingChange}
+                                             ratings={ratings}/>
                             </div>
 
                             <div style={{flexGrow: 1, marginRight: 20}}>

@@ -47,10 +47,10 @@ export default function PrintQRCode() {
                 border: '1px dashed #333',
                 marginLeft: 'auto',
                 marginRight: 'auto',
-                marginTop: 16,
-                marginBottom: 46,
+                marginTop: 24,
+                marginBottom: 24,
                 paddingLeft: 8,
-                paddingBottom: 60
+                paddingBottom: 30
             }}>
 
                 <div style={{margin: `10px 20px 30px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
@@ -100,7 +100,7 @@ export default function PrintQRCode() {
                             <FieldValue name='Latest Check-in'
                                         value={dayjs(lock.latestUpdate?.pickDate).format('MMM DD, YYYY')}
                                         headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
-                            <FieldValue name='Checked in by' value={'Picker Name'}
+                            <FieldValue name='Checked in by' value={lock.latestUpdate?.username}
                                         headerStyle={{color: '#999'}} style={{}}/>
                         </div>
                     }
@@ -113,6 +113,14 @@ export default function PrintQRCode() {
                 <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
                 <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
                 <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
+                <div style={{
+                    fontSize: '1.3rem',
+                    lineHeight: '1.6rem',
+                    fontWeight: 500,
+                    marginTop: 20,
+                    textAlign: 'center'
+                }}>lpulocks.com
+                </div>
 
                 <Dialog open={notValidLock} componentsProps={{
                     backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
@@ -147,15 +155,6 @@ export default function PrintQRCode() {
                         </div>
                     </div>
                 </Dialog>
-
-                <div style={{
-                    fontSize: '1.3rem',
-                    lineHeight: '1.6rem',
-                    fontWeight: 500,
-                    marginTop: 20,
-                    textAlign: 'center'
-                }}>lpulocks.com
-                </div>
             </div>
 
             <Tracker feature='challengeLock' id={lock.id} name={lock.name}/>

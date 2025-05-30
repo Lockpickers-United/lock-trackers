@@ -31,9 +31,7 @@ function ChallengeLocksCardsMain() {
 
     return (
         <React.Fragment>
-            <div style={{marginBottom: 20, marginTop: 0}}>
-                <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[0].label}/>
-            </div>
+            <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[0].label}/>
 
 
             <div style={{

@@ -12,9 +12,7 @@ import ratingDimensions from '../data/clRatingDimensions.json'
 
 export default function ChallengeLockEntryDetails({entry, onExpand}) {
     if (!entry) return null
-
-    console.log('entry', entry)
-
+    
     const {latestUpdate} = entry
 
     const ratings = latestUpdate
