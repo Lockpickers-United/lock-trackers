@@ -19,10 +19,23 @@ export function DataProvider({children}) {
 
     const mappedEntries = useMemo(() => {
         return allEntries
-            ? allEntries.map(entry => ({
-                ...entry,
-                fuzzy: removeAccents(`${entry.name}, ${entry.maker}`)
-            }))
+            ? allEntries.map(entry => {
+
+                const ratings = Object.keys(entry)
+                    .filter(key => key.startsWith('rating'))
+                    .reduce((acc, key) => {
+                        acc[key.replace('rating', 'ratingAve')] = entry[key]?.reduce((acc, currentValue) => acc + currentValue, 0) / (entry[key]?.length || 1)
+                        return acc
+                    }, {})
+
+                return {
+                    ...entry,
+                    ...ratings,
+                    fuzzy: removeAccents(`${entry.name}, ${entry.maker}`),
+                    latestCheckIn: entry.latestUpdate?.pickDate || '2000-01-01',
+                    submittedAt: entry.submittedAt || entry.dateSubmitted,
+                }
+            })
             : []
     }, [allEntries])
 
@@ -63,8 +76,23 @@ export function DataProvider({children}) {
                 } else if (sort === 'createdAsc') {
                     return dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf()
                         || a.name.localeCompare(b.name)
+                }else if (sort === 'submittedAt') {
+                    return dayjs(b.submittedAt).valueOf() - dayjs(a.submittedAt).valueOf()
+                        || a.name.localeCompare(b.name)
                 } else if (sort === 'createdDesc') {
                     return dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf()
+                        || a.name.localeCompare(b.name)
+                } else if (sort === 'checkInAsc') {
+                    return dayjs(a.latestCheckIn).valueOf() - dayjs(b.latestCheckIn).valueOf()
+                        || a.name.localeCompare(b.name)
+                } else if (sort === 'checkInDesc') {
+                    return dayjs(b.latestCheckIn).valueOf() - dayjs(a.latestCheckIn).valueOf()
+                        || a.name.localeCompare(b.name)
+                } else if (sort === 'checkInCount') {
+                    return (b.checkInCount || 0) - (a.checkInCount || 0)
+                        || a.name.localeCompare(b.name)
+                }else if (sort.startsWith('ratingAve')) {
+                    return (b[sort] || 0) - (a[sort] || 0)
                         || a.name.localeCompare(b.name)
                 } else {
                     return a.name.localeCompare(b.name)

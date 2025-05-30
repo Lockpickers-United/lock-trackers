@@ -23,6 +23,7 @@ import dayjs from 'dayjs'
 import clTestData from './clTestData.json'
 import {FormControlLabel, Radio, RadioGroup} from '@mui/material'
 import DBContext from './DBContextCL.jsx'
+import {optionsCL} from '../data/subNavOptions.js'
 import {jsonIt} from '../util/jsonIt.js' //eslint-disable-line
 
 /**
@@ -35,7 +36,7 @@ export default function SubmitChallengeLock() {
     const serverUrl = 'https://lpulocks.com:7443'
 
     const {user} = useContext(AuthContext)
-    const {profile, getDbEntries} = useContext(DBContext)
+    const {profile, refreshEntries} = useContext(DBContext)
     const [mainPhoto, setMainPhoto] = useState([])
     const [files, setFiles] = useState([])
     const [response, setResponse] = useState(undefined)
@@ -121,8 +122,13 @@ export default function SubmitChallengeLock() {
         }
     }
 
+    const navigate = useNavigate()
+    const handleChange = useCallback(newValue => {
+        navigate(newValue.page)
+    }, [navigate])
+
     const handleReload = useCallback(async () => {
-        await getDbEntries()
+        await refreshEntries()
 
         if (checkIn) {
             const safeName = entryName.replace(/[\s/]/g, '_').replace(/\W/g, '')
@@ -147,7 +153,7 @@ export default function SubmitChallengeLock() {
             })
         }, 100)
 
-    }, [acReset, checkIn, entryId, entryName, files, getDbEntries, mainPhoto, navigate])
+    }, [acReset, checkIn, entryId, entryName, files, refreshEntries, mainPhoto, navigate])
 
     //TODO: clear form on error OK?
     const handleClose = useCallback(() => {
@@ -160,18 +166,6 @@ export default function SubmitChallengeLock() {
         return countries.map(country => country.country_area)
     }, [])
 
-    const options = useMemo(() => {
-        return [
-            {label: 'Challenge Locks', page: '/challengelocks'},
-            {label: 'Submit New Lock', page: '/challengelocks/submit'},
-            {label: 'Check In (demo)', page: '/challengelocks/checkin?id=cl_4e29a0d7&name=Pirrip'}
-        ]
-    }, [])
-    const navigate = useNavigate()
-    const handleChange = useCallback(newValue => {
-        navigate(newValue.page)
-    }, [navigate])
-
     const {isMobile, flexStyle} = useWindowSize()
     //const fullWidth = !isMobile ? 660 : 300
     const paddingLeft = !isMobile ? 16 : 8
@@ -182,8 +176,8 @@ export default function SubmitChallengeLock() {
     return (
 
         <React.Fragment>
-            <div style={{marginBottom: 20, marginTop: 1}}>
-                <ChoiceButtonGroup options={options} onChange={handleChange} defaultValue={options[1].label}/><br/>
+            <div style={{marginBottom: 20, marginTop: 0}}>
+                <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[1].label}/><br/>
                 <Link onClick={handleTestData}>Fill test data</Link>
             </div>
 

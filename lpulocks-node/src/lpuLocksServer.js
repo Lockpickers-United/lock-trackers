@@ -6,7 +6,7 @@ import https from 'https'
 import EventEmitter from 'events'
 import dayjs from 'dayjs'
 
-import challengeLockFunctions, {submitCheckIn} from './projects/challengeLocks/challengeLockFunctions.js'
+import submitChallengeLock, {submitCheckIn} from './projects/challengeLocks/challengeLockFunctions.js'
 import {localUser} from '../keys/users.js'
 
 // pm2 start /home/dh_m5s5pf/explore-lpubelts-com-node/exploreLPUbeltsServer.js --watch
@@ -48,7 +48,7 @@ app.post('/submit-challenge-lock', async (req, res) => {
     req.body = req.body || {}
     req.body.prod = prodDB
     myEmitter.emit('myEvent', 'Challenge Lock Submitted' + envText)
-    await challengeLockFunctions(req, res).then()
+    await submitChallengeLock(req, res).then()
 })
 
 app.post('/check-in-challenge-lock', async (req, res) => {

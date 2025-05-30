@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, useState} from 'react'
+import React, {useCallback, useContext, useState} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
 import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
@@ -7,6 +7,7 @@ import ChoiceButtonGroup from '../util/ChoiceButtonGroup.jsx'
 import {useNavigate} from 'react-router-dom'
 import SortFilterBar from './SortFilterBar.jsx'
 import SortButtonCL from './SortButtonCL.jsx'
+import {optionsCL} from '../data/subNavOptions.js'
 
 function ChallengeLocksCardsMain() {
 
@@ -20,13 +21,6 @@ function ChallengeLocksCardsMain() {
         ? '24px 24px 32px 24px'
         : '8px 8px 32px 8px'
 
-    const options = useMemo(() => {
-        return [
-            {label: 'Challenge Locks', page: '/challengelocks'},
-            {label: 'Submit New Lock', page: '/challengelocks/submit'},
-            {label: 'Check In (demo)', page: '/challengelocks/checkin?id=cl_4e29a0d7&name=Pirrip'}
-        ]
-    }, [])
     const navigate = useNavigate()
     const handleChange = useCallback(newValue => {
         navigate(newValue.page)
@@ -37,8 +31,8 @@ function ChallengeLocksCardsMain() {
 
     return (
         <React.Fragment>
-            <div style={{marginBottom: 20, marginTop: 1}}>
-                <ChoiceButtonGroup options={options} onChange={handleChange} defaultValue={options[0].label}/>
+            <div style={{marginBottom: 20, marginTop: 0}}>
+                <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[0].label}/>
             </div>
 
 

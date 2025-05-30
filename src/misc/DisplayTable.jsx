@@ -5,6 +5,7 @@ const DisplayTable = ({
                           tableData,
                           tableWidth,
                           tableHeight,
+                          backgroundColor = '#222',
                           fontSize,
                           colorData = '#eee',
                           fontWeightData = 400,
@@ -37,11 +38,11 @@ const DisplayTable = ({
 
 
     return (
-        <div>
-            <div style={{fontSize: '1.3rem', margin: '10px'}}>{tableData.title}</div>
+        <div style={{backgroundColor: backgroundColor, padding: '0px 8px 8px 8px'}}>
+            <div style={{fontSize: '1.2rem', margin: '10px'}}>{tableData.title}</div>
             <TableContainer id='statsTable'
                             style={{
-                                padding: '0px 0px 0px 4px',
+                                padding: '0px 0px 0px 0px',
                                 width: tableWidth,
                                 marginLeft: 'auto',
                                 marginRight: 'auto',
@@ -58,7 +59,7 @@ const DisplayTable = ({
                                                    fontSize: fontSize,
                                                    lineHeight: '1.1rem',
                                                    padding: '8px',
-                                                   backgroundColor: '#111',
+                                                   backgroundColor: backgroundColor,
                                                    color: '#fff'
                                                }}
                                                component='th' scope='row'>

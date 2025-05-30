@@ -5,21 +5,20 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import SortIcon from '@mui/icons-material/Sort'
 import Badge from '@mui/material/Badge'
+import ratingDimensions from '../data/clRatingDimensions.json'
 
 function SortButtonCL() {
     const {
         filters,
         addFilter,
-        removeFilter,
+        removeFilter
     } = useContext(FilterContext)
     const {sort} = filters
 
     const [checkInSort, setCheckInSort] = useState('')
-    const checkInSortText = sort === 'checkIn'
+    const checkInSortText = sort === 'checkInAsc'
         ? 'Check In Date ⬆'
-        : sort === 'checkInDesc'
-            ? 'Check In Date ⬇'
-            : 'Check In Date'
+        : 'Check In Date ⬇'
     const handleCheckInSort = useCallback(value => () => {
         const newSort = value === 'checkInDesc' ? 'checkInAsc' : 'checkInDesc'
         setCheckInSort(newSort)
@@ -28,20 +27,17 @@ function SortButtonCL() {
     }, [addFilter])
 
     const [createdSort, setCreatedSort] = useState('')
-    const createdSortText = sort === 'created'
+    const createdSortText = sort === 'createdAsc'
         ? 'Created ⬆'
         : sort === 'createdDesc'
             ? 'Created ⬇'
-            : 'Created'
+            : 'Created ⬇'
     const handleCreatedSort = useCallback(value => () => {
         const newSort = value === 'createdDesc' ? 'createdAsc' : 'createdDesc'
         setCreatedSort(newSort)
         setTimeout(() => addFilter('sort', newSort, true), 0)
         setAnchorEl(null)
     }, [addFilter])
-
-
-
 
     const handleSort = useCallback(value => () => {
         if (value === 'name') {
@@ -60,6 +56,7 @@ function SortButtonCL() {
     const handleClose = () => {
         setAnchorEl(null)
     }
+
 
     return (
         <React.Fragment>
@@ -91,18 +88,34 @@ function SortButtonCL() {
                 anchorEl={anchorEl}
                 onClose={handleClose}
             >
-                    <MenuItem selected={sort === 'name' || !sort} value={'name'}
-                              onClick={handleSort('name')} style={{padding:'10px 16px', width:150}}>
-                        Default
+                <MenuItem selected={sort === 'name' || !sort} value={'name'}
+                          onClick={handleSort('name')} style={{padding: '10px 16px'}}>
+                    Name
+                </MenuItem>
+                <MenuItem selected={sort === 'createdAsc' || sort === 'createdDesc'} value={'createdAt'}
+                          onClick={handleCreatedSort(createdSort)} style={{padding: '10px 16px'}}>
+                    {createdSortText}
+                </MenuItem>
+                <MenuItem selected={sort === 'checkInAsc' || sort === 'checkInDesc'} value={'checkIn'}
+                          onClick={handleCheckInSort(checkInSort)} style={{padding: '10px 16px'}}>
+                    {checkInSortText}
+                </MenuItem>
+                <MenuItem selected={sort === 'checkInCount' || !sort} value={'checkInCount'}
+                          onClick={handleSort('checkInCount')} style={{padding: '10px 16px'}}>
+                    Check-in Count
+                </MenuItem>
+                {Object.keys(ratingDimensions).map((dimension, index) => {
+                    const aveDimension = `ratingAve${dimension.charAt(0).toUpperCase() + dimension.slice(1)}`
+                    return (<MenuItem key={index} selected={sort === aveDimension} value={aveDimension}
+                              onClick={handleSort(aveDimension)} style={{padding: '10px 16px'}}>
+                        {ratingDimensions[dimension]} Rating
                     </MenuItem>
-                    <MenuItem selected={sort === 'createdAsc' || sort === 'createdDesc'} value={'createdAt'}
-                              onClick={handleCreatedSort(createdSort)} style={{padding:'10px 16px'}}>
-                        {createdSortText}
-                    </MenuItem>
-                    <MenuItem selected={sort === 'checkInAsc' || sort === 'checkInDesc'} value={'checkIn'}
-                              onClick={handleCheckInSort(checkInSort)} style={{padding:'10px 16px'}}>
-                        {checkInSortText}
-                    </MenuItem>
+                    )}
+                )}
+                <MenuItem selected={sort === 'submittedAt' || !sort} value={'submittedAt'}
+                          onClick={handleSort('submittedAt')} style={{padding: '10px 16px'}}>
+                    Date Submitted
+                </MenuItem>
             </Menu>
         </React.Fragment>
     )

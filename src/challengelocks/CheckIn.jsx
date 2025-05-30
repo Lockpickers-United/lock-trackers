@@ -19,16 +19,17 @@ import {DatePicker} from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
 import {FormControlLabel, Radio, RadioGroup} from '@mui/material'
 import DBContext from './DBContextCL.jsx'
-import DisplayTable from '../misc/DisplayTable.jsx'
-import StarRating from '../misc/StarRating.jsx'
 import DataContext from '../context/DataContext.jsx'
 import {jsonIt} from '../util/jsonIt.js'
 import checkInTestData from './checkInTestData.json'
 import FilterContext from '../context/FilterContext.jsx'
+import RatingTable from './RatingTable.jsx'
+import ratingDimensions from '../data/clRatingDimensions.json'
+import {optionsCL} from '../data/subNavOptions.js'
 
 /**
- * @prop newBrand
- * @prop allMakes
+ * @prop inputValue
+ * @prop country_area
  */
 
 export default function CheckIn() {
@@ -37,7 +38,7 @@ export default function CheckIn() {
 
     const {allEntries, getEntryFromId} = useContext(DataContext)
     const {user} = useContext(AuthContext)
-    const {profile} = useContext(DBContext)
+    const {profile, refreshEntries} = useContext(DBContext)
     const [response, setResponse] = useState(undefined)
     const [uploading, setUploading] = useState(false)
     const [uploadError, setUploadError] = useState(undefined)
@@ -52,13 +53,15 @@ export default function CheckIn() {
     const lockId = filters.id
     const lock = getEntryFromId(lockId) || {}
     const notValidLock = (Object.keys(allEntries).length > 0 && Object.keys(lock).length === 0)
+    const navigate = useNavigate()
 
     const defaultFormData = useMemo(() => {
         return {
             id: 'clci_' + genHexString(8),
             username: profile.discordUsername || '',
             usernamePlatform: 'discord',
-            lockId: lockId
+            lockId: lockId,
+            pickDate: dayjs().toISOString(),
         }
     }, [lockId, profile.discordUsername])
     const [form, setForm] = useState(defaultFormData)
@@ -100,22 +103,20 @@ export default function CheckIn() {
             lockId: lockId,
             submittedAt: dayjs().toISOString(),
             displayName: profile?.username || 'no display name',
-            userId: user.uid
+            userId: user.uid,
         }
 
         jsonIt('formCopy', formCopy)
 
         if (form.ratings) {
             Object.keys(form.ratings).forEach(rating => {
-                formCopy[`rating-${rating}`] = form.ratings[rating]
+                formCopy[`rating${rating}`] = form.ratings[rating]
             })
         }
 
         delete formCopy.ratings
 
-        // using postData to handle the file upload
-
-        const formData = new FormData() // eslint-disable-line
+        const formData = new FormData()
         Object.keys(formCopy).forEach(key => {
             formData.append(key, formCopy[key])
         })
@@ -159,19 +160,21 @@ export default function CheckIn() {
         setUploadError(undefined)
     }, [])
 
+    const handleSubmitOK = useCallback(async () => {
+        await refreshEntries()
+        navigate(`/challengelocks?id=${lockId}`)
+    }, [lockId, navigate, refreshEntries])
+
     const countryList = useMemo(() => {
         return countries.map(country => country.country_area)
     }, [])
 
+    const safeName = lock?.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
+    const handleLockClick = useCallback(() => {
+        navigate(`/challengelocks?id=${lockId}&name=${safeName}`)
+    },[lockId, navigate, safeName])
 
-    const options = useMemo(() => {
-        return [
-            {label: 'Challenge Locks', page: '/challengelocks'},
-            {label: 'Submit Lock', page: '/challengelocks/submit'},
-            {label: 'Check In (demo)', page: '/challengelocks/checkin?id=cl_4e29a0d7&name=Pirrip'}
-        ]
-    }, [])
-    const navigate = useNavigate()
+
     const handleChange = useCallback(newValue => {
         navigate(newValue.page)
     }, [navigate])
@@ -182,29 +185,7 @@ export default function CheckIn() {
         setForm({...form, ratings: {...ratings, [dimension]: rating}})
     }, [form, ratings])
 
-    const columns = [
-        {id: 'ratingArea', align: 'right', name: 'Area'},
-        {id: 'rating', align: 'left', name: 'Your Rating'}
-    ]
-    const rows = [
-        {
-            ratingArea: 'Fun',
-            rating: <StarRating ratings={ratings} onChange={onRatingChange} emptyColor='#777' dimension={'fun'}/>
-        },
-        {
-            ratingArea: 'Difficulty',
-            rating: <StarRating ratings={ratings} onChange={onRatingChange} emptyColor='#777' dimension={'difficulty'}/>
-        },
-        {
-            ratingArea: 'Creativity',
-            rating: <StarRating ratings={ratings} onChange={onRatingChange} emptyColor='#777' dimension={'creativity'}/>
-        },
-        {
-            ratingArea: 'Quality/Appearance',
-            rating: <StarRating ratings={ratings} onChange={onRatingChange} emptyColor='#777' dimension={'quality'}/>
-        }
-    ]
-    const tableData = {columns: columns, data: rows}
+    //const ratingDimensions = {Fun: 'Fun', Difficulty: 'Difficulty', Creativity: 'Creativity', Quality:'Quality/Appearance'}
 
 
     const {isMobile, flexStyle} = useWindowSize()
@@ -214,16 +195,15 @@ export default function CheckIn() {
     const optionalHeaderStyle = {fontSize: '1.1rem', fontWeight: 400, margin: '5px 0px', color: '#ccc'}
 
     const nameTextStyle = {fontSize: '1.5rem', lineHeight: '1.7rem', color: '#fff', fontWeight: 600, marginLeft: 0}
-    const makerTextStyle = {fontSize: '1.2rem', lineHeight: '1.4rem', color: '#fff', marginLeft: 5, marginTop: 0}
+    const makerTextStyle = {fontSize: '1.2rem', lineHeight: '1.4rem', color: '#fff', marginLeft: 0, marginTop: 5}
 
     return (
 
         <React.Fragment>
-            <div style={{marginBottom: 20, marginTop: 1}}>
-                <ChoiceButtonGroup options={options} onChange={handleChange} defaultValue={options[2].label}/><br/>
+            <div style={{marginBottom: 20, marginTop: 0}}>
+                <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[2].label}/><br/>
                 <Link onClick={handleTestData}>Fill test data</Link>
             </div>
-
 
             <div style={{
                 maxWidth: 720, padding: 8, backgroundColor: '#222',
@@ -235,7 +215,9 @@ export default function CheckIn() {
                         <div style={{display: 'flex', alignItems: 'center', flexGrow: 1}}>
                             <div>
                                 <div style={{marginBottom: 10, fontSize: '0.9rem'}}>Challenge Lock Check In</div>
-                                <div style={nameTextStyle}>{lock.name}</div>
+                                <div style={nameTextStyle}>
+                                    <Link onClick={handleLockClick} style={{cursor: 'pointer'}}>{lock.name}</Link>
+                                </div>
                                 <div style={makerTextStyle}>By: {lock.maker}</div>
                             </div>
                         </div>
@@ -280,7 +262,7 @@ export default function CheckIn() {
                                 </div>
                                 <div style={{marginRight: 20, width: 200}}>
                                     <div style={headerStyle}>Date</div>
-                                    <DatePicker label='Pick Date' value={form.pickDate || dayjs()} disableFuture
+                                    <DatePicker label='Pick Date' value={dayjs(form.pickDate) || dayjs()} disableFuture
                                                 onChange={(newValue) => handleDateChange({pickDate: newValue.toISOString()})}
                                     />
                                 </div>
@@ -322,8 +304,7 @@ export default function CheckIn() {
                                     Your Ratings <span
                                     style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
                                 </div>
-                                <DisplayTable tableData={tableData} showHeader={false} alternateRows={false}
-                                              colorData={'#ddd'} fontSize={'1.0rem'} fontWeightData={500}/>
+                                <RatingTable ratingDimensions={ratingDimensions} onRatingChange={onRatingChange} ratings={ratings}/>
                             </div>
 
                             <div style={{flexGrow: 1, marginRight: 20}}>
@@ -438,7 +419,7 @@ export default function CheckIn() {
                             </div>
 
                             <div style={{width: '100%', textAlign: 'center'}}>
-                                <Button onClick={() => navigate(`/challengelocks?id=${lockId}`)} variant='contained'
+                                <Button onClick={handleSubmitOK} variant='contained'
                                         color='info'
                                         style={{marginLeft: 'auto', marginRight: 'auto'}}>
                                     OK

@@ -73,7 +73,7 @@ export function DBProviderCL({children}) {
     // CHALLENGE LOCKS //
     const [allEntries, setAllEntries] = useState([])
 
-    const getDbEntries = useCallback(async () => {
+    const refreshEntries = useCallback(async () => {
         if (dbError) return false
         const entries = []
         const querySnapshot = await getDocs(collection(db, 'challenge-locks'))
@@ -86,16 +86,16 @@ export function DBProviderCL({children}) {
 
     useEffect(() => {
         async function fetchData() {
-            await getDbEntries()
+            await refreshEntries()
         }
         fetchData().then()
-    }, [getDbEntries])
+    }, [refreshEntries])
 
 
 /*
     const allEntries = useMemo(async () => {
         if (!dbLoaded) return []
-        return await getDbEntries()
+        return await refreshEntries()
             .then(entries => {
                 if (entries && entries.length > 0) {
                     return entries
@@ -108,7 +108,7 @@ export function DBProviderCL({children}) {
                 console.error('Error fetching entries:', error)
                 return []
             })
-    },[dbLoaded, getDbEntries])
+    },[dbLoaded, refreshEntries])
 */
 
     const updateEntry = useCallback(async entry => {
@@ -188,7 +188,7 @@ export function DBProviderCL({children}) {
         dbLoaded,
         profile,
         updateEntry,
-        getDbEntries,
+        refreshEntries,
         allEntries,
         createCheckIn,
         newVersionAvailable,
@@ -197,7 +197,7 @@ export function DBProviderCL({children}) {
         dbLoaded,
         profile,
         updateEntry,
-        getDbEntries,
+        refreshEntries,
         allEntries,
         createCheckIn,
         newVersionAvailable,

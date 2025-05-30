@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react'
 import {Rating} from 'react-simple-star-rating'
 
-export default function StarRating({ratings, dimension, onChange, size = 24, emptyColor = '#ccc'}) {
+export default function StarRating({ratings, dimension, onChange, size = 24, emptyColor = '#ccc', readonly= false}) {
 
     const handleRating = useCallback((rate) => {
         onChange({rating: rate, dimension: dimension})
@@ -15,6 +15,7 @@ export default function StarRating({ratings, dimension, onChange, size = 24, emp
                 initialValue={ratings[dimension]}
                 ratingValue={ratings[dimension]}
                 emptyColor={emptyColor}
+                readonly={readonly}
             />
         </div>
     )

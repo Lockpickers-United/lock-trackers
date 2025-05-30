@@ -109,7 +109,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
                 <React.Fragment>
 
                     <AccordionDetails style={{backgroundColor: '#333'}}>
-                        <ChallengeLockEntryDetails entry={entry}/>
+                        <ChallengeLockEntryDetails entry={entry} expanded={expanded} onExpand={onExpand}/>
                         <Tracker feature='challengeLock' id={entry.id} name={entry?.name}/>
                     </AccordionDetails>
 

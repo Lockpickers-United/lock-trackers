@@ -94,19 +94,53 @@ export async function submitCheckIn(req, res) {
             }
         }
 
-        jsonIt('fields:', fields)
-
         const entry = flattenFields(fields)
         jsonIt('entry:', entry)
 
-        const ref = db.collection('challenge-lock-check-ins').doc(entry.id)
+        let ref = db.collection('challenge-lock-check-ins').doc(entry.id)
         try {
             await setDocument(ref, entry, entry.id)
         } catch (error) {
             handleError(res, 'Failed to create Challenge Lock', error, 500)
         }
 
-        // set lock: approx belt, ratings, latestCheckIn, checkInCount
+        // set lock: latestCheckIn, ratings, approx belt, checkInCount
+
+        ref = db.collection('challenge-locks').doc(entry.lockId)
+        const lockEntry = await fetchDocument(ref, entry.lockId)
+
+        jsonIt('lockEntry:', lockEntry)
+
+        let updates = {}
+        if (!lockEntry.latestUpdate || dayjs(entry.pickDate).isAfter(lockEntry.latestUpdate?.pickDate)) {
+            updates.latestUpdate = entry
+        }
+
+        const ratings = Object.keys(entry)
+            .filter(key => key.startsWith('rating'))
+            .reduce((acc, key) => {
+                acc[key] = parseInt(entry[key])
+                return acc
+            }, {})
+        Object.keys(ratings).forEach(key => {
+            updates[key] = lockEntry[key]
+                ? [...lockEntry[key], ratings[key]]
+                : [ratings[key]]
+        })
+
+        updates.approxBelt = lockEntry.approxBelt
+            ? [...lockEntry.approxBelt, entry.approxBelt]
+            : [lockEntry.approxBelt]
+
+        updates.checkInCount = (lockEntry.checkInCount || 0) + 1
+        updates.successCount = (lockEntry.successCount || 0) + (entry.successfulPick === 'Yes' ? 1 : 0)
+
+
+        // SUBMIT UPDATES
+        if (Object.keys(updates).length > 0) {
+            await updateDocument(ref, updates, entry.lockId)
+        }
+
 
         console.log('done')
         return res.status(200).json(entry)
@@ -115,11 +149,10 @@ export async function submitCheckIn(req, res) {
         return handleError(res, 'Form Parse Error', err)
     }
 
-
 }
 
 
-export default async function challengeLockFunctions(req, res) {
+export default async function submitChallengeLock(req, res) {
 
     let subdirs = ''
     let filepaths = []
@@ -179,7 +212,7 @@ export default async function challengeLockFunctions(req, res) {
                 username: fields.username?.firstValue(),
                 usernamePlatform: fields.usernamePlatform?.firstValue()
             }],
-            dateSubmitted: dayjs().toISOString()
+            submittedAt: dayjs().toISOString()
         }
 
         const lockName = fields.name?.firstValue()
@@ -272,25 +305,11 @@ async function setDocument(ref, entry, entryId) {
     }
 }
 
-async function getChallengeLock(ref, entry, entryId) {
-    try {
-        await ref.get(entryId)
-        return entry
-    } catch (error) {
-        console.error(`Error setting document ${entryId}:`, error)
-        throw error
-    }
-}
-
-
-////////////
-
-
-async function fetchChallengeLock(ref, entryId) {
+async function fetchDocument(ref, entryId) {
     try {
         const docSnap = await ref.get(entryId)
         if (!docSnap) {
-            console.warn(`No challenge lock found for id: ${entryId}`)
+            console.warn(`No ranking request found for entry: ${entryId}`)
             return null
         }
         return docSnap.data()
@@ -300,10 +319,11 @@ async function fetchChallengeLock(ref, entryId) {
     }
 }
 
-async function updateRankingRequest(ref, data, entryId) {
+
+async function updateDocument(ref, updates, entryId) {
     try {
-        await ref.update(data)
-        return data
+        await ref.update(updates)
+        return updates
     } catch (error) {
         console.error(`Error updating document ${entryId}:`, error)
         throw error
