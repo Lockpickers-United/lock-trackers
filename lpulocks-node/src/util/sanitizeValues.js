@@ -1,5 +1,17 @@
 // utils/sanitizeText.js
-import DOMPurify from 'dompurify'
+import createDOMPurify from 'dompurify'
+
+let DOMPurify
+
+if (typeof window === 'undefined') {
+    // server
+    const { JSDOM } = import('jsdom')
+    const jsdomWindow = new JSDOM('').window
+    DOMPurify = createDOMPurify(jsdomWindow)
+} else {
+    // browser
+    DOMPurify = createDOMPurify(window)  // or simply import('dompurify') if your bundler does it for you
+}
 
 // remove all Unicode combining marks (the “Zalgo” bits) and zero-width controls
 function stripExtras(str) {

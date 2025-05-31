@@ -1,13 +1,16 @@
 import React from 'react'
 import dayjs from 'dayjs'
 import Link from '@mui/material/Link'
-import ratingDimensions from '../data/clRatingDimensions.json'
 import useWindowSize from '../util/useWindowSize.jsx'
-import DisplayTable from '../misc/DisplayTable.jsx'
 import RatingTable from './RatingTable.jsx'
-
+import validator from 'validator'
 
 export default function ChallengeLockCheckInDisplay({checkIn, latest = false}) {
+
+    const urlError = checkIn.videoUrl?.length > 0 && !validator.isURL(checkIn.videoUrl)
+    const urlDisplay = checkIn.videoUrl && !urlError
+    ? <Link onClick={() => openInNewTab(checkIn.videoUrl)} style={{color: '#cfcff1'}}>{checkIn.videoUrl}</Link>
+        : '(invalid video URL)'
 
     const ratings = checkIn
         ? Object.keys(checkIn)
@@ -17,22 +20,6 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false}) {
                 return acc
             }, {})
         : {}
-
-    const columns = [
-        {id: 'ratingArea', align: 'right', name: 'Area'},
-        {id: 'rating', align: 'left', name: 'Your Rating'}
-    ]
-    const rows = Object.keys(ratingDimensions).map(key => {
-        if (!checkIn[`rating${key}`]) return null
-        return {
-            ratingArea: ratingDimensions[key] || key,
-            rating: checkIn[`rating${key}`]
-                ? ' (' + (checkIn[`rating${key}`]) + '/5)'
-                : null
-        }
-    }).filter(row => row)
-    const tableData = {columns: columns, data: rows}
-
 
     const {flexStyle} = useWindowSize()
     const openInNewTab = (url) => {
@@ -70,18 +57,14 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false}) {
                             {checkIn.country && <li>{checkIn.country}</li>}
                             <li>Succesful pick? {checkIn.successfulPick}</li>
                             {checkIn.videoUrl && <li>
-                                <Link onClick={() => openInNewTab(checkIn.videoUrl)}
-                                      style={{color: '#cfcff1'}}>
-                                    {checkIn.videoUrl}
-                                </Link>
+                                {urlDisplay}
                             </li>}
                             {checkIn.notes && <li>Notes: {checkIn.notes}</li>}
                         </ul>
                     </div>
 
                     {Object.keys(ratings).length > 0 &&
-                        <RatingTable ratingDimensions={ratingDimensions}
-                                     ratings={ratings}
+                        <RatingTable ratings={ratings}
                                      readonly={true}
                                      size={16}
                                      fontSize={'0.9rem'}
@@ -90,14 +73,6 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false}) {
                                      backgroundColor={'#333'}
                                      emptyColor={'#555'}
                                      fillColor={'#ddd'}
-                        />
-                    }
-
-
-                    {Object.keys(ratings).length > 999 &&
-                        <DisplayTable tableData={tableData} showHeader={false} alternateRows={false}
-                                      colorData={'#fff'} fontSize={'0.9rem'} fontWeightData={400}
-                                      paddingData={2} backgroundColor={'#333'}
                         />
                     }
                 </div>

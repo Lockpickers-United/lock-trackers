@@ -16,6 +16,8 @@ import {contentUploadRecipients, prodUser} from '../../../keys/users.js'
 import admin from 'firebase-admin'
 import {getFirestore} from 'firebase-admin/firestore'
 import jsonIt from '../../util/jsonIt.js'
+import sanitizeValues from '../../util/sanitizeValues.js'
+import validator from 'validator'
 
 const {writeFile} = fs.promises
 const prodEnvironment = prodUser === process.env.USER
@@ -70,7 +72,7 @@ function flattenFields(fields) {
             flatFields[key] = fields[key] || ''
         }
     }
-    return flatFields
+    return sanitizeValues(flatFields)
 }
 
 export async function submitCheckIn(req, res) {
@@ -96,6 +98,9 @@ export async function submitCheckIn(req, res) {
 
         const entry = flattenFields(fields)
         jsonIt('entry:', entry)
+
+        const urlError = entry.videoUrl?.length > 0 && !validator.isURL(entry.videoUrl)
+        if (urlError) entry.videoUrl = 'invalid video URL'
 
         let ref = db.collection('challenge-lock-check-ins').doc(entry.id)
         try {

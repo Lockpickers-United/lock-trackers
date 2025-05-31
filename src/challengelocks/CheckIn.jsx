@@ -26,6 +26,7 @@ import FilterContext from '../context/FilterContext.jsx'
 import RatingTable from './RatingTable.jsx'
 import ratingDimensions from '../data/clRatingDimensions.json'
 import {optionsCL} from '../data/subNavOptions.js'
+import validator from 'validator'
 
 /**
  * @prop inputValue
@@ -86,7 +87,8 @@ export default function CheckIn() {
         setForm({...form, [name]: value})
     }, [form])
 
-    //console.log('form', form)
+    const urlError = form.videoUrl?.length > 0 && !validator.isURL(form.videoUrl)
+    const urlHelperText = urlError ? 'Video link is not a valid URL' : ' '
 
     const handleDateChange = useCallback((dateValue) => {
         setForm({...form, ...dateValue})
@@ -281,9 +283,9 @@ export default function CheckIn() {
                                     style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
                                 </div>
                                 <TextField type='text' name='videoUrl' fullWidth size='large'
+                                           error={urlError} helperText={urlHelperText}
                                            onChange={handleFormChange} value={form.videoUrl || ''} color='info'/>
                             </div>
-
                         </div>
 
                         <div style={{

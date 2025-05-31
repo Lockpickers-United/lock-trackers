@@ -21,9 +21,11 @@ export function DataProvider({children}) {
         return allEntries
             ? allEntries.map(entry => {
 
+                let maxVotes = 0
                 const ratings = Object.keys(entry)
                     .filter(key => key.startsWith('rating'))
                     .reduce((acc, key) => {
+                        maxVotes = Math.max(maxVotes, entry[key]?.length || 0)
                         acc[key.replace('rating', 'ratingAve')] = entry[key]?.reduce((acc, currentValue) => acc + currentValue, 0) / (entry[key]?.length || 1)
                         return acc
                     }, {})
@@ -31,6 +33,7 @@ export function DataProvider({children}) {
                 return {
                     ...entry,
                     ...ratings,
+                    maxVotes: maxVotes,
                     fuzzy: removeAccents(`${entry.name}, ${entry.maker}`),
                     latestCheckIn: entry.latestUpdate?.pickDate || '2000-01-01',
                     submittedAt: entry.submittedAt || entry.dateSubmitted,

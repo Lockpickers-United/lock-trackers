@@ -70,10 +70,6 @@ export default function SubmitChallengeLock() {
     const requiredFields = ['name', 'maker', 'lockCreated', 'country', 'username', 'usernamePlatform']
     const uploadable = requiredFields.every(field => Object.keys(form).includes(field)) && mainPhoto.length > 0
 
-
-    console.log('sanitizeValues(form)', sanitizeValues(form))
-
-
     const handleSubmit = async ({doCheckIn = false}) => {
 
         setCheckIn(doCheckIn)
@@ -288,7 +284,7 @@ export default function SubmitChallengeLock() {
                                     style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
                                 </div>
                                 <TextField type='text' name='originalLock' style={{width: 250}}
-                                           onChange={handleFormChange} value={form.originalMake || ''} color='info'/>
+                                           onChange={handleFormChange} value={form.originalLock || ''} color='info'/>
                             </div>
                             <div style={{}}>
                                 <div style={optionalHeaderStyle}>

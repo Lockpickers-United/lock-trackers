@@ -1,11 +1,14 @@
 import React from 'react'
 import StarRating from '../misc/StarRating.jsx'
 import DisplayTable from '../misc/DisplayTable.jsx'
+import ratingDimensions from '../data/clRatingDimensions.json'
 
 export default function RatingTable({
-                                        ratingDimensions, ratings, onRatingChange = () => {
-    },
+                                        ratings,
+                                        onRatingChange = () => {
+                                        },
                                         size,
+                                        allowFraction = false,
                                         readonly = false,
                                         fontSize = '1.0rem',
                                         paddingData = 5,
@@ -24,8 +27,8 @@ export default function RatingTable({
         return {
             ratingArea: ratingDimensions[key] || key,
             rating: <StarRating ratings={ratings} onChange={onRatingChange} dimension={key}
-                                readonly={readonly} size={size} fontSize={fontSize}
-                                fillColor={fillColor} emptyColor={emptyColor} style={{marginLeft: 5, marginTop: 2}}
+                                readonly={readonly} size={size} fontSize={fontSize} allowFraction={allowFraction}
+                                fillColor={fillColor} emptyColor={emptyColor} style={{marginLeft: 5, marginTop: 4}}
             />
         }
     })
