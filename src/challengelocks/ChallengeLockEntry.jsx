@@ -15,11 +15,12 @@ import CopyLinkToCLButton from './CopyLinkToCLButton.jsx'
 import ReportButton from './ReportButton.jsx'
 import sanitizeValues from '../util/sanitizeText.js'
 import DBContextCL from './DBContextCL.jsx'
+import LpuCircleLogo from '../assets/LpuCircleLogo.jsx'
 
 const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
-
     const {getCheckIns} = useContext(DBContextCL)
     const [checkIns, setCheckIns] = useState([])
+
 
     const [scrolled, setScrolled] = useState(false)
     const ref = useRef(null)
@@ -60,11 +61,43 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
     const {flexStyle, isMobile} = useWindowSize()
 
     const nameTextStyle = !isMobile
-        ? {fontSize: '1.2rem', lineHeight: '1.4rem', color: '#fff', fontWeight: 600, marginLeft: 0}
-        : {fontSize: '1.1rem', lineHeight: '1.3rem', color: '#fff', fontWeight: 600, marginLeft: 0}
+        ? {
+            fontSize: '1.2rem',
+            lineHeight: '1.4rem',
+            color: '#fff',
+            fontWeight: 600,
+            marginLeft: 0,
+            overflowWrap: 'break-word',
+            inlineSize: 300
+        }
+        : {
+            fontSize: '1.1rem',
+            lineHeight: '1.3rem',
+            color: '#fff',
+            fontWeight: 600,
+            marginLeft: 0,
+            overflowWrap: 'break-word',
+            inlineSize: 150
+        }
     const makerTextStyle = !isMobile
-        ? {fontSize: '1.0rem', color: '#fff', marginLeft: 5, marginTop: 10}
-        : {fontSize: '0.95rem', lineHeight: '1.15rem', color: '#fff', marginLeft: 5, marginTop: 5}
+        ? {
+            fontSize: '1.0rem',
+            lineHeight: '1.2rem',
+            color: '#fff',
+            marginLeft: 5,
+            marginTop: 10,
+            wordBreak: 'break-all',
+            inlineSize: 290
+        }
+        : {
+            fontSize: '0.95rem',
+            lineHeight: '1.15rem',
+            color: '#fff',
+            marginLeft: 5,
+            marginTop: 5,
+            wordBreak: 'break-all',
+            inlineSize: 140
+        }
 
     const summaryFlexStyle = !isMobile ? {display: 'flex'} : {}
 
@@ -81,13 +114,15 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
                 <div style={summaryFlexStyle}>
                     <div style={{display: 'flex', width: '100%', alignItems: 'center'}}>
 
-                        <img src={entry.thumbnail} style={{height: 100, width: 100}} alt={entry.name}/>
-
+                        {entry.thumbnail
+                            ? <img src={entry.thumbnail} style={{height: 100, width: 100}} alt={entry.name}/>
+                            : <LpuCircleLogo style={{width: 100, height: 100}} color={'#444' } size ={100} fillPercent ={0.75}/>
+                        }
                         <div style={{
                             margin: '0px 20px',
                             flexGrow: 1
                         }}>
-                            <div style={nameTextStyle}>{sanitizeValues(entry.name)}</div>
+                            <div style={{...nameTextStyle}}>{sanitizeValues(entry.name)}</div>
                             <div style={makerTextStyle}>By: {sanitizeValues(entry.maker)}</div>
                         </div>
 
@@ -115,7 +150,8 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
 
                     <AccordionDetails style={{backgroundColor: '#333'}}>
                         <ChallengeLockEntryDetails entry={entry} expanded={expanded} onExpand={onExpand}
-                                                   checkIns={checkIns} setCheckIns={setCheckIns} getCheckIns={getCheckIns}/>
+                                                   checkIns={checkIns} setCheckIns={setCheckIns}
+                                                   getCheckIns={getCheckIns}/>
                         <Tracker feature='challengeLock' id={entry.id} name={entry?.name}/>
                     </AccordionDetails>
 

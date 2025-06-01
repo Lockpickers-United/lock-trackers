@@ -33,8 +33,8 @@ function SortFilterBar() {
                 {filterCount > 0 &&
                     <div>
                         <FilterButton speedpicks={false}/>
-                        <FilterDisplayToggleButtons/>
                         <SortFilterWatchlistButton/>
+                        <FilterDisplayToggleButtons/>
                     </div>
                 }
                 {filterCount === 0 &&

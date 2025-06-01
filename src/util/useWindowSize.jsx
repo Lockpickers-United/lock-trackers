@@ -14,9 +14,11 @@ export default function useWindowSize() {
 
     getDimensions()
 
+    const isMobile = width < 650
     return useMemo(() => ({
         width,
-        isMobile: width < 650,
-        flexStyle: width < 650 ? 'block' : 'flex'
-    }), [width])
+        isMobile,
+        flexStyle: isMobile ? 'block' : 'flex',
+        flexDirection: isMobile ? 'column' : 'row'
+    }), [isMobile, width])
 }

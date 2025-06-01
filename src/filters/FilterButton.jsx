@@ -5,18 +5,27 @@ import AuthContext from '../app/AuthContext'
 import FilterContext from '../context/FilterContext'
 import FilterByField from './FilterByField'
 import Stack from '@mui/material/Stack'
-import ClearFiltersButton from './ClearFiltersButton'
 import Button from '@mui/material/Button'
 import AppContext from '../app/AppContext'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
+import Tooltip from '@mui/material/Tooltip'
+import useWindowSize from '../util/useWindowSize.jsx'
 
 function FilterButton({onFiltersChanged, extraFilters = [], speedpicks = false}) {
     const {isLoggedIn} = useContext(AuthContext)
     const {beta} = useContext(AppContext)
-    const {filters, filterCount, addFilter, addFilters, removeFilter, filterFields} = useContext(FilterContext)
+    const {
+        filters,
+        filterCount,
+        addFilter,
+        addFilters,
+        removeFilter,
+        filterFields,
+        clearFilters
+    } = useContext(FilterContext)
     const {rank} = filters
     const [showAll, setShowAll] = useState(rank === 'Show All')
 
@@ -28,6 +37,7 @@ function FilterButton({onFiltersChanged, extraFilters = [], speedpicks = false})
             ...extraFilters
         ], true)
         onFiltersChanged && onFiltersChanged()
+        handleClose()
     }, [addFilters, extraFilters, onFiltersChanged])
 
     const handleShowAll = useCallback(() => {
@@ -50,34 +60,43 @@ function FilterButton({onFiltersChanged, extraFilters = [], speedpicks = false})
         setAnchorEl(null)
     }
 
+
+    const handleClearFilters = useCallback(() => {
+        clearFilters()
+        handleClose()
+    }, [clearFilters])
+
+    const {isMobile} = useWindowSize()
+    const forceText = false // force clear button to show text instead of icon
+
     return (
         <React.Fragment>
-            {filterCount === 0 &&
-                <Button variant='contained' size='small'
-                        onClick={handleClick} endIcon={<FilterAltIcon/>}
-                        style={{margin: '8px 0px 3px 0px', height: 32}}>
+            {filterCount === 0
+                ? <Button variant='contained' size='small'
+                          onClick={handleClick} endIcon={<FilterAltIcon/>}
+                          style={{margin: '8px 0px 3px 0px', height: 32}}>
                     FILTERS
                 </Button>
-            }
-            {filterCount > 0 &&
-                <Button variant='contained' size='small'
-                        onClick={handleClick} style={{margin: '8px 0px 3px 0px', height: 32, minWidth: 32}}>
-                    <Badge
-                        badgeContent={filterCount}
-                        color='error'
-                        overlap='circular'
-                        anchorOrigin={{
-                            vertical: 'top', horizontal: 'right'
-                        }}
-                        variant='dot'
-                    >
-                        <FilterAltIcon/>
-                    </Badge>
-                </Button>
+                : <Tooltip title='Filters' arrow disableFocusListener>
+                    <Button variant='contained' size='small'
+                            onClick={handleClick} style={{margin: '8px 0px 3px 0px', height: 32, minWidth: 32}}>
+                        <Badge
+                            badgeContent={filterCount}
+                            color='error'
+                            overlap='circular'
+                            anchorOrigin={{
+                                vertical: 'top', horizontal: 'right'
+                            }}
+                            variant='dot'
+                        >
+                            <FilterAltIcon/>
+                        </Badge>
+                    </Button>
+                </Tooltip>
             }
             <Menu
-                open={open}
                 anchorEl={anchorEl}
+                open={open}
                 onClose={handleClose}
             >
                 {speedpicks &&
@@ -121,12 +140,18 @@ function FilterButton({onFiltersChanged, extraFilters = [], speedpicks = false})
                 </Stack>
 
                 <MenuItem>
-                    <ClearFiltersButton forceText style={{marginRight: 8}}/>
-                    <Button
-                        variant='outlined'
-                        color='inherit'
-                        onClick={handleClose}
-                    >
+                    {(isMobile && !forceText)
+                        ? <Button variant='outlined' color='inherit' onClick={handleClearFilters}
+                                  style={{minWidth: 75, marginRight: 10}}>
+                            Clear
+                        </Button>
+                        : <Button variant='outlined' color='inherit' onClick={handleClearFilters}
+                                  style={{minWidth: 120, marginRight: 10}}>
+                            Clear&nbsp;Filters
+                        </Button>
+                    }
+
+                    <Button variant='outlined' color='inherit' onClick={handleClose}>
                         Done
                     </Button>
                 </MenuItem>

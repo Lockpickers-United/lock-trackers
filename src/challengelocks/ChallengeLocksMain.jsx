@@ -8,8 +8,10 @@ import {useNavigate} from 'react-router-dom'
 import SortFilterBar from './SortFilterBar.jsx'
 import SortButtonCL from './SortButtonCL.jsx'
 import {optionsCL} from '../data/subNavOptions.js'
+import AdminActionsButton from './AdminActionsButton.jsx'
+import NoEntriesCardCL from './NoEntriesCardCL.jsx'
 
-function ChallengeLocksCardsMain() {
+function ChallengeLocksCardsMain({profile, user}) {
 
     const {visibleEntries} = useContext(DataContext)
     const {filters} = useContext(FilterContext)
@@ -27,7 +29,7 @@ function ChallengeLocksCardsMain() {
     }, [navigate])
 
     const navSortButton = <SortButtonCL/>
-    const navAdminButton = null
+    const navAdminButton = <AdminActionsButton/>
 
     return (
         <React.Fragment>
@@ -41,6 +43,10 @@ function ChallengeLocksCardsMain() {
                 fontSize: '1.5rem', lineHeight: 0.8, textAlign: 'center'
             }}>
                 <SortFilterBar label='Challenge Locks' sortButton={navSortButton} adminButtons={navAdminButton}/>
+
+                {visibleEntries?.length === 0 &&
+                    <NoEntriesCardCL/>
+                }
 
                 {visibleEntries.map((entry) => (
                     <ChallengeLockEntry

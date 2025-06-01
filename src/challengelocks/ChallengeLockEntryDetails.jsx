@@ -11,11 +11,13 @@ import sanitizeValues from '../util/sanitizeText.js'
 import Collapse from '@mui/material/Collapse'
 import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
 import RatingTable from './RatingTable.jsx'
+import AdminActionsBar from './AdminActionsBar.jsx'
 
 export default function ChallengeLockEntryDetails({entry, onExpand, getCheckIns, checkIns, setCheckIns}) {
     if (!entry) return null
-    const {latestUpdate} = entry
+    const {adminEnabled} = useContext(DataContext)
 
+    const {latestUpdate} = entry
     const [showCheckIns, setShowCheckIns] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -67,8 +69,8 @@ export default function ChallengeLockEntryDetails({entry, onExpand, getCheckIns,
             return acc
         }, {})
 
-    const [blurred, setBlurred] = useState(entry.media.length > 1)
-    const [showWarning, setShowWarning] = useState(entry.media.length > 1)
+    const [blurred, setBlurred] = useState(entry.media?.length > 1)
+    const [showWarning, setShowWarning] = useState(entry.media?.length > 1)
     const handleBlur = useCallback(() => {
         setBlurred(!blurred)
         setShowWarning(!blurred)
@@ -78,40 +80,44 @@ export default function ChallengeLockEntryDetails({entry, onExpand, getCheckIns,
 
     return (
         <div>
-            <div style={{position: 'relative', zIndex: 1}}>
-                <ChallengeLockImageGallery entry={entry} blurred={blurred}/>
-                <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    background: 'rgba(0,0,0,0.0)',
-                    alignContent: 'center',
-                    justifyItems: 'center',
-                    display: showWarning ? 'block' : 'none',
-                    cursor: 'pointer'
-                }}
-                     onClick={handleBlur}
-                >
+            {(adminEnabled) &&
+                <AdminActionsBar entry={entry}/>
+            }
+            {entry.media &&
+                <div style={{position: 'relative', zIndex: 1}}>
+                    <ChallengeLockImageGallery entry={entry} blurred={blurred}/>
                     <div style={{
-                        fontSize: '1.1rem',
-                        lineHeight: '1.5rem',
-                        fontWeight: 600,
-                        filter: 'none',
-                        color: '#20397c',
-                        backgroundColor: '#fff',
-                        padding: 20,
-                        border: '1px solid #20397c',
-                        borderRadius: 5,
-                        textAlign: 'center'
-                    }}>
-                        May contain spoilers!<br/>
-                        Click to view images
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        background: 'rgba(0,0,0,0.0)',
+                        alignContent: 'center',
+                        justifyItems: 'center',
+                        display: showWarning ? 'block' : 'none',
+                        cursor: 'pointer'
+                    }}
+                         onClick={handleBlur}
+                    >
+                        <div style={{
+                            fontSize: '1.1rem',
+                            lineHeight: '1.5rem',
+                            fontWeight: 600,
+                            filter: 'none',
+                            color: '#20397c',
+                            backgroundColor: '#fff',
+                            padding: 20,
+                            border: '1px solid #20397c',
+                            borderRadius: 5,
+                            textAlign: 'center'
+                        }}>
+                            May contain spoilers!<br/>
+                            Click to view images
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            }
             {isMobile &&
                 <div style={{
                     display: 'flex',
@@ -150,13 +156,17 @@ export default function ChallengeLockEntryDetails({entry, onExpand, getCheckIns,
                 }
                 {(entry.originalMake || entry.originalLock) &&
                     <FieldValue name='Original Lock' value={entry.originalMake || entry.originalLock}
-                                headerStyle={{color: '#999'}} style={{}}/>
+                                headerStyle={{color: '#999'}} style={{wordBreak: 'break-all', inlineSize: '100%'}}/>
                 }
             </div>
 
             {sanitizeValues(entry.description) &&
                 <div style={{fontSize: '0.95rem', lineHeight: '1.5rem', fontWeight: 400, marginTop: 10}}>
-                    <FieldValue name='Description' value={sanitizeValues(entry.description)}
+                    <FieldValue name='Description' value={
+                        <div style={{wordBreak: 'break-all', inlineSize: '100%'}}>
+                            {sanitizeValues(entry.description)}
+                        </div>
+                    }
                                 headerStyle={{color: '#999'}} style={{}}/>
                 </div>
             }

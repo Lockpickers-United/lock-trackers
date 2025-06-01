@@ -8,7 +8,8 @@ import {
     getDocs,
     collection,
     query,
-    where
+    where,
+    deleteDoc
 } from 'firebase/firestore'
 import AuthContext from '../app/AuthContext'
 import {enqueueSnackbar} from 'notistack'
@@ -90,8 +91,24 @@ export function DBProviderCL({children}) {
         async function fetchData() {
             await refreshEntries()
         }
+
         fetchData().then()
     }, [refreshEntries])
+
+    const deleteEntry = useCallback(async (entryId) => {
+        if (dbError) return false
+        try {
+            const ref = doc(db, 'challenge-locks', entryId)
+            await deleteDoc(ref)
+            enqueueSnackbar('Entry deleted successfully.', {variant: 'success'})
+            await updateVersion()
+        } catch (e) {
+            enqueueSnackbar(`Error deleting entry: ${e}`, {variant: 'error'})
+
+            console.log('error')
+            console.error(e)
+        }
+    }, [dbError, updateVersion])
 
 
     const getCheckIns = useCallback(async (lockId) => {
@@ -103,28 +120,28 @@ export function DBProviderCL({children}) {
             checkIns.push(doc.data())
         })
         console.log('got checkins for lockId:', lockId, checkIns.length)
-        return checkIns.sort((a, b) => dayjs(b.pickDate).isBefore(dayjs(a.pickDate)) ? -1 : 1 )
-    },[dbError])
+        return checkIns.sort((a, b) => dayjs(b.pickDate).isBefore(dayjs(a.pickDate)) ? -1 : 1)
+    }, [dbError])
 
 
-/*
-    const allEntries = useMemo(async () => {
-        if (!dbLoaded) return []
-        return await refreshEntries()
-            .then(entries => {
-                if (entries && entries.length > 0) {
-                    return entries
-                } else {
-                    console.warn('No entries found in the database.')
+    /*
+        const allEntries = useMemo(async () => {
+            if (!dbLoaded) return []
+            return await refreshEntries()
+                .then(entries => {
+                    if (entries && entries.length > 0) {
+                        return entries
+                    } else {
+                        console.warn('No entries found in the database.')
+                        return []
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching entries:', error)
                     return []
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching entries:', error)
-                return []
-            })
-    },[dbLoaded, refreshEntries])
-*/
+                })
+        },[dbLoaded, refreshEntries])
+    */
 
     const updateEntry = useCallback(async entry => {
         console.log('DB, updating entry: ', entry)
@@ -133,7 +150,9 @@ export function DBProviderCL({children}) {
         const ref = doc(db, 'challenge-locks', entry.id)
         let statusText = ''
 
-        if (!entry.comments) {entry.comments = ''}
+        if (!entry.comments) {
+            entry.comments = ''
+        }
 
         try {
             await runTransaction(db, async transaction => {
@@ -180,7 +199,7 @@ export function DBProviderCL({children}) {
         try {
             await runTransaction(db, async transaction => {
                 const sfDoc = await transaction.get(ref)
-                const delta = { ...checkIn, modified: modified}
+                const delta = {...checkIn, modified: modified}
                 if (!sfDoc.exists()) {
                     transaction.set(ref, delta)
                     statusText = 'Check-in Created'
@@ -205,20 +224,22 @@ export function DBProviderCL({children}) {
         updateEntry,
         refreshEntries,
         allEntries,
+        deleteEntry,
         createCheckIn,
         getCheckIns,
         newVersionAvailable,
-        updateVersion,
+        updateVersion
     }), [
         dbLoaded,
         profile,
         updateEntry,
         refreshEntries,
         allEntries,
+        deleteEntry,
         createCheckIn,
         getCheckIns,
         newVersionAvailable,
-        updateVersion,
+        updateVersion
     ])
 
     return (

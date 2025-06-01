@@ -8,6 +8,7 @@ const AuthContext = React.createContext({})
 export function AuthProvider({children}) {
     const {verbose} = useContext(AppContext)
     const [user, setUser] = useState({})
+    const [userClaims, setUserClaims] = useState([])
     const [authLoaded, setAuthLoaded] = useState(false)
 
     useEffect(() => {
@@ -15,6 +16,15 @@ export function AuthProvider({children}) {
             setAuthLoaded(true)
             setUser(user)
             verbose && console.log('user', user)
+            auth.currentUser?.getIdTokenResult()
+                .then(idTokenResult => {
+                    setUserClaims(Object.keys(idTokenResult.claims)
+                        .filter(claim => idTokenResult.claims[claim] === true)
+                        .filter(claim => claim !== 'email_verified'))
+                })
+                .catch(error => {
+                    console.error('Error getting token result:', error)
+                })
         })
         return () => unregisterAuthObserver()
     }, [verbose])
@@ -45,9 +55,10 @@ export function AuthProvider({children}) {
         authLoaded,
         isLoggedIn: !!user?.uid,
         user,
+        userClaims,
         login,
         logout
-    }), [authLoaded, login, logout, user])
+    }), [authLoaded, login, logout, user, userClaims])
 
     return (
         <AuthContext.Provider value={value}>

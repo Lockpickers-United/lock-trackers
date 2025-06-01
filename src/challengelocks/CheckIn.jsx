@@ -27,6 +27,7 @@ import RatingTable from './RatingTable.jsx'
 import ratingDimensions from '../data/clRatingDimensions.json'
 import {optionsCL} from '../data/subNavOptions.js'
 import validator from 'validator'
+import filterProfanity from '../util/filterProfanity.js'
 
 /**
  * @prop inputValue
@@ -48,6 +49,7 @@ export default function CheckIn() {
     const [location, setLocation] = useState(null)
     const [ratings, setRatings] = useState({})
     const [scrolled, setScrolled] = useState(false)
+    const [highlightRequired, setHighlightRequired] = useState(false)
 
     //     const lockId = 'cl_69dfddd5'
     const {filters} = useContext(FilterContext)
@@ -62,10 +64,21 @@ export default function CheckIn() {
             username: profile.discordUsername || '',
             usernamePlatform: 'discord',
             lockId: lockId,
-            pickDate: dayjs().toISOString()
         }
     }, [lockId, profile.discordUsername])
     const [form, setForm] = useState(defaultFormData)
+
+    const getHighlightColor = useCallback(field => {
+        return highlightRequired
+            ? !form[field]
+                ? '#d00'
+                : '#090'
+            : 'inherit'
+    }, [form, highlightRequired])
+    const showRequired = useCallback(() => {
+        setHighlightRequired(!highlightRequired)
+        console.log('form', form)
+    }, [form, highlightRequired])
 
     if (notValidLock) {
         console.log('** No lock found for id: ' + lockId)
@@ -82,9 +95,10 @@ export default function CheckIn() {
     }, [form])
 
     const handleFormChange = useCallback((event) => {
-        const {name, value} = event.target
+        let {name, value} = event.target
+        if (name !== 'videoUrl') value = value.replace(/https?:\/\/[^\s]+/g, '[link removed]')
         if (name === 'country') setLocation(value)
-        setForm({...form, [name]: value})
+        setForm({...form, [name]: filterProfanity(value)})
     }, [form])
 
     const urlError = form.videoUrl?.length > 0 && !validator.isURL(form.videoUrl)
@@ -210,7 +224,7 @@ export default function CheckIn() {
                 marginLeft: 'auto', marginRight: 'auto', marginTop: 16, marginBottom: 46, paddingLeft: 8
             }}>
 
-                <div style={{margin: `10px 20px 30px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
+                <div style={{margin: `10px 20px 20px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
                     <div style={{display: flexStyle, paddingBottom: 15, borderBottom: '1px solid #ccc'}}>
                         <div style={{display: 'flex', alignItems: 'center', flexGrow: 1}}>
                             <div>
@@ -232,37 +246,45 @@ export default function CheckIn() {
                 <form action={null} encType='multipart/form-data' method='post'
                       onSubmit={handleSubmit}>
                     <div style={{paddingLeft: paddingLeft}}>
-
-                        <div style={{marginTop: 15}}>
+                        <div style={{marginTop: 10}}>
                             <div style={{display: flexStyle}}>
-                                <div style={{marginRight: 15}}>
-                                    <div style={headerStyle}>Discord/Reddit Username</div>
-                                    <TextField type='text' name='username' style={{width: 240}}
-                                               onChange={handleFormChange}
-                                               value={form.username || profile.discordUsername || ''}
-                                               color='info'/>
+                                <div style={{display: 'flex'}}>
+                                    <div style={{marginRight: 15}}>
+                                        <div style={{...headerStyle, backgroundColor: getHighlightColor('username')}}>
+                                            Discord/Reddit Username
+                                        </div>
+                                        <TextField type='text' name='username' style={{width: 240}}
+                                                   onChange={handleFormChange}
+                                                   value={form.username || profile.discordUsername || ''}
+                                                   color='info'/>
+                                    </div>
+                                    <div style={{marginTop: 30, marginRight: 35}}>
+                                        <RadioGroup
+                                            name='usernamePlatform'
+                                            onChange={handleFormChange}
+                                            size='small'
+                                            defaultValue='discord'
+                                            sx={{
+                                                '& .MuiRadio-root': {
+                                                    padding: '7px'
+                                                }
+                                            }}
+                                        >
+                                            <FormControlLabel value='discord' control={<Radio size='small'/>}
+                                                              label='Discord'/>
+                                            <FormControlLabel value='reddit' control={<Radio size='small'/>}
+                                                              label='Reddit'/>
+                                        </RadioGroup>
+                                    </div>
                                 </div>
-                                <div style={{marginTop: 30, marginRight: 35}}>
-                                    <RadioGroup
-                                        name='usernamePlatform'
-                                        onChange={handleFormChange}
-                                        size='small'
-                                        defaultValue='discord'
-                                        sx={{
-                                            '& .MuiRadio-root': {
-                                                padding: '7px'
-                                            }
-                                        }}
-                                    >
-                                        <FormControlLabel value='discord' control={<Radio size='small'/>}
-                                                          label='Discord'/>
-                                        <FormControlLabel value='reddit' control={<Radio size='small'/>}
-                                                          label='Reddit'/>
-                                    </RadioGroup>
-                                </div>
-                                <div style={{marginRight: 20, width: 200}}>
-                                    <div style={headerStyle}>Date</div>
-                                    <DatePicker label='Pick Date' value={dayjs(form.pickDate) || dayjs()} disableFuture
+                                <div style={{marginRight: 20, width: 200, marginTop: 0}}>
+                                    <div style={{...headerStyle, backgroundColor: getHighlightColor('pickDate')}}>
+                                        Pick Date
+                                    </div>
+                                    <DatePicker label='Pick Date'
+                                                value={form.pickDate ? dayjs(form.pickDate) : null}
+                                                disableFuture minDate={dayjs('2015-01-01')}
+                                                maxDate={dayjs('2026-12-31')}
                                                 onChange={(newValue) => handleDateChange({pickDate: newValue.toISOString()})}
                                     />
                                 </div>
@@ -270,15 +292,17 @@ export default function CheckIn() {
                             </div>
                         </div>
 
-                        <div style={{display: flexStyle, marginTop: 15}}>
-                            <div style={{marginRight: 20}}>
-                                <div style={headerStyle}>Successful Pick?</div>
+                        <div style={{display: flexStyle}}>
+                            <div style={{marginRight: 20, marginTop: 10}}>
+                                <div style={{...headerStyle, backgroundColor: getHighlightColor('successfulPick')}}>
+                                    Successful Pick?
+                                </div>
                                 <SelectBox changeHandler={handleFormChange}
                                            name='successfulPick' form={form}
                                            optionsList={['Yes', 'No']} size={'large'}
                                            width={170} multiple={false} defaultValue={''}/>
                             </div>
-                            <div style={{marginRight: 20, flexGrow: 1}}>
+                            <div style={{marginRight: 20, flexGrow: 1, marginTop: 10}}>
                                 <div style={optionalHeaderStyle}>Pick Video URL <span
                                     style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
                                 </div>
@@ -289,17 +313,17 @@ export default function CheckIn() {
                         </div>
 
                         <div style={{
-                            fontSize: '1.4rem',
+                            fontSize: '1.3rem',
                             color: '#ccc',
                             borderBottom: '1px solid #ccc',
-                            marginTop: 30,
+                            marginTop: 20,
                             marginRight: 20
                         }}>
                             Other Optional Information
                         </div>
 
-                        <div style={{display: flexStyle, marginTop: 20}}>
-                            <div style={{marginRight: 25}}>
+                        <div style={{display: flexStyle}}>
+                            <div style={{marginRight: 25, marginTop: 10}}>
                                 <div style={{...optionalHeaderStyle}}>
                                     Your Ratings <span
                                     style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
@@ -309,7 +333,7 @@ export default function CheckIn() {
                             </div>
 
                             <div style={{flexGrow: 1, marginRight: 20}}>
-                                <div style={optionalHeaderStyle}>
+                                <div style={{...optionalHeaderStyle, marginTop: 10}}>
                                     Notes <span
                                     style={{...optionalHeaderStyle, color: '#aaa'}}>(optional)</span>
                                 </div>
@@ -333,8 +357,8 @@ export default function CheckIn() {
                             </div>
                         </div>
 
-                        <div style={{display: flexStyle, width: '100%', marginTop: 35, justifyContent: 'center'}}>
-                            <div style={{marginRight: 20}}>
+                        <div style={{display: flexStyle, width: '100%', marginTop: 0, justifyContent: 'center'}}>
+                            <div style={{marginRight: 20, marginTop: 10}}>
                                 <div style={optionalHeaderStyle}>
                                     Your Location <span style={{color: '#aaa'}}>(optional)</span>
                                 </div>
@@ -346,7 +370,7 @@ export default function CheckIn() {
                                 />
                             </div>
 
-                            <div style={{marginTop: 0}}>
+                            <div style={{marginTop: 10}}>
                                 <div style={optionalHeaderStyle}>
                                     Current Belt <span style={{color: '#aaa'}}>(optional)</span>
                                 </div>
@@ -356,6 +380,11 @@ export default function CheckIn() {
                                            multiple={false} defaultValue={''}
                                            size={'large'} width={200}/>
                             </div>
+                        </div>
+
+                        <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
+                            <Link
+                                onClick={showRequired}>{highlightRequired ? 'turn off highlighting' : 'highlight required fields'}</Link>
                         </div>
 
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>

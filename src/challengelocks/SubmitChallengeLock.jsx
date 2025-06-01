@@ -26,7 +26,7 @@ import DBContext from './DBContextCL.jsx'
 import {optionsCL} from '../data/subNavOptions.js'
 import {jsonIt} from '../util/jsonIt.js' //eslint-disable-line
 import sanitizeValues from '../util/sanitizeText.js'
-
+import filterProfanity from '../util/filterProfanity.js'
 
 /**
  * @prop newBrand
@@ -51,16 +51,17 @@ export default function SubmitChallengeLock() {
     const [entryId, setEntryId] = useState(undefined)
     const [entryName, setEntryName] = useState(undefined)
     const [checkIn, setCheckIn] = useState(false)
+    const [highlightRequired, setHighlightRequired] = useState(false)
 
     const handleTestData = useCallback(() => {
-        setForm({...form, ...clTestData, lockCreated: dayjs('2022-04-17')})
+        setForm({...form, ...clTestData, lockCreated: dayjs().toISOString()})
         setLocation(clTestData.country)
     }, [form])
 
     const handleFormChange = useCallback((event) => {
-        const {name, value} = event.target
+        let {name, value} = event.target
         if (name === 'country') setLocation(value)
-        setForm({...form, [name]: value})
+        setForm({...form, [name]: filterProfanity(value)})
     }, [form])
 
     const handleDateChange = useCallback((dateValue) => {
@@ -69,6 +70,28 @@ export default function SubmitChallengeLock() {
 
     const requiredFields = ['name', 'maker', 'lockCreated', 'country', 'username', 'usernamePlatform']
     const uploadable = requiredFields.every(field => Object.keys(form).includes(field)) && mainPhoto.length > 0
+
+    const getHighlightColor = useCallback(field => {
+        return highlightRequired
+            ? !form[field]
+                ? '#d00'
+                : '#090'
+            : 'inherit'
+    }, [form, highlightRequired])
+
+    const showRequired = useCallback(() => {
+        setHighlightRequired(!highlightRequired)
+        console.log('form', form)
+    }, [form, highlightRequired])
+
+    const handleDroppedFiles = useCallback((allFiles, zoneId = 'dropzone') => {
+        if (zoneId === 'mainPhoto') {
+            setMainPhoto(allFiles)
+            setForm({...form, mainPhoto: allFiles.length > 0})
+        } else {
+            setFiles(allFiles)
+        }
+    }, [form])
 
     const handleSubmit = async ({doCheckIn = false}) => {
 
@@ -79,8 +102,6 @@ export default function SubmitChallengeLock() {
         const formCopy = {
             ...sanitizeValues(form),
             displayName: sanitizeValues(profile?.username) || 'no display name',
-            mainFileName: mainPhoto.length > 0 ? mainPhoto[0].name : undefined,
-            droppedFileNames: mainPhoto.length > 0 ? files.map(file => file.name) : undefined,
             status: 'active'
         }
 
@@ -102,7 +123,7 @@ export default function SubmitChallengeLock() {
             formData.append('files', file, `${uploadsDir}/${prefix}_${base}_${suffix}${ext}`.toLowerCase())
         })
 
-        //console.log('formCopy', formCopy)
+        //return
 
         const url = `${serverUrl}/submit-challenge-lock`
 
@@ -146,6 +167,7 @@ export default function SubmitChallengeLock() {
         setLocation(null)
         setUploading(false)
         setUploadError(undefined)
+        setHighlightRequired(false)
         setTimeout(() => {
             window.scrollTo({
                 left: 0,
@@ -167,12 +189,14 @@ export default function SubmitChallengeLock() {
         return countries.map(country => country.country_area)
     }, [])
 
+    const textFieldMax = 40
+
     const {isMobile, flexStyle} = useWindowSize()
     //const fullWidth = !isMobile ? 660 : 300
     const paddingLeft = !isMobile ? 16 : 8
 
-    const headerStyle = {fontSize: '1.1rem', fontWeight: 600, marginBottom: 5}
-    const optionalHeaderStyle = {fontSize: '1.1rem', fontWeight: 400, marginBottom: 5, color: '#ccc'}
+    const headerStyle = {fontSize: '1.1rem', fontWeight: 600, marginBottom: 5, paddingLeft: 2}
+    const optionalHeaderStyle = {fontSize: '1.1rem', fontWeight: 400, marginBottom: 5, paddingLeft: 2, color: '#ccc'}
 
     return (
 
@@ -202,28 +226,39 @@ export default function SubmitChallengeLock() {
 
                         <div style={{display: flexStyle, marginBottom: 0}}>
                             <div style={{marginRight: 20}}>
-                                <div style={headerStyle}>Challenge Lock Name</div>
+                                <div style={{...headerStyle, backgroundColor: getHighlightColor('name')}}>
+                                    Challenge Lock Name
+                                </div>
                                 <TextField type='text' name='name' style={{width: 340}}
-                                           onChange={handleFormChange} value={form.name || ''} color='info'/>
+                                           onChange={handleFormChange}
+                                           value={form.name || ''} color='info'
+                                           inputProps={{maxLength: textFieldMax}}/>
                             </div>
                             <div style={{}}>
-                                <div style={headerStyle}>CL Maker</div>
+                                <div style={{...headerStyle, backgroundColor: getHighlightColor('maker')}}>
+                                    CL Maker
+                                </div>
                                 <TextField type='text' name='maker' style={{width: 300}}
-                                           onChange={handleFormChange} value={form.maker || ''} color='info'/>
+                                           onChange={handleFormChange} value={form.maker || ''} color='info'
+                                           inputProps={{maxLength: textFieldMax}}/>
                             </div>
                         </div>
 
                         <div style={{display: flexStyle, marginTop: 20}}>
 
                             <div style={{marginRight: 20, width: 200}}>
-                                <div style={headerStyle}>Created</div>
-                                <DatePicker label='Date Created' value={form.lockCreated || null}
-                                            onChange={(newValue) => handleDateChange({lockCreated: newValue.format('MM-DD-YYYY')})}
+                                <div style={{...headerStyle, backgroundColor: getHighlightColor('lockCreated')}}>
+                                    Created
+                                </div>
+                                <DatePicker label='Date Created'
+                                            value={form.lockCreated ? dayjs(form.lockCreated) : null}
+                                            onChange={(newValue) => handleDateChange({lockCreated: newValue.toISOString()})}
                                 />
                             </div>
 
                             <div style={{marginRight: 20}}>
-                                <div style={headerStyle}>Origin</div>
+                                <div style={{...headerStyle, backgroundColor: getHighlightColor('country')}}>Origin
+                                </div>
                                 <AutoCompleteBox changeHandler={handleFormChange}
                                                  options={countryList} value={location}
                                                  name={'country'} style={{width: 250}}
@@ -233,7 +268,9 @@ export default function SubmitChallengeLock() {
                             </div>
 
                             <div style={{}}>
-                                <div style={headerStyle}>Lock Format</div>
+                                <div style={{...headerStyle, backgroundColor: getHighlightColor('lockFormat')}}>Lock
+                                    Format
+                                </div>
                                 <SelectBox changeHandler={handleFormChange}
                                            name='lockFormat' form={form}
                                            optionsList={lockFormats} size={'large'}
@@ -242,30 +279,41 @@ export default function SubmitChallengeLock() {
                         </div>
 
                         <div style={{display: flexStyle, marginTop: 30}}>
-                            <div style={{marginRight: 30, width: 250}}>
-                                <div style={headerStyle}>
+                            <div style={{marginRight: 20, width: 250}}>
+                                <div style={{...headerStyle, backgroundColor: getHighlightColor('mainPhoto')}}>
                                     Main Lock Photo (no spoilers!)<br/>
                                 </div>
-                                <Dropzone files={mainPhoto} setFiles={setMainPhoto} maxFiles={1}/>
+                                <Dropzone files={mainPhoto} handleDroppedFiles={handleDroppedFiles} maxFiles={1}
+                                          zoneId={'mainPhoto'}/>
                             </div>
-                            <div style={{marginRight: 0, flexGrow: 1, maxWidth: 380}}>
+                            <div style={{marginRight: 0, flexGrow: 1, maxWidth: 390}}>
                                 <div style={{...optionalHeaderStyle, color: '#fff'}}>
                                     Other Lock Photos <span
-                                    style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional, spoilers OK)</span>
+                                    style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional, spoilers OK, max 8)</span>
                                 </div>
-                                <Dropzone files={files} setFiles={setFiles}/>
+                                <Dropzone files={files} handleDroppedFiles={handleDroppedFiles} maxFiles={8}/>
                             </div>
                         </div>
 
                         <div style={{display: flexStyle, marginTop: 30}}>
                             <div style={{flexGrow: 1, maxWidth: 660, marginRight: 20}}>
-                                <div style={optionalHeaderStyle}>
-                                    Description <span
-                                    style={{...optionalHeaderStyle, color: '#aaa'}}>(optional)</span>
+                                <div style={{display: 'flex'}}>
+                                    <div style={{...optionalHeaderStyle, flexGrow: 1}}>
+                                        Description <span
+                                        style={{...optionalHeaderStyle, color: '#aaa'}}>(optional)</span>
+                                    </div>
+                                    <div style={{...optionalHeaderStyle}}>
+                                        <span style={{
+                                            ...optionalHeaderStyle,
+                                            color: '#aaa', fontSize: '0.85rem'
+                                        }}>{form.description?.length || 0}/1200</span>
+                                    </div>
+
                                 </div>
                                 <TextField type='text' name='description' multiline fullWidth rows={3}
                                            color='info' style={{}} value={form.description || ''}
-                                           maxLength={1200} id='description' onChange={handleFormChange}/>
+                                           id='description' onChange={handleFormChange}
+                                           inputProps={{maxLength: 1200}}/>
                             </div>
                         </div>
 
@@ -284,7 +332,8 @@ export default function SubmitChallengeLock() {
                                     style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
                                 </div>
                                 <TextField type='text' name='originalLock' style={{width: 250}}
-                                           onChange={handleFormChange} value={form.originalLock || ''} color='info'/>
+                                           onChange={handleFormChange} value={form.originalLock || ''} color='info'
+                                           inputProps={{maxLength: textFieldMax}}/>
                             </div>
                             <div style={{}}>
                                 <div style={optionalHeaderStyle}>
@@ -299,30 +348,33 @@ export default function SubmitChallengeLock() {
 
                         <div style={{marginTop: 30}}>
                             <div style={{display: flexStyle}}>
-                                <div style={{marginRight: 15}}>
-                                    <div style={headerStyle}>Your Username</div>
-                                    <TextField type='text' name='username' style={{width: 240}}
-                                               onChange={handleFormChange} value={form.username || ''}
-                                               color='info'/>
-                                </div>
-
-                                <div style={{marginTop: 25, marginRight: 30}}>
-                                    <RadioGroup
-                                        name='usernamePlatform'
-                                        onChange={handleFormChange}
-                                        size='small'
-                                        defaultValue='discord'
-                                        sx={{
-                                            '& .MuiRadio-root': {
-                                                padding: '7px'
-                                            }
-                                        }}
-                                    >
-                                        <FormControlLabel value='discord' control={<Radio size='small'/>}
-                                                          label='Discord'/>
-                                        <FormControlLabel value='reddit' control={<Radio size='small'/>}
-                                                          label='Reddit'/>
-                                    </RadioGroup>
+                                <div style={{display: 'flex'}}>
+                                    <div style={{marginRight: 15}}>
+                                        <div style={{...headerStyle, backgroundColor: getHighlightColor('username')}}>
+                                            Your Username
+                                        </div>
+                                        <TextField type='text' name='username' style={{width: 240}}
+                                                   onChange={handleFormChange} value={form.username || ''} color='info'
+                                                   inputProps={{maxLength: textFieldMax}}/>
+                                    </div>
+                                    <div style={{marginTop: 25, marginRight: 30}}>
+                                        <RadioGroup
+                                            name='usernamePlatform'
+                                            onChange={handleFormChange}
+                                            size='small'
+                                            defaultValue='discord'
+                                            sx={{
+                                                '& .MuiRadio-root': {
+                                                    padding: '7px'
+                                                }
+                                            }}
+                                        >
+                                            <FormControlLabel value='discord' control={<Radio size='small'/>}
+                                                              label='Discord'/>
+                                            <FormControlLabel value='reddit' control={<Radio size='small'/>}
+                                                              label='Reddit'/>
+                                        </RadioGroup>
+                                    </div>
                                 </div>
 
                                 <div style={{marginTop: 0}}>
@@ -337,6 +389,14 @@ export default function SubmitChallengeLock() {
                                 </div>
                             </div>
                         </div>
+
+                        {!uploadable &&
+                            <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
+                                <Link
+                                    onClick={showRequired}>{highlightRequired ? 'turn off highlighting' : 'highlight required fields'}</Link>
+                            </div>
+                        }
+
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
                             <Button onClick={() => handleSubmit({doCheckIn: false})} variant='contained' color='info'
                                     disabled={!uploadable || uploading}

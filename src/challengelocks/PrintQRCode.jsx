@@ -19,8 +19,6 @@ export default function PrintQRCode() {
     const notValidLock = (Object.keys(allEntries).length > 0 && Object.keys(lock).length === 0)
     const dateCreated = lock.lockCreated || lock.createdAt
 
-    console.log('lock', lock)
-
     const safeName = lock?.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
     const lockUrl = `https://beta.lpulocks.com/#/challengelocks/checkin?id=${lockId}&name=${safeName}`
 

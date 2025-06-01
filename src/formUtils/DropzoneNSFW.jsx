@@ -3,8 +3,22 @@ import {useDropzone} from 'react-dropzone'
 import Link from '@mui/material/Link'
 import CancelIcon from '@mui/icons-material/Cancel'
 import IconButton from '@mui/material/IconButton'
+import * as nsfwjs from 'nsfwjs'
 
-export default function Dropzone({files, handleDroppedFiles, maxFiles=10, zoneId = 'dropzone'}) {
+export default function Dropzone({files, setFiles, maxFiles=10}) {
+
+    const checkNSFW = useCallback((img) => {
+        nsfwjs
+            .load()
+            .then(function (model) {
+                // Classify the image
+                return model.classify(img)
+            })
+            .then(function (predictions) {
+                console.log('Predictions: ', predictions)
+            })
+    },[])
+
 
     const {getRootProps, getInputProps, isFocused, isDragAccept, isDragReject} =
         useDropzone({
@@ -13,8 +27,10 @@ export default function Dropzone({files, handleDroppedFiles, maxFiles=10, zoneId
                 'image/*': []
             },
             onDrop: acceptedFiles => {
+                console.log('file', acceptedFiles[0])
+                checkNSFW(acceptedFiles[0].preview)
                 const newFiles = acceptedFiles.map(file => Object.assign(file, {preview: URL.createObjectURL(file)}))
-                handleDroppedFiles([...files, ...newFiles], zoneId)
+                setFiles([...files, ...newFiles])
             }
         })
 
@@ -81,14 +97,14 @@ export default function Dropzone({files, handleDroppedFiles, maxFiles=10, zoneId
 
     const clearAll = useCallback(() => {
         files.forEach(file => URL.revokeObjectURL(file.preview))
-        handleDroppedFiles([], zoneId)
-    }, [files, handleDroppedFiles, zoneId])
+        setFiles([])
+    }, [files, setFiles])
 
     const clearFile = useCallback((filename) => {
         const matchedFiles = files.filter(e => {return e.name === filename})
         matchedFiles.forEach(file => URL.revokeObjectURL(file.preview))
-        handleDroppedFiles(files.filter(e => e.name !== filename), zoneId)
-    }, [files, handleDroppedFiles, zoneId])
+        setFiles(files.filter(e => e.name !== filename))
+    }, [files, setFiles])
 
     const thumbs = files.map((file, index) => (
         <div style={thumb} key={index}>

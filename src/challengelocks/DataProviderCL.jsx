@@ -5,17 +5,20 @@ import FilterContext from '../context/FilterContext.jsx'
 import fuzzysort from 'fuzzysort'
 import removeAccents from 'remove-accents'
 import DBContext from './DBContextCL.jsx'
+import AuthContext from '../app/AuthContext.jsx'
 
 //import allEntries from './challengeLocks.json'
 
 
 export function DataProvider({children}) {
 
+    const {userClaims} = useContext(AuthContext)
+    const isMod = ['CLadmin', 'admin'].some(claim => userClaims.includes(claim))
+    const [adminEnabled, setAdminEnabled] = useState(false)
+
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sort, image, profileUpdated, ...filters} = allFilters
     const {allEntries} = useContext(DBContext)
-
-    const isMod = true
 
     const mappedEntries = useMemo(() => {
         return allEntries
@@ -124,13 +127,13 @@ export function DataProvider({children}) {
 
     const value = useMemo(() => ({
         getEntryFromId,
-        isMod,
+        isMod, adminEnabled, setAdminEnabled,
         allEntries,
         visibleEntries,
         makerData,
         openId, setOpenId
     }), [getEntryFromId,
-        isMod,
+        isMod, adminEnabled, setAdminEnabled,
         allEntries,
         visibleEntries,
         makerData,
