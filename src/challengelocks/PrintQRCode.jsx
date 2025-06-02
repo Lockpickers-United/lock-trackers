@@ -59,10 +59,12 @@ export default function PrintQRCode() {
                                 <div style={makerTextStyle}>By: {lock.maker}</div>
                             </div>
                         </div>
-                        <div style={{marginTop: 5}}>
-                            <img src={lock.thumbnail} alt={lock.name}
-                                 style={{width: 120, height: 120, marginRight: 10}}/>
-                        </div>
+                        {lock.thumbnail &&
+                            <div style={{marginTop: 5}}>
+                                <img src={lock.thumbnail} alt={lock.name}
+                                     style={{width: 120, height: 120, marginRight: 10}}/>
+                            </div>
+                        }
                     </div>
                 </div>
 

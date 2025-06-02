@@ -20,7 +20,7 @@ import dayjs from 'dayjs'
 import {FormControlLabel, Radio, RadioGroup} from '@mui/material'
 import DBContext from './DBContextCL.jsx'
 import DataContext from '../context/DataContext.jsx'
-import {jsonIt} from '../util/jsonIt.js'
+import {jsonIt} from '../util/jsonIt.js' // eslint-disable-line
 import checkInTestData from './checkInTestData.json'
 import FilterContext from '../context/FilterContext.jsx'
 import RatingTable from './RatingTable.jsx'
@@ -40,7 +40,7 @@ export default function CheckIn() {
 
     const {allEntries, getEntryFromId} = useContext(DataContext)
     const {user} = useContext(AuthContext)
-    const {profile, refreshEntries} = useContext(DBContext)
+    const {profile, refreshEntries, updateVersion} = useContext(DBContext)
     const [response, setResponse] = useState(undefined)
     const [uploading, setUploading] = useState(false)
     const [uploadError, setUploadError] = useState(undefined)
@@ -63,7 +63,7 @@ export default function CheckIn() {
             id: 'clci_' + genHexString(8),
             username: profile.discordUsername || '',
             usernamePlatform: 'discord',
-            lockId: lockId,
+            lockId: lockId
         }
     }, [lockId, profile.discordUsername])
     const [form, setForm] = useState(defaultFormData)
@@ -122,7 +122,7 @@ export default function CheckIn() {
             userId: user.uid
         }
 
-        jsonIt('formCopy', formCopy)
+        //jsonIt('formCopy', formCopy)
 
         if (form.ratings) {
             Object.keys(form.ratings).forEach(rating => {
@@ -142,6 +142,7 @@ export default function CheckIn() {
         try {
             const results = await postData({user, url, formData, snackBars: false})
             setResponse(results)
+            await updateVersion()
         } catch (error) {
             setUploadError(`${error}`.replace('Error: ', ''))
             enqueueSnackbar(`Error creating request: ${error}`, {variant: 'error', autoHideDuration: 3000})
@@ -196,13 +197,10 @@ export default function CheckIn() {
     }, [navigate])
 
     const onRatingChange = useCallback(({dimension, rating}) => {
-        console.log('ratings', {...ratings, [dimension]: rating})
+        //console.log('ratings', {...ratings, [dimension]: rating})
         setRatings({...ratings, [dimension]: rating})
         setForm({...form, ratings: {...ratings, [dimension]: rating}})
     }, [form, ratings])
-
-    //const ratingDimensions = {Fun: 'Fun', Difficulty: 'Difficulty', Creativity: 'Creativity', Quality:'Quality/Appearance'}
-
 
     const {isMobile, flexStyle} = useWindowSize()
     const paddingLeft = !isMobile ? 16 : 8
@@ -235,13 +233,14 @@ export default function CheckIn() {
                                 <div style={makerTextStyle}>By: {lock.maker}</div>
                             </div>
                         </div>
-                        <div style={{marginTop: 5}}>
-                            <img src={lock.thumbnail} alt={lock.name}
-                                 style={{width: 120, height: 120, marginRight: 10}}/>
-                        </div>
+                        {lock.thumbnail &&
+                            <div style={{marginTop: 5}}>
+                                <img src={lock.thumbnail} alt={lock.name}
+                                     style={{width: 120, height: 120, marginRight: 10}}/>
+                            </div>
+                        }
                     </div>
                 </div>
-
 
                 <form action={null} encType='multipart/form-data' method='post'
                       onSubmit={handleSubmit}>

@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Dropzone from '../formUtils/Dropzone.jsx'
@@ -33,25 +33,38 @@ import filterProfanity from '../util/filterProfanity.js'
  * @prop allMakes
  */
 
-export default function SubmitChallengeLock() {
+export default function SubmitChallengeLock({entry}) {
 
     const serverUrl = 'https://lpulocks.com:7443'
 
     const {user} = useContext(AuthContext)
-    const {profile, refreshEntries} = useContext(DBContext)
+    const {profile, refreshEntries, updateVersion} = useContext(DBContext)
     const [mainPhoto, setMainPhoto] = useState([])
     const [files, setFiles] = useState([])
     const [response, setResponse] = useState(undefined)
     const [uploading, setUploading] = useState(false)
     const [uploadError, setUploadError] = useState(undefined)
     const [acReset, setAcReset] = useState(false)
-    const [form, setForm] = useState({id: 'cl_' + genHexString(8), usernamePlatform: 'discord'})
+    const [form, setForm] = useState({})
     const [inputValue, setInputValue] = useState(undefined) // eslint-disable-line
     const [location, setLocation] = useState(null)
     const [entryId, setEntryId] = useState(undefined)
     const [entryName, setEntryName] = useState(undefined)
     const [checkIn, setCheckIn] = useState(false)
     const [highlightRequired, setHighlightRequired] = useState(false)
+
+    useEffect(() => {
+        if (entry) {
+            setForm(entry)
+            setLocation(entry.country || null)
+            setEntryId(entry.id)
+            setEntryName(entry.name)
+        } else {
+            const newForm = {id: 'cl_' + genHexString(8), usernamePlatform: 'discord'}
+            setForm(newForm)
+            setLocation(null)
+        }
+    },[entry])
 
     const handleTestData = useCallback(() => {
         setForm({...form, ...clTestData, lockCreated: dayjs().toISOString()})
@@ -131,6 +144,7 @@ export default function SubmitChallengeLock() {
             const results = await postData({user, url, formData, snackBars: false})
             setResponse(results)
             await refreshEntries()
+            await updateVersion()
         } catch (error) {
             setUploadError(`${error}`.replace('Error: ', ''))
             enqueueSnackbar(`Error creating request: ${error}`, {variant: 'error', autoHideDuration: 3000})
@@ -210,13 +224,10 @@ export default function SubmitChallengeLock() {
                 marginLeft: 'auto', marginRight: 'auto', marginTop: 16, marginBottom: 46, paddingLeft: 8
             }}>
                 <div style={{margin: `10px 20px 30px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
-                    <div style={{fontSize: '1.3rem', fontWeight: 700, marginBottom: 10}}>Submit a Challenge Lock</div>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nulla erat, pharetra aliquet
-                    laoreet at, ullamcorper in mauris. Vivamus id lectus elit. Quisque et mauris neque. Maecenas id urna
-                    erat.
-                    &nbsp;<Link onClick={() => navigate('/view?pageId=classificationProcess')}
-                                style={{color: '#aaa', cursor: 'pointer', fontWeight: 700}}>Click here to learn
-                    more</Link>
+                    <div style={{fontSize: '1.3rem', fontWeight: 700, marginBottom: 10}}>{entry ? 'Edit' : 'Submit a'} Challenge Lock</div>
+                    Use this page to submit a new Challenge Lock that you have either created or received.
+                    Please be sure to <Link onClick={() => navigate('/challengelocks')}
+                                            style={{color: '#bbb', cursor: 'pointer', fontWeight: 700}}>check the existing locks</Link> for a match before submitting.
 
                 </div>
 

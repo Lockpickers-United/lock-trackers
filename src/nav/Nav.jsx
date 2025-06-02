@@ -9,6 +9,7 @@ import TopNav from './TopNav.jsx'
 import PendingChecker from '../speedpicks/PendingChecker.jsx'
 import VersionCheckerCode from '../app/VersionCheckerCode.jsx'
 import VersionCheckerLB from '../app/VersionCheckerLB.jsx'
+import VersionCheckerCL from '../app/VersionCheckerCL.jsx'
 import Tracker from '../app/Tracker.jsx'
 
 function Nav({extras, route, showUserMenu = true}) {
@@ -28,6 +29,9 @@ function Nav({extras, route, showUserMenu = true}) {
                     }}>
                         <TopNav route={route}/>
                         <VersionCheckerCode/>
+                        {route === 'cl' &&
+                            <VersionCheckerCL/>
+                        }
 
                         {route === 'lb' &&
                             <VersionCheckerLB/>
@@ -42,6 +46,9 @@ function Nav({extras, route, showUserMenu = true}) {
                             <VersionChecker/>
                         </React.Fragment>
                     }
+
+
+
                     {showUserMenu &&
                         <UserMenu/>
                     }

@@ -37,6 +37,7 @@ export function DBProviderCL({children}) {
                 if (data) {
                     setCurrentVersion(data.version)
                     if (knownVersions.length === 0) knownVersions.push(data.version)
+                    console.log('DB, listening to version changes', data.version)
                 } else {
                     setCurrentVersion('')
                 }
