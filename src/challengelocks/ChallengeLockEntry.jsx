@@ -17,10 +17,19 @@ import sanitizeValues from '../util/sanitizeText.js'
 import DBContextCL from './DBContextCL.jsx'
 import LpuCircleLogo from '../assets/LpuCircleLogo.jsx'
 
-const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
+const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded}) => {
     const {getCheckIns} = useContext(DBContextCL)
     const [checkIns, setCheckIns] = useState([])
-
+    const refreshCheckIns = useCallback(async () => {
+        try {
+            const data = await getCheckIns(entry.id)
+            setCheckIns(data)
+            return data
+        } catch (err) {
+            console.error('Error fetching check-ins', err)
+            setCheckIns([])
+        }
+    }, [entry.id, getCheckIns])
 
     const [scrolled, setScrolled] = useState(false)
     const ref = useRef(null)
@@ -116,7 +125,8 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
 
                         {entry.thumbnail
                             ? <img src={entry.thumbnail} style={{height: 100, width: 100}} alt={entry.name}/>
-                            : <LpuCircleLogo style={{width: 100, height: 100}} color={'#444' } size ={100} fillPercent ={0.75}/>
+                            : <LpuCircleLogo style={{width: 100, height: 100}} color={'#444'} size={100}
+                                             fillPercent={0.75}/>
                         }
                         <div style={{
                             margin: '0px 20px',
@@ -151,7 +161,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand}) => {
                     <AccordionDetails style={{backgroundColor: '#333'}}>
                         <ChallengeLockEntryDetails entry={entry} expanded={expanded} onExpand={onExpand}
                                                    checkIns={checkIns} setCheckIns={setCheckIns}
-                                                   getCheckIns={getCheckIns}/>
+                                                   refreshCheckIns={refreshCheckIns} cycleExpanded={cycleExpanded}/>
                         <Tracker feature='challengeLock' id={entry.id} name={entry?.name}/>
                     </AccordionDetails>
 

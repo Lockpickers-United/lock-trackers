@@ -26,7 +26,7 @@ import YoutubeSearchedForIcon from '@mui/icons-material/YoutubeSearchedFor'
 import useWindowSize from '../util/useWindowSize'
 import Tooltip from '@mui/material/Tooltip'
 
-function ImageViewer({media, openIndex, onOpenImage, onClose, shareParams = {}}) {
+function ImageViewer({media, openIndex, onOpenImage, onClose, showFullSize = true, shareParams = {}}) {
     const [open, setOpen] = useState(true)
     const [loading, setLoading] = useState(true)
     const [{x: initX, y: initY}, setInitXY] = useState({x: 0, y: 0})
@@ -142,16 +142,18 @@ function ImageViewer({media, openIndex, onOpenImage, onClose, shareParams = {}})
                             </a>
                         </Typography>
                     </Stack>
-                    <Tooltip title='View Full Size' arrow disableFocusListener>
-                        <IconButton
-                            href={fullUrl}
-                            style={{color: 'rgba(255, 255, 255, 0.5)'}}
-                            target='_blank'
-                            rel='noopener noreferrer'
-                        >
-                            <LaunchIcon/>
-                        </IconButton>
-                    </Tooltip>
+                    {showFullSize &&
+                        <Tooltip title='View Full Size' arrow disableFocusListener>
+                            <IconButton
+                                href={fullUrl}
+                                style={{color: 'rgba(255, 255, 255, 0.5)'}}
+                                target='_blank'
+                                rel='noopener noreferrer'
+                            >
+                                <LaunchIcon/>
+                            </IconButton>
+                        </Tooltip>
+                    }
                 </Toolbar>
             </AppBar>
 

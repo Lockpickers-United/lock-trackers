@@ -71,6 +71,7 @@ function ChallengeLockImageGallery({entry, blurred}) {
                             onCloseImage={handleCloseImage}
                             onBackButton={handleBackButton}
                             shareParams={{id: entry.id, name: filters.name}}
+                            showFullSize={false}
                         />
                     </div>
                 </React.Fragment>

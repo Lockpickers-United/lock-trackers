@@ -50,6 +50,13 @@ export default [
                 }
             },
             {
+                path: '/challengelocks/edit',
+                lazy: async () => {
+                    const {default: EditChallengeLockRoute} = await import('../challengelocks/EditChallengeLockRoute')
+                    return {element: <EditChallengeLockRoute/>}
+                }
+            },
+            {
                 path: '/challengelocks/print',
                 lazy: async () => {
                     const {default: PrintQRCodeRoute} = await import('../challengelocks/PrintQRCodeRoute')

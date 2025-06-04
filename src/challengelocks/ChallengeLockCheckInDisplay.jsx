@@ -1,15 +1,22 @@
-import React from 'react'
+import React, {useCallback, useContext, useState} from 'react'
 import dayjs from 'dayjs'
 import Link from '@mui/material/Link'
 import useWindowSize from '../util/useWindowSize.jsx'
 import RatingTable from './RatingTable.jsx'
 import validator from 'validator'
+import DataContext from '../context/DataContext.jsx'
+import Menu from '@mui/material/Menu'
+import Button from '@mui/material/Button'
+import DBContextCL from './DBContextCL.jsx'
+import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
 
-export default function ChallengeLockCheckInDisplay({checkIn, latest = false}) {
+export default function ChallengeLockCheckInDisplay({checkIn, latest = false, refreshCheckIns}) {
+    const {adminEnabled} = useContext(DataContext)
+    const {deleteCheckIn} = useContext(DBContextCL)
 
     const urlError = checkIn.videoUrl?.length > 0 && !validator.isURL(checkIn.videoUrl)
     const urlDisplay = checkIn.videoUrl && !urlError
-    ? <Link onClick={() => openInNewTab(checkIn.videoUrl)} style={{color: '#cfcff1'}}>{checkIn.videoUrl}</Link>
+        ? <Link onClick={() => openInNewTab(checkIn.videoUrl)} style={{color: '#cfcff1'}}>{checkIn.videoUrl}</Link>
         : '(invalid video URL)'
 
     const ratings = checkIn
@@ -20,6 +27,20 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false}) {
                 return acc
             }, {})
         : {}
+
+    const [anchorEl, setAnchorEl] = useState(null)
+    const open = Boolean(anchorEl)
+    const handleOpen = useCallback(event => setAnchorEl(event.currentTarget), [])
+    const handleClose = useCallback(() => setAnchorEl(null), [])
+    const [deleting, setDeleting] = useState(false)
+    const handleDelete = useCallback(async () => {
+        setDeleting(true)
+        await deleteCheckIn(checkIn)
+        await refreshCheckIns()
+        setDeleting(false)
+        handleClose()
+    }, [deleteCheckIn, checkIn, refreshCheckIns, handleClose])
+
 
     const {flexStyle} = useWindowSize()
     const openInNewTab = (url) => {
@@ -49,7 +70,7 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false}) {
                             width: 300,
                             margin: '15px 0px 5px 0px'
                         }}>
-                            {dayjs(checkIn.pickdate).format('MMM DD, YYYY')} <span
+                            {dayjs(checkIn.pickDate).format('MMM DD, YYYY')} <span
                             style={{fontWeight: 400, color: '#ddd'}}>by</span> {checkIn.username}
                         </div>
 
@@ -61,6 +82,48 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false}) {
                             </li>}
                             {checkIn.notes && <li>Notes: {checkIn.notes}</li>}
                         </ul>
+
+                        {adminEnabled &&
+                            <div style={{
+                                textAlign: 'left',
+                                fontSize: '0.9rem',
+                                lineHeight: '1.1rem',
+                                fontWeight: 400,
+                                marginTop: 20
+                            }}>
+                                <Link onClick={handleOpen}
+                                      style={{color: '#f00', textDecoration: 'none'}}>DELETE</Link>
+                                <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+                                    <div style={{padding: 20, textAlign: 'center'}}>
+                                        You cannot undo delete.<br/>
+                                        Are you sure?
+                                    </div>
+                                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                                        {deleting
+                                            ? <LoadingDisplayWhite color={'#fda21b'}/>
+                                            : <Button style={{marginBottom: 10, color: '#000'}}
+                                                      variant='contained'
+                                                      onClick={handleDelete}
+                                                      edge='start'
+                                                      color='error'
+                                            >
+                                                Delete
+                                            </Button>
+                                        }
+                                    </div>
+                                </Menu>
+
+                                &nbsp;•&nbsp;
+                                <Link
+                                    onClick={() => openInNewTab(checkIn.videoUrl)}
+                                    style={{color: '#fda21b', textDecoration: 'none'}}>EDIT</Link>
+                                &nbsp;•&nbsp;
+                                <Link
+                                    onClick={() => console.log('checkIn', checkIn)}
+                                    style={{color: '#fda21b', textDecoration: 'none'}}>LOG</Link>
+                            </div>
+                        }
+
                     </div>
 
                     {Object.keys(ratings).length > 0 &&

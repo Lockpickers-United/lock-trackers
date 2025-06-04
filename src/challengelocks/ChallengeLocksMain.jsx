@@ -14,8 +14,18 @@ import NoEntriesCardCL from './NoEntriesCardCL.jsx'
 function ChallengeLocksCardsMain({profile, user}) {
 
     const {visibleEntries} = useContext(DataContext)
-    const {filters} = useContext(FilterContext)
+    const {filters, addFilters} = useContext(FilterContext)
     const [entryExpanded, setEntryExpanded] = useState(filters.id)
+    const handleExpand = useCallback(entryId => {
+        addFilters([{key: 'id', value: entryId}, {key: 'name', value: undefined}], true)
+        setEntryExpanded(entryId)
+    }, [addFilters])
+    const cycleExpanded = useCallback(entryId => {
+        setEntryExpanded(false)
+        setEntryExpanded(entryId)
+        addFilters([{key: 'id', value: entryId}, {key: 'name', value: undefined}], true)
+    }, [addFilters])
+
 
     const {width} = useWindowSize()
     const smallWindow = width <= 560
@@ -35,7 +45,6 @@ function ChallengeLocksCardsMain({profile, user}) {
         <React.Fragment>
             <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[0].label}/>
 
-
             <div style={{
                 minWidth: 330, maxWidth: 720, height: '100%',
                 padding: pagePadding, backgroundColor: '#223',
@@ -53,7 +62,8 @@ function ChallengeLocksCardsMain({profile, user}) {
                         key={entry.id}
                         entry={entry}
                         expanded={entry.id === entryExpanded}
-                        onExpand={setEntryExpanded}
+                        onExpand={handleExpand}
+                        cycleExpanded={cycleExpanded}
                     />
                 ))}
             </div>

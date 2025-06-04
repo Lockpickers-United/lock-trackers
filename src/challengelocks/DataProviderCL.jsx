@@ -6,6 +6,7 @@ import fuzzysort from 'fuzzysort'
 import removeAccents from 'remove-accents'
 import DBContext from './DBContextCL.jsx'
 import AuthContext from '../app/AuthContext.jsx'
+import {useLocalStorage} from 'usehooks-ts'
 
 //import allEntries from './challengeLocks.json'
 
@@ -14,7 +15,7 @@ export function DataProvider({children}) {
 
     const {userClaims} = useContext(AuthContext)
     const isMod = ['CLadmin', 'admin'].some(claim => userClaims.includes(claim))
-    const [adminEnabled, setAdminEnabled] = useState(false)
+    const [adminEnabled, setAdminEnabled] = useLocalStorage('adminEnabled', false)
 
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sort, image, profileUpdated, ...filters} = allFilters
@@ -40,6 +41,7 @@ export function DataProvider({children}) {
                     fuzzy: removeAccents(`${entry.name}, ${entry.maker}`),
                     latestCheckIn: entry.latestUpdate?.pickDate || '2000-01-01',
                     submittedAt: entry.submittedAt || entry.dateSubmitted,
+                    lockCreated : entry.lockCreated || entry.createdAt
                 }
             })
             : []
@@ -86,7 +88,7 @@ export function DataProvider({children}) {
                     return dayjs(b.submittedAt).valueOf() - dayjs(a.submittedAt).valueOf()
                         || a.name.localeCompare(b.name)
                 } else if (sort === 'createdDesc') {
-                    return dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf()
+                    return dayjs(b.lockCreated).valueOf() - dayjs(a.lockCreated).valueOf()
                         || a.name.localeCompare(b.name)
                 } else if (sort === 'checkInAsc') {
                     return dayjs(a.latestCheckIn).valueOf() - dayjs(b.latestCheckIn).valueOf()

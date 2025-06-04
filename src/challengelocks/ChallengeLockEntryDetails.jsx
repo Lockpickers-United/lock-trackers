@@ -12,10 +12,16 @@ import Collapse from '@mui/material/Collapse'
 import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
 import RatingTable from './RatingTable.jsx'
 import AdminActionsBar from './AdminActionsBar.jsx'
+import DBContextCL from './DBContextCL.jsx'
+import Link from '@mui/material/Link'
 
-export default function ChallengeLockEntryDetails({entry, onExpand, getCheckIns, checkIns, setCheckIns}) {
+const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, setCheckIns}) => {
     if (!entry) return null
+
     const {adminEnabled} = useContext(DataContext)
+    const {currentVersion} = useContext(DBContextCL)
+
+    const [version, setVersion] = useState(currentVersion)
 
     const {latestUpdate} = entry
     const [showCheckIns, setShowCheckIns] = useState(false)
@@ -34,8 +40,7 @@ export default function ChallengeLockEntryDetails({entry, onExpand, getCheckIns,
         }
         setLoading(true)
         try {
-            const data = await getCheckIns(entry.id)
-            setCheckIns(data.filter(checkIn => checkIn.id !== latestUpdate?.id))
+            await refreshCheckIns()
         } catch (err) {
             console.error('Error fetching check-ins', err)
             setCheckIns([])
@@ -43,7 +48,7 @@ export default function ChallengeLockEntryDetails({entry, onExpand, getCheckIns,
             setLoading(false)
             setShowCheckIns(true)
         }
-    }, [checkIns, entry.id, getCheckIns, latestUpdate?.id, setCheckIns, showCheckIns])
+    }, [checkIns.length, entry.id, refreshCheckIns, setCheckIns, showCheckIns])
 
     const handleChange = useCallback((_, isExpanded) => {
         onExpand && onExpand(isExpanded ? entry.id : false)
@@ -68,6 +73,8 @@ export default function ChallengeLockEntryDetails({entry, onExpand, getCheckIns,
             acc[key.replace('ratingAve', '')] = entry[key]
             return acc
         }, {})
+
+    const displayCountry = entry.country.length > 32 ? entry.country.substring(0, 32).trim() + '...' : entry.country
 
     const [blurred, setBlurred] = useState(entry.media?.length > 1)
     const [showWarning, setShowWarning] = useState(entry.media?.length > 1)
@@ -146,24 +153,24 @@ export default function ChallengeLockEntryDetails({entry, onExpand, getCheckIns,
             }}>
                 <div style={{display: 'flex', flexDirection: 'row'}}>
                     <FieldValue name='Created' value={dayjs(dateCreated).format('MMM DD, YYYY')}
-                                headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
+                                headerStyle={{color: '#999'}} style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
                     <FieldValue name='Submitted' value={dayjs(entry.dateSubmitted).format('MMM DD, YYYY')}
-                                headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
+                                headerStyle={{color: '#999'}} style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
                 </div>
                 {entry.country &&
-                    <FieldValue name='Country' value={entry.country}
-                                headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
+                    <FieldValue name='Country' value={displayCountry}
+                                headerStyle={{color: '#999'}} style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
                 }
                 {(entry.originalMake || entry.originalLock) &&
-                    <FieldValue name='Original Lock' value={entry.originalMake || entry.originalLock}
-                                headerStyle={{color: '#999'}} style={{wordBreak: 'break-all', inlineSize: '100%'}}/>
+                    <FieldValue name='Original Lock' value={entry.originalLock || entry.originalMake}
+                                headerStyle={{color: '#999'}} style={{wordBreak: 'break-word', inlineSize: '100%'}}/>
                 }
             </div>
 
             {sanitizeValues(entry.description) &&
                 <div style={{fontSize: '0.95rem', lineHeight: '1.5rem', fontWeight: 400, marginTop: 10}}>
                     <FieldValue name='Description' value={
-                        <div style={{wordBreak: 'break-all', inlineSize: '100%'}}>
+                        <div style={{wordBreak: 'break-word', inlineSize: '100%'}}>
                             {sanitizeValues(entry.description)}
                         </div>
                     }
@@ -182,6 +189,13 @@ export default function ChallengeLockEntryDetails({entry, onExpand, getCheckIns,
                     fontStyle: 'italic'
                 }}>
                     {submittedCredit}
+                </div>
+            }
+
+
+            {currentVersion !== version &&
+                <div style={{width: '100%', textAlign: 'center', fontSize: '1.2rem', margin: 15}}>
+                    <Link onClick={() => location.reload()} color={'#fda21b'}>Refresh Stats</Link>
                 </div>
             }
 
@@ -225,7 +239,8 @@ export default function ChallengeLockEntryDetails({entry, onExpand, getCheckIns,
 
             {latestUpdate &&
                 <FieldValue name='Latest Check-in' headerStyle={{color: '#999'}} style={{marginTop: 25}} value={
-                    <ChallengeLockCheckInDisplay checkIn={latestUpdate} latest={true}/>
+                    <ChallengeLockCheckInDisplay checkIn={latestUpdate} latest={true}
+                                                 refreshCheckIns={refreshCheckIns}/>
                 }
                 />
             }
@@ -253,8 +268,8 @@ export default function ChallengeLockEntryDetails({entry, onExpand, getCheckIns,
             <Collapse in={showCheckIns && checkIns.length > 0} timeout='auto'>
                 <div
                     style={{display: flexStyle, borderBottom: '1px solid #aaa', margin: '20px 20px 0px 20px'}}/>
-                {checkIns.map((checkIn, index) => (
-                    <ChallengeLockCheckInDisplay checkIn={checkIn} key={index}/>
+                {checkIns.filter(ci => ci?.id !== latestUpdate?.id).map((checkIn, index) => (
+                    <ChallengeLockCheckInDisplay checkIn={checkIn} key={index} refreshCheckIns={refreshCheckIns}/>
                 ))}
             </Collapse>
 
@@ -272,6 +287,9 @@ export default function ChallengeLockEntryDetails({entry, onExpand, getCheckIns,
         </div>
     )
 }
+
+export default ChallengeLockEntryDetails
+
 
 function percentage(number, digits = 1) {
     return Number(number).toLocaleString(undefined, {

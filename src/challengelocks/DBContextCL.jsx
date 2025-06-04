@@ -6,6 +6,8 @@ import {
     onSnapshot,
     runTransaction,
     getDocs,
+    getDoc,
+    setDoc,
     collection,
     query,
     where,
@@ -15,6 +17,8 @@ import AuthContext from '../app/AuthContext'
 import {enqueueSnackbar} from 'notistack'
 import dayjs from 'dayjs'
 import DBContext from '../app/DBContext.jsx'
+import validator from 'validator'
+import clRatingDimensions from '../data/clRatingDimensions.json'
 
 const DBContextCL = React.createContext({})
 
@@ -75,6 +79,7 @@ export function DBProviderCL({children}) {
     }, [dbError, knownVersions, profile?.username, user?.uid])
 
     // CHALLENGE LOCKS //
+
     const [allEntries, setAllEntries] = useState([])
 
     const refreshEntries = useCallback(async () => {
@@ -85,6 +90,7 @@ export function DBProviderCL({children}) {
             entries.push(doc.data())
         })
         setAllEntries(entries)
+        console.log('DB refreshEntries, entry count:', entries.length)
         return entries
     }, [dbError])
 
@@ -96,20 +102,49 @@ export function DBProviderCL({children}) {
         fetchData().then()
     }, [refreshEntries])
 
-    const deleteEntry = useCallback(async (entryId) => {
-        if (dbError) return false
-        try {
-            const ref = doc(db, 'challenge-locks', entryId)
-            await deleteDoc(ref)
-            enqueueSnackbar('Entry deleted successfully.', {variant: 'success'})
-            await updateVersion()
-        } catch (e) {
-            enqueueSnackbar(`Error deleting entry: ${e}`, {variant: 'error'})
+    const getChallengeLock = useCallback(async (lockId) => {
+        console.log('DB getChallengeLock, entry id:', lockId)
 
+        try {
+            const docRef = doc(db, 'challenge-locks', lockId)
+            const docSnap = await getDoc(docRef)
+            if (docSnap.exists()) {
+                console.log('Document data:', lockId, docSnap.data())
+            } else {
+                console.log('No such document', lockId)
+                return null
+            }
+            return docSnap.data()
+        } catch (error) {
+            console.error('Error getting document:', error)
+        }
+    }, [])
+
+    const updateEntry = useCallback(async delta => {
+        console.log('DB, updating entry: ', delta)
+        if (dbError) return false
+        const ref = doc(db, 'challenge-locks', delta.id)
+        let statusText = ''
+        const cleanDelta = Object.fromEntries(Object.entries(delta).filter(([, value]) => value !== undefined))
+
+        try {
+            await runTransaction(db, async transaction => {
+                const sfDoc = await transaction.get(ref)
+                if (!sfDoc.exists()) {
+                    transaction.set(ref, cleanDelta)
+                    statusText = 'Entry Created'
+                } else {
+                    transaction.update(ref, cleanDelta)
+                    statusText = 'Entry Updated'
+                }
+            })
+            console.log(statusText)
+            return statusText
+        } catch (e) {
             console.log('error')
             console.error(e)
         }
-    }, [dbError, updateVersion])
+    }, [dbError])
 
 
     const getCheckIns = useCallback(async (lockId) => {
@@ -125,98 +160,194 @@ export function DBProviderCL({children}) {
     }, [dbError])
 
 
-    /*
-        const allEntries = useMemo(async () => {
-            if (!dbLoaded) return []
-            return await refreshEntries()
-                .then(entries => {
-                    if (entries && entries.length > 0) {
-                        return entries
-                    } else {
-                        console.warn('No entries found in the database.')
-                        return []
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching entries:', error)
-                    return []
-                })
-        },[dbLoaded, refreshEntries])
-    */
-
-    const updateEntry = useCallback(async entry => {
-        console.log('DB, updating entry: ', entry)
+    const deleteChallengeLock = useCallback(async ({entryId}) => {
         if (dbError) return false
-        const modified = dayjs().format()
-        const ref = doc(db, 'challenge-locks', entry.id)
-        let statusText = ''
 
-        if (!entry.comments) {
-            entry.comments = ''
-        }
+        const collectionName = 'challenge-locks'
+        console.log('DB, deleting entry: ', entryId, 'from', collectionName)
 
         try {
-            await runTransaction(db, async transaction => {
-                const sfDoc = await transaction.get(ref)
-                const delta = {
-                    id: entry.id,
-                    date: entry.date,
-                    pickerId: entry.pickerId,
-                    lockId: entry.lockId,
-                    startTime: entry.startTime,
-                    openTime: entry.openTime,
-                    videoUrl: entry.videoUrl,
-                    status: entry.status,
-                    created: entry.created,
-                    reviewerId: entry.reviewerId,
-                    comments: entry.comments,
-                    modified: modified
-                }
-                if (!sfDoc.exists()) {
-                    transaction.set(ref, delta)
-                    statusText = 'Entry Created'
-                } else {
-                    transaction.update(ref, delta)
-                    statusText = 'Entry Updated'
-                }
-            })
+
+            const ref = doc(db, collectionName, entryId)
+            try {
+                await deleteDoc(ref)
+                console.log('DB, successfully deleted entry: ', entryId, 'from', collectionName)
+            } catch (e) {
+                console.error('DB, could not delete:', entryId, 'from collection:', collectionName, e)
+            }
+
+            const checkInsQuery = query(
+                collection(db, 'challenge-lock-check-ins'),
+                where('lockId', '==', entryId)
+            )
+            const checkInsSnap = await getDocs(checkInsQuery)
+            const deletePromises = checkInsSnap.docs.map(ciDoc => deleteDoc(ciDoc.ref))
+            await Promise.all(deletePromises)
+
             await updateVersion()
-            //console.log(statusText)
-            return statusText
+            await refreshEntries()
+            enqueueSnackbar('Entry (and check-ins) deleted successfully.', {variant: 'success'})
         } catch (e) {
+            enqueueSnackbar(`Error deleting Entry (and check-ins): ${e}`, {variant: 'error'})
             console.log('error')
             console.error(e)
         }
-    }, [dbError, updateVersion])
+    }, [dbError, refreshEntries, updateVersion])
 
-    // TODO - not working, remove, use postData instead
+
     const createCheckIn = useCallback(async (checkIn) => {
-        let statusText = ''
-        console.log('DB, updating entry: ', checkIn)
-        if (dbError) return false
-        const modified = dayjs().format()
-        const ref = doc(db, '/challenge-lock-check-ins', checkIn.id)
+
+        const urlError = checkIn.videoUrl?.length > 0 && !validator.isURL(checkIn.videoUrl)
+        if (urlError) checkIn.videoUrl = 'invalid video URL'
+
+        // TODO - validate all of checkIn data
+
+        const ref = doc(db, 'challenge-lock-check-ins', checkIn.id)
 
         try {
-            await runTransaction(db, async transaction => {
-                const sfDoc = await transaction.get(ref)
-                const delta = {...checkIn, modified: modified}
-                if (!sfDoc.exists()) {
-                    transaction.set(ref, delta)
-                    statusText = 'Check-in Created'
-                } else {
-                    statusText = 'Check-in already exists'
-                }
-            })
-            await updateVersion()
-            return statusText
-        } catch (e) {
-            console.error(e)
-            statusText = 'Check-in failed to update.'
-            return statusText
+            await setDoc(ref, checkIn)
+        } catch (error) {
+            console.log('error')
+            console.error(error)
         }
-    }, [dbError, updateVersion])
 
+        // set lock: latestCheckIn, ratings, approx belt, checkInCount, successCount
+
+        const lockEntry = await getChallengeLock(checkIn.lockId)
+
+        console.log('DB, updating lock entry with check-in: ', checkIn.lockId, lockEntry)
+
+        let updates = {}
+        if (!lockEntry.latestUpdate || dayjs(checkIn.pickDate).isAfter(lockEntry.latestUpdate?.pickDate)) {
+            updates.latestUpdate = checkIn
+        }
+
+        const ratings = Object.keys(checkIn)
+            .filter(key => key.startsWith('rating'))
+            .reduce((acc, key) => {
+                acc[key] = parseInt(checkIn[key])
+                return acc
+            }, {})
+        Object.keys(ratings).forEach(key => {
+            updates[key] = lockEntry[key]
+                ? [...lockEntry[key], ratings[key]]
+                : [ratings[key]]
+        })
+
+        updates.approxBelt = lockEntry.approxBelt
+            ? checkIn.approxBelt
+                ? [...lockEntry.approxBelt, checkIn.approxBelt]
+                : lockEntry.approxBelt
+            : checkIn.approxBelt
+                ? [checkIn.approxBelt]
+                : []
+
+        updates.checkInCount = (lockEntry.checkInCount || 0) + 1
+        updates.successCount = (lockEntry.successCount || 0) + (checkIn.successfulPick === 'Yes' ? 1 : 0)
+
+        // SUBMIT UPDATES
+        if (Object.keys(updates).length > 0) {
+            updates.id = checkIn.lockId
+            await updateEntry(updates)
+        }
+
+        await updateVersion()
+        await refreshEntries()
+        console.log('done')
+
+    }, [getChallengeLock, refreshEntries, updateEntry, updateVersion])
+
+    const deleteCheckIn = useCallback(async (checkIn) => {
+        if (dbError) return false
+        const collectionName = 'challenge-lock-check-ins'
+        const parentId = checkIn.lockId
+        console.log('DB, deleting entry: ', checkIn.id, 'from', collectionName)
+
+        try {
+
+            const ref = doc(db, collectionName, checkIn.id)
+            try {
+                await deleteDoc(ref)
+                console.log('DB, successfully deleted check-in: ', checkIn.id, 'from', collectionName)
+            } catch (e) {
+                console.error('DB, could not delete:', checkIn.id, 'from collection:', collectionName, e)
+            }
+
+            // change "latest check-in" if deleting the latest check-in
+            //   - just delete check-in if it is the only one
+            //   - set to latest remaining check-in if it exists
+            //   - update check-in count
+
+            const checkIns = await getCheckIns(parentId)
+            console.log('remaining check-ins for lockId:', parentId, 'check-ins:', checkIns.length)
+
+            if (checkIns.length > 0) {
+
+                // set lock: latestCheckIn, checkInCount, successCount, RATINGS, approx belt
+
+                checkIns.sort((a, b) => dayjs(b.pickDate).valueOf() - dayjs(a.pickDate).valueOf())
+
+                const successCount = checkIns.reduce((acc, ci) => {
+                    return acc + (ci.successfulPick === 'Yes' ? 1 : 0)
+                }, 0)
+                console.log('got remaining check-ins for lockId:', parentId, checkIns)
+
+                // TODO - maxVotes
+                const ratings = Object.keys(clRatingDimensions).reduce((acc, dimension) => {
+
+                    const ratingKey = `rating${dimension}`
+                    if (!acc[ratingKey]) acc[ratingKey] = []
+
+                    checkIns.forEach(ci => {
+                        if (ci[ratingKey] !== undefined) {
+                            acc[ratingKey].push(parseInt(ci[ratingKey]))
+                        }
+                    })
+                    return acc
+                }, {})
+
+                console.log('ratings:', ratings)
+
+                const latestCheckIn = checkIns[0]
+                const lockRef = doc(db, 'challenge-locks', parentId)
+                await runTransaction(db, async transaction => {
+                    transaction.update(lockRef, {
+                        latestUpdate: latestCheckIn,
+                        checkInCount: checkIns.length,
+                        latestCheckIn: latestCheckIn.pickDate || null,
+                        successCount: successCount,
+                        ...ratings
+                    })
+                })
+            } else {
+                const lockRef = doc(db, 'challenge-locks', parentId)
+
+                const ratings = Object.keys(clRatingDimensions).reduce((acc, dimension) => {
+                    const ratingKey = `rating${dimension}`
+                    acc[ratingKey] = []
+                    return acc
+                }, {})
+
+                await runTransaction(db, async transaction => {
+                    transaction.update(lockRef, {
+                        latestUpdate: null,
+                        latestCheckIn: null,
+                        checkInCount: 0,
+                        successCount: 0,
+                        ...ratings
+                    })
+                })
+            }
+
+            await updateVersion()
+            await refreshEntries()
+            enqueueSnackbar('Check-in deleted successfully.', {variant: 'success'})
+        } catch (e) {
+            enqueueSnackbar(`Error deleting check-in: ${e}`, {variant: 'error'})
+            console.log('error')
+            console.error(e)
+        }
+    }, [dbError, getCheckIns, refreshEntries, updateVersion])
 
     // value & provider
     const value = useMemo(() => ({
@@ -225,9 +356,12 @@ export function DBProviderCL({children}) {
         updateEntry,
         refreshEntries,
         allEntries,
-        deleteEntry,
+        getChallengeLock,
+        deleteChallengeLock,
         createCheckIn,
+        deleteCheckIn,
         getCheckIns,
+        currentVersion,
         newVersionAvailable,
         updateVersion
     }), [
@@ -236,9 +370,12 @@ export function DBProviderCL({children}) {
         updateEntry,
         refreshEntries,
         allEntries,
-        deleteEntry,
+        getChallengeLock,
+        deleteChallengeLock,
         createCheckIn,
+        deleteCheckIn,
         getCheckIns,
+        currentVersion,
         newVersionAvailable,
         updateVersion
     ])

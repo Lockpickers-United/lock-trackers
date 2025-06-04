@@ -11,6 +11,7 @@ import Link from '@mui/material/Link'
 import ChoiceButtonGroup from '../util/ChoiceButtonGroup.jsx'
 import {useNavigate} from 'react-router-dom'
 import AuthContext from '../app/AuthContext.jsx'
+import {postData} from '../formUtils/postData.jsx'
 import {enqueueSnackbar} from 'notistack'
 import countries from '../data/countries.json'
 import AutoCompleteBox from '../formUtils/AutoCompleteBox.jsx'
@@ -19,6 +20,7 @@ import dayjs from 'dayjs'
 import {FormControlLabel, Radio, RadioGroup} from '@mui/material'
 import DBContext from './DBContextCL.jsx'
 import DataContext from '../context/DataContext.jsx'
+import {jsonIt} from '../util/jsonIt.js' // eslint-disable-line
 import checkInTestData from './checkInTestData.json'
 import FilterContext from '../context/FilterContext.jsx'
 import RatingTable from './RatingTable.jsx'
@@ -34,9 +36,11 @@ import filterProfanity from '../util/filterProfanity.js'
 
 export default function CheckIn() {
 
+    const serverUrl = 'https://lpulocks.com:7443'
+
     const {allEntries, getEntryFromId} = useContext(DataContext)
     const {user} = useContext(AuthContext)
-    const {createCheckIn, profile, refreshEntries} = useContext(DBContext)
+    const {profile, refreshEntries, updateVersion} = useContext(DBContext)
     const [response, setResponse] = useState(undefined)
     const [uploading, setUploading] = useState(false)
     const [uploadError, setUploadError] = useState(undefined)
@@ -104,7 +108,7 @@ export default function CheckIn() {
         setForm({...form, ...dateValue})
     }, [form])
 
-    const requiredFields = ['lockId', 'pickDate', 'username', 'usernamePlatform', 'successfulPick']
+    const requiredFields = ['lockId', 'username', 'usernamePlatform', 'successfulPick']
     const uploadable = requiredFields.every(field => form[field] && form[field].length > 0)
 
     const handleSubmit = async (event) => {
@@ -128,10 +132,17 @@ export default function CheckIn() {
 
         delete formCopy.ratings
 
+        const formData = new FormData()
+        Object.keys(formCopy).forEach(key => {
+            formData.append(key, formCopy[key])
+        })
+
+        const url = `${serverUrl}/check-in-challenge-lock`
+
         try {
-            await createCheckIn(formCopy)
-            const safeName = lock?.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
-            navigate(`/challengelocks?id=${lockId}&name=${safeName}`)
+            const results = await postData({user, url, formData, snackBars: false})
+            setResponse(results)
+            await updateVersion()
         } catch (error) {
             setUploadError(`${error}`.replace('Error: ', ''))
             enqueueSnackbar(`Error creating request: ${error}`, {variant: 'error', autoHideDuration: 3000})

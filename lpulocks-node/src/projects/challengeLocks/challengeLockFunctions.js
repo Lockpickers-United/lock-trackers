@@ -113,7 +113,7 @@ export async function submitCheckIn(req, res) {
 
         ref = db.collection('challenge-locks').doc(entry.lockId)
         const lockEntry = await fetchDocument(ref, entry.lockId)
-        
+
         let updates = {}
         if (!lockEntry.latestUpdate || dayjs(entry.pickDate).isAfter(lockEntry.latestUpdate?.pickDate)) {
             updates.latestUpdate = entry
@@ -171,7 +171,7 @@ export default async function submitChallengeLock(req, res) {
         uploadDir,
         keepExtensions: true,
         createDirsFromUploads: true,
-        maxFileSize: 30 * 1024 * 1024,
+        maxFileSize: 100 * 1024 * 1024,
         filter: ({mimetype}) => mimetype && mimetype.includes('image'),
         filename(name, ext, part) {
             const {fullFilename, filepath, localsubdirs} = createFilename(part, serverPath, uploadDir)
@@ -267,6 +267,17 @@ export default async function submitChallengeLock(req, res) {
             await setDocument(ref, entry, entry.id)
         } catch (error) {
             handleError(res, 'Failed to create Challenge Lock', error, 500)
+        }
+
+        try {
+            filepaths.map((filepath) => {
+                fs.rmSync(`${filepath}`, {force: true})
+            })
+            console.log('Original files deleted successfully')
+        } catch (error) {
+            console.error('An error occurred deleteing original files', error.message)
+            //res.status(500).send({status: 500, message: 'An error occurred deleting temp directory'})
+            return
         }
 
         const html = `<strong>Challenge Lock submitted: ${sanitizeHTML(lockName)} by ${sanitizeHTML(fields.maker)}</strong><br/><br/>`

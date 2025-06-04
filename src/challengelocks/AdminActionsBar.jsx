@@ -2,6 +2,8 @@ import React, {useCallback, useContext, useState} from 'react'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import DBContextCL from './DBContextCL.jsx'
+import {useNavigate} from 'react-router-dom'
+import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
 
 export default function AdminActionsBar({entry}) {
 
@@ -10,21 +12,30 @@ export default function AdminActionsBar({entry}) {
     const handleOpen = useCallback(event => setAnchorEl(event.currentTarget), [])
     const handleClose = useCallback(() => setAnchorEl(null), [])
 
-    const {refreshEntries, deleteEntry} = useContext(DBContextCL)
+    const {refreshEntries, deleteChallengeLock} = useContext(DBContextCL)
+    const navigate = useNavigate()
+    const [deleting, setDeleting] = useState(false)
 
     const handleDelete = useCallback(async () => {
-        await deleteEntry(entry.id)
+        setDeleting(true)
+        await deleteChallengeLock({entryId: entry.id, collection: 'challenge-locks', parentId: null})
         await refreshEntries()
-    }, [deleteEntry, entry.id, refreshEntries])
+        setDeleting(false)
+    }, [deleteChallengeLock, entry.id, refreshEntries])
+
+    const handleEdit = useCallback(() => {
+        const safeName = entry.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
+        navigate(`/challengelocks/edit?id=${entry.id}&name=${safeName}`)
+    }, [entry.id, entry.name, navigate])
 
     return (
 
         <div style={{display: 'flex', border: '1px solid #d98508', padding: 5, alignItems: 'center'}}>
-            <div style={{fontSize: '1.1rem', fontWeight: 600, flexGrow: 1, marginLeft:10, color: '#fda21b'}}>
+            <div style={{fontSize: '1.1rem', fontWeight: 600, flexGrow: 1, marginLeft: 10, color: '#fda21b'}}>
                 ADMIN
             </div>
-            <div style={{marginLeft: 30}}>
-                <Button style={{marginRight: 10, color: '#f00'}} onClick={handleOpen} edge='start'>
+            <div style={{marginLeft: 10}}>
+                <Button style={{marginRight: 0, color: '#f00'}} onClick={handleOpen} edge='start'>
                     Delete
                 </Button>
                 <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
@@ -32,17 +43,30 @@ export default function AdminActionsBar({entry}) {
                         You cannot undo delete.<br/>
                         Are you sure?
                     </div>
-                    <div style={{textAlign: 'center'}}>
-                        <Button style={{marginBottom: 10, color: '#000'}}
-                                variant='contained'
-                                onClick={handleDelete}
-                                edge='start'
-                                color='error'
-                        >
-                            Delete
-                        </Button>
+                    <div style={{display:'flex', justifyContent: 'center'}}>
+                        {deleting
+                            ? <LoadingDisplayWhite color={'#fda21b'}/>
+                            : <Button style={{marginBottom: 10, color: '#000'}}
+                                      variant='contained'
+                                      onClick={handleDelete}
+                                      edge='start'
+                                      color='error'
+                            >
+                                Delete
+                            </Button>
+                        }
                     </div>
                 </Menu>
+            </div>
+
+            <Button style={{marginRight: 0, color: '#fda21b'}} onClick={() => console.log('entry', entry)} edge='start'>
+                LOG
+            </Button>
+
+            <div style={{marginRight: 10}}>
+                <Button style={{marginRight: 0, color: '#fda21b'}} onClick={handleEdit} edge='start'>
+                    Edit
+                </Button>
             </div>
 
         </div>

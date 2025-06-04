@@ -45,7 +45,7 @@ function FilterDisplayToggleButtons({maxLength = 14}) {
     if (filterCount === 0) return null
 
     return (
-        <div style={{flexShrink: 1}}>
+        <div style={{}}>
             {chunkedFilterValues.map((group, index) =>
                 <ToggleButtonGroup style={{height: 26, marginTop: 10, marginLeft: 10}} key={index}>
                     {group.map(({key, value: filter}, index) =>

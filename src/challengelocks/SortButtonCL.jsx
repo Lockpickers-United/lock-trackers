@@ -33,7 +33,7 @@ function SortButtonCL() {
             ? 'Created ⬇'
             : 'Created ⬇'
     const handleCreatedSort = useCallback(value => () => {
-        const newSort = value === 'createdDesc' ? 'createdAsc' : 'createdDesc'
+        const newSort = value === 'createdAsc' ? 'createdDesc' : 'createdAsc'
         setCreatedSort(newSort)
         setTimeout(() => addFilter('sort', newSort, true), 0)
         setAnchorEl(null)

@@ -38,7 +38,7 @@ export default function SubmitChallengeLock({entry}) {
     const serverUrl = 'https://lpulocks.com:7443'
 
     const {user} = useContext(AuthContext)
-    const {profile, refreshEntries, updateVersion} = useContext(DBContext)
+    const {profile, refreshEntries, updateVersion, updateEntry} = useContext(DBContext)
     const [mainPhoto, setMainPhoto] = useState([])
     const [files, setFiles] = useState([])
     const [response, setResponse] = useState(undefined)
@@ -60,11 +60,11 @@ export default function SubmitChallengeLock({entry}) {
             setEntryId(entry.id)
             setEntryName(entry.name)
         } else {
-            const newForm = {id: 'cl_' + genHexString(8), usernamePlatform: 'discord'}
+            const newForm = {id: 'cl_' + genHexString(8), username: profile.discordUsername || undefined, usernamePlatform: 'discord'}
             setForm(newForm)
             setLocation(null)
         }
-    },[entry])
+    }, [entry, profile.discordUsername])
 
     const handleTestData = useCallback(() => {
         setForm({...form, ...clTestData, lockCreated: dayjs().toISOString()})
@@ -82,7 +82,8 @@ export default function SubmitChallengeLock({entry}) {
     }, [form])
 
     const requiredFields = ['name', 'maker', 'lockCreated', 'country', 'username', 'usernamePlatform']
-    const uploadable = requiredFields.every(field => Object.keys(form).includes(field)) && mainPhoto.length > 0
+    const uploadable = requiredFields.every(field => form[field] && form[field].length > 0) &&
+        (mainPhoto.length > 0 || entry)
 
     const getHighlightColor = useCallback(field => {
         return highlightRequired
@@ -108,9 +109,8 @@ export default function SubmitChallengeLock({entry}) {
 
     const handleSubmit = async ({doCheckIn = false}) => {
 
-        setCheckIn(doCheckIn)
-
         setUploading(true)
+        setCheckIn(doCheckIn)
 
         const formCopy = {
             ...sanitizeValues(form),
@@ -118,45 +118,78 @@ export default function SubmitChallengeLock({entry}) {
             status: 'active'
         }
 
-        const prefix = formCopy.name?.replace('/', '+')
-        const suffix = formCopy.username?.replace('/', '+')
-
         const formData = new FormData()
         Object.keys(formCopy).forEach(key => {
             formData.append(key, formCopy[key])
         })
-        const uploadsDir = `${prefix}-${suffix}-${form.id}`.toLowerCase()
 
-        mainPhoto.forEach((file) => {
-            const {base, ext} = separateBasename(file.name)
-            formData.append('files', file, `${uploadsDir}/${prefix}_${base}_${suffix}--main${ext}`.toLowerCase())
-        })
-        files.forEach((file) => {
-            const {base, ext} = separateBasename(file.name)
-            formData.append('files', file, `${uploadsDir}/${prefix}_${base}_${suffix}${ext}`.toLowerCase())
-        })
+        if (!entry) {
+            const prefix = formCopy.name?.replace('/', '+')
+            const suffix = formCopy.username?.replace('/', '+')
+            const uploadsDir = `${prefix}-${suffix}-${form.id}`.toLowerCase()
 
+            mainPhoto.forEach((file) => {
+                const {base, ext} = separateBasename(file.name)
+                formData.append('files', file, `${uploadsDir}/${prefix}_${base}_${suffix}--main${ext}`.toLowerCase())
+            })
+            files.forEach((file) => {
+                const {base, ext} = separateBasename(file.name)
+                formData.append('files', file, `${uploadsDir}/${prefix}_${base}_${suffix}${ext}`.toLowerCase())
+            })
+        }
         //return
 
-        const url = `${serverUrl}/submit-challenge-lock`
+        if (entry) {
+            Object.keys(formCopy).forEach(key => formCopy[key] === undefined ? delete formCopy[key] : {})
 
-        try {
-            const results = await postData({user, url, formData, snackBars: false})
-            setResponse(results)
-            await refreshEntries()
-            await updateVersion()
-        } catch (error) {
-            setUploadError(`${error}`.replace('Error: ', ''))
-            enqueueSnackbar(`Error creating request: ${error}`, {variant: 'error', autoHideDuration: 3000})
-            throw error
-        } finally {
-            setEntryId(form.id)
-            setEntryName(form.name)
-            files.forEach(file => URL.revokeObjectURL(file.preview))
-            mainPhoto.forEach(file => URL.revokeObjectURL(file.preview))
-            setFiles([])
-            setUploading(false)
-            setForm(formCopy)
+
+            const submitInfo = entry.submittedBy
+                ? entry.submittedBy
+                : entry.requestedBy
+                    ? entry.requestedBy[0]
+                    : {}
+
+            formCopy.submittedBy = {
+                userId: submitInfo.userId || 'unknown',
+                displayName: submitInfo.displayName || 'unknown',
+                userBelt: formCopy.userBelt || submitInfo.userBelt || 'unknown',
+                username: formCopy.username || submitInfo.username || 'unknown',
+                usernamePlatform: formCopy.usernamePlatform || submitInfo.usernamePlatform || 'unknown'
+            }
+
+            try {
+                await updateEntry(formCopy)
+            } catch (error) {
+                setUploadError(`${error}`.replace('Error: ', ''))
+                enqueueSnackbar(`Error creating request: ${error}`, {variant: 'error', autoHideDuration: 3000})
+                throw error
+            } finally {
+                await refreshEntries()
+                setUploading(false)
+                const safeName = formCopy.name.replace(/[\s/]/g, '_').replace(/\W/g, '')
+                navigate(`/challengelocks?id=${formCopy.id}&name=${safeName}`)
+            }
+        } else {
+            const url = `${serverUrl}/submit-challenge-lock`
+
+            try {
+                const results = await postData({user, url, formData, snackBars: false})
+                setResponse(results)
+                await refreshEntries()
+                await updateVersion()
+            } catch (error) {
+                setUploadError(`${error}`.replace('Error: ', ''))
+                enqueueSnackbar(`Error creating request: ${error}`, {variant: 'error', autoHideDuration: 3000})
+                throw error
+            } finally {
+                setEntryId(form.id)
+                setEntryName(form.name)
+                files.forEach(file => URL.revokeObjectURL(file.preview))
+                mainPhoto.forEach(file => URL.revokeObjectURL(file.preview))
+                setFiles([])
+                setUploading(false)
+                setForm(formCopy)
+            }
         }
     }
 
@@ -169,6 +202,9 @@ export default function SubmitChallengeLock({entry}) {
         if (checkIn) {
             const safeName = entryName.replace(/[\s/]/g, '_').replace(/\W/g, '')
             navigate(`/challengelocks/checkin?id=${entryId}&name=${safeName}`)
+        } else {
+            const safeName = form.name.replace(/[\s/]/g, '_').replace(/\W/g, '')
+            navigate(`/challengelocks?id=${form.id}&name=${safeName}`)
         }
 
         files.forEach(file => URL.revokeObjectURL(file.preview))
@@ -209,13 +245,15 @@ export default function SubmitChallengeLock({entry}) {
     //const fullWidth = !isMobile ? 660 : 300
     const paddingLeft = !isMobile ? 16 : 8
 
-    const headerStyle = {fontSize: '1.1rem', fontWeight: 600, marginBottom: 5, paddingLeft: 2}
+    const headerStyle = {fontSize: '1.1rem', fontWeight: 600, marginBottom: 5, paddingLeft: 2, width: '100%'}
     const optionalHeaderStyle = {fontSize: '1.1rem', fontWeight: 400, marginBottom: 5, paddingLeft: 2, color: '#ccc'}
+
+    const subNavItem = entry ? optionsCL[0] : optionsCL[1]
 
     return (
 
         <React.Fragment>
-            <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[1].label}/><br/>
+            <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={subNavItem.label}/><br/>
             <Link onClick={handleTestData}>Fill test data</Link>
 
 
@@ -224,11 +262,21 @@ export default function SubmitChallengeLock({entry}) {
                 marginLeft: 'auto', marginRight: 'auto', marginTop: 16, marginBottom: 46, paddingLeft: 8
             }}>
                 <div style={{margin: `10px 20px 30px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
-                    <div style={{fontSize: '1.3rem', fontWeight: 700, marginBottom: 10}}>{entry ? 'Edit' : 'Submit a'} Challenge Lock</div>
-                    Use this page to submit a new Challenge Lock that you have either created or received.
-                    Please be sure to <Link onClick={() => navigate('/challengelocks')}
-                                            style={{color: '#bbb', cursor: 'pointer', fontWeight: 700}}>check the existing locks</Link> for a match before submitting.
-
+                    <div style={{
+                        fontSize: '1.3rem',
+                        fontWeight: 700,
+                        marginBottom: 10
+                    }}>{entry ? 'Edit' : 'Submit a'} Challenge Lock
+                    </div>
+                    {!entry &&
+                        <div>
+                            Use this page to submit a new Challenge Lock that you have either created or received.
+                            Please be sure to <Link onClick={() => navigate('/challengelocks')}
+                                                    style={{color: '#bbb', cursor: 'pointer', fontWeight: 700}}>check
+                            the
+                            existing locks</Link> for a match before submitting.
+                        </div>
+                    }
                 </div>
 
                 <form action={null} encType='multipart/form-data' method='post'
@@ -236,7 +284,7 @@ export default function SubmitChallengeLock({entry}) {
                     <div style={{paddingLeft: paddingLeft}}>
 
                         <div style={{display: flexStyle, marginBottom: 0}}>
-                            <div style={{marginRight: 20}}>
+                            <div style={{marginRight: 20, width: 340}}>
                                 <div style={{...headerStyle, backgroundColor: getHighlightColor('name')}}>
                                     Challenge Lock Name
                                 </div>
@@ -245,7 +293,7 @@ export default function SubmitChallengeLock({entry}) {
                                            value={form.name || ''} color='info'
                                            inputProps={{maxLength: textFieldMax}}/>
                             </div>
-                            <div style={{}}>
+                            <div style={{width: 300}}>
                                 <div style={{...headerStyle, backgroundColor: getHighlightColor('maker')}}>
                                     CL Maker
                                 </div>
@@ -264,10 +312,13 @@ export default function SubmitChallengeLock({entry}) {
                                 <DatePicker label='Date Created'
                                             value={form.lockCreated ? dayjs(form.lockCreated) : null}
                                             onChange={(newValue) => handleDateChange({lockCreated: newValue.toISOString()})}
+                                            disableFuture
+                                            minDate={dayjs('2015-01-01')}
+                                            maxDate={dayjs('2026-12-31')}
                                 />
                             </div>
 
-                            <div style={{marginRight: 20}}>
+                            <div style={{marginRight: 20, width: 250}}>
                                 <div style={{...headerStyle, backgroundColor: getHighlightColor('country')}}>Origin
                                 </div>
                                 <AutoCompleteBox changeHandler={handleFormChange}
@@ -278,7 +329,7 @@ export default function SubmitChallengeLock({entry}) {
                                 />
                             </div>
 
-                            <div style={{}}>
+                            <div style={{width: 170}}>
                                 <div style={{...headerStyle, backgroundColor: getHighlightColor('lockFormat')}}>Lock
                                     Format
                                 </div>
@@ -289,22 +340,24 @@ export default function SubmitChallengeLock({entry}) {
                             </div>
                         </div>
 
-                        <div style={{display: flexStyle, marginTop: 30}}>
-                            <div style={{marginRight: 20, width: 250}}>
-                                <div style={{...headerStyle, backgroundColor: getHighlightColor('mainPhoto')}}>
-                                    Main Lock Photo (no spoilers!)<br/>
+                        {!entry &&
+                            <div style={{display: flexStyle, marginTop: 30}}>
+                                <div style={{marginRight: 20, width: 250}}>
+                                    <div style={{...headerStyle, backgroundColor: getHighlightColor('mainPhoto')}}>
+                                        Main Lock Photo (no spoilers!)<br/>
+                                    </div>
+                                    <Dropzone files={mainPhoto} handleDroppedFiles={handleDroppedFiles} maxFiles={1}
+                                              zoneId={'mainPhoto'}/>
                                 </div>
-                                <Dropzone files={mainPhoto} handleDroppedFiles={handleDroppedFiles} maxFiles={1}
-                                          zoneId={'mainPhoto'}/>
-                            </div>
-                            <div style={{marginRight: 0, flexGrow: 1, maxWidth: 390}}>
-                                <div style={{...optionalHeaderStyle, color: '#fff'}}>
-                                    Other Lock Photos <span
-                                    style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional, spoilers OK, max 8)</span>
+                                <div style={{marginRight: 0, flexGrow: 1, maxWidth: 390}}>
+                                    <div style={{...optionalHeaderStyle, color: '#fff'}}>
+                                        Other Lock Photos <span
+                                        style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional, spoilers OK, max 5)</span>
+                                    </div>
+                                    <Dropzone files={files} handleDroppedFiles={handleDroppedFiles} maxFiles={5}/>
                                 </div>
-                                <Dropzone files={files} handleDroppedFiles={handleDroppedFiles} maxFiles={8}/>
                             </div>
-                        </div>
+                        }
 
                         <div style={{display: flexStyle, marginTop: 30}}>
                             <div style={{flexGrow: 1, maxWidth: 660, marginRight: 20}}>
@@ -351,7 +404,7 @@ export default function SubmitChallengeLock({entry}) {
                                     Approx. Belt <span style={{...optionalHeaderStyle, color: '#aaa'}}>(optional)</span>
                                 </div>
                                 <SelectBox changeHandler={handleFormChange}
-                                           name='approxBelt' form={form} optionsList={uniqueBelts}
+                                           name='approximateBelt' form={form} optionsList={uniqueBelts}
                                            multiple={false} defaultValue={''}
                                            size={'large'} width={180}/>
                             </div>
@@ -362,7 +415,7 @@ export default function SubmitChallengeLock({entry}) {
                                 <div style={{display: 'flex'}}>
                                     <div style={{marginRight: 15}}>
                                         <div style={{...headerStyle, backgroundColor: getHighlightColor('username')}}>
-                                            Your Username
+                                            {entry ? 'Original' : 'Your'} Username
                                         </div>
                                         <TextField type='text' name='username' style={{width: 240}}
                                                    onChange={handleFormChange} value={form.username || ''} color='info'
@@ -373,7 +426,7 @@ export default function SubmitChallengeLock({entry}) {
                                             name='usernamePlatform'
                                             onChange={handleFormChange}
                                             size='small'
-                                            defaultValue='discord'
+                                            value={form.usernamePlatform || 'discord'}
                                             sx={{
                                                 '& .MuiRadio-root': {
                                                     padding: '7px'
@@ -390,7 +443,8 @@ export default function SubmitChallengeLock({entry}) {
 
                                 <div style={{marginTop: 0}}>
                                     <div style={optionalHeaderStyle}>
-                                        Your current belt <span style={{color: '#aaa'}}>(optional)</span>
+                                        {entry ? 'Original' : 'Your'} current belt <span
+                                        style={{color: '#aaa'}}>(optional)</span>
                                     </div>
                                     <SelectBox changeHandler={handleFormChange}
                                                name='userBelt' form={form}
@@ -414,10 +468,12 @@ export default function SubmitChallengeLock({entry}) {
                                     style={{marginRight: 20}}>
                                 Submit
                             </Button>
-                            <Button onClick={() => handleSubmit({doCheckIn: true})} variant='contained' color='info'
-                                    disabled={!uploadable || uploading}>
-                                Submit & Check In
-                            </Button>
+                            {!entry &&
+                                <Button onClick={() => handleSubmit({doCheckIn: true})} variant='contained' color='info'
+                                        disabled={!uploadable || uploading}>
+                                    Submit & Check In
+                                </Button>
+                            }
                         </div>
                     </div>
                 </form>
