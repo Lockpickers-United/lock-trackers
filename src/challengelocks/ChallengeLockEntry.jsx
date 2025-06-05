@@ -34,6 +34,8 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded}) => {
     const [scrolled, setScrolled] = useState(false)
     const ref = useRef(null)
 
+    //console.log('ChallengeLockEntry', entry.name, 'latestCheckIn', entry.latestCheckIn)
+
     const handleChange = useCallback((_, isExpanded) => {
         onExpand && onExpand(isExpanded ? entry.id : false)
     }, [entry.id, onExpand])
@@ -67,7 +69,18 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded}) => {
         textAlign: 'left'
     }
 
-    const {flexStyle, isMobile} = useWindowSize()
+    const {flexStyle, isMobile, width} = useWindowSize()
+    const mobileSmall = width <= 360
+    const mobileMedium = width <= 395
+    const mobileLarge = width <= 428  // but test also at 412
+    const smallWindow = width <= 560
+
+    const maxNameWidth = mobileSmall ? 155
+        : mobileMedium ? 180
+            :  mobileLarge ? 200
+                : smallWindow ? 225
+                    : 300
+
 
     const nameTextStyle = !isMobile
         ? {
@@ -77,7 +90,8 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded}) => {
             fontWeight: 600,
             marginLeft: 0,
             overflowWrap: 'break-word',
-            inlineSize: 300
+            inlineSize: '100%',
+            maxWidth: maxNameWidth
         }
         : {
             fontSize: '1.1rem',
@@ -86,7 +100,8 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded}) => {
             fontWeight: 600,
             marginLeft: 0,
             overflowWrap: 'break-word',
-            inlineSize: 150
+            inlineSize: '100%',
+            maxWidth: maxNameWidth
         }
     const makerTextStyle = !isMobile
         ? {
@@ -96,7 +111,8 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded}) => {
             marginLeft: 5,
             marginTop: 10,
             wordBreak: 'break-all',
-            inlineSize: 290
+            inlineSize: '100%',
+            maxWidth: (maxNameWidth - 10)
         }
         : {
             fontSize: '0.95rem',
@@ -105,7 +121,8 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded}) => {
             marginLeft: 5,
             marginTop: 5,
             wordBreak: 'break-all',
-            inlineSize: 140
+            inlineSize: '100%',
+            maxWidth: (maxNameWidth - 10)
         }
 
     const summaryFlexStyle = !isMobile ? {display: 'flex'} : {}

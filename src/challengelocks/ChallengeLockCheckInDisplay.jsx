@@ -9,10 +9,12 @@ import Menu from '@mui/material/Menu'
 import Button from '@mui/material/Button'
 import DBContextCL from './DBContextCL.jsx'
 import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
+import {useNavigate} from 'react-router-dom'
 
 export default function ChallengeLockCheckInDisplay({checkIn, latest = false, refreshCheckIns}) {
     const {adminEnabled} = useContext(DataContext)
     const {deleteCheckIn} = useContext(DBContextCL)
+    const navigate = useNavigate()
 
     const urlError = checkIn.videoUrl?.length > 0 && !validator.isURL(checkIn.videoUrl)
     const urlDisplay = checkIn.videoUrl && !urlError
@@ -41,8 +43,11 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
         handleClose()
     }, [deleteCheckIn, checkIn, refreshCheckIns, handleClose])
 
+    const handleEdit = useCallback(async () => {
+        navigate(`/challengelocks/edit?id=${checkIn.id}`)
+    },[checkIn.id, navigate])
 
-    const {flexStyle} = useWindowSize()
+        const {flexStyle} = useWindowSize()
     const openInNewTab = (url) => {
         const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
         if (newWindow) newWindow.opener = null
@@ -115,7 +120,7 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
 
                                 &nbsp;•&nbsp;
                                 <Link
-                                    onClick={() => openInNewTab(checkIn.videoUrl)}
+                                    onClick={handleEdit}
                                     style={{color: '#fda21b', textDecoration: 'none'}}>EDIT</Link>
                                 &nbsp;•&nbsp;
                                 <Link

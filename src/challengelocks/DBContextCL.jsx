@@ -159,6 +159,23 @@ export function DBProviderCL({children}) {
         return checkIns.sort((a, b) => dayjs(b.pickDate).isBefore(dayjs(a.pickDate)) ? -1 : 1)
     }, [dbError])
 
+    const getCheckIn = useCallback(async (checkInId) => {
+        console.log('DB getCheckIn, entry id:', checkInId)
+        try {
+            const docRef = doc(db, 'challenge-lock-check-ins', checkInId)
+            const docSnap = await getDoc(docRef)
+            if (docSnap.exists()) {
+                console.log('- Got data for:', checkInId)
+            } else {
+                console.log('- No check-in with id:', checkInId)
+                return null
+            }
+            return docSnap.data()
+        } catch (error) {
+            console.error('Error getting document:', error)
+        }
+    }, [])
+
 
     const deleteChallengeLock = useCallback(async ({entryId}) => {
         if (dbError) return false
@@ -195,6 +212,71 @@ export function DBProviderCL({children}) {
     }, [dbError, refreshEntries, updateVersion])
 
 
+    const updateLockWithCheckIns = useCallback(async (lockId) => {
+        const checkIns = await getCheckIns(lockId)
+        console.log('updating check-ins for lockId:', lockId, 'check-ins:', checkIns.length)
+
+        if (checkIns.length > 0) {
+
+            // set lock: latestCheckIn, checkInCount, successCount, ratings, approx belt
+
+            checkIns.sort((a, b) => dayjs(b.pickDate).valueOf() - dayjs(a.pickDate).valueOf())
+
+            const successCount = checkIns.reduce((acc, ci) => {
+                return acc + (ci.successfulPick === 'Yes' ? 1 : 0)
+            }, 0)
+
+            const ratings = Object.keys(clRatingDimensions).reduce((acc, dimension) => {
+                const ratingKey = `rating${dimension}`
+                if (!acc[ratingKey]) acc[ratingKey] = []
+                checkIns.forEach(ci => {
+                    if (ci[ratingKey] !== undefined) {
+                        acc[ratingKey].push(parseInt(ci[ratingKey]))
+                    }
+                })
+                return acc
+            }, {})
+
+            const approxBelt = checkIns.reduce((acc,ci) => {
+                if (ci.approxBelt) { acc.push(ci.approxBelt) }
+                return acc
+            },[])
+
+            const latestCheckIn = checkIns[0]
+            const lockRef = doc(db, 'challenge-locks', lockId)
+            await runTransaction(db, async transaction => {
+                transaction.update(lockRef, {
+                    latestUpdate: latestCheckIn,
+                    checkInCount: checkIns.length,
+                    latestCheckIn: latestCheckIn.pickDate || null,
+                    successCount,
+                    approxBelt,
+                    ...ratings
+                })
+            })
+        } else {
+            const lockRef = doc(db, 'challenge-locks', lockId)
+
+            const ratings = Object.keys(clRatingDimensions).reduce((acc, dimension) => {
+                const ratingKey = `rating${dimension}`
+                acc[ratingKey] = []
+                return acc
+            }, {})
+
+            await runTransaction(db, async transaction => {
+                transaction.update(lockRef, {
+                    latestUpdate: null,
+                    latestCheckIn: null,
+                    checkInCount: 0,
+                    successCount: 0,
+                    ...ratings
+                })
+            })
+        }
+    },[getCheckIns])
+
+
+
     const createCheckIn = useCallback(async (checkIn) => {
 
         const urlError = checkIn.videoUrl?.length > 0 && !validator.isURL(checkIn.videoUrl)
@@ -211,56 +293,20 @@ export function DBProviderCL({children}) {
             console.error(error)
         }
 
-        // set lock: latestCheckIn, ratings, approx belt, checkInCount, successCount
-
         const lockEntry = await getChallengeLock(checkIn.lockId)
 
         console.log('DB, updating lock entry with check-in: ', checkIn.lockId, lockEntry)
 
-        let updates = {}
-        if (!lockEntry.latestUpdate || dayjs(checkIn.pickDate).isAfter(lockEntry.latestUpdate?.pickDate)) {
-            updates.latestUpdate = checkIn
-        }
-
-        const ratings = Object.keys(checkIn)
-            .filter(key => key.startsWith('rating'))
-            .reduce((acc, key) => {
-                acc[key] = parseInt(checkIn[key])
-                return acc
-            }, {})
-        Object.keys(ratings).forEach(key => {
-            updates[key] = lockEntry[key]
-                ? [...lockEntry[key], ratings[key]]
-                : [ratings[key]]
-        })
-
-        updates.approxBelt = lockEntry.approxBelt
-            ? checkIn.approxBelt
-                ? [...lockEntry.approxBelt, checkIn.approxBelt]
-                : lockEntry.approxBelt
-            : checkIn.approxBelt
-                ? [checkIn.approxBelt]
-                : []
-
-        updates.checkInCount = (lockEntry.checkInCount || 0) + 1
-        updates.successCount = (lockEntry.successCount || 0) + (checkIn.successfulPick === 'Yes' ? 1 : 0)
-
-        // SUBMIT UPDATES
-        if (Object.keys(updates).length > 0) {
-            updates.id = checkIn.lockId
-            await updateEntry(updates)
-        }
-
+        await updateLockWithCheckIns(checkIn.lockId)
         await updateVersion()
         await refreshEntries()
         console.log('done')
 
-    }, [getChallengeLock, refreshEntries, updateEntry, updateVersion])
+    }, [getChallengeLock, refreshEntries, updateLockWithCheckIns, updateVersion])
 
     const deleteCheckIn = useCallback(async (checkIn) => {
         if (dbError) return false
         const collectionName = 'challenge-lock-check-ins'
-        const parentId = checkIn.lockId
         console.log('DB, deleting entry: ', checkIn.id, 'from', collectionName)
 
         try {
@@ -273,72 +319,7 @@ export function DBProviderCL({children}) {
                 console.error('DB, could not delete:', checkIn.id, 'from collection:', collectionName, e)
             }
 
-            // change "latest check-in" if deleting the latest check-in
-            //   - just delete check-in if it is the only one
-            //   - set to latest remaining check-in if it exists
-            //   - update check-in count
-
-            const checkIns = await getCheckIns(parentId)
-            console.log('remaining check-ins for lockId:', parentId, 'check-ins:', checkIns.length)
-
-            if (checkIns.length > 0) {
-
-                // set lock: latestCheckIn, checkInCount, successCount, RATINGS, approx belt
-
-                checkIns.sort((a, b) => dayjs(b.pickDate).valueOf() - dayjs(a.pickDate).valueOf())
-
-                const successCount = checkIns.reduce((acc, ci) => {
-                    return acc + (ci.successfulPick === 'Yes' ? 1 : 0)
-                }, 0)
-                console.log('got remaining check-ins for lockId:', parentId, checkIns)
-
-                // TODO - maxVotes
-                const ratings = Object.keys(clRatingDimensions).reduce((acc, dimension) => {
-
-                    const ratingKey = `rating${dimension}`
-                    if (!acc[ratingKey]) acc[ratingKey] = []
-
-                    checkIns.forEach(ci => {
-                        if (ci[ratingKey] !== undefined) {
-                            acc[ratingKey].push(parseInt(ci[ratingKey]))
-                        }
-                    })
-                    return acc
-                }, {})
-
-                console.log('ratings:', ratings)
-
-                const latestCheckIn = checkIns[0]
-                const lockRef = doc(db, 'challenge-locks', parentId)
-                await runTransaction(db, async transaction => {
-                    transaction.update(lockRef, {
-                        latestUpdate: latestCheckIn,
-                        checkInCount: checkIns.length,
-                        latestCheckIn: latestCheckIn.pickDate || null,
-                        successCount: successCount,
-                        ...ratings
-                    })
-                })
-            } else {
-                const lockRef = doc(db, 'challenge-locks', parentId)
-
-                const ratings = Object.keys(clRatingDimensions).reduce((acc, dimension) => {
-                    const ratingKey = `rating${dimension}`
-                    acc[ratingKey] = []
-                    return acc
-                }, {})
-
-                await runTransaction(db, async transaction => {
-                    transaction.update(lockRef, {
-                        latestUpdate: null,
-                        latestCheckIn: null,
-                        checkInCount: 0,
-                        successCount: 0,
-                        ...ratings
-                    })
-                })
-            }
-
+            await updateLockWithCheckIns(checkIn.lockId)
             await updateVersion()
             await refreshEntries()
             enqueueSnackbar('Check-in deleted successfully.', {variant: 'success'})
@@ -347,7 +328,7 @@ export function DBProviderCL({children}) {
             console.log('error')
             console.error(e)
         }
-    }, [dbError, getCheckIns, refreshEntries, updateVersion])
+    }, [dbError, refreshEntries, updateLockWithCheckIns, updateVersion])
 
     // value & provider
     const value = useMemo(() => ({
@@ -360,6 +341,7 @@ export function DBProviderCL({children}) {
         deleteChallengeLock,
         createCheckIn,
         deleteCheckIn,
+        getCheckIn,
         getCheckIns,
         currentVersion,
         newVersionAvailable,
@@ -374,6 +356,7 @@ export function DBProviderCL({children}) {
         deleteChallengeLock,
         createCheckIn,
         deleteCheckIn,
+        getCheckIn,
         getCheckIns,
         currentVersion,
         newVersionAvailable,

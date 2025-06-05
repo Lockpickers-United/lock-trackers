@@ -18,7 +18,6 @@ export default function RatingTable({
                                         fontWeight = 500
                                     }) {
 
-
     const columns = [
         {id: 'ratingArea', align: 'right', name: 'Area'},
         {id: 'rating', align: 'left', name: 'Your Rating'}

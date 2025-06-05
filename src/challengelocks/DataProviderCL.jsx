@@ -41,7 +41,7 @@ export function DataProvider({children}) {
                     fuzzy: removeAccents(`${entry.name}, ${entry.maker}`),
                     latestCheckIn: entry.latestUpdate?.pickDate || '2000-01-01',
                     submittedAt: entry.submittedAt || entry.dateSubmitted,
-                    lockCreated : entry.lockCreated || entry.createdAt
+                    lockCreated: entry.lockCreated || entry.createdAt
                 }
             })
             : []
@@ -81,11 +81,16 @@ export function DataProvider({children}) {
             ? searched.sort((a, b) => {
                 if (sort === 'name') {
                     return a.name.localeCompare(b.name)
-                } else if (sort === 'createdAsc') {
-                    return dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf()
+                        || dayjs(b.submittedAt).valueOf() - dayjs(a.submittedAt).valueOf()
+                } else if (sort === 'maker') {
+                    return a.maker.localeCompare(b.maker)
                         || a.name.localeCompare(b.name)
-                }else if (sort === 'submittedAt') {
+                        || dayjs(b.submittedAt).valueOf() - dayjs(a.submittedAt).valueOf()
+                } else if (sort === 'submittedAt') {
                     return dayjs(b.submittedAt).valueOf() - dayjs(a.submittedAt).valueOf()
+                        || a.name.localeCompare(b.name)
+                } else if (sort === 'createdAsc') {
+                    return dayjs(a.lockCreated).valueOf() - dayjs(b.lockCreated).valueOf()
                         || a.name.localeCompare(b.name)
                 } else if (sort === 'createdDesc') {
                     return dayjs(b.lockCreated).valueOf() - dayjs(a.lockCreated).valueOf()
@@ -99,7 +104,7 @@ export function DataProvider({children}) {
                 } else if (sort === 'checkInCount') {
                     return (b.checkInCount || 0) - (a.checkInCount || 0)
                         || a.name.localeCompare(b.name)
-                }else if (sort.startsWith('ratingAve')) {
+                } else if (sort.startsWith('ratingAve')) {
                     return (b[sort] || 0) - (a[sort] || 0)
                         || a.name.localeCompare(b.name)
                 } else {

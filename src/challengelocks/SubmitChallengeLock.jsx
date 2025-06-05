@@ -60,7 +60,11 @@ export default function SubmitChallengeLock({entry}) {
             setEntryId(entry.id)
             setEntryName(entry.name)
         } else {
-            const newForm = {id: 'cl_' + genHexString(8), username: profile.discordUsername || undefined, usernamePlatform: 'discord'}
+            const newForm = {
+                id: 'cl_' + genHexString(8),
+                username: profile.discordUsername || undefined,
+                usernamePlatform: 'discord'
+            }
             setForm(newForm)
             setLocation(null)
         }
@@ -207,6 +211,7 @@ export default function SubmitChallengeLock({entry}) {
             navigate(`/challengelocks?id=${form.id}&name=${safeName}`)
         }
 
+        // unused for now.
         files.forEach(file => URL.revokeObjectURL(file.preview))
         setFiles([])
         mainPhoto.forEach(file => URL.revokeObjectURL(file.preview))
@@ -226,7 +231,7 @@ export default function SubmitChallengeLock({entry}) {
             })
         }, 100)
 
-    }, [acReset, checkIn, entryId, entryName, files, mainPhoto, navigate])
+    }, [acReset, checkIn, entryId, entryName, files, form, mainPhoto, navigate])
 
     //TODO: clear form on error OK?
     const handleClose = useCallback(() => {
@@ -279,8 +284,7 @@ export default function SubmitChallengeLock({entry}) {
                     }
                 </div>
 
-                <form action={null} encType='multipart/form-data' method='post'
-                      onSubmit={handleSubmit}>
+                <form action={null} encType='multipart/form-data' method='post' >
                     <div style={{paddingLeft: paddingLeft}}>
 
                         <div style={{display: flexStyle, marginBottom: 0}}>
@@ -463,10 +467,16 @@ export default function SubmitChallengeLock({entry}) {
                         }
 
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
+                            {entry &&
+                                <Button onClick={() => navigate(`/challengelocks?id=${entry.id}`)} variant='contained'
+                                        color='error' style={{marginRight: 20}}>
+                                    Cancel
+                                </Button>
+                            }
                             <Button onClick={() => handleSubmit({doCheckIn: false})} variant='contained' color='info'
                                     disabled={!uploadable || uploading}
                                     style={{marginRight: 20}}>
-                                Submit
+                                {entry ? 'Save Changes' : 'Submit'}
                             </Button>
                             {!entry &&
                                 <Button onClick={() => handleSubmit({doCheckIn: true})} variant='contained' color='info'

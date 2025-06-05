@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import ChallengeLockImageGallery from './ChallengeLockImageGallery.jsx'
 import dayjs from 'dayjs'
 import FieldValue from '../util/FieldValue.jsx'
@@ -13,7 +13,6 @@ import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
 import RatingTable from './RatingTable.jsx'
 import AdminActionsBar from './AdminActionsBar.jsx'
 import DBContextCL from './DBContextCL.jsx'
-import Link from '@mui/material/Link'
 
 const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, setCheckIns}) => {
     if (!entry) return null
@@ -21,14 +20,14 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
     const {adminEnabled} = useContext(DataContext)
     const {currentVersion} = useContext(DBContextCL)
 
-    const [version, setVersion] = useState(currentVersion)
+    const [version,] = useState(currentVersion)
 
     const {latestUpdate} = entry
     const [showCheckIns, setShowCheckIns] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const buttonText = showCheckIns ? 'Hide Check-ins' : 'View All Check-ins'
-
+    
     const handleCheckInsClick = useCallback(async () => {
         if (!entry.id) {
             setCheckIns([])
@@ -194,8 +193,8 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
 
 
             {currentVersion !== version &&
-                <div style={{width: '100%', textAlign: 'center', fontSize: '1.2rem', margin: 15}}>
-                    <Link onClick={() => location.reload()} color={'#fda21b'}>Refresh Stats</Link>
+                <div style={{width: '100%', textAlign: 'center', fontSize: '1.2rem', padding: 20}}>
+                    <Button onClick={() => location.reload()} color='warning' variant='contained'>Refresh Stats</Button>
                 </div>
             }
 

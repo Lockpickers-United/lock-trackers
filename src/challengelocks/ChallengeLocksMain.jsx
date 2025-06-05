@@ -11,9 +11,9 @@ import {optionsCL} from '../data/subNavOptions.js'
 import AdminActionsButton from './AdminActionsButton.jsx'
 import NoEntriesCardCL from './NoEntriesCardCL.jsx'
 
-function ChallengeLocksCardsMain({profile, user}) {
+function ChallengeLocksMain() {
 
-    const {visibleEntries} = useContext(DataContext)
+    const {allEntries, visibleEntries} = useContext(DataContext)
     const {filters, addFilters} = useContext(FilterContext)
     const [entryExpanded, setEntryExpanded] = useState(filters.id)
     const handleExpand = useCallback(entryId => {
@@ -53,7 +53,7 @@ function ChallengeLocksCardsMain({profile, user}) {
             }}>
                 <SortFilterBar label='Challenge Locks' sortButton={navSortButton} adminButtons={navAdminButton}/>
 
-                {visibleEntries?.length === 0 &&
+                {(allEntries?.length > 0 && visibleEntries?.length === 0) &&
                     <NoEntriesCardCL/>
                 }
 
@@ -71,4 +71,4 @@ function ChallengeLocksCardsMain({profile, user}) {
     )
 }
 
-export default ChallengeLocksCardsMain
+export default ChallengeLocksMain

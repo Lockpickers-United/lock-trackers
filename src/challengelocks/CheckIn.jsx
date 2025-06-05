@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import useWindowSize from '../util/useWindowSize.jsx'
@@ -26,43 +26,86 @@ import ratingDimensions from '../data/clRatingDimensions.json'
 import {optionsCL} from '../data/subNavOptions.js'
 import validator from 'validator'
 import filterProfanity from '../util/filterProfanity.js'
+import usePageTitle from '../util/usePageTitle.jsx'
 
 /**
  * @prop inputValue
  * @prop country_area
  */
 
-export default function CheckIn() {
+export default function CheckIn({checkIn}) {
 
-    const {allEntries, getEntryFromId} = useContext(DataContext)
+    const {getEntryFromId} = useContext(DataContext)
     const {user} = useContext(AuthContext)
     const {createCheckIn, profile, refreshEntries} = useContext(DBContext)
     const [response, setResponse] = useState(undefined)
     const [uploading, setUploading] = useState(false)
     const [uploadError, setUploadError] = useState(undefined)
-    const [acReset, setAcReset] = useState(false)
+    const [acReset, setAcReset] = useState(false) // eslint-disable-line
     const [inputValue, setInputValue] = useState(undefined) // eslint-disable-line
     const [location, setLocation] = useState(null)
-    const [ratings, setRatings] = useState({})
     const [scrolled, setScrolled] = useState(false)
     const [highlightRequired, setHighlightRequired] = useState(false)
-
-    //     const lockId = 'cl_69dfddd5'
-    const {filters} = useContext(FilterContext)
-    const lockId = filters.id
-    const lock = getEntryFromId(lockId) || {}
-    const notValidLock = (Object.keys(allEntries).length > 0 && Object.keys(lock).length === 0)
     const navigate = useNavigate()
+
+    const [lock, setLock] = useState(undefined)
+    const [dataLoaded, setDataLoaded] = useState(false)
+
+    usePageTitle(checkIn ? 'Edit Check In' : 'Submit Check In')
+
+    //  Not needed for edit, but needed for new check-in??
+    const {filters} = useContext(FilterContext)
+    const id = filters.id
+
+    // if checkIn, just need lock for content
+    // if no checkIn, user is creating new check-in, id in url is lockId
+
+    const lockId = checkIn ? checkIn.lockId : id
+
+    const getEntities = useCallback(async () => {
+        setLock(await getEntryFromId(lockId) || {})
+        setDataLoaded(true)
+    },[getEntryFromId, lockId])
+
+    const hasFetched = useRef(false)
+    useEffect(() => {
+        if (!hasFetched.current) {
+            getEntities().then()
+            hasFetched.current = true
+        }
+    }, [getEntities])
+
+    console.log('lock', lock?.id, 'check-in', checkIn?.id )
+
+    const notValidLock = (dataLoaded && !lock)
 
     const defaultFormData = useMemo(() => {
         return {
             id: 'clci_' + genHexString(8),
-            username: profile.discordUsername || '',
+            username: profile.discordUsername || undefined,
             usernamePlatform: 'discord',
             lockId: lockId
         }
     }, [lockId, profile.discordUsername])
     const [form, setForm] = useState(defaultFormData)
+
+    useEffect(() => {
+        if (checkIn) {
+            const ratings = checkIn
+                ? Object.keys(checkIn)
+                    .filter(key => (key.startsWith('rating') && !key.startsWith('rating-')))
+                    .reduce((acc, key) => {
+                        acc[key.replace('rating', '')] = parseInt(checkIn[key])
+                        return acc
+                    }, {})
+                : {}
+            setForm({...checkIn, ratings})
+            setLocation(checkIn.country || null)
+        } else {
+            setForm(defaultFormData)
+            setLocation(null)
+        }
+    }, [checkIn, defaultFormData, profile.discordUsername])
 
     const getHighlightColor = useCallback(field => {
         return highlightRequired
@@ -89,6 +132,10 @@ export default function CheckIn() {
         setForm({...form, ...checkInTestData})
         setLocation(checkInTestData.country)
     }, [form])
+    const countryList = useMemo(() => {
+        return countries.map(country => country.country_area)
+    }, [])
+
 
     const handleFormChange = useCallback((event) => {
         let {name, value} = event.target
@@ -107,18 +154,20 @@ export default function CheckIn() {
     const requiredFields = ['lockId', 'pickDate', 'username', 'usernamePlatform', 'successfulPick']
     const uploadable = requiredFields.every(field => form[field] && form[field].length > 0)
 
+    const onRatingChange = useCallback(({dimension, rating}) => {
+        setForm({...form, ratings: {...form.ratings, [dimension]: rating}})
+    }, [form])
+
     const handleSubmit = async (event) => {
         event.preventDefault()
         setUploading(true)
         const formCopy = {
             ...form,
             lockId: lockId,
-            submittedAt: dayjs().toISOString(),
+            submittedAt: dayjs().toISOString(), // TODO should this be set here on in DBcontext?
             displayName: profile?.username || 'no display name',
             userId: user.uid
         }
-
-        //jsonIt('formCopy', formCopy)
 
         if (form.ratings) {
             Object.keys(form.ratings).forEach(rating => {
@@ -142,23 +191,6 @@ export default function CheckIn() {
         }
     }
 
-    const handleReload = useCallback(() => { // eslint-disable-line
-        setAcReset(!acReset)
-        setForm(defaultFormData)
-        setResponse(undefined)
-        setLocation(null)
-        setUploading(false)
-        setUploadError(undefined)
-        setRatings({})
-        setTimeout(() => {
-            window.scrollTo({
-                left: 0,
-                top: 0,
-                behavior: 'smooth'
-            })
-        }, 100)
-    }, [acReset, defaultFormData])
-
     //TODO: clear form on error OK?
     const handleClose = useCallback(() => {
         setResponse(undefined)
@@ -166,30 +198,20 @@ export default function CheckIn() {
         setUploadError(undefined)
     }, [])
 
+    const safeName = lock?.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
+
     const handleSubmitOK = useCallback(async () => {
         await refreshEntries()
-        navigate(`/challengelocks?id=${lockId}`)
-    }, [lockId, navigate, refreshEntries])
+        navigate(`/challengelocks?id=${lockId}&name=${safeName}`)
+    }, [lockId, navigate, refreshEntries, safeName])
 
-    const countryList = useMemo(() => {
-        return countries.map(country => country.country_area)
-    }, [])
-
-    const safeName = lock?.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
     const handleLockClick = useCallback(() => {
         navigate(`/challengelocks?id=${lockId}&name=${safeName}`)
     }, [lockId, navigate, safeName])
 
-
     const handleChange = useCallback(newValue => {
         navigate(newValue.page)
     }, [navigate])
-
-    const onRatingChange = useCallback(({dimension, rating}) => {
-        //console.log('ratings', {...ratings, [dimension]: rating})
-        setRatings({...ratings, [dimension]: rating})
-        setForm({...form, ratings: {...ratings, [dimension]: rating}})
-    }, [form, ratings])
 
     const {isMobile, flexStyle} = useWindowSize()
     const paddingLeft = !isMobile ? 16 : 8
@@ -215,24 +237,25 @@ export default function CheckIn() {
                     <div style={{display: flexStyle, paddingBottom: 15, borderBottom: '1px solid #ccc'}}>
                         <div style={{display: 'flex', alignItems: 'center', flexGrow: 1}}>
                             <div>
-                                <div style={{marginBottom: 10, fontSize: '0.9rem'}}>Challenge Lock Check In</div>
-                                <div style={nameTextStyle}>
-                                    <Link onClick={handleLockClick} style={{cursor: 'pointer'}}>{lock.name}</Link>
+                                <div style={{marginBottom: 15, fontSize: '1rem', fontWeight:700}}>
+                                    {checkIn ? 'Edit Challenge Lock Check-In' : 'Challenge Lock Check In'}
                                 </div>
-                                <div style={makerTextStyle}>By: {lock.maker}</div>
+                                <div style={nameTextStyle}>
+                                    <Link onClick={handleLockClick} style={{cursor: 'pointer'}}>{lock?.name}</Link>
+                                </div>
+                                <div style={makerTextStyle}>By: {lock?.maker}</div>
                             </div>
                         </div>
-                        {lock.thumbnail &&
+                        {lock?.thumbnail &&
                             <div style={{marginTop: 5}}>
-                                <img src={lock.thumbnail} alt={lock.name}
+                                <img src={lock?.thumbnail} alt={lock?.name}
                                      style={{width: 120, height: 120, marginRight: 10}}/>
                             </div>
                         }
                     </div>
                 </div>
 
-                <form action={null} encType='multipart/form-data' method='post'
-                      onSubmit={handleSubmit}>
+                <form action={null} encType='multipart/form-data' method='post'>
                     <div style={{paddingLeft: paddingLeft}}>
                         <div style={{marginTop: 10}}>
                             <div style={{display: flexStyle}}>
@@ -318,7 +341,7 @@ export default function CheckIn() {
                                     style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
                                 </div>
                                 <RatingTable ratingDimensions={ratingDimensions} onRatingChange={onRatingChange}
-                                             ratings={ratings}/>
+                                             ratings={form.ratings}/>
                             </div>
 
                             <div style={{flexGrow: 1, marginRight: 20}}>
@@ -377,9 +400,15 @@ export default function CheckIn() {
                         </div>
 
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
-                            <Button type='submit' variant='contained' color='info'
+                            {checkIn &&
+                                <Button onClick={() => navigate(`/challengelocks?id=${checkIn.lockId}`)} variant='contained'
+                                        color='error' style={{marginRight: 20}}>
+                                    Cancel
+                                </Button>
+                            }
+                            <Button onClick={handleSubmit} variant='contained' color='info'
                                     disabled={(!uploadable || uploading)}>
-                                Submit
+                                {checkIn ? 'Save Changes' : 'Submit'}
                             </Button>
                         </div>
                     </div>

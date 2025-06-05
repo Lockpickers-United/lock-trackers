@@ -33,7 +33,7 @@ function SortButtonCL() {
             ? 'Created ⬇'
             : 'Created ⬇'
     const handleCreatedSort = useCallback(value => () => {
-        const newSort = value === 'createdAsc' ? 'createdDesc' : 'createdAsc'
+        const newSort = value === 'createdDesc' ? 'createdAsc' : 'createdDesc'
         setCreatedSort(newSort)
         setTimeout(() => addFilter('sort', newSort, true), 0)
         setAnchorEl(null)
@@ -45,6 +45,13 @@ function SortButtonCL() {
         } else {
             setTimeout(() => addFilter('sort', value, true), 0)
         }
+        if (value !== 'createdAsc' && value !== 'createdDesc') {
+            setCreatedSort('')
+        }
+        if (value !== 'checkInAsc' && value !== 'checkInDesc') {
+            setCheckInSort('')
+        }
+
         setAnchorEl(null)
     }, [addFilter, removeFilter])
 
@@ -91,6 +98,10 @@ function SortButtonCL() {
                 <MenuItem selected={sort === 'name' || !sort} value={'name'}
                           onClick={handleSort('name')} style={{padding: '10px 16px'}}>
                     Name
+                </MenuItem>
+                <MenuItem selected={sort === 'maker'} value={'maker'}
+                          onClick={handleSort('maker')} style={{padding: '10px 16px'}}>
+                    Maker
                 </MenuItem>
                 <MenuItem selected={sort === 'createdAsc' || sort === 'createdDesc'} value={'createdAt'}
                           onClick={handleCreatedSort(createdSort)} style={{padding: '10px 16px'}}>

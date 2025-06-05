@@ -12,8 +12,8 @@ export default function StarRating({ratings, dimension, onChange, size = 24, emp
             <Rating
                 onClick={handleRating}
                 size={size}
-                initialValue={ratings[dimension]}
-                ratingValue={ratings[dimension]}
+                initialValue={ratings && ratings[dimension]}
+                ratingValue={ratings && ratings[dimension]}
                 emptyColor={emptyColor}
                 readonly={readonly}
                 fillColor={fillColor}
