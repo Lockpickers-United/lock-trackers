@@ -127,6 +127,10 @@ function SortButtonCL() {
                           onClick={handleSort('submittedAt')} style={{padding: '10px 16px'}}>
                     Date Submitted
                 </MenuItem>
+                <MenuItem selected={sort === 'updatedAt'} value={'updatedAt'}
+                          onClick={handleSort('updatedAt')} style={{padding: '10px 16px'}}>
+                    Recently Updated
+                </MenuItem>
             </Menu>
         </React.Fragment>
     )

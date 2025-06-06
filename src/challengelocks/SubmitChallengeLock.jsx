@@ -22,11 +22,13 @@ import {DatePicker} from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
 import clTestData from './clTestData.json'
 import {FormControlLabel, Radio, RadioGroup} from '@mui/material'
-import DBContext from './DBContextCL.jsx'
+import DBContext from './DBProviderCL.jsx'
 import {optionsCL} from '../data/subNavOptions.js'
 import {jsonIt} from '../util/jsonIt.js' //eslint-disable-line
 import sanitizeValues from '../util/sanitizeText.js'
 import filterProfanity from '../util/filterProfanity.js'
+import DataContext from '../context/DataContext.jsx'
+import FreeSoloAutoCompleteBox from '../formUtils/FreeSoloAutoCompleteBox.jsx'
 
 /**
  * @prop newBrand
@@ -39,6 +41,7 @@ export default function SubmitChallengeLock({entry}) {
 
     const {user} = useContext(AuthContext)
     const {profile, refreshEntries, updateVersion, updateEntry} = useContext(DBContext)
+    const {makerData} = useContext(DataContext)
     const [mainPhoto, setMainPhoto] = useState([])
     const [files, setFiles] = useState([])
     const [response, setResponse] = useState(undefined)
@@ -74,6 +77,11 @@ export default function SubmitChallengeLock({entry}) {
         setForm({...form, ...clTestData, lockCreated: dayjs().toISOString()})
         setLocation(clTestData.country)
     }, [form])
+
+    const textFieldMax = 40
+    const makerOptions = Object.keys(makerData).sort((a, b) => {
+        return a.localeCompare(b)
+    })
 
     const handleFormChange = useCallback((event) => {
         let {name, value} = event.target
@@ -119,7 +127,7 @@ export default function SubmitChallengeLock({entry}) {
         const formCopy = {
             ...sanitizeValues(form),
             displayName: sanitizeValues(profile?.username) || 'no display name',
-            status: 'active'
+            status: 'active',
         }
 
         const formData = new FormData()
@@ -145,7 +153,6 @@ export default function SubmitChallengeLock({entry}) {
 
         if (entry) {
             Object.keys(formCopy).forEach(key => formCopy[key] === undefined ? delete formCopy[key] : {})
-
 
             const submitInfo = entry.submittedBy
                 ? entry.submittedBy
@@ -244,7 +251,6 @@ export default function SubmitChallengeLock({entry}) {
         return countries.map(country => country.country_area)
     }, [])
 
-    const textFieldMax = 40
 
     const {isMobile, flexStyle} = useWindowSize()
     //const fullWidth = !isMobile ? 660 : 300
@@ -284,7 +290,7 @@ export default function SubmitChallengeLock({entry}) {
                     }
                 </div>
 
-                <form action={null} encType='multipart/form-data' method='post' >
+                <form action={null} encType='multipart/form-data' method='post'>
                     <div style={{paddingLeft: paddingLeft}}>
 
                         <div style={{display: flexStyle, marginBottom: 0}}>
@@ -301,9 +307,12 @@ export default function SubmitChallengeLock({entry}) {
                                 <div style={{...headerStyle, backgroundColor: getHighlightColor('maker')}}>
                                     CL Maker
                                 </div>
-                                <TextField type='text' name='maker' style={{width: 300}}
-                                           onChange={handleFormChange} value={form.maker || ''} color='info'
-                                           inputProps={{maxLength: textFieldMax}}/>
+                                <FreeSoloAutoCompleteBox changeHandler={handleFormChange}
+                                                 options={makerOptions} value={form.maker || ''}
+                                                 name={'maker'} style={{width: 300}} maxLength={textFieldMax}
+                                                 reset={acReset} inputValueHandler={setInputValue}
+                                />
+
                             </div>
                         </div>
 
@@ -313,7 +322,7 @@ export default function SubmitChallengeLock({entry}) {
                                 <div style={{...headerStyle, backgroundColor: getHighlightColor('lockCreated')}}>
                                     Created
                                 </div>
-                                <DatePicker label='Date Created'
+                                <DatePicker
                                             value={form.lockCreated ? dayjs(form.lockCreated) : null}
                                             onChange={(newValue) => handleDateChange({lockCreated: newValue.toISOString()})}
                                             disableFuture

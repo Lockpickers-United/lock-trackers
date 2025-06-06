@@ -13,11 +13,11 @@ import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
 import SignInButton from '../auth/SignInButton'
 import AuthContext from '../app/AuthContext'
-import DBContext from '../app/DBContext'
 import {useNavigate} from 'react-router-dom'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import AlarmOnIcon from '@mui/icons-material/AlarmOn'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
+import DBContext from '../app/DBContext'
 
 function UserMenu() {
     const navigate = useNavigate()

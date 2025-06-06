@@ -2,7 +2,7 @@ import React, {useCallback, useContext} from 'react'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import CachedIcon from '@mui/icons-material/Cached'
-import DBContextCL from '../challengelocks/DBContextCL.jsx'
+import DBContextCL from '../challengelocks/DBProviderCL.jsx'
 import AuthContext from './AuthContext.jsx'
 
 function VersionChecker() {

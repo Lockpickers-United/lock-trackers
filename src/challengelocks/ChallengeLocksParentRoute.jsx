@@ -1,7 +1,6 @@
 import React, {useCallback, useContext} from 'react'
 import {Outlet} from 'react-router-dom'
 import AuthContext from '../app/AuthContext'
-import DBContext from '../app/DBContext'
 import LoadingDisplay from '../misc/LoadingDisplay.jsx'
 import Fade from '@mui/material/Fade'
 import useData from '../util/useData.jsx'
@@ -10,16 +9,24 @@ import {DataProvider} from './DataProviderCL.jsx'
 import {ListProvider} from '../context/ListContext.jsx'
 import {LocalizationProvider} from '@mui/x-date-pickers'
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
-import {DBProviderCL} from './DBContextCL.jsx'
 import SignInButton from '../auth/SignInButton.jsx'
 import {CLFilterFields} from '../data/filterFields.js'
 import Nav from '../nav/Nav.jsx'
 
+import DBContextGlobal from '../app/DBContextGlobal'
+import {DBProviderGlobal} from '../app/DBContextGlobal.jsx'
+
+import {DBProviderCL} from './DBProviderCL.jsx'
+
+
 export default function ChallengeLocksParentRoute() {
     const {authLoaded} = useContext(AuthContext)
-    const {adminRole} = useContext(DBContext)  //eslint-disable-line
+    const {adminRole, getProfile} = useContext(DBContextGlobal)  //eslint-disable-line
+
+    const {foo} = useContext(DBContextGlobal)
+    console.log('DBContextGlobal', foo)
+
     const {user} = useContext(AuthContext)
-    const {getProfile} = useContext(DBContext)
     const userId = user ? user.uid : null
     const loadFn = useCallback(async () => {
         if (!userId) return null
@@ -35,37 +42,39 @@ export default function ChallengeLocksParentRoute() {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DBProviderCL>
-                <FilterProvider filterFields={CLFilterFields}>
-                    <DataProvider>
-                        <ListProvider>
-                            <Nav title='Challenge Locks' route='cl'/>
+            <DBProviderGlobal>
+                <DBProviderCL>
+                    <FilterProvider filterFields={CLFilterFields}>
+                        <DataProvider>
+                            <ListProvider>
+                                <Nav title='Challenge Locks' route='cl'/>
 
-                            {!authLoaded &&
-                                <LoadingDisplay/>
-                            }
+                                {!authLoaded &&
+                                    <LoadingDisplay/>
+                                }
 
-                            {authLoaded && user && <Outlet context={{profile, user}}/>}
+                                {authLoaded && user && <Outlet context={{profile, user}}/>}
 
-                            {authLoaded && !user &&
-                                <Fade in={true} timeout={1000}>
-                                    <div style={{
-                                        width: '350px', textAlign: 'center',
-                                        padding: 50, marginTop: 100, backgroundColor: '#292929',
-                                        marginLeft: 'auto', marginRight: 'auto',
-                                        fontSize: '1.4rem', fontWeight: 700
-                                    }}>
-                                        You must be logged in to view this page.<br/><br/>
-                                        <div style={{width: 210, marginLeft: 'auto', marginRight: 'auto'}}>
-                                            <SignInButton/>
+                                {authLoaded && !user &&
+                                    <Fade in={true} timeout={1000}>
+                                        <div style={{
+                                            width: '350px', textAlign: 'center',
+                                            padding: 50, marginTop: 100, backgroundColor: '#292929',
+                                            marginLeft: 'auto', marginRight: 'auto',
+                                            fontSize: '1.4rem', fontWeight: 700
+                                        }}>
+                                            You must be logged in to view this page.<br/><br/>
+                                            <div style={{width: 210, marginLeft: 'auto', marginRight: 'auto'}}>
+                                                <SignInButton/>
+                                            </div>
                                         </div>
-                                    </div>
-                                </Fade>
-                            }
-                        </ListProvider>
-                    </DataProvider>
-                </FilterProvider>
-            </DBProviderCL>
+                                    </Fade>
+                                }
+                            </ListProvider>
+                        </DataProvider>
+                    </FilterProvider>
+                </DBProviderCL>
+            </DBProviderGlobal>
         </LocalizationProvider>
     )
 }

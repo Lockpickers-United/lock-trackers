@@ -20,16 +20,18 @@ import sanitizeValues from '../../util/sanitizeValues.js'
 import validator from 'validator'
 
 const {writeFile} = fs.promises
+const execAsync = util.promisify(exec)
+
 const prodEnvironment = prodUser === process.env.USER
 const keysDir = prodEnvironment
     ? `/home/${process.env.USER}/lpulocks-node/keys`
     : `/Users/${process.env.USER}/Documents/GitHub/lpulocks/lpulocks-node/keys`
 
 const uploadDir = prodEnvironment
-    ? `/home/${process.env.USER}/lpulocks.com.data/lockbazaar/images`
+    ? `/home/${process.env.USER}/lpulocks.com.data/challengelocks/lockimages`
     : `/Users/${process.env.USER}/Documents/LOCKPICK/LockTrackers/challenge-locks/uploads`
 
-const serverPath = 'https://data.lpulocks.com/lockbazaar/images'
+const serverPath = 'https://data.lpulocks.com/challengelocks/lockimages'
 
 const serviceAccount = JSON.parse(await fs.promises.readFile(`${keysDir}/service-account.json`, 'utf8'))
 const requestapp = admin.initializeApp({
@@ -42,7 +44,7 @@ dbProd.settings({ignoreUndefinedProperties: true})
 const dbDev = getFirestore(requestapp, 'locktrackersdev')
 dbDev.settings({ignoreUndefinedProperties: true})
 
-const execAsync = util.promisify(exec)
+const maxCombinedFileSize = 100 * 1024 * 1024
 
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, {recursive: true})
@@ -63,95 +65,125 @@ function handleError(res, message, error, status = 500) {
     res.status(status).send({status, message})
 }
 
-function flattenFields(fields) {
-    const flatFields = {}
-    for (const key in fields) {
-        if (Array.isArray(fields[key])) {
-            flatFields[key] = fields[key].length > 0 ? fields[key][0] : ''
-        } else {
-            flatFields[key] = fields[key] || ''
-        }
-    }
-    return sanitizeValues(flatFields)
-}
 
-export async function submitCheckIn(req, res) {
+export async function updateLockMedia(req, res) {
+
+    let subdirs = ''
+    let filepaths = []
+
     try {
         req.user = await authenticateRequest(req, res)
     } catch (err) {
         return handleError(res, err.message, err, 403)
     }
 
-    console.log('req.body:', req.body)
     const {prod} = req.body
     const db = prod ? dbProd : dbDev
 
-    const form = formidable({})
+    const form = formidable({
+        uploadDir,
+        keepExtensions: true,
+        createDirsFromUploads: true,
+        maxFileSize: maxCombinedFileSize,
+        filter: ({mimetype}) => mimetype && mimetype.includes('image'),
+        filename(name, ext, part) {
+            const {fullFilename, filepath, localsubdirs} = createFilename(part, serverPath, uploadDir)
+            filepaths.push(filepath)
+            subdirs = localsubdirs
+            return fullFilename
+        }
+    })
 
     try {
-        const {fields} = await parseForm(req, form)
+        const {fields, files} = await parseForm(req, form)
+
         for (const fieldName in fields) {
             if (!Array.isArray(fields[fieldName])) {
                 fields[fieldName] = [fields[fieldName]]
             }
         }
+        const flatFields = flattenFields(fields)
+        jsonIt('flatFields:', flatFields)
 
-        const entry = flattenFields(fields)
-        jsonIt('entry:', entry)
+        // get lock entry
 
-        const urlError = entry.videoUrl?.length > 0 && !validator.isURL(entry.videoUrl)
-        if (urlError) entry.videoUrl = 'invalid video URL'
+        let ref = db.collection('challenge-locks').doc(flatFields.id)
+        const lockEntry = await fetchDocument(ref, flatFields.id)
 
-        let ref = db.collection('challenge-lock-check-ins').doc(entry.id)
-        try {
-            await setDocument(ref, entry, entry.id)
-        } catch (error) {
-            handleError(res, 'Failed to create Challenge Lock', error, 500)
+        //console.log('lockEntry:', lockEntry)
+
+        // save files/thumbs
+        const addedMedia = await Promise.all(filepaths.map(async (filepath, index) => ({
+            imageTitle: lockEntry.name,
+            title: `By: ${flatFields.username}`,
+            fullUrl: filepath,
+            fullSizeUrl: (await createThumbnails({
+                inputFile: files.files[index].filepath,
+                width: 1024
+            })).replace(uploadDir, serverPath),
+            thumbnailUrl: (await createThumbnails({
+                inputFile: files.files[index].filepath,
+                width: 500
+            })).replace(uploadDir, serverPath),
+            sequenceId: index + 1,
+            dateAdded: dayjs().toISOString(),
+            subtitle: 'CC BY-NC-SA 4.0'
+        })))
+
+        const thumbnail = files.files
+            ? (await createThumbnails({
+                inputFile: files.files[0].filepath,
+                width: 200,
+                square: true
+            })).replace(uploadDir, serverPath)
+            : lockEntry.thumbnail || null
+
+        const updates = {}
+
+        // get new main photo if needed
+        if (flatFields.replaceMainPhoto === 'true' && addedMedia.length > 0) {
+            // replace thumbnail
+            updates.thumbnail = thumbnail
+            // replace mainImage
+            updates.mainImage = [addedMedia[0]]
         }
 
-        // set lock: latestCheckIn, ratings, approx belt, checkInCount
+        // if replaceMainPhoto, add first addedMedia to fullMedia
+        const fullMedia = flatFields.replaceMainPhoto === 'true' ? [addedMedia.shift()] : [lockEntry.mainImage[0]]
 
-        ref = db.collection('challenge-locks').doc(entry.lockId)
-        const lockEntry = await fetchDocument(ref, entry.lockId)
+        console.log('fullMedia:', fullMedia)
 
-        let updates = {}
-        if (!lockEntry.latestUpdate || dayjs(entry.pickDate).isAfter(lockEntry.latestUpdate?.pickDate)) {
-            updates.latestUpdate = entry
-        }
 
-        const ratings = Object.keys(entry)
-            .filter(key => key.startsWith('rating'))
-            .reduce((acc, key) => {
-                acc[key] = parseInt(entry[key])
-                return acc
-            }, {})
-        Object.keys(ratings).forEach(key => {
-            updates[key] = lockEntry[key]
-                ? [...lockEntry[key], ratings[key]]
-                : [ratings[key]]
-        })
+        const keepMediaIds = flatFields.updatedMediaIds
+            ? flatFields.updatedMediaIds.split(',').map(id => parseInt(id))
+            : []
+        const keepMedia = lockEntry?.media?.length > 0
+            ? lockEntry?.media?.filter(media => keepMediaIds.includes(media.sequenceId))
+            : []
+        fullMedia.push(...keepMedia)
+        fullMedia.push(...addedMedia)
 
-        updates.approxBelt = lockEntry.approxBelt
-            ? [...lockEntry.approxBelt, entry.approxBelt]
-            : [lockEntry.approxBelt]
+        updates.media = fullMedia.map((media, index) => ({...media, sequenceId: index + 1}))
 
-        updates.checkInCount = (lockEntry.checkInCount || 0) + 1
-        updates.successCount = (lockEntry.successCount || 0) + (entry.successfulPick === 'Yes' ? 1 : 0)
+        console.log('updates:', updates)
+
+
+        updates.updatedAt = dayjs().toISOString()
 
         // SUBMIT UPDATES
         if (Object.keys(updates).length > 0) {
-            await updateDocument(ref, updates, entry.lockId)
+            await updateDocument(ref, updates, flatFields.id)
         }
 
         console.log('done')
-        return res.status(200).json(entry)
+        return res.status(200).json(flatFields)
+
 
     } catch (err) {
         return handleError(res, 'Form Parse Error', err)
     }
 
 }
-
 
 export default async function submitChallengeLock(req, res) {
 
@@ -171,7 +203,7 @@ export default async function submitChallengeLock(req, res) {
         uploadDir,
         keepExtensions: true,
         createDirsFromUploads: true,
-        maxFileSize: 100 * 1024 * 1024,
+        maxFileSize: maxCombinedFileSize,
         filter: ({mimetype}) => mimetype && mimetype.includes('image'),
         filename(name, ext, part) {
             const {fullFilename, filepath, localsubdirs} = createFilename(part, serverPath, uploadDir)
@@ -215,7 +247,9 @@ export default async function submitChallengeLock(req, res) {
                 username: flatFields.username,
                 usernamePlatform: flatFields.usernamePlatform
             },
-            submittedAt: dayjs().toISOString()
+            submittedAt: dayjs().toISOString(),
+            updatedAt: dayjs().toISOString()
+
         }
 
         const lockName = flatFields.name
@@ -308,6 +342,83 @@ export default async function submitChallengeLock(req, res) {
     }
 }
 
+export async function submitCheckIn(req, res) {
+    try {
+        req.user = await authenticateRequest(req, res)
+    } catch (err) {
+        return handleError(res, err.message, err, 403)
+    }
+
+    console.log('req.body:', req.body)
+    const {prod} = req.body
+    const db = prod ? dbProd : dbDev
+
+    const form = formidable({})
+
+    try {
+        const {fields} = await parseForm(req, form)
+        for (const fieldName in fields) {
+            if (!Array.isArray(fields[fieldName])) {
+                fields[fieldName] = [fields[fieldName]]
+            }
+        }
+
+        const entry = flattenFields(fields)
+        jsonIt('entry:', entry)
+
+        const urlError = entry.videoUrl?.length > 0 && !validator.isURL(entry.videoUrl)
+        if (urlError) entry.videoUrl = 'invalid video URL'
+
+        let ref = db.collection('challenge-lock-check-ins').doc(entry.id)
+        try {
+            await setDocument(ref, entry, entry.id)
+        } catch (error) {
+            handleError(res, 'Failed to create Challenge Lock', error, 500)
+        }
+
+        // set lock: latestCheckIn, ratings, approx belt, checkInCount
+
+        ref = db.collection('challenge-locks').doc(entry.lockId)
+        const lockEntry = await fetchDocument(ref, entry.lockId)
+
+        let updates = {}
+        if (!lockEntry.latestUpdate || dayjs(entry.pickDate).isAfter(lockEntry.latestUpdate?.pickDate)) {
+            updates.latestUpdate = entry
+        }
+
+        const ratings = Object.keys(entry)
+            .filter(key => key.startsWith('rating'))
+            .reduce((acc, key) => {
+                acc[key] = parseInt(entry[key])
+                return acc
+            }, {})
+        Object.keys(ratings).forEach(key => {
+            updates[key] = lockEntry[key]
+                ? [...lockEntry[key], ratings[key]]
+                : [ratings[key]]
+        })
+
+        updates.approxBelt = lockEntry.approxBelt
+            ? [...lockEntry.approxBelt, entry.approxBelt]
+            : [lockEntry.approxBelt]
+
+        updates.checkInCount = (lockEntry.checkInCount || 0) + 1
+        updates.successCount = (lockEntry.successCount || 0) + (entry.successfulPick === 'Yes' ? 1 : 0)
+        updates.updatedAt = dayjs().toISOString()
+
+        // SUBMIT UPDATES
+        if (Object.keys(updates).length > 0) {
+            await updateDocument(ref, updates, entry.lockId)
+        }
+
+        console.log('done')
+        return res.status(200).json(entry)
+
+    } catch (err) {
+        return handleError(res, 'Form Parse Error', err)
+    }
+
+}
 
 async function setDocument(ref, entry, entryId) {
     try {
@@ -343,6 +454,17 @@ async function updateDocument(ref, updates, entryId) {
     }
 }
 
+function flattenFields(fields) {
+    const flatFields = {}
+    for (const key in fields) {
+        if (Array.isArray(fields[key])) {
+            flatFields[key] = fields[key].length > 0 ? fields[key][0] : ''
+        } else {
+            flatFields[key] = fields[key] || ''
+        }
+    }
+    return sanitizeValues(flatFields)
+}
 
 async function authenticateRequest(req) {
     const authHeader = req.headers.authorization

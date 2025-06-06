@@ -17,7 +17,7 @@ import AutoCompleteBox from '../formUtils/AutoCompleteBox.jsx'
 import {DatePicker} from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
 import {FormControlLabel, Radio, RadioGroup} from '@mui/material'
-import DBContext from './DBContextCL.jsx'
+import DBContext from './DBProviderCL.jsx'
 import DataContext from '../context/DataContext.jsx'
 import checkInTestData from './checkInTestData.json'
 import FilterContext from '../context/FilterContext.jsx'
@@ -27,6 +27,7 @@ import {optionsCL} from '../data/subNavOptions.js'
 import validator from 'validator'
 import filterProfanity from '../util/filterProfanity.js'
 import usePageTitle from '../util/usePageTitle.jsx'
+import {postData} from '../formUtils/postData.jsx'
 
 /**
  * @prop inputValue
@@ -35,9 +36,11 @@ import usePageTitle from '../util/usePageTitle.jsx'
 
 export default function CheckIn({checkIn}) {
 
+    const serverUrl = 'https://lpulocks.com:7443'
+
     const {getEntryFromId} = useContext(DataContext)
     const {user} = useContext(AuthContext)
-    const {createCheckIn, profile, refreshEntries} = useContext(DBContext)
+    const {profile, refreshEntries, updateVersion} = useContext(DBContext)
     const [response, setResponse] = useState(undefined)
     const [uploading, setUploading] = useState(false)
     const [uploadError, setUploadError] = useState(undefined)
@@ -177,6 +180,27 @@ export default function CheckIn({checkIn}) {
 
         delete formCopy.ratings
 
+        const formData = new FormData()
+        Object.keys(formCopy).forEach(key => {
+            formData.append(key, formCopy[key])
+        })
+
+        const url = `${serverUrl}/check-in-challenge-lock`
+
+        try {
+            const results = await postData({user, url, formData, snackBars: false})
+            setResponse(results)
+            await updateVersion()
+        } catch (error) {
+            setUploadError(`${error}`.replace('Error: ', ''))
+            enqueueSnackbar(`Error creating request: ${error}`, {variant: 'error', autoHideDuration: 3000})
+        } finally {
+            setUploading(false)
+            setForm(formCopy)
+        }
+
+        // direct to firebase, permissions issue
+        /*
         try {
             await createCheckIn(formCopy)
             const safeName = lock?.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
@@ -189,6 +213,7 @@ export default function CheckIn({checkIn}) {
             setUploading(false)
             setForm(formCopy)
         }
+        */
     }
 
     //TODO: clear form on error OK?

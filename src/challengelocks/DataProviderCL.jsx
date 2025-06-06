@@ -4,7 +4,7 @@ import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import fuzzysort from 'fuzzysort'
 import removeAccents from 'remove-accents'
-import DBContext from './DBContextCL.jsx'
+import DBContext from './DBProviderCL.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 import {useLocalStorage} from 'usehooks-ts'
 
@@ -41,7 +41,8 @@ export function DataProvider({children}) {
                     fuzzy: removeAccents(`${entry.name}, ${entry.maker}`),
                     latestCheckIn: entry.latestUpdate?.pickDate || '2000-01-01',
                     submittedAt: entry.submittedAt || entry.dateSubmitted,
-                    lockCreated: entry.lockCreated || entry.createdAt
+                    lockCreated: entry.lockCreated || entry.createdAt,
+                    updatedAt: entry.updatedAt || entry.latestUpdate?.pickDate || '2000-01-01',
                 }
             })
             : []
@@ -88,6 +89,9 @@ export function DataProvider({children}) {
                         || dayjs(b.submittedAt).valueOf() - dayjs(a.submittedAt).valueOf()
                 } else if (sort === 'submittedAt') {
                     return dayjs(b.submittedAt).valueOf() - dayjs(a.submittedAt).valueOf()
+                        || a.name.localeCompare(b.name)
+                } else if (sort === 'updatedAt') {
+                    return dayjs(b.updatedAt).valueOf() - dayjs(a.updatedAt).valueOf()
                         || a.name.localeCompare(b.name)
                 } else if (sort === 'createdAsc') {
                     return dayjs(a.lockCreated).valueOf() - dayjs(b.lockCreated).valueOf()

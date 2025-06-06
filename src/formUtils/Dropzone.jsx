@@ -4,7 +4,7 @@ import Link from '@mui/material/Link'
 import CancelIcon from '@mui/icons-material/Cancel'
 import IconButton from '@mui/material/IconButton'
 
-export default function Dropzone({files, handleDroppedFiles, maxFiles=10, zoneId = 'dropzone'}) {
+export default function Dropzone({files, handleDroppedFiles, maxFiles=10, zoneId = 'dropzone', backgroundColor = '#333'}) {
 
     const {getRootProps, getInputProps, isFocused, isDragAccept, isDragReject} =
         useDropzone({
@@ -28,11 +28,11 @@ export default function Dropzone({files, handleDroppedFiles, maxFiles=10, zoneId
         borderRadius: 1,
         borderColor: '#777',
         borderStyle: 'dashed',
-        backgroundColor: '#333',
+        backgroundColor: backgroundColor,
         color: '#eee',
         outline: 'none',
         transition: 'border .24s ease-in-out',
-        minWidth: 250
+        minWidth: 150
     }
 
     const focusedStyle = {borderColor: '#2196f3'}

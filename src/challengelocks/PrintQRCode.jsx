@@ -20,7 +20,7 @@ export default function PrintQRCode() {
     const dateCreated = lock.lockCreated || lock.createdAt
 
     const safeName = lock?.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
-    const lockUrl = `https://beta.lpulocks.com/#/challengelocks/checkin?id=${lockId}&name=${safeName}`
+    const lockUrl = `${location.origin}/#/challengelocks/checkin?id=${lockId}&name=${safeName}`
 
     const navigate = useNavigate()
     const {width, isMobile} = useWindowSize()

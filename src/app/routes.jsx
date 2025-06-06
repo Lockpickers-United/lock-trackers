@@ -57,6 +57,13 @@ export default [
                 }
             },
             {
+                path: '/challengelocks/edit/images',
+                lazy: async () => {
+                    const {default: EditImagesRoute} = await import('../challengelocks/EditImagesRoute')
+                    return {element: <EditImagesRoute/>}
+                }
+            },
+            {
                 path: '/challengelocks/print',
                 lazy: async () => {
                     const {default: PrintQRCodeRoute} = await import('../challengelocks/PrintQRCodeRoute')
@@ -138,6 +145,6 @@ export default [
     {
         path: '*',
         loader: () => redirect('/lockbazaar')
-    },
+    }
 ].map(route => ({...route, errorElement: <ErrorBoundary/>}))
 

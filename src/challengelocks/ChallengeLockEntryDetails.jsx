@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useState} from 'react'
 import ChallengeLockImageGallery from './ChallengeLockImageGallery.jsx'
 import dayjs from 'dayjs'
 import FieldValue from '../util/FieldValue.jsx'
@@ -12,7 +12,7 @@ import Collapse from '@mui/material/Collapse'
 import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
 import RatingTable from './RatingTable.jsx'
 import AdminActionsBar from './AdminActionsBar.jsx'
-import DBContextCL from './DBContextCL.jsx'
+import DBContextCL from './DBProviderCL.jsx'
 
 const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, setCheckIns}) => {
     if (!entry) return null
@@ -27,7 +27,7 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
     const [loading, setLoading] = useState(false)
 
     const buttonText = showCheckIns ? 'Hide Check-ins' : 'View All Check-ins'
-    
+
     const handleCheckInsClick = useCallback(async () => {
         if (!entry.id) {
             setCheckIns([])

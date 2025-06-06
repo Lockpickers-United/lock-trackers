@@ -16,11 +16,10 @@ import {
 import AuthContext from '../app/AuthContext'
 import {enqueueSnackbar} from 'notistack'
 import dayjs from 'dayjs'
-import DBContext from '../app/DBContext.jsx'
 import validator from 'validator'
 import clRatingDimensions from '../data/clRatingDimensions.json'
+import DBContext from '../app/DBContext.jsx'
 
-const DBContextCL = React.createContext({})
 
 export function DBProviderCL({children}) {
     const {authLoaded, isLoggedIn, user} = useContext(AuthContext)
@@ -98,7 +97,6 @@ export function DBProviderCL({children}) {
         async function fetchData() {
             await refreshEntries()
         }
-
         fetchData().then()
     }, [refreshEntries])
 
@@ -125,7 +123,8 @@ export function DBProviderCL({children}) {
         if (dbError) return false
         const ref = doc(db, 'challenge-locks', delta.id)
         let statusText = ''
-        const cleanDelta = Object.fromEntries(Object.entries(delta).filter(([, value]) => value !== undefined))
+        let cleanDelta = Object.fromEntries(Object.entries(delta).filter(([, value]) => value !== undefined))
+        cleanDelta.updatedAt = dayjs().toISOString()
 
         try {
             await runTransaction(db, async transaction => {
@@ -251,7 +250,8 @@ export function DBProviderCL({children}) {
                     latestCheckIn: latestCheckIn.pickDate || null,
                     successCount,
                     approxBelt,
-                    ...ratings
+                    ...ratings,
+                    updatedAt: dayjs().toISOString()
                 })
             })
         } else {
@@ -269,7 +269,8 @@ export function DBProviderCL({children}) {
                     latestCheckIn: null,
                     checkInCount: 0,
                     successCount: 0,
-                    ...ratings
+                    ...ratings,
+                    updatedAt: dayjs().toISOString()
                 })
             })
         }
@@ -364,10 +365,10 @@ export function DBProviderCL({children}) {
     ])
 
     return (
-        <DBContextCL.Provider value={value}>
+        <DBContext.Provider value={value}>
             {children}
-        </DBContextCL.Provider>
+        </DBContext.Provider>
     )
 }
 
-export default DBContextCL
+export default DBContext

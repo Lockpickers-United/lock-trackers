@@ -1,7 +1,7 @@
 import React, {useCallback, useContext, useState} from 'react'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
-import DBContextCL from './DBContextCL.jsx'
+import DBContextCL from './DBProviderCL.jsx'
 import {useNavigate} from 'react-router-dom'
 import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
 
@@ -23,9 +23,9 @@ export default function AdminActionsBar({entry}) {
         setDeleting(false)
     }, [deleteChallengeLock, entry.id, refreshEntries])
 
-    const handleEdit = useCallback(() => {
+    const handleEdit = useCallback((dir = '') => {
         const safeName = entry.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
-        navigate(`/challengelocks/edit?id=${entry.id}&name=${safeName}`)
+        navigate(`/challengelocks/edit${dir}?id=${entry.id}&name=${safeName}`)
     }, [entry.id, entry.name, navigate])
 
     return (
@@ -64,7 +64,13 @@ export default function AdminActionsBar({entry}) {
             </Button>
 
             <div style={{marginRight: 10}}>
-                <Button style={{marginRight: 0, color: '#fda21b'}} onClick={handleEdit} edge='start'>
+                <Button style={{marginRight: 0, color: '#fda21b'}} onClick={() => handleEdit('/images')} edge='start'>
+                    Images
+                </Button>
+            </div>
+
+            <div style={{marginRight: 10}}>
+                <Button style={{marginRight: 0, color: '#fda21b'}} onClick={() => handleEdit()} edge='start'>
                     Edit
                 </Button>
             </div>

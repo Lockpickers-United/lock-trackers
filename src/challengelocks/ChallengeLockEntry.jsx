@@ -14,7 +14,7 @@ import PrintButton from './PrintButton.jsx'
 import CopyLinkToCLButton from './CopyLinkToCLButton.jsx'
 import ReportButton from './ReportButton.jsx'
 import sanitizeValues from '../util/sanitizeText.js'
-import DBContextCL from './DBContextCL.jsx'
+import DBContextCL from './DBProviderCL.jsx'
 import LpuCircleLogo from '../assets/LpuCircleLogo.jsx'
 
 const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded}) => {

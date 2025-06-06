@@ -6,7 +6,7 @@ import SubmitChallengeLock from './SubmitChallengeLock.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import DataContext from '../context/DataContext.jsx'
 import dayjs from 'dayjs'
-import DBContextCL from './DBContextCL.jsx'
+import DBContextCL from './DBProviderCL.jsx'
 import CheckIn from './CheckIn.jsx'
 
 function EditChallengeLockRoute() {
