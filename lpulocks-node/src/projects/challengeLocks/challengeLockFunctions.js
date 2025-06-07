@@ -10,7 +10,6 @@ import fs from 'fs'
 import {sendEmail} from '../nodeMailer/nodeMailer.js'
 import util from 'util'
 import {exec} from 'child_process'
-import dayjs from 'dayjs'
 import createThumbnails from '../../util/createThumbnails.js'
 import {contentUploadRecipients, prodUser} from '../../../keys/users.js'
 import admin from 'firebase-admin'
@@ -18,6 +17,9 @@ import {getFirestore, FieldValue} from 'firebase-admin/firestore'
 import jsonIt from '../../util/jsonIt.js'
 import sanitizeValues from '../../util/sanitizeValues.js'
 import validator from 'validator'
+import dayjs from 'dayjs'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter.js'
+dayjs.extend(isSameOrAfter)
 
 const {writeFile} = fs.promises
 const execAsync = util.promisify(exec)
@@ -110,12 +112,12 @@ export async function updateLockMedia(req, res) {
         if (!lockEntry) return handleError(res, 'Lock not found', `No lock matching id ${flatFields.id} found`, 404)
 
 
-        console.log('lockEntry:', lockEntry)
+        //console.log('lockEntry:', lockEntry)
 
         // save files/thumbs
         const addedMedia = await Promise.all(filepaths.map(async (filepath, index) => ({
             imageTitle: lockEntry.name,
-            title: `By: ${flatFields.username}`,
+            title: `By: ${flatFields.photoCredit || 'Unknown'}`,
             fullUrl: filepath,
             fullSizeUrl: (await createThumbnails({
                 inputFile: files.files[index].filepath,
@@ -434,7 +436,9 @@ export async function submitCheckIn(req, res) {
         const lockEntry = await fetchDocument(ref, entry.lockId)
 
         let updates = {}
-        if (!lockEntry.latestUpdate || dayjs(entry.pickDate).isAfter(lockEntry.latestUpdate?.pickDate)) {
+        if (!lockEntry.latestUpdate
+            || dayjs(entry.pickDate).isSameOrAfter(lockEntry.latestUpdate?.pickDate))
+        {
             updates.latestUpdate = entry
         }
 

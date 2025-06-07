@@ -24,11 +24,12 @@ import clTestData from './clTestData.json'
 import {FormControlLabel, Radio, RadioGroup} from '@mui/material'
 import DBContext from './DBProviderCL.jsx'
 import {optionsCL} from '../data/subNavOptions.js'
-import {jsonIt} from '../util/jsonIt.js' //eslint-disable-line
 import sanitizeValues from '../util/sanitizeText.js'
 import filterProfanity from '../util/filterProfanity.js'
 import DataContext from '../context/DataContext.jsx'
 import FreeSoloAutoCompleteBox from '../formUtils/FreeSoloAutoCompleteBox.jsx'
+import DBContextGlobal from '../app/DBContextGlobal.jsx'
+import statesProvinces from '../data/statesProvinces.json'
 
 /**
  * @prop newBrand
@@ -40,17 +41,19 @@ export default function SubmitChallengeLock({entry}) {
     const serverUrl = 'https://lpulocks.com:7443'
 
     const {user} = useContext(AuthContext)
-    const {profile, refreshEntries, updateVersion, updateEntry} = useContext(DBContext)
+    const {profile, updateProfile} = useContext(DBContextGlobal)
+    const {refreshEntries, updateVersion, updateEntry} = useContext(DBContext)
     const {makerData} = useContext(DataContext)
     const [mainPhoto, setMainPhoto] = useState([])
     const [files, setFiles] = useState([])
     const [response, setResponse] = useState(undefined)
     const [uploading, setUploading] = useState(false)
     const [uploadError, setUploadError] = useState(undefined)
-    const [acReset, setAcReset] = useState(false)
     const [form, setForm] = useState({})
+    const [acReset, setAcReset] = useState(false) // eslint-disable-line
     const [inputValue, setInputValue] = useState(undefined) // eslint-disable-line
-    const [location, setLocation] = useState(null)
+    const [country, setCountry] = useState(null) // eslint-disable-line
+    const [stateProvince, setStateProvince] = useState(null) // eslint-disable-line
     const [entryId, setEntryId] = useState(undefined)
     const [entryName, setEntryName] = useState(undefined)
     const [checkIn, setCheckIn] = useState(false)
@@ -59,23 +62,27 @@ export default function SubmitChallengeLock({entry}) {
     useEffect(() => {
         if (entry) {
             setForm(entry)
-            setLocation(entry.country || null)
+            setCountry(entry.country || null)
+            setStateProvince(entry.stateProvince || null)
             setEntryId(entry.id)
             setEntryName(entry.name)
         } else {
             const newForm = {
                 id: 'cl_' + genHexString(8),
                 username: profile.discordUsername || undefined,
-                usernamePlatform: 'discord'
+                usernamePlatform: 'discord',
+                country: profile.country || undefined,
+                stateProvince: profile.stateProvince || undefined,
             }
             setForm(newForm)
-            setLocation(null)
+            setCountry(profile.country || null)
+            setStateProvince(profile.stateProvince || null)
         }
-    }, [entry, profile.discordUsername])
+    }, [entry, profile])
 
     const handleTestData = useCallback(() => {
         setForm({...form, ...clTestData, lockCreated: dayjs().toISOString()})
-        setLocation(clTestData.country)
+        setCountry(clTestData.country)
     }, [form])
 
     const textFieldMax = 40
@@ -85,13 +92,44 @@ export default function SubmitChallengeLock({entry}) {
 
     const handleFormChange = useCallback((event) => {
         let {name, value} = event.target
-        if (name === 'country') setLocation(value)
-        setForm({...form, [name]: filterProfanity(value)})
+        let formCopy = {...form}
+        if (name === 'country') {setCountry(value)}
+        let updates = {[name]: filterProfanity(value)}
+        if (name === 'country' && !statesProvinces[value]) {
+            delete formCopy.stateProvince
+        }
+        setForm({...formCopy, ...updates})
     }, [form])
 
     const handleDateChange = useCallback((dateValue) => {
         setForm({...form, ...dateValue})
     }, [form])
+
+    const handleUpdateProfile = useCallback(async () => {
+        console.log('handleUpdateProfile')
+        let localProfile = {...profile}
+        let needUpdate = false
+        try {
+            if (form.username && form.usernamePlatform === 'discord' && form.username !== profile.discordUsername) {
+                localProfile = {...localProfile, discordUsername: form.username}
+                needUpdate = true
+            } else if (form.username && form.usernamePlatform === 'reddit' && form.username !== profile.redditUsername) {
+                localProfile = {...localProfile, redditUsername: form.username}
+                needUpdate = true
+            }
+            if (form.country && form.country !== profile.country) {
+                localProfile = {...localProfile, country: form.country}
+                needUpdate = true
+            }
+            if (form.stateProvince && form.stateProvince !== profile.stateProvince) {
+                localProfile = {...localProfile, stateProvince: form.stateProvince}
+                needUpdate = true
+            }
+            if (needUpdate) await updateProfile(localProfile)
+        } catch (error) {
+            console.error('Couldn\'t set username on profile', error)
+        }
+    }, [form, profile, updateProfile])
 
     const requiredFields = ['name', 'maker', 'lockCreated', 'country', 'username', 'usernamePlatform']
     const uploadable = requiredFields.every(field => form[field] && form[field].length > 0) &&
@@ -127,7 +165,7 @@ export default function SubmitChallengeLock({entry}) {
         const formCopy = {
             ...sanitizeValues(form),
             displayName: sanitizeValues(profile?.username) || 'no display name',
-            status: 'active',
+            status: 'active'
         }
 
         const formData = new FormData()
@@ -161,12 +199,13 @@ export default function SubmitChallengeLock({entry}) {
                     : {}
 
             formCopy.submittedBy = {
-                userId: submitInfo.userId || 'unknown',
-                displayName: submitInfo.displayName || 'unknown',
-                userBelt: formCopy.userBelt || submitInfo.userBelt || 'unknown',
-                username: formCopy.username || submitInfo.username || 'unknown',
-                usernamePlatform: formCopy.usernamePlatform || submitInfo.usernamePlatform || 'unknown'
+                userId: submitInfo.userId || undefined,
+                displayName: submitInfo.displayName || undefined,
+                userBelt: formCopy.userBelt || submitInfo.userBelt || undefined,
+                username: formCopy.username || submitInfo.username || undefined,
+                usernamePlatform: formCopy.usernamePlatform || submitInfo.usernamePlatform || undefined
             }
+            Object.keys(formCopy.submittedBy).forEach(key => formCopy.submittedBy[key] === undefined ? delete formCopy.submittedBy[key] : {})
 
             try {
                 await updateEntry(formCopy)
@@ -177,6 +216,7 @@ export default function SubmitChallengeLock({entry}) {
             } finally {
                 await refreshEntries()
                 setUploading(false)
+                await handleUpdateProfile()
                 const safeName = formCopy.name.replace(/[\s/]/g, '_').replace(/\W/g, '')
                 navigate(`/challengelocks?id=${formCopy.id}&name=${safeName}`)
             }
@@ -200,6 +240,7 @@ export default function SubmitChallengeLock({entry}) {
                 setFiles([])
                 setUploading(false)
                 setForm(formCopy)
+                await handleUpdateProfile()
             }
         }
     }
@@ -210,23 +251,23 @@ export default function SubmitChallengeLock({entry}) {
     }, [navigate])
 
     const handleReload = useCallback(async () => {
-        if (checkIn) {
-            const safeName = entryName.replace(/[\s/]/g, '_').replace(/\W/g, '')
-            navigate(`/challengelocks/checkin?id=${entryId}&name=${safeName}`)
-        } else {
-            const safeName = form.name.replace(/[\s/]/g, '_').replace(/\W/g, '')
-            navigate(`/challengelocks?id=${form.id}&name=${safeName}`)
-        }
-
-        // unused for now.
         files.forEach(file => URL.revokeObjectURL(file.preview))
         setFiles([])
         mainPhoto.forEach(file => URL.revokeObjectURL(file.preview))
         setMainPhoto([])
+        if (checkIn) {
+            const safeName = entryName.replace(/[\s/]/g, '_').replace(/\W/g, '')
+            navigate(`/challengelocks/checkin?id=${entryId}&name=${safeName}`)
+        } else {
+            const safeName = entryName.replace(/[\s/]/g, '_').replace(/\W/g, '')
+            navigate(`/challengelocks?id=${form.id}&name=${safeName}`)
+        }
+
+        /*
         setAcReset(!acReset)
         setForm({id: 'cl_' + genHexString(8), usernamePlatform: 'discord'})
         setResponse(undefined)
-        setLocation(null)
+        setCountry(null)
         setUploading(false)
         setUploadError(undefined)
         setHighlightRequired(false)
@@ -237,8 +278,8 @@ export default function SubmitChallengeLock({entry}) {
                 behavior: 'smooth'
             })
         }, 100)
-
-    }, [acReset, checkIn, entryId, entryName, files, form, mainPhoto, navigate])
+        */
+    }, [checkIn, entryId, entryName, files, form, mainPhoto, navigate])
 
     //TODO: clear form on error OK?
     const handleClose = useCallback(() => {
@@ -298,7 +339,7 @@ export default function SubmitChallengeLock({entry}) {
                                 <div style={{...headerStyle, backgroundColor: getHighlightColor('name')}}>
                                     Challenge Lock Name
                                 </div>
-                                <TextField type='text' name='name' style={{width: 340}}
+                                <TextField type='text' name='name' style={{width: 310}}
                                            onChange={handleFormChange}
                                            value={form.name || ''} color='info'
                                            inputProps={{maxLength: textFieldMax}}/>
@@ -308,9 +349,9 @@ export default function SubmitChallengeLock({entry}) {
                                     CL Maker
                                 </div>
                                 <FreeSoloAutoCompleteBox changeHandler={handleFormChange}
-                                                 options={makerOptions} value={form.maker || ''}
-                                                 name={'maker'} style={{width: 300}} maxLength={textFieldMax}
-                                                 reset={acReset} inputValueHandler={setInputValue}
+                                                         options={makerOptions} value={form.maker || ''}
+                                                         name={'maker'} style={{width: 300}} maxLength={textFieldMax}
+                                                         reset={acReset} inputValueHandler={setInputValue}
                                 />
 
                             </div>
@@ -323,11 +364,11 @@ export default function SubmitChallengeLock({entry}) {
                                     Created
                                 </div>
                                 <DatePicker
-                                            value={form.lockCreated ? dayjs(form.lockCreated) : null}
-                                            onChange={(newValue) => handleDateChange({lockCreated: newValue.toISOString()})}
-                                            disableFuture
-                                            minDate={dayjs('2015-01-01')}
-                                            maxDate={dayjs('2026-12-31')}
+                                    value={form.lockCreated ? dayjs(form.lockCreated) : null}
+                                    onChange={(newValue) => handleDateChange({lockCreated: newValue.toISOString()})}
+                                    disableFuture
+                                    minDate={dayjs('2015-01-01')}
+                                    maxDate={dayjs('2026-12-31')}
                                 />
                             </div>
 
@@ -335,11 +376,24 @@ export default function SubmitChallengeLock({entry}) {
                                 <div style={{...headerStyle, backgroundColor: getHighlightColor('country')}}>Origin
                                 </div>
                                 <AutoCompleteBox changeHandler={handleFormChange}
-                                                 options={countryList} value={location}
+                                                 options={countryList} value={form.country}
                                                  name={'country'} style={{width: 250}}
                                                  reset={acReset}
                                                  inputValueHandler={setInputValue}
                                 />
+                                {statesProvinces[form.country] &&
+                                    <div style={{marginRight: 20, marginTop: 10}}>
+                                        <div style={optionalHeaderStyle}>
+                                            State/Province <span style={{color: '#aaa'}}>(optional)</span>
+                                        </div>
+                                        <AutoCompleteBox changeHandler={handleFormChange}
+                                                         options={statesProvinces[form.country]} value={form.stateProvince}
+                                                         name={'stateProvince'} style={{width: 250}}
+                                                         reset={acReset}
+                                                         inputValueHandler={setStateProvince}
+                                        />
+                                    </div>
+                                }
                             </div>
 
                             <div style={{width: 170}}>
@@ -408,18 +462,9 @@ export default function SubmitChallengeLock({entry}) {
                                 <div style={optionalHeaderStyle}>Original Lock <span
                                     style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
                                 </div>
-                                <TextField type='text' name='originalLock' style={{width: 250}}
+                                <TextField type='text' name='originalLock' style={{width: 300}}
                                            onChange={handleFormChange} value={form.originalLock || ''} color='info'
                                            inputProps={{maxLength: textFieldMax}}/>
-                            </div>
-                            <div style={{}}>
-                                <div style={optionalHeaderStyle}>
-                                    Approx. Belt <span style={{...optionalHeaderStyle, color: '#aaa'}}>(optional)</span>
-                                </div>
-                                <SelectBox changeHandler={handleFormChange}
-                                           name='approximateBelt' form={form} optionsList={uniqueBelts}
-                                           multiple={false} defaultValue={''}
-                                           size={'large'} width={180}/>
                             </div>
                         </div>
 

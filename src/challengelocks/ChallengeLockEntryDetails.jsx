@@ -20,7 +20,7 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
     const {adminEnabled} = useContext(DataContext)
     const {currentVersion} = useContext(DBContextCL)
 
-    const [version,] = useState(currentVersion)
+    const [version] = useState(currentVersion)
 
     const {latestUpdate} = entry
     const [showCheckIns, setShowCheckIns] = useState(false)
@@ -73,7 +73,8 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
             return acc
         }, {})
 
-    const displayCountry = entry.country.length > 32 ? entry.country.substring(0, 32).trim() + '...' : entry.country
+    const displayCountry = entry.country?.length > 32 ? entry.country?.substring(0, 32).trim() + '...' : entry.country
+    const displayStateProvince = entry.stateProvince?.length > 32 ? entry.stateProvince?.substring(0, 32).trim() + '...' : entry.stateProvince
 
     const [blurred, setBlurred] = useState(entry.media?.length > 1 && !adminEnabled)
     const [showWarning, setShowWarning] = useState(blurred)
@@ -145,6 +146,7 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
 
             <div style={{
                 display: flexStyle,
+                flexWrap: 'wrap',
                 fontSize: '0.95rem',
                 lineHeight: '1.2rem',
                 fontWeight: 400,
@@ -156,13 +158,22 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
                     <FieldValue name='Submitted' value={dayjs(entry.dateSubmitted).format('MMM DD, YYYY')}
                                 headerStyle={{color: '#999'}} style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
                 </div>
-                {entry.country &&
-                    <FieldValue name='Country' value={displayCountry}
-                                headerStyle={{color: '#999'}} style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
-                }
+
+                <div style={{display: 'flex', flexDirection: 'row'}}>
+                    {entry.country &&
+                        <FieldValue name='Country' value={displayCountry}
+                                    headerStyle={{color: '#999'}} style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
+                    }
+                    {entry.stateProvince &&
+                        <FieldValue name='State/Province' value={displayStateProvince}
+                                    headerStyle={{color: '#999'}} style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
+                    }
+                </div>
+
                 {(entry.originalMake || entry.originalLock) &&
                     <FieldValue name='Original Lock' value={entry.originalLock || entry.originalMake}
-                                headerStyle={{color: '#999'}} style={{wordBreak: 'break-word', inlineSize: '100%'}}/>
+                                headerStyle={{color: '#999'}}
+                                style={{wordBreak: 'break-word', inlineSize: '100%'}}/>
                 }
             </div>
 
@@ -194,7 +205,8 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
 
             {currentVersion !== version &&
                 <div style={{width: '100%', textAlign: 'center', fontSize: '1.2rem', padding: 20}}>
-                    <Button onClick={() => location.reload()} color='warning' variant='contained'>Refresh Stats</Button>
+                    <Button onClick={() => location.reload()} color='warning' variant='contained'>Refresh
+                        Stats</Button>
                 </div>
             }
 
@@ -210,7 +222,8 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
                     alignContent: 'top'
                 }}>
                     <div style={{marginRight: 40}}>
-                        <FieldValue name='Check-ins' headerStyle={{color: '#999'}} style={{marginTop: 0, width: 100}}
+                        <FieldValue name='Check-ins' headerStyle={{color: '#999'}}
+                                    style={{marginTop: 0, width: 100}}
                                     value={entry.checkInCount}/>
                         <FieldValue name='Success Rate' headerStyle={{color: '#999'}} style={{marginTop: 10}}
                                     value={percentage(entry.successCount / entry.checkInCount, 0)}/>

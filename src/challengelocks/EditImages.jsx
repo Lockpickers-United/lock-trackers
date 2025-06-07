@@ -10,7 +10,6 @@ import LoadingDisplay from '../misc/LoadingDisplay.jsx'
 import ImageCard from './ImageCard.jsx'
 import Dropzone from '../formUtils/Dropzone.jsx'
 import TextField from '@mui/material/TextField'
-import {FormControlLabel, Radio, RadioGroup} from '@mui/material'
 import filterProfanity from '../util/filterProfanity.js'
 import ForwardIcon from '@mui/icons-material/Forward'
 import {postData} from '../formUtils/postData.jsx'
@@ -50,8 +49,7 @@ export default function EditImages() {
 
     useEffect(() => {
         setForm({
-            username: profile.discordUsername || undefined,
-            usernamePlatform: 'discord',
+            photoCredit: profile.lastPhotoCredit || undefined,
             id: lockId
         })
         setMediaArrays({
@@ -60,12 +58,12 @@ export default function EditImages() {
             newMainPhoto: [],
             newMedia: []
         })
-    }, [lock.media, lockId, profile.discordUsername])
+    }, [lock.media, lockId, profile])
 
     //console.log('mediaArrays', mediaArrays)
 
     const [uploading, setUploading] = useState(false)
-    const uploadable = (mediaArrays?.currentMainPhoto?.length > 0 || mediaArrays?.newMainPhoto?.length > 0) && form.username && !uploading && contentChanged
+    const uploadable = (mediaArrays?.currentMainPhoto?.length > 0 || mediaArrays?.newMainPhoto?.length > 0) && form.photoCredit && !uploading && contentChanged
     const needMainPhoto = mediaArrays?.currentMainPhoto?.length === 0 && mediaArrays?.newMainPhoto?.length === 0
 
     const handleFormChange = useCallback((event) => {
@@ -73,18 +71,15 @@ export default function EditImages() {
         setForm({...form, [name]: filterProfanity(value)})
     }, [form])
 
-    const handleUsername = useCallback(async () => {
-        console.log('handleUsername')
+    const handlePhotoCredit = useCallback(async () => {
+        console.log('handlePhotoCredit')
         try {
-            if (form.username && form.usernamePlatform === 'discord' && form.username !== profile.discordUsername) {
-                const localProfile = {...profile, discordUsername: form.username}
-                await updateProfile(localProfile)
-            } else if (form.username && form.usernamePlatform === 'reddit' && form.username !== profile.redditUsername) {
-                const localProfile = {...profile, redditUsername: form.username}
+            if (form.photoCredit && form.photoCredit !== profile.lastPhotoCredit) {
+                const localProfile = {...profile, lastPhotoCredit: form.photoCredit}
                 await updateProfile(localProfile)
             }
         } catch (error) {
-            console.error('Couldn\'t set username on profile', error)
+            console.error('Couldn\'t set lastPhotoCredit on profile', error)
         }
     }, [form, profile, updateProfile])
 
@@ -115,7 +110,7 @@ export default function EditImages() {
 
         if (mediaArrays?.newMainPhoto?.length > 0 || mediaArrays?.newMedia?.length > 0) {
             const prefix = lock.name?.replace('/', '+')
-            const suffix = formCopy.username?.replace('/', '+')
+            const suffix = formCopy.photoCredit?.replace('/', '+')
             const uploadsDir = `${prefix}-${suffix}-${lockId}`.toLowerCase()
 
             mediaArrays?.newMainPhoto?.forEach((file) => {
@@ -146,7 +141,7 @@ export default function EditImages() {
             mediaArrays.newMainPhoto?.forEach(file => URL.revokeObjectURL(file.preview))
             setUploading(false)
             setForm(formCopy)
-            await handleUsername()
+            await handlePhotoCredit()
         }
 
         setUploading(false)
@@ -219,62 +214,44 @@ export default function EditImages() {
 
                     <div style={{margin: `10px 20px 30px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
                         <div style={{
-                            fontSize: '1.3rem',
+                            fontSize: '1.2rem',
                             fontWeight: 700,
                             marginBottom: 10
                         }}>Edit Challenge Lock Images
                         </div>
 
-                        <div style={{margin: '10px 0px 30px 0px', lineHeight: '1.5rem'}}>
+                        <div style={{margin: '10px 0px 20px 0px', lineHeight: '1.5rem'}}>
                             <div style={{display: flexStyle, paddingBottom: 15, borderBottom: '1px solid #ccc'}}>
                                 <div style={{display: 'flex', alignItems: 'center', flexGrow: 1, marginRight: 10}}>
                                     <div>
-                                        <Link onClick={handleLockClick}
-                                              style={{...nameTextStyle, cursor: 'pointer'}}>{lock?.name}</Link>
-
+                                        <Link onClick={handleLockClick} style={{...nameTextStyle, cursor: 'pointer'}}>
+                                            {lock?.name}
+                                        </Link>
                                         <div style={makerTextStyle}>By: {lock.maker}</div>
                                     </div>
                                 </div>
 
-                                <div style={{display: 'flex', marginTop: 10}}>
-                                    <div style={{marginRight: 15, marginTop: 15}}>
-                                        <div style={{
-                                            ...optionalHeaderStyle,
-                                            backgroundColor: !form.username ? '#c00' : 'inherit'
-                                        }}>
-                                            Your Username
-                                        </div>
-                                        <TextField type='text' name='username' style={{width: 240}}
-                                                   onChange={handleFormChange} value={form.username || ''} color='info'
-                                                   inputProps={{maxLength: 40}} size='small'/>
-                                    </div>
-                                    <div style={{marginTop: 25, marginRight: 30}}>
-                                        <RadioGroup
-                                            name='usernamePlatform'
-                                            onChange={handleFormChange}
-                                            size='small'
-                                            value={form.usernamePlatform || 'discord'}
-                                            sx={{
-                                                '& .MuiRadio-root': {
-                                                    padding: '7px'
-                                                }
-                                            }}
-                                        >
-                                            <FormControlLabel value='discord' control={<Radio size='small'/>}
-                                                              label='Discord'/>
-                                            <FormControlLabel value='reddit' control={<Radio size='small'/>}
-                                                              label='Reddit'/>
-                                        </RadioGroup>
-                                    </div>
-                                </div>
                             </div>
+                        </div>
+
+                        <div style={{display: 'flex', marginBottom: 15, justifyContent: 'right'}}>
+                            <div style={{
+                                ...headerStyle, padding: '0px 10px 0px 0px', margin: 0, alignContent: 'center',
+                                textAlign: 'right', fontSize: '1.1rem',
+                                backgroundColor: !form.photoCredit ? '#c00' : 'inherit'
+                            }}>
+                                New Image Photo Credit
+                            </div>
+                            <TextField type='text' name='photoCredit' style={{width: 240}}
+                                       onChange={handleFormChange} value={form.photoCredit || ''} color='info'
+                                       inputProps={{maxLength: 40}} size='small'/>
                         </div>
 
                         <div style={{...headerStyle, flexGrow: 1}}>
                             Current Images
                         </div>
 
-                        <div style={{display: flexStyle, marginTop: 20}}>
+                        <div style={{display: flexStyle, marginTop: 10}}>
                             <div style={{width: 150, marginRight: 20, flexShrink: 0}}>
                                 <div style={{...optionalHeaderStyle, ...requiredHeaderStyle}}>
                                     Main Photo

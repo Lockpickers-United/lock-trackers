@@ -13,6 +13,7 @@ import {useNavigate} from 'react-router-dom'
 import AuthContext from '../app/AuthContext.jsx'
 import {enqueueSnackbar} from 'notistack'
 import countries from '../data/countries.json'
+import statesProvinces from '../data/statesProvinces.json'
 import AutoCompleteBox from '../formUtils/AutoCompleteBox.jsx'
 import {DatePicker} from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
@@ -28,6 +29,7 @@ import validator from 'validator'
 import filterProfanity from '../util/filterProfanity.js'
 import usePageTitle from '../util/usePageTitle.jsx'
 import {postData} from '../formUtils/postData.jsx'
+import DBContextGlobal from '../app/DBContextGlobal.jsx'
 
 /**
  * @prop inputValue
@@ -40,13 +42,15 @@ export default function CheckIn({checkIn}) {
 
     const {getEntryFromId} = useContext(DataContext)
     const {user} = useContext(AuthContext)
-    const {profile, refreshEntries, updateVersion} = useContext(DBContext)
+    const {profile, updateProfile} = useContext(DBContextGlobal)
+    const {refreshEntries, updateVersion} = useContext(DBContext)
     const [response, setResponse] = useState(undefined)
     const [uploading, setUploading] = useState(false)
     const [uploadError, setUploadError] = useState(undefined)
     const [acReset, setAcReset] = useState(false) // eslint-disable-line
     const [inputValue, setInputValue] = useState(undefined) // eslint-disable-line
-    const [location, setLocation] = useState(null)
+    const [country, setCountry] = useState(null)
+    const [stateProvince, setStateProvince] = useState(null)
     const [scrolled, setScrolled] = useState(false)
     const [highlightRequired, setHighlightRequired] = useState(false)
     const navigate = useNavigate()
@@ -68,7 +72,7 @@ export default function CheckIn({checkIn}) {
     const getEntities = useCallback(async () => {
         setLock(await getEntryFromId(lockId) || {})
         setDataLoaded(true)
-    },[getEntryFromId, lockId])
+    }, [getEntryFromId, lockId])
 
     const hasFetched = useRef(false)
     useEffect(() => {
@@ -78,8 +82,6 @@ export default function CheckIn({checkIn}) {
         }
     }, [getEntities])
 
-    console.log('lock', lock?.id, 'check-in', checkIn?.id )
-
     const notValidLock = (dataLoaded && !lock)
 
     const defaultFormData = useMemo(() => {
@@ -87,9 +89,11 @@ export default function CheckIn({checkIn}) {
             id: 'clci_' + genHexString(8),
             username: profile.discordUsername || undefined,
             usernamePlatform: 'discord',
-            lockId: lockId
+            lockId: lockId,
+            country: profile.country,
+            stateProvince: profile.stateProvince,
         }
-    }, [lockId, profile.discordUsername])
+    }, [lockId, profile])
     const [form, setForm] = useState(defaultFormData)
 
     useEffect(() => {
@@ -103,12 +107,14 @@ export default function CheckIn({checkIn}) {
                     }, {})
                 : {}
             setForm({...checkIn, ratings})
-            setLocation(checkIn.country || null)
+            setCountry(checkIn.country || null)
+            setStateProvince(checkIn.stateProvince || null)
         } else {
             setForm(defaultFormData)
-            setLocation(null)
+            setCountry(profile.country || null)
+            setStateProvince(profile.stateProvince || null)
         }
-    }, [checkIn, defaultFormData, profile.discordUsername])
+    }, [checkIn, defaultFormData, profile])
 
     const getHighlightColor = useCallback(field => {
         return highlightRequired
@@ -133,18 +139,22 @@ export default function CheckIn({checkIn}) {
 
     const handleTestData = useCallback(() => {
         setForm({...form, ...checkInTestData})
-        setLocation(checkInTestData.country)
+        setCountry(checkInTestData.country)
     }, [form])
     const countryList = useMemo(() => {
         return countries.map(country => country.country_area)
     }, [])
 
-
     const handleFormChange = useCallback((event) => {
         let {name, value} = event.target
+        let formCopy = {...form}
         if (name !== 'videoUrl') value = value.replace(/https?:\/\/[^\s]+/g, '[link removed]')
-        if (name === 'country') setLocation(value)
-        setForm({...form, [name]: filterProfanity(value)})
+        if (name === 'country') {setCountry(value)}
+        let updates = {[name]: filterProfanity(value)}
+        if (name === 'country' && !statesProvinces[value]) {
+            delete formCopy.stateProvince
+        }
+        setForm({...formCopy, ...updates})
     }, [form])
 
     const urlError = form.videoUrl?.length > 0 && !validator.isURL(form.videoUrl, {require_protocol: true})
@@ -160,6 +170,31 @@ export default function CheckIn({checkIn}) {
     const onRatingChange = useCallback(({dimension, rating}) => {
         setForm({...form, ratings: {...form.ratings, [dimension]: rating}})
     }, [form])
+
+    const handleUpdateProfile = useCallback(async () => {
+        let localProfile = {...profile}
+        let needUpdate = false
+        try {
+            if (form.username && form.usernamePlatform === 'discord' && form.username !== profile.discordUsername) {
+                localProfile = {...localProfile, discordUsername: form.username}
+                needUpdate = true
+            } else if (form.username && form.usernamePlatform === 'reddit' && form.username !== profile.redditUsername) {
+                localProfile = {...localProfile, redditUsername: form.username}
+                needUpdate = true
+            }
+            if (form.country && form.country !== profile.country) {
+                localProfile = {...localProfile, country: form.country}
+                needUpdate = true
+            }
+            if (form.stateProvince && form.stateProvince !== profile.stateProvince) {
+                localProfile = {...localProfile, stateProvince: form.stateProvince}
+                needUpdate = true
+            }
+            if (needUpdate) await updateProfile(localProfile)
+        } catch (error) {
+            console.error('Couldn\'t set username on profile', error)
+        }
+    }, [form, profile, updateProfile])
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -196,7 +231,8 @@ export default function CheckIn({checkIn}) {
             enqueueSnackbar(`Error creating request: ${error}`, {variant: 'error', autoHideDuration: 3000})
         } finally {
             setUploading(false)
-            setForm(formCopy)
+            //setForm(formCopy)
+            await handleUpdateProfile()
         }
 
         // direct to firebase, permissions issue
@@ -244,8 +280,24 @@ export default function CheckIn({checkIn}) {
     const headerStyle = {fontSize: '1.1rem', fontWeight: 600, margin: '5px 0px'}
     const optionalHeaderStyle = {fontSize: '1.1rem', fontWeight: 400, margin: '5px 0px', color: '#ccc'}
 
-    const nameTextStyle = {fontSize: '1.5rem', lineHeight: '1.7rem', color: '#fff', fontWeight: 600, wordBreak: 'break-word', inlineSize: '100%', marginRight:20}
-    const makerTextStyle = {fontSize: '1.2rem', lineHeight: '1.4rem', color: '#fff', wordBreak: 'break-word', inlineSize: '100%', marginRight:20, marginTop: 5}
+    const nameTextStyle = {
+        fontSize: '1.5rem',
+        lineHeight: '1.7rem',
+        color: '#fff',
+        fontWeight: 600,
+        wordBreak: 'break-word',
+        inlineSize: '100%',
+        marginRight: 20
+    }
+    const makerTextStyle = {
+        fontSize: '1.2rem',
+        lineHeight: '1.4rem',
+        color: '#fff',
+        wordBreak: 'break-word',
+        inlineSize: '100%',
+        marginRight: 20,
+        marginTop: 5
+    }
 
     return (
 
@@ -262,7 +314,11 @@ export default function CheckIn({checkIn}) {
                     <div style={{display: flexStyle, paddingBottom: 15, borderBottom: '1px solid #ccc'}}>
                         <div style={{display: 'flex', alignItems: 'center', flexGrow: 1}}>
                             <div>
-                                <div style={{marginBottom: 15, fontSize: '1rem', fontWeight:700}}>
+                                <div style={{
+                                    fontSize: '1.2rem',
+                                    fontWeight: 700,
+                                    marginBottom: 10
+                                }}>
                                     {checkIn ? 'Edit Challenge Lock Check-In' : 'Challenge Lock Check In'}
                                 </div>
                                 <div style={nameTextStyle}>
@@ -397,25 +453,38 @@ export default function CheckIn({checkIn}) {
                         <div style={{display: flexStyle, width: '100%', marginTop: 0, justifyContent: 'center'}}>
                             <div style={{marginRight: 20, marginTop: 10}}>
                                 <div style={optionalHeaderStyle}>
-                                    Your Location <span style={{color: '#aaa'}}>(optional)</span>
+                                    Your Location<br/><span style={{color: '#aaa'}}>(optional)</span>
                                 </div>
                                 <AutoCompleteBox changeHandler={handleFormChange}
-                                                 options={countryList} value={location}
+                                                 options={countryList} value={country}
                                                  name={'country'} style={{width: 300}}
                                                  reset={acReset}
                                                  inputValueHandler={setInputValue}
                                 />
                             </div>
 
+                            {statesProvinces[form.country] &&
+                                <div style={{marginRight: 20, marginTop: 10}}>
+                                    <div style={optionalHeaderStyle}>
+                                        State/Province<br/><span style={{color: '#aaa'}}>(optional)</span>
+                                    </div>
+                                    <AutoCompleteBox changeHandler={handleFormChange}
+                                                     options={statesProvinces[form.country]} value={stateProvince}
+                                                     name={'stateProvince'} style={{width: 200}}
+                                                     reset={acReset}
+                                                     inputValueHandler={setStateProvince}
+                                    />
+                                </div>
+                            }
                             <div style={{marginTop: 10}}>
                                 <div style={optionalHeaderStyle}>
-                                    Current Belt <span style={{color: '#aaa'}}>(optional)</span>
+                                    Current Belt<br/><span style={{color: '#aaa'}}>(optional)</span>
                                 </div>
                                 <SelectBox changeHandler={handleFormChange}
                                            name='userBelt' form={form}
                                            optionsList={['Unranked', ...uniqueBelts]}
                                            multiple={false} defaultValue={''}
-                                           size={'large'} width={200}/>
+                                           size={'large'} width={130}/>
                             </div>
                         </div>
 
@@ -426,7 +495,8 @@ export default function CheckIn({checkIn}) {
 
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
                             {checkIn &&
-                                <Button onClick={() => navigate(`/challengelocks?id=${checkIn.lockId}`)} variant='contained'
+                                <Button onClick={() => navigate(`/challengelocks?id=${checkIn.lockId}`)}
+                                        variant='contained'
                                         color='error' style={{marginRight: 20}}>
                                     Cancel
                                 </Button>

@@ -13,11 +13,11 @@ export default function AdminActionsButton() {
     if (!isMod) return null
 
     const adminText = adminEnabled ? 'Disable Admin' : 'Enable Admin'
-    const buttonColor = adminEnabled ? '#ffb446' : '#999'
+    const buttonColor = adminEnabled ? '#ffed1f' : '#999'
 
     const [anchorEl, setAnchorEl] = React.useState(null)
     const open = Boolean(anchorEl)
-    const handleClick = (event) => {
+    const handleClick = (event) => { // eslint-disable-line no-unused-vars
         setAnchorEl(event.currentTarget)
     }
     const handleClose = () => {
@@ -32,12 +32,10 @@ export default function AdminActionsButton() {
         <React.Fragment>
             <Tooltip title='Admin' arrow disableFocusListener>
                 <Button variant='contained' size='small' color='warning'
-                        onClick={handleClick}
+                        onClick={toggleAdmin}
                         style={{margin: '8px 0px 3px 10px', padding: 0, height: 32, width: 32, minWidth: 32, backgroundColor: buttonColor}}>
                     <VpnKeyIcon/>
                 </Button>
-
-
             </Tooltip>
             <Menu
                 open={open}

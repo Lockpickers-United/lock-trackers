@@ -45,9 +45,9 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
 
     const handleEdit = useCallback(async () => {
         navigate(`/challengelocks/edit?id=${checkIn.id}`)
-    },[checkIn.id, navigate])
+    }, [checkIn.id, navigate])
 
-        const {flexStyle} = useWindowSize()
+    const {flexStyle} = useWindowSize()
     const openInNewTab = (url) => {
         const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
         if (newWindow) newWindow.opener = null
@@ -81,10 +81,9 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
 
                         <ul style={{paddingLeft: 20, margin: 0}}>
                             {checkIn.country && <li>{checkIn.country}</li>}
+                            {checkIn.stateProvince && <li>{checkIn.stateProvince}</li>}
                             <li>Succesful pick? {checkIn.successfulPick}</li>
-                            {checkIn.videoUrl && <li>
-                                {urlDisplay}
-                            </li>}
+                            {checkIn.videoUrl && <li>{urlDisplay}</li>}
                             {checkIn.notes && <li>Notes: {checkIn.notes}</li>}
                         </ul>
 
