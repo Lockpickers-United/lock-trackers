@@ -14,7 +14,7 @@ import dayjs from 'dayjs'
 import createThumbnails from '../../util/createThumbnails.js'
 import {contentUploadRecipients, prodUser} from '../../../keys/users.js'
 import admin from 'firebase-admin'
-import {getFirestore} from 'firebase-admin/firestore'
+import {getFirestore, FieldValue} from 'firebase-admin/firestore'
 import jsonIt from '../../util/jsonIt.js'
 import sanitizeValues from '../../util/sanitizeValues.js'
 import validator from 'validator'
@@ -105,12 +105,12 @@ export async function updateLockMedia(req, res) {
         const flatFields = flattenFields(fields)
         jsonIt('flatFields:', flatFields)
 
-        // get lock entry
-
         let ref = db.collection('challenge-locks').doc(flatFields.id)
         const lockEntry = await fetchDocument(ref, flatFields.id)
+        if (!lockEntry) return handleError(res, 'Lock not found', `No lock matching id ${flatFields.id} found`, 404)
 
-        //console.log('lockEntry:', lockEntry)
+
+        console.log('lockEntry:', lockEntry)
 
         // save files/thumbs
         const addedMedia = await Promise.all(filepaths.map(async (filepath, index) => ({
@@ -125,59 +125,111 @@ export async function updateLockMedia(req, res) {
                 inputFile: files.files[index].filepath,
                 width: 500
             })).replace(uploadDir, serverPath),
-            sequenceId: index + 1,
+            thumbnailSquareUrl: (await createThumbnails({
+                inputFile: files.files[0].filepath,
+                width: 200,
+                square: true
+            })).replace(uploadDir, serverPath),
             dateAdded: dayjs().toISOString(),
             subtitle: 'CC BY-NC-SA 4.0'
         })))
 
-        const thumbnail = files.files
-            ? (await createThumbnails({
-                inputFile: files.files[0].filepath,
-                width: 200,
-                square: true
-            })).replace(uploadDir, serverPath)
-            : lockEntry.thumbnail || null
-
+        let fullMedia = []
         const updates = {}
 
-        // get new main photo if needed
-        if (flatFields.replaceMainPhoto === 'true' && addedMedia.length > 0) {
-            // replace thumbnail
-            updates.thumbnail = thumbnail
-            // replace mainImage
-            updates.mainImage = [addedMedia[0]]
+        // new upload as main photo
+        if (!flatFields.updatedMainPhotoId && flatFields.replaceMainPhoto && addedMedia?.length > 0) {
+            const newMainImage = addedMedia.shift()
+            fullMedia.push(newMainImage)
+
+        } else if (flatFields.updatedMainPhotoId && lockEntry.media?.length > 0 && (lockEntry.media[0].sequenceId !== flatFields.updatedMainPhotoId)) {
+            console.log('mainPhoto changed:', lockEntry.media[0].sequenceId, 'to', flatFields.updatedMainPhotoId)
+            // existing image now used as main photo
+
+            // replace mainImage with other existing media
+            const newMainImage = lockEntry.media?.find(media => media.sequenceId === parseInt(flatFields.updatedMainPhotoId))
+
+            // make new thumbnail if needed
+            const thumbnailSource = newMainImage.fullSizeUrl.replace(serverPath, uploadDir)
+            const thumbnailOutputPath = thumbnailSource.replace(/-1024.jpg$/, '-200-sq.jpg')
+            if (!fs.existsSync(thumbnailOutputPath)) {
+                const tSquare = await createThumbnails({ //eslint-disable-line no-unused-vars
+                        inputFile: thumbnailSource,
+                        width: 200,
+                        square: true,
+                        outputFilePath: thumbnailOutputPath
+                    })
+            }
+            if (!newMainImage.thumbnailSquareUrl) {
+                newMainImage.thumbnailSquareUrl = newMainImage.fullSizeUrl.replace(/-1024.jpg$/, '-200-sq.jpg')
+            }
+
+            fullMedia.push(newMainImage)
+            //updates.mainImage = [{...newMainImage, sequenceId: 1}] // backwards compatibility with old mainImage format
+
+        } else if (!flatFields.updatedMainPhotoId) {
+            // if no mainImage, set first existing or addedMedia as mainImage (whether or not it was in that slot??)
+            const newMainImage = lockEntry.media?.length > 0
+                ? lockEntry.media[0]
+                : undefined
+            fullMedia.push(newMainImage)
+            //updates.mainImage = [{...newMainImage, sequenceId: 1}]
+
+        } else {
+            // no change to mainImage so keep it first in fullMedia
+            fullMedia.push(lockEntry.mainImage)
         }
-
-        // if replaceMainPhoto, add first addedMedia to fullMedia
-        const fullMedia = flatFields.replaceMainPhoto === 'true' ? [addedMedia.shift()] : [lockEntry.mainImage[0]]
-
-        console.log('fullMedia:', fullMedia)
-
 
         const keepMediaIds = flatFields.updatedMediaIds
             ? flatFields.updatedMediaIds.split(',').map(id => parseInt(id))
             : []
-        const keepMedia = lockEntry?.media?.length > 0
-            ? lockEntry?.media?.filter(media => keepMediaIds.includes(media.sequenceId))
+        const keepMedia = lockEntry.media?.length > 0
+            ? lockEntry.media?.filter(media => keepMediaIds.includes(media.sequenceId))
             : []
+
+        if (keepMedia.length > 0) {
+            // make/set square thumbnails for existing media
+            for (const media of keepMedia) {
+                const thumbnailSource = media.fullSizeUrl.replace(serverPath, uploadDir)
+                const thumbnailOutputPath = thumbnailSource.replace(/-1024.jpg$/, '-200-sq.jpg')
+                if (!fs.existsSync(thumbnailOutputPath)) {
+                    await createThumbnails({
+                        inputFile: thumbnailSource,
+                        width: 200,
+                        square: true,
+                        outputFilePath: thumbnailOutputPath
+                    })
+                }
+                if (!media.thumbnailSquareUrl) {
+                    media.thumbnailSquareUrl = media.fullSizeUrl.replace(/-1024.jpg$/, '-200-sq.jpg')
+                }
+            }
+        }
+
         fullMedia.push(...keepMedia)
         fullMedia.push(...addedMedia)
 
-        updates.media = fullMedia.map((media, index) => ({...media, sequenceId: index + 1}))
+        console.log('fullMedia:', fullMedia)
+
+        updates.media = fullMedia.filter(x => x).map((media, index) => ({...media, sequenceId: index + 1}))
+        updates.thumbnail = FieldValue.delete()
+        updates.mainImage = FieldValue.delete()
 
         console.log('updates:', updates)
-
 
         updates.updatedAt = dayjs().toISOString()
 
         // SUBMIT UPDATES
         if (Object.keys(updates).length > 0) {
-            await updateDocument(ref, updates, flatFields.id)
+            try {
+                await updateDocument(ref, updates, flatFields.id)
+            } catch (err) {
+                return handleError(res, 'Could not update lock', err)
+            }
         }
 
         console.log('done')
         return res.status(200).json(flatFields)
-
 
     } catch (err) {
         return handleError(res, 'Form Parse Error', err)
@@ -270,16 +322,16 @@ export default async function submitChallengeLock(req, res) {
                 inputFile: files.files[index].filepath,
                 width: 500
             })).replace(uploadDir, serverPath),
+            thumbnailSquareUrl: (await createThumbnails({
+                inputFile: files.files[0].filepath,
+                width: 200,
+                square: true
+            })).replace(uploadDir, serverPath),
             sequenceId: index + 1,
             dateAdded: dayjs().toISOString(),
             subtitle: 'CC BY-NC-SA 4.0'
         })))
 
-        entry.thumbnail = (await createThumbnails({
-            inputFile: files.files[0].filepath,
-            width: 200,
-            square: true
-        })).replace(uploadDir, serverPath)
 
         //entry.mainImage = [entry.media[0]]
 

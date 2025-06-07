@@ -23,9 +23,6 @@ export default function ChallengeLocksParentRoute() {
     const {authLoaded} = useContext(AuthContext)
     const {adminRole, getProfile} = useContext(DBContextGlobal)  //eslint-disable-line
 
-    const {foo} = useContext(DBContextGlobal)
-    console.log('DBContextGlobal', foo)
-
     const {user} = useContext(AuthContext)
     const userId = user ? user.uid : null
     const loadFn = useCallback(async () => {

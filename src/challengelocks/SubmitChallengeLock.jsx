@@ -142,7 +142,7 @@ export default function SubmitChallengeLock({entry}) {
 
             mainPhoto.forEach((file) => {
                 const {base, ext} = separateBasename(file.name)
-                formData.append('files', file, `${uploadsDir}/${prefix}_${base}_${suffix}--main${ext}`.toLowerCase())
+                formData.append('files', file, `${uploadsDir}/${prefix}_${base}_${suffix}${ext}`.toLowerCase())
             })
             files.forEach((file) => {
                 const {base, ext} = separateBasename(file.name)

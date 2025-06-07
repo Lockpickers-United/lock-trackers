@@ -17,7 +17,6 @@ export default function ImageCard({
                     position: 'absolute',
                     top: 0,
                     left: 0,
-                    height: height,
                     width: '100%',
                     alignContent: 'flex-start',
                     justifyItems: 'right'

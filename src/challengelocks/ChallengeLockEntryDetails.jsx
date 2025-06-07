@@ -75,8 +75,8 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
 
     const displayCountry = entry.country.length > 32 ? entry.country.substring(0, 32).trim() + '...' : entry.country
 
-    const [blurred, setBlurred] = useState(entry.media?.length > 1)
-    const [showWarning, setShowWarning] = useState(entry.media?.length > 1)
+    const [blurred, setBlurred] = useState(entry.media?.length > 1 && !adminEnabled)
+    const [showWarning, setShowWarning] = useState(blurred)
     const handleBlur = useCallback(() => {
         setBlurred(!blurred)
         setShowWarning(!blurred)

@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useContext, useState} from 'react'
+import React, {useCallback, useMemo, useContext, useState, useEffect} from 'react'
 import dayjs from 'dayjs'
 import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
@@ -8,14 +8,17 @@ import DBContext from './DBProviderCL.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 import {useLocalStorage} from 'usehooks-ts'
 
-//import allEntries from './challengeLocks.json'
-
-
 export function DataProvider({children}) {
 
     const {userClaims} = useContext(AuthContext)
     const isMod = ['CLadmin', 'admin'].some(claim => userClaims.includes(claim))
     const [adminEnabled, setAdminEnabled] = useLocalStorage('adminEnabled', false)
+
+    useEffect(() => {
+        if (!isMod && adminEnabled) {
+            setAdminEnabled(false)
+        }
+    }, [adminEnabled, isMod, setAdminEnabled])
 
     const {filters: allFilters} = useContext(FilterContext)
     const {search, id, tab, name, sort, image, profileUpdated, ...filters} = allFilters
@@ -34,6 +37,8 @@ export function DataProvider({children}) {
                         return acc
                     }, {})
 
+                const mainImage = entry.mainImage?.length > 0 ? entry.mainImage[0] : entry.media?.length > 0 ? entry.media[0] : undefined
+
                 return {
                     ...entry,
                     ...ratings,
@@ -43,6 +48,8 @@ export function DataProvider({children}) {
                     submittedAt: entry.submittedAt || entry.dateSubmitted,
                     lockCreated: entry.lockCreated || entry.createdAt,
                     updatedAt: entry.updatedAt || entry.latestUpdate?.pickDate || '2000-01-01',
+                    thumbnail: mainImage.thumbnailSquareUrl || entry.thumbnail,
+                    mainImage: mainImage
                 }
             })
             : []

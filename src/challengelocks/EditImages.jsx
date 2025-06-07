@@ -18,6 +18,7 @@ import {enqueueSnackbar} from 'notistack'
 import AuthContext from '../app/AuthContext.jsx'
 import DBContextGlobal from '../app/DBContextGlobal.jsx'
 import DBContext from '../app/DBContext.jsx'
+import Link from '@mui/material/Link'
 
 export default function EditImages() {
 
@@ -34,8 +35,7 @@ export default function EditImages() {
     const notValidLock = (Object.keys(allEntries).length > 0 && Object.keys(lock).length === 0)
 
     const safeName = lock?.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
-    const lockUrl = `${location.origin}/#/challengelocks?id=${lockId}&name=${safeName}` //eslint-disable-line
-    const lockNavigate = `/challengelocks?id=${lockId}&name=${safeName}` //eslint-disable-line
+    const lockNavigate = `/challengelocks?id=${lockId}&name=${safeName}`
 
     const [response, setResponse] = useState(undefined)
     const [uploadError, setUploadError] = useState(undefined)
@@ -73,7 +73,6 @@ export default function EditImages() {
         setForm({...form, [name]: filterProfanity(value)})
     }, [form])
 
-
     const handleUsername = useCallback(async () => {
         console.log('handleUsername')
         try {
@@ -91,28 +90,23 @@ export default function EditImages() {
 
     //console.log('form', form)
 
+
     const handleSubmit = async () => {
         setUploading(true)
 
-        const updatedMainPhotoId = mediaArrays?.currentMainPhoto?.length > 0
-            ? mediaArrays?.currentMainPhoto[0].sequenceId
-            : null
-
-        const updatedMediaIds = mediaArrays?.currentMedia?.length > 0
-            ? mediaArrays?.currentMedia.map((image) => image.sequenceId)
-            : []
-
-        const replaceMainPhoto = mediaArrays.newMainPhoto.length > 0 ? 'true' : 'false'
-
         const formCopy = {
             ...form,
-            test: 'true',
-            replaceMainPhoto,
-            updatedMainPhotoId,
-            updatedMediaIds
+            replaceMainPhoto: mediaArrays.newMainPhoto.length > 0 ? 'true' : 'false'
         }
 
-        console.log('formCopy', formCopy)
+        if (mediaArrays?.currentMainPhoto?.length > 0)
+            formCopy.updatedMainPhotoId = mediaArrays?.currentMainPhoto[0].sequenceId
+
+        if (mediaArrays?.currentMedia?.length > 0)
+            formCopy.updatedMediaIds = mediaArrays?.currentMedia.map((image) => image.sequenceId)
+
+        //setUploading(false)
+        //return
 
         const formData = new FormData()
         Object.keys(formCopy).forEach(key => {
@@ -136,9 +130,7 @@ export default function EditImages() {
 
         const url = `${serverUrl}/update-lock-media`
 
-        formData.forEach((value, key) => {
-            console.log(key, value)
-        })
+        //formData.forEach((value, key) => console.log(key, value) )
 
         try {
             const results = await postData({user, url, formData, snackBars: false})
@@ -190,10 +182,17 @@ export default function EditImages() {
     }, [mediaArrays])
 
     const navigate = useNavigate()
+    const handleLockClick = useCallback(() => {
+        navigate(`/challengelocks?id=${lockId}&name=${safeName}`)
+    }, [lockId, navigate, safeName])
+
     const {width, isMobile} = useWindowSize()
     const paddingLeft = !isMobile ? 16 : 8
 
     const flexStyle = width < 500 ? 'block' : 'flex'
+    const moveRotation = width < 500 ? 'rotate(90deg)' : 'rotate(0deg)'
+    const moveBackRotation = width < 500 ? 'rotate(-90deg)' : 'rotate(180deg)'
+
     const nameTextStyle = {fontSize: '1.5rem', lineHeight: '1.7rem', fontWeight: 600, marginLeft: 0}
     const makerTextStyle = {fontSize: '1.2rem', lineHeight: '1.4rem', marginLeft: 0, marginTop: 10}
 
@@ -204,7 +203,7 @@ export default function EditImages() {
 
     const smallWindow = width <= 560
 
-    const cardWidth = smallWindow ? 165 : 150
+    const cardWidth = smallWindow ? 115 : 145
     const imageHeight = smallWindow ? 120 : 150
 
     return (
@@ -230,7 +229,9 @@ export default function EditImages() {
                             <div style={{display: flexStyle, paddingBottom: 15, borderBottom: '1px solid #ccc'}}>
                                 <div style={{display: 'flex', alignItems: 'center', flexGrow: 1, marginRight: 10}}>
                                     <div>
-                                        <div style={nameTextStyle}>{lock.name}</div>
+                                        <Link onClick={handleLockClick}
+                                              style={{...nameTextStyle, cursor: 'pointer'}}>{lock?.name}</Link>
+
                                         <div style={makerTextStyle}>By: {lock.maker}</div>
                                     </div>
                                 </div>
@@ -280,17 +281,18 @@ export default function EditImages() {
                                 </div>
                                 {mediaArrays?.currentMainPhoto && mediaArrays.currentMainPhoto.length > 0 &&
                                     <div>
-                                        <ImageCard
+                                        <div style={{}}><ImageCard
                                             image={mediaArrays.currentMainPhoto ? mediaArrays.currentMainPhoto[0] : []}
                                             handleRemove={handleRemove}
                                             mediaArrayName={'currentMainPhoto'}
                                             height={imageHeight + 30} maxWidth={150}
                                             style={{marginTop: 10}}
                                         />
-                                        <Button endIcon={<ForwardIcon/>}
+                                        </div>
+                                        <Button endIcon={<ForwardIcon style={{transform: moveRotation}}/>}
                                                 onClick={() => handleImageMove('currentMainPhoto', mediaArrays.currentMainPhoto[0].sequenceId, 'currentMedia')}
                                                 variant='contained' color='info'
-                                                style={{width: 150}}>
+                                                style={{width: 145}}>
                                             MOVE
                                         </Button>
                                     </div>
@@ -321,10 +323,25 @@ export default function EditImages() {
 
                                     }}>
                                         {mediaArrays?.currentMedia && mediaArrays?.currentMedia?.map((image, index) => (
-                                            <ImageCard image={image} key={index} index={index}
-                                                       mediaArrayName={'currentMedia'}
-                                                       height={imageHeight}
-                                                       handleRemove={handleRemove}/>
+                                            <div key={index} style={{justifyItems: 'center'}}>
+                                                <ImageCard image={image} key={index} index={index}
+                                                           mediaArrayName={'currentMedia'}
+                                                           height={imageHeight}
+                                                           handleRemove={handleRemove}/>
+                                                {mediaArrays.currentMainPhoto?.length === 0 &&
+                                                    <Button
+                                                        startIcon={<ForwardIcon style={{transform: moveBackRotation}}/>}
+                                                        onClick={() => handleImageMove('currentMedia', image.sequenceId, 'currentMainPhoto')}
+                                                        variant='contained' color='info'
+                                                        style={{
+                                                            width: cardWidth,
+                                                            backgroundColor: '#333',
+                                                            color: '#888'
+                                                        }}>
+                                                        MOVE
+                                                    </Button>
+                                                }
+                                            </div>
                                         ))}
 
                                     </div>
@@ -335,7 +352,7 @@ export default function EditImages() {
                                         width: '100%', backgroundColor: '#333', color: '#888', border: '1px solid #444',
                                         height: 40, textAlign: 'center', marginTop: 10, alignContent: 'center'
                                     }}>
-                                        None{lock.media.length > 1 && ' Remaining'}
+                                        None{lock?.media?.length > 1 && ' Remaining'}
                                     </div>
                                 }
 
@@ -362,7 +379,7 @@ export default function EditImages() {
                             <Button onClick={handleSubmit} variant='contained' color='info'
                                     disabled={!uploadable || uploading}
                                     style={{marginRight: 20}}>
-                            Save Changes
+                                Save Changes
                             </Button>
                         </div>
 
@@ -370,7 +387,12 @@ export default function EditImages() {
                             backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
                         }}>
                             <div style={{display: 'flex'}}>
-                                <div style={{backgroundColor: '#444', marginLeft: 'auto', marginRight: 'auto', padding: 40}}>
+                                <div style={{
+                                    backgroundColor: '#444',
+                                    marginLeft: 'auto',
+                                    marginRight: 'auto',
+                                    padding: 40
+                                }}>
                                     <div style={{
                                         fontSize: '1.7rem',
                                         fontWeight: 500,

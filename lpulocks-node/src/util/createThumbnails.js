@@ -1,12 +1,15 @@
 import sharp from 'sharp'
 
-export default async function createThumbnails({inputFile, width = 400, square = false}) {
+export default async function createThumbnails({inputFile, width = 400, square = false, outputFilePath = ''}) {
 
     const pathComponents = inputFile.split('/')
     const filename = pathComponents.pop()
     const filenameParts = filename.match(/(.*)\.(.\w*$)/)
     const suffix = square ? '-sq' : ''
-    const outputFile = `${pathComponents.join('/')}/${filenameParts[1]}-${width}${suffix}.${filenameParts[2]}`
+    const outputFile = outputFilePath !== ''
+        ? outputFilePath
+        : `${pathComponents.join('/')}/${filenameParts[1]}-${width}${suffix}.${filenameParts[2]}`
+
     try {
         if (!square) {
             return await sharp(inputFile)
