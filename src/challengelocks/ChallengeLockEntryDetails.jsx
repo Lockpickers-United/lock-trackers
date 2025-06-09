@@ -13,6 +13,7 @@ import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
 import RatingTable from './RatingTable.jsx'
 import AdminActionsBar from './AdminActionsBar.jsx'
 import DBContextCL from './DBProviderCL.jsx'
+import ProblemsDisplay from './ProblemsDisplay.jsx'
 
 const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, setCheckIns}) => {
     if (!entry) return null
@@ -84,12 +85,17 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
     }, [blurred])
 
     const {flexStyle, isMobile} = useWindowSize()
+    const breakWordStyle = {wordBreak: 'break-word', inlineSize: '100%'}
 
     return (
         <div>
             {(adminEnabled) &&
-                <AdminActionsBar entry={entry}/>
+                <React.Fragment>
+                    <AdminActionsBar entry={entry}/>
+                    <ProblemsDisplay entry={entry}/>
+                </React.Fragment>
             }
+
             {entry.media &&
                 <div style={{position: 'relative', zIndex: 1}}>
                     <ChallengeLockImageGallery entry={entry} blurred={blurred}/>
@@ -162,25 +168,27 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
                 <div style={{display: 'flex', flexDirection: 'row'}}>
                     {entry.country &&
                         <FieldValue name='Country' value={displayCountry}
-                                    headerStyle={{color: '#999'}} style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
+                                    headerStyle={{color: '#999'}}
+                                    style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
                     }
                     {entry.stateProvince &&
                         <FieldValue name='State/Province' value={displayStateProvince}
-                                    headerStyle={{color: '#999'}} style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
+                                    headerStyle={{color: '#999'}}
+                                    style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
                     }
                 </div>
 
                 {(entry.originalMake || entry.originalLock) &&
                     <FieldValue name='Original Lock' value={entry.originalLock || entry.originalMake}
                                 headerStyle={{color: '#999'}}
-                                style={{wordBreak: 'break-word', inlineSize: '100%'}}/>
+                                style={breakWordStyle}/>
                 }
             </div>
 
             {sanitizeValues(entry.description) &&
                 <div style={{fontSize: '0.95rem', lineHeight: '1.5rem', fontWeight: 400, marginTop: 10}}>
                     <FieldValue name='Description' value={
-                        <div style={{wordBreak: 'break-word', inlineSize: '100%'}}>
+                        <div style={breakWordStyle}>
                             {sanitizeValues(entry.description)}
                         </div>
                     }
@@ -281,7 +289,8 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
                 <div
                     style={{display: flexStyle, borderBottom: '1px solid #aaa', margin: '20px 20px 0px 20px'}}/>
                 {checkIns.filter(ci => ci?.id !== latestUpdate?.id).map((checkIn, index) => (
-                    <ChallengeLockCheckInDisplay checkIn={checkIn} key={index} refreshCheckIns={refreshCheckIns}/>
+                    <ChallengeLockCheckInDisplay checkIn={checkIn} key={index}
+                                                 refreshCheckIns={refreshCheckIns}/>
                 ))}
             </Collapse>
 

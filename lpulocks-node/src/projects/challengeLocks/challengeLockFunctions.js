@@ -6,6 +6,7 @@
  */
 
 import {formidable} from '../../util/formidable/src/index.js'
+import {parseForm, flattenFields} from '../../util/formUtils.js'
 import fs from 'fs'
 import {sendEmail} from '../nodeMailer/nodeMailer.js'
 import util from 'util'
@@ -15,10 +16,10 @@ import {contentUploadRecipients, prodUser} from '../../../keys/users.js'
 import admin from 'firebase-admin'
 import {getFirestore, FieldValue} from 'firebase-admin/firestore'
 import jsonIt from '../../util/jsonIt.js'
-import sanitizeValues from '../../util/sanitizeValues.js'
 import validator from 'validator'
 import dayjs from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter.js'
+
 dayjs.extend(isSameOrAfter)
 
 const {writeFile} = fs.promises
@@ -156,11 +157,11 @@ export async function updateLockMedia(req, res) {
             const thumbnailOutputPath = thumbnailSource.replace(/-1024.jpg$/, '-200-sq.jpg')
             if (!fs.existsSync(thumbnailOutputPath)) {
                 const tSquare = await createThumbnails({ //eslint-disable-line no-unused-vars
-                        inputFile: thumbnailSource,
-                        width: 200,
-                        square: true,
-                        outputFilePath: thumbnailOutputPath
-                    })
+                    inputFile: thumbnailSource,
+                    width: 200,
+                    square: true,
+                    outputFilePath: thumbnailOutputPath
+                })
             }
             if (!newMainImage.thumbnailSquareUrl) {
                 newMainImage.thumbnailSquareUrl = newMainImage.fullSizeUrl.replace(/-1024.jpg$/, '-200-sq.jpg')
@@ -293,7 +294,6 @@ export default async function submitChallengeLock(req, res) {
             lockFormat: flatFields.lockFormat,
             description: flatFields.description,
             descriptionFull: flatFields.descriptionFull,
-            approximateBelt: flatFields.approxBelt,
             submittedBy: {
                 userId: req.user.user_id,
                 userBelt: flatFields.userBelt,
@@ -430,15 +430,14 @@ export async function submitCheckIn(req, res) {
             handleError(res, 'Failed to create Challenge Lock', error, 500)
         }
 
-        // set lock: latestCheckIn, ratings, approx belt, checkInCount
+        // set lock: latestCheckIn, ratings, checkInCount
 
         ref = db.collection('challenge-locks').doc(entry.lockId)
         const lockEntry = await fetchDocument(ref, entry.lockId)
 
         let updates = {}
         if (!lockEntry.latestUpdate
-            || dayjs(entry.pickDate).isSameOrAfter(lockEntry.latestUpdate?.pickDate))
-        {
+            || dayjs(entry.pickDate).isSameOrAfter(lockEntry.latestUpdate?.pickDate)) {
             updates.latestUpdate = entry
         }
 
@@ -454,9 +453,8 @@ export async function submitCheckIn(req, res) {
                 : [ratings[key]]
         })
 
-        updates.approxBelt = lockEntry.approxBelt
-            ? [...lockEntry.approxBelt, entry.approxBelt]
-            : [lockEntry.approxBelt]
+        updates.approxBelt = FieldValue.delete()
+        updates.approximateBelt = FieldValue.delete()
 
         updates.checkInCount = (lockEntry.checkInCount || 0) + 1
         updates.successCount = (lockEntry.successCount || 0) + (entry.successfulPick === 'Yes' ? 1 : 0)
@@ -475,6 +473,125 @@ export async function submitCheckIn(req, res) {
     }
 
 }
+
+
+export async function reportProblem(req, res) {
+
+    try {
+        req.user = await authenticateRequest(req, res)
+    } catch (err) {
+        return handleError(res, err.message, err, 403)
+    }
+
+    const {prod} = req.body
+    const db = prod ? dbProd : dbDev
+
+    const form = formidable({})
+
+    try {
+        const {fields} = await parseForm(req, form)
+        for (const fieldName in fields) {
+            if (!Array.isArray(fields[fieldName])) {
+                fields[fieldName] = [fields[fieldName]]
+            }
+        }
+        const entry = flattenFields(fields)
+        jsonIt('entry:', entry)
+
+        let ref = db.collection('challenge-locks').doc(entry.entryId)
+        const lockEntry = await fetchDocument(ref, entry.entryId)
+
+        console.log('lockEntry:', lockEntry)
+
+        const updates = { problems: lockEntry.problems ? [...lockEntry.problems, entry] : [entry] }
+
+        if (Object.keys(updates).length > 0) {
+            try {
+                await updateDocument(ref, updates, entry.entryId)
+            } catch (error) {
+                return handleError(res, 'Failed to update Challenge Lock', error, 500)
+            }
+        }
+
+        // send email
+        let html = `<strong>Problem reported: <a href='https://beta.lpulocks.com/#/challengelocks?id=${entry.entryId}'>${sanitizeHTML(entry.entryName)} by ${sanitizeHTML(entry.entryMaker)}</a><br/></strong><br/><br/>`
+        let fieldsHtml = html + '<table style="border-width:1px">'
+        for (const key in entry) {
+            fieldsHtml += `<tr><td>${sanitizeHTML(key)}</td><td>${sanitizeHTML(fields[key])}</td></tr>`
+        }
+        fieldsHtml += '</table>'
+
+        console.log('fieldsHtml:', fieldsHtml)
+
+        try {
+            const email = await sendEmail({
+                emailConfig: 'challengeLock',
+                to: contentUploadRecipients,
+                subject: `Challenge Lock Problem Reported for: ${entry.entryName}`,
+                text: `Challenge Lock Problem Reported for: ${entry.entryName}`,
+                html: fieldsHtml
+            })
+            console.log('Message sent: %s', email.messageId)
+        } catch (error) {
+            return handleError(res, 'Email send error', error)
+        }
+
+    } catch (err) {
+        return handleError(res, 'Form Parse Error', err)
+    }
+
+
+    console.log('done')
+    return res.status(200).json('Report Problem Endpoint Hit')
+}
+
+
+export async function clearProblems(req, res) {
+
+    try {
+        req.user = await authenticateRequest(req, res)
+    } catch (err) {
+        return handleError(res, err.message, err, 403)
+    }
+
+    const {prod} = req.body
+    const db = prod ? dbProd : dbDev
+
+    const form = formidable({})
+
+    try {
+        const {fields} = await parseForm(req, form)
+        for (const fieldName in fields) {
+            if (!Array.isArray(fields[fieldName])) {
+                fields[fieldName] = [fields[fieldName]]
+            }
+        }
+        const entry = flattenFields(fields)
+        jsonIt('entry:', entry)
+
+        let ref = db.collection('challenge-locks').doc(entry.entryId)
+        const lockEntry = await fetchDocument(ref, entry.entryId)
+
+        console.log('lockEntry:', lockEntry)
+
+        const updates = {problems: FieldValue.delete()}
+
+        if (Object.keys(updates).length > 0) {
+            try {
+                await updateDocument(ref, updates, entry.entryId)
+            } catch (error) {
+                return handleError(res, 'Failed to update Challenge Lock', error, 500)
+            }
+        }
+    } catch (err) {
+        return handleError(res, 'Form Parse Error', err)
+    }
+
+    console.log('done')
+    return res.status(200).json('Report Problem Endpoint Hit')
+}
+
+
 
 async function setDocument(ref, entry, entryId) {
     try {
@@ -510,17 +627,6 @@ async function updateDocument(ref, updates, entryId) {
     }
 }
 
-function flattenFields(fields) {
-    const flatFields = {}
-    for (const key in fields) {
-        if (Array.isArray(fields[key])) {
-            flatFields[key] = fields[key].length > 0 ? fields[key][0] : ''
-        } else {
-            flatFields[key] = fields[key] || ''
-        }
-    }
-    return sanitizeValues(flatFields)
-}
 
 async function authenticateRequest(req) {
     const authHeader = req.headers.authorization
@@ -533,15 +639,6 @@ async function authenticateRequest(req) {
         throw new Error('Insufficient permissions')
     }
     return decodedToken
-}
-
-function parseForm(req, form) {
-    return new Promise((resolve, reject) => {
-        form.parse(req, (err, fields, files) => {
-            if (err) return reject(err)
-            resolve({fields, files})
-        })
-    })
 }
 
 function createFilename(part, serverPath, uploadDir) {

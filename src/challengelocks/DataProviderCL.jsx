@@ -49,7 +49,8 @@ export function DataProvider({children}) {
                     lockCreated: entry.lockCreated || entry.createdAt,
                     updatedAt: entry.updatedAt || entry.latestUpdate?.pickDate || '2000-01-01',
                     thumbnail: mainImage.thumbnailSquareUrl || entry.thumbnail,
-                    mainImage: mainImage
+                    mainImage: mainImage,
+                    hasProblems: entry.problems?.length > 0 ? 'problems' : undefined,
                 }
             })
             : []
@@ -130,8 +131,8 @@ export function DataProvider({children}) {
 
 
     const getEntryFromId = useCallback(entryId => {
-        return allEntries?.find(({id}) => id === entryId)
-    }, [allEntries])
+        return mappedEntries?.find(({id}) => id === entryId)
+    }, [mappedEntries])
 
     // needed for card layout only
     const [openId, setOpenId] = useState(null)
@@ -147,12 +148,14 @@ export function DataProvider({children}) {
         getEntryFromId,
         isMod, adminEnabled, setAdminEnabled,
         allEntries,
+        mappedEntries,
         visibleEntries,
         makerData,
         openId, setOpenId
     }), [getEntryFromId,
         isMod, adminEnabled, setAdminEnabled,
         allEntries,
+        mappedEntries,
         visibleEntries,
         makerData,
         openId])

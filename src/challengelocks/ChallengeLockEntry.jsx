@@ -12,12 +12,15 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import CheckInButton from './CheckInButton.jsx'
 import PrintButton from './PrintButton.jsx'
 import CopyLinkToCLButton from './CopyLinkToCLButton.jsx'
-import ReportButton from './ReportButton.jsx'
+import ProblemReportButton from './ProblemReportButton.jsx'
 import sanitizeValues from '../util/sanitizeText.js'
 import DBContextCL from './DBProviderCL.jsx'
 import LpuCircleLogo from '../assets/LpuCircleLogo.jsx'
+import ReportProblem from '@mui/icons-material/ReportProblem'
+import DataContext from '../context/DataContext.jsx'
 
 const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded}) => {
+    const {adminEnabled} = useContext(DataContext)
     const {getCheckIns} = useContext(DBContextCL)
     const [checkIns, setCheckIns] = useState([])
     const refreshCheckIns = useCallback(async () => {
@@ -77,7 +80,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded}) => {
 
     const maxNameWidth = mobileSmall ? 155
         : mobileMedium ? 180
-            :  mobileLarge ? 200
+            : mobileLarge ? 200
                 : smallWindow ? 225
                     : 300
 
@@ -149,7 +152,14 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded}) => {
                             margin: '0px 20px',
                             flexGrow: 1
                         }}>
-                            <div style={{...nameTextStyle}}>{sanitizeValues(entry.name)}</div>
+                            <div style={{display: 'flex'}}>
+                                {entry.problems === 'problems' && adminEnabled &&
+                                    <div style={{marginRight: 8}}>
+                                        <ReportProblem fontSize='medium' style={{color: '#fd4d4d'}}/>
+                                    </div>
+                                }
+                                <div style={{...nameTextStyle}}>{sanitizeValues(entry.name)}</div>
+                            </div>
                             <div style={makerTextStyle}>By: {sanitizeValues(entry.maker)}</div>
                         </div>
 
@@ -182,11 +192,10 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded}) => {
                         <Tracker feature='challengeLock' id={entry.id} name={entry?.name}/>
                     </AccordionDetails>
 
-
                     <AccordionActions>
                         <div style={{display: 'flex', width: '100%'}}>
                             <div style={{flexGrow: 1}}>
-                                <ReportButton entry={entry} style={{color: '#ce5656'}}/>
+                                <ProblemReportButton entry={entry} style={{color: '#da5353'}}/>
                             </div>
                             <CopyLinkToCLButton entry={entry} style={{}}/>
                             <PrintButton entry={entry} style={{}}/>

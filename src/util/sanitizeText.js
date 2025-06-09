@@ -1,6 +1,18 @@
 // utils/sanitizeText.js
 import DOMPurify from 'dompurify'
 
+export function sanitizeText(input) {
+    if (/^\d+(?:\.\d+)?$/.test(input)) {
+        return input
+    }
+    const cleaned = stripExtras(input)
+        .replace(/<script[\s\S]*?<\/script>/gi, '')
+    return DOMPurify.sanitize(cleaned, {
+        ALLOWED_TAGS: [],
+        ALLOWED_ATTR: []
+    })
+}
+
 // remove all Unicode combining marks (the “Zalgo” bits) and zero-width controls
 function stripExtras(str) {
     return str
@@ -17,19 +29,6 @@ function stripExtras(str) {
             .replace(/\r\n?/g, '\n')
             .trim()
         : ''
-}
-
-export function sanitizeText(input) {
-    if (/^\d+(?:\.\d+)?$/.test(input)) {
-        return input
-    }
-    const cleaned = stripExtras(input)
-        // remove script blocks
-        .replace(/<script[\s\S]*?<\/script>/gi, '')
-    return DOMPurify.sanitize(cleaned, {
-        ALLOWED_TAGS: [],
-        ALLOWED_ATTR: []
-    })
 }
 
 export default function sanitizeValues(object) {

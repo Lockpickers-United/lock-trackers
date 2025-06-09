@@ -6,8 +6,8 @@ import https from 'https'
 import EventEmitter from 'events'
 import dayjs from 'dayjs'
 
-import submitChallengeLock, {submitCheckIn, updateLockMedia} from './projects/challengeLocks/challengeLockFunctions.js'
 import {localUser} from '../keys/users.js'
+import submitChallengeLock, {submitCheckIn, updateLockMedia, reportProblem, clearProblems} from './projects/challengeLocks/challengeLockFunctions.js'
 
 // pm2 start /home/dh_m5s5pf/explore-lpubelts-com-node/exploreLPUbeltsServer.js --watch
 // https://explore.lpubelts.com:8443/rafl-stats
@@ -64,6 +64,21 @@ app.post('/check-in-challenge-lock', async (req, res) => {
     myEmitter.emit('myEvent', 'Check-in Submitted' + envText)
     await submitCheckIn(req, res).then()
 })
+
+app.post('/report-problem', async (req, res) => {
+    req.body = req.body || {}
+    req.body.prod = prodDB
+    myEmitter.emit('myEvent', 'Problem Reported' + envText)
+    await reportProblem(req, res).then()
+})
+
+app.post('/clear-problems', async (req, res) => {
+    req.body = req.body || {}
+    req.body.prod = prodDB
+    myEmitter.emit('myEvent', 'Clear Problems requested' + envText)
+    await clearProblems(req, res).then()
+})
+
 
 /////////////
 

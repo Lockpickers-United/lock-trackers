@@ -2,6 +2,10 @@ const url = import.meta.env && import.meta.env.VITE_LOCAL_DATA === 'true' //esli
     ? 'http://localhost:3000/data'
     : 'https://lpubelts.com'
 
+const {VITE_DEV_FIRESTORE: devFirestore} = import.meta.env
+export const nodeServerUrl = devFirestore==='true' ? 'https://lpulocks.com:7443' : 'https://lpulocks.com:7443'
+
+
 if (import.meta.env && import.meta.env.VITE_LOCAL_DATA === 'true') {
     console.info('Attention: App is using LOCAL DATA.')
 }

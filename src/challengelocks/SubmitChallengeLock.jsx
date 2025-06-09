@@ -43,6 +43,7 @@ export default function SubmitChallengeLock({entry}) {
     const {user} = useContext(AuthContext)
     const {profile, updateProfile} = useContext(DBContextGlobal)
     const {refreshEntries, updateVersion, updateEntry} = useContext(DBContext)
+    const navigate = useNavigate()
     const {makerData} = useContext(DataContext)
     const [mainPhoto, setMainPhoto] = useState([])
     const [files, setFiles] = useState([])
@@ -245,7 +246,6 @@ export default function SubmitChallengeLock({entry}) {
         }
     }
 
-    const navigate = useNavigate()
     const handleChange = useCallback(newValue => {
         navigate(newValue.page)
     }, [navigate])

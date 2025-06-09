@@ -30,6 +30,7 @@ import filterProfanity from '../util/filterProfanity.js'
 import usePageTitle from '../util/usePageTitle.jsx'
 import {postData} from '../formUtils/postData.jsx'
 import DBContextGlobal from '../app/DBContextGlobal.jsx'
+import {nodeServerUrl} from '../data/dataUrls.js'
 
 /**
  * @prop inputValue
@@ -37,8 +38,6 @@ import DBContextGlobal from '../app/DBContextGlobal.jsx'
  */
 
 export default function CheckIn({checkIn}) {
-
-    const serverUrl = 'https://lpulocks.com:7443'
 
     const {getEntryFromId} = useContext(DataContext)
     const {user} = useContext(AuthContext)
@@ -91,7 +90,7 @@ export default function CheckIn({checkIn}) {
             usernamePlatform: 'discord',
             lockId: lockId,
             country: profile.country,
-            stateProvince: profile.stateProvince,
+            stateProvince: profile.stateProvince
         }
     }, [lockId, profile])
     const [form, setForm] = useState(defaultFormData)
@@ -149,7 +148,9 @@ export default function CheckIn({checkIn}) {
         let {name, value} = event.target
         let formCopy = {...form}
         if (name !== 'videoUrl') value = value.replace(/https?:\/\/[^\s]+/g, '[link removed]')
-        if (name === 'country') {setCountry(value)}
+        if (name === 'country') {
+            setCountry(value)
+        }
         let updates = {[name]: filterProfanity(value)}
         if (name === 'country' && !statesProvinces[value]) {
             delete formCopy.stateProvince
@@ -220,7 +221,7 @@ export default function CheckIn({checkIn}) {
             formData.append(key, formCopy[key])
         })
 
-        const url = `${serverUrl}/check-in-challenge-lock`
+        const url = `${nodeServerUrl}/check-in-challenge-lock`
 
         try {
             const results = await postData({user, url, formData, snackBars: false})
@@ -373,12 +374,12 @@ export default function CheckIn({checkIn}) {
                                     <div style={{...headerStyle, backgroundColor: getHighlightColor('pickDate')}}>
                                         Pick Date
                                     </div>
-                                    <DatePicker label='Pick Date'
-                                                value={form.pickDate ? dayjs(form.pickDate) : null}
-                                                disableFuture
-                                                minDate={dayjs('2015-01-01')}
-                                                maxDate={dayjs('2026-12-31')}
-                                                onChange={(newValue) => handleDateChange({pickDate: newValue.toISOString()})}
+                                    <DatePicker
+                                        value={form.pickDate ? dayjs(form.pickDate) : null}
+                                        disableFuture
+                                        minDate={dayjs('2015-01-01')}
+                                        maxDate={dayjs('2026-12-31')}
+                                        onChange={(newValue) => handleDateChange({pickDate: newValue.toISOString()})}
                                     />
                                 </div>
 
@@ -430,23 +431,9 @@ export default function CheckIn({checkIn}) {
                                     Notes <span
                                     style={{...optionalHeaderStyle, color: '#aaa'}}>(optional)</span>
                                 </div>
-                                <TextField type='text' name='notes' multiline fullWidth rows={3} size='small'
+                                <TextField type='text' name='notes' multiline fullWidth rows={6} size='small'
                                            color='info' style={{}} value={form.notes || ''}
                                            maxLength={1200} id='notes' onChange={handleFormChange}/>
-
-                                <div style={{display: flexStyle, marginTop: 10}}>
-                                    <div style={{marginRight: 0}}>
-                                        <div style={optionalHeaderStyle}>
-                                            Approx. Belt <span
-                                            style={{...optionalHeaderStyle, color: '#aaa'}}>(optional)</span>
-                                        </div>
-                                        <SelectBox changeHandler={handleFormChange}
-                                                   name='approxBelt' form={form} optionsList={uniqueBelts}
-                                                   multiple={false} defaultValue={''}
-                                                   size={'small'} width={180}/>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
 

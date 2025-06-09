@@ -11,12 +11,12 @@ import FieldValue from '../util/FieldValue.jsx'
 import dayjs from 'dayjs'
 
 export default function PrintQRCode() {
-    const {allEntries, getEntryFromId} = useContext(DataContext)
+    const {mappedEntries, getEntryFromId} = useContext(DataContext)
 
     const {filters} = useContext(FilterContext)
     const lockId = filters.id
     const lock = getEntryFromId(lockId) || {}
-    const notValidLock = (Object.keys(allEntries).length > 0 && Object.keys(lock).length === 0)
+    const notValidLock = (Object.keys(mappedEntries).length > 0 && Object.keys(lock).length === 0)
     const dateCreated = lock.lockCreated || lock.createdAt
 
     const safeName = lock?.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
