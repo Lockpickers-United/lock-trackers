@@ -32,3 +32,9 @@ export const CLFilterFields = [
     {label: 'Locking Mechanism', fieldName: 'lockingMechanism'},
     {label: 'Origin', fieldName: 'country'},
 ]
+
+export const CheckInFilterFields = [
+    {label: 'Maker', fieldName: 'lockMaker'},
+    {label: 'Format', fieldName: 'lockFormat'},
+    {label: 'Locking Mechanism', fieldName: 'lockingMechanism'},
+]

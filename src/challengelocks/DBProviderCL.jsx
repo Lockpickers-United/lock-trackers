@@ -20,7 +20,6 @@ import validator from 'validator'
 import clRatingDimensions from '../data/clRatingDimensions.json'
 import DBContext from '../app/DBContext.jsx'
 
-
 export function DBProviderCL({children}) {
     const {authLoaded, isLoggedIn, user} = useContext(AuthContext)
     const {profile} = useContext(DBContext)
@@ -97,6 +96,7 @@ export function DBProviderCL({children}) {
         async function fetchData() {
             await refreshEntries()
         }
+
         fetchData().then()
     }, [refreshEntries])
 
@@ -146,15 +146,19 @@ export function DBProviderCL({children}) {
     }, [dbError])
 
 
-    const getCheckIns = useCallback(async (lockId) => {
+    const getCheckIns = useCallback(async ({lockId, userId}) => {
         if (dbError) return false
+        if (!lockId && !userId) return []
+        console.log('get checkins for lockId:', lockId, 'or userId', userId)
         const checkIns = []
-        const q = query(collection(db, 'challenge-lock-check-ins'), where('lockId', '==', lockId))
+        const q = lockId
+            ? query(collection(db, 'challenge-lock-check-ins'), where('lockId', '==', lockId))
+            : query(collection(db, 'challenge-lock-check-ins'), where('userId', '==', userId))
         const querySnapshot = await getDocs(q)
         querySnapshot.forEach((doc) => {
             checkIns.push(doc.data())
         })
-        console.log('got checkins for lockId:', lockId, checkIns.length)
+        console.log('got checkins for id:', lockId ? lockId : userId, checkIns.length)
         return checkIns.sort((a, b) => dayjs(b.pickDate).isBefore(dayjs(a.pickDate)) ? -1 : 1)
     }, [dbError])
 
@@ -212,7 +216,11 @@ export function DBProviderCL({children}) {
 
 
     const updateLockWithCheckIns = useCallback(async (lockId) => {
-        const checkIns = await getCheckIns(lockId)
+
+        const lock = await getChallengeLock(lockId)
+        if (!lock) return false
+
+        const checkIns = await getCheckIns({lockId})
         console.log('updating check-ins for lockId:', lockId, 'check-ins:', checkIns.length)
 
         if (checkIns.length > 0) {
@@ -236,10 +244,12 @@ export function DBProviderCL({children}) {
                 return acc
             }, {})
 
-            const approxBelt = checkIns.reduce((acc,ci) => {
-                if (ci.approxBelt) { acc.push(ci.approxBelt) }
+            const approxBelt = checkIns.reduce((acc, ci) => {
+                if (ci.approxBelt) {
+                    acc.push(ci.approxBelt)
+                }
                 return acc
-            },[])
+            }, [])
 
             const latestCheckIn = checkIns[0]
             const lockRef = doc(db, 'challenge-locks', lockId)
@@ -274,8 +284,7 @@ export function DBProviderCL({children}) {
                 })
             })
         }
-    },[getCheckIns])
-
+    }, [getChallengeLock, getCheckIns])
 
 
     const createCheckIn = useCallback(async (checkIn) => {

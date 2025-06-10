@@ -25,7 +25,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded}) => {
     const [checkIns, setCheckIns] = useState([])
     const refreshCheckIns = useCallback(async () => {
         try {
-            const data = await getCheckIns(entry.id)
+            const data = await getCheckIns({lockId: entry.id})
             setCheckIns(data)
             return data
         } catch (err) {

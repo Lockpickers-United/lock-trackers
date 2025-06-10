@@ -6,7 +6,7 @@ import CardActions from '@mui/material/CardActions'
 import Button from '@mui/material/Button'
 import FilterContext from '../context/FilterContext.jsx'
 
-function NoEntriesCard() {
+function NoEntriesCard({entryType = 'locks'}) {
 
     const {clearFilters} = useContext(FilterContext)
 
@@ -18,7 +18,7 @@ function NoEntriesCard() {
         borderRadius: 0
     }
 
-    const message = 'No matching locks were found.'
+    const message = `No matching ${entryType} were found.`
 
     const handleClear = useCallback(event => {
         event.preventDefault()
@@ -33,16 +33,16 @@ function NoEntriesCard() {
                     {message}
                 </Typography>
             </CardContent>
-                <CardActions style={{paddingBottom: 16}}>
-                    <Button
-                        variant='outlined'
-                        color='inherit'
-                        onClick={handleClear}
-                        style={{minWidth: 160, margin: 'auto'}}
-                    >
-                        View all entries
-                    </Button>
-                </CardActions>
+            <CardActions style={{paddingBottom: 16}}>
+                <Button
+                    variant='outlined'
+                    color='inherit'
+                    onClick={handleClear}
+                    style={{minWidth: 160, margin: 'auto'}}
+                >
+                    View all {entryType}
+                </Button>
+            </CardActions>
         </Card>
     )
 }

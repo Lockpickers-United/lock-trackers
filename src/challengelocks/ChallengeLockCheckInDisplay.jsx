@@ -10,8 +10,9 @@ import Button from '@mui/material/Button'
 import DBContextCL from './DBProviderCL.jsx'
 import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
 import {useNavigate} from 'react-router-dom'
+import FieldValue from '../util/FieldValue.jsx'
 
-export default function ChallengeLockCheckInDisplay({checkIn, latest = false, refreshCheckIns}) {
+export default function ChallengeLockCheckInDisplay({checkIn, latest = false, refreshCheckIns, viewRoute = false}) {
     const {adminEnabled} = useContext(DataContext)
     const {deleteCheckIn} = useContext(DBContextCL)
     const navigate = useNavigate()
@@ -47,19 +48,71 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
         navigate(`/challengelocks/edit?id=${checkIn.id}`)
     }, [checkIn.id, navigate])
 
-    const {flexStyle} = useWindowSize()
+    const {flexStyle, isMobile} = useWindowSize()
     const openInNewTab = (url) => {
         const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
         if (newWindow) newWindow.opener = null
     }
 
+    const sidePadding = (isMobile || viewRoute) ? 0 : 15
+    const sideMargin = isMobile ? 0 : 20
+
     const style = latest
-        ? {padding: '0px 15px 15px 15px', margin: '0px 20px', borderBottom: '0px'}
-        : {padding: '5px 15px 15px 15px', margin: '0px 20px'}
+        ? {
+            padding: '0px 0px 15px 0px',
+            margin: `0px ${sideMargin}px`,
+            borderBottom: '0px',
+            fontSize: '1.0rem',
+            lineHeight: '1.3rem'
+        }
+        : {
+            padding: `5px ${sidePadding}px 15px ${sidePadding}px`,
+            margin: `0px ${sideMargin}px`,
+            fontSize: '1.0rem',
+            lineHeight: '1.3rem'
+        }
+
+        const viewCheckInStyle = {
+            padding: `5px ${sidePadding}px 0px ${sidePadding}px`,
+            margin: `0px ${sideMargin}px`,
+            fontSize: '1.0rem',
+            lineHeight: '1.3rem'
+        }
 
     return (
         <React.Fragment>
             <div>
+
+                {viewRoute &&
+                    <React.Fragment>
+                        <div style={{display: 'flex', flexWrap:'wrap', ...viewCheckInStyle, marginTop: 15}}>
+                            <FieldValue name='Pick Date' value={dayjs(checkIn.pickDate).format('MMM DD, YYYY')}
+                                        textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
+                                        headerStyle={{color: '#999'}} style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
+                            <FieldValue name='CL Name' value={checkIn.lockName}
+                                        headerStyle={{color: '#999'}}
+                                        textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
+                                        style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
+                            <FieldValue name='Maker' value={checkIn.lock?.maker}
+                                        headerStyle={{color: '#999'}}
+                                        textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
+                                        style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
+                            <FieldValue name='Picked?' value={checkIn.successfulPick}
+                                        headerStyle={{color: '#999'}}
+                                        textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
+                                        style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
+                            <FieldValue name='Format' value={checkIn.lock?.lockFormat}
+                                        headerStyle={{color: '#999'}}
+                                        textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 400}}
+                                        style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
+                            <FieldValue name='Mechanism' value={checkIn.lock?.lockingMechanism}
+                                        headerStyle={{color: '#999'}}
+                                        textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 400}}
+                                        style={{marginRight: 0, whiteSpace: 'nowrap'}}/>
+                        </div>
+                    </React.Fragment>
+                }
+
                 <div style={{display: flexStyle, borderBottom: '1px solid #aaa', ...style}}>
                     <div style={{
                         fontSize: '0.95rem',
@@ -68,23 +121,25 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
                         marginRight: 15,
                         width: 300
                     }}>
-                        <div style={{
-                            fontSize: '0.96rem',
-                            lineHeight: '1.3rem',
-                            fontWeight: 600,
-                            width: 300,
-                            margin: '15px 0px 5px 0px'
-                        }}>
-                            {dayjs(checkIn.pickDate).format('MMM DD, YYYY')} <span
-                            style={{fontWeight: 400, color: '#ddd'}}>by</span> {checkIn.username}
-                        </div>
+                        {!viewRoute &&
+                            <div style={{
+                                fontSize: '0.96rem',
+                                lineHeight: '1.3rem',
+                                fontWeight: 600,
+                                width: 300,
+                                margin: '15px 0px 5px 0px'
+                            }}>
+                                {dayjs(checkIn.pickDate).format('MMM DD, YYYY')} <span
+                                style={{fontWeight: 400, color: '#ddd'}}>by</span> {checkIn.username}
+                            </div>
+                        }
 
                         <ul style={{paddingLeft: 20, margin: 0}}>
+                            {checkIn.videoUrl && <li>{urlDisplay}</li>}
+                            {!viewRoute && checkIn.successfulPick && <li>Succesful pick? {checkIn.successfulPick}</li>}
+                            {checkIn.notes && <li>Notes: {checkIn.notes}</li>}
                             {checkIn.country && <li>{checkIn.country}</li>}
                             {checkIn.stateProvince && <li>{checkIn.stateProvince}</li>}
-                            <li>Succesful pick? {checkIn.successfulPick}</li>
-                            {checkIn.videoUrl && <li>{urlDisplay}</li>}
-                            {checkIn.notes && <li>Notes: {checkIn.notes}</li>}
                         </ul>
 
                         {adminEnabled &&

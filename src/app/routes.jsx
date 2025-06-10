@@ -50,6 +50,13 @@ export default [
                 }
             },
             {
+                path: '/challengelocks/checkins',
+                lazy: async () => {
+                    const {default: ViewCheckInsRoute} = await import('../challengelocks/ViewCheckInsRoute')
+                    return {element: <ViewCheckInsRoute/>}
+                }
+            },
+            {
                 path: '/challengelocks/edit',
                 lazy: async () => {
                     const {default: EditChallengeLockRoute} = await import('../challengelocks/EditChallengeLockRoute')

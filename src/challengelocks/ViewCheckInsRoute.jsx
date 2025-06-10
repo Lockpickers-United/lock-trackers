@@ -1,27 +1,27 @@
 import React from 'react'
 import Tracker from '../app/Tracker'
-import ChallengeLocksMain from './ChallengeLocksMain.jsx'
+import ViewCheckIns from './ViewCheckIns.jsx'
 import usePageTitle from '../util/usePageTitle.jsx'
 import {useOutletContext} from 'react-router-dom'
 import Footer from '../nav/Footer.jsx'
-import {CLFilterFields} from '../data/filterFields.js'
+import {DataProvider} from './DataProviderCheckIns.jsx'
+import {CheckInFilterFields} from '../data/filterFields.js'
 import {ListProvider} from '../context/ListContext.jsx'
-import {DataProvider} from './DataProviderCL.jsx'
 import {FilterProvider} from '../context/FilterContext.jsx'
 
-function ChallengeLocksRoute() {
+function ViewCheckInsRoute() {
 
-    usePageTitle('Challenge Locks')
+    usePageTitle('View Check-ins - Challenge Locks')
 
     const {profile, user} = useOutletContext()
 
     return (
-        <FilterProvider filterFields={CLFilterFields}>
+        <FilterProvider filterFields={CheckInFilterFields}>
             <DataProvider>
                 <ListProvider>
-                    <ChallengeLocksMain profile={profile} user={user}/>
+                    <ViewCheckIns profile={profile} user={user}/>
                     <Footer/>
-                    <Tracker feature='challengelocks'/>
+                    <Tracker feature='viewCheckIns'/>
                 </ListProvider>
             </DataProvider>
         </FilterProvider>
@@ -29,4 +29,4 @@ function ChallengeLocksRoute() {
 
 }
 
-export default ChallengeLocksRoute
+export default ViewCheckInsRoute

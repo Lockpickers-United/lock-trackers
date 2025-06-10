@@ -3,18 +3,21 @@ import Footer from '../nav/Footer.jsx'
 import Tracker from '../app/Tracker.jsx'
 import usePageTitle from '../util/usePageTitle.jsx'
 import SubmitChallengeLock from './SubmitChallengeLock.jsx'
-import FilterContext from '../context/FilterContext.jsx'
-import DataContext from '../context/DataContext.jsx'
 import dayjs from 'dayjs'
 import DBContextCL from './DBProviderCL.jsx'
 import CheckIn from './CheckIn.jsx'
+import {CLFilterFields} from '../data/filterFields.js'
+import {ListProvider} from '../context/ListContext.jsx'
+import {DataProvider} from './DataProviderCL.jsx'
+import queryString from 'query-string'
+import {FilterProvider} from '../context/FilterContext.jsx'
 
 function EditChallengeLockRoute() {
     usePageTitle('Submit Challenge Lock')
-    const {allEntries, getEntryFromId} = useContext(DataContext)
-    const {getCheckIn} = useContext(DBContextCL)
-    const {filters} = useContext(FilterContext)
-    const id = filters.id
+    const {getCheckIn, getChallengeLock} = useContext(DBContextCL)
+
+    const searchString = window.location.hash.replace(/^#.*\?/, '')
+    const {id} = queryString.parse(searchString)
 
     const [lock, setLock] = useState(undefined)
     const [checkIn, setCheckIn] = useState(undefined)
@@ -23,13 +26,13 @@ function EditChallengeLockRoute() {
     const [editEntry, setEditEntry] = useState(undefined)
 
     const getEntities = useCallback(async () => {
-        const thisLock = await getEntryFromId(id) || undefined
+        const thisLock = await getChallengeLock(id) || undefined
         setLock(thisLock)
         const thisCheckIn = await getCheckIn(id) || undefined
         setCheckIn(thisCheckIn)
         setEntry(thisLock || thisCheckIn || undefined)
         setDataLoaded(true)
-    },[getCheckIn, getEntryFromId, id])
+    }, [getCheckIn, getChallengeLock, id])
 
     const hasFetched = useRef(false)
     useEffect(() => {
@@ -39,9 +42,9 @@ function EditChallengeLockRoute() {
         }
     }, [getEntities])
 
-    console.log('entry', entry?.id)
+    console.log('entry', entry)
 
-    if (dataLoaded && allEntries.length > 0 && lock && !editEntry) {
+    if (dataLoaded && lock && !editEntry) {
         setEditEntry({
             ...entry,
             lockCreated: lock.lockCreated || lock.createdAt,
@@ -51,23 +54,27 @@ function EditChallengeLockRoute() {
             usernamePlatform: lock.submittedBy?.usernamePlatform,
             userBelt: lock.submittedBy?.userBelt
         })
-    } else if (dataLoaded && allEntries.length > 0 && checkIn && !editEntry) {
+    } else if (dataLoaded && checkIn && !editEntry) {
         setEditEntry({...entry})
     }
 
     return (
-        <React.Fragment>
-            {lock
-                ? <SubmitChallengeLock entry={editEntry}/>
-                : checkIn
-                    ? <CheckIn checkIn={editEntry}/>
-                    : <div style={{color: 'red', textAlign: 'center', marginTop: 20}}>
-                        Invalid ID.
-                    </div>
-            }
-            <Footer/>
-            <Tracker feature='cl-edit'/>
-        </React.Fragment>
+        <FilterProvider filterFields={CLFilterFields}>
+            <DataProvider>
+                <ListProvider>
+                    {lock
+                        ? <SubmitChallengeLock entry={editEntry}/>
+                        : checkIn
+                            ? <CheckIn checkIn={editEntry}/>
+                            : <div style={{color: 'red', textAlign: 'center', marginTop: 20}}>
+                                Invalid ID.
+                            </div>
+                    }
+                    <Footer/>
+                    <Tracker feature='cl-edit'/>
+                </ListProvider>
+            </DataProvider>
+        </FilterProvider>
     )
 }
 
