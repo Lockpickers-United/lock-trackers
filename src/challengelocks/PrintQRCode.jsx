@@ -8,16 +8,17 @@ import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import QRCode from 'react-qr-code'
 import FieldValue from '../util/FieldValue.jsx'
-import dayjs from 'dayjs'
+import DBContext from './DBProviderCL.jsx'
 
 export default function PrintQRCode() {
-    const {mappedEntries, getEntryFromId} = useContext(DataContext)
-
+    const {mappedEntries} = useContext(DataContext)
+    const {allEntries} = useContext(DBContext)
     const {filters} = useContext(FilterContext)
     const lockId = filters.id
-    const lock = getEntryFromId(lockId) || {}
+    const lock = allEntries.find(entry => entry.id === lockId) || {}
+
     const notValidLock = (Object.keys(mappedEntries).length > 0 && Object.keys(lock).length === 0)
-    const dateCreated = lock.lockCreated || lock.createdAt
+    const dateCreated = lock.lockCreated || lock.createdAt || '2000-01-01T06:00:00.000Z'
 
     const safeName = lock?.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
     const lockUrl = `${location.origin}/#/challengelocks/checkin?id=${lockId}&name=${safeName}`

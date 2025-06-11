@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Tracker from '../app/Tracker'
 import ChallengeLocksMain from './ChallengeLocksMain.jsx'
 import usePageTitle from '../util/usePageTitle.jsx'
@@ -8,12 +8,14 @@ import {CLFilterFields} from '../data/filterFields.js'
 import {ListProvider} from '../context/ListContext.jsx'
 import {DataProvider} from './DataProviderCL.jsx'
 import {FilterProvider} from '../context/FilterContext.jsx'
+import DBContext from '../app/DBContext.jsx'
 
 function ChallengeLocksRoute() {
 
     usePageTitle('Challenge Locks')
 
-    const {profile, user} = useOutletContext()
+    const {profile} = useContext(DBContext)
+    const {user} = useOutletContext()
 
     return (
         <FilterProvider filterFields={CLFilterFields}>

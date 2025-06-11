@@ -18,16 +18,18 @@ import AuthContext from '../app/AuthContext.jsx'
 import DBContextGlobal from '../app/DBContextGlobal.jsx'
 import DBContext from '../app/DBContext.jsx'
 import Link from '@mui/material/Link'
+import SignInButton from '../auth/SignInButton.jsx'
 
-export default function EditImages() {
+export default function EditImages({profile, user}) {
+
 
     const serverUrl = 'https://lpulocks.com:7443'
 
-    const {user} = useContext(AuthContext)
-    const {profile, updateProfile} = useContext(DBContextGlobal)
+    const {authLoaded} = useContext(AuthContext)
+    const {updateProfile} = useContext(DBContextGlobal)
     const {refreshEntries, updateVersion} = useContext(DBContext)
+    const {allEntries, getEntryFromId, isMod} = useContext(DataContext)
 
-    const {allEntries, getEntryFromId} = useContext(DataContext)
     const {filters} = useContext(FilterContext)
     const lockId = filters.id
     const lock = getEntryFromId(lockId) || {}
@@ -49,7 +51,7 @@ export default function EditImages() {
 
     useEffect(() => {
         setForm({
-            photoCredit: profile.lastPhotoCredit || undefined,
+            photoCredit: profile?.lastPhotoCredit || undefined,
             id: lockId
         })
         setMediaArrays({
@@ -74,7 +76,7 @@ export default function EditImages() {
     const handlePhotoCredit = useCallback(async () => {
         console.log('handlePhotoCredit')
         try {
-            if (form.photoCredit && form.photoCredit !== profile.lastPhotoCredit) {
+            if (form.photoCredit && form.photoCredit !== profile?.lastPhotoCredit) {
                 const localProfile = {...profile, lastPhotoCredit: form.photoCredit}
                 await updateProfile(localProfile)
             }
@@ -396,6 +398,23 @@ export default function EditImages() {
                             </div>
                         </Dialog>
 
+
+                        <Dialog open={(authLoaded && !user) || !isMod}
+                                componentsProps={{backdrop: {style: {backgroundColor: '#000', opacity: 0.6}}}}>
+                            <div style={{
+                                width: '350px', textAlign: 'center',
+                                padding: 50, marginTop: 0, backgroundColor: '#292929',
+                                marginLeft: 'auto', marginRight: 'auto',
+                                fontSize: '1.4rem', fontWeight: 700
+                            }}>
+                                You are not authorized to edit images.<br/><br/>
+                                <div style={{width: 210, marginLeft: 'auto', marginRight: 'auto'}}>
+                                    <SignInButton/>
+                                </div>
+                            </div>
+                        </Dialog>
+
+
                         <Dialog open={notValidLock} componentsProps={{
                             backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
                         }}>
@@ -422,7 +441,7 @@ export default function EditImages() {
                                         fontWeight: 500,
                                         marginBottom: 30,
                                         textAlign: 'center'
-                                    }}>Click below to browse the challenge locks page and select a lock to print.
+                                    }}>Click below to browse the challenge locks page and select a lock to edit.
                                     </div>
 
                                     <div style={{width: '100%', textAlign: 'center'}}>

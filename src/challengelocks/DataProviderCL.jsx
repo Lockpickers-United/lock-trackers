@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useContext, useState, useEffect} from 'react'
+import React, {useCallback, useMemo, useContext, useEffect} from 'react'
 import dayjs from 'dayjs'
 import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
@@ -44,10 +44,10 @@ export function DataProvider({children}) {
                     ...ratings,
                     maxVotes: maxVotes,
                     fuzzy: removeAccents(`${entry.name}, ${entry.maker}`),
-                    latestCheckIn: entry.latestUpdate?.pickDate || '2000-01-01',
+                    latestCheckIn: entry.latestUpdate?.pickDate || '2000-01-01T06:00:00.000Z',
                     submittedAt: entry.submittedAt || entry.dateSubmitted,
                     lockCreated: entry.lockCreated || entry.createdAt,
-                    updatedAt: entry.updatedAt || entry.latestUpdate?.pickDate || '2000-01-01',
+                    updatedAt: entry.updatedAt || entry.latestUpdate?.pickDate || '2000-01-01T06:00:00.000Z',
                     thumbnail: mainImage.thumbnailSquareUrl || entry.thumbnail,
                     mainImage: mainImage,
                     hasProblems: entry.problems?.length > 0 ? 'problems' : undefined,
@@ -126,16 +126,12 @@ export function DataProvider({children}) {
             : searched.sort((a, b) => {
                 return a.name.localeCompare(b.name)
             })
-
     }, [filters, mappedEntries, search, sort])
 
 
     const getEntryFromId = useCallback(entryId => {
         return mappedEntries?.find(({id}) => id === entryId)
     }, [mappedEntries])
-
-    // needed for card layout only
-    const [openId, setOpenId] = useState(null)
 
     const makerData = useMemo(() => {
         return allEntries?.reduce((acc, entry) => {
@@ -151,14 +147,14 @@ export function DataProvider({children}) {
         mappedEntries,
         visibleEntries,
         makerData,
-        openId, setOpenId
-    }), [getEntryFromId,
+    }), [
+        getEntryFromId,
         isMod, adminEnabled, setAdminEnabled,
         allEntries,
         mappedEntries,
         visibleEntries,
         makerData,
-        openId])
+        ])
 
 
     return (

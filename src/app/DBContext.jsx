@@ -187,6 +187,9 @@ export function DBProvider({children}) {
 // PROFILE //
 
     const updateProfile = useCallback(async (localProfile) => {
+
+        console.log('updateProfile, localProfile', localProfile)
+
         if (dbError) return false
         const ref = doc(db, 'profiles', user?.uid)
         await runTransaction(db, async transaction => {

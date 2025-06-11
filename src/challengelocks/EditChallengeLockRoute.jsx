@@ -4,17 +4,27 @@ import Tracker from '../app/Tracker.jsx'
 import usePageTitle from '../util/usePageTitle.jsx'
 import SubmitChallengeLock from './SubmitChallengeLock.jsx'
 import dayjs from 'dayjs'
-import DBContextCL from './DBProviderCL.jsx'
 import CheckIn from './CheckIn.jsx'
 import {CLFilterFields} from '../data/filterFields.js'
 import {ListProvider} from '../context/ListContext.jsx'
 import {DataProvider} from './DataProviderCL.jsx'
 import queryString from 'query-string'
 import {FilterProvider} from '../context/FilterContext.jsx'
+import {useOutletContext} from 'react-router-dom'
+import DataContext from '../context/DataContext.jsx'
+import Dialog from '@mui/material/Dialog'
+import SignInButton from '../auth/SignInButton.jsx'
+import AuthContext from '../app/AuthContext.jsx'
+import DBContext from '../app/DBContext.jsx'
+import DBContextCL from './DBProviderCL.jsx'
 
 function EditChallengeLockRoute() {
-    usePageTitle('Submit Challenge Lock')
+
+    const {profile} = useContext(DBContext)
+    const {user} = useOutletContext()
+    const {authLoaded} = useContext(AuthContext)
     const {getCheckIn, getChallengeLock} = useContext(DBContextCL)
+    const {isMod} = useContext(DataContext)
 
     const searchString = window.location.hash.replace(/^#.*\?/, '')
     const {id} = queryString.parse(searchString)
@@ -42,7 +52,7 @@ function EditChallengeLockRoute() {
         }
     }, [getEntities])
 
-    console.log('entry', entry)
+    usePageTitle(`Edit ${lock ? 'Challenge Lock' : 'Check-in'} `)
 
     if (dataLoaded && lock && !editEntry) {
         setEditEntry({
@@ -63,14 +73,30 @@ function EditChallengeLockRoute() {
             <DataProvider>
                 <ListProvider>
                     {lock
-                        ? <SubmitChallengeLock entry={editEntry}/>
+                        ? <SubmitChallengeLock entry={editEntry} profile={profile} user={user}/>
                         : checkIn
-                            ? <CheckIn checkIn={editEntry}/>
+                            ? <CheckIn checkIn={editEntry} profile={profile} user={user}/>
                             : <div style={{color: 'red', textAlign: 'center', marginTop: 20}}>
                                 Invalid ID.
                             </div>
                     }
                     <Footer/>
+
+                    <Dialog open={authLoaded && !user && !isMod}
+                            componentsProps={{backdrop: {style: {backgroundColor: '#000', opacity: 0.6}}}}>
+                        <div style={{
+                            width: '350px', textAlign: 'center',
+                            padding: 50, marginTop: 0, backgroundColor: '#292929',
+                            marginLeft: 'auto', marginRight: 'auto',
+                            fontSize: '1.4rem', fontWeight: 700
+                        }}>
+                            You are not authorized to edit images.<br/><br/>
+                            <div style={{width: 210, marginLeft: 'auto', marginRight: 'auto'}}>
+                                <SignInButton/>
+                            </div>
+                        </div>
+                    </Dialog>
+
                     <Tracker feature='cl-edit'/>
                 </ListProvider>
             </DataProvider>

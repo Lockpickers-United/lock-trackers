@@ -15,7 +15,6 @@ import dayjs from 'dayjs'
 export default function ChallengeLockCheckInDisplay({checkIn, latest = false, refreshCheckIns, viewRoute = false}) {
 
     const {adminEnabled} = useContext(DataContext)
-    const {allCheckIns} = useContext(DataContext)
     const {allEntries, deleteCheckIn} = useContext(DBContextCL)
     const navigate = useNavigate()
     const urlError = checkIn.videoUrl?.length > 0 && !validator.isURL(checkIn.videoUrl)

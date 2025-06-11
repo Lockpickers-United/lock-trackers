@@ -12,12 +12,18 @@ import ChallengeLockCheckInDisplay from './ChallengeLockCheckInDisplay.jsx'
 import Button from '@mui/material/Button'
 import DBContext from '../app/DBContext.jsx'
 import Fade from '@mui/material/Fade'
+import SignInButton from '../auth/SignInButton.jsx'
+import AuthContext from '../app/AuthContext.jsx'
+import Dialog from '@mui/material/Dialog'
 
-export default function ViewCheckIns() {
+export default function ViewCheckIns({user}) {
 
+    const {authLoaded} = useContext(AuthContext)
     const {checkInsLoaded} = useContext(DBContext)
     const {allCheckIns, visibleEntries} = useContext(DataContext)
     const navigate = useNavigate()
+
+    console.log('ViewCheckIns', checkInsLoaded, allCheckIns, visibleEntries)
 
     const style = {
         maxWidth: 700,
@@ -76,6 +82,22 @@ export default function ViewCheckIns() {
                         </Fade>
                     }
 
+                    <Dialog open={authLoaded && !user}
+                            componentsProps={{backdrop: {style: {backgroundColor: '#000', opacity: 0.6}}}}>
+                        <div style={{
+                            width: '350px', textAlign: 'center',
+                            padding: 50, marginTop: 0, backgroundColor: '#333',
+                            marginLeft: 'auto', marginRight: 'auto',
+                            fontSize: '1.4rem', lineHeight:'1.8rem', fontWeight: 700
+                        }}>
+                            You must be logged in to view your check-ins.<br/><br/>
+                            <div style={{width: 210, marginLeft: 'auto', marginRight: 'auto'}}>
+                                <SignInButton/>
+                            </div>
+                        </div>
+                    </Dialog>
+
+
                     {visibleEntries.map((checkIn) => (
                         <ChallengeLockCheckInDisplay
                             key={checkIn.id}
@@ -87,6 +109,7 @@ export default function ViewCheckIns() {
                     ))}
                 </div>
             </div>
+
         </React.Fragment>
     )
 }

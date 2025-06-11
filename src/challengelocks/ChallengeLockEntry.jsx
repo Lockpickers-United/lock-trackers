@@ -19,7 +19,7 @@ import LpuCircleLogo from '../assets/LpuCircleLogo.jsx'
 import ReportProblem from '@mui/icons-material/ReportProblem'
 import DataContext from '../context/DataContext.jsx'
 
-const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded}) => {
+const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) => {
     const {adminEnabled} = useContext(DataContext)
     const {getCheckIns} = useContext(DBContextCL)
     const [checkIns, setCheckIns] = useState([])
@@ -195,7 +195,9 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded}) => {
                     <AccordionActions>
                         <div style={{display: 'flex', width: '100%'}}>
                             <div style={{flexGrow: 1}}>
-                                <ProblemReportButton entry={entry} style={{color: '#da5353'}}/>
+                                {user &&
+                                    <ProblemReportButton entry={entry} style={{color: '#da5353'}}/>
+                                }
                             </div>
                             <CopyLinkToCLButton entry={entry} style={{}}/>
                             <PrintButton entry={entry} style={{}}/>

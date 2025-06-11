@@ -17,7 +17,6 @@ import ProblemsDisplay from './ProblemsDisplay.jsx'
 const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, setCheckIns}) => {
     if (!entry) return null
 
-    console.log('entry', entry)
     const {adminEnabled} = useContext(DataContext)
     const {currentVersion} = useContext(DBContextCL)
 
@@ -211,14 +210,12 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
                 </div>
             }
 
-
             {currentVersion !== version &&
                 <div style={{width: '100%', textAlign: 'center', fontSize: '1.2rem', padding: 20}}>
                     <Button onClick={() => location.reload()} color='warning' variant='contained'>Refresh
                         Stats</Button>
                 </div>
             }
-
 
             {entry.checkInCount > 1 &&
                 <div style={{

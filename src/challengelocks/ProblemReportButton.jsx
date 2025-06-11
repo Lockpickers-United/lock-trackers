@@ -41,8 +41,6 @@ export default function ProblemReportButton({entry, style}) {
         })
     }, [entry, profile, user])
 
-    console.log('form', form)
-
     const handleClick = useCallback(() => {
         setReport(true)
     }, [])

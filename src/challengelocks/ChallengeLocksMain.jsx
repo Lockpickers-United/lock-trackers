@@ -10,11 +10,13 @@ import SortButtonCL from './SortButtonCL.jsx'
 import {optionsCL} from '../data/subNavOptions.js'
 import AdminActionsButton from './AdminActionsButton.jsx'
 import NoEntriesCardCL from './NoEntriesCardCL.jsx'
+import LoadingDisplay from '../misc/LoadingDisplay.jsx'
+import ExportButton from './ExportButton.jsx'
 
-function ChallengeLocksMain() {
+function ChallengeLocksMain({user}) {
 
     const {allEntries, visibleEntries} = useContext(DataContext)
-    const {filters, addFilters} = useContext(FilterContext)
+    const {filters, addFilters, clearFilters} = useContext(FilterContext)
     const [entryExpanded, setEntryExpanded] = useState(filters.id)
     const handleExpand = useCallback(entryId => {
         addFilters([{key: 'id', value: entryId}, {key: 'name', value: undefined}], true)
@@ -35,8 +37,10 @@ function ChallengeLocksMain() {
 
     const navigate = useNavigate()
     const handleChange = useCallback(newValue => {
+        clearFilters()
+        setEntryExpanded(false)
         navigate(newValue.page)
-    }, [navigate])
+    }, [clearFilters, navigate])
 
     const navSortButton = <SortButtonCL/>
     const navAdminButton = <AdminActionsButton/>
@@ -57,6 +61,10 @@ function ChallengeLocksMain() {
                     <NoEntriesCardCL/>
                 }
 
+                {allEntries?.length === 0 &&
+                    <LoadingDisplay/>
+                }
+
                 {visibleEntries.map((entry) => (
                     <ChallengeLockEntry
                         key={entry.id}
@@ -64,8 +72,16 @@ function ChallengeLocksMain() {
                         expanded={entry.id === entryExpanded}
                         onExpand={handleExpand}
                         cycleExpanded={cycleExpanded}
+                        user={user}
                     />
                 ))}
+
+                {visibleEntries?.length > 0 &&
+                    <div style={{margin: '30px 0px'}}>
+                        <ExportButton text={true} entries={visibleEntries}/>
+                    </div>
+                }
+
             </div>
         </React.Fragment>
     )

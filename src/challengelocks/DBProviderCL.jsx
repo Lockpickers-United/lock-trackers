@@ -21,6 +21,9 @@ import clRatingDimensions from '../data/clRatingDimensions.json'
 import DBContext from '../app/DBContext.jsx'
 
 export function DBProviderCL({children}) {
+
+    const globalContext = useContext(DBContext)
+
     const {authLoaded, isLoggedIn, user} = useContext(AuthContext)
     const {profile} = useContext(DBContext)
     const [dbError, setDbError] = useState(null)
@@ -108,7 +111,7 @@ export function DBProviderCL({children}) {
             const docRef = doc(db, 'challenge-locks', lockId)
             const docSnap = await getDoc(docRef)
             if (docSnap.exists()) {
-                console.log('Document data:', lockId, docSnap.data())
+                //console.log('Document data:', lockId, docSnap.data())
             } else {
                 console.log('No such document', lockId)
                 return null
@@ -344,6 +347,7 @@ export function DBProviderCL({children}) {
 
     // value & provider
     const value = useMemo(() => ({
+        ...globalContext,
         dbLoaded,
         profile,
         updateEntry,
@@ -360,6 +364,7 @@ export function DBProviderCL({children}) {
         newVersionAvailable,
         updateVersion
     }), [
+        globalContext,
         dbLoaded,
         profile,
         updateEntry,

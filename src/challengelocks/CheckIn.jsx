@@ -10,7 +10,6 @@ import {uniqueBelts} from '../data/belts'
 import Link from '@mui/material/Link'
 import ChoiceButtonGroup from '../util/ChoiceButtonGroup.jsx'
 import {useNavigate} from 'react-router-dom'
-import AuthContext from '../app/AuthContext.jsx'
 import {enqueueSnackbar} from 'notistack'
 import countries from '../data/countries.json'
 import statesProvinces from '../data/statesProvinces.json'
@@ -18,8 +17,6 @@ import AutoCompleteBox from '../formUtils/AutoCompleteBox.jsx'
 import {DatePicker} from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
 import {FormControlLabel, Radio, RadioGroup} from '@mui/material'
-import DBContext from './DBProviderCL.jsx'
-import DataContext from '../context/DataContext.jsx'
 import checkInTestData from './checkInTestData.json'
 import FilterContext from '../context/FilterContext.jsx'
 import RatingTable from './RatingTable.jsx'
@@ -29,20 +26,24 @@ import validator from 'validator'
 import filterProfanity from '../util/filterProfanity.js'
 import usePageTitle from '../util/usePageTitle.jsx'
 import {postData} from '../formUtils/postData.jsx'
-import DBContextGlobal from '../app/DBContextGlobal.jsx'
+import DataContext from '../context/DataContext.jsx'
+import DBContext from '../app/DBContext.jsx'
+import DBContextCL from './DBProviderCL.jsx'
 import {nodeServerUrl} from '../data/dataUrls.js'
+import SignInButton from '../auth/SignInButton.jsx'
+import AuthContext from '../app/AuthContext.jsx'
 
 /**
  * @prop inputValue
  * @prop country_area
  */
 
-export default function CheckIn({checkIn}) {
+export default function CheckIn({checkIn, profile, user}) {
 
+    const {authLoaded} = useContext(AuthContext)
     const {getEntryFromId} = useContext(DataContext)
-    const {user} = useContext(AuthContext)
-    const {profile, updateProfile} = useContext(DBContextGlobal)
-    const {refreshEntries, updateVersion} = useContext(DBContext)
+    const {updateProfile} = useContext(DBContext)
+    const {refreshEntries, updateVersion} = useContext(DBContextCL)
     const [response, setResponse] = useState(undefined)
     const [uploading, setUploading] = useState(false)
     const [uploadError, setUploadError] = useState(undefined)
@@ -86,11 +87,11 @@ export default function CheckIn({checkIn}) {
     const defaultFormData = useMemo(() => {
         return {
             id: 'clci_' + genHexString(8),
-            username: profile.discordUsername || undefined,
+            username: profile?.discordUsername || undefined,
             usernamePlatform: 'discord',
             lockId: lockId,
-            country: profile.country,
-            stateProvince: profile.stateProvince
+            country: profile?.country,
+            stateProvince: profile?.stateProvince
         }
     }, [lockId, profile])
     const [form, setForm] = useState(defaultFormData)
@@ -110,8 +111,8 @@ export default function CheckIn({checkIn}) {
             setStateProvince(checkIn.stateProvince || null)
         } else {
             setForm(defaultFormData)
-            setCountry(profile.country || null)
-            setStateProvince(profile.stateProvince || null)
+            setCountry(profile?.country || null)
+            setStateProvince(profile?.stateProvince || null)
         }
     }, [checkIn, defaultFormData, profile])
 
@@ -176,18 +177,18 @@ export default function CheckIn({checkIn}) {
         let localProfile = {...profile}
         let needUpdate = false
         try {
-            if (form.username && form.usernamePlatform === 'discord' && form.username !== profile.discordUsername) {
+            if (form.username && form.usernamePlatform === 'discord' && form.username !== profile?.discordUsername) {
                 localProfile = {...localProfile, discordUsername: form.username}
                 needUpdate = true
-            } else if (form.username && form.usernamePlatform === 'reddit' && form.username !== profile.redditUsername) {
+            } else if (form.username && form.usernamePlatform === 'reddit' && form.username !== profile?.redditUsername) {
                 localProfile = {...localProfile, redditUsername: form.username}
                 needUpdate = true
             }
-            if (form.country && form.country !== profile.country) {
+            if (form.country && form.country !== profile?.country) {
                 localProfile = {...localProfile, country: form.country}
                 needUpdate = true
             }
-            if (form.stateProvince && form.stateProvince !== profile.stateProvince) {
+            if (form.stateProvince && form.stateProvince !== profile?.stateProvince) {
                 localProfile = {...localProfile, stateProvince: form.stateProvince}
                 needUpdate = true
             }
@@ -236,21 +237,6 @@ export default function CheckIn({checkIn}) {
             await handleUpdateProfile()
         }
 
-        // direct to firebase, permissions issue
-        /*
-        try {
-            await createCheckIn(formCopy)
-            const safeName = lock?.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
-            navigate(`/challengelocks?id=${lockId}&name=${safeName}`)
-        } catch (error) {
-            setUploadError(`${error}`.replace('Error: ', ''))
-            enqueueSnackbar(`Error creating request: ${error}`, {variant: 'error', autoHideDuration: 3000})
-            throw error
-        } finally {
-            setUploading(false)
-            setForm(formCopy)
-        }
-        */
     }
 
     //TODO: clear form on error OK?
@@ -348,7 +334,7 @@ export default function CheckIn({checkIn}) {
                                         </div>
                                         <TextField type='text' name='username' style={{width: 240}}
                                                    onChange={handleFormChange}
-                                                   value={form.username || profile.discordUsername || ''}
+                                                   value={form.username || profile?.discordUsername || ''}
                                                    color='info'/>
                                     </div>
                                     <div style={{marginTop: 30, marginRight: 35}}>
@@ -501,6 +487,22 @@ export default function CheckIn({checkIn}) {
                         <LoadingDisplay/>
                     </div>
                 </Dialog>
+
+                <Dialog open={authLoaded && !user}
+                        componentsProps={{backdrop: {style: {backgroundColor: '#000', opacity: 0.6}}}}>
+                    <div style={{
+                        width: '350px', textAlign: 'center',
+                        padding: 50, marginTop: 0, backgroundColor: '#292929',
+                        marginLeft: 'auto', marginRight: 'auto',
+                        fontSize: '1.4rem', fontWeight: 700
+                    }}>
+                        You must be logged in to submit Check-ins.<br/><br/>
+                        <div style={{width: 210, marginLeft: 'auto', marginRight: 'auto'}}>
+                            <SignInButton/>
+                        </div>
+                    </div>
+                </Dialog>
+                
 
                 <Dialog open={notValidLock} componentsProps={{
                     backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
