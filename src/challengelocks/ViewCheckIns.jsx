@@ -10,9 +10,12 @@ import AdminActionsButtonCheckIns from './AdminActionsButtonCheckIns.jsx'
 import NoEntriesCardCL from './NoEntriesCardCL.jsx'
 import ChallengeLockCheckInDisplay from './ChallengeLockCheckInDisplay.jsx'
 import Button from '@mui/material/Button'
+import DBContext from '../app/DBContext.jsx'
+import Fade from '@mui/material/Fade'
 
 export default function ViewCheckIns() {
 
+    const {checkInsLoaded} = useContext(DBContext)
     const {allCheckIns, visibleEntries} = useContext(DataContext)
     const navigate = useNavigate()
 
@@ -51,21 +54,26 @@ export default function ViewCheckIns() {
             }}>
                 <SortFilterBar label='Check-ins' sortButton={navSortButton} adminButtons={navAdminButton}/>
 
-                {(allCheckIns?.length > 0 && visibleEntries?.length === 0) &&
+                {(checkInsLoaded && allCheckIns?.length > 0 && visibleEntries?.length === 0) &&
                     <NoEntriesCardCL entryType={'check-ins'}/>
                 }
 
                 <div style={style}>
-                    {allCheckIns?.length === 0 &&
-                        <div style={{textAlign: 'center', padding: 20}}>
-                            No check-ins found.<br/><br/>
-                            <div style={{fontSize: '1.0rem', marginBottom:25}}>You don&#39;t have any check-ins yet!</div>
-                            <div style={{fontSize: '1.0rem'}}>
-                                <Button variant='contained' size='small' onClick={() => navigate('/challengelocks')}>
-                                    Browse Challenge Locks
-                                </Button>
+                    {checkInsLoaded && allCheckIns?.length === 0 &&
+                        <Fade in={checkInsLoaded && allCheckIns?.length === 0} timeout={2000}>
+                            <div style={{textAlign: 'center', padding: 20}}>
+                                No check-ins found.<br/><br/>
+                                <div style={{fontSize: '1.0rem', marginBottom: 25}}>You don&#39;t have any check-ins
+                                    yet!
+                                </div>
+                                <div style={{fontSize: '1.0rem'}}>
+                                    <Button variant='contained' size='small'
+                                            onClick={() => navigate('/challengelocks')}>
+                                        Browse Challenge Locks
+                                    </Button>
+                                </div>
                             </div>
-                        </div>
+                        </Fade>
                     }
 
                     {visibleEntries.map((checkIn) => (

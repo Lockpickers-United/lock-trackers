@@ -1,6 +1,5 @@
 import React, {useCallback, useContext, useState} from 'react'
 import ChallengeLockImageGallery from './ChallengeLockImageGallery.jsx'
-import dayjs from 'dayjs'
 import FieldValue from '../util/FieldValue.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 import Button from '@mui/material/Button'
@@ -18,6 +17,7 @@ import ProblemsDisplay from './ProblemsDisplay.jsx'
 const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, setCheckIns}) => {
     if (!entry) return null
 
+    console.log('entry', entry)
     const {adminEnabled} = useContext(DataContext)
     const {currentVersion} = useContext(DBContextCL)
 
@@ -54,7 +54,8 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
         onExpand && onExpand(isExpanded ? entry.id : false)
     }, [entry.id, onExpand])
 
-    const dateCreated = entry.lockCreated || entry.createdAt
+    const dateCreated = entry.lockCreated || entry.createdAt || ''
+    const dateSubmitted = entry.dateSubmitted || entry.submittedAt || ''
     const submittedCredit = entry.maker !== entry.submittedBy?.username
         ? `Submitted by ${entry.submittedBy?.username}`
         : null
@@ -159,9 +160,9 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
                 marginTop: 25
             }}>
                 <div style={{display: 'flex', flexDirection: 'row'}}>
-                    <FieldValue name='Created' value={dayjs(dateCreated).format('MMM DD, YYYY')}
+                    <FieldValue name='Created' value={formatDate(dateCreated)}
                                 headerStyle={{color: '#999'}} style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
-                    <FieldValue name='Submitted' value={dayjs(entry.dateSubmitted).format('MMM DD, YYYY')}
+                    <FieldValue name='Submitted' value={formatDate(dateSubmitted)}
                                 headerStyle={{color: '#999'}} style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
                 </div>
 
@@ -311,11 +312,17 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
 
 export default ChallengeLockEntryDetails
 
-
 function percentage(number, digits = 1) {
     return Number(number).toLocaleString(undefined, {
         style: 'percent',
         minimumFractionDigits: digits
     })
+}
+
+function formatDate(dateString) {
+    return Intl.DateTimeFormat()
+        .format(new Date(dateString))
+        .replace(/202/g, '2')
+        .replace(/201/g, '1')
 }
 

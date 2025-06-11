@@ -87,22 +87,20 @@ export default function PrintQRCode() {
                     borderTop: '1px solid #ccc',
                     justifyContent: 'left'
                 }}>
-                    <div style={{display: 'flex'}}>
-                        <FieldValue name='Created' value={dayjs(dateCreated).format('MMM DD, YYYY')}
+                        <FieldValue name='Created' value={formatDate(dateCreated)}
                                     headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
-                        {lock.country &&
-                            <FieldValue name='Country' value={lock.country}
-                                        headerStyle={{color: '#999'}} style={{marginRight: 40}}/>
-                        }
-                    </div>
                     {lock.latestUpdate &&
-                        <div style={{display: 'flex'}}>
+                        <React.Fragment>
                             <FieldValue name='Latest Check-in'
-                                        value={dayjs(lock.latestUpdate?.pickDate).format('MMM DD, YYYY')}
+                                        value={formatDate(lock.latestUpdate?.pickDate)}
                                         headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
                             <FieldValue name='Checked in by' value={lock.latestUpdate?.username}
                                         headerStyle={{color: '#999'}} style={{}}/>
-                        </div>
+                            {lock.latestUpdate.country &&
+                                <FieldValue name='Check-in Country' value={lock.latestUpdate?.country}
+                                            headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
+                            }
+                        </React.Fragment>
                     }
                 </div>
 
@@ -160,8 +158,13 @@ export default function PrintQRCode() {
             <Tracker feature='challengeLock' id={lock.id} name={lock.name}/>
 
         </div>
-
-
     )
+}
+
+function formatDate(dateString) {
+    return Intl.DateTimeFormat()
+        .format(new Date(dateString))
+        .replace(/202/g, '2')
+        .replace(/201/g, '1')
 }
 

@@ -23,8 +23,9 @@ import DBContext from '../app/DBContext.jsx'
 export function DBProviderCL({children}) {
     const {authLoaded, isLoggedIn, user} = useContext(AuthContext)
     const {profile} = useContext(DBContext)
-    const [dbLoaded, setDbLoaded] = useState(false)
     const [dbError, setDbError] = useState(null)
+    const [dbLoaded, setDbLoaded] = useState(false)
+    const [checkInsLoaded, setCheckInsLoaded] = useState(false)
 
     const [knownVersions] = useState([])
     const [currentVersion, setCurrentVersion] = useState('')
@@ -159,6 +160,7 @@ export function DBProviderCL({children}) {
             checkIns.push(doc.data())
         })
         console.log('got checkins for id:', lockId ? lockId : userId, checkIns.length)
+        setCheckInsLoaded(true)
         return checkIns.sort((a, b) => dayjs(b.pickDate).isBefore(dayjs(a.pickDate)) ? -1 : 1)
     }, [dbError])
 
@@ -353,6 +355,7 @@ export function DBProviderCL({children}) {
         deleteCheckIn,
         getCheckIn,
         getCheckIns,
+        checkInsLoaded,
         currentVersion,
         newVersionAvailable,
         updateVersion
@@ -368,6 +371,7 @@ export function DBProviderCL({children}) {
         deleteCheckIn,
         getCheckIn,
         getCheckIns,
+        checkInsLoaded,
         currentVersion,
         newVersionAvailable,
         updateVersion

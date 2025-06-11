@@ -303,7 +303,7 @@ export default function CheckIn({checkIn}) {
     return (
 
         <React.Fragment>
-            <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[2].label}/><br/>
+            <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[0].label}/><br/>
             <Link onClick={handleTestData}>Fill test data</Link>
 
             <div style={{

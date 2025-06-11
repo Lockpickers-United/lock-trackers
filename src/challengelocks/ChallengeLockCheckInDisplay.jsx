@@ -1,5 +1,4 @@
 import React, {useCallback, useContext, useState} from 'react'
-import dayjs from 'dayjs'
 import Link from '@mui/material/Link'
 import useWindowSize from '../util/useWindowSize.jsx'
 import RatingTable from './RatingTable.jsx'
@@ -11,16 +10,21 @@ import DBContextCL from './DBProviderCL.jsx'
 import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
 import {useNavigate} from 'react-router-dom'
 import FieldValue from '../util/FieldValue.jsx'
+import dayjs from 'dayjs'
 
 export default function ChallengeLockCheckInDisplay({checkIn, latest = false, refreshCheckIns, viewRoute = false}) {
-    const {adminEnabled} = useContext(DataContext)
-    const {deleteCheckIn} = useContext(DBContextCL)
-    const navigate = useNavigate()
 
+    const {adminEnabled} = useContext(DataContext)
+    const {allCheckIns} = useContext(DataContext)
+    const {allEntries, deleteCheckIn} = useContext(DBContextCL)
+    const navigate = useNavigate()
     const urlError = checkIn.videoUrl?.length > 0 && !validator.isURL(checkIn.videoUrl)
     const urlDisplay = checkIn.videoUrl && !urlError
         ? <Link onClick={() => openInNewTab(checkIn.videoUrl)} style={{color: '#cfcff1'}}>{checkIn.videoUrl}</Link>
         : '(invalid video URL)'
+    const checkInDate = latest
+        ? dayjs(checkIn.pickDate).format('MMM DD, YYYY')
+        : formatDate(checkIn.pickDate)
 
     const ratings = checkIn
         ? Object.keys(checkIn)
@@ -72,12 +76,17 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
             lineHeight: '1.3rem'
         }
 
-        const viewCheckInStyle = {
-            padding: `5px ${sidePadding}px 0px ${sidePadding}px`,
-            margin: `0px ${sideMargin}px`,
-            fontSize: '1.0rem',
-            lineHeight: '1.3rem'
-        }
+    const viewCheckInStyle = {
+        padding: `5px ${sidePadding}px 0px ${sidePadding}px`,
+        margin: `0px ${sideMargin}px`,
+        fontSize: '1.0rem',
+        lineHeight: '1.3rem'
+    }
+
+    const lockEntry = allEntries?.find(entry => entry?.id === checkIn?.lockId)
+    const lockLink = lockEntry
+        ? <Link onClick={() => navigate(`/challengelocks?id=${checkIn.lockId}`)} style={{color: '#cfcff1', cursor:'pointer'}}>{checkIn.lockName}</Link>
+        : checkIn.lockName
 
     return (
         <React.Fragment>
@@ -85,11 +94,11 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
 
                 {viewRoute &&
                     <React.Fragment>
-                        <div style={{display: 'flex', flexWrap:'wrap', ...viewCheckInStyle, marginTop: 15}}>
-                            <FieldValue name='Pick Date' value={dayjs(checkIn.pickDate).format('MMM DD, YYYY')}
+                        <div style={{display: 'flex', flexWrap: 'wrap', ...viewCheckInStyle, marginTop: 15}}>
+                            <FieldValue name='Pick Date' value={formatDate(checkIn.pickDate)}
                                         textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
                                         headerStyle={{color: '#999'}} style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
-                            <FieldValue name='CL Name' value={checkIn.lockName}
+                            <FieldValue name='CL Name' value={lockLink}
                                         headerStyle={{color: '#999'}}
                                         textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
                                         style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
@@ -129,7 +138,7 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
                                 width: 300,
                                 margin: '15px 0px 5px 0px'
                             }}>
-                                {dayjs(checkIn.pickDate).format('MMM DD, YYYY')} <span
+                                {checkInDate} <span
                                 style={{fontWeight: 400, color: '#ddd'}}>by</span> {checkIn.username}
                             </div>
                         }
@@ -201,4 +210,11 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
             </div>
         </React.Fragment>
     )
+}
+
+function formatDate(dateString) {
+    return Intl.DateTimeFormat()
+        .format(new Date(dateString))
+        .replace(/202/g, '2')
+        .replace(/201/g, '1')
 }
