@@ -4,7 +4,6 @@ import validator from 'validator'
 
 import {localUser, prodUser} from '../keys/users.js'
 import {firebaseConfig} from '../keys/firebaseConfig.js'
-import jsonIt from './util/jsonIt.js' //eslint-disable-line
 
 const production = process.env.USER !== localUser
 

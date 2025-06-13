@@ -11,7 +11,7 @@ import {optionsCL} from '../data/subNavOptions.js'
 import AdminActionsButton from './AdminActionsButton.jsx'
 import NoEntriesCardCL from './NoEntriesCardCL.jsx'
 import LoadingDisplay from '../misc/LoadingDisplay.jsx'
-import ExportButton from './ExportButton.jsx'
+import ExportChallengeLocksButton from './ExportChallengeLocksButton.jsx'
 
 function ChallengeLocksMain({user}) {
 
@@ -78,7 +78,7 @@ function ChallengeLocksMain({user}) {
 
                 {visibleEntries?.length > 0 &&
                     <div style={{margin: '30px 0px'}}>
-                        <ExportButton text={true} entries={visibleEntries}/>
+                        <ExportChallengeLocksButton text={true} entries={visibleEntries}/>
                     </div>
                 }
 

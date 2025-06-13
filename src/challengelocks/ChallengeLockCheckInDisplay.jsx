@@ -84,130 +84,163 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
 
     const lockEntry = allEntries?.find(entry => entry?.id === checkIn?.lockId)
     const lockLink = lockEntry
-        ? <Link onClick={() => navigate(`/challengelocks?id=${checkIn.lockId}`)} style={{color: '#cfcff1', cursor:'pointer'}}>{checkIn.lockName}</Link>
+        ? <Link onClick={() => navigate(`/challengelocks?id=${checkIn.lockId}`)}
+                style={{color: '#cfcff1', cursor: 'pointer'}}>{checkIn.lockName}</Link>
         : checkIn.lockName
 
     return (
-        <React.Fragment>
-            <div>
-
-                {viewRoute &&
-                    <React.Fragment>
-                        <div style={{display: 'flex', flexWrap: 'wrap', ...viewCheckInStyle, marginTop: 15}}>
-                            <FieldValue name='Pick Date' value={formatDate(checkIn.pickDate)}
-                                        textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
-                                        headerStyle={{color: '#999'}} style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
-                            <FieldValue name='CL Name' value={lockLink}
-                                        headerStyle={{color: '#999'}}
-                                        textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
-                                        style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
-                            <FieldValue name='Maker' value={checkIn.lock?.maker}
-                                        headerStyle={{color: '#999'}}
-                                        textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
-                                        style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
-                            <FieldValue name='Picked?' value={checkIn.successfulPick}
-                                        headerStyle={{color: '#999'}}
-                                        textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
-                                        style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
-                            <FieldValue name='Format' value={checkIn.lock?.lockFormat}
-                                        headerStyle={{color: '#999'}}
-                                        textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 400}}
-                                        style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
-                            <FieldValue name='Mechanism' value={checkIn.lock?.lockingMechanism}
-                                        headerStyle={{color: '#999'}}
-                                        textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 400}}
-                                        style={{marginRight: 0, whiteSpace: 'nowrap'}}/>
-                        </div>
-                    </React.Fragment>
-                }
-
-                <div style={{display: flexStyle, borderBottom: '1px solid #aaa', ...style}}>
-                    <div style={{
-                        fontSize: '0.95rem',
-                        lineHeight: '1.5rem',
-                        fontWeight: 400,
-                        marginRight: 15,
-                        width: 300
-                    }}>
-                        {!viewRoute &&
-                            <div style={{
-                                fontSize: '0.96rem',
-                                lineHeight: '1.3rem',
-                                fontWeight: 600,
-                                width: 300,
-                                margin: '15px 0px 5px 0px'
-                            }}>
-                                {checkInDate} <span
-                                style={{fontWeight: 400, color: '#ddd'}}>by</span> {checkIn.username}
-                            </div>
-                        }
-
-                        <ul style={{paddingLeft: 20, margin: 0}}>
-                            {checkIn.videoUrl && <li>{urlDisplay}</li>}
-                            {!viewRoute && checkIn.successfulPick && <li>Succesful pick? {checkIn.successfulPick}</li>}
-                            {checkIn.notes && <li>Notes: {checkIn.notes}</li>}
-                            {checkIn.country && <li>{checkIn.country}</li>}
-                            {checkIn.stateProvince && <li>{checkIn.stateProvince}</li>}
-                        </ul>
-
-                        {adminEnabled &&
-                            <div style={{
-                                textAlign: 'left',
-                                fontSize: '0.9rem',
-                                lineHeight: '1.1rem',
-                                fontWeight: 400,
-                                marginTop: 20
-                            }}>
-                                <Link onClick={handleOpen}
-                                      style={{color: '#f00', textDecoration: 'none'}}>DELETE</Link>
-                                <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                                    <div style={{padding: 20, textAlign: 'center'}}>
-                                        You cannot undo delete.<br/>
-                                        Are you sure?
-                                    </div>
-                                    <div style={{display: 'flex', justifyContent: 'center'}}>
-                                        {deleting
-                                            ? <LoadingDisplayWhite color={'#fda21b'}/>
-                                            : <Button style={{marginBottom: 10, color: '#000'}}
-                                                      variant='contained'
-                                                      onClick={handleDelete}
-                                                      edge='start'
-                                                      color='error'
-                                            >
-                                                Delete
-                                            </Button>
-                                        }
-                                    </div>
-                                </Menu>
-
-                                &nbsp;•&nbsp;
-                                <Link
-                                    onClick={handleEdit}
-                                    style={{color: '#fda21b', textDecoration: 'none'}}>EDIT</Link>
-                                &nbsp;•&nbsp;
-                                <Link
-                                    onClick={() => console.log('checkIn', checkIn)}
-                                    style={{color: '#fda21b', textDecoration: 'none'}}>LOG</Link>
-                            </div>
-                        }
-
+        <div>
+            {viewRoute &&
+                    <div style={{display: 'flex', flexWrap: 'wrap', ...viewCheckInStyle, marginTop: 15}}>
+                        <FieldValue name='Pick Date' value={formatDate(checkIn.pickDate)}
+                                    textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
+                                    headerStyle={{color: '#999'}} style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
+                        <FieldValue name='CL Name' value={lockLink}
+                                    headerStyle={{color: '#999'}}
+                                    textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
+                                    style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
+                        <FieldValue name='Maker' value={checkIn.lock?.maker}
+                                    headerStyle={{color: '#999'}}
+                                    textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
+                                    style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
+                        <FieldValue name='Picked?' value={checkIn.successfulPick}
+                                    headerStyle={{color: '#999'}}
+                                    textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
+                                    style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
+                        <FieldValue name='Format' value={checkIn.lock?.lockFormat}
+                                    headerStyle={{color: '#999'}}
+                                    textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 400}}
+                                    style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
+                        <FieldValue name='Mechanism' value={checkIn.lock?.lockingMechanism}
+                                    headerStyle={{color: '#999'}}
+                                    textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 400}}
+                                    style={{marginRight: 0, whiteSpace: 'nowrap'}}/>
                     </div>
+            }
 
-                    {Object.keys(ratings).length > 0 &&
-                        <RatingTable ratings={ratings}
-                                     readonly={true}
-                                     size={16}
-                                     fontSize={'0.9rem'}
-                                     fontWeight={400}
-                                     paddingData={0}
-                                     backgroundColor={'#333'}
-                                     emptyColor={'#555'}
-                                     fillColor={'#ddd'}
-                        />
+            <div style={{display: flexStyle, ...style}}>
+                <div style={{
+                    fontSize: '0.95rem',
+                    lineHeight: '1.5rem',
+                    fontWeight: 400,
+                    marginRight: 15,
+                    width: 300
+                }}>
+                    {!viewRoute &&
+                        <div style={{
+                            fontSize: '0.96rem',
+                            lineHeight: '1.3rem',
+                            fontWeight: 600,
+                            width: 300,
+                            margin: '15px 0px 5px 0px'
+                        }}>
+                            {checkInDate} <span
+                            style={{fontWeight: 400, color: '#ddd'}}>by</span> {checkIn.username}
+                        </div>
                     }
+
+                    <ul style={{paddingLeft: 20, margin: 0}}>
+                        {checkIn.videoUrl && <li>{urlDisplay}</li>}
+                        {!viewRoute && checkIn.successfulPick && <li>Succesful pick? {checkIn.successfulPick}</li>}
+                        {checkIn.notes && <li>Notes: {checkIn.notes}</li>}
+                        {checkIn.country && <li>{checkIn.country}</li>}
+                        {checkIn.stateProvince && <li>{checkIn.stateProvince}</li>}
+                    </ul>
+
+                    {adminEnabled &&
+                        <div style={{
+                            textAlign: 'left',
+                            fontSize: '0.9rem',
+                            lineHeight: '1.1rem',
+                            fontWeight: 400,
+                            marginTop: 20
+                        }}>
+                            <Link onClick={handleOpen}
+                                  style={{color: '#f00', textDecoration: 'none'}}>DELETE</Link>
+                            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+                                <div style={{padding: 20, textAlign: 'center'}}>
+                                    You cannot undo delete.<br/>
+                                    Are you sure?
+                                </div>
+                                <div style={{display: 'flex', justifyContent: 'center'}}>
+                                    {deleting
+                                        ? <LoadingDisplayWhite color={'#fda21b'}/>
+                                        : <Button style={{marginBottom: 10, color: '#000'}}
+                                                  variant='contained'
+                                                  onClick={handleDelete}
+                                                  edge='start'
+                                                  color='error'
+                                        >
+                                            Delete
+                                        </Button>
+                                    }
+                                </div>
+                            </Menu>
+
+                            &nbsp;•&nbsp;
+                            <Link
+                                onClick={handleEdit}
+                                style={{color: '#fda21b', textDecoration: 'none'}}>EDIT</Link>
+                            &nbsp;•&nbsp;
+                            <Link
+                                onClick={() => console.log('checkIn', checkIn)}
+                                style={{color: '#fda21b', textDecoration: 'none'}}>LOG</Link>
+                        </div>
+                    }
+
                 </div>
+
+                {Object.keys(ratings).length > 0 &&
+                    <RatingTable ratings={ratings}
+                                 readonly={true}
+                                 size={16}
+                                 fontSize={'0.9rem'}
+                                 fontWeight={400}
+                                 paddingData={0}
+                                 backgroundColor={'#333'}
+                                 emptyColor={'#555'}
+                                 fillColor={'#ddd'}
+                    />
+                }
             </div>
-        </React.Fragment>
+
+            <div style={{display: 'flex', flexWrap: 'wrap', borderBottom: '1px solid #bbb'}}>
+                {viewRoute && (checkIn.receivedDate || checkIn.sentDate || checkIn.receivedFrom || checkIn.sentTo) &&
+                    <div style={{display: 'flex', flexWrap: 'wrap', margin: '0px 15px 15px 15px'}}>
+                        <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                            {checkIn.receivedDate &&
+                                <FieldValue name='Received' value={formatDate(checkIn.receivedDate)}
+                                            textStyle={{fontSize: '1.0rem', lineHeight: '1.3rem', fontWeight: 600}}
+                                            headerStyle={{color: '#999'}}
+                                            style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
+                            }
+                            {checkIn.receivedFrom &&
+                                <FieldValue name='Received From' value={checkIn.receivedFrom}
+                                            textStyle={{fontSize: '1.0rem', lineHeight: '1.3rem', fontWeight: 600}}
+                                            headerStyle={{color: '#999'}}
+                                            style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
+                            }
+                        </div>
+                        <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                            {checkIn.sentDate &&
+                                <FieldValue name='Sent' value={formatDate(checkIn.sentDate)}
+                                            textStyle={{fontSize: '1.0rem', lineHeight: '1.3rem', fontWeight: 600}}
+                                            headerStyle={{color: '#999'}}
+                                            style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
+                            }
+                            {checkIn.sentTo &&
+                                <FieldValue name='Sent To' value={checkIn.sentTo}
+                                            textStyle={{fontSize: '1.0rem', lineHeight: '1.3rem', fontWeight: 600}}
+                                            headerStyle={{color: '#999'}}
+                                            style={{marginRight: 5, whiteSpace: 'nowrap'}}/>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+        </div>
     )
 }
 

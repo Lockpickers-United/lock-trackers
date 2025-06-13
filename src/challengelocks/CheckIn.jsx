@@ -32,6 +32,7 @@ import DBContextCL from './DBProviderCL.jsx'
 import {nodeServerUrl} from '../data/dataUrls.js'
 import SignInButton from '../auth/SignInButton.jsx'
 import AuthContext from '../app/AuthContext.jsx'
+import Collapse from '@mui/material/Collapse'
 
 /**
  * @prop inputValue
@@ -52,7 +53,7 @@ export default function CheckIn({checkIn, profile, user}) {
     const [country, setCountry] = useState(null)
     const [stateProvince, setStateProvince] = useState(null)
     const [scrolled, setScrolled] = useState(false)
-    const [highlightRequired, setHighlightRequired] = useState(false)
+    const [showTracking, setShowTracking] = useState(false)
     const navigate = useNavigate()
 
     const [lock, setLock] = useState(undefined)
@@ -117,16 +118,10 @@ export default function CheckIn({checkIn, profile, user}) {
     }, [checkIn, defaultFormData, profile])
 
     const getHighlightColor = useCallback(field => {
-        return highlightRequired
-            ? !form[field]
+        return !form[field]
                 ? '#d00'
                 : '#090'
-            : 'inherit'
-    }, [form, highlightRequired])
-    const showRequired = useCallback(() => {
-        setHighlightRequired(!highlightRequired)
-        console.log('form', form)
-    }, [form, highlightRequired])
+    }, [form])
 
     if (notValidLock) {
         console.log('** No lock found for id: ' + lockId)
@@ -266,6 +261,8 @@ export default function CheckIn({checkIn, profile, user}) {
 
     const headerStyle = {fontSize: '1.1rem', fontWeight: 600, margin: '5px 0px'}
     const optionalHeaderStyle = {fontSize: '1.1rem', fontWeight: 400, margin: '5px 0px', color: '#ccc'}
+    const reqStyle = {height: 4, borderRadius: 2}
+    const textFieldMax = 40
 
     const nameTextStyle = {
         fontSize: '1.5rem',
@@ -329,13 +326,14 @@ export default function CheckIn({checkIn, profile, user}) {
                             <div style={{display: flexStyle}}>
                                 <div style={{display: 'flex'}}>
                                     <div style={{marginRight: 15}}>
-                                        <div style={{...headerStyle, backgroundColor: getHighlightColor('username')}}>
+                                        <div style={{...headerStyle}}>
                                             Discord/Reddit Username
                                         </div>
                                         <TextField type='text' name='username' style={{width: 240}}
                                                    onChange={handleFormChange}
                                                    value={form.username || profile?.discordUsername || ''}
                                                    color='info'/>
+                                        <div style={{...reqStyle, backgroundColor: getHighlightColor('username')}}/>
                                     </div>
                                     <div style={{marginTop: 30, marginRight: 35}}>
                                         <RadioGroup
@@ -357,7 +355,7 @@ export default function CheckIn({checkIn, profile, user}) {
                                     </div>
                                 </div>
                                 <div style={{marginRight: 20, width: 190, marginTop: 0}}>
-                                    <div style={{...headerStyle, backgroundColor: getHighlightColor('pickDate')}}>
+                                    <div style={{...headerStyle}}>
                                         Pick Date
                                     </div>
                                     <DatePicker
@@ -367,6 +365,7 @@ export default function CheckIn({checkIn, profile, user}) {
                                         maxDate={dayjs('2026-12-31')}
                                         onChange={(newValue) => handleDateChange({pickDate: newValue.toISOString()})}
                                     />
+                                    <div style={{...reqStyle, backgroundColor: getHighlightColor('pickDate')}}/>
                                 </div>
 
                             </div>
@@ -374,14 +373,16 @@ export default function CheckIn({checkIn, profile, user}) {
 
                         <div style={{display: flexStyle}}>
                             <div style={{marginRight: 20, width: 170, marginTop: 10}}>
-                                <div style={{...headerStyle, backgroundColor: getHighlightColor('successfulPick')}}>
+                                <div style={{...headerStyle}}>
                                     Successful Pick?
                                 </div>
                                 <SelectBox changeHandler={handleFormChange}
                                            name='successfulPick' form={form}
                                            optionsList={['Yes', 'No']} size={'large'}
                                            width={170} multiple={false} defaultValue={''}/>
+                                <div style={{...reqStyle, backgroundColor: getHighlightColor('successfulPick')}}/>
                             </div>
+
                             <div style={{marginRight: 20, flexGrow: 1, marginTop: 10}}>
                                 <div style={optionalHeaderStyle}>Pick Video URL <span
                                     style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional)</span>
@@ -393,11 +394,8 @@ export default function CheckIn({checkIn, profile, user}) {
                         </div>
 
                         <div style={{
-                            fontSize: '1.3rem',
-                            color: '#ccc',
-                            borderBottom: '1px solid #ccc',
-                            marginTop: 20,
-                            marginRight: 20
+                            fontSize: '1.3rem', color: '#ccc', borderBottom: '1px solid #ccc',
+                            marginTop: 20, marginRight: 20
                         }}>
                             Other Optional Information
                         </div>
@@ -412,7 +410,7 @@ export default function CheckIn({checkIn, profile, user}) {
                                              ratings={form.ratings}/>
                             </div>
 
-                            <div style={{flexGrow: 1, marginRight: 20}}>
+                            <div style={{flexGrow: 1, marginRight: 20, marginTop: 4}}>
                                 <div style={{...optionalHeaderStyle, marginTop: 10}}>
                                     Notes <span
                                     style={{...optionalHeaderStyle, color: '#aaa'}}>(optional)</span>
@@ -461,10 +459,64 @@ export default function CheckIn({checkIn, profile, user}) {
                             </div>
                         </div>
 
-                        <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
-                            <Link
-                                onClick={showRequired}>{highlightRequired ? 'turn off highlighting' : 'highlight required fields'}</Link>
+                        <div style={{marginTop: 40, width: '100%', textAlign: 'center'}}>
+                            <Button variant='outlined' onClick={() => setShowTracking(!showTracking)}>Add Private
+                                Tracking Info</Button>
                         </div>
+
+                        <Collapse in={showTracking} timeout={500} style={{width: '100%'}}>
+                            <div style={{display: flexStyle, justifyContent: 'center'}}>
+
+                                <div style={{marginRight: 20, marginTop: 10}}>
+                                    <div style={{...optionalHeaderStyle}}>
+                                        Received From
+                                    </div>
+                                    <TextField type='text' name='receivedFrom' style={{width: 240}}
+                                               onChange={handleFormChange}
+                                               value={form.receivedFrom || ''} color='info'
+                                               inputProps={{maxLength: textFieldMax}}/>
+                                </div>
+
+                                <div style={{marginRight: 20, width: 200, marginTop: 10}}>
+                                    <div style={{...optionalHeaderStyle}}>
+                                        Date Received
+                                    </div>
+                                    <DatePicker
+                                        value={form.sentDate ? dayjs(form.receivedDate) : null}
+                                        disableFuture
+                                        minDate={dayjs('2015-01-01')}
+                                        maxDate={dayjs('2026-12-31')}
+                                        onChange={(newValue) => handleDateChange({receivedDate: newValue.toISOString()})}
+                                    />
+                                </div>
+
+                            </div>
+                            <div style={{display: flexStyle, justifyContent: 'center'}}>
+
+                                <div style={{marginRight: 20, marginTop: 10}}>
+                                    <div style={{...optionalHeaderStyle}}>
+                                        Sent To
+                                    </div>
+                                    <TextField type='text' name='sentTo' style={{width: 240}}
+                                               onChange={handleFormChange}
+                                               value={form.sentTo || ''} color='info'
+                                               inputProps={{maxLength: textFieldMax}}/>
+                                </div>
+
+                                <div style={{marginRight: 20, width: 200, marginTop: 10}}>
+                                    <div style={{...optionalHeaderStyle}}>
+                                        Date Sent
+                                    </div>
+                                    <DatePicker
+                                        value={form.sentDate ? dayjs(form.sentDate) : null}
+                                        disableFuture
+                                        minDate={dayjs('2015-01-01')}
+                                        maxDate={dayjs('2026-12-31')}
+                                        onChange={(newValue) => handleDateChange({sentDate: newValue.toISOString()})}
+                                    />
+                                </div>
+                            </div>
+                        </Collapse>
 
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
                             {checkIn &&
@@ -500,16 +552,22 @@ export default function CheckIn({checkIn, profile, user}) {
                         <div style={{width: 210, marginLeft: 'auto', marginRight: 'auto'}}>
                             <SignInButton/>
                         </div>
+                        <div style={{marginTop: 30, fontSize: '1.0rem'}}>
+                            <Button variant='text' size='small'
+                                    onClick={() => navigate('/challengelocks')}>
+                                Browse Challenge Locks
+                            </Button>
+                        </div>
                     </div>
                 </Dialog>
-                
+
 
                 <Dialog open={notValidLock} componentsProps={{
                     backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
                 }}>
                     <div style={{display: 'flex'}}>
                         <div style={{backgroundColor: '#444', marginLeft: 'auto', marginRight: 'auto', padding: 40}}>
-                            <div style={{
+                        <div style={{
                                 fontSize: '1.6rem',
                                 lineHeight: '1.9rem',
                                 fontWeight: 500,

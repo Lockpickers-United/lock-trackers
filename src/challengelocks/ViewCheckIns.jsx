@@ -15,15 +15,19 @@ import Fade from '@mui/material/Fade'
 import SignInButton from '../auth/SignInButton.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 import Dialog from '@mui/material/Dialog'
-
+import ExportCheckInsButton from './ExportCheckInsButton.jsx'
+import sampleEntries from './checkInSampleData.json'
 export default function ViewCheckIns({user}) {
 
     const {authLoaded} = useContext(AuthContext)
     const {checkInsLoaded} = useContext(DBContext)
     const {allCheckIns, visibleEntries} = useContext(DataContext)
-    const navigate = useNavigate()
 
-    console.log('ViewCheckIns', checkInsLoaded, allCheckIns, visibleEntries)
+const displayEntries = authLoaded && user
+    ? visibleEntries
+    : sampleEntries
+
+    const navigate = useNavigate()
 
     const style = {
         maxWidth: 700,
@@ -94,11 +98,17 @@ export default function ViewCheckIns({user}) {
                             <div style={{width: 210, marginLeft: 'auto', marginRight: 'auto'}}>
                                 <SignInButton/>
                             </div>
+                            <div style={{marginTop: 30, fontSize: '1.0rem'}}>
+                                <Button variant='text' size='small'
+                                        onClick={() => navigate('/challengelocks')}>
+                                    Browse Challenge Locks
+                                </Button>
+                            </div>
                         </div>
                     </Dialog>
 
 
-                    {visibleEntries.map((checkIn) => (
+                    {displayEntries.map((checkIn) => (
                         <ChallengeLockCheckInDisplay
                             key={checkIn.id}
                             checkIn={checkIn}
@@ -109,6 +119,12 @@ export default function ViewCheckIns({user}) {
                     ))}
                 </div>
             </div>
+
+            {visibleEntries?.length > 0 &&
+                <div style={{margin: '20px auto 40px auto', textAlign: 'center'}}>
+                    <ExportCheckInsButton text={true} entries={visibleEntries}/>
+                </div>
+            }
 
         </React.Fragment>
     )

@@ -13,8 +13,9 @@ import DataContext from '../context/DataContext.jsx'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import download from '../util/download'
 import Button from '@mui/material/Button'
+import dayjs from 'dayjs'
 
-function ExportButton({text, entries}) {
+function ExportChallengeLocksButton({text, entries}) {
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
     const handleOpen = useCallback(event => setAnchorEl(event.currentTarget), [])
@@ -26,21 +27,18 @@ function ExportButton({text, entries}) {
         return allEntries.find(e => e.id === entry.id)
     })
 
-    console.log('jsonEntries', jsonEntries)
-
-
     const handleExportJson = useCallback(() => {
-        const data = JSON.stringify(exportEntries)
+        const data = JSON.stringify(jsonEntries)
         handleClose()
-        download('lpubeltsdata.json', data)
-        enqueueSnackbar('Current lock entries downloaded as lpubeltsdata.json')
-    }, [handleClose, exportEntries])
+        download('challengelockdata.json', data)
+        enqueueSnackbar('Current lock entries downloaded as challengelockdata.json')
+    }, [jsonEntries, handleClose])
 
     const handleExportClipboard = useCallback(() => {
         const data = exportEntries.map(entry => ({
             id: entry.id,
             name: entry.name,
-            maker: entry.maker,
+            maker: entry.maker
         }))
 
         const clipboardText = data.map(datum => {
@@ -53,11 +51,14 @@ function ExportButton({text, entries}) {
     }, [handleClose, exportEntries])
 
     const handleExportCsv = useCallback(() => {
-        const csvColumns = ['id', 'name', 'maker']
+        const csvColumns = ['id', 'name', 'maker', 'created', 'format', 'lockingMechanism']
         const data = exportEntries.map(datum => ({
             id: datum.id,
             name: datum.name,
             maker: datum.maker,
+            created: dayjs(datum.lockCreated).format('YYYY-MM-DD'),
+            format: datum.lockFormat,
+            lockingMechanism: datum.lockingMechanism
         }))
 
         const headers = csvColumns.join(',')
@@ -72,8 +73,8 @@ function ExportButton({text, entries}) {
         }).join('\n')
         const csvFile = `${headers}\n${csvData}`
         handleClose()
-        download('lpubeltsdata.csv', csvFile)
-        enqueueSnackbar('Current lock entries downloaded as lpubeltsdata.csv')
+        download('lpulocksdata.csv', csvFile)
+        enqueueSnackbar('Current lock entries downloaded as lpulocksdata.csv')
     }, [handleClose, exportEntries])
 
     return (
@@ -127,4 +128,4 @@ function ExportButton({text, entries}) {
     )
 }
 
-export default ExportButton
+export default ExportChallengeLocksButton

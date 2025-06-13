@@ -1,0 +1,448 @@
+[
+  {
+    "country": "United States of America",
+    "username": "Lockpicking.Engineer",
+    "displayName": "LockpickingEngineer",
+    "id": "clci_d73bba8f",
+    "successfulPick": "Yes",
+    "pickDate": "2025-06-03T05:00:00.000Z",
+    "ratingFun": 5,
+    "userBelt": "Brown",
+    "usernamePlatform": "discord",
+    "submittedAt": "2025-06-05T23:31:29.475Z",
+    "ratingDifficulty": 5,
+    "lockId": "cl_de955dd5",
+    "ratingCreativity": 3,
+    "userId": "cm8oFWt2fBPTYdyhqnjBMsHlfNy1",
+    "ratingQuality": 1,
+    "lockName": "LPE #1",
+    "lockMaker": "LockpickingEngineer",
+    "lockFormat": "Mortise",
+    "lockingMechanism": "Pin-tumbler",
+    "fuzzy": "LPE #1, LockpickingEngineer",
+    "lock": {
+      "country": "United States of America",
+      "ratingCreativity": [
+        3
+      ],
+      "usernamePlatform": "discord",
+      "lockingMechanism": "Pin-tumbler",
+      "displayName": "mgsecure",
+      "media": [
+        {
+          "imageTitle": "LPE #1",
+          "subtitle": "CC BY-NC-SA 4.0",
+          "sequenceId": 1,
+          "fullUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142519_lockpickingengineer-main.jpg",
+          "dateAdded": "2025-06-05T23:30:44.415Z",
+          "fullSizeUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142519_lockpickingengineer-main-1024.jpg",
+          "thumbnailUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142519_lockpickingengineer-main-500.jpg",
+          "title": "By: Lockpicking.Engineer"
+        },
+        {
+          "title": "By: Lockpicking.Engineer",
+          "fullSizeUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142108_lockpickingengineer-1024.jpg",
+          "fullUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142108_lockpickingengineer.jpg",
+          "imageTitle": "LPE #1",
+          "sequenceId": 2,
+          "dateAdded": "2025-06-05T23:30:44.470Z",
+          "thumbnailUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142108_lockpickingengineer-500.jpg",
+          "subtitle": "CC BY-NC-SA 4.0"
+        },
+        {
+          "subtitle": "CC BY-NC-SA 4.0",
+          "title": "By: Lockpicking.Engineer",
+          "imageTitle": "LPE #1",
+          "sequenceId": 3,
+          "fullSizeUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142052_lockpickingengineer-1024.jpg",
+          "dateAdded": "2025-06-05T23:30:44.450Z",
+          "fullUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142052_lockpickingengineer.jpg",
+          "thumbnailUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142052_lockpickingengineer-500.jpg"
+        }
+      ],
+      "originalLock": "",
+      "ratingDifficulty": [
+        3
+      ],
+      "updatedAt": "2025-06-12T13:49:54.556Z",
+      "stateProvince": "District Of Columbia",
+      "userBelt": "Brown",
+      "latestUpdate": {
+        "ratingCreativity": "3",
+        "userBelt": "Black",
+        "videoUrl": "https://youtu.be/u1M6MOh_kkk?si=RdPamSL1-zzuk9qK",
+        "ratingDifficulty": "3",
+        "userId": "PHU1oYSJfKQbKarqTygoqMIG2Cr2",
+        "usernamePlatform": "discord",
+        "stateProvince": "Kentucky",
+        "country": "United States of America",
+        "pickDate": "2024-11-01T04:00:00.000Z",
+        "id": "clci_3620c908",
+        "displayName": "NICVT_locks",
+        "submittedAt": "2025-06-12T13:49:52.502Z",
+        "username": "Nicvt_locks",
+        "lockId": "cl_de955dd5",
+        "successfulPick": "Yes",
+        "ratingFun": "4",
+        "ratingQuality": "4"
+      },
+      "submittedBy": {
+        "userBelt": "Brown",
+        "userId": "cm8oFWt2fBPTYdyhqnjBMsHlfNy1",
+        "usernamePlatform": "discord",
+        "displayName": "LockpickingEngineer",
+        "username": "Lockpicking.Engineer"
+      },
+      "id": "cl_de955dd5",
+      "username": "Lockpicking.Engineer",
+      "status": "active",
+      "maker": "LockpickingEngineer",
+      "checkInCount": 1,
+      "thumbnail": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142519_lockpickingengineer-main-200-sq.jpg",
+      "ratingQuality": [
+        4
+      ],
+      "lockFormat": "Mortise",
+      "successCount": 1,
+      "lockCreated": "2024-12-28T06:00:00.000Z",
+      "ratingFun": [
+        4
+      ],
+      "name": "LPE #1",
+      "submittedAt": "2025-06-05T23:30:44.149Z"
+    }
+  },
+  {
+    "approxBelt": "Orange",
+    "usernamePlatform": "discord",
+    "ratingCreativity": 3,
+    "ratingFun": 5,
+    "lockId": "cl_2d692d4e",
+    "displayName": "LockpickingEngineer",
+    "ratingDifficulty": 4,
+    "username": "Lockpicking.Engineer",
+    "userId": "cm8oFWt2fBPTYdyhqnjBMsHlfNy1",
+    "userBelt": "Brown",
+    "id": "clci_ec890184",
+    "ratingQuality": 5,
+    "country": "United States of America",
+    "pickDate": "2025-06-02T05:00:00.000Z",
+    "submittedAt": "2025-06-05T23:43:26.082Z",
+    "successfulPick": "Yes",
+    "lockName": "Homegrown Tomfuckery",
+    "lockMaker": "Storm Crow",
+    "lockFormat": "Mortise",
+    "lockingMechanism": "Pin-tumbler",
+    "fuzzy": "Homegrown Tomfuckery, Storm Crow",
+    "lock": {
+      "mainImage": [
+        {
+          "imageTitle": "Homegrown Tomfuckery",
+          "dateAdded": "2025-05-26T23:07:50.773Z",
+          "title": "By: Loose-Shirt6551",
+          "fullUrl": "https://data.lpulocks.com/lockbazaar/images/homegrown-tomfuckery-loose-shirt6551-cl_2d692d4e/homegrown-tomfuckery_1000006966_loose-shirt6551-main.jpg",
+          "sequenceId": 1,
+          "fullSizeUrl": "https://data.lpulocks.com/lockbazaar/images/homegrown-tomfuckery-loose-shirt6551-cl_2d692d4e/homegrown-tomfuckery_1000006966_loose-shirt6551-main-1024.jpg",
+          "subtitle": "CC BY-NC-SA 4.0",
+          "thumbnailUrl": "https://data.lpulocks.com/lockbazaar/images/homegrown-tomfuckery-loose-shirt6551-cl_2d692d4e/homegrown-tomfuckery_1000006966_loose-shirt6551-main-500.jpg"
+        }
+      ],
+      "country": "United States of America",
+      "latestUpdate": {
+        "videoUrl": "https://lpulocks.com/#/challengelocks",
+        "ratingfun": "5",
+        "approxBelt": "Blue",
+        "userBelt": "Black",
+        "displayName": "mgsecure",
+        "submittedAt": "2025-06-07T22:12:57.606Z",
+        "successfulPick": "Yes",
+        "notes": "Here are some notes.",
+        "country": "United States of America",
+        "ratingquality": "2",
+        "lockId": "cl_2d692d4e",
+        "userId": "ClbjuilBEHgbzO4UZl4y3GStlEz2",
+        "ratingcreativity": "3",
+        "ratingdifficulty": "4",
+        "usernamePlatform": "discord",
+        "username": "mgsecure",
+        "id": "clci_18dd8496",
+        "pickDate": "2025-06-06T07:00:00.000Z"
+      },
+      "status": "active",
+      "ratingQuality": [
+        4
+      ],
+      "checkInCount": 5,
+      "lockFormat": "Mortise",
+      "id": "cl_2d692d4e",
+      "userBelt": "unknown",
+      "thumbnail": "https://data.lpulocks.com/lockbazaar/images/homegrown-tomfuckery-loose-shirt6551-cl_2d692d4e/homegrown-tomfuckery_1000006966_loose-shirt6551-main-200-sq.jpg",
+      "approximateBelt": "Brown",
+      "displayName": "mgsecure",
+      "originalLock": "",
+      "ratingDifficulty": [
+        2
+      ],
+      "media": [
+        {
+          "fullSizeUrl": "https://data.lpulocks.com/lockbazaar/images/homegrown-tomfuckery-loose-shirt6551-cl_2d692d4e/homegrown-tomfuckery_1000006966_loose-shirt6551-main-1024.jpg",
+          "imageTitle": "Homegrown Tomfuckery",
+          "dateAdded": "2025-05-26T23:07:50.773Z",
+          "fullUrl": "https://data.lpulocks.com/lockbazaar/images/homegrown-tomfuckery-loose-shirt6551-cl_2d692d4e/homegrown-tomfuckery_1000006966_loose-shirt6551-main.jpg",
+          "title": "By: Loose-Shirt6551",
+          "thumbnailUrl": "https://data.lpulocks.com/lockbazaar/images/homegrown-tomfuckery-loose-shirt6551-cl_2d692d4e/homegrown-tomfuckery_1000006966_loose-shirt6551-main-500.jpg",
+          "subtitle": "CC BY-NC-SA 4.0",
+          "sequenceId": 1
+        }
+      ],
+      "ratingcreativity": [
+        3,
+        3
+      ],
+      "ratingFun": [
+        1
+      ],
+      "lockingMechanism": "Pin-tumbler",
+      "ratingdifficulty": [
+        4,
+        4
+      ],
+      "maker": "Storm Crow",
+      "ratingCreativity": [
+        1
+      ],
+      "name": "Homegrown Tomfuckery",
+      "usernamePlatform": "discord",
+      "approxBelt": [
+        "Blue",
+        "Blue"
+      ],
+      "submittedBy": {
+        "userId": "unknown",
+        "userBelt": "unknown",
+        "username": "foobar",
+        "displayName": "unknown",
+        "usernamePlatform": "discord"
+      },
+      "updatedAt": "2025-06-07T22:52:59.657Z",
+      "stateProvince": "Arizona",
+      "ratingquality": [
+        2,
+        2
+      ],
+      "username": "foobar",
+      "ratingfun": [
+        5,
+        5
+      ],
+      "successCount": 5,
+      "dateSubmitted": "2025-05-26T23:07:50.659Z",
+      "description": "A BEST SFIC. Bastard of a lock to pick.",
+      "lockCreated": "2025-04-26T15:34:08.962Z"
+    }
+  },
+  {
+    "ratingFun": "3",
+    "userId": "cm8oFWt2fBPTYdyhqnjBMsHlfNy1",
+    "pickDate": "2025-06-01T05:00:00.000Z",
+    "successfulPick": "Yes",
+    "displayName": "LockpickingEngineer",
+    "ratingQuality": "1",
+    "id": "clci_b92fd518",
+    "submittedAt": "2025-06-06T00:41:23.492Z",
+    "country": "United States of America",
+    "username": "Lockpicking.Engineer",
+    "approxBelt": "Orange",
+    "userBelt": "Brown",
+    "usernamePlatform": "discord",
+    "lockId": "cl_ef5a1ecf",
+    "ratingDifficulty": "4",
+    "ratingCreativity": "3",
+    "lockName": "Smooth Sailing",
+    "lockMaker": "Alexio_Xela",
+    "lockFormat": "Padlock",
+    "lockingMechanism": "Pin-tumbler",
+    "fuzzy": "Smooth Sailing, Alexio_Xela",
+    "lock": {
+      "description": "It's a challenge. It's a lock. It's a challenge lock!\r\nMaybe I'll finally get around to sending it out in June",
+      "submittedBy": {
+        "userId": "2rZmEpO8IqgFdemhmPEHP4j07yR2",
+        "userBelt": "Green",
+        "displayName": "Alexio_Xela",
+        "usernamePlatform": "discord",
+        "username": "Alexio_Xela"
+      },
+      "checkInCount": 1,
+      "originalLock": "American 1100",
+      "name": "Smooth Sailing",
+      "id": "cl_ef5a1ecf",
+      "ratingQuality": [
+        1
+      ],
+      "updatedAt": "2025-06-06T00:41:24.804Z",
+      "ratingFun": [
+        3
+      ],
+      "submittedAt": "2025-05-30T14:50:30.012Z",
+      "lockFormat": "Padlock",
+      "ratingDifficulty": [
+        4
+      ],
+      "ratingCreativity": [
+        3
+      ],
+      "media": [
+        {
+          "thumbnailUrl": "https://data.lpulocks.com/lockbazaar/images/smooth-sailing-alexio_xela-cl_ef5a1ecf/smooth-sailing_1000022390_alexio_xela-main-500.jpg",
+          "subtitle": "CC BY-NC-SA 4.0",
+          "imageTitle": "Smooth Sailing",
+          "sequenceId": 1,
+          "dateAdded": "2025-05-30T14:50:30.252Z",
+          "fullUrl": "https://data.lpulocks.com/lockbazaar/images/smooth-sailing-alexio_xela-cl_ef5a1ecf/smooth-sailing_1000022390_alexio_xela-main.jpg",
+          "fullSizeUrl": "https://data.lpulocks.com/lockbazaar/images/smooth-sailing-alexio_xela-cl_ef5a1ecf/smooth-sailing_1000022390_alexio_xela-main-1024.jpg",
+          "title": "By: Alexio_Xela"
+        }
+      ],
+      "approxBelt": [],
+      "maker": "Alexio_Xela",
+      "thumbnail": "https://data.lpulocks.com/lockbazaar/images/smooth-sailing-alexio_xela-cl_ef5a1ecf/smooth-sailing_1000022390_alexio_xela-main-200-sq.jpg",
+      "country": "United States of America",
+      "approximateBelt": "Green",
+      "lockingMechanism": "Pin-tumbler",
+      "lockCreated": "2025-05-06T04:00:00.000Z",
+      "latestUpdate": {
+        "userId": "cm8oFWt2fBPTYdyhqnjBMsHlfNy1",
+        "successfulPick": "Yes",
+        "country": "United States of America",
+        "submittedAt": "2025-06-06T00:41:23.492Z",
+        "userBelt": "Brown",
+        "pickDate": "2025-06-01T05:00:00.000Z",
+        "ratingCreativity": "3",
+        "ratingQuality": "1",
+        "id": "clci_b92fd518",
+        "ratingFun": "3",
+        "displayName": "LockpickingEngineer",
+        "usernamePlatform": "discord",
+        "username": "Lockpicking.Engineer",
+        "approxBelt": "Orange",
+        "ratingDifficulty": "4",
+        "lockId": "cl_ef5a1ecf"
+      },
+      "successCount": 1
+    }
+  },
+  {
+    "id": "clci_4bdd4824",
+    "pickDate": "2025-04-15T05:00:00.000Z",
+    "successfulPick": "Yes",
+    "approxBelt": "Orange",
+    "submittedAt": "2025-06-05T23:34:51.744Z",
+    "lockId": "cl_de955dd5",
+    "ratingQuality": 2,
+    "usernamePlatform": "discord",
+    "displayName": "LockpickingEngineer",
+    "ratingFun": 5,
+    "username": "Lockpicking.Engineer",
+    "country": "United States of America",
+    "userBelt": "Brown",
+    "ratingCreativity": 3,
+    "ratingDifficulty": 3,
+    "userId": "cm8oFWt2fBPTYdyhqnjBMsHlfNy1",
+    "lockName": "LPE #1",
+    "lockMaker": "LockpickingEngineer",
+    "lockFormat": "Mortise",
+    "lockingMechanism": "Pin-tumbler",
+    "fuzzy": "LPE #1, LockpickingEngineer",
+    "lock": {
+      "country": "United States of America",
+      "ratingCreativity": [
+        3
+      ],
+      "usernamePlatform": "discord",
+      "lockingMechanism": "Pin-tumbler",
+      "displayName": "mgsecure",
+      "media": [
+        {
+          "imageTitle": "LPE #1",
+          "subtitle": "CC BY-NC-SA 4.0",
+          "sequenceId": 1,
+          "fullUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142519_lockpickingengineer-main.jpg",
+          "dateAdded": "2025-06-05T23:30:44.415Z",
+          "fullSizeUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142519_lockpickingengineer-main-1024.jpg",
+          "thumbnailUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142519_lockpickingengineer-main-500.jpg",
+          "title": "By: Lockpicking.Engineer"
+        },
+        {
+          "title": "By: Lockpicking.Engineer",
+          "fullSizeUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142108_lockpickingengineer-1024.jpg",
+          "fullUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142108_lockpickingengineer.jpg",
+          "imageTitle": "LPE #1",
+          "sequenceId": 2,
+          "dateAdded": "2025-06-05T23:30:44.470Z",
+          "thumbnailUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142108_lockpickingengineer-500.jpg",
+          "subtitle": "CC BY-NC-SA 4.0"
+        },
+        {
+          "subtitle": "CC BY-NC-SA 4.0",
+          "title": "By: Lockpicking.Engineer",
+          "imageTitle": "LPE #1",
+          "sequenceId": 3,
+          "fullSizeUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142052_lockpickingengineer-1024.jpg",
+          "dateAdded": "2025-06-05T23:30:44.450Z",
+          "fullUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142052_lockpickingengineer.jpg",
+          "thumbnailUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142052_lockpickingengineer-500.jpg"
+        }
+      ],
+      "originalLock": "",
+      "ratingDifficulty": [
+        3
+      ],
+      "updatedAt": "2025-06-12T13:49:54.556Z",
+      "stateProvince": "District Of Columbia",
+      "userBelt": "Brown",
+      "latestUpdate": {
+        "ratingCreativity": "3",
+        "userBelt": "Black",
+        "videoUrl": "https://youtu.be/u1M6MOh_kkk?si=RdPamSL1-zzuk9qK",
+        "ratingDifficulty": "3",
+        "userId": "PHU1oYSJfKQbKarqTygoqMIG2Cr2",
+        "usernamePlatform": "discord",
+        "stateProvince": "Kentucky",
+        "country": "United States of America",
+        "pickDate": "2024-11-01T04:00:00.000Z",
+        "id": "clci_3620c908",
+        "displayName": "NICVT_locks",
+        "submittedAt": "2025-06-12T13:49:52.502Z",
+        "username": "Nicvt_locks",
+        "lockId": "cl_de955dd5",
+        "successfulPick": "Yes",
+        "ratingFun": "4",
+        "ratingQuality": "4"
+      },
+      "submittedBy": {
+        "userBelt": "Brown",
+        "userId": "cm8oFWt2fBPTYdyhqnjBMsHlfNy1",
+        "usernamePlatform": "discord",
+        "displayName": "LockpickingEngineer",
+        "username": "Lockpicking.Engineer"
+      },
+      "id": "cl_de955dd5",
+      "username": "Lockpicking.Engineer",
+      "status": "active",
+      "maker": "LockpickingEngineer",
+      "checkInCount": 1,
+      "thumbnail": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142519_lockpickingengineer-main-200-sq.jpg",
+      "ratingQuality": [
+        4
+      ],
+      "lockFormat": "Mortise",
+      "successCount": 1,
+      "lockCreated": "2024-12-28T06:00:00.000Z",
+      "ratingFun": [
+        4
+      ],
+      "name": "LPE #1",
+      "submittedAt": "2025-06-05T23:30:44.149Z"
+    }
+  }
+]

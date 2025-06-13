@@ -57,7 +57,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
     const [entryId, setEntryId] = useState(undefined)
     const [entryName, setEntryName] = useState(undefined)
     const [checkIn, setCheckIn] = useState(false)
-    const [highlightRequired, setHighlightRequired] = useState(false)
+    const [highlightRequired, setHighlightRequired] = useState(true)
     const [contentChanged, setContentChanged] = useState(false)
 
     useEffect(() => {
@@ -150,11 +150,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                 ? '#d00'
                 : '#090'
             : 'inherit'
-    }, [form, highlightRequired])
-
-    const showRequired = useCallback(() => {
-        setHighlightRequired(!highlightRequired)
-        console.log('form', form)
     }, [form, highlightRequired])
 
     const handleDroppedFiles = useCallback((allFiles, zoneId = 'dropzone') => {
@@ -270,7 +265,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
             const safeName = entryName.replace(/[\s/]/g, '_').replace(/\W/g, '')
             navigate(`/challengelocks?id=${form.id}&name=${safeName}`)
         }
-        }, [checkIn, entryId, entryName, files, form, mainPhoto, navigate])
+    }, [checkIn, entryId, entryName, files, form, mainPhoto, navigate])
 
     //TODO: clear form on error OK?
     const handleClose = useCallback(() => {
@@ -290,6 +285,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
 
     const headerStyle = {fontSize: '1.0rem', fontWeight: 600, marginBottom: 5, paddingLeft: 2, width: '100%'}
     const optionalHeaderStyle = {fontSize: '1.0rem', fontWeight: 400, marginBottom: 5, paddingLeft: 2, color: '#ccc'}
+    const reqStyle = {height: 4, borderRadius: 2}
 
     const subNavItem = entry ? optionsCL[0] : optionsCL[1]
 
@@ -326,17 +322,18 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                     <div style={{paddingLeft: paddingLeft}}>
 
                         <div style={{display: flexStyle, marginBottom: 0}}>
-                            <div style={{marginRight: 20, width: 340}}>
-                                <div style={{...headerStyle, backgroundColor: getHighlightColor('name')}}>
+                            <div style={{marginRight: 20, width: 310}}>
+                                <div style={{...headerStyle}}>
                                     Challenge Lock Name
                                 </div>
                                 <TextField type='text' name='name' style={{width: 310}}
                                            onChange={handleFormChange}
                                            value={form.name || ''} color='info'
                                            inputProps={{maxLength: textFieldMax}}/>
+                                <div style={{...reqStyle, backgroundColor: getHighlightColor('name')}}/>
                             </div>
                             <div style={{width: 300}}>
-                                <div style={{...headerStyle, backgroundColor: getHighlightColor('maker')}}>
+                                <div style={{...headerStyle}}>
                                     CL Maker
                                 </div>
                                 <FreeSoloAutoCompleteBox changeHandler={handleFormChange}
@@ -344,6 +341,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                                          name={'maker'} style={{width: 300}} maxLength={textFieldMax}
                                                          reset={acReset} inputValueHandler={setInputValue}
                                 />
+                                <div style={{...reqStyle, backgroundColor: getHighlightColor('maker')}}/>
 
                             </div>
                         </div>
@@ -351,7 +349,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                         <div style={{display: flexStyle}}>
 
                             <div style={{marginRight: 20, marginTop: 20, width: 200}}>
-                                <div style={{...headerStyle, backgroundColor: getHighlightColor('lockCreated')}}>
+                                <div style={{...headerStyle}}>
                                     Created
                                 </div>
                                 <DatePicker
@@ -361,10 +359,11 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                     minDate={dayjs('2015-01-01')}
                                     maxDate={dayjs('2026-12-31')}
                                 />
+                                <div style={{...reqStyle, backgroundColor: getHighlightColor('lockCreated')}}/>
                             </div>
 
                             <div style={{marginRight: 20, marginTop: 20, width: 250}}>
-                                <div style={{...headerStyle, backgroundColor: getHighlightColor('country')}}>Origin
+                                <div style={{...headerStyle}}>Origin
                                 </div>
                                 <AutoCompleteBox changeHandler={handleFormChange}
                                                  options={countryList} value={form.country}
@@ -372,6 +371,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                                  reset={acReset}
                                                  inputValueHandler={setInputValue}
                                 />
+                                <div style={{...reqStyle, backgroundColor: getHighlightColor('country')}}/>
                                 {statesProvinces[form.country] &&
                                     <div style={{marginRight: 20, marginTop: 10}}>
                                         <div style={optionalHeaderStyle}>
@@ -389,13 +389,15 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                             </div>
 
                             <div style={{marginTop: 20, width: 170}}>
-                                <div style={{...headerStyle, backgroundColor: getHighlightColor('lockFormat')}}>Lock
+                                <div style={{...headerStyle}}>Lock
                                     Format
                                 </div>
                                 <SelectBox changeHandler={handleFormChange}
                                            name='lockFormat' form={form}
                                            optionsList={lockFormats} size={'large'}
                                            width={170} multiple={false} defaultValue={''}/>
+                                <div style={{...reqStyle, backgroundColor: getHighlightColor('lockFormat')}}/>
+
                             </div>
                         </div>
 
@@ -415,11 +417,12 @@ export default function SubmitChallengeLock({entry, profile, user}) {
 
                                 <div style={{display: flexStyle, marginTop: 20}}>
                                     <div style={{marginRight: 20, width: 250}}>
-                                        <div style={{...headerStyle, backgroundColor: getHighlightColor('mainPhoto')}}>
+                                        <div style={{...headerStyle}}>
                                             Main Lock Photo (no spoilers!)<br/>
                                         </div>
                                         <Dropzone files={mainPhoto} handleDroppedFiles={handleDroppedFiles} maxFiles={1}
                                                   zoneId={'mainPhoto'}/>
+                                        <div style={{...reqStyle, backgroundColor: getHighlightColor('mainPhoto')}}/>
                                     </div>
                                     <div style={{marginRight: 0, flexGrow: 1, maxWidth: 390}}>
                                         <div style={{...optionalHeaderStyle, color: '#fff'}}>
@@ -491,15 +494,16 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                             <div style={{display: flexStyle}}>
                                 <div style={{display: 'flex'}}>
                                     <div style={{marginRight: 15}}>
-                                        <div style={{...headerStyle, backgroundColor: getHighlightColor('username')}}>
+                                        <div style={{...headerStyle}}>
                                             {entry ? 'Original' : 'Your'} Username (required)
                                         </div>
                                         <TextField type='text' name='username' style={{width: 240}}
                                                    onChange={handleFormChange} value={form.username || ''} color='info'
                                                    inputProps={{maxLength: textFieldMax}}/>
+                                        <div style={{...reqStyle, backgroundColor: getHighlightColor('username')}}/>
                                     </div>
                                     <div style={{marginTop: 25, marginRight: 30}}>
-                                        <RadioGroup
+                                    <RadioGroup
                                             name='usernamePlatform'
                                             onChange={handleFormChange}
                                             size='small'
@@ -531,13 +535,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                 </div>
                             </div>
                         </div>
-
-                        {!uploadable &&
-                            <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
-                                <Link
-                                    onClick={showRequired}>{highlightRequired ? 'turn off highlighting' : 'highlight required fields'}</Link>
-                            </div>
-                        }
 
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
                             {entry &&
@@ -578,6 +575,12 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                         You must be logged in to submit Challenge Locks.<br/><br/>
                         <div style={{width: 210, marginLeft: 'auto', marginRight: 'auto'}}>
                             <SignInButton/>
+                        </div>
+                        <div style={{marginTop: 30, fontSize: '1.0rem'}}>
+                            <Button variant='text' size='small'
+                                    onClick={() => navigate('/challengelocks')}>
+                                Browse Challenge Locks
+                            </Button>
                         </div>
                     </div>
                 </Dialog>
