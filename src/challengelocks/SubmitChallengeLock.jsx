@@ -70,8 +70,8 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         } else {
             const newForm = {
                 id: 'cl_' + genHexString(8),
-                username: profile?.discordUsername || undefined,
-                usernamePlatform: 'discord',
+                submittedByUsername: profile?.discordUsername || undefined,
+                submittedByUsernamePlatform: 'discord',
                 country: profile?.country || undefined,
                 stateProvince: profile?.stateProvince || undefined
             }
@@ -116,11 +116,11 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         let localProfile = {...profile}
         let needUpdate = false
         try {
-            if (form.username && form.usernamePlatform === 'discord' && form.username !== profile.discordUsername) {
-                localProfile = {...localProfile, discordUsername: form.username}
+            if (form.submittedByUsername && form.submittedByUsernamePlatform === 'discord' && form.submittedByUsername !== profile.discordUsername) {
+                localProfile = {...localProfile, discordUsername: form.submittedByUsername}
                 needUpdate = true
-            } else if (form.username && form.usernamePlatform === 'reddit' && form.username !== profile.redditUsername) {
-                localProfile = {...localProfile, redditUsername: form.username}
+            } else if (form.submittedByUsername && form.submittedByUsernamePlatform === 'reddit' && form.submittedByUsername !== profile.redditUsername) {
+                localProfile = {...localProfile, redditUsername: form.submittedByUsername}
                 needUpdate = true
             }
             if (form.country && form.country !== profile.country) {
@@ -140,7 +140,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         }
     }, [entry, form, profile, updateProfile])
 
-    const requiredFields = ['name', 'maker', 'lockCreated', 'country', 'username', 'usernamePlatform']
+    const requiredFields = ['name', 'maker', 'lockCreated', 'country', 'submittedByUsername', 'submittedByUsernamePlatform']
     const uploadable = requiredFields.every(field => form[field] && form[field].length > 0) &&
         (mainPhoto.length > 0 || entry)
 
@@ -196,21 +196,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
 
         if (entry) {
             Object.keys(formCopy).forEach(key => formCopy[key] === undefined ? delete formCopy[key] : {})
-
-            const submitInfo = entry.submittedBy
-                ? entry.submittedBy
-                : entry.requestedBy
-                    ? entry.requestedBy[0]
-                    : {}
-
-            formCopy.submittedBy = {
-                userId: submitInfo.userId || undefined,
-                displayName: submitInfo.displayName || undefined,
-                userBelt: formCopy.userBelt || submitInfo.userBelt || undefined,
-                username: formCopy.username || submitInfo.username || undefined,
-                usernamePlatform: formCopy.usernamePlatform || submitInfo.usernamePlatform || undefined
-            }
-            Object.keys(formCopy.submittedBy).forEach(key => formCopy.submittedBy[key] === undefined ? delete formCopy.submittedBy[key] : {})
 
             try {
                 await updateEntry(formCopy)
@@ -278,7 +263,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         return countries.map(country => country.country_area)
     }, [])
 
-
     const {isMobile, flexStyle} = useWindowSize()
     //const fullWidth = !isMobile ? 660 : 300
     const paddingLeft = !isMobile ? 16 : 8
@@ -294,7 +278,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         <React.Fragment>
             <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={subNavItem.label}/><br/>
             <Link onClick={handleTestData}>Fill test data</Link>
-
 
             <div style={{
                 maxWidth: 720, padding: 8, backgroundColor: '#222',
@@ -497,17 +480,17 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                         <div style={{...headerStyle}}>
                                             {entry ? 'Original' : 'Your'} Username (required)
                                         </div>
-                                        <TextField type='text' name='username' style={{width: 240}}
-                                                   onChange={handleFormChange} value={form.username || ''} color='info'
+                                        <TextField type='text' name='submittedByUsername' style={{width: 240}}
+                                                   onChange={handleFormChange} value={form.submittedByUsername || ''} color='info'
                                                    inputProps={{maxLength: textFieldMax}}/>
-                                        <div style={{...reqStyle, backgroundColor: getHighlightColor('username')}}/>
+                                        <div style={{...reqStyle, backgroundColor: getHighlightColor('submittedByUsername')}}/>
                                     </div>
                                     <div style={{marginTop: 25, marginRight: 30}}>
                                     <RadioGroup
-                                            name='usernamePlatform'
+                                            name='submittedByUsernamePlatform'
                                             onChange={handleFormChange}
                                             size='small'
-                                            value={form.usernamePlatform || 'discord'}
+                                            value={form.submittedByUsernamePlatform || 'discord'}
                                             sx={{
                                                 '& .MuiRadio-root': {
                                                     padding: '7px'
@@ -528,7 +511,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                         style={{color: '#aaa'}}>(optional)</span>
                                     </div>
                                     <SelectBox changeHandler={handleFormChange}
-                                               name='userBelt' form={form}
+                                               name='submittedByUserBelt' form={form}
                                                optionsList={['Unranked', ...uniqueBelts]}
                                                multiple={false} defaultValue={''}
                                                size={'large'} width={200}/>

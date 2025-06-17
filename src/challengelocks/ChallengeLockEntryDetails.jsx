@@ -55,8 +55,8 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
 
     const dateCreated = entry.lockCreated || entry.createdAt || ''
     const dateSubmitted = entry.dateSubmitted || entry.submittedAt || ''
-    const submittedCredit = entry.maker !== entry.submittedBy?.username
-        ? `Submitted by ${entry.submittedBy?.username}`
+    const submittedCredit = entry.maker !== entry.submittedByUsername
+        ? `Submitted by ${entry.submittedByUsername}`
         : null
     const {makerData} = useContext(DataContext)
     const makerLockCount = makerData?.[entry.maker]
@@ -74,7 +74,7 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
             return acc
         }, {})
 
-    const displayCountry = entry.country?.length > 32 ? entry.country?.substring(0, 32).trim() + '...' : entry.country
+    const displayCountry = entry.displayCountry?.length > 32 ? entry.displayCountry?.substring(0, 32).trim() + '...' : entry.displayCountry
     const displayStateProvince = entry.stateProvince?.length > 32 ? entry.stateProvince?.substring(0, 32).trim() + '...' : entry.stateProvince
 
     const [blurred, setBlurred] = useState(entry.media?.length > 1 && !adminEnabled)

@@ -11,6 +11,7 @@ import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
 import {useNavigate} from 'react-router-dom'
 import FieldValue from '../util/FieldValue.jsx'
 import dayjs from 'dayjs'
+import countries from '../data/countries.json'
 
 export default function ChallengeLockCheckInDisplay({checkIn, latest = false, refreshCheckIns, viewRoute = false}) {
 
@@ -24,6 +25,7 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
     const checkInDate = latest
         ? dayjs(checkIn.pickDate).format('MMM DD, YYYY')
         : formatDate(checkIn.pickDate)
+    const displayCountry = countries.find(country => country.country_area === checkIn.country)?.short_name || checkIn.country || undefined
 
     const ratings = checkIn
         ? Object.keys(checkIn)
@@ -143,7 +145,7 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
                         {checkIn.videoUrl && <li>{urlDisplay}</li>}
                         {!viewRoute && checkIn.successfulPick && <li>Succesful pick? {checkIn.successfulPick}</li>}
                         {checkIn.notes && <li>Notes: {checkIn.notes}</li>}
-                        {checkIn.country && <li>{checkIn.country}</li>}
+                        {displayCountry && <li>{displayCountry}</li>}
                         {checkIn.stateProvince && <li>{checkIn.stateProvince}</li>}
                     </ul>
 

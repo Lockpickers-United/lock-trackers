@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import useWindowSize from '../util/useWindowSize.jsx'
@@ -53,7 +53,7 @@ export default function CheckIn({checkIn, profile, user}) {
     const [country, setCountry] = useState(null)
     const [stateProvince, setStateProvince] = useState(null)
     const [scrolled, setScrolled] = useState(false)
-    const [showTracking, setShowTracking] = useState(false)
+    const [showTracking, setShowTracking] = useState(!!checkIn)
     const navigate = useNavigate()
 
     const [lock, setLock] = useState(undefined)
@@ -75,13 +75,9 @@ export default function CheckIn({checkIn, profile, user}) {
         setDataLoaded(true)
     }, [getEntryFromId, lockId])
 
-    const hasFetched = useRef(false)
     useEffect(() => {
-        if (!hasFetched.current) {
             getEntities().then()
-            hasFetched.current = true
-        }
-    }, [getEntities])
+    }, [getEntities, lockId])
 
     const notValidLock = (dataLoaded && !lock)
 
@@ -119,8 +115,8 @@ export default function CheckIn({checkIn, profile, user}) {
 
     const getHighlightColor = useCallback(field => {
         return !form[field]
-                ? '#d00'
-                : '#090'
+            ? '#d00'
+            : '#090'
     }, [form])
 
     if (notValidLock) {
@@ -294,17 +290,26 @@ export default function CheckIn({checkIn, profile, user}) {
                 marginLeft: 'auto', marginRight: 'auto', marginTop: 16, marginBottom: 46, paddingLeft: 8
             }}>
 
+                <div style={{margin: `10px 20px 30px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
+                    <div style={{
+                        fontSize: '1.4rem',
+                        fontWeight: 700,
+                        marginBottom: 10
+                    }}>{checkIn ? 'Edit Check-in' : 'Check In'}
+                    </div>
+                    {!checkIn &&
+                        <div style={{lineHeight: '1.5rem'}}>
+                            Use this page to submit a Check-in for a challenge lock you have picked or
+                            attempted.<br/>
+                            Please do not include any personal information for yourself or other recipients.<br/>
+                        </div>
+                    }
+                </div>
+
                 <div style={{margin: `10px 20px 20px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
                     <div style={{display: flexStyle, paddingBottom: 15, borderBottom: '1px solid #ccc'}}>
                         <div style={{display: 'flex', alignItems: 'center', flexGrow: 1}}>
                             <div>
-                                <div style={{
-                                    fontSize: '1.2rem',
-                                    fontWeight: 700,
-                                    marginBottom: 10
-                                }}>
-                                    {checkIn ? 'Edit Challenge Lock Check-In' : 'Challenge Lock Check In'}
-                                </div>
                                 <div style={nameTextStyle}>
                                     <Link onClick={handleLockClick} style={{cursor: 'pointer'}}>{lock?.name}</Link>
                                 </div>
@@ -460,8 +465,8 @@ export default function CheckIn({checkIn, profile, user}) {
                         </div>
 
                         <div style={{marginTop: 40, width: '100%', textAlign: 'center'}}>
-                            <Button variant='outlined' onClick={() => setShowTracking(!showTracking)}>Add Private
-                                Tracking Info</Button>
+                            <Button variant='outlined' onClick={() => setShowTracking(!showTracking)}>
+                                {!checkIn && 'Add '} Personal Tracking Info</Button>
                         </div>
 
                         <Collapse in={showTracking} timeout={500} style={{width: '100%'}}>
@@ -567,7 +572,7 @@ export default function CheckIn({checkIn, profile, user}) {
                 }}>
                     <div style={{display: 'flex'}}>
                         <div style={{backgroundColor: '#444', marginLeft: 'auto', marginRight: 'auto', padding: 40}}>
-                        <div style={{
+                            <div style={{
                                 fontSize: '1.6rem',
                                 lineHeight: '1.9rem',
                                 fontWeight: 500,

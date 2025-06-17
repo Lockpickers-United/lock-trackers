@@ -1167,7 +1167,8 @@
   {
     "country_area": "United Kingdom of Great Britain and Northern Ireland",
     "M49_code": "826",
-    "ISO_alpha3_code": "GBR"
+    "ISO_alpha3_code": "GBR",
+    "short_name": "United Kingdom"
   },
   {
     "country_area": "United Republic of Tanzania",
@@ -1182,7 +1183,8 @@
   {
     "country_area": "United States of America",
     "M49_code": "840",
-    "ISO_alpha3_code": "USA"
+    "ISO_alpha3_code": "USA",
+    "short_name": "United States"
   },
   {
     "country_area": "United States Virgin Islands",

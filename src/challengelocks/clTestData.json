@@ -6,9 +6,6 @@
   "originalMake": "Schlage",
   "lockFormat": "KIK",
   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nulla erat, pharetra aliquet laoreet at, ullamcorper in mauris.",
-  "approxBelt": "Brown",
-  "username": "mgsecure",
-  "usernamePlatform": "discord",
-  "userBelt": "Black",
-  "status": "Pending"
+  "submittedByUsernamePlatform": "discord",
+  "userBelt": "Black"
 }

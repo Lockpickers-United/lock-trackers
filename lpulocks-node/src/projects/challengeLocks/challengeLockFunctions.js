@@ -71,9 +71,6 @@ function handleError(res, message, error, status = 500) {
 
 export async function updateLockMedia(req, res) {
 
-    let subdirs = ''
-    let filepaths = []
-
     try {
         req.user = await authenticateRequest(req, res)
     } catch (err) {
@@ -82,6 +79,7 @@ export async function updateLockMedia(req, res) {
 
     const {prod} = req.body
     const db = prod ? dbProd : dbDev
+    let filepaths = []
 
     const form = formidable({
         uploadDir,
@@ -90,9 +88,8 @@ export async function updateLockMedia(req, res) {
         maxFileSize: maxCombinedFileSize,
         filter: ({mimetype}) => mimetype && mimetype.includes('image'),
         filename(name, ext, part) {
-            const {fullFilename, filepath, localsubdirs} = createFilename(part, serverPath, uploadDir)
+            const {fullFilename, filepath} = createFilename(part, serverPath, uploadDir)
             filepaths.push(filepath)
-            subdirs = localsubdirs
             return fullFilename
         }
     })
@@ -283,34 +280,14 @@ export default async function submitChallengeLock(req, res) {
         jsonIt('flatFields:', flatFields)
 
         const entry = {
-            id: flatFields.id,
-            name: flatFields.name,
-            maker: flatFields.maker,
-            lockCreated: flatFields.lockCreated,
-            country: flatFields.country,
-            stateProvince: flatFields.stateProvince,
-            lockingMechanism: flatFields.lockingMechanism,
-            originalLock: flatFields.originalMake || flatFields.originalLock,
-            lockFormat: flatFields.lockFormat,
-            description: flatFields.description,
-            descriptionFull: flatFields.descriptionFull,
-            submittedBy: {
-                userId: req.user.user_id,
-                userBelt: flatFields.userBelt,
-                displayName: flatFields.displayName,
-                username: flatFields.username,
-                usernamePlatform: flatFields.usernamePlatform
-            },
+            ...flatFields,
+            originalLock: flatFields.originalLock || flatFields.originalMake,
             submittedAt: dayjs().toISOString(),
             updatedAt: dayjs().toISOString()
-
         }
 
         const lockName = flatFields.name
         const username = flatFields.username || 'Unknown'
-
-        console.log('username:', username)
-        console.log('fields:', fields)
 
         entry.media = await Promise.all(filepaths.map(async (filepath, index) => ({
             imageTitle: lockName,

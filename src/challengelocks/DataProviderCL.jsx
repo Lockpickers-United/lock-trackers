@@ -7,6 +7,7 @@ import removeAccents from 'remove-accents'
 import DBContext from './DBProviderCL.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 import {useLocalStorage} from 'usehooks-ts'
+import countries from '../data/countries.json'
 
 export function DataProvider({children}) {
 
@@ -27,7 +28,6 @@ export function DataProvider({children}) {
     const mappedEntries = useMemo(() => {
         return allEntries
             ? allEntries.map(entry => {
-
                 let maxVotes = 0
                 const ratings = Object.keys(entry)
                     .filter(key => key.startsWith('rating'))
@@ -36,8 +36,6 @@ export function DataProvider({children}) {
                         acc[key.replace('rating', 'ratingAve')] = entry[key]?.reduce((acc, currentValue) => acc + currentValue, 0) / (entry[key]?.length || 1)
                         return acc
                     }, {})
-
-                const mainImage = entry.mainImage?.length > 0 ? entry.mainImage[0] : entry.media?.length > 0 ? entry.media[0] : undefined
 
                 return {
                     ...entry,
@@ -48,9 +46,11 @@ export function DataProvider({children}) {
                     submittedAt: entry.submittedAt || entry.dateSubmitted,
                     lockCreated: entry.lockCreated || entry.createdAt,
                     updatedAt: entry.updatedAt || entry.latestUpdate?.pickDate || '2000-01-01T06:00:00.000Z',
-                    thumbnail: mainImage.thumbnailSquareUrl || entry.thumbnail,
-                    mainImage: mainImage,
-                    hasProblems: entry.problems?.length > 0 ? 'problems' : undefined,
+                    thumbnail: entry.media?.length > 0 && entry.media[0].thumbnailSquareUrl
+                            ? entry.media[0].thumbnailSquareUrl
+                            : entry.thumbnail || undefined,
+                    displayCountry: countries.find(country => country.country_area === entry.country)?.short_name || entry.country || 'Unknown',
+                    hasProblems: entry.problems?.length > 0 ? 'problems' : undefined
                 }
             })
             : []
@@ -146,15 +146,15 @@ export function DataProvider({children}) {
         allEntries,
         mappedEntries,
         visibleEntries,
-        makerData,
+        makerData
     }), [
         getEntryFromId,
         isMod, adminEnabled, setAdminEnabled,
         allEntries,
         mappedEntries,
         visibleEntries,
-        makerData,
-        ])
+        makerData
+    ])
 
 
     return (

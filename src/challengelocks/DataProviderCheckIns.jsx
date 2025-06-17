@@ -7,6 +7,7 @@ import removeAccents from 'remove-accents'
 import AuthContext from '../app/AuthContext.jsx'
 import DBContextCL from './DBProviderCL.jsx'
 import {useLocalStorage} from 'usehooks-ts'
+import countries from '../data/countries.json'
 
 export function DataProvider({children}) {
 
@@ -54,6 +55,7 @@ export function DataProvider({children}) {
                     lockingMechanism: lock?.lockingMechanism || undefined,
                     fuzzy: removeAccents(`${lock?.name}, ${lock?.maker}`),
                     pickDate: checkIn.pickDate || checkIn.submittedAt,
+                    displayCountry: countries.find(country => country.country_area === checkIn.country)?.short_name || checkIn.country || 'Unknown',
                     lock
                 }
             })

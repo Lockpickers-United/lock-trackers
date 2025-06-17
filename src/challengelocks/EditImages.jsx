@@ -15,19 +15,16 @@ import ForwardIcon from '@mui/icons-material/Forward'
 import {postData} from '../formUtils/postData.jsx'
 import {enqueueSnackbar} from 'notistack'
 import AuthContext from '../app/AuthContext.jsx'
-import DBContextGlobal from '../app/DBContextGlobal.jsx'
 import DBContext from '../app/DBContext.jsx'
 import Link from '@mui/material/Link'
 import SignInButton from '../auth/SignInButton.jsx'
 
 export default function EditImages({profile, user}) {
 
-
     const serverUrl = 'https://lpulocks.com:7443'
 
     const {authLoaded} = useContext(AuthContext)
-    const {updateProfile} = useContext(DBContextGlobal)
-    const {refreshEntries, updateVersion} = useContext(DBContext)
+    const {refreshEntries, updateVersion, updateProfile} = useContext(DBContext)
     const {allEntries, getEntryFromId, isMod} = useContext(DataContext)
 
     const {filters} = useContext(FilterContext)
@@ -62,8 +59,6 @@ export default function EditImages({profile, user}) {
         })
     }, [lock.media, lockId, profile])
 
-    //console.log('mediaArrays', mediaArrays)
-
     const [uploading, setUploading] = useState(false)
     const uploadable = (mediaArrays?.currentMainPhoto?.length > 0 || mediaArrays?.newMainPhoto?.length > 0) && form.photoCredit && !uploading && contentChanged
     const needMainPhoto = mediaArrays?.currentMainPhoto?.length === 0 && mediaArrays?.newMainPhoto?.length === 0
@@ -84,9 +79,6 @@ export default function EditImages({profile, user}) {
             console.error('Couldn\'t set lastPhotoCredit on profile', error)
         }
     }, [form, profile, updateProfile])
-
-    //console.log('form', form)
-
 
     const handleSubmit = async () => {
         setUploading(true)

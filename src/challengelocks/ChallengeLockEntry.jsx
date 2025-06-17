@@ -18,6 +18,7 @@ import DBContextCL from './DBProviderCL.jsx'
 import LpuCircleLogo from '../assets/LpuCircleLogo.jsx'
 import ReportProblem from '@mui/icons-material/ReportProblem'
 import DataContext from '../context/DataContext.jsx'
+import CopyEntryIdButton from './CopyEntryIdButton.jsx'
 
 const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) => {
     const {adminEnabled} = useContext(DataContext)
@@ -198,6 +199,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) =>
                                 {user &&
                                     <ProblemReportButton entry={entry} style={{color: '#da5353'}}/>
                                 }
+                                <CopyEntryIdButton entry={entry}/>
                             </div>
                             <CopyLinkToCLButton entry={entry} style={{}}/>
                             <PrintButton entry={entry} style={{}}/>

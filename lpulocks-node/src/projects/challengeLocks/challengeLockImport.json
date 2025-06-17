@@ -1,0 +1,51 @@
+[
+  {
+    "id": "cl_00000001",
+    "maker": "mgsecure",
+    "name": "Zatoichi !!",
+    "country": "United States of America",
+    "stateProvince": "California",
+    "lockCreated": "1/1/24",
+    "lockFormat": "KIK",
+    "lockingMechanism": "Pin-tumbler",
+    "originalLock": "Schlage KIK",
+    "submittedByUserId": "ClbjuilBEHgbzO4UZl4y3GStlEz2",
+    "submittedByDisplayName": "mgsecure",
+    "submittedByUserBelt": "Black",
+    "submittedByUsername": "mgsecure",
+    "submittedByUsernamePlatform": "Discord"
+  },
+  {
+    "id": "cl_00000002",
+    "maker": "mgsecure",
+    "name": "The Last Word",
+    "country": "United States of America",
+    "stateProvince": "California",
+    "lockCreated": "1/1/24",
+    "description": "test description",
+    "lockFormat": "KIK",
+    "lockingMechanism": "Pin-tumbler",
+    "originalLock": "Schlage KIK",
+    "submittedByUserId": "ClbjuilBEHgbzO4UZl4y3GStlEz2",
+    "submittedByDisplayName": "mgsecure",
+    "submittedByUserBelt": "Black",
+    "submittedByUsername": "mgsecure",
+    "submittedByUsernamePlatform": "Discord"
+  },
+  {
+    "id": "cl_00000003",
+    "maker": "mgsecure",
+    "name": "Lee Perry",
+    "country": "United States of America",
+    "stateProvince": "California",
+    "lockCreated": "1/1/24",
+    "lockFormat": "KIK",
+    "lockingMechanism": "Pin-tumbler",
+    "originalLock": "Schlage KIK",
+    "submittedByUserId": "ClbjuilBEHgbzO4UZl4y3GStlEz2",
+    "submittedByDisplayName": "mgsecure",
+    "submittedByUserBelt": "Black",
+    "submittedByUsername": "mgsecure",
+    "submittedByUsernamePlatform": "Discord"
+  }
+]
