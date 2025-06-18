@@ -18,10 +18,10 @@ dbProd.settings({ignoreUndefinedProperties: true})
 
 const dbDev = getFirestore(requestapp, 'locktrackersdev')
 dbDev.settings({ignoreUndefinedProperties: true})
-
 const db = dbDev
 
-const challengeLocks = await db.collection('challenge-locks').get()
+async function getAllChallengeLocks() {
+    return await db.collection('challenge-locks').get()
         .then(snapshot => {
             let locks = []
             snapshot.forEach(doc => {
@@ -33,19 +33,55 @@ const challengeLocks = await db.collection('challenge-locks').get()
         .catch(err => {
             console.log('Error getting documents', err)
         })
+}
 
+const challengeLocks = await getAllChallengeLocks()
 console.log(`Found ${challengeLocks.length} challenge locks`)
 
+await updateChallengeLocks(challengeLocks).then(() => console.log('Update complete'))
 
 // TODO: convert everything to lockCreatedAt
 // TODO: any other cleanup???
 
-challengeLocks.forEach(lock => {
-    lock.submittedBy = FieldValue.delete() // Remove the old submittedBy field
-    setDocument(db.collection('challenge-locks').doc(lock.id), lock, lock.id)
-        .then(() => console.log(`Updated lock ${lock.id}`))
-        .catch(err => console.error(`Error updating lock ${lock.id}`, err))
-})
+
+async function updateChallengeLocks(locks) {
+    try {
+        locks.forEach(lock => {
+
+            // cl_69dfddd5, cl_beeaaac1
+
+            if (lock.createdAt) {
+                lock.lockCreatedAt = lock.createdAt
+                lock.createdAt = FieldValue.delete()
+                setDocument(db.collection('challenge-locks').doc(lock.id), lock, lock.id)
+                    .then(() => console.log(`Updated lock ${lock.id}`))
+                    .catch(err => console.error(`Error updating lock ${lock.id}`, err))
+            }
+
+        })
+        return 'Locks updated successfully'
+    } catch (error) {
+        console.error('Error updating challenge locks:', error)
+        return 'Error updating challenge locks'
+    }
+}
+
+async function deleteChallengeLocks(lockIds) {
+    try {
+        lockIds.forEach(lockId => {
+            const ref = db.collection('challenge-locks').doc(lockId)
+            ref.delete()
+                .then(() => console.log(`Deleted lock ${lockId}`))
+                .catch(err => console.error(`Error deleting lock ${lockId}`, err))
+
+        })
+        return 'Locks deleted successfully'
+    } catch (error) {
+        console.error('Error deleting challenge locks:', error)
+        return 'Error deleting challenge locks'
+    }
+}
+
 
 async function batchSubmitChallengeLocks(docs) {
     const collectionRef = db.collection('challenge-locks')

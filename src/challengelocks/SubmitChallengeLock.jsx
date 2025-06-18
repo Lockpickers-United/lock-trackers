@@ -99,10 +99,11 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         if (name === 'country') {
             setCountry(value)
         }
-        let updates = {[name]: filterProfanity(value)}
         if (name === 'country' && !statesProvinces[value]) {
             delete formCopy.stateProvince
         }
+        if (value) value = value.replace(/https?:\/\/[^\s]+/g, '[link removed]')
+        let updates = {[name]: filterProfanity(value)}
         setForm({...formCopy, ...updates})
         setContentChanged(true)
     }, [form])
@@ -361,7 +362,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                             State/Province <span style={{color: '#aaa'}}>(optional)</span>
                                         </div>
                                         <AutoCompleteBox changeHandler={handleFormChange}
-                                                         options={statesProvinces[form.country]}
+                                                         options={statesProvinces[form.country].sort()}
                                                          value={form.stateProvince}
                                                          name={'stateProvince'} style={{width: 250}}
                                                          reset={acReset}

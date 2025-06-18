@@ -53,7 +53,7 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
         onExpand && onExpand(isExpanded ? entry.id : false)
     }, [entry.id, onExpand])
 
-    const dateCreated = entry.lockCreated || entry.createdAt || ''
+    const dateCreated = entry.lockCreatedAt
     const dateSubmitted = entry.dateSubmitted || entry.submittedAt || ''
     const submittedCredit = entry.maker !== entry.submittedByUsername
         ? `Submitted by ${entry.submittedByUsername}`

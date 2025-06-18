@@ -139,14 +139,14 @@ export default function CheckIn({checkIn, profile, user}) {
     const handleFormChange = useCallback((event) => {
         let {name, value} = event.target
         let formCopy = {...form}
-        if (name !== 'videoUrl') value = value.replace(/https?:\/\/[^\s]+/g, '[link removed]')
+        if (name !== 'videoUrl' && value) value = value.replace(/https?:\/\/[^\s]+/g, '[link removed]')
         if (name === 'country') {
             setCountry(value)
         }
-        let updates = {[name]: filterProfanity(value)}
         if (name === 'country' && !statesProvinces[value]) {
             delete formCopy.stateProvince
         }
+        let updates = {[name]: filterProfanity(value)}
         setForm({...formCopy, ...updates})
     }, [form])
 
@@ -432,7 +432,7 @@ export default function CheckIn({checkIn, profile, user}) {
                                     Your Location<br/><span style={{color: '#aaa'}}>(optional)</span>
                                 </div>
                                 <AutoCompleteBox changeHandler={handleFormChange}
-                                                 options={countryList} value={country}
+                                                 options={countryList} value={form.country}
                                                  name={'country'} style={{width: 300}}
                                                  reset={acReset}
                                                  inputValueHandler={setInputValue}
@@ -445,7 +445,7 @@ export default function CheckIn({checkIn, profile, user}) {
                                         State/Province<br/><span style={{color: '#aaa'}}>(optional)</span>
                                     </div>
                                     <AutoCompleteBox changeHandler={handleFormChange}
-                                                     options={statesProvinces[form.country]} value={stateProvince}
+                                                     options={statesProvinces[form.country].sort()} value={stateProvince}
                                                      name={'stateProvince'} style={{width: 200}}
                                                      reset={acReset}
                                                      inputValueHandler={setStateProvince}
