@@ -240,11 +240,11 @@ export default function CheckIn({checkIn, profile, user}) {
     const handleSubmitOK = useCallback(async () => {
         await refreshEntries()
         navigate(`/challengelocks?id=${lockId}&name=${safeName}${sortParam}`)
-    }, [lockId, navigate, refreshEntries, safeName])
+    }, [lockId, navigate, refreshEntries, safeName, sortParam])
 
     const handleLockClick = useCallback(() => {
         navigate(`/challengelocks?id=${lockId}&name=${safeName}${sortParam}`)
-    }, [lockId, navigate, safeName])
+    }, [lockId, navigate, safeName, sortParam])
 
     const handleChange = useCallback(newValue => {
         navigate(newValue.page)

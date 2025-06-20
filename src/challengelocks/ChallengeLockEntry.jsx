@@ -73,7 +73,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) =>
         textAlign: 'left'
     }
 
-    const {flexStyle, isMobile, width} = useWindowSize()
+    const {isMobile, width} = useWindowSize()
     const mobileSmall = width <= 360
     const mobileMedium = width <= 395
     const mobileLarge = width <= 428  // but test also at 412
@@ -84,8 +84,6 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) =>
             : mobileLarge ? 200
                 : smallWindow ? 225
                     : 300
-
-
     const nameTextStyle = !isMobile
         ? {
             fontSize: '1.2rem',
@@ -131,6 +129,8 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) =>
 
     const summaryFlexStyle = !isMobile ? {display: 'flex'} : {}
 
+    const entryInfoMargin = !isMobile ? '0px 20px' : '0px 10px'
+
     return (
         <Accordion expanded={expanded} onChange={handleChange} style={style} ref={ref} disableGutters={false}>
             <AccordionSummary expandIcon={<ExpandMoreIcon/>}
@@ -149,10 +149,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) =>
                             : <LpuCircleLogo style={{width: 100, height: 100}} color={'#444'} size={100}
                                              fillPercent={0.75}/>
                         }
-                        <div style={{
-                            margin: '0px 20px',
-                            flexGrow: 1
-                        }}>
+                        <div style={{margin: entryInfoMargin, flexGrow: 1}}>
                             <div style={{display: 'flex'}}>
                                 {entry.problems === 'problems' && adminEnabled &&
                                     <div style={{marginRight: 8}}>
@@ -162,6 +159,12 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) =>
                                 <div style={{...nameTextStyle}}>{sanitizeValues(entry.name)}</div>
                             </div>
                             <div style={makerTextStyle}>By: {sanitizeValues(entry.maker)}</div>
+                            {isMobile &&
+                                <div style={{display: 'flex', justifyContent:'end', marginTop: 10}}>
+                                    <ChallengeLockEntryDataDisplay entry={entry}/>
+                                </div>
+                            }
+
                         </div>
 
                         {!isMobile &&

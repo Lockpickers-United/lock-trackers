@@ -13,11 +13,13 @@ export default function ChallengeLockEntryDataDisplay({entry}) {
     const {flexStyle, isMobile} = useWindowSize()
 
     const textDisplayStyle = {fontSize: '0.9rem', color:'#aaa', fontWeight: 400, marginRight:10}
-    const valueDisplayStyle = {fontSize: '1.1rem', fontWeight:700, marginRight:10}
+const valueDisplayStyle = !isMobile
+    ? {fontSize: '1.1rem', fontWeight:700, marginRight:10}
+    : {fontSize: '1.0rem', fontWeight:700, marginRight:0}
 
     return (
         <React.Fragment>
-            {(!sort || ['maker', 'name'].includes(sort)) &&
+            {(!sort || ['maker', 'name'].includes(sort)) && !isMobile &&
                 <div style={{display: flexStyle}}>
                     <FilterChip
                         value={entry.lockFormat}
