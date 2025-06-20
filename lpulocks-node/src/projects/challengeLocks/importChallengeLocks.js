@@ -37,7 +37,7 @@ const lockingMechanisms = JSON.parse(await fs.promises.readFile('../../../../src
 
 console.log('starting pre-flight checks on lock data...')
 
-const requiredFields = ['id', 'maker', 'name', 'country', 'lockCreated', 'lockFormat',
+const requiredFields = ['id', 'maker', 'name', 'lockFormat',
     'submittedByUserId', 'submittedByUsername', 'submittedByUsernamePlatform']
 
 const getDuplicates = arr => {
@@ -76,7 +76,7 @@ lockData.forEach(lock => {
 
     // Validate country
     const country = countries.find(c => c.country_area === lock.country)
-    if (!country) {
+    if (lock.country && !country) {
         errors.push(`Invalid country ${lock.country} for lock ${lock.id}`)
     }
 
@@ -121,7 +121,7 @@ lockData.forEach(lock => {
     lock.submittedAt = dayjs().toISOString()
     lock.updatedAt = dayjs().toISOString()
     lock.lockCreated = dayjs(lock.lockCreated).toISOString()
-
+    lock.source = 'import'
 })
 
 async function batchSubmitChallengeLocks(docs) {

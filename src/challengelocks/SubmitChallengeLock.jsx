@@ -20,7 +20,6 @@ import lockingMechanisms from '../data/lockingMechanisms.json'
 import AutoCompleteBox from '../formUtils/AutoCompleteBox.jsx'
 import {DatePicker} from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
-import clTestData from './clTestData.json'
 import {FormControlLabel, Radio, RadioGroup} from '@mui/material'
 import {optionsCL} from '../data/subNavOptions.js'
 import sanitizeValues from '../util/sanitizeText.js'
@@ -60,6 +59,8 @@ export default function SubmitChallengeLock({entry, profile, user}) {
     const [highlightRequired, setHighlightRequired] = useState(true)
     const [contentChanged, setContentChanged] = useState(false)
 
+    console.log('SubmitChallengeLock', user, profile)
+
     useEffect(() => {
         if (entry) {
             setForm(entry)
@@ -71,22 +72,17 @@ export default function SubmitChallengeLock({entry, profile, user}) {
             const newForm = {
                 id: 'cl_' + genHexString(8),
                 submittedByUsername: profile?.discordUsername || undefined,
-                submittedByUsernamePlatform: 'discord',
+                submittedByUsernamePlatform: 'Discord',
                 country: profile?.country || undefined,
-                stateProvince: profile?.stateProvince || undefined
+                stateProvince: profile?.stateProvince || undefined,
+                submittedByDisplayName: profile?.username || undefined,
+                submittedByUserId: user?.uid || undefined,
             }
             setForm(newForm)
             setCountry(profile?.country || null)
             setStateProvince(profile?.stateProvince || null)
         }
-    }, [entry, profile])
-
-    const handleTestData = useCallback(() => {
-        setForm({...form, ...clTestData, lockCreated: dayjs().toISOString()})
-        setCountry(clTestData.country)
-        setHighlightRequired(true)
-        setContentChanged(true)
-    }, [form])
+    }, [entry, profile, user?.uid])
 
     const textFieldMax = 40
     const makerOptions = Object.keys(makerData).sort((a, b) => {
@@ -163,6 +159,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         setContentChanged(true)
     }, [form])
 
+
     const handleSubmit = async ({doCheckIn = false}) => {
 
         setUploading(true)
@@ -171,7 +168,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         const formCopy = {
             ...sanitizeValues(form),
             displayName: sanitizeValues(profile?.username) || 'no display name',
-            status: 'active'
+            source: 'site'
         }
 
         const formData = new FormData()
@@ -183,7 +180,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
             const prefix = formCopy.name?.replace('/', '+')
             const suffix = formCopy.username?.replace('/', '+')
             const uploadsDir = `${prefix}-${suffix}-${form.id}`.toLowerCase()
-
             mainPhoto.forEach((file) => {
                 const {base, ext} = separateBasename(file.name)
                 formData.append('files', file, `${uploadsDir}/${prefix}_${base}_${suffix}${ext}`.toLowerCase())
@@ -193,11 +189,9 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                 formData.append('files', file, `${uploadsDir}/${prefix}_${base}_${suffix}${ext}`.toLowerCase())
             })
         }
-        //return
 
         if (entry) {
             Object.keys(formCopy).forEach(key => formCopy[key] === undefined ? delete formCopy[key] : {})
-
             try {
                 await updateEntry(formCopy)
             } catch (error) {
@@ -265,7 +259,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
     }, [])
 
     const {isMobile, flexStyle} = useWindowSize()
-    //const fullWidth = !isMobile ? 660 : 300
     const paddingLeft = !isMobile ? 16 : 8
 
     const headerStyle = {fontSize: '1.0rem', fontWeight: 600, marginBottom: 5, paddingLeft: 2, width: '100%'}
@@ -278,7 +271,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
 
         <React.Fragment>
             <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={subNavItem.label}/><br/>
-            <Link onClick={handleTestData}>Fill test data</Link>
 
             <div style={{
                 maxWidth: 720, padding: 8, backgroundColor: '#222',
@@ -498,9 +490,9 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                                 }
                                             }}
                                         >
-                                            <FormControlLabel value='discord' control={<Radio size='small'/>}
+                                            <FormControlLabel value='Discord' control={<Radio size='small'/>}
                                                               label='Discord'/>
-                                            <FormControlLabel value='reddit' control={<Radio size='small'/>}
+                                            <FormControlLabel value='Reddit' control={<Radio size='small'/>}
                                                               label='Reddit'/>
                                         </RadioGroup>
                                     </div>

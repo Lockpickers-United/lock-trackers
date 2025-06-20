@@ -25,7 +25,6 @@ async function getAllChallengeLocks() {
         .then(snapshot => {
             let locks = []
             snapshot.forEach(doc => {
-                //console.log(doc.id, '=>', doc.data())
                 locks.push(doc.data())
             })
             return locks
@@ -35,8 +34,26 @@ async function getAllChallengeLocks() {
         })
 }
 
+async function getAllCheckIns() {
+    return await db.collection('challenge-lock-check-ins').get()
+        .then(snapshot => {
+            let checkIns = []
+            snapshot.forEach(doc => {
+                checkIns.push(doc.data())
+            })
+            return checkIns
+        })
+        .catch(err => {
+            console.log('Error getting documents', err)
+        })
+}
+
 const challengeLocks = await getAllChallengeLocks()
 console.log(`Found ${challengeLocks.length} challenge locks`)
+
+const checkIns = await getAllCheckIns()
+console.log(`Found ${checkIns.length} check-ins`)
+
 
 await updateChallengeLocks(challengeLocks).then(() => console.log('Update complete'))
 
@@ -47,17 +64,22 @@ await updateChallengeLocks(challengeLocks).then(() => console.log('Update comple
 async function updateChallengeLocks(locks) {
     try {
         locks.forEach(lock => {
+            const checkInsForLock = checkIns
+                .filter(checkIn => checkIn.lockId === lock.id && checkIn.successfulPick === 'Yes')
+                .map(checkIn => checkIn.id)
 
-            // cl_69dfddd5, cl_beeaaac1
+            console.log(`Updating lock ${lock.id} with ${checkInsForLock}`)
 
-            if (lock.createdAt) {
-                lock.lockCreatedAt = lock.createdAt
-                lock.createdAt = FieldValue.delete()
+            lock.successCount = FieldValue.delete()
+            lock.approxBelt = FieldValue.delete()
+            lock.approximateBelt = FieldValue.delete()
+
+            if (checkInsForLock.length > 0) {
+                lock.checkInIdsSuccessful = [...checkInsForLock]
                 setDocument(db.collection('challenge-locks').doc(lock.id), lock, lock.id)
                     .then(() => console.log(`Updated lock ${lock.id}`))
                     .catch(err => console.error(`Error updating lock ${lock.id}`, err))
             }
-
         })
         return 'Locks updated successfully'
     } catch (error) {

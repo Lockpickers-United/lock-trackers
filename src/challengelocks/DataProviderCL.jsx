@@ -50,7 +50,9 @@ export function DataProvider({children}) {
                             ? entry.media[0].thumbnailSquareUrl
                             : entry.thumbnail || undefined,
                     displayCountry: countries.find(country => country.country_area === entry.country)?.short_name || entry.country || 'Unknown',
-                    hasProblems: entry.problems?.length > 0 ? 'problems' : undefined
+                    hasProblems: entry.problems?.length > 0 ? 'problems' : undefined,
+                    checkInCount: entry.checkInIds?.length || 0,
+                    successCount: entry.checkInIdsSuccessful?.length || 0,
                 }
             })
             : []

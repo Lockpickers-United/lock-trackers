@@ -13,6 +13,7 @@ import RatingTable from './RatingTable.jsx'
 import AdminActionsBar from './AdminActionsBar.jsx'
 import DBContextCL from './DBProviderCL.jsx'
 import ProblemsDisplay from './ProblemsDisplay.jsx'
+import dayjs from 'dayjs'
 
 const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, setCheckIns}) => {
     if (!entry) return null
@@ -96,6 +97,25 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
                 </React.Fragment>
             }
 
+            {isMobile &&
+                <div style={{
+                    display: 'flex',
+                    fontSize: '0.95rem',
+                    lineHeight: '1.2rem',
+                    fontWeight: 400,
+                    marginTop: 10
+                }}>
+                    {entry.lockFormat &&
+                        <FieldValue name='Format' value={entry.lockFormat}
+                                    headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
+                    }
+                    {entry.lockingMechanism &&
+                        <FieldValue name='Locking Mechanism' value={entry.lockingMechanism}
+                                    headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
+                    }
+                </div>
+            }
+
             {entry.media &&
                 <div style={{position: 'relative', zIndex: 1}}>
                     <ChallengeLockImageGallery entry={entry} blurred={blurred}/>
@@ -129,24 +149,6 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
                             Click to view images
                         </div>
                     </div>
-                </div>
-            }
-            {isMobile &&
-                <div style={{
-                    display: 'flex',
-                    fontSize: '0.95rem',
-                    lineHeight: '1.2rem',
-                    fontWeight: 400,
-                    marginTop: 40
-                }}>
-                    {entry.lockFormat &&
-                        <FieldValue name='Format' value={entry.lockFormat}
-                                    headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
-                    }
-                    {entry.lockingMechanism &&
-                        <FieldValue name='Locking Mechanism' value={entry.lockingMechanism}
-                                    headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
-                    }
                 </div>
             }
 
@@ -317,8 +319,9 @@ function percentage(number, digits = 1) {
 }
 
 function formatDate(dateString) {
+    const fullDateString = dayjs(dateString).toISOString()
     return Intl.DateTimeFormat()
-        .format(new Date(dateString))
+        .format(new Date(fullDateString))
         .replace(/202/g, '2')
         .replace(/201/g, '1')
 }

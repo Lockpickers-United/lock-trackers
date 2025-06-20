@@ -18,9 +18,6 @@ import {getFirestore, FieldValue} from 'firebase-admin/firestore'
 import jsonIt from '../../util/jsonIt.js'
 import validator from 'validator'
 import dayjs from 'dayjs'
-import isSameOrAfter from 'dayjs/plugin/isSameOrAfter.js'
-
-dayjs.extend(isSameOrAfter)
 
 const {writeFile} = fs.promises
 const execAsync = util.promisify(exec)
@@ -393,57 +390,60 @@ export async function submitCheckIn(req, res) {
                 fields[fieldName] = [fields[fieldName]]
             }
         }
+        const checkIn = flattenFields(fields)
+        jsonIt('checkIn:', checkIn)
 
-        const entry = flattenFields(fields)
-        jsonIt('entry:', entry)
+        let ref = db.collection('challenge-locks').doc(checkIn.lockId)
+        const lockEntry = await fetchDocument(ref, checkIn.lockId)
+        if (!lockEntry) return handleError(res, 'Lock not found', `No lock matching id ${checkIn.lockId} found`, 404)
 
-        const urlError = entry.videoUrl?.length > 0 && !validator.isURL(entry.videoUrl)
-        if (urlError) entry.videoUrl = 'invalid video URL'
+        const urlError = checkIn.videoUrl?.length > 0 && !validator.isURL(checkIn.videoUrl)
+        if (urlError) checkIn.videoUrl = 'invalid video URL'
 
-        let ref = db.collection('challenge-lock-check-ins').doc(entry.id)
+        ref = db.collection('challenge-lock-check-ins').doc(checkIn.id)
         try {
-            await setDocument(ref, entry, entry.id)
+            await setDocument(ref, checkIn, checkIn.id)
         } catch (error) {
             handleError(res, 'Failed to create Challenge Lock', error, 500)
         }
 
-        // set lock: latestCheckIn, ratings, checkInCount
+        const lockCheckIns = await getCheckInsForLock(db, checkIn.lockId)
 
-        ref = db.collection('challenge-locks').doc(entry.lockId)
-        const lockEntry = await fetchDocument(ref, entry.lockId)
+        // TODO: from here on out, just use lockCheckIns
 
         let updates = {}
-        if (!lockEntry.latestUpdate
-            || dayjs(entry.pickDate).isSameOrAfter(lockEntry.latestUpdate?.pickDate)) {
-            updates.latestUpdate = entry
-        }
+        updates.latestUpdate = lockCheckIns[0]
 
-        const ratings = Object.keys(entry)
-            .filter(key => key.startsWith('rating'))
-            .reduce((acc, key) => {
-                acc[key] = parseInt(entry[key])
-                return acc
-            }, {})
+        const ratings = lockCheckIns.reduce((acc, checkIn) => {
+            Object.keys(checkIn)
+                .filter(key => key.startsWith('rating'))
+                .forEach(key => {
+                    acc[key] = acc[key] || []
+                    const ratingValue = parseInt(checkIn[key])
+                    if (!isNaN(ratingValue)) {
+                        acc[key].push(ratingValue)
+                    }
+                })
+            return acc
+        }, {})
+
         Object.keys(ratings).forEach(key => {
-            updates[key] = lockEntry[key]
-                ? [...lockEntry[key], ratings[key]]
-                : [ratings[key]]
+            updates[key] = [...ratings[key]]
         })
 
-        updates.approxBelt = FieldValue.delete()
-        updates.approximateBelt = FieldValue.delete()
-
-        updates.checkInCount = (lockEntry.checkInCount || 0) + 1
-        updates.successCount = (lockEntry.successCount || 0) + (entry.successfulPick === 'Yes' ? 1 : 0)
+        updates.checkInIds = lockCheckIns.map(checkIn => checkIn.id)
+        updates.checkInIdsSuccessful = lockCheckIns
+            .filter(checkIn => checkIn.successfulPick === 'Yes')
+            .map(checkIn => checkIn.id)
         updates.updatedAt = dayjs().toISOString()
 
         // SUBMIT UPDATES
         if (Object.keys(updates).length > 0) {
-            await updateDocument(ref, updates, entry.lockId)
+            ref = db.collection('challenge-locks').doc(checkIn.lockId)
+            await updateDocument(ref, updates, checkIn.lockId)
         }
 
-        console.log('done')
-        return res.status(200).json(entry)
+        return res.status(200).json(checkIn)
 
     } catch (err) {
         return handleError(res, 'Form Parse Error', err)
@@ -453,13 +453,11 @@ export async function submitCheckIn(req, res) {
 
 
 export async function reportProblem(req, res) {
-
     try {
         req.user = await authenticateRequest(req, res)
     } catch (err) {
         return handleError(res, err.message, err, 403)
     }
-
     const {prod} = req.body
     const db = prod ? dbProd : dbDev
 
@@ -480,7 +478,7 @@ export async function reportProblem(req, res) {
 
         console.log('lockEntry:', lockEntry)
 
-        const updates = { problems: lockEntry.problems ? [...lockEntry.problems, entry] : [entry] }
+        const updates = {problems: lockEntry.problems ? [...lockEntry.problems, entry] : [entry]}
 
         if (Object.keys(updates).length > 0) {
             try {
@@ -568,6 +566,21 @@ export async function clearProblems(req, res) {
     return res.status(200).json('Report Problem Endpoint Hit')
 }
 
+async function getCheckInsForLock(db, lockId) {
+    console.log('getting checkins for lockId:', lockId)
+    const snap = await db
+        .collection('challenge-lock-check-ins')
+        .where('lockId', '==', lockId)
+        .get()
+    const checkIns = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+    console.log('got checkins for id:', lockId, checkIns.length)
+    return checkIns.sort((a, b) => {
+        const pickA = dayjs(a.pickDate).valueOf()
+        const pickB = dayjs(b.pickDate).valueOf()
+        if (pickB !== pickA) return pickB - pickA
+        return dayjs(b.updatedAt).valueOf() - dayjs(a.updatedAt).valueOf()
+    })
+}
 
 
 async function setDocument(ref, entry, entryId) {

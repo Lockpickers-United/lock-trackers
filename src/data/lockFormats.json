@@ -3,9 +3,11 @@
   "Euro Cylinder",
   "KIK",
   "Lever Mortice",
+  "LFIC",
   "Mortise",
   "Oval",
   "Padlock",
-  "Rim",
-  "Other"
+  "SFIC",
+  "Other",
+  "Unknown Format"
 ]

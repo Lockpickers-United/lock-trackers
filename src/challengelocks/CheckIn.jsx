@@ -17,7 +17,6 @@ import AutoCompleteBox from '../formUtils/AutoCompleteBox.jsx'
 import {DatePicker} from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
 import {FormControlLabel, Radio, RadioGroup} from '@mui/material'
-import checkInTestData from './checkInTestData.json'
 import FilterContext from '../context/FilterContext.jsx'
 import RatingTable from './RatingTable.jsx'
 import ratingDimensions from '../data/clRatingDimensions.json'
@@ -50,7 +49,7 @@ export default function CheckIn({checkIn, profile, user}) {
     const [uploadError, setUploadError] = useState(undefined)
     const [acReset, setAcReset] = useState(false) // eslint-disable-line
     const [inputValue, setInputValue] = useState(undefined) // eslint-disable-line
-    const [country, setCountry] = useState(null)
+    const [country, setCountry] = useState(null) // eslint-disable-line
     const [stateProvince, setStateProvince] = useState(null)
     const [scrolled, setScrolled] = useState(false)
     const [showTracking, setShowTracking] = useState(!!checkIn)
@@ -128,10 +127,6 @@ export default function CheckIn({checkIn, profile, user}) {
         setScrolled(true)
     }, [scrolled])
 
-    const handleTestData = useCallback(() => {
-        setForm({...form, ...checkInTestData})
-        setCountry(checkInTestData.country)
-    }, [form])
     const countryList = useMemo(() => {
         return countries.map(country => country.country_area)
     }, [])
@@ -283,7 +278,6 @@ export default function CheckIn({checkIn, profile, user}) {
 
         <React.Fragment>
             <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[0].label}/><br/>
-            <Link onClick={handleTestData}>Fill test data</Link>
 
             <div style={{
                 maxWidth: 720, padding: 8, backgroundColor: '#222',
@@ -352,9 +346,9 @@ export default function CheckIn({checkIn, profile, user}) {
                                                 }
                                             }}
                                         >
-                                            <FormControlLabel value='discord' control={<Radio size='small'/>}
+                                            <FormControlLabel value='Discord' control={<Radio size='small'/>}
                                                               label='Discord'/>
-                                            <FormControlLabel value='reddit' control={<Radio size='small'/>}
+                                            <FormControlLabel value='Reddit' control={<Radio size='small'/>}
                                                               label='Reddit'/>
                                         </RadioGroup>
                                     </div>

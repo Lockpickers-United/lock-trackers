@@ -269,9 +269,9 @@ export default function CheckIn() {
                                                 }
                                             }}
                                         >
-                                            <FormControlLabel value='discord' control={<Radio size='small'/>}
+                                            <FormControlLabel value='Discord' control={<Radio size='small'/>}
                                                               label='Discord'/>
-                                            <FormControlLabel value='reddit' control={<Radio size='small'/>}
+                                            <FormControlLabel value='Reddit' control={<Radio size='small'/>}
                                                               label='Reddit'/>
                                         </RadioGroup>
                                     </div>
