@@ -108,6 +108,13 @@ export default [
         }
     },
     {
+        path: '/userInfo',
+        lazy: async () => {
+            const {default: UserInfoRoute} = await import('../userInfo/UserInfoRoute')
+            return {element: <UserInfoRoute/>}
+        }
+    },
+    {
         path: '/privacy',
         lazy: async () => {
             const {default: PrivacyRoute} = await import('../privacy/PrivacyRoute')
