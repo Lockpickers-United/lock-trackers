@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
 import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
@@ -28,6 +28,12 @@ function ChallengeLocksMain({user}) {
         addFilters([{key: 'id', value: entryId}, {key: 'name', value: undefined}], true)
     }, [addFilters])
 
+    useEffect(() => {
+        if (visibleEntries?.length === 1 && !filters.id) {
+            setEntryExpanded(visibleEntries[0].id)
+            addFilters([{key: 'id', value: visibleEntries[0].id}], true)
+        }
+    }, [addFilters, visibleEntries, filters.id])
 
     const {width} = useWindowSize()
     const smallWindow = width <= 560

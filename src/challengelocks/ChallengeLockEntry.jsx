@@ -4,7 +4,6 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionActions from '@mui/material/AccordionActions'
 import queryString from 'query-string'
 import Tracker from '../app/Tracker.jsx'
-import FilterChip from '../filters/FilterChip.jsx'
 import ChallengeLockEntryDetails from './ChallengeLockEntryDetails.jsx'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import useWindowSize from '../util/useWindowSize.jsx'
@@ -19,6 +18,7 @@ import LpuCircleLogo from '../assets/LpuCircleLogo.jsx'
 import ReportProblem from '@mui/icons-material/ReportProblem'
 import DataContext from '../context/DataContext.jsx'
 import CopyEntryIdButton from './CopyEntryIdButton.jsx'
+import ChallengeLockEntryDataDisplay from './ChallengeLockEntryDataDisplay.jsx'
 
 const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) => {
     const {adminEnabled} = useContext(DataContext)
@@ -165,18 +165,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) =>
                         </div>
 
                         {!isMobile &&
-                            <div style={{display: flexStyle}}>
-                                <FilterChip
-                                    value={entry.lockFormat}
-                                    field='lockFormat'
-                                />
-                                {entry.lockingMechanism &&
-                                    <FilterChip
-                                        value={entry.lockingMechanism}
-                                        field='lockingMechanism'
-                                    />
-                                }
-                            </div>
+                            <ChallengeLockEntryDataDisplay entry={entry}/>
                         }
                         <div style={{width: 10}}/>
                     </div>

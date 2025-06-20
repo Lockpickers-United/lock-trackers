@@ -6,7 +6,7 @@ import AuthContext from '../app/AuthContext.jsx'
 import DataContext from '../context/DataContext.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 import EntryComments from './EntryComments.jsx'
-import formatTime from '../util/formatTime.jsx'
+import formatTime from '../util/formatTime.js'
 
 const EntryDetails = ({entry, startEdit, entriesUpdate}) => {
 

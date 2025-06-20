@@ -1,7 +1,7 @@
 import React, {useCallback, useMemo, useContext} from 'react'
 import belts, {allBelts} from '../data/belts'
 import entryName from '../util/entryName'
-import formatTime from '../util/formatTime.jsx'
+import formatTime from '../util/formatTime.js'
 import dayjs from 'dayjs'
 import DataContext from './DataContext.jsx'
 import FilterContext from './FilterContext.jsx'

@@ -1,24 +1,43 @@
-import React, {useContext} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import Button from '@mui/material/Button'
 import useWindowSize from '../util/useWindowSize.jsx'
 import Dialog from '@mui/material/Dialog'
 import Tracker from '../app/Tracker.jsx'
 import {useNavigate} from 'react-router-dom'
-import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import QRCode from 'react-qr-code'
 import FieldValue from '../util/FieldValue.jsx'
 import DBContext from './DBProviderCL.jsx'
 
 export default function PrintQRCode() {
-    const {mappedEntries} = useContext(DataContext)
-    const {allEntries} = useContext(DBContext)
+
+    // TODO - implement without getting allEntries @ dbContext (separate dbContextQR?)
+
+    const {getChallengeLock} = useContext(DBContext)
     const {filters} = useContext(FilterContext)
     const lockId = filters.id
-    const lock = allEntries.find(entry => entry.id === lockId) || {}
 
-    const notValidLock = (Object.keys(mappedEntries).length > 0 && Object.keys(lock).length === 0)
-    const dateCreated = lock.lockCreated || lock.createdAt || '2000-01-01T06:00:00.000Z'
+    const [lock, setLock] = useState(undefined)
+
+    const getCL = useCallback(async () => {
+        if (!lockId) {
+            console.error('No lock ID provided for PrintQRCode')
+            return {}
+        }
+        return await getChallengeLock(lockId)
+    }, [getChallengeLock, lockId])
+
+    useEffect(() => {
+        if (lockId && !lock) {
+            getCL().then((cl) => {
+                setLock(cl)
+            }).catch(err => {
+                console.error('Error fetching challenge lock:', err)
+            })
+        }
+    }, [getCL, lock, lockId])
+
+    const notValidLock = (lock && Object.keys(lock).length === 0) || false
 
     const safeName = lock?.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
     const lockUrl = `${location.origin}/#/challengelocks/checkin?id=${lockId}&name=${safeName}`
@@ -52,75 +71,83 @@ export default function PrintQRCode() {
                 paddingBottom: 30
             }}>
 
-                <div style={{margin: `10px 20px 30px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
-                    <div style={{display: flexStyle, paddingBottom: 15, borderBottom: '1px solid #ccc'}}>
-                        <div style={{display: 'flex', alignItems: 'center', flexGrow: 1, marginRight: 10}}>
-                            <div>
-                                <div style={nameTextStyle}>{lock.name}</div>
-                                <div style={makerTextStyle}>By: {lock.maker}</div>
+                {lock && lock.name &&
+                    <React.Fragment>
+                        <div style={{margin: `10px 20px 30px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
+                            <div style={{display: flexStyle, paddingBottom: 15, borderBottom: '1px solid #ccc'}}>
+                                <div style={{display: 'flex', alignItems: 'center', flexGrow: 1, marginRight: 10}}>
+                                    <div>
+                                        <div style={nameTextStyle}>{lock.name}</div>
+                                        <div style={makerTextStyle}>By: {lock.maker}</div>
+                                    </div>
+                                </div>
+                                {lock.thumbnail &&
+                                    <div style={{marginTop: 5}}>
+                                        <img src={lock.thumbnail} alt={lock.name}
+                                             style={{width: 120, height: 120, marginRight: 10}}/>
+                                    </div>
+                                }
                             </div>
                         </div>
-                        {lock.thumbnail &&
-                            <div style={{marginTop: 5}}>
-                                <img src={lock.thumbnail} alt={lock.name}
-                                     style={{width: 120, height: 120, marginRight: 10}}/>
-                            </div>
-                        }
-                    </div>
-                </div>
 
 
-                <div style={{height: 'auto', margin: '40px auto', maxWidth: codeSize, width: '100%'}}>
-                    <QRCode
-                        size={256}
-                        style={{height: 'auto', maxWidth: '100%', width: '100%'}}
-                        value={lockUrl}
-                        viewBox={'0 0 256 256'}
-                    />
-                </div>
-                <div style={{marginBottom: 10, width: '100%', textAlign: 'center', fontSize: '0.85rem'}}>
-                    Scan QR code to check in or view lock details
-                </div>
-                <div style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    paddingTop: 15,
-                    borderTop: '1px solid #ccc',
-                    justifyContent: 'left'
-                }}>
-                        <FieldValue name='Created' value={formatDate(dateCreated)}
-                                    headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
-                    {lock.latestUpdate &&
-                        <React.Fragment>
-                            <FieldValue name='Latest Check-in'
-                                        value={formatDate(lock.latestUpdate?.pickDate)}
-                                        headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
-                            <FieldValue name='Checked in by' value={lock.latestUpdate?.username}
-                                        headerStyle={{color: '#999'}} style={{}}/>
-                            {lock.latestUpdate.country &&
-                                <FieldValue name='Check-in Country' value={lock.latestUpdate?.country}
+                        <div style={{height: 'auto', margin: '40px auto', maxWidth: codeSize, width: '100%'}}>
+                            <QRCode
+                                size={256}
+                                style={{height: 'auto', maxWidth: '100%', width: '100%'}}
+                                value={lockUrl}
+                                viewBox={'0 0 256 256'}
+                            />
+                        </div>
+                        <div style={{marginBottom: 10, width: '100%', textAlign: 'center', fontSize: '0.85rem'}}>
+                            Scan QR code to check in or view lock details
+                        </div>
+                        <div style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            paddingTop: 15,
+                            borderTop: '1px solid #ccc',
+                            justifyContent: 'left'
+                        }}>
+                            {lock.lockCreatedAt &&
+                                <FieldValue name='Created' value={formatDate(lock.lockCreatedAt)}
                                             headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
                             }
-                        </React.Fragment>
-                    }
-                </div>
+                            {lock.latestUpdate &&
+                                <React.Fragment>
+                                    <FieldValue name='Latest Check-in'
+                                                value={formatDate(lock.latestUpdate?.pickDate)}
+                                                headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
+                                    <FieldValue name='Checked in by' value={lock.latestUpdate?.username}
+                                                headerStyle={{color: '#999'}} style={{}}/>
+                                    {lock.latestUpdate.country &&
+                                        <FieldValue name='Check-in Country' value={lock.latestUpdate?.country}
+                                                    headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
+                                    }
+                                </React.Fragment>
+                            }
+                        </div>
 
-                <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}>
-                    Notes:
-                </div>
-                <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
-                <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
-                <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
-                <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
-                <div style={{
-                    fontSize: '1.3rem',
-                    lineHeight: '1.6rem',
-                    fontWeight: 500,
-                    marginTop: 20,
-                    textAlign: 'center'
-                }}>lpulocks.com
-                </div>
+                        <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}>
+                            Notes:
+                        </div>
+                        <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
+                        <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
+                        <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
+                        <div style={{display: flexStyle, margin: '30px 8px', borderBottom: '1px solid #ccc'}}/>
+                        <div style={{
+                            fontSize: '1.3rem',
+                            lineHeight: '1.6rem',
+                            fontWeight: 500,
+                            marginTop: 20,
+                            textAlign: 'center'
+                        }}>lpulocks.com
+                        </div>
 
+                        <Tracker feature='challengeLock' id={lock?.id} name={lock?.name}/>
+
+                    </React.Fragment>
+                }
                 <Dialog open={notValidLock} componentsProps={{
                     backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
                 }}>
@@ -156,7 +183,6 @@ export default function PrintQRCode() {
                 </Dialog>
             </div>
 
-            <Tracker feature='challengeLock' id={lock.id} name={lock.name}/>
 
         </div>
     )

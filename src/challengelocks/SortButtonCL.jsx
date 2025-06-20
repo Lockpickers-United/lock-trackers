@@ -125,7 +125,7 @@ function SortButtonCL() {
                 )}
                 <MenuItem selected={sort === 'submittedAt'} value={'submittedAt'}
                           onClick={handleSort('submittedAt')} style={{padding: '10px 16px'}}>
-                    Date Submitted
+                    Recently Submitted
                 </MenuItem>
                 <MenuItem selected={sort === 'updatedAt'} value={'updatedAt'}
                           onClick={handleSort('updatedAt')} style={{padding: '10px 16px'}}>

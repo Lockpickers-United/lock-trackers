@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react'
 import {Rating} from 'react-simple-star-rating'
 
-export default function StarRating({ratings, dimension, onChange, size = 24, emptyColor = '#ccc', readonly= false, fillColor, style, allowFraction}) {
+export default function StarRating({ratings, dimension, onChange, size = 24, emptyColor = '#ccc', readonly= false, fillColor, style, allowFraction=true}) {
 
     const handleRating = useCallback((rate) => {
         onChange({rating: rate, dimension: dimension})

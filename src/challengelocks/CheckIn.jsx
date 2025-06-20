@@ -54,6 +54,9 @@ export default function CheckIn({checkIn, profile, user}) {
     const [scrolled, setScrolled] = useState(false)
     const [showTracking, setShowTracking] = useState(!!checkIn)
     const navigate = useNavigate()
+    const {filters: allFilters} = useContext(FilterContext)
+    const {sort} = allFilters
+    const sortParam = sort ? `&sort=${sort}` : ''
 
     const [lock, setLock] = useState(undefined)
     const [dataLoaded, setDataLoaded] = useState(false)
@@ -236,11 +239,11 @@ export default function CheckIn({checkIn, profile, user}) {
 
     const handleSubmitOK = useCallback(async () => {
         await refreshEntries()
-        navigate(`/challengelocks?id=${lockId}&name=${safeName}`)
+        navigate(`/challengelocks?id=${lockId}&name=${safeName}${sortParam}`)
     }, [lockId, navigate, refreshEntries, safeName])
 
     const handleLockClick = useCallback(() => {
-        navigate(`/challengelocks?id=${lockId}&name=${safeName}`)
+        navigate(`/challengelocks?id=${lockId}&name=${safeName}${sortParam}`)
     }, [lockId, navigate, safeName])
 
     const handleChange = useCallback(newValue => {

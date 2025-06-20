@@ -8,6 +8,7 @@ import DBContext from './DBProviderCL.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 import {useLocalStorage} from 'usehooks-ts'
 import countries from '../data/countries.json'
+import createDateSorter from '../util/createDateSorter.js'
 
 export function DataProvider({children}) {
 
@@ -42,17 +43,16 @@ export function DataProvider({children}) {
                     ...ratings,
                     maxVotes: maxVotes,
                     fuzzy: removeAccents(`${entry.name}, ${entry.maker}`),
-                    latestCheckIn: entry.latestUpdate?.pickDate || '2000-01-01T06:00:00.000Z',
-                    submittedAt: entry.submittedAt || entry.dateSubmitted,
-                    lockCreated: entry.lockCreated || entry.createdAt,
+                    latestCheckIn: entry.latestUpdate?.pickDate || null,
                     updatedAt: entry.updatedAt || entry.latestUpdate?.pickDate || '2000-01-01T06:00:00.000Z',
                     thumbnail: entry.media?.length > 0 && entry.media[0].thumbnailSquareUrl
-                            ? entry.media[0].thumbnailSquareUrl
-                            : entry.thumbnail || undefined,
+                        ? entry.media[0].thumbnailSquareUrl
+                        : entry.thumbnail || undefined,
                     displayCountry: countries.find(country => country.country_area === entry.country)?.short_name || entry.country || 'Unknown',
-                    hasProblems: entry.problems?.length > 0 ? 'problems' : undefined,
+                    hasProblems: entry.problems?.length > 0 ? 'problems' : null,
                     checkInCount: entry.checkInIds?.length || 0,
                     successCount: entry.checkInIdsSuccessful?.length || 0,
+                    lockingMechanism: entry.lockingMechanism || 'Pin-tumbler'
                 }
             })
             : []
@@ -79,14 +79,22 @@ export function DataProvider({children}) {
                 })
             })
 
+        // Check for exact search match by id
+        const exactMatch = search && filtered.find(e => e.id === search)
+        let searched = filtered
+
         // If there is a search term, fuzzy match that
-        const searched = search
-            ? fuzzysort.go(removeAccents(search), filtered, {keys: fuzzySortKeys, threshold: -15000})
-                .map(result => ({
-                    ...result.obj,
-                    score: result.score
-                }))
-            : filtered
+        if (exactMatch) {
+            searched = [exactMatch]
+        } else if (search) {
+            searched = search
+                ? fuzzysort.go(removeAccents(search), filtered, {keys: fuzzySortKeys, threshold: -15000})
+                    .map(result => ({
+                        ...result.obj,
+                        score: result.score
+                    }))
+                : filtered
+        }
 
         return sort
             ? searched.sort((a, b) => {
@@ -97,24 +105,18 @@ export function DataProvider({children}) {
                     return a.maker.localeCompare(b.maker)
                         || a.name.localeCompare(b.name)
                         || dayjs(b.submittedAt).valueOf() - dayjs(a.submittedAt).valueOf()
-                } else if (sort === 'submittedAt') {
-                    return dayjs(b.submittedAt).valueOf() - dayjs(a.submittedAt).valueOf()
-                        || a.name.localeCompare(b.name)
-                } else if (sort === 'updatedAt') {
-                    return dayjs(b.updatedAt).valueOf() - dayjs(a.updatedAt).valueOf()
-                        || a.name.localeCompare(b.name)
                 } else if (sort === 'createdAsc') {
-                    return dayjs(a.lockCreated).valueOf() - dayjs(b.lockCreated).valueOf()
-                        || a.name.localeCompare(b.name)
+                    return createDateSorter('lockCreatedAt', 'asc')(a, b)
                 } else if (sort === 'createdDesc') {
-                    return dayjs(b.lockCreated).valueOf() - dayjs(a.lockCreated).valueOf()
-                        || a.name.localeCompare(b.name)
+                    return createDateSorter('lockCreatedAt', 'desc')(a, b)
                 } else if (sort === 'checkInAsc') {
-                    return dayjs(a.latestCheckIn).valueOf() - dayjs(b.latestCheckIn).valueOf()
-                        || a.name.localeCompare(b.name)
+                    return createDateSorter('latestCheckIn', 'asc')(a, b)
                 } else if (sort === 'checkInDesc') {
-                    return dayjs(b.latestCheckIn).valueOf() - dayjs(a.latestCheckIn).valueOf()
-                        || a.name.localeCompare(b.name)
+                    return createDateSorter('latestCheckIn', 'desc')(a, b)
+                } else if (sort === 'submittedAt') {
+                    return createDateSorter('submittedAt', 'desc')(a, b)
+                } else if (sort === 'updatedAt') {
+                    return createDateSorter('updatedAt', 'desc')(a, b)
                 } else if (sort === 'checkInCount') {
                     return (b.checkInCount || 0) - (a.checkInCount || 0)
                         || a.name.localeCompare(b.name)

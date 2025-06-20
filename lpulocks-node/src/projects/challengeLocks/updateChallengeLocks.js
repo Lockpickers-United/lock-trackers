@@ -2,6 +2,7 @@ import fs from 'fs'
 import admin from 'firebase-admin'
 import {FieldValue, getFirestore} from 'firebase-admin/firestore'
 import {prodUser} from '../../../keys/users.js'
+import dayjs from 'dayjs'
 
 const prodEnvironment = prodUser === process.env.USER
 const keysDir = prodEnvironment
@@ -64,22 +65,21 @@ await updateChallengeLocks(challengeLocks).then(() => console.log('Update comple
 async function updateChallengeLocks(locks) {
     try {
         locks.forEach(lock => {
-            const checkInsForLock = checkIns
-                .filter(checkIn => checkIn.lockId === lock.id && checkIn.successfulPick === 'Yes')
-                .map(checkIn => checkIn.id)
 
-            console.log(`Updating lock ${lock.id} with ${checkInsForLock}`)
 
-            lock.successCount = FieldValue.delete()
-            lock.approxBelt = FieldValue.delete()
-            lock.approximateBelt = FieldValue.delete()
+            // 2025-06-18T22:44:12.923Z
+            //if (lock.lockCreated && dayjs(lock.lockCreated).isSame('2025-06-18', 'day')) {
+            if (lock.dateSubmitted) {
+                console.log(`Changing dateSubmitted from lock ${lock.id} to submittedAt ${lock.dateSubmitted}`)
+                lock.submittedAt = lock.dateSubmitted
+                lock.dateSubmitted = FieldValue.delete()
 
-            if (checkInsForLock.length > 0) {
-                lock.checkInIdsSuccessful = [...checkInsForLock]
                 setDocument(db.collection('challenge-locks').doc(lock.id), lock, lock.id)
                     .then(() => console.log(`Updated lock ${lock.id}`))
                     .catch(err => console.error(`Error updating lock ${lock.id}`, err))
+
             }
+
         })
         return 'Locks updated successfully'
     } catch (error) {
