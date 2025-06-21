@@ -13,7 +13,7 @@ import RatingTable from './RatingTable.jsx'
 import AdminActionsBar from './AdminActionsBar.jsx'
 import DBContextCL from './DBProviderCL.jsx'
 import ProblemsDisplay from './ProblemsDisplay.jsx'
-import dayjs from 'dayjs'
+import {internationalDate} from '../util/formatTime.js'
 
 const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, setCheckIns}) => {
     if (!entry) return null
@@ -161,9 +161,9 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
                 marginTop: 25
             }}>
                 <div style={{display: 'flex', flexDirection: 'row'}}>
-                    <FieldValue name='Created' value={formatDate(dateCreated)}
+                    <FieldValue name='Created' value={internationalDate(dateCreated)}
                                 headerStyle={{color: '#999'}} style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
-                    <FieldValue name='Submitted' value={formatDate(dateSubmitted)}
+                    <FieldValue name='Submitted' value={internationalDate(dateSubmitted)}
                                 headerStyle={{color: '#999'}} style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
                 </div>
 
@@ -316,13 +316,5 @@ function percentage(number, digits = 1) {
         style: 'percent',
         minimumFractionDigits: digits
     })
-}
-
-function formatDate(dateString) {
-    const fullDateString = dayjs(dateString).toISOString()
-    return Intl.DateTimeFormat()
-        .format(new Date(fullDateString))
-        .replace(/202/g, '2')
-        .replace(/201/g, '1')
 }
 

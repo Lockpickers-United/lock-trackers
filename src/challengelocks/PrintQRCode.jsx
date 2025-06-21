@@ -8,6 +8,7 @@ import FilterContext from '../context/FilterContext.jsx'
 import QRCode from 'react-qr-code'
 import FieldValue from '../util/FieldValue.jsx'
 import DBContext from './DBProviderCL.jsx'
+import {internationalDate} from '../util/formatTime.js'
 
 export default function PrintQRCode() {
 
@@ -110,13 +111,13 @@ export default function PrintQRCode() {
                             justifyContent: 'left'
                         }}>
                             {lock.lockCreatedAt &&
-                                <FieldValue name='Created' value={formatDate(lock.lockCreatedAt)}
+                                <FieldValue name='Created' value={internationalDate(lock.lockCreatedAt)}
                                             headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
                             }
                             {lock.latestUpdate &&
                                 <React.Fragment>
                                     <FieldValue name='Latest Check-in'
-                                                value={formatDate(lock.latestUpdate?.pickDate)}
+                                                value={internationalDate(lock.latestUpdate?.pickDate)}
                                                 headerStyle={{color: '#999'}} style={{marginRight: 20}}/>
                                     <FieldValue name='Checked in by' value={lock.latestUpdate?.username}
                                                 headerStyle={{color: '#999'}} style={{}}/>
@@ -183,15 +184,6 @@ export default function PrintQRCode() {
                 </Dialog>
             </div>
 
-
         </div>
     )
 }
-
-function formatDate(dateString) {
-    return Intl.DateTimeFormat()
-        .format(new Date(dateString))
-        .replace(/202/g, '2')
-        .replace(/201/g, '1')
-}
-

@@ -32,6 +32,7 @@ import {nodeServerUrl} from '../data/dataUrls.js'
 import SignInButton from '../auth/SignInButton.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 import Collapse from '@mui/material/Collapse'
+import {useLocalStorage} from 'usehooks-ts'
 
 /**
  * @prop inputValue
@@ -52,7 +53,6 @@ export default function CheckIn({checkIn, profile, user}) {
     const [country, setCountry] = useState(null) // eslint-disable-line
     const [stateProvince, setStateProvince] = useState(null)
     const [scrolled, setScrolled] = useState(false)
-    const [showTracking, setShowTracking] = useState(!!checkIn)
     const navigate = useNavigate()
     const {filters: allFilters} = useContext(FilterContext)
     const {sort} = allFilters
@@ -60,6 +60,8 @@ export default function CheckIn({checkIn, profile, user}) {
 
     const [lock, setLock] = useState(undefined)
     const [dataLoaded, setDataLoaded] = useState(false)
+    const [addTracking, setAddTracking] = useLocalStorage('addCheckInTracking', false)
+    const [showTracking, setShowTracking] = useState(!!checkIn || addTracking)
 
     usePageTitle(checkIn ? 'Edit Check In' : 'Submit Check In')
 
@@ -90,7 +92,8 @@ export default function CheckIn({checkIn, profile, user}) {
             usernamePlatform: 'discord',
             lockId: lockId,
             country: profile?.country,
-            stateProvince: profile?.stateProvince
+            stateProvince: profile?.stateProvince,
+            userBelt: profile?.belt
         }
     }, [lockId, profile])
     const [form, setForm] = useState(defaultFormData)
@@ -181,6 +184,10 @@ export default function CheckIn({checkIn, profile, user}) {
                 localProfile = {...localProfile, stateProvince: form.stateProvince}
                 needUpdate = true
             }
+            if (form.userBelt && form.userBelt !== profile.belt) {
+                localProfile = {...localProfile, belt: form.userBelt}
+                needUpdate = true
+            }
             if (needUpdate) await updateProfile(localProfile)
         } catch (error) {
             console.error('Couldn\'t set username on profile', error)
@@ -223,7 +230,10 @@ export default function CheckIn({checkIn, profile, user}) {
         } finally {
             setUploading(false)
             //setForm(formCopy)
-            await handleUpdateProfile()
+            if (!checkIn) {
+                setAddTracking(showTracking)
+                await handleUpdateProfile()
+            }
         }
 
     }
@@ -463,7 +473,7 @@ export default function CheckIn({checkIn, profile, user}) {
 
                         <div style={{marginTop: 40, width: '100%', textAlign: 'center'}}>
                             <Button variant='outlined' onClick={() => setShowTracking(!showTracking)}>
-                                {!checkIn && 'Add '} Personal Tracking Info</Button>
+                                {showTracking ? 'Hide' : 'Add '} Personal Tracking Info</Button>
                         </div>
 
                         <Collapse in={showTracking} timeout={500} style={{width: '100%'}}>

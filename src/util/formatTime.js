@@ -11,6 +11,7 @@ export default function formatTime(numSeconds) {
 }
 
 export function internationalDate(dateString) {
+    if (!dayjs(dateString).isValid()) return null
     const fullDateString = dayjs(dateString).toISOString()
     return Intl.DateTimeFormat()
         .format(new Date(fullDateString))

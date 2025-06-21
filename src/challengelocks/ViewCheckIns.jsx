@@ -1,4 +1,4 @@
-import React, {useCallback, useContext} from 'react'
+import React, {useCallback, useContext, useEffect} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
 import DataContext from '../context/DataContext.jsx'
 import ChoiceButtonGroup from '../util/ChoiceButtonGroup.jsx'
@@ -17,15 +17,40 @@ import AuthContext from '../app/AuthContext.jsx'
 import Dialog from '@mui/material/Dialog'
 import ExportCheckInsButton from './ExportCheckInsButton.jsx'
 import sampleEntries from './checkInSampleData.json'
+import FilterContext from '../context/FilterContext.jsx'
+import removeAccents from 'remove-accents'
+
 export default function ViewCheckIns({user}) {
 
     const {authLoaded} = useContext(AuthContext)
     const {checkInsLoaded} = useContext(DBContext)
     const {allCheckIns, visibleEntries} = useContext(DataContext)
 
-const displayEntries = authLoaded && user
-    ? visibleEntries
-    : sampleEntries
+    const {filters, addFilters} = useContext(FilterContext)
+    const {id} = filters
+    const {getProfile} = useContext(DBContext)
+
+    // NT jC4XyU3KaKM7wCPkHQgulralMEE3
+    // Engineer  cm8oFWt2fBPTYdyhqnjBMsHlfNy1
+
+    useEffect(() => {
+        console.log('ViewCheckIns useEffect')
+        if (!id) return
+        async function fetchData() {
+            return await getProfile(id)
+        }
+        fetchData().then(idProfile => {
+            const name = idProfile?.discordUsername || idProfile?.displayName || idProfile?.redditUsername
+            const safename = name ? removeAccents(name).replace(/[^a-zA-Z0-9 ]/g, '').trim() : undefined
+            addFilters([{key: 'name', value: safename}], true)
+        })
+
+    }, [addFilters, filters, getProfile, id, user])
+
+
+    const displayEntries = authLoaded && user
+        ? visibleEntries
+        : sampleEntries
 
     const navigate = useNavigate()
 
@@ -92,7 +117,7 @@ const displayEntries = authLoaded && user
                             width: '350px', textAlign: 'center',
                             padding: 50, marginTop: 0, backgroundColor: '#333',
                             marginLeft: 'auto', marginRight: 'auto',
-                            fontSize: '1.4rem', lineHeight:'1.8rem', fontWeight: 700
+                            fontSize: '1.4rem', lineHeight: '1.8rem', fontWeight: 700
                         }}>
                             You must be logged in to view your check-ins.<br/><br/>
                             <div style={{width: 210, marginLeft: 'auto', marginRight: 'auto'}}>

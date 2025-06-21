@@ -17,15 +17,14 @@ export function DataProvider({children}) {
 
     const {allEntries, getCheckIns} = useContext(DBContextCL)
     const [allCheckIns, setAllCheckIns] = useState([])
-    const {filters: allFilters} = useContext(FilterContext)
+    const {filters: allFilters, addFilters} = useContext(FilterContext)
     const {search, id, tab, name, sort, image, profileUpdated, ...filters} = allFilters
 
     const userId = id || user?.uid
 
-
     const refreshCheckIns = useCallback(async () => {
         try {
-            const data = await getCheckIns({userId: userId})
+            const data = await getCheckIns({userId})
             setAllCheckIns(data)
             return data
         } catch (err) {
@@ -35,12 +34,13 @@ export function DataProvider({children}) {
     }, [getCheckIns, userId])
 
     useEffect(() => {
-        if (user && user.uid) {
+        if (user && userId) {
             refreshCheckIns().then(allCheckIns => {
                 setAllCheckIns(allCheckIns)
             })
+            addFilters([{key: 'id', value: userId}], true)
         }
-    }, [allEntries, refreshCheckIns, user])
+    }, [addFilters, allEntries, refreshCheckIns, user, userId])
 
 
     const mappedCheckIns = useMemo(() => {

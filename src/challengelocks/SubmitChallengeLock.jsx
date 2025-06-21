@@ -74,6 +74,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                 country: profile?.country || undefined,
                 stateProvince: profile?.stateProvince || undefined,
                 submittedByDisplayName: profile?.username || undefined,
+                submittedByUserBelt: profile?.belt || undefined,
                 submittedByUserId: user?.uid || undefined,
             }
             setForm(newForm)
@@ -107,6 +108,8 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         setContentChanged(true)
     }, [form])
 
+    // TODO : ONLY if not editing
+
     const handleUpdateProfile = useCallback(async () => {
         let localProfile = {...profile}
         let needUpdate = false
@@ -124,6 +127,10 @@ export default function SubmitChallengeLock({entry, profile, user}) {
             }
             if (form.stateProvince && form.stateProvince !== profile.stateProvince) {
                 localProfile = {...localProfile, stateProvince: form.stateProvince}
+                needUpdate = true
+            }
+            if (form.submittedByUserBelt && form.submittedByUserBelt !== profile.belt) {
+                localProfile = {...localProfile, belt: form.submittedByUserBelt}
                 needUpdate = true
             }
             if (needUpdate && !entry) {
@@ -199,7 +206,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
             } finally {
                 await refreshEntries()
                 setUploading(false)
-                await handleUpdateProfile()
                 const safeName = formCopy.name.replace(/[\s/]/g, '_').replace(/\W/g, '')
                 navigate(`/challengelocks?id=${formCopy.id}&name=${safeName}`)
             }

@@ -12,6 +12,7 @@ import {useNavigate} from 'react-router-dom'
 import FieldValue from '../util/FieldValue.jsx'
 import dayjs from 'dayjs'
 import countries from '../data/countries.json'
+import {internationalDate} from '../util/formatTime.js'
 
 export default function ChallengeLockCheckInDisplay({checkIn, latest = false, refreshCheckIns, viewRoute = false}) {
 
@@ -24,7 +25,7 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
         : '(invalid video URL)'
     const checkInDate = latest
         ? dayjs(checkIn.pickDate).format('MMM DD, YYYY')
-        : formatDate(checkIn.pickDate)
+        : internationalDate(checkIn.pickDate)
     const displayCountry = countries.find(country => country.country_area === checkIn.country)?.short_name || checkIn.country || undefined
 
     const ratings = checkIn
@@ -94,7 +95,7 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
         <div>
             {viewRoute &&
                     <div style={{display: 'flex', flexWrap: 'wrap', ...viewCheckInStyle, marginTop: 15}}>
-                        <FieldValue name='Pick Date' value={formatDate(checkIn.pickDate)}
+                        <FieldValue name='Pick Date' value={internationalDate(checkIn.pickDate)}
                                     textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
                                     headerStyle={{color: '#999'}} style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
                         <FieldValue name='CL Name' value={lockLink}
@@ -211,7 +212,7 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
                     <div style={{display: 'flex', flexWrap: 'wrap', margin: '0px 15px 15px 15px'}}>
                         <div style={{display: 'flex', flexWrap: 'wrap'}}>
                             {checkIn.receivedDate &&
-                                <FieldValue name='Received' value={formatDate(checkIn.receivedDate)}
+                                <FieldValue name='Received' value={internationalDate(checkIn.receivedDate)}
                                             textStyle={{fontSize: '1.0rem', lineHeight: '1.3rem', fontWeight: 600}}
                                             headerStyle={{color: '#999'}}
                                             style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
@@ -225,7 +226,7 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
                         </div>
                         <div style={{display: 'flex', flexWrap: 'wrap'}}>
                             {checkIn.sentDate &&
-                                <FieldValue name='Sent' value={formatDate(checkIn.sentDate)}
+                                <FieldValue name='Sent' value={internationalDate(checkIn.sentDate)}
                                             textStyle={{fontSize: '1.0rem', lineHeight: '1.3rem', fontWeight: 600}}
                                             headerStyle={{color: '#999'}}
                                             style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
@@ -241,14 +242,6 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
                 }
             </div>
 
-
         </div>
     )
-}
-
-function formatDate(dateString) {
-    return Intl.DateTimeFormat()
-        .format(new Date(dateString))
-        .replace(/202/g, '2')
-        .replace(/201/g, '1')
 }
