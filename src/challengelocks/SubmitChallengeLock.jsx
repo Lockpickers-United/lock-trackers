@@ -5,7 +5,6 @@ import Dropzone from '../formUtils/Dropzone.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 import Dialog from '@mui/material/Dialog'
 import LoadingDisplay from '../misc/LoadingDisplay.jsx'
-import Tracker from '../app/Tracker.jsx'
 import SelectBox from '../formUtils/SelectBox.jsx'
 import {uniqueBelts} from '../data/belts'
 import Link from '@mui/material/Link'
@@ -22,8 +21,7 @@ import {DatePicker} from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
 import {FormControlLabel, Radio, RadioGroup} from '@mui/material'
 import {optionsCL} from '../data/subNavOptions.js'
-import sanitizeValues from '../util/sanitizeText.js'
-import filterProfanity from '../util/filterProfanity.js'
+import sanitizeValues from '../util/sanitizeValues.js'
 import DBContext from '../app/DBContext.jsx'
 import DataContext from '../context/DataContext.jsx'
 import FreeSoloAutoCompleteBox from '../formUtils/FreeSoloAutoCompleteBox.jsx'
@@ -97,8 +95,12 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         if (name === 'country' && !statesProvinces[value]) {
             delete formCopy.stateProvince
         }
-        if (value) value = value.replace(/https?:\/\/[^\s]+/g, '[link removed]')
-        let updates = {[name]: filterProfanity(value)}
+        if (name === 'name' && value) {
+            value = sanitizeValues(value, { profanityOK: true })
+        } else {
+            value = sanitizeValues(value)
+        }
+        let updates = {[name]: value}
         setForm({...formCopy, ...updates})
         setContentChanged(true)
     }, [form])
@@ -171,7 +173,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         setCheckIn(doCheckIn)
 
         const formCopy = {
-            ...sanitizeValues(form),
+            ...form,
             displayName: sanitizeValues(profile?.username) || 'no display name',
             source: 'site'
         }
@@ -614,7 +616,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                         </div>
                     </div>
                 </Dialog>
-                <Tracker feature='uploadPhotos'/>
             </div>
         </React.Fragment>
 

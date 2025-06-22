@@ -7,10 +7,11 @@ import {ListProvider} from '../context/ListContext.jsx'
 import EditImages from './EditImages.jsx'
 import {useOutletContext} from 'react-router-dom'
 import DBContext from '../app/DBContext.jsx'
+import Tracker from '../app/Tracker.jsx'
 
 export default function EditImagesRoute() {
 
-    usePageTitle('Edit Images')
+    usePageTitle('LPU Locks - Edit CL Images')
 
     const {profile} = useContext(DBContext)
     const {user} = useOutletContext()
@@ -19,7 +20,8 @@ export default function EditImagesRoute() {
         <FilterProvider filterFields={CLFilterFields}>
             <DataProvider>
                 <ListProvider>
-                        <EditImages profile={profile} user={user}/>
+                    <EditImages profile={profile} user={user}/>
+                    <Tracker feature='clEditImages'/>
                 </ListProvider>
             </DataProvider>
         </FilterProvider>

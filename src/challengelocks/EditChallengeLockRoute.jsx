@@ -97,7 +97,7 @@ function EditChallengeLockRoute() {
                         </div>
                     </Dialog>
 
-                    <Tracker feature='cl-edit'/>
+                    <Tracker feature='clEdit'/>
                 </ListProvider>
             </DataProvider>
         </FilterProvider>

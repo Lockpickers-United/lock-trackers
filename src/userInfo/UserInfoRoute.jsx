@@ -8,17 +8,18 @@ import DBContext from '../app/DBContext.jsx'
 import LoadingDisplay from '../util/LoadingDisplay.jsx'
 import {FilterProvider} from '../context/FilterContext.jsx'
 import MustBeLoggedIn from './MustBeLoggedIn.jsx'
+import usePageTitle from '../util/usePageTitle.jsx'
 
 function UserInfoRoute() {
     const {authLoaded, isLoggedIn, user} = useContext(AuthContext)
     const {dbLoaded} = useContext(DBContext)
 
-    document.title = 'LPU Locks - User Info'
+    usePageTitle('LPU Locks - User Info')
 
     return (
         <FilterProvider filterFields={[]}>
 
-            <Nav title='User Info' route='co'/>
+            <Nav title='User Info' route='ui'/>
 
             {(!authLoaded || !dbLoaded) &&
                 <LoadingDisplay/>

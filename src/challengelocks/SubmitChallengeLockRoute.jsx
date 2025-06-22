@@ -11,7 +11,8 @@ import {useOutletContext} from 'react-router-dom'
 import DBContext from '../app/DBContext.jsx'
 
 function SubmitChallengeLockRoute() {
-    usePageTitle('Submit Challenge Lock')
+
+    usePageTitle('LPU Locks - Submit Challenge Lock')
 
     const {profile} = useContext(DBContext)
     const {user} = useOutletContext()

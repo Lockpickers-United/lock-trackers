@@ -12,7 +12,7 @@ import CheckInButton from './CheckInButton.jsx'
 import PrintButton from './PrintButton.jsx'
 import CopyLinkToCLButton from './CopyLinkToCLButton.jsx'
 import ProblemReportButton from './ProblemReportButton.jsx'
-import sanitizeValues from '../util/sanitizeText.js'
+import sanitizeValues from '../util/sanitizeValues.js'
 import DBContextCL from './DBProviderCL.jsx'
 import LpuCircleLogo from '../assets/LpuCircleLogo.jsx'
 import ReportProblem from '@mui/icons-material/ReportProblem'
@@ -37,8 +37,6 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) =>
 
     const [scrolled, setScrolled] = useState(false)
     const ref = useRef(null)
-
-    //console.log('ChallengeLockEntry', entry.name, 'latestCheckIn', entry.latestCheckIn)
 
     const handleChange = useCallback((_, isExpanded) => {
         onExpand && onExpand(isExpanded ? entry.id : false)
@@ -156,7 +154,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) =>
                                         <ReportProblem fontSize='medium' style={{color: '#fd4d4d'}}/>
                                     </div>
                                 }
-                                <div style={{...nameTextStyle}}>{sanitizeValues(entry.name)}</div>
+                                <div style={{...nameTextStyle}}>{sanitizeValues(entry.name, { profanityOK: true })}</div>
                             </div>
                             <div style={makerTextStyle}>By: {sanitizeValues(entry.maker)}</div>
                             {isMobile &&
@@ -196,6 +194,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) =>
                             <CopyLinkToCLButton entry={entry} style={{}}/>
                             <PrintButton entry={entry} style={{}}/>
                             <CheckInButton entry={entry} style={{margin: '4px 20px'}}/>
+                            <Tracker feature='challengelock' id={entry.id}/>
                         </div>
                     </AccordionActions>
 

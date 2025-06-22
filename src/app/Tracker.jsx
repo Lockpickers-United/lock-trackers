@@ -14,7 +14,8 @@ function Tracker({feature, ...extraParams}) {
 
 const files = {
     nav: 'welcome.gif',
-    lock: 'clear.gif'
+    lock: 'clear.gif',
+    challengelock: 'challengelock.gif',
 }
 
 export default React.memo(Tracker)

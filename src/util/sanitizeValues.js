@@ -1,24 +1,18 @@
 // utils/sanitizeValues.js
-import createDOMPurify from 'dompurify'
-import {JSDOM} from 'jsdom'
+import DOMPurify from 'dompurify'
 import {
-    englishDataset,
-    englishRecommendedTransformers, grawlixCensorStrategy,
-    keepEndCensorStrategy, keepStartCensorStrategy,
     RegExpMatcher,
-    TextCensor
+    TextCensor,
+    englishDataset, englishRecommendedTransformers,
+    grawlixCensorStrategy, keepEndCensorStrategy, keepStartCensorStrategy
 } from 'obscenity'
 
-// Create a fake `window` for DOMPurify on the server
-const jsdomWindow = new JSDOM('').window
-const DOMPurify = createDOMPurify(jsdomWindow)
-
-export default function sanitizeValues(object, {profanityOK = false, urlsOK = false} = {}) {
+export default function sanitizeValues(object, { profanityOK = false, urlsOK = false } = {}) {
     if (typeof object !== 'object' || object === null) {
         const sanitizedText = sanitizeText(object)
         const strippedText = stripExtras(sanitizedText)
         const profanityFiltered = profanityOK ? strippedText : filterProfanity(strippedText)
-        return urlsOK ? profanityFiltered : removeLinks(profanityFiltered)
+        return urlsOK ? profanityFiltered: removeLinks(profanityFiltered)
     }
     if (Array.isArray(object)) {
         return object.map(sanitizeValues)
@@ -76,7 +70,7 @@ function stripExtras(str) {
 export function filterProfanity(input) {
     const matcher = new RegExpMatcher({
         ...englishDataset.build(),
-        ...englishRecommendedTransformers
+        ...englishRecommendedTransformers,
     })
     const censor = new TextCensor().setStrategy(keepEndCensorStrategy(keepStartCensorStrategy(grawlixCensorStrategy())))
     const matches = matcher.getAllMatches(input)

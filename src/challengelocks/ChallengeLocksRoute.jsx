@@ -12,7 +12,7 @@ import DBContext from '../app/DBContext.jsx'
 
 function ChallengeLocksRoute() {
 
-    usePageTitle('Challenge Locks')
+    usePageTitle('LPU Locks - Challenge Locks')
 
     const {profile} = useContext(DBContext)
     const {user} = useOutletContext()
@@ -23,7 +23,7 @@ function ChallengeLocksRoute() {
                 <ListProvider>
                     <ChallengeLocksMain profile={profile} user={user}/>
                     <Footer/>
-                    <Tracker feature='challengelocks'/>
+                    <Tracker feature='challengeLocks'/>
                 </ListProvider>
             </DataProvider>
         </FilterProvider>

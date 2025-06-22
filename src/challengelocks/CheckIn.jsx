@@ -4,7 +4,6 @@ import TextField from '@mui/material/TextField'
 import useWindowSize from '../util/useWindowSize.jsx'
 import Dialog from '@mui/material/Dialog'
 import LoadingDisplay from '../misc/LoadingDisplay.jsx'
-import Tracker from '../app/Tracker.jsx'
 import SelectBox from '../formUtils/SelectBox.jsx'
 import {uniqueBelts} from '../data/belts'
 import Link from '@mui/material/Link'
@@ -22,7 +21,7 @@ import RatingTable from './RatingTable.jsx'
 import ratingDimensions from '../data/clRatingDimensions.json'
 import {optionsCL} from '../data/subNavOptions.js'
 import validator from 'validator'
-import filterProfanity from '../util/filterProfanity.js'
+import sanitizeValues from '../util/sanitizeValues.js'
 import usePageTitle from '../util/usePageTitle.jsx'
 import {postData} from '../formUtils/postData.jsx'
 import DataContext from '../context/DataContext.jsx'
@@ -140,14 +139,19 @@ export default function CheckIn({checkIn, profile, user}) {
     const handleFormChange = useCallback((event) => {
         let {name, value} = event.target
         let formCopy = {...form}
-        if (name !== 'videoUrl' && value) value = value.replace(/https?:\/\/[^\s]+/g, '[link removed]')
         if (name === 'country') {
             setCountry(value)
         }
         if (name === 'country' && !statesProvinces[value]) {
             delete formCopy.stateProvince
         }
-        let updates = {[name]: filterProfanity(value)}
+        if (name === 'videoUrl' && value) {
+            value = sanitizeValues(value, { urlsOK: true })
+        } else {
+            value = sanitizeValues(value)
+        }
+
+        let updates = {[name]: value}
         setForm({...formCopy, ...updates})
     }, [form])
 
@@ -658,7 +662,6 @@ export default function CheckIn({checkIn, profile, user}) {
                         </div>
                     </div>
                 </Dialog>
-                <Tracker feature='uploadPhotos'/>
             </div>
         </React.Fragment>
 

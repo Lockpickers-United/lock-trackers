@@ -1,4 +1,3 @@
-import sanitizeValues from './sanitizeValues.js'
 
 export function parseForm(req, form) {
     return new Promise((resolve, reject) => {
@@ -18,5 +17,5 @@ export function flattenFields(fields) {
             flatFields[key] = fields[key] || ''
         }
     }
-    return sanitizeValues(flatFields)
+    return flatFields
 }

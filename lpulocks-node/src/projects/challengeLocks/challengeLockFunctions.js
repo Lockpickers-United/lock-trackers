@@ -18,6 +18,7 @@ import {getFirestore, FieldValue} from 'firebase-admin/firestore'
 import jsonIt from '../../util/jsonIt.js'
 import validator from 'validator'
 import dayjs from 'dayjs'
+import {selectiveSanitizeValues} from '../../util/sanitizeValues.js'
 
 const {writeFile} = fs.promises
 const execAsync = util.promisify(exec)
@@ -105,9 +106,6 @@ export async function updateLockMedia(req, res) {
         let ref = db.collection('challenge-locks').doc(flatFields.id)
         const lockEntry = await fetchDocument(ref, flatFields.id)
         if (!lockEntry) return handleError(res, 'Lock not found', `No lock matching id ${flatFields.id} found`, 404)
-
-
-        //console.log('lockEntry:', lockEntry)
 
         // save files/thumbs
         const addedMedia = await Promise.all(filepaths.map(async (filepath, index) => ({
@@ -266,25 +264,23 @@ export default async function submitChallengeLock(req, res) {
 
     try {
         const {fields, files} = await parseForm(req, form)
-
         for (const fieldName in fields) {
             if (!Array.isArray(fields[fieldName])) {
                 fields[fieldName] = [fields[fieldName]]
             }
         }
-
         const flatFields = flattenFields(fields)
-        jsonIt('flatFields:', flatFields)
+        const cleanedFields = selectiveSanitizeValues(flatFields, {profanityOKFields:['name'], urlsOKFields: []})
 
         const entry = {
-            ...flatFields,
-            originalLock: flatFields.originalLock || flatFields.originalMake,
+            ...cleanedFields,
+            originalLock: cleanedFields.originalLock || cleanedFields.originalMake,
             submittedAt: dayjs().toISOString(),
             updatedAt: dayjs().toISOString()
         }
 
-        const lockName = flatFields.name
-        const username = flatFields.username || 'Unknown'
+        const lockName = cleanedFields.name
+        const username = cleanedFields.username || 'Unknown'
 
         entry.media = await Promise.all(filepaths.map(async (filepath, index) => ({
             imageTitle: lockName,
@@ -307,9 +303,6 @@ export default async function submitChallengeLock(req, res) {
             dateAdded: dayjs().toISOString(),
             subtitle: 'CC BY-NC-SA 4.0'
         })))
-
-
-        //entry.mainImage = [entry.media[0]]
 
         if (subdirs) {
             const destination = `${uploadDir}/${subdirs}`.replace(/\s+/g, '-')
@@ -390,8 +383,9 @@ export async function submitCheckIn(req, res) {
                 fields[fieldName] = [fields[fieldName]]
             }
         }
-        const checkIn = flattenFields(fields)
-        jsonIt('checkIn:', checkIn)
+
+        const flatFields = flattenFields(fields)
+        const checkIn = selectiveSanitizeValues(flatFields, {urlsOKFields: ['videoUrl']})
 
         let ref = db.collection('challenge-locks').doc(checkIn.lockId)
         const lockEntry = await fetchDocument(ref, checkIn.lockId)
@@ -470,8 +464,8 @@ export async function reportProblem(req, res) {
                 fields[fieldName] = [fields[fieldName]]
             }
         }
-        const entry = flattenFields(fields)
-        jsonIt('entry:', entry)
+        const flatFields = flattenFields(fields)
+        const entry = selectiveSanitizeValues(flatFields)
 
         let ref = db.collection('challenge-locks').doc(entry.entryId)
         const lockEntry = await fetchDocument(ref, entry.entryId)

@@ -16,6 +16,7 @@ import DBContext from './DBProviderCL.jsx'
 import dayjs from 'dayjs'
 import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
 import {useNavigate} from 'react-router-dom'
+import sanitizeValues from '../util/sanitizeValues.js'
 
 export default function ProblemReportButton({entry, style}) {
 
@@ -78,7 +79,7 @@ export default function ProblemReportButton({entry, style}) {
     const handleFormChange = useCallback((event) => {
         let {name, value} = event.target
         let formCopy = {...form}
-        let updates = {[name]: value}
+        let updates = {[name]: sanitizeValues(value)}
         setForm({...formCopy, ...updates})
     }, [form])
 

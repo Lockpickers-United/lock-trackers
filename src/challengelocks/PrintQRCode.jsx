@@ -145,7 +145,7 @@ export default function PrintQRCode() {
                         }}>lpulocks.com
                         </div>
 
-                        <Tracker feature='challengeLock' id={lock?.id} name={lock?.name}/>
+                        <Tracker feature='clPrint' id={lock?.id} name={lock?.name}/>
 
                     </React.Fragment>
                 }

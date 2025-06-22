@@ -12,7 +12,7 @@ import DBContext from '../app/DBContext.jsx'
 
 function ViewCheckInsRoute() {
 
-    usePageTitle('View Check-ins - Challenge Locks')
+    usePageTitle('LPU Locks - View Check-ins')
 
     const {profile} = useContext(DBContext)
     const {user} = useOutletContext()
@@ -23,7 +23,7 @@ function ViewCheckInsRoute() {
                 <ListProvider>
                     <ViewCheckIns profile={profile} user={user}/>
                     <Footer/>
-                    <Tracker feature='viewCheckIns'/>
+                    <Tracker feature='clViewCheckIns'/>
                 </ListProvider>
             </DataProvider>
         </FilterProvider>

@@ -2,7 +2,6 @@ import React, {useCallback, useContext, useEffect, useState} from 'react'
 import Button from '@mui/material/Button'
 import useWindowSize from '../util/useWindowSize.jsx'
 import Dialog from '@mui/material/Dialog'
-import Tracker from '../app/Tracker.jsx'
 import {useNavigate} from 'react-router-dom'
 import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
@@ -10,7 +9,7 @@ import LoadingDisplay from '../misc/LoadingDisplay.jsx'
 import ImageCard from './ImageCard.jsx'
 import Dropzone from '../formUtils/Dropzone.jsx'
 import TextField from '@mui/material/TextField'
-import filterProfanity from '../util/filterProfanity.js'
+import {filterProfanity} from '../util/sanitizeValues.js'
 import ForwardIcon from '@mui/icons-material/Forward'
 import {postData} from '../formUtils/postData.jsx'
 import {enqueueSnackbar} from 'notistack'
@@ -447,9 +446,6 @@ export default function EditImages({profile, user}) {
                             </div>
                         </Dialog>
                     </div>
-
-                    <Tracker feature='editCLImages' id={lock.id} name={lock.name}/>
-
                 </div>
             </div>
         </React.Fragment>
