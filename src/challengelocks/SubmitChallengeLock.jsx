@@ -29,7 +29,7 @@ import statesProvinces from '../data/statesProvinces.json'
 import SignInButton from '../auth/SignInButton.jsx'
 
 /**
- * @prop newBrand
+ * @prop acReset
  * @prop allMakes
  */
 
@@ -47,15 +47,16 @@ export default function SubmitChallengeLock({entry, profile, user}) {
     const [uploading, setUploading] = useState(false)
     const [uploadError, setUploadError] = useState(undefined)
     const [form, setForm] = useState({})
+    const [entryId, setEntryId] = useState(undefined)
+    const [entryName, setEntryName] = useState(undefined)
+    const [checkIn, setCheckIn] = useState(false)
+    const [contentChanged, setContentChanged] = useState(false)
+
+    // why are these here? needed for setting auto-complete??
     const [acReset, setAcReset] = useState(false) // eslint-disable-line
     const [inputValue, setInputValue] = useState(undefined) // eslint-disable-line
     const [country, setCountry] = useState(null) // eslint-disable-line
     const [stateProvince, setStateProvince] = useState(null) // eslint-disable-line
-    const [entryId, setEntryId] = useState(undefined)
-    const [entryName, setEntryName] = useState(undefined)
-    const [checkIn, setCheckIn] = useState(false)
-    const [highlightRequired, setHighlightRequired] = useState(true)
-    const [contentChanged, setContentChanged] = useState(false)
 
     useEffect(() => {
         if (entry) {
@@ -149,12 +150,10 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         (mainPhoto.length > 0 || entry)
 
     const getHighlightColor = useCallback(field => {
-        return highlightRequired
-            ? !form[field]
+        return !form[field]
                 ? '#d00'
                 : '#090'
-            : 'inherit'
-    }, [form, highlightRequired])
+    }, [form])
 
     const handleDroppedFiles = useCallback((allFiles, zoneId = 'dropzone') => {
         if (zoneId === 'mainPhoto') {

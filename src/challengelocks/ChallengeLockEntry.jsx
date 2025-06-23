@@ -19,6 +19,7 @@ import ReportProblem from '@mui/icons-material/ReportProblem'
 import DataContext from '../context/DataContext.jsx'
 import CopyEntryIdButton from './CopyEntryIdButton.jsx'
 import ChallengeLockEntryDataDisplay from './ChallengeLockEntryDataDisplay.jsx'
+import CopyEntryNameButton from './CopyEntryNameButton.jsx'
 
 const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) => {
     const {adminEnabled} = useContext(DataContext)
@@ -191,6 +192,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) =>
                                 }
                                 <CopyEntryIdButton entry={entry}/>
                             </div>
+                            <CopyEntryNameButton entry={entry} style={{}}/>
                             <CopyLinkToCLButton entry={entry} style={{}}/>
                             <PrintButton entry={entry} style={{}}/>
                             <CheckInButton entry={entry} style={{margin: '4px 20px'}}/>

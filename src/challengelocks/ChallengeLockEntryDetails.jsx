@@ -11,7 +11,6 @@ import Collapse from '@mui/material/Collapse'
 import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
 import RatingTable from './RatingTable.jsx'
 import AdminActionsBar from './AdminActionsBar.jsx'
-import DBContextCL from './DBProviderCL.jsx'
 import ProblemsDisplay from './ProblemsDisplay.jsx'
 import {internationalDate} from '../util/formatTime.js'
 
@@ -19,9 +18,6 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
     if (!entry) return null
 
     const {adminEnabled} = useContext(DataContext)
-    const {currentVersion} = useContext(DBContextCL)
-
-    const [version] = useState(currentVersion)
 
     const {latestUpdate} = entry
     const [showCheckIns, setShowCheckIns] = useState(false)
@@ -212,20 +208,13 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
                 </div>
             }
 
-            {currentVersion !== version &&
-                <div style={{width: '100%', textAlign: 'center', fontSize: '1.2rem', padding: 20}}>
-                    <Button onClick={() => location.reload()} color='warning' variant='contained'>Refresh
-                        Stats</Button>
-                </div>
-            }
-
             {entry.checkInCount > 1 &&
                 <div style={{
                     fontSize: '0.95rem',
                     lineHeight: '1.5rem',
                     fontWeight: 400,
                     marginTop: 10,
-                    width: 340,
+                    width: 330,
                     display: flexStyle,
                     alignContent: 'top'
                 }}>
