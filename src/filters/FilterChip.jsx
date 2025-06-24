@@ -5,8 +5,7 @@ import FilterContext from '../context/FilterContext'
 function FilterChip({field, value, label = value, maxLength = 20, ...props}) {
     const {filters,addFilter} = useContext(FilterContext)
 
-    const displayLabel = label.length > maxLength ? label.substring(0, maxLength) + '...' : label
-
+    const displayLabel = label?.length > maxLength ? label?.substring(0, maxLength) + '...' : label
 
     const handleFilter = useCallback(event => {
         const filtersMap = new Map(Object.entries(filters))

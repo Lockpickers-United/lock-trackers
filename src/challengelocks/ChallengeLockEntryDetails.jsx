@@ -13,11 +13,14 @@ import RatingTable from './RatingTable.jsx'
 import AdminActionsBar from './AdminActionsBar.jsx'
 import ProblemsDisplay from './ProblemsDisplay.jsx'
 import {internationalDate} from '../util/formatTime.js'
+import FilterContext from '../context/FilterContext.jsx'
 
 const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, setCheckIns}) => {
     if (!entry) return null
 
     const {adminEnabled} = useContext(DataContext)
+    const {filters: allFilters} = useContext(FilterContext)
+    const {sort} = allFilters
 
     const {latestUpdate} = entry
     const [showCheckIns, setShowCheckIns] = useState(false)
@@ -93,7 +96,7 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
                 </React.Fragment>
             }
 
-            {isMobile &&
+            {(isMobile || (sort && !['maker', 'name'].includes(sort))) &&
                 <div style={{
                     display: 'flex',
                     fontSize: '0.95rem',

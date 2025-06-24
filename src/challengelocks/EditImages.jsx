@@ -227,19 +227,6 @@ export default function EditImages({profile, user}) {
                             </div>
                         </div>
 
-                        <div style={{display: 'flex', marginBottom: 15, justifyContent: 'right'}}>
-                            <div style={{
-                                ...headerStyle, padding: '0px 10px 0px 0px', margin: 0, alignContent: 'center',
-                                textAlign: 'right', fontSize: '1.1rem',
-                                backgroundColor: !form.photoCredit ? '#c00' : 'inherit'
-                            }}>
-                                New Image Photo Credit
-                            </div>
-                            <TextField type='text' name='photoCredit' style={{width: 240}}
-                                       onChange={handleFormChange} value={form.photoCredit || ''} color='info'
-                                       inputProps={{maxLength: 40}} size='small'/>
-                        </div>
-
                         <div style={{...headerStyle, flexGrow: 1}}>
                             Current Images
                         </div>
@@ -337,8 +324,29 @@ export default function EditImages({profile, user}) {
                                               backgroundColor={'#444'}/>
                                 </div>
 
+
                             </div>
                         </div>
+
+                        {(mediaArrays?.newMedia?.length > 0 || mediaArrays?.newMainPhoto?.length > 0) &&
+                            <div style={{display: 'flex', margin: '20px auto 0px auto', justifyContent: 'center'}}>
+                                <div style={{
+                                    ...headerStyle,
+                                    padding: '0px 10px 0px 10px',
+                                    width: 'auto',
+                                    margin: 0,
+                                    fontSize: '1.1rem',
+                                    backgroundColor: !form.photoCredit ? '#c00' : 'inherit',
+                                    alignContent: 'center',
+                                }}>
+                                    New Image Photo Credit
+                                </div>
+                                <TextField type='text' name='photoCredit' style={{width: 240}}
+                                           onChange={handleFormChange} value={form.photoCredit || ''}
+                                           color='info'
+                                           inputProps={{maxLength: 40}} size='small'/>
+                            </div>
+                        }
 
 
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>

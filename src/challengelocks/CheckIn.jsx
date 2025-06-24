@@ -50,7 +50,7 @@ export default function CheckIn({checkIn, profile, user}) {
     const [acReset, setAcReset] = useState(false) // eslint-disable-line
     const [inputValue, setInputValue] = useState(undefined) // eslint-disable-line
     const [country, setCountry] = useState(null) // eslint-disable-line
-    const [stateProvince, setStateProvince] = useState(null)
+    const [stateProvince, setStateProvince] = useState(null) // eslint-disable-line
     const [scrolled, setScrolled] = useState(false)
     const navigate = useNavigate()
     const {filters: allFilters} = useContext(FilterContext)
@@ -138,9 +138,15 @@ export default function CheckIn({checkIn, profile, user}) {
 
     const handleFormChange = useCallback((event) => {
         let {name, value} = event.target
+
+        console.log('handleFormChange', name, value)
+
         let formCopy = {...form}
         if (name === 'country') {
             setCountry(value)
+        }
+        if (name === 'country' && !value) {
+            setAcReset(!acReset)
         }
         if (name === 'country' && !statesProvinces[value]) {
             delete formCopy.stateProvince
@@ -153,7 +159,7 @@ export default function CheckIn({checkIn, profile, user}) {
 
         let updates = {[name]: value}
         setForm({...formCopy, ...updates})
-    }, [form])
+    }, [acReset, form])
 
     const urlError = form.videoUrl?.length > 0 && !validator.isURL(form.videoUrl, {require_protocol: true})
     const urlHelperText = urlError ? 'Video link is not a valid URL' : ' '
@@ -443,7 +449,7 @@ export default function CheckIn({checkIn, profile, user}) {
                                     Your Location<br/><span style={{color: '#aaa'}}>(optional)</span>
                                 </div>
                                 <AutoCompleteBox changeHandler={handleFormChange}
-                                                 options={countryList} value={form.country}
+                                                 options={countryList} value={form.country || null}
                                                  name={'country'} style={{width: 300}}
                                                  reset={acReset}
                                                  inputValueHandler={setInputValue}
@@ -456,7 +462,7 @@ export default function CheckIn({checkIn, profile, user}) {
                                         State/Province<br/><span style={{color: '#aaa'}}>(optional)</span>
                                     </div>
                                     <AutoCompleteBox changeHandler={handleFormChange}
-                                                     options={statesProvinces[form.country].sort()} value={stateProvince}
+                                                     options={statesProvinces[form.country].sort()} value={form.stateProvince || null}
                                                      name={'stateProvince'} style={{width: 200}}
                                                      reset={acReset}
                                                      inputValueHandler={setStateProvince}

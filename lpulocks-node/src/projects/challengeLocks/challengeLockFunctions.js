@@ -101,7 +101,7 @@ export async function updateLockMedia(req, res) {
             }
         }
         const flatFields = flattenFields(fields)
-        jsonIt('flatFields:', flatFields)
+        // no need to sanitize
 
         let ref = db.collection('challenge-locks').doc(flatFields.id)
         const lockEntry = await fetchDocument(ref, flatFields.id)
@@ -270,7 +270,10 @@ export default async function submitChallengeLock(req, res) {
             }
         }
         const flatFields = flattenFields(fields)
+        console.log('flatFields:', flatFields)
+
         const cleanedFields = selectiveSanitizeValues(flatFields, {profanityOKFields:['name'], urlsOKFields: []})
+        console.log('cleanedFields:', cleanedFields)
 
         const entry = {
             ...cleanedFields,
@@ -325,8 +328,14 @@ export default async function submitChallengeLock(req, res) {
         }
 
         try {
-            filepaths.map((filepath) => {
-                fs.rmSync(`${filepath}`, {force: true})
+
+            const filesToDelete = filepaths ? [...filepaths] : []
+            filesToDelete.shift()
+
+            // TODO: crashing?? use setTimeout and/or promises all
+            filesToDelete.map((filepath) => {
+                console.log('trying to delete original file:', filepath.replace(serverPath, uploadDir))
+                fs.rmSync(`${filepath.replace(serverPath, uploadDir)}`, {force: true})
             })
             console.log('Original files deleted successfully')
         } catch (error) {

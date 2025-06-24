@@ -111,19 +111,18 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         setContentChanged(true)
     }, [form])
 
-    // TODO : ONLY if not editing
-
     const handleUpdateProfile = useCallback(async () => {
         let localProfile = {...profile}
         let needUpdate = false
         try {
-            if (form.submittedByUsername && form.submittedByUsernamePlatform === 'discord' && form.submittedByUsername !== profile.discordUsername) {
+            if (form.submittedByUsername && form.submittedByUsernamePlatform === 'Discord' && form.submittedByUsername !== profile.discordUsername) {
                 localProfile = {...localProfile, discordUsername: form.submittedByUsername}
                 needUpdate = true
-            } else if (form.submittedByUsername && form.submittedByUsernamePlatform === 'reddit' && form.submittedByUsername !== profile.redditUsername) {
+            } else if (form.submittedByUsername && form.submittedByUsernamePlatform === 'Reddit' && form.submittedByUsername !== profile.redditUsername) {
                 localProfile = {...localProfile, redditUsername: form.submittedByUsername}
                 needUpdate = true
             }
+
             if (form.country && form.country !== profile.country) {
                 localProfile = {...localProfile, country: form.country}
                 needUpdate = true
@@ -137,7 +136,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                 needUpdate = true
             }
             if (needUpdate && !entry) {
-                // TODO - not working??
                 await updateProfile(localProfile)
             }
         } catch (error) {
@@ -145,7 +143,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         }
     }, [entry, form, profile, updateProfile])
 
-    const requiredFields = ['name', 'maker', 'lockCreated', 'submittedByUsername', 'submittedByUsernamePlatform']
+    const requiredFields = ['name', 'maker', 'lockCreated', 'lockFormat', 'submittedByUsername', 'submittedByUsernamePlatform']
     const uploadable = requiredFields.every(field => form[field] && form[field].length > 0) &&
         (mainPhoto.length > 0 || entry)
 
@@ -177,14 +175,17 @@ export default function SubmitChallengeLock({entry, profile, user}) {
             source: 'site'
         }
 
+        Object.keys(formCopy).forEach(key => (formCopy[key] === undefined || formCopy[key] === '') ? delete formCopy[key] : {})
+
         const formData = new FormData()
         Object.keys(formCopy).forEach(key => {
             formData.append(key, formCopy[key])
         })
 
+
         if (!entry) {
-            const prefix = formCopy.name?.replace('/', '+')
-            const suffix = formCopy.username?.replace('/', '+')
+            const prefix = formCopy?.name?.replace('/', '+')
+            const suffix = formCopy?.username?.replace('/', '+')
             const uploadsDir = `${prefix}-${suffix}-${form.id}`.toLowerCase()
             mainPhoto.forEach((file) => {
                 const {base, ext} = separateBasename(file.name)
@@ -197,7 +198,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         }
 
         if (entry) {
-            Object.keys(formCopy).forEach(key => formCopy[key] === undefined ? delete formCopy[key] : {})
             try {
                 await updateEntry(formCopy)
             } catch (error) {
@@ -207,7 +207,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
             } finally {
                 await refreshEntries()
                 setUploading(false)
-                const safeName = formCopy.name.replace(/[\s/]/g, '_').replace(/\W/g, '')
+                const safeName = formCopy.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
                 navigate(`/challengelocks?id=${formCopy.id}&name=${safeName}`)
             }
         } else {
@@ -244,10 +244,10 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         mainPhoto.forEach(file => URL.revokeObjectURL(file.preview))
         setMainPhoto([])
         if (checkIn) {
-            const safeName = entryName.replace(/[\s/]/g, '_').replace(/\W/g, '')
+            const safeName = entryName?.replace(/[\s/]/g, '_').replace(/\W/g, '')
             navigate(`/challengelocks/checkin?id=${entryId}&name=${safeName}`)
         } else {
-            const safeName = entryName.replace(/[\s/]/g, '_').replace(/\W/g, '')
+            const safeName = entryName?.replace(/[\s/]/g, '_').replace(/\W/g, '')
             navigate(`/challengelocks?id=${form.id}&name=${safeName}`)
         }
     }, [checkIn, entryId, entryName, files, form, mainPhoto, navigate])
