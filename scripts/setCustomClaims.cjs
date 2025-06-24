@@ -15,11 +15,25 @@ const newClaims = {CLAdmin:true}
 
 // List of user IDs to update
 const users = [
-    {uid: 'ClbjuilBEHgbzO4UZl4y3GStlEz2', name: 'mgsecure'},
+    {name: 'LockpickingEngineer', uid: 'cm8oFWt2fBPTYdyhqnjBMsHlfNy1'},
+    {name: 'NICVT_Locks', uid: 'PHU1oYSJfKQbKarqTygoqMIG2Cr2'},
+    {name: 'NCR', uid: 'RmIFi3CsSCUdQRQ8BDvHxrLhmMg1'},
+    {name: 'Hyperion', uid: 'wE31g5qSO1UNm9gGrKQnZtX1jmN2'},
+    {name: 'Galaxy', uid: 'X2quVZEg1KgX1vZmhR3MJaJwiBN2'},
+    {name: 'Todd', uid: 'tOToqWMwuBOp5SKolSN1fyTjlK23'},
 ]
 
-const team = [ // eslint-disable-line
-    {uid: 'ClbjuilBEHgbzO4UZl4y3GStlEz2', name: 'mgsecure'},
+
+const REFERENCE = [ // eslint-disable-line
+    {name: 'mgsecure', uid: 'ClbjuilBEHgbzO4UZl4y3GStlEz2'},
+    {name: 'LPUBeltApp', uid: 'RurNRdbzIWPDCYrFvF52H5051Gy1'},
+    {name: 'Loose', uid: 'g4S2MLVbHhSRs42gHfYOsukeb6C3'},
+    {name: 'LockpickingEngineer', uid: 'cm8oFWt2fBPTYdyhqnjBMsHlfNy1'},
+    {name: 'NICVT_Locks', uid: 'PHU1oYSJfKQbKarqTygoqMIG2Cr2'},
+    {name: 'NCR', uid: 'RmIFi3CsSCUdQRQ8BDvHxrLhmMg1'},
+    {name: 'Hyperion', uid: 'wE31g5qSO1UNm9gGrKQnZtX1jmN2'},
+    {name: 'Galaxy', uid: 'X2quVZEg1KgX1vZmhR3MJaJwiBN2'},
+    {name: 'Todd', uid: 'tOToqWMwuBOp5SKolSN1fyTjlK23'},
 ]
 
 async function updateCustomClaimsForUsers() {

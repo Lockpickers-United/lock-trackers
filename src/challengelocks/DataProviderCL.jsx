@@ -13,7 +13,7 @@ import createDateSorter from '../util/createDateSorter.js'
 export function DataProvider({children}) {
 
     const {userClaims} = useContext(AuthContext)
-    const isMod = ['CLadmin', 'admin'].some(claim => userClaims.includes(claim))
+    const isMod = ['CLAdmin', 'admin'].some(claim => userClaims.includes(claim))
     const [adminEnabled, setAdminEnabled] = useLocalStorage('adminEnabled', false)
 
     useEffect(() => {

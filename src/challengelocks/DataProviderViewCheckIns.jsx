@@ -12,7 +12,7 @@ import countries from '../data/countries.json'
 export function DataProvider({children}) {
 
     const {user, userClaims} = useContext(AuthContext)
-    const isMod = ['CLadmin', 'admin'].some(claim => userClaims.includes(claim))
+    const isMod = ['CLAdmin', 'admin'].some(claim => userClaims.includes(claim))
     const [adminEnabled, setAdminEnabled] = useLocalStorage('adminEnabled', false)
 
     const {allEntries, getCheckIns} = useContext(DBContextCL)
