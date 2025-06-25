@@ -59,7 +59,12 @@ export default function EditImages({profile, user}) {
     }, [lock.media, lockId, profile])
 
     const [uploading, setUploading] = useState(false)
-    const uploadable = (mediaArrays?.currentMainPhoto?.length > 0 || mediaArrays?.newMainPhoto?.length > 0) && form.photoCredit && !uploading && contentChanged
+    const needPhotoCredit = (mediaArrays?.newMainPhoto?.length > 0 || mediaArrays?.newMedia?.length > 0) && !form.photoCredit
+    const uploadable = (mediaArrays?.currentMainPhoto?.length > 0 || mediaArrays?.newMainPhoto?.length > 0)
+        && !needPhotoCredit
+        && !uploading
+        && contentChanged
+
     const needMainPhoto = mediaArrays?.currentMainPhoto?.length === 0 && mediaArrays?.newMainPhoto?.length === 0
 
     const handleFormChange = useCallback((event) => {
@@ -68,7 +73,6 @@ export default function EditImages({profile, user}) {
     }, [form])
 
     const handlePhotoCredit = useCallback(async () => {
-        console.log('handlePhotoCredit')
         try {
             if (form.photoCredit && form.photoCredit !== profile?.lastPhotoCredit) {
                 const localProfile = {...profile, lastPhotoCredit: form.photoCredit}
@@ -93,9 +97,6 @@ export default function EditImages({profile, user}) {
         if (mediaArrays?.currentMedia?.length > 0)
             formCopy.updatedMediaIds = mediaArrays?.currentMedia.map((image) => image.sequenceId)
 
-        //setUploading(false)
-        //return
-
         const formData = new FormData()
         Object.keys(formCopy).forEach(key => {
             formData.append(key, formCopy[key])
@@ -118,11 +119,13 @@ export default function EditImages({profile, user}) {
 
         const url = `${serverUrl}/update-lock-media`
 
-        //formData.forEach((value, key) => console.log(key, value) )
-
         try {
-            const results = await postData({user, url, formData, snackBars: false})
-            setResponse(results)
+            try {
+                await postData({user, url, formData, snackBars: true}).then(response => {setResponse(response)})
+            } catch (error) {
+                console.log('Error creating request', error)
+            }
+
             await refreshEntries()
             await updateVersion()
         } catch (error) {

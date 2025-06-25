@@ -75,6 +75,10 @@ export async function updateLockMedia(req, res) {
         return handleError(res, err.message, err, 403)
     }
 
+    if (!req.user.CLAdmin && !req.user.admin) {
+        return handleError(res, 'Unauthorized', 'Unauthorized', 403)
+    }
+
     const {prod} = req.body
     const db = prod ? dbProd : dbDev
     let filepaths = []
@@ -255,8 +259,6 @@ export default async function submitChallengeLock(req, res) {
         filename(name, ext, part) {
             const {fullFilename, filepath, localsubdirs} = createFilename(part, serverPath, uploadDir)
             filepaths.push(filepath)
-            // Optionally, save uploadSubDir to a local variable (e.g. in closure) instead of global ??????
-            // was: localUploadSubDir = uploadSubDir ????
             subdirs = localsubdirs
             return fullFilename
         }
@@ -272,7 +274,7 @@ export default async function submitChallengeLock(req, res) {
         const flatFields = flattenFields(fields)
         console.log('flatFields:', flatFields)
 
-        const cleanedFields = selectiveSanitizeValues(flatFields, {profanityOKFields:['name'], urlsOKFields: []})
+        const cleanedFields = selectiveSanitizeValues(flatFields, {profanityOKFields: ['name'], urlsOKFields: []})
         console.log('cleanedFields:', cleanedFields)
 
         const entry = {
@@ -379,7 +381,6 @@ export async function submitCheckIn(req, res) {
         return handleError(res, err.message, err, 403)
     }
 
-    console.log('req.body:', req.body)
     const {prod} = req.body
     const db = prod ? dbProd : dbDev
 
@@ -396,6 +397,10 @@ export async function submitCheckIn(req, res) {
         const flatFields = flattenFields(fields)
         const checkIn = selectiveSanitizeValues(flatFields, {urlsOKFields: ['videoUrl']})
 
+        if ((checkIn.edit === 'true' || checkIn.delete === 'true') && !req.user.CLAdmin && !req.user.admin) {
+            return handleError(res, 'Unauthorized', 'Unauthorized', 403)
+        }
+
         let ref = db.collection('challenge-locks').doc(checkIn.lockId)
         const lockEntry = await fetchDocument(ref, checkIn.lockId)
         if (!lockEntry) return handleError(res, 'Lock not found', `No lock matching id ${checkIn.lockId} found`, 404)
@@ -404,41 +409,70 @@ export async function submitCheckIn(req, res) {
         if (urlError) checkIn.videoUrl = 'invalid video URL'
 
         ref = db.collection('challenge-lock-check-ins').doc(checkIn.id)
-        try {
-            await setDocument(ref, checkIn, checkIn.id)
-        } catch (error) {
-            handleError(res, 'Failed to create Challenge Lock', error, 500)
+        if (checkIn.delete !== 'true') {
+            try {
+                await setDocument(ref, checkIn, checkIn.id)
+            } catch (error) {
+                handleError(res, 'Failed to create Challenge Lock', error, 500)
+            }
+        } else {
+            // DELETE CHECK-IN
+            try {
+                await ref.delete()
+            } catch (error) {
+                return handleError(res, 'Failed to delete Challenge Lock Check-In', error, 500)
+            }
+            console.log('Check-in deleted:', checkIn.id)
+            //return res.status(200).json({status: 200, message: 'Check-in deleted successfully'})
         }
 
-        const lockCheckIns = await getCheckInsForLock(db, checkIn.lockId)
 
         // TODO: from here on out, just use lockCheckIns
 
+        const lockCheckIns = await getCheckInsForLock(db, checkIn.lockId)
+
         let updates = {}
-        updates.latestUpdate = lockCheckIns[0]
 
-        const ratings = lockCheckIns.reduce((acc, checkIn) => {
-            Object.keys(checkIn)
-                .filter(key => key.startsWith('rating'))
-                .forEach(key => {
-                    acc[key] = acc[key] || []
-                    const ratingValue = parseInt(checkIn[key])
-                    if (!isNaN(ratingValue)) {
-                        acc[key].push(ratingValue)
-                    }
-                })
-            return acc
-        }, {})
+        if (lockCheckIns.length > 0) {
 
-        Object.keys(ratings).forEach(key => {
-            updates[key] = [...ratings[key]]
-        })
+            updates.latestUpdate = lockCheckIns[0]
 
-        updates.checkInIds = lockCheckIns.map(checkIn => checkIn.id)
-        updates.checkInIdsSuccessful = lockCheckIns
-            .filter(checkIn => checkIn.successfulPick === 'Yes')
-            .map(checkIn => checkIn.id)
-        updates.updatedAt = dayjs().toISOString()
+            const ratings = lockCheckIns.reduce((acc, checkIn) => {
+                Object.keys(checkIn)
+                    .filter(key => key.startsWith('rating'))
+                    .forEach(key => {
+                        acc[key] = acc[key] || []
+                        const ratingValue = parseInt(checkIn[key])
+                        if (!isNaN(ratingValue)) {
+                            acc[key].push(ratingValue)
+                        }
+                    })
+                return acc
+            }, {})
+
+            Object.keys(ratings).forEach(key => {
+                updates[key] = [...ratings[key]]
+            })
+
+            updates.checkInIds = lockCheckIns.map(checkIn => checkIn.id)
+            updates.checkInIdsSuccessful = lockCheckIns
+                .filter(checkIn => checkIn.successfulPick === 'Yes')
+                .map(checkIn => checkIn.id)
+            updates.updatedAt = dayjs().toISOString()
+        } else {
+            // No check-ins for this lock, so clear the latestUpdate and ratings
+            updates.latestUpdate = FieldValue.delete()
+            updates.latestCheckIn = FieldValue.delete()
+            updates.checkInIds = FieldValue.delete()
+            updates.checkInIdsSuccessful = FieldValue.delete()
+
+            const ratingKeys = ['Fun', 'Difficulty', 'Creativity', 'Quality']
+            ratingKeys.forEach(key => {
+                const ratingKey = `rating${key}`
+                updates[ratingKey] = FieldValue.delete()
+            })
+        }
+
 
         // SUBMIT UPDATES
         if (Object.keys(updates).length > 0) {
@@ -451,9 +485,7 @@ export async function submitCheckIn(req, res) {
     } catch (err) {
         return handleError(res, 'Form Parse Error', err)
     }
-
 }
-
 
 export async function reportProblem(req, res) {
     try {
@@ -518,7 +550,6 @@ export async function reportProblem(req, res) {
         return handleError(res, 'Form Parse Error', err)
     }
 
-
     console.log('done')
     return res.status(200).json('Report Problem Endpoint Hit')
 }
@@ -530,6 +561,10 @@ export async function clearProblems(req, res) {
         req.user = await authenticateRequest(req, res)
     } catch (err) {
         return handleError(res, err.message, err, 403)
+    }
+
+    if (!req.user.CLAdmin && !req.user.admin) {
+        return handleError(res, 'Unauthorized', 'Unauthorized', 403)
     }
 
     const {prod} = req.body
@@ -575,7 +610,7 @@ async function getCheckInsForLock(db, lockId) {
         .collection('challenge-lock-check-ins')
         .where('lockId', '==', lockId)
         .get()
-    const checkIns = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+    const checkIns = snap.docs.map(doc => ({id: doc.id, ...doc.data()}))
     console.log('got checkins for id:', lockId, checkIns.length)
     return checkIns.sort((a, b) => {
         const pickA = dayjs(a.pickDate).valueOf()

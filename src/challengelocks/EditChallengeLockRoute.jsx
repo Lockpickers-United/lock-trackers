@@ -36,6 +36,8 @@ function EditChallengeLockRoute() {
     const [editEntry, setEditEntry] = useState(undefined)
 
     const getEntities = useCallback(async () => {
+
+        // TODO : try to limit db calls.
         const thisLock = await getChallengeLock(id) || undefined
         setLock(thisLock)
         const thisCheckIn = await getCheckIn(id) || undefined

@@ -34,7 +34,7 @@ export default function ImageCard({
                             <HighlightOffIcon
                                 style={{color: '#000', marginTop: -2, marginLeft: -2, cursor: 'pointer'}}
                                 onClick={() => {
-                                    console.log('removing image', image.sequenceId, 'from', mediaArrayName)
+                                    //console.log('removing image', image.sequenceId, 'from', mediaArrayName)
                                     handleRemove(mediaArrayName, image.sequenceId)
                                 }}
                             />
@@ -44,7 +44,7 @@ export default function ImageCard({
                                 style={{color: '#000', marginTop: -2, marginLeft: -12, cursor: 'pointer'}}
                                 fontSize="large"
                                 onClick={() => {
-                                    console.log('removing image', image.sequenceId, 'from', mediaArrayName)
+                                    //console.log('removing image', image.sequenceId, 'from', mediaArrayName)
                                     handleRemove(mediaArrayName, image.sequenceId)
                                 }}
                             />

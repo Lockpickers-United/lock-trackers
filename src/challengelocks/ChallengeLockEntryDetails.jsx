@@ -15,7 +15,7 @@ import ProblemsDisplay from './ProblemsDisplay.jsx'
 import {internationalDate} from '../util/formatTime.js'
 import FilterContext from '../context/FilterContext.jsx'
 
-const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, setCheckIns}) => {
+const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, setCheckIns, user}) => {
     if (!entry) return null
 
     const {adminEnabled} = useContext(DataContext)
@@ -253,7 +253,7 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
             {latestUpdate &&
                 <FieldValue name='Latest Check-in' headerStyle={{color: '#999'}} style={{marginTop: 25}} value={
                     <ChallengeLockCheckInDisplay checkIn={latestUpdate} latest={true}
-                                                 refreshCheckIns={refreshCheckIns}/>
+                                                 refreshCheckIns={refreshCheckIns} user={user}/>
                 }
                 />
             }

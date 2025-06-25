@@ -47,10 +47,6 @@ export default function CheckIn({checkIn, profile, user}) {
     const [response, setResponse] = useState(undefined)
     const [uploading, setUploading] = useState(false)
     const [uploadError, setUploadError] = useState(undefined)
-    const [acReset, setAcReset] = useState(false) // eslint-disable-line
-    const [inputValue, setInputValue] = useState(undefined) // eslint-disable-line
-    const [country, setCountry] = useState(null) // eslint-disable-line
-    const [stateProvince, setStateProvince] = useState(null) // eslint-disable-line
     const [scrolled, setScrolled] = useState(false)
     const navigate = useNavigate()
     const {filters: allFilters} = useContext(FilterContext)
@@ -61,6 +57,11 @@ export default function CheckIn({checkIn, profile, user}) {
     const [dataLoaded, setDataLoaded] = useState(false)
     const [addTracking, setAddTracking] = useLocalStorage('addCheckInTracking', false)
     const [showTracking, setShowTracking] = useState(!!checkIn || addTracking)
+
+    const [acReset, setAcReset] = useState(false) // eslint-disable-line
+    const [inputValue, setInputValue] = useState(undefined) // eslint-disable-line
+    const [country, setCountry] = useState(null) // eslint-disable-line
+    const [stateProvince, setStateProvince] = useState(null) // eslint-disable-line
 
     usePageTitle(checkIn ? 'Edit Check In' : 'Submit Check In')
 
@@ -107,7 +108,7 @@ export default function CheckIn({checkIn, profile, user}) {
                         return acc
                     }, {})
                 : {}
-            setForm({...checkIn, ratings})
+            setForm({...checkIn, ratings, edit: true})
             setCountry(checkIn.country || null)
             setStateProvince(checkIn.stateProvince || null)
         } else {
@@ -245,7 +246,6 @@ export default function CheckIn({checkIn, profile, user}) {
                 await handleUpdateProfile()
             }
         }
-
     }
 
     //TODO: clear form on error OK?
@@ -627,7 +627,7 @@ export default function CheckIn({checkIn, profile, user}) {
                                 fontWeight: 500,
                                 marginBottom: 60,
                                 textAlign: 'center'
-                            }}>You&#39;re checked in!
+                            }}>{checkIn ? 'Check-in updated.' : 'You\'re checked in!'}
                             </div>
 
                             <div style={{width: '100%', textAlign: 'center'}}>

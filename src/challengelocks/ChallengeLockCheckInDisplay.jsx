@@ -13,12 +13,19 @@ import FieldValue from '../util/FieldValue.jsx'
 import dayjs from 'dayjs'
 import countries from '../data/countries.json'
 import {internationalDate} from '../util/formatTime.js'
+import {nodeServerUrl} from '../data/dataUrls.js'
+import {postData} from '../formUtils/postData.jsx'
+import {enqueueSnackbar} from 'notistack'
+import AuthContext from '../app/AuthContext.jsx'
+import Dialog from '@mui/material/Dialog'
 
-export default function ChallengeLockCheckInDisplay({checkIn, latest = false, refreshCheckIns, viewRoute = false}) {
-
+export default function ChallengeLockCheckInDisplay({checkIn, latest = false, viewRoute = false}) {
+    const {user} = useContext(AuthContext)
     const {adminEnabled} = useContext(DataContext)
-    const {allEntries, deleteCheckIn} = useContext(DBContextCL)
+    const {allEntries, updateVersion} = useContext(DBContextCL)
     const navigate = useNavigate()
+
+    const [checkInDeleted, setCheckInDeleted] = useState(false)
     const urlError = checkIn.videoUrl?.length > 0 && !validator.isURL(checkIn.videoUrl)
     const urlDisplay = checkIn.videoUrl && !urlError
         ? <Link onClick={() => openInNewTab(checkIn.videoUrl)} style={{color: '#cfcff1'}}>{checkIn.videoUrl}</Link>
@@ -41,14 +48,30 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
     const open = Boolean(anchorEl)
     const handleOpen = useCallback(event => setAnchorEl(event.currentTarget), [])
     const handleClose = useCallback(() => setAnchorEl(null), [])
+    const handleReload = useCallback(() => location.reload(), [])
     const [deleting, setDeleting] = useState(false)
+
     const handleDelete = useCallback(async () => {
+        console.log('user', user)
         setDeleting(true)
-        await deleteCheckIn(checkIn)
-        await refreshCheckIns()
+        checkIn.delete = true
+        const formData = new FormData()
+        Object.keys(checkIn).forEach(key => {
+            formData.append(key, checkIn[key])
+        })
+
+        const url = `${nodeServerUrl}/check-in-challenge-lock`
+
+        try {
+            await postData({user, url, formData, snackBars: false})
+            await updateVersion()
+        } catch (error) {
+            enqueueSnackbar(`Error creating request: ${error}`, {variant: 'error', autoHideDuration: 3000})
+        }
         setDeleting(false)
         handleClose()
-    }, [deleteCheckIn, checkIn, refreshCheckIns, handleClose])
+        setCheckInDeleted(true)
+    }, [checkIn, handleClose, user, updateVersion])
 
     const handleEdit = useCallback(async () => {
         navigate(`/challengelocks/edit?id=${checkIn.id}`)
@@ -92,7 +115,7 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
         : checkIn.lockName
 
     return (
-        <div>
+        <React.Fragment>
             {viewRoute &&
                 <div style={{display: 'flex', flexWrap: 'wrap', ...viewCheckInStyle, marginTop: 15}}>
                     <FieldValue name='Pick Date' value={internationalDate(checkIn.pickDate)}
@@ -208,7 +231,13 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
 
             {checkIn.notes &&
                 <FieldValue name='Notes' headerStyle={{color: '#999'}}
-                            style={{...style, fontSize: '0.95rem', lineHeight: '1.2rem', fontWeight: 400, marginBottom:10}}
+                            style={{
+                                ...style,
+                                fontSize: '0.95rem',
+                                lineHeight: '1.2rem',
+                                fontWeight: 400,
+                                marginBottom: 10
+                            }}
                             value={
                                 <span>{checkIn.notes}</span>
                             }/>
@@ -250,6 +279,30 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, re
                 }
             </div>
 
-        </div>
+            <Dialog open={checkInDeleted} componentsProps={{
+                backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
+            }}>
+                <div style={{display: 'flex'}}>
+                    <div style={{backgroundColor: '#444', marginLeft: 'auto', marginRight: 'auto', padding: 40}}>
+                        <div style={{
+                            fontSize: '1.7rem',
+                            fontWeight: 500,
+                            marginBottom: 60,
+                            textAlign: 'center'
+                        }}>Check-in updated.
+                        </div>
+
+                        <div style={{width: '100%', textAlign: 'center'}}>
+                            <Button onClick={handleReload} variant='contained'
+                                    color='info'
+                                    style={{marginLeft: 'auto', marginRight: 'auto'}}>
+                                RELOAD
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </Dialog>
+
+        </React.Fragment>
     )
 }

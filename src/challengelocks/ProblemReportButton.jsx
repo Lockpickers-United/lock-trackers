@@ -11,8 +11,7 @@ import {nodeServerUrl} from '../data/dataUrls.js'
 import {postData} from '../formUtils/postData.jsx'
 import {enqueueSnackbar} from 'notistack'
 import AuthContext from '../app/AuthContext.jsx'
-import DBContextGlobal from '../app/DBContextGlobal.jsx'
-import DBContext from './DBProviderCL.jsx'
+import DBContext from '../app/DBContext.jsx'
 import dayjs from 'dayjs'
 import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
 import {useNavigate} from 'react-router-dom'
@@ -21,8 +20,7 @@ import sanitizeValues from '../util/sanitizeValues.js'
 export default function ProblemReportButton({entry, style}) {
 
     const {user} = useContext(AuthContext)
-    const {profile} = useContext(DBContextGlobal)
-    const {refreshEntries, updateVersion} = useContext(DBContext)
+    const {refreshEntries, updateVersion, profile} = useContext(DBContext)
     const navigate = useNavigate()
     const [report, setReport] = useState(false)
     const [form, setForm] = useState({})
@@ -52,8 +50,6 @@ export default function ProblemReportButton({entry, style}) {
         event.preventDefault()
         setUploading(true)
 
-        console.log('Submitting report for entry:', form)
-
         const formData = new FormData()
         Object.keys(form).forEach(key => {
             formData.append(key, form[key])
@@ -67,7 +63,6 @@ export default function ProblemReportButton({entry, style}) {
             await updateVersion()
             await refreshEntries()
             navigate(`/challengelocks?id=${entry.id}&name=${safeName}`)
-
         } catch (error) {
             setUploadError(`${error}`.replace('Error: ', ''))
             enqueueSnackbar(`Error creating request: ${error}`, {variant: 'error', autoHideDuration: 3000})
@@ -92,7 +87,7 @@ export default function ProblemReportButton({entry, style}) {
             entryName: entry.name,
             entryMaker: entry.maker,
             description: '',
-            userId: user?.uid || 'anonymous',
+            userId: user?.uid,
             userName: profile?.username || 'Anonymous'
         })
     }, [entry.id, entry.maker, entry.name, profile?.username, user?.uid])

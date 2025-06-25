@@ -14,6 +14,7 @@ export function DataProvider({children}) {
 
     const {userClaims} = useContext(AuthContext)
     const isMod = ['CLAdmin', 'admin'].some(claim => userClaims.includes(claim))
+
     const [adminEnabled, setAdminEnabled] = useLocalStorage('adminEnabled', false)
 
     useEffect(() => {

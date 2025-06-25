@@ -163,6 +163,8 @@ export function DBProvider({children}) {
         return string.replace(/(<([^>]+)>)/gi, '')
     }
 
+    // TODO : should this be here or on the server?
+
     const updateVersion = useCallback(async () => {
         if (dbError) return false
 
@@ -187,8 +189,6 @@ export function DBProvider({children}) {
 // PROFILE //
 
     const updateProfile = useCallback(async (localProfile) => {
-
-        console.log('updateProfile, localProfile', localProfile)
 
         if (dbError) return false
         const ref = doc(db, 'profiles', user?.uid)

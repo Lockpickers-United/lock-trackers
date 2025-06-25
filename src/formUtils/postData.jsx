@@ -46,7 +46,7 @@ export const postData = async ({user, url, formData, json, snackBars, timeoutDur
             enqueueSnackbar(
                 isTimeout
                     ? 'Request timed out. Please try again.'
-                    : 'Error during authentication or server request',
+                    : `Error during authentication or server request: ${error.response?.data?.message || error.response?.statusText}`,
                 {
                     variant: 'error',
                     autoHideDuration: isTimeout ? 5000 : 3000
@@ -59,7 +59,7 @@ export const postData = async ({user, url, formData, json, snackBars, timeoutDur
         }
 
         console.error('Error during authentication or server request:', cleanError(error))
-        throw new Error('Error during authentication or server request')
+        throw new Error(error.response?.data?.message || error.response?.statusText)
     }
 }
 

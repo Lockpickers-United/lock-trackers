@@ -180,7 +180,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) =>
                     <AccordionDetails style={{backgroundColor: '#333'}}>
                         <ChallengeLockEntryDetails entry={entry} expanded={expanded} onExpand={onExpand}
                                                    checkIns={checkIns} setCheckIns={setCheckIns}
-                                                   refreshCheckIns={refreshCheckIns} cycleExpanded={cycleExpanded}/>
+                                                   refreshCheckIns={refreshCheckIns} cycleExpanded={cycleExpanded} user={user}/>
                         <Tracker feature='challengeLock' id={entry.id} name={entry?.name}/>
                     </AccordionDetails>
 
