@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useContext} from 'react'
 import {useLocation, useNavigate} from 'react-router-dom'
 import SpeedPicks from '../assets/SpeedPicks.jsx'
 import Button from '@mui/material/Button'
@@ -13,9 +13,11 @@ import CL_logo from '../assets/CL_logo.jsx'
 import RAFL_logo from '../assets/RAFL_logo.jsx'
 import Nav_Reports from '../assets/Nav_Reports.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
+import AppContext from '../app/AppContext.jsx'
 
 function TopNav(route) {
-    
+    const {beta} = useContext(AppContext)
+
     const navigate = useNavigate()
     const location = useLocation()
     const {VITE_RAFL_STATE: raflState} = import.meta.env
@@ -36,7 +38,7 @@ function TopNav(route) {
     const coFill = location.pathname === '/contact' ? '#fff' : '#777'
     const privFill = location.pathname === '/privacy' ? '#fff' : '#777'
 
-const {isMobile} = useWindowSize()
+    const {isMobile} = useWindowSize()
     const iconSize = isMobile ? 28 : 30
     return (
 
@@ -54,10 +56,12 @@ const {isMobile} = useWindowSize()
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SpeedPicks fill={spFill} style={{height: iconSize}}/>
                             </Button>
-                            <Button variant='text' style={buttonSyle}
-                                    onClick={handleButtonClick('/challengelocks')}>
-                                <CL_logo fill={clFill} style={{height: iconSize}}/>
-                            </Button>
+                            {beta &&
+                                <Button variant='text' style={buttonSyle}
+                                        onClick={handleButtonClick('/challengelocks')}>
+                                    <CL_logo fill={clFill} style={{height: iconSize}}/>
+                                </Button>
+                            }
                             {raflState !== 'hidden' &&
                                 <Button variant='text' style={buttonSyle}
                                         onClick={handleButtonClick('/rafl')}>
@@ -82,10 +86,12 @@ const {isMobile} = useWindowSize()
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
-                            <Button variant='text' style={buttonSyle}
-                                    onClick={handleButtonClick('/challengelocks')}>
-                                <CL_logo fill={clFill} style={{height: iconSize}}/>
-                            </Button>
+                            {beta &&
+                                <Button variant='text' style={buttonSyle}
+                                        onClick={handleButtonClick('/challengelocks')}>
+                                    <CL_logo fill={clFill} style={{height: iconSize}}/>
+                                </Button>
+                            }
                             {raflState !== 'hidden' &&
                                 <Button variant='text' style={buttonSyle}
                                         onClick={handleButtonClick('/rafl')}>
@@ -110,10 +116,12 @@ const {isMobile} = useWindowSize()
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
-                            <Button variant='text' style={buttonSyle}
-                                    onClick={handleButtonClick('/challengelocks')}>
-                                <CL_logo fill={clFill} style={{height: iconSize}}/>
-                            </Button>
+                            {beta &&
+                                <Button variant='text' style={buttonSyle}
+                                        onClick={handleButtonClick('/challengelocks')}>
+                                    <CL_logo fill={clFill} style={{height: iconSize}}/>
+                                </Button>
+                            }
                             {raflState !== 'hidden' &&
                                 <Button variant='text' style={buttonSyle}
                                         onClick={handleButtonClick('/rafl')}>
@@ -162,10 +170,12 @@ const {isMobile} = useWindowSize()
                                 onClick={handleButtonClick('/speedpicks')}>
                             <SP_logo fill={spFill} style={{height: iconSize}}/>
                         </Button>
-                        <Button variant='text' style={buttonSyle}
-                                onClick={handleButtonClick('/challengelocks')}>
-                            <CL_logo fill={clFill} style={{height: iconSize}}/>
-                        </Button>
+                        {beta &&
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/challengelocks')}>
+                                <CL_logo fill={clFill} style={{height: iconSize}}/>
+                            </Button>
+                        }
                         <div style={{padding: 0}}>
                             <Button variant='text' style={buttonSyle}>
                                 <Profile fill={prFill} style={{height: iconSize}}/>
@@ -210,10 +220,12 @@ const {isMobile} = useWindowSize()
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
-                            <Button variant='text' style={buttonSyle}
-                                    onClick={handleButtonClick('/challengelocks')}>
-                                <CL_logo fill={clFill} style={{height: iconSize}}/>
-                            </Button>
+                            {beta &&
+                                <Button variant='text' style={buttonSyle}
+                                        onClick={handleButtonClick('/challengelocks')}>
+                                    <CL_logo fill={clFill} style={{height: iconSize}}/>
+                                </Button>
+                            }
                             <Button variant='text' style={buttonSyle}>
                                 <Nav_Contact fill={coFill} style={{height: iconSize}}/>
                             </Button>
@@ -235,10 +247,12 @@ const {isMobile} = useWindowSize()
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
-                            <Button variant='text' style={buttonSyle}
-                                    onClick={handleButtonClick('/challengelocks')}>
-                                <CL_logo fill={clFill} style={{height: iconSize}}/>
-                            </Button>
+                            {beta &&
+                                <Button variant='text' style={buttonSyle}
+                                        onClick={handleButtonClick('/challengelocks')}>
+                                    <CL_logo fill={clFill} style={{height: iconSize}}/>
+                                </Button>
+                            }
                             <Button variant='text' style={buttonSyle}>
                                 <Nav_PrivacyPolicy fill={privFill} style={{height: iconSize}}/>
                             </Button>
@@ -260,10 +274,12 @@ const {isMobile} = useWindowSize()
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
-                            <Button variant='text' style={buttonSyle}
-                                    onClick={handleButtonClick('/challengelocks')}>
-                                <CL_logo fill={clFill} style={{height: iconSize}}/>
-                            </Button>
+                            {beta &&
+                                <Button variant='text' style={buttonSyle}
+                                        onClick={handleButtonClick('/challengelocks')}>
+                                    <CL_logo fill={clFill} style={{height: iconSize}}/>
+                                </Button>
+                            }
                         </div>
                     </div>
                     <div style={{height: 12}}/>

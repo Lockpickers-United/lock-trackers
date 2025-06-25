@@ -49,7 +49,8 @@ export default [
     {
         title: 'Challenge Locks',
         icon: <LockPersonIcon fontSize='small'/>,
-        path: '/challengelocks'
+        path: '/challengelocks',
+        beta: true,
     },
     {
         admin: true,

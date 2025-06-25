@@ -157,6 +157,13 @@ export default [
         }
     },
     {
+        path: '/beta',
+        lazy: async () => {
+            const {default: BetaToggleRoute} = await import('../betaToggle/BetaToggleRoute.jsx')
+            return {element: <BetaToggleRoute/>}
+        }
+    },
+    {
         path: '*',
         loader: () => redirect('/lockbazaar')
     }
