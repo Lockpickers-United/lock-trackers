@@ -1,11 +1,13 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import Card from '@mui/material/Card'
 import ToggleBetaButton from '../nav/ToggleBetaButton.jsx'
+import AppContext from '../app/AppContext.jsx'
 
 function BetaToggle() {
+    const {beta} = useContext(AppContext)
 
     const {width} = useWindowSize()
     const smallWindow = width <= 560
@@ -39,7 +41,8 @@ function BetaToggle() {
                         marginTop: 20,
                         marginBottom: 15
                     }}>
-
+                        {beta ? 'Beta features are currently enabled.' : 'Beta features disabled.'}
+                        <br/><br/><br/>
                         <ToggleBetaButton/>
 
 

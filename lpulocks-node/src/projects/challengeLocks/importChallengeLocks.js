@@ -20,7 +20,7 @@ dbProd.settings({ignoreUndefinedProperties: true})
 const dbDev = getFirestore(requestapp, 'locktrackersdev')
 dbDev.settings({ignoreUndefinedProperties: true})
 
-const db = dbDev
+const db = dbProd
 let errors = []
 
 const lockData = JSON.parse(await fs.promises.readFile('./challengeLockImport.json', 'utf8'))

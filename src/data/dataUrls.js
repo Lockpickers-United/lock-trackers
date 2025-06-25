@@ -3,6 +3,8 @@ const url = import.meta.env && import.meta.env.VITE_LOCAL_DATA === 'true' //esli
     : 'https://lpubelts.com'
 
 const {VITE_DEV_FIRESTORE: devFirestore} = import.meta.env
+
+// TODO : Change dev port when everything is working.
 export const nodeServerUrl = devFirestore==='true' ? 'https://lpulocks.com:7443' : 'https://lpulocks.com:7443'
 
 
@@ -14,7 +16,6 @@ export const allLocks = 'https://lpubelts.com/data.json'
 export const lockBazaarData = 'https://data.lpulocks.com/lockbazaar/lockBazaarData.json'
 export const badListingData = 'https://data.lpulocks.com/lockbazaar/badListings.json'
 
-// TODO switch to https://data.lpulocks.com/
 export const jsonBackup = 'https://data.lpulocks.com/speedpicks/backup.json'
 
 export const siteFull = '/reports/statsSiteFull.json'

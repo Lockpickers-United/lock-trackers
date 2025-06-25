@@ -53,7 +53,8 @@ export function DataProvider({children}) {
                     hasProblems: entry.problems?.length > 0 ? 'problems' : null,
                     checkInCount: entry.checkInIds?.length || 0,
                     successCount: entry.checkInIdsSuccessful?.length || 0,
-                    lockingMechanism: entry.lockingMechanism || 'Pin-tumbler'
+                    lockingMechanism: entry.lockingMechanism || 'Pin-tumbler',
+                    hasImages: entry.media?.length > 0 ? 'Images' : 'No Images'
                 }
             })
             : []

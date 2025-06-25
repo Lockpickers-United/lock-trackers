@@ -18,7 +18,6 @@ import submitChallengeLock, {submitCheckIn, updateLockMedia, reportProblem, clea
 const prodServer = true
 const prodDB = false
 
-
 const ports = prodServer ? {http: 7080, https: 7443} : {http: 2080, https: 2443}
 const envText = prodServer ? '' : ' (DEV)'
 

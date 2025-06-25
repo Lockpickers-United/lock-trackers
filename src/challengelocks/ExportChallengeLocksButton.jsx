@@ -51,14 +51,15 @@ function ExportChallengeLocksButton({text, entries}) {
     }, [handleClose, exportEntries])
 
     const handleExportCsv = useCallback(() => {
-        const csvColumns = ['id', 'name', 'maker', 'created', 'format', 'lockingMechanism']
+        const csvColumns = ['id', 'name', 'maker', 'created', 'format', 'lockingMechanism','updatedAt']
         const data = exportEntries.map(datum => ({
             id: datum.id,
             name: datum.name,
             maker: datum.maker,
             created: dayjs(datum.lockCreated).format('YYYY-MM-DD'),
             format: datum.lockFormat,
-            lockingMechanism: datum.lockingMechanism
+            lockingMechanism: datum.lockingMechanism,
+            updatedAt: datum.updatedAt
         }))
 
         const headers = csvColumns.join(',')

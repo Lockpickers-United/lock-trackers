@@ -153,12 +153,12 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         (mainPhoto.length > 0 || entry)
 
     const getHighlightColor = useCallback(field => {
-        return requiredFields.includes(field) && !form[field]
+        return (requiredFields.includes(field) && !form[field]) || (field === 'mainPhoto' && mainPhoto.length === 0)
             ? '#d00'
-            : requiredFields.includes(field)
+            : requiredFields.includes(field) || field === 'mainPhoto'
                 ? '#090'
                 : 'inherit'
-    }, [form, requiredFields])
+    }, [form, mainPhoto.length, requiredFields])
 
     const handleDroppedFiles = useCallback((allFiles, zoneId = 'dropzone') => {
         if (zoneId === 'mainPhoto') {

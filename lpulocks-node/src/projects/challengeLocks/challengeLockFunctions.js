@@ -14,7 +14,7 @@ import {exec} from 'child_process'
 import createThumbnails from '../../util/createThumbnails.js'
 import {contentUploadRecipients, prodUser} from '../../../keys/users.js'
 import admin from 'firebase-admin'
-import {getFirestore, FieldValue} from 'firebase-admin/firestore'
+import {getFirestore, FieldValue, setDoc} from 'firebase-admin/firestore'
 import jsonIt from '../../util/jsonIt.js'
 import validator from 'validator'
 import dayjs from 'dayjs'
@@ -238,6 +238,7 @@ export async function updateLockMedia(req, res) {
 
 export default async function submitChallengeLock(req, res) {
 
+    const sendEmail = false
     let subdirs = ''
     let filepaths = []
 
@@ -324,6 +325,9 @@ export default async function submitChallengeLock(req, res) {
 
         const ref = db.collection('challenge-locks').doc(entry.id)
         try {
+
+            // TODO : add support for {merge: false}
+
             await setDocument(ref, entry, entry.id)
         } catch (error) {
             handleError(res, 'Failed to create Challenge Lock', error, 500)
@@ -334,7 +338,7 @@ export default async function submitChallengeLock(req, res) {
             const filesToDelete = filepaths ? [...filepaths] : []
             filesToDelete.shift()
 
-            // TODO: crashing?? use setTimeout and/or promises all
+            // TODO: crashing?? use setTimeout and/or promises all?
             filesToDelete.map((filepath) => {
                 console.log('trying to delete original file:', filepath.replace(serverPath, uploadDir))
                 fs.rmSync(`${filepath.replace(serverPath, uploadDir)}`, {force: true})
@@ -353,7 +357,7 @@ export default async function submitChallengeLock(req, res) {
         }
         fieldsHtml += '</table>'
 
-        try {
+        if (sendEmail) try {
             const email = await sendEmail({
                 emailConfig: 'challengeLock',
                 to: contentUploadRecipients,

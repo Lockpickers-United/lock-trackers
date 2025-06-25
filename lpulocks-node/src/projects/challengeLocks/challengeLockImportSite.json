@@ -1,0 +1,1588 @@
+[
+  {
+    "ratingCreativity": [
+      3
+    ],
+    "id": "cl_ef5a1ecf",
+    "latestUpdate": {
+      "successfulPick": "Yes",
+      "id": "clci_b92fd518",
+      "userBelt": "Brown",
+      "username": "Lockpicking.Engineer",
+      "pickDate": "2025-06-01T05:00:00.000Z",
+      "displayName": "LockpickingEngineer",
+      "submittedAt": "2025-06-06T00:41:23.492Z",
+      "lockId": "cl_ef5a1ecf",
+      "userId": "cm8oFWt2fBPTYdyhqnjBMsHlfNy1",
+      "ratingDifficulty": "4",
+      "usernamePlatform": "discord",
+      "ratingCreativity": "3",
+      "ratingFun": "3",
+      "approxBelt": "Orange",
+      "country": "United States of America",
+      "ratingQuality": "1"
+    },
+    "lockCreatedAt": "2025-05-06T04:00:00.000Z",
+    "updatedAt": "2025-06-25T19:44:59.907Z",
+    "displayName": "mgsecure",
+    "lockFormat": "Padlock",
+    "originalLock": "American Lock 1100",
+    "ratingQuality": [
+      1
+    ],
+    "submittedByUserBelt": "Green",
+    "name": "Smooth Sailing",
+    "checkInIdsSuccessful": [
+      "clci_b92fd518"
+    ],
+    "ratingDifficulty": [
+      4
+    ],
+    "media": [
+      {
+        "sequenceId": 1,
+        "subtitle": "CC BY-NC-SA 4.0",
+        "fullSizeUrl": "https://data.lpulocks.com/lockbazaar/images/smooth-sailing-alexio_xela-cl_ef5a1ecf/smooth-sailing_1000022390_alexio_xela-main-1024.jpg",
+        "imageTitle": "Smooth Sailing",
+        "dateAdded": "2025-05-30T14:50:30.252Z",
+        "fullUrl": "https://data.lpulocks.com/lockbazaar/images/smooth-sailing-alexio_xela-cl_ef5a1ecf/smooth-sailing_1000022390_alexio_xela-main.jpg",
+        "thumbnailUrl": "https://data.lpulocks.com/lockbazaar/images/smooth-sailing-alexio_xela-cl_ef5a1ecf/smooth-sailing_1000022390_alexio_xela-main-500.jpg",
+        "title": "By: Alexio_Xela"
+      }
+    ],
+    "approximateBelt": "Green",
+    "approxBelt": [],
+    "source": "site",
+    "maker": "Alexio_Xela",
+    "country": "United States of America",
+    "submittedByDisplayName": "Alexio_Xela",
+    "submittedByUserId": "2rZmEpO8IqgFdemhmPEHP4j07yR2",
+    "submittedByUsernamePlatform": "discord",
+    "submittedByUsername": "Alexio_Xela",
+    "submittedAt": "2025-05-30T14:50:30.012Z",
+    "thumbnail": "https://data.lpulocks.com/lockbazaar/images/smooth-sailing-alexio_xela-cl_ef5a1ecf/smooth-sailing_1000022390_alexio_xela-main-200-sq.jpg",
+    "checkInIds": [
+      "clci_b92fd518"
+    ],
+    "lockingMechanism": "Pin-tumbler",
+    "ratingFun": [
+      3
+    ]
+  },
+  {
+    "lockingMechanism": "Pin-tumbler",
+    "originalLock": "American 1100",
+    "thumbnail": "https://data.lpulocks.com/lockbazaar/images/rough-waters-alexio_xela-cl_08a043c7/rough-waters_1000022393_alexio_xela-main-200-sq.jpg",
+    "submittedByUserBelt": "Green",
+    "submittedByDisplayName": "Alexio_Xela",
+    "updatedAt": "2025-06-25T19:28:01.919Z",
+    "country": "United States of America",
+    "name": "Rough Waters",
+    "maker": "Alexio_Xela",
+    "id": "cl_08a043c7",
+    "displayName": "mgsecure",
+    "lockCreatedAt": "2025-05-01T04:00:00.000Z",
+    "approxBelt": [],
+    "source": "site",
+    "submittedByUsername": "Alexio_Xela",
+    "submittedAt": "2025-05-30T14:53:49.704Z",
+    "lockFormat": "Padlock",
+    "approximateBelt": "Green",
+    "submittedByUsernamePlatform": "discord",
+    "submittedByUserId": "2rZmEpO8IqgFdemhmPEHP4j07yR2",
+    "media": [
+      {
+        "imageTitle": "Rough Waters",
+        "thumbnailUrl": "https://data.lpulocks.com/lockbazaar/images/rough-waters-alexio_xela-cl_08a043c7/rough-waters_1000022393_alexio_xela-main-500.jpg",
+        "fullUrl": "https://data.lpulocks.com/lockbazaar/images/rough-waters-alexio_xela-cl_08a043c7/rough-waters_1000022393_alexio_xela-main.jpg",
+        "fullSizeUrl": "https://data.lpulocks.com/lockbazaar/images/rough-waters-alexio_xela-cl_08a043c7/rough-waters_1000022393_alexio_xela-main-1024.jpg",
+        "sequenceId": 1,
+        "dateAdded": "2025-05-30T14:53:49.827Z",
+        "title": "By: Alexio_Xela",
+        "subtitle": "CC BY-NC-SA 4.0"
+      }
+    ]
+  },
+  {
+    "updatedAt": "2025-06-25T17:49:43.390Z",
+    "checkInIds": [
+      "clci_5a2e0ec6"
+    ],
+    "ratingQuality": [
+      2
+    ],
+    "maker": "Chumi",
+    "ratingDifficulty": [
+      5
+    ],
+    "country": "Mexico",
+    "submittedByDisplayName": "Chumi",
+    "ratingFun": [
+      1
+    ],
+    "ratingCreativity": [
+      1
+    ],
+    "lockFormat": "Other",
+    "submittedByUserBelt": "Red",
+    "submittedByUsernamePlatform": "Discord",
+    "checkInIdsSuccessful": [
+      "clci_5a2e0ec6"
+    ],
+    "lockingMechanism": "Multiple",
+    "description": "Ash nazg durbatulûk, ash nazg gimbatul,ash nazg thrakatulûk agh burzum-ishi krimpatul.",
+    "name": "úín",
+    "submittedAt": "2025-06-25T17:48:45.285Z",
+    "submittedByUsername": "Chumi",
+    "latestUpdate": {
+      "stateProvince": "Chihuahua",
+      "username": "Chumi",
+      "successfulPick": "Yes",
+      "usernamePlatform": "Discord",
+      "ratingDifficulty": "5",
+      "userId": "gOBdFGtmrVbclLzASXxF6114tnC3",
+      "ratingFun": "1",
+      "pickDate": "2025-06-25T06:00:00.000Z",
+      "ratingCreativity": "1",
+      "submittedAt": "2025-06-25T17:49:42.479Z",
+      "country": "Mexico",
+      "ratingQuality": "2",
+      "userBelt": "Red",
+      "id": "clci_5a2e0ec6",
+      "lockId": "cl_be165753",
+      "displayName": "Chumi"
+    },
+    "submittedByUserId": "gOBdFGtmrVbclLzASXxF6114tnC3",
+    "stateProvince": "Chihuahua",
+    "originalLock": "One ring",
+    "id": "cl_be165753",
+    "mainPhoto": "true",
+    "lockCreated": "2025-06-24T06:00:00.000Z",
+    "media": [
+      {
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/n-undefined-cl_be165753/n_mesa-de-trabajo-11_undefined-200-sq.png",
+        "imageTitle": "úín",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/n-undefined-cl_be165753/n_mesa-de-trabajo-11_undefined.png",
+        "title": "By: Unknown",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/n-undefined-cl_be165753/n_mesa-de-trabajo-11_undefined-500.png",
+        "sequenceId": 1,
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/n-undefined-cl_be165753/n_mesa-de-trabajo-11_undefined-1024.png",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "dateAdded": "2025-06-25T17:48:45.398Z"
+      }
+    ],
+    "displayName": "Chumi",
+    "source": "site"
+  },
+  {
+    "maker": "NICVT",
+    "submittedByUsername": "Nicvt_locks",
+    "lockCreated": "2024-11-30T05:00:00.000Z",
+    "id": "cl_ea7f68e6",
+    "stateProvince": "Kentucky",
+    "mainPhoto": "true",
+    "submittedByUserBelt": "Black",
+    "submittedByUserId": "PHU1oYSJfKQbKarqTygoqMIG2Cr2",
+    "lockFormat": "KIK",
+    "updatedAt": "2025-06-25T13:57:45.489Z",
+    "lockingMechanism": "Pin-tumbler",
+    "name": "Fat Tuesday ",
+    "media": [
+      {
+        "sequenceId": 1,
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/fat-tuesday-undefined-cl_ea7f68e6/fat-tuesday-_img_9881_undefined-500.jpeg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "dateAdded": "2025-06-25T13:57:45.584Z",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/fat-tuesday-undefined-cl_ea7f68e6/fat-tuesday-_img_9881_undefined-200-sq.jpeg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/fat-tuesday-undefined-cl_ea7f68e6/fat-tuesday-_img_9881_undefined.jpeg",
+        "imageTitle": "Fat Tuesday ",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/fat-tuesday-undefined-cl_ea7f68e6/fat-tuesday-_img_9881_undefined-1024.jpeg",
+        "title": "By: Unknown"
+      }
+    ],
+    "submittedByUsernamePlatform": "Discord",
+    "submittedAt": "2025-06-25T13:57:45.489Z",
+    "displayName": "NICVT_locks",
+    "submittedByDisplayName": "NICVT_locks",
+    "source": "site",
+    "country": "United States of America"
+  },
+  {
+    "submittedByDisplayName": "LockpickingEngineer",
+    "source": "site",
+    "submittedByUsername": "Lockpicking.Engineer",
+    "id": "cl_be14f012",
+    "mainPhoto": "true",
+    "lockCreated": "2025-06-19T05:00:00.000Z",
+    "updatedAt": "2025-06-25T01:52:34.538Z",
+    "displayName": "LockpickingEngineer",
+    "maker": "LockpickingEngineer",
+    "country": "United States of America",
+    "stateProvince": "Louisiana",
+    "submittedByUsernamePlatform": "Discord",
+    "lockFormat": "Mortise",
+    "submittedAt": "2025-06-25T01:52:34.538Z",
+    "lockingMechanism": "Pin-tumbler",
+    "name": "LJ 400 (LPE #5)",
+    "media": [
+      {
+        "dateAdded": "2025-06-25T01:52:35.420Z",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/lj-400-lpe-5-undefined-cl_be14f012/lj-400-lpe-5_1000009076_undefined.jpg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "sequenceId": 1,
+        "title": "By: Unknown",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/lj-400-lpe-5-undefined-cl_be14f012/lj-400-lpe-5_1000009076_undefined-500.jpg",
+        "imageTitle": "LJ 400 (LPE #5)",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/lj-400-lpe-5-undefined-cl_be14f012/lj-400-lpe-5_1000009076_undefined-200-sq.jpg",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/lj-400-lpe-5-undefined-cl_be14f012/lj-400-lpe-5_1000009076_undefined-1024.jpg"
+      },
+      {
+        "dateAdded": "2025-06-25T01:52:35.096Z",
+        "sequenceId": 2,
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/lj-400-lpe-5-undefined-cl_be14f012/lj-400-lpe-5_1000009077_undefined.jpg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "imageTitle": "LJ 400 (LPE #5)",
+        "title": "By: Unknown",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/lj-400-lpe-5-undefined-cl_be14f012/lj-400-lpe-5_1000009076_undefined-200-sq.jpg",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/lj-400-lpe-5-undefined-cl_be14f012/lj-400-lpe-5_1000009077_undefined-500.jpg",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/lj-400-lpe-5-undefined-cl_be14f012/lj-400-lpe-5_1000009077_undefined-1024.jpg"
+      },
+      {
+        "dateAdded": "2025-06-25T01:52:35.054Z",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/lj-400-lpe-5-undefined-cl_be14f012/lj-400-lpe-5_1000009078_undefined-1024.jpg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/lj-400-lpe-5-undefined-cl_be14f012/lj-400-lpe-5_1000009078_undefined.jpg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "sequenceId": 3,
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/lj-400-lpe-5-undefined-cl_be14f012/lj-400-lpe-5_1000009076_undefined-200-sq.jpg",
+        "title": "By: Unknown",
+        "imageTitle": "LJ 400 (LPE #5)",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/lj-400-lpe-5-undefined-cl_be14f012/lj-400-lpe-5_1000009078_undefined-500.jpg"
+      }
+    ],
+    "submittedByUserId": "cm8oFWt2fBPTYdyhqnjBMsHlfNy1",
+    "submittedByUserBelt": "Brown"
+  },
+  {
+    "media": [
+      {
+        "sequenceId": 1,
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/from-usa-to-down-under-lpe3-undefined-cl_b0cb1b28/from-usa-to-down-under-lpe3_20250220_165912_undefined-500.jpg",
+        "dateAdded": "2025-06-25T01:51:10.911Z",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "title": "By: Unknown",
+        "imageTitle": "From : USA To: Down Under (LPE#3)",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/from-usa-to-down-under-lpe3-undefined-cl_b0cb1b28/from-usa-to-down-under-lpe3_20250220_165912_undefined-200-sq.jpg",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/from-usa-to-down-under-lpe3-undefined-cl_b0cb1b28/from-usa-to-down-under-lpe3_20250220_165912_undefined-1024.jpg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/from-usa-to-down-under-lpe3-undefined-cl_b0cb1b28/from-usa-to-down-under-lpe3_20250220_165912_undefined.jpg"
+      },
+      {
+        "sequenceId": 2,
+        "dateAdded": "2025-06-25T01:51:11.053Z",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/from-usa-to-down-under-lpe3-undefined-cl_b0cb1b28/from-usa-to-down-under-lpe3_20250220_185240-1_undefined-500.jpg",
+        "title": "By: Unknown",
+        "imageTitle": "From : USA To: Down Under (LPE#3)",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/from-usa-to-down-under-lpe3-undefined-cl_b0cb1b28/from-usa-to-down-under-lpe3_20250220_185240-1_undefined.jpg",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/from-usa-to-down-under-lpe3-undefined-cl_b0cb1b28/from-usa-to-down-under-lpe3_20250220_185240-1_undefined-1024.jpg",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/from-usa-to-down-under-lpe3-undefined-cl_b0cb1b28/from-usa-to-down-under-lpe3_20250220_165912_undefined-200-sq.jpg"
+      },
+      {
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/from-usa-to-down-under-lpe3-undefined-cl_b0cb1b28/from-usa-to-down-under-lpe3_20250220_185224-1_undefined.jpg",
+        "dateAdded": "2025-06-25T01:51:11.012Z",
+        "sequenceId": 3,
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/from-usa-to-down-under-lpe3-undefined-cl_b0cb1b28/from-usa-to-down-under-lpe3_20250220_165912_undefined-200-sq.jpg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "imageTitle": "From : USA To: Down Under (LPE#3)",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/from-usa-to-down-under-lpe3-undefined-cl_b0cb1b28/from-usa-to-down-under-lpe3_20250220_185224-1_undefined-1024.jpg",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/from-usa-to-down-under-lpe3-undefined-cl_b0cb1b28/from-usa-to-down-under-lpe3_20250220_185224-1_undefined-500.jpg",
+        "title": "By: Unknown"
+      }
+    ],
+    "lockFormat": "Mortise",
+    "maker": "LockpickingEngineer",
+    "source": "site",
+    "submittedAt": "2025-06-25T01:51:10.338Z",
+    "lockingMechanism": "Pin-tumbler",
+    "country": "United States of America",
+    "id": "cl_b0cb1b28",
+    "submittedByDisplayName": "LockpickingEngineer",
+    "displayName": "LockpickingEngineer",
+    "submittedByUsernamePlatform": "Discord",
+    "mainPhoto": "true",
+    "submittedByUserBelt": "Brown",
+    "name": "From : USA To: Down Under (LPE#3)",
+    "updatedAt": "2025-06-25T01:51:10.338Z",
+    "lockCreated": "2025-02-20T06:00:00.000Z",
+    "submittedByUserId": "cm8oFWt2fBPTYdyhqnjBMsHlfNy1",
+    "submittedByUsername": "Lockpicking.Engineer",
+    "stateProvince": "Louisiana"
+  },
+  {
+    "submittedByUserBelt": "Brown",
+    "stateProvince": "Louisiana",
+    "displayName": "LockpickingEngineer",
+    "submittedByUsername": "Lockpicking.Engineer",
+    "updatedAt": "2025-06-25T01:46:23.382Z",
+    "maker": "LockpickingEngineer",
+    "submittedByUsernamePlatform": "Discord",
+    "id": "cl_23b9cbda",
+    "source": "site",
+    "submittedAt": "2025-06-25T01:46:23.382Z",
+    "name": "Wandering Lock (LPE #4)",
+    "submittedByDisplayName": "LockpickingEngineer",
+    "mainPhoto": "true",
+    "lockFormat": "Mortise",
+    "media": [
+      {
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/wandering-lock-lpe-4-undefined-cl_23b9cbda/wandering-lock-lpe-4_20250304_161822_undefined.jpg",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/wandering-lock-lpe-4-undefined-cl_23b9cbda/wandering-lock-lpe-4_20250304_161822_undefined-200-sq.jpg",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/wandering-lock-lpe-4-undefined-cl_23b9cbda/wandering-lock-lpe-4_20250304_161822_undefined-500.jpg",
+        "title": "By: Unknown",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/wandering-lock-lpe-4-undefined-cl_23b9cbda/wandering-lock-lpe-4_20250304_161822_undefined-1024.jpg",
+        "dateAdded": "2025-06-25T01:46:24.926Z",
+        "imageTitle": "Wandering Lock (LPE #4)",
+        "sequenceId": 1,
+        "subtitle": "CC BY-NC-SA 4.0"
+      },
+      {
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/wandering-lock-lpe-4-undefined-cl_23b9cbda/wandering-lock-lpe-4_20250304_161822_undefined-200-sq.jpg",
+        "sequenceId": 2,
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/wandering-lock-lpe-4-undefined-cl_23b9cbda/wandering-lock-lpe-4_20250304_162700_undefined.jpg",
+        "title": "By: Unknown",
+        "imageTitle": "Wandering Lock (LPE #4)",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/wandering-lock-lpe-4-undefined-cl_23b9cbda/wandering-lock-lpe-4_20250304_162700_undefined-500.jpg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/wandering-lock-lpe-4-undefined-cl_23b9cbda/wandering-lock-lpe-4_20250304_162700_undefined-1024.jpg",
+        "dateAdded": "2025-06-25T01:46:24.468Z"
+      },
+      {
+        "dateAdded": "2025-06-25T01:46:24.481Z",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/wandering-lock-lpe-4-undefined-cl_23b9cbda/wandering-lock-lpe-4_20250304_162650_undefined-500.jpg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/wandering-lock-lpe-4-undefined-cl_23b9cbda/wandering-lock-lpe-4_20250304_162650_undefined-1024.jpg",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/wandering-lock-lpe-4-undefined-cl_23b9cbda/wandering-lock-lpe-4_20250304_161822_undefined-200-sq.jpg",
+        "sequenceId": 3,
+        "imageTitle": "Wandering Lock (LPE #4)",
+        "title": "By: Unknown",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/wandering-lock-lpe-4-undefined-cl_23b9cbda/wandering-lock-lpe-4_20250304_162650_undefined.jpg"
+      },
+      {
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/wandering-lock-lpe-4-undefined-cl_23b9cbda/wandering-lock-lpe-4_20250304_162718_undefined-500.jpg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "imageTitle": "Wandering Lock (LPE #4)",
+        "sequenceId": 4,
+        "dateAdded": "2025-06-25T01:46:24.952Z",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/wandering-lock-lpe-4-undefined-cl_23b9cbda/wandering-lock-lpe-4_20250304_162718_undefined-1024.jpg",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/wandering-lock-lpe-4-undefined-cl_23b9cbda/wandering-lock-lpe-4_20250304_161822_undefined-200-sq.jpg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/wandering-lock-lpe-4-undefined-cl_23b9cbda/wandering-lock-lpe-4_20250304_162718_undefined.jpg",
+        "title": "By: Unknown"
+      }
+    ],
+    "country": "United States of America",
+    "lockingMechanism": "Pin-tumbler",
+    "lockCreated": "2025-03-04T06:00:00.000Z",
+    "submittedByUserId": "cm8oFWt2fBPTYdyhqnjBMsHlfNy1"
+  },
+  {
+    "mainPhoto": "true",
+    "stateProvince": "Louisiana",
+    "country": "United States of America",
+    "submittedByUsernamePlatform": "Discord",
+    "submittedByUsername": "Lockpicking.Engineer",
+    "submittedAt": "2025-06-25T01:42:59.569Z",
+    "lockCreated": "2024-12-28T06:00:00.000Z",
+    "source": "site",
+    "name": "Lost Lock (LPE #2)",
+    "displayName": "LockpickingEngineer",
+    "submittedByUserBelt": "Brown",
+    "id": "cl_49564003",
+    "lockFormat": "Mortise",
+    "updatedAt": "2025-06-25T01:42:59.569Z",
+    "submittedByDisplayName": "LockpickingEngineer",
+    "maker": "LockpickingEngineer",
+    "lockingMechanism": "Pin-tumbler",
+    "submittedByUserId": "cm8oFWt2fBPTYdyhqnjBMsHlfNy1",
+    "media": [
+      {
+        "title": "By: Unknown",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/lost-lock-lpe-2-undefined-cl_49564003/lost-lock-lpe-2_20241228_142519-1_undefined-1024.jpg",
+        "sequenceId": 1,
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/lost-lock-lpe-2-undefined-cl_49564003/lost-lock-lpe-2_20241228_142519-1_undefined-500.jpg",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/lost-lock-lpe-2-undefined-cl_49564003/lost-lock-lpe-2_20241228_142519-1_undefined-200-sq.jpg",
+        "imageTitle": "Lost Lock (LPE #2)",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/lost-lock-lpe-2-undefined-cl_49564003/lost-lock-lpe-2_20241228_142519-1_undefined.jpg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "dateAdded": "2025-06-25T01:42:59.939Z"
+      },
+      {
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/lost-lock-lpe-2-undefined-cl_49564003/lost-lock-lpe-2_20241228_142108-1_undefined-500.jpg",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/lost-lock-lpe-2-undefined-cl_49564003/lost-lock-lpe-2_20241228_142108-1_undefined-1024.jpg",
+        "dateAdded": "2025-06-25T01:42:59.962Z",
+        "imageTitle": "Lost Lock (LPE #2)",
+        "sequenceId": 2,
+        "title": "By: Unknown",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/lost-lock-lpe-2-undefined-cl_49564003/lost-lock-lpe-2_20241228_142108-1_undefined.jpg",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/lost-lock-lpe-2-undefined-cl_49564003/lost-lock-lpe-2_20241228_142519-1_undefined-200-sq.jpg",
+        "subtitle": "CC BY-NC-SA 4.0"
+      },
+      {
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/lost-lock-lpe-2-undefined-cl_49564003/lost-lock-lpe-2_20241228_142052-1_undefined-500.jpg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "title": "By: Unknown",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/lost-lock-lpe-2-undefined-cl_49564003/lost-lock-lpe-2_20241228_142519-1_undefined-200-sq.jpg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/lost-lock-lpe-2-undefined-cl_49564003/lost-lock-lpe-2_20241228_142052-1_undefined.jpg",
+        "dateAdded": "2025-06-25T01:42:59.966Z",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/lost-lock-lpe-2-undefined-cl_49564003/lost-lock-lpe-2_20241228_142052-1_undefined-1024.jpg",
+        "imageTitle": "Lost Lock (LPE #2)",
+        "sequenceId": 3
+      }
+    ]
+  },
+  {
+    "maker": "Hyperion ",
+    "submittedByDisplayName": "Hyperion",
+    "country": "United States of America",
+    "source": "site",
+    "submittedByUsername": "Hyperion_Darkness ",
+    "lockFormat": "KIK",
+    "submittedByUserId": "wE31g5qSO1UNm9gGrKQnZtX1jmN2",
+    "lockCreated": "2024-09-01T06:00:00.000Z",
+    "stateProvince": "Colorado",
+    "media": [
+      {
+        "dateAdded": "2025-06-24T15:03:57.448Z",
+        "sequenceId": 1,
+        "subtitle": "CC BY-NC-SA 4.0",
+        "imageTitle": "Click Bait",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/click-bait-undefined-cl_626adf50/click-bait_img_4821_undefined.jpg",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/click-bait-undefined-cl_626adf50/click-bait_img_4821_undefined-200-sq.jpg",
+        "title": "By: Unknown",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/click-bait-undefined-cl_626adf50/click-bait_img_4821_undefined-1024.jpg",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/click-bait-undefined-cl_626adf50/click-bait_img_4821_undefined-500.jpg"
+      },
+      {
+        "dateAdded": "2025-06-24T15:03:57.738Z",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/click-bait-undefined-cl_626adf50/click-bait_img_5067_undefined-1024.jpg",
+        "title": "By: Unknown",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/click-bait-undefined-cl_626adf50/click-bait_img_5067_undefined-500.jpg",
+        "imageTitle": "Click Bait",
+        "sequenceId": 2,
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/click-bait-undefined-cl_626adf50/click-bait_img_4821_undefined-200-sq.jpg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/click-bait-undefined-cl_626adf50/click-bait_img_5067_undefined.jpg"
+      },
+      {
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/click-bait-undefined-cl_626adf50/click-bait_img_5068_undefined-1024.jpg",
+        "sequenceId": 3,
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/click-bait-undefined-cl_626adf50/click-bait_img_5068_undefined-500.jpg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/click-bait-undefined-cl_626adf50/click-bait_img_5068_undefined.jpg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/click-bait-undefined-cl_626adf50/click-bait_img_4821_undefined-200-sq.jpg",
+        "title": "By: Unknown",
+        "dateAdded": "2025-06-24T15:03:57.298Z",
+        "imageTitle": "Click Bait"
+      }
+    ],
+    "submittedByUsernamePlatform": "Discord",
+    "displayName": "Hyperion",
+    "updatedAt": "2025-06-24T15:03:57.010Z",
+    "name": "Click Bait",
+    "mainPhoto": "true",
+    "submittedByUserBelt": "Black",
+    "submittedAt": "2025-06-24T15:03:57.010Z",
+    "id": "cl_626adf50"
+  },
+  {
+    "submittedByDisplayName": "Hyperion",
+    "originalLock": "Master Lock 6321",
+    "displayName": "Hyperion",
+    "submittedByUserId": "wE31g5qSO1UNm9gGrKQnZtX1jmN2",
+    "stateProvince": "Colorado",
+    "mainPhoto": "true",
+    "name": "Biggy",
+    "media": [
+      {
+        "subtitle": "CC BY-NC-SA 4.0",
+        "imageTitle": "Biggy",
+        "sequenceId": 1,
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/biggy-undefined-cl_60814a79/biggy_img_3886_undefined-200-sq.jpg",
+        "title": "By: Unknown",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/biggy-undefined-cl_60814a79/biggy_img_3886_undefined.jpg",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/biggy-undefined-cl_60814a79/biggy_img_3886_undefined-500.jpg",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/biggy-undefined-cl_60814a79/biggy_img_3886_undefined-1024.jpg",
+        "dateAdded": "2025-06-24T15:02:39.119Z"
+      },
+      {
+        "dateAdded": "2025-06-24T15:02:39.106Z",
+        "title": "By: Unknown",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/biggy-undefined-cl_60814a79/biggy_img_3854_undefined-500.jpg",
+        "sequenceId": 2,
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/biggy-undefined-cl_60814a79/biggy_img_3854_undefined.jpg",
+        "imageTitle": "Biggy",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/biggy-undefined-cl_60814a79/biggy_img_3886_undefined-200-sq.jpg",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/biggy-undefined-cl_60814a79/biggy_img_3854_undefined-1024.jpg",
+        "subtitle": "CC BY-NC-SA 4.0"
+      },
+      {
+        "dateAdded": "2025-06-24T15:02:39.042Z",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/biggy-undefined-cl_60814a79/biggy_img_3886_undefined-200-sq.jpg",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/biggy-undefined-cl_60814a79/biggy_img_3885_undefined-1024.jpg",
+        "imageTitle": "Biggy",
+        "title": "By: Unknown",
+        "sequenceId": 3,
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/biggy-undefined-cl_60814a79/biggy_img_3885_undefined.jpg",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/biggy-undefined-cl_60814a79/biggy_img_3885_undefined-500.jpg"
+      }
+    ],
+    "id": "cl_60814a79",
+    "submittedByUsername": "Hyperion_Darkness ",
+    "submittedByUsernamePlatform": "Discord",
+    "country": "United States of America",
+    "submittedAt": "2025-06-24T15:02:37.941Z",
+    "source": "site",
+    "maker": "Hyperion ",
+    "lockCreated": "2024-08-01T06:00:00.000Z",
+    "submittedByUserBelt": "Black",
+    "lockFormat": "Padlock",
+    "lockingMechanism": "Pin-tumbler",
+    "updatedAt": "2025-06-24T15:02:37.941Z"
+  },
+  {
+    "id": "cl_7c3e8ad8",
+    "ratingQuality": [
+      4
+    ],
+    "displayName": "Hyperion",
+    "checkInIds": [
+      "clci_20929262"
+    ],
+    "submittedByUsername": "Hyperion_Darkness ",
+    "maker": "Lockdonut",
+    "latestUpdate": {
+      "pickDate": "2025-04-02T06:00:00.000Z",
+      "successfulPick": "Yes",
+      "usernamePlatform": "Discord",
+      "ratingFun": "4",
+      "id": "clci_20929262",
+      "userId": "wE31g5qSO1UNm9gGrKQnZtX1jmN2",
+      "submittedAt": "2025-06-24T14:57:56.185Z",
+      "country": "United States of America",
+      "lockId": "cl_7c3e8ad8",
+      "stateProvince": "Colorado",
+      "displayName": "Hyperion",
+      "ratingDifficulty": "3",
+      "videoUrl": "https://youtu.be/fpwk4tiUUfY?si=uV_QSWBEJRyEblZM",
+      "userBelt": "Black",
+      "ratingQuality": "4",
+      "ratingCreativity": "3",
+      "username": "Hyperion_Darkness "
+    },
+    "source": "site",
+    "lockingMechanism": "Trap Pins",
+    "mainPhoto": "true",
+    "submittedByUsernamePlatform": "Discord",
+    "submittedByUserBelt": "Black",
+    "updatedAt": "2025-06-24T14:57:57.200Z",
+    "name": "Nemesis ",
+    "checkInIdsSuccessful": [
+      "clci_20929262"
+    ],
+    "ratingDifficulty": [
+      3
+    ],
+    "lockFormat": "Euro Cylinder",
+    "lockCreated": "2025-04-01T06:00:00.000Z",
+    "ratingCreativity": [
+      3
+    ],
+    "submittedByDisplayName": "Hyperion",
+    "originalLock": "Winkhaus",
+    "submittedAt": "2025-06-24T14:52:15.001Z",
+    "ratingFun": [
+      4
+    ],
+    "submittedByUserId": "wE31g5qSO1UNm9gGrKQnZtX1jmN2",
+    "country": "Canada",
+    "stateProvince": "",
+    "media": [
+      {
+        "title": "By: Unknown",
+        "sequenceId": 1,
+        "imageTitle": "Nemesis ",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/nemesis-undefined-cl_7c3e8ad8/nemesis-_img_6282_undefined-1024.jpeg",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/nemesis-undefined-cl_7c3e8ad8/nemesis-_img_6282_undefined-500.jpeg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/nemesis-undefined-cl_7c3e8ad8/nemesis-_img_6282_undefined.jpeg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "dateAdded": "2025-06-24T14:52:15.173Z",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/nemesis-undefined-cl_7c3e8ad8/nemesis-_img_6282_undefined-200-sq.jpeg"
+      }
+    ]
+  },
+  {
+    "source": "site",
+    "media": [
+      {
+        "title": "By: Unknown",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/donut-challenge-undefined-cl_b728634f/donut-challenge-_img_6283_undefined-1024.jpeg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/donut-challenge-undefined-cl_b728634f/donut-challenge-_img_6283_undefined.jpeg",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/donut-challenge-undefined-cl_b728634f/donut-challenge-_img_6283_undefined-200-sq.jpeg",
+        "dateAdded": "2025-06-24T14:54:53.892Z",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/donut-challenge-undefined-cl_b728634f/donut-challenge-_img_6283_undefined-500.jpeg",
+        "sequenceId": 1,
+        "imageTitle": "Donut Challenge ",
+        "subtitle": "CC BY-NC-SA 4.0"
+      }
+    ],
+    "ratingQuality": [
+      3
+    ],
+    "submittedByDisplayName": "Hyperion",
+    "name": "Donut Challenge ",
+    "lockCreated": "2025-04-01T06:00:00.000Z",
+    "maker": "Lockdonut",
+    "ratingDifficulty": [
+      2
+    ],
+    "submittedByUsernamePlatform": "Discord",
+    "lockingMechanism": "Pin-tumbler",
+    "originalLock": "Yale",
+    "mainPhoto": "true",
+    "stateProvince": "",
+    "submittedAt": "2025-06-24T14:54:53.532Z",
+    "id": "cl_b728634f",
+    "submittedByUsername": "Hyperion_Darkness ",
+    "ratingCreativity": [
+      3
+    ],
+    "country": "Canada",
+    "submittedByUserId": "wE31g5qSO1UNm9gGrKQnZtX1jmN2",
+    "lockFormat": "Euro Cylinder",
+    "displayName": "Hyperion",
+    "latestUpdate": {
+      "usernamePlatform": "discord",
+      "successfulPick": "Yes",
+      "username": "Hyperion_Darkness ",
+      "lockId": "cl_b728634f",
+      "ratingQuality": "3",
+      "pickDate": "2025-01-08T07:00:00.000Z",
+      "country": "United States of America",
+      "videoUrl": "https://youtu.be/BuJ8Sh77EZA?si=HVvzEQVAgXuAMcaG",
+      "ratingDifficulty": "2",
+      "userBelt": "Black",
+      "ratingCreativity": "3",
+      "id": "clci_0f13fa40",
+      "submittedAt": "2025-06-24T14:56:42.635Z",
+      "userId": "wE31g5qSO1UNm9gGrKQnZtX1jmN2",
+      "displayName": "Hyperion",
+      "ratingFun": "3"
+    },
+    "updatedAt": "2025-06-24T14:56:43.598Z",
+    "ratingFun": [
+      3
+    ],
+    "checkInIds": [
+      "clci_0f13fa40"
+    ],
+    "submittedByUserBelt": "Black",
+    "checkInIdsSuccessful": [
+      "clci_0f13fa40"
+    ]
+  },
+  {
+    "updatedAt": "2025-06-24T14:47:53.951Z",
+    "submittedByUserBelt": "Black",
+    "ratingFun": [
+      4
+    ],
+    "ratingDifficulty": [
+      3
+    ],
+    "submittedByUsernamePlatform": "Discord",
+    "submittedByUsername": "Hyperion_Darkness ",
+    "ratingCreativity": [
+      3
+    ],
+    "latestUpdate": {
+      "userId": "wE31g5qSO1UNm9gGrKQnZtX1jmN2",
+      "ratingQuality": "4",
+      "displayName": "Hyperion",
+      "successfulPick": "Yes",
+      "lockId": "cl_913ff939",
+      "ratingCreativity": "3",
+      "username": "Hyperion_Darkness ",
+      "id": "clci_d77540ee",
+      "submittedAt": "2025-06-24T14:47:52.891Z",
+      "ratingFun": "4",
+      "stateProvince": "Colorado",
+      "ratingDifficulty": "3",
+      "pickDate": "2025-05-02T06:00:00.000Z",
+      "userBelt": "Black",
+      "country": "United States of America",
+      "usernamePlatform": "discord"
+    },
+    "lockFormat": "Mortise",
+    "ratingQuality": [
+      4
+    ],
+    "submittedAt": "2025-06-24T14:46:52.216Z",
+    "name": "#5",
+    "maker": "Cyb3rVo1d",
+    "lockCreated": "2025-04-20T06:00:00.000Z",
+    "checkInIdsSuccessful": [
+      "clci_d77540ee"
+    ],
+    "id": "cl_913ff939",
+    "checkInIds": [
+      "clci_d77540ee"
+    ],
+    "displayName": "Hyperion",
+    "media": [
+      {
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/5-undefined-cl_913ff939/5_img_6280_undefined-1024.jpeg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/5-undefined-cl_913ff939/5_img_6280_undefined.jpeg",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/5-undefined-cl_913ff939/5_img_6280_undefined-500.jpeg",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/5-undefined-cl_913ff939/5_img_6280_undefined-200-sq.jpeg",
+        "dateAdded": "2025-06-24T14:46:52.582Z",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "title": "By: Unknown",
+        "imageTitle": "#5",
+        "sequenceId": 1
+      }
+    ],
+    "source": "site",
+    "stateProvince": "",
+    "country": "United States of America",
+    "mainPhoto": "true",
+    "submittedByUserId": "wE31g5qSO1UNm9gGrKQnZtX1jmN2",
+    "lockingMechanism": "Pin-tumbler",
+    "submittedByDisplayName": "Hyperion"
+  },
+  {
+    "stateProvince": "Colorado",
+    "submittedByUserId": "wE31g5qSO1UNm9gGrKQnZtX1jmN2",
+    "media": [
+      {
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/it-undefined-cl_76b797bf/it_img_6279_undefined-1024.jpeg",
+        "title": "By: Unknown",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/it-undefined-cl_76b797bf/it_img_6279_undefined-200-sq.jpeg",
+        "dateAdded": "2025-06-24T14:22:14.488Z",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/it-undefined-cl_76b797bf/it_img_6279_undefined.jpeg",
+        "imageTitle": "IT",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/it-undefined-cl_76b797bf/it_img_6279_undefined-500.jpeg",
+        "sequenceId": 1
+      },
+      {
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/it-hyperion-cl_76b797bf/it_img_5609_hyperion-1024.jpg",
+        "sequenceId": 2,
+        "title": "By: Hyperion",
+        "dateAdded": "2025-06-24T14:23:51.139Z",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/it-hyperion-cl_76b797bf/it_img_5609_hyperion-500.jpg",
+        "imageTitle": "IT",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/it-hyperion-cl_76b797bf/it_img_5609_hyperion-200-sq.jpg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/it-hyperion-cl_76b797bf/it_img_5609_hyperion.jpg"
+      },
+      {
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/it-hyperion-cl_76b797bf/it_img_5595_hyperion-500.jpg",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/it-hyperion-cl_76b797bf/it_img_5609_hyperion-200-sq.jpg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/it-hyperion-cl_76b797bf/it_img_5595_hyperion.jpg",
+        "dateAdded": "2025-06-24T14:23:51.176Z",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/it-hyperion-cl_76b797bf/it_img_5595_hyperion-1024.jpg",
+        "imageTitle": "IT",
+        "sequenceId": 3,
+        "title": "By: Hyperion"
+      },
+      {
+        "dateAdded": "2025-06-24T14:23:51.432Z",
+        "sequenceId": 4,
+        "imageTitle": "IT",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/it-hyperion-cl_76b797bf/it_img_5596_hyperion-500.jpg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/it-hyperion-cl_76b797bf/it_img_5596_hyperion.jpg",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/it-hyperion-cl_76b797bf/it_img_5596_hyperion-1024.jpg",
+        "title": "By: Hyperion",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/it-hyperion-cl_76b797bf/it_img_5609_hyperion-200-sq.jpg"
+      }
+    ],
+    "maker": "Hyperion ",
+    "updatedAt": "2025-06-24T14:23:51.434Z",
+    "country": "United States of America",
+    "originalLock": "MTL Interactive",
+    "lockFormat": "Euro Cylinder",
+    "id": "cl_76b797bf",
+    "lockingMechanism": "Dimple",
+    "name": "IT",
+    "submittedByUsernamePlatform": "Discord",
+    "displayName": "Hyperion",
+    "mainPhoto": "true",
+    "source": "site",
+    "description": "We all float here!",
+    "submittedByDisplayName": "Hyperion",
+    "submittedAt": "2025-06-24T14:22:14.180Z",
+    "submittedByUsername": "Hyperion_Darkness ",
+    "lockCreated": "2025-01-22T07:00:00.000Z",
+    "submittedByUserBelt": "Black"
+  },
+  {
+    "name": "Old AF",
+    "media": [
+      {
+        "subtitle": "CC BY-NC-SA 4.0",
+        "dateAdded": "2025-06-24T13:55:51.570Z",
+        "sequenceId": 1,
+        "imageTitle": "Old AF",
+        "title": "By: Unknown",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/old-af-undefined-cl_97d86c9c/old-af_img_6276_undefined-200-sq.jpeg",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/old-af-undefined-cl_97d86c9c/old-af_img_6276_undefined-1024.jpeg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/old-af-undefined-cl_97d86c9c/old-af_img_6276_undefined.jpeg",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/old-af-undefined-cl_97d86c9c/old-af_img_6276_undefined-500.jpeg"
+      },
+      {
+        "dateAdded": "2025-06-24T14:15:41.194Z",
+        "title": "By: Hyperion",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/old-af-hyperion-cl_97d86c9c/old-af_img_5558_hyperion-1024.jpg",
+        "imageTitle": "Old AF",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/old-af-hyperion-cl_97d86c9c/old-af_img_5558_hyperion.jpg",
+        "sequenceId": 2,
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/old-af-hyperion-cl_97d86c9c/old-af_img_5558_hyperion-500.jpg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/old-af-hyperion-cl_97d86c9c/old-af_img_5540_hyperion-200-sq.jpg"
+      },
+      {
+        "sequenceId": 3,
+        "dateAdded": "2025-06-24T14:15:41.679Z",
+        "title": "By: Hyperion",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/old-af-hyperion-cl_97d86c9c/old-af_img_5562_hyperion-500.jpg",
+        "imageTitle": "Old AF",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/old-af-hyperion-cl_97d86c9c/old-af_img_5562_hyperion-1024.jpg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/old-af-hyperion-cl_97d86c9c/old-af_img_5562_hyperion.jpg",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/old-af-hyperion-cl_97d86c9c/old-af_img_5540_hyperion-200-sq.jpg",
+        "subtitle": "CC BY-NC-SA 4.0"
+      },
+      {
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/old-af-hyperion-cl_97d86c9c/old-af_img_5554_hyperion-1024.jpg",
+        "sequenceId": 4,
+        "subtitle": "CC BY-NC-SA 4.0",
+        "imageTitle": "Old AF",
+        "dateAdded": "2025-06-24T14:15:41.649Z",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/old-af-hyperion-cl_97d86c9c/old-af_img_5554_hyperion.jpg",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/old-af-hyperion-cl_97d86c9c/old-af_img_5540_hyperion-200-sq.jpg",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/old-af-hyperion-cl_97d86c9c/old-af_img_5554_hyperion-500.jpg",
+        "title": "By: Hyperion"
+      }
+    ],
+    "submittedByUsername": "Hyperion_Darkness ",
+    "submittedByUserBelt": "Black",
+    "displayName": "Hyperion",
+    "maker": "Hyperion ",
+    "originalLock": "Yale",
+    "lockingMechanism": "Lever",
+    "lockFormat": "Lever Mortice",
+    "country": "United States of America",
+    "submittedByUsernamePlatform": "Discord",
+    "updatedAt": "2025-06-24T14:16:44.422Z",
+    "mainPhoto": "true",
+    "submittedByUserId": "wE31g5qSO1UNm9gGrKQnZtX1jmN2",
+    "stateProvince": "Colorado",
+    "source": "site",
+    "id": "cl_97d86c9c",
+    "lockCreated": "2025-01-22T07:00:00.000Z",
+    "submittedByDisplayName": "Hyperion",
+    "submittedAt": "2025-06-24T13:55:51.191Z"
+  },
+  {
+    "submittedAt": "2025-06-24T10:42:46.971Z",
+    "stateProvince": "Kentucky",
+    "submittedByUsernamePlatform": "Discord",
+    "submittedByDisplayName": "NICVT_locks",
+    "mainPhoto": "true",
+    "updatedAt": "2025-06-24T10:42:46.971Z",
+    "submittedByUserBelt": "Black",
+    "lockCreated": "2024-11-24T05:00:00.000Z",
+    "id": "cl_162545b3",
+    "lockingMechanism": "Pin-tumbler",
+    "submittedByUsername": "Nicvt_locks",
+    "submittedByUserId": "PHU1oYSJfKQbKarqTygoqMIG2Cr2",
+    "maker": "NICVT",
+    "source": "site",
+    "displayName": "NICVT_locks",
+    "originalLock": "Marks SC4 KIK ",
+    "lockFormat": "KIK",
+    "media": [
+      {
+        "subtitle": "CC BY-NC-SA 4.0",
+        "dateAdded": "2025-06-24T10:42:47.060Z",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/full-of-ht-cl-undefined-cl_162545b3/full-of-ht-cl_img_9877_undefined.jpeg",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/full-of-ht-cl-undefined-cl_162545b3/full-of-ht-cl_img_9877_undefined-200-sq.jpeg",
+        "imageTitle": "Full of $h!T CL",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/full-of-ht-cl-undefined-cl_162545b3/full-of-ht-cl_img_9877_undefined-1024.jpeg",
+        "title": "By: Unknown",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/full-of-ht-cl-undefined-cl_162545b3/full-of-ht-cl_img_9877_undefined-500.jpeg",
+        "sequenceId": 1
+      }
+    ],
+    "name": "Full of $h!T CL",
+    "country": "United States of America"
+  },
+  {
+    "latestUpdate": {
+      "source": "import",
+      "lockId": "cl_c82b9685",
+      "successfulPick": "Yes",
+      "username": "LockpickingEngineer",
+      "submittedAt": "2025-06-19T19:38:05.423Z",
+      "receivedFrom": "NICVT",
+      "userBelt": "Brown",
+      "usernamePlatform": "Discord",
+      "pickDate": "09/12/2024",
+      "sentTo": "NICVT",
+      "updatedAt": "2025-06-19T19:38:05.423Z",
+      "displayName": "LockpickingEngineer",
+      "userId": "cm8oFWt2fBPTYdyhqnjBMsHlfNy1",
+      "id": "clci_2121215f"
+    },
+    "id": "cl_c82b9685",
+    "submittedAt": "2025-06-18T22:44:12.923Z",
+    "lockingMechanism": "Pin-tumbler",
+    "checkInIds": [
+      "clci_2121215f"
+    ],
+    "updatedAt": "2025-06-24T10:41:33.154Z",
+    "submittedByDisplayName": "LockpickingEngineer",
+    "submittedByUserBelt": "Brown",
+    "checkInIdsSuccessful": [
+      "clci_2121215f"
+    ],
+    "name": "Rising Flames",
+    "country": "United States of America",
+    "submittedByUserId": "cm8oFWt2fBPTYdyhqnjBMsHlfNy1",
+    "submittedByUsername": "Lockpicking.Engineer",
+    "lockFormat": "Padlock",
+    "stateProvince": "Kentucky",
+    "displayName": "NICVT_locks",
+    "submittedByUsernamePlatform": "Discord",
+    "source": "site",
+    "media": [
+      {
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/rising-flames-nicvt-cl_c82b9685/rising-flames_img_9880_nicvt-main-1024.jpeg",
+        "title": "By: NICVT ",
+        "sequenceId": 1,
+        "dateAdded": "2025-06-24T10:41:33.154Z",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/rising-flames-nicvt-cl_c82b9685/rising-flames_img_9880_nicvt-main.jpeg",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/rising-flames-nicvt-cl_c82b9685/rising-flames_img_9880_nicvt-main-500.jpeg",
+        "imageTitle": "Rising Flames",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/rising-flames-nicvt-cl_c82b9685/rising-flames_img_9880_nicvt-main-200-sq.jpeg"
+      }
+    ],
+    "maker": "NICVT",
+    "originalLock": "Paclock 90A-Pro",
+    "lockCreated": "2024-10-27T04:00:00.000Z"
+  },
+  {
+    "lockingMechanism": "Dimple",
+    "source": "site",
+    "checkInIdsSuccessful": [
+      "clci_87864a0e"
+    ],
+    "country": "United States of America",
+    "submittedByUsernamePlatform": "Discord",
+    "submittedByUserBelt": "Black",
+    "submittedByUsername": "NCR",
+    "latestUpdate": {
+      "id": "clci_87864a0e",
+      "sentTo": "Vector Potential",
+      "receivedDate": "12/5/24",
+      "displayName": "NCR",
+      "userBelt": "Black",
+      "userId": "RmIFi3CsSCUdQRQ8BDvHxrLhmMg1",
+      "pickDate": "12/06/2024",
+      "country": "United States of America",
+      "username": "NCR",
+      "successfulPick": "Yes",
+      "source": "import",
+      "usernamePlatform": "Discord",
+      "submittedAt": "2025-06-19T19:38:05.423Z",
+      "lockId": "cl_e9f95230",
+      "updatedAt": "2025-06-19T19:38:05.423Z",
+      "receivedFrom": "Loose-Shirt",
+      "videoUrl": "https://youtu.be/Y2HOKXcOFcE"
+    },
+    "lockFormat": "KIK",
+    "submittedAt": "2025-06-18T22:44:12.923Z",
+    "submittedByDisplayName": "NCR",
+    "lockCreated": "2024-11-17T05:00:00.000Z",
+    "updatedAt": "2025-06-24T10:39:24.310Z",
+    "checkInIds": [
+      "clci_87864a0e"
+    ],
+    "originalLock": "Yardeni 6",
+    "name": "Shirley Dimple",
+    "submittedByUserId": "RmIFi3CsSCUdQRQ8BDvHxrLhmMg1",
+    "maker": "NicVT",
+    "stateProvince": "Kentucky",
+    "media": [
+      {
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/shirley-dimple-nicvt-cl_e9f95230/shirley-dimple_img_9875_nicvt-main-500.jpeg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/shirley-dimple-nicvt-cl_e9f95230/shirley-dimple_img_9875_nicvt-main-200-sq.jpeg",
+        "sequenceId": 1,
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/shirley-dimple-nicvt-cl_e9f95230/shirley-dimple_img_9875_nicvt-main-1024.jpeg",
+        "title": "By: NICVT ",
+        "imageTitle": "Shirley Dimple",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/shirley-dimple-nicvt-cl_e9f95230/shirley-dimple_img_9875_nicvt-main.jpeg",
+        "dateAdded": "2025-06-24T10:38:31.051Z"
+      }
+    ],
+    "id": "cl_e9f95230",
+    "displayName": "NICVT_locks"
+  },
+  {
+    "submittedByUsernamePlatform": "Discord",
+    "country": "United States of America",
+    "lockingMechanism": "Pin-tumbler",
+    "displayName": "NICVT_locks",
+    "originalLock": "Marks SC4 KIK ",
+    "submittedByDisplayName": "NICVT_locks",
+    "updatedAt": "2025-06-24T10:37:57.024Z",
+    "stateProvince": "Kentucky",
+    "submittedByUserId": "PHU1oYSJfKQbKarqTygoqMIG2Cr2",
+    "lockFormat": "KIK",
+    "source": "site",
+    "submittedByUserBelt": "Black",
+    "submittedAt": "2025-06-24T10:37:57.024Z",
+    "maker": "NICVT",
+    "id": "cl_fec0e6ef",
+    "submittedByUsername": "Nicvt_locks",
+    "name": "LTC Fright",
+    "mainPhoto": "true",
+    "lockCreated": "2024-11-23T05:00:00.000Z",
+    "media": [
+      {
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/ltc-fright-undefined-cl_fec0e6ef/ltc-fright_img_9874_undefined.jpeg",
+        "imageTitle": "LTC Fright",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/ltc-fright-undefined-cl_fec0e6ef/ltc-fright_img_9874_undefined-500.jpeg",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/ltc-fright-undefined-cl_fec0e6ef/ltc-fright_img_9874_undefined-200-sq.jpeg",
+        "dateAdded": "2025-06-24T10:37:57.096Z",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/ltc-fright-undefined-cl_fec0e6ef/ltc-fright_img_9874_undefined-1024.jpeg",
+        "title": "By: Unknown",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "sequenceId": 1
+      }
+    ]
+  },
+  {
+    "source": "site",
+    "media": [
+      {
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/1-dot-undefined-cl_d27ff523/1-dot_img_9873_undefined-200-sq.jpeg",
+        "title": "By: Unknown",
+        "sequenceId": 1,
+        "imageTitle": "1 D.O.T.",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/1-dot-undefined-cl_d27ff523/1-dot_img_9873_undefined-500.jpeg",
+        "dateAdded": "2025-06-24T10:36:20.519Z",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/1-dot-undefined-cl_d27ff523/1-dot_img_9873_undefined.jpeg",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/1-dot-undefined-cl_d27ff523/1-dot_img_9873_undefined-1024.jpeg"
+      }
+    ],
+    "submittedByDisplayName": "NICVT_locks",
+    "stateProvince": "Kentucky",
+    "country": "United States of America",
+    "id": "cl_d27ff523",
+    "name": "1 D.O.T.",
+    "lockFormat": "KIK",
+    "submittedByUserId": "PHU1oYSJfKQbKarqTygoqMIG2Cr2",
+    "displayName": "NICVT_locks",
+    "mainPhoto": "true",
+    "submittedByUserBelt": "Black",
+    "submittedAt": "2025-06-24T10:36:20.464Z",
+    "lockCreated": "2024-11-16T05:00:00.000Z",
+    "submittedByUsernamePlatform": "Discord",
+    "maker": "NICVT",
+    "updatedAt": "2025-06-24T10:36:20.464Z",
+    "submittedByUsername": "Nicvt_locks",
+    "lockingMechanism": "Pin-tumbler"
+  },
+  {
+    "submittedAt": "2025-06-24T10:35:04.502Z",
+    "name": "Ocho 8",
+    "lockingMechanism": "Pin-tumbler",
+    "submittedByUsername": "Nicvt_locks",
+    "media": [
+      {
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/ocho-8-undefined-cl_1b976b73/ocho-8_img_9879_undefined-200-sq.jpeg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/ocho-8-undefined-cl_1b976b73/ocho-8_img_9879_undefined-500.jpeg",
+        "sequenceId": 1,
+        "dateAdded": "2025-06-24T10:35:04.651Z",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/ocho-8-undefined-cl_1b976b73/ocho-8_img_9879_undefined.jpeg",
+        "imageTitle": "Ocho 8",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/ocho-8-undefined-cl_1b976b73/ocho-8_img_9879_undefined-1024.jpeg",
+        "title": "By: Unknown"
+      },
+      {
+        "dateAdded": "2025-06-24T10:35:04.622Z",
+        "sequenceId": 2,
+        "imageTitle": "Ocho 8",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/ocho-8-undefined-cl_1b976b73/ocho-8_img_9878_undefined-500.jpeg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/ocho-8-undefined-cl_1b976b73/ocho-8_img_9878_undefined.jpeg",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/ocho-8-undefined-cl_1b976b73/ocho-8_img_9878_undefined-1024.jpeg",
+        "title": "By: Unknown",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/ocho-8-undefined-cl_1b976b73/ocho-8_img_9879_undefined-200-sq.jpeg"
+      }
+    ],
+    "mainPhoto": "true",
+    "source": "site",
+    "updatedAt": "2025-06-24T10:35:04.502Z",
+    "stateProvince": "Kentucky",
+    "lockCreated": "2024-11-15T05:00:00.000Z",
+    "maker": "NICVT",
+    "displayName": "NICVT_locks",
+    "submittedByUsernamePlatform": "Discord",
+    "country": "United States of America",
+    "submittedByDisplayName": "NICVT_locks",
+    "submittedByUserId": "PHU1oYSJfKQbKarqTygoqMIG2Cr2",
+    "lockFormat": "KIK",
+    "originalLock": "Marks SC4 KIK ",
+    "id": "cl_1b976b73",
+    "submittedByUserBelt": "Black"
+  },
+  {
+    "checkInIdsSuccessful": [
+      "clci_5f582c17",
+      "clci_87019d05"
+    ],
+    "submittedByDisplayName": "Loose-Shirt6551",
+    "submittedByUsername": "Loose-Shirt",
+    "submittedAt": "2025-06-18T22:44:12.923Z",
+    "submittedByUsernamePlatform": "Discord",
+    "media": [
+      {
+        "subtitle": "CC BY-NC-SA 4.0",
+        "dateAdded": "2025-06-24T10:32:00.013Z",
+        "sequenceId": 1,
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/tornado-watch-nicvt-cl_c6036e19/tornado-watch_img_9872_nicvt-main.jpeg",
+        "title": "By: NICVT ",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/tornado-watch-nicvt-cl_c6036e19/tornado-watch_img_9872_nicvt-main-200-sq.jpeg",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/tornado-watch-nicvt-cl_c6036e19/tornado-watch_img_9872_nicvt-main-500.jpeg",
+        "imageTitle": "Tornado Watch",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/tornado-watch-nicvt-cl_c6036e19/tornado-watch_img_9872_nicvt-main-1024.jpeg"
+      }
+    ],
+    "submittedByUserBelt": "Black",
+    "originalLock": "CISA Dimple Lock",
+    "lockFormat": "Unknown Format",
+    "updatedAt": "2025-06-24T10:32:00.016Z",
+    "id": "cl_c6036e19",
+    "submittedByUserId": "g4S2MLVbHhSRs42gHfYOsukeb6C3",
+    "checkInIds": [
+      "clci_5f582c17",
+      "clci_87019d05"
+    ],
+    "maker": "NICVT",
+    "latestUpdate": {
+      "lockId": "cl_c6036e19",
+      "userId": "RmIFi3CsSCUdQRQ8BDvHxrLhmMg1",
+      "pickDate": "06/10/2025",
+      "username": "NCR",
+      "displayName": "NCR",
+      "usernamePlatform": "Discord",
+      "country": "United States of America",
+      "receivedDate": "???",
+      "receivedFrom": "BurnB1",
+      "source": "import",
+      "userBelt": "Black",
+      "successfulPick": "Yes",
+      "id": "clci_87019d05",
+      "updatedAt": "2025-06-19T19:38:05.423Z",
+      "submittedAt": "2025-06-19T19:38:05.423Z",
+      "videoUrl": "https://youtu.be/KlMF0gWT21Y"
+    },
+    "name": "Tornado Watch",
+    "lockingMechanism": "Dimple"
+  },
+  {
+    "submittedAt": "2025-06-24T10:30:31.719Z",
+    "submittedByDisplayName": "NICVT_locks",
+    "country": "United States of America",
+    "stateProvince": "Kentucky",
+    "lockCreated": "2024-10-27T04:00:00.000Z",
+    "maker": "NICVT",
+    "originalLock": "Master 410 Loto",
+    "source": "site",
+    "updatedAt": "2025-06-24T10:30:31.719Z",
+    "submittedByUsername": "Nicvt_locks",
+    "submittedByUserId": "PHU1oYSJfKQbKarqTygoqMIG2Cr2",
+    "displayName": "NICVT_locks",
+    "id": "cl_cd841194",
+    "lockFormat": "Padlock",
+    "media": [
+      {
+        "imageTitle": "Living the Dream",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/living-the-dream-undefined-cl_cd841194/living-the-dream_img_9869_undefined-200-sq.jpeg",
+        "dateAdded": "2025-06-24T10:30:31.821Z",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/living-the-dream-undefined-cl_cd841194/living-the-dream_img_9869_undefined-1024.jpeg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/living-the-dream-undefined-cl_cd841194/living-the-dream_img_9869_undefined-500.jpeg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/living-the-dream-undefined-cl_cd841194/living-the-dream_img_9869_undefined.jpeg",
+        "title": "By: Unknown",
+        "sequenceId": 1
+      }
+    ],
+    "mainPhoto": "true",
+    "name": "Living the Dream",
+    "lockingMechanism": "Pin-tumbler",
+    "submittedByUserBelt": "Black",
+    "submittedByUsernamePlatform": "Discord"
+  },
+  {
+    "updatedAt": "2025-06-24T10:28:36.365Z",
+    "submittedByUsernamePlatform": "Discord",
+    "submittedByUsername": "Nicvt_locks",
+    "maker": "NICVT",
+    "country": "United States of America",
+    "description": "CL for blue belt",
+    "submittedByUserBelt": "Black",
+    "displayName": "NICVT_locks",
+    "submittedAt": "2025-06-24T10:28:36.365Z",
+    "submittedByUserId": "PHU1oYSJfKQbKarqTygoqMIG2Cr2",
+    "lockingMechanism": "Pin-tumbler",
+    "source": "site",
+    "id": "cl_efa32ffd",
+    "lockFormat": "Padlock",
+    "mainPhoto": "true",
+    "media": [
+      {
+        "subtitle": "CC BY-NC-SA 4.0",
+        "dateAdded": "2025-06-24T10:28:36.482Z",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/red-dawn-undefined-cl_efa32ffd/red-dawn_img_9868_undefined-200-sq.jpeg",
+        "title": "By: Unknown",
+        "sequenceId": 1,
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/red-dawn-undefined-cl_efa32ffd/red-dawn_img_9868_undefined-1024.jpeg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/red-dawn-undefined-cl_efa32ffd/red-dawn_img_9868_undefined.jpeg",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/red-dawn-undefined-cl_efa32ffd/red-dawn_img_9868_undefined-500.jpeg",
+        "imageTitle": "Red Dawn"
+      }
+    ],
+    "stateProvince": "Kentucky",
+    "submittedByDisplayName": "NICVT_locks",
+    "name": "Red Dawn",
+    "lockCreated": "2024-08-17T04:00:00.000Z"
+  },
+  {
+    "submittedByUsernamePlatform": "Discord",
+    "thumbnail": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142519_lockpickingengineer-main-200-sq.jpg",
+    "usernamePlatform": "discord",
+    "username": "Lockpicking.Engineer",
+    "name": "LPE #1",
+    "displayName": "LockpickingEngineer",
+    "lockCreated": "2024-10-24T05:00:00.000Z",
+    "ratingCreativity": [
+      3
+    ],
+    "ratingDifficulty": [
+      3
+    ],
+    "stateProvince": "Louisiana",
+    "checkInIds": [
+      "clci_3620c908",
+      "clci_4bdd4824",
+      "clci_d73bba8f"
+    ],
+    "ratingQuality": [
+      4
+    ],
+    "id": "cl_de955dd5",
+    "submittedByUsername": "Lockpicking.Engineer",
+    "lockFormat": "Mortise",
+    "source": "site",
+    "checkInIdsSuccessful": [
+      "clci_3620c908",
+      "clci_4bdd4824",
+      "clci_d73bba8f"
+    ],
+    "maker": "LockpickingEngineer",
+    "lockingMechanism": "Pin-tumbler",
+    "updatedAt": "2025-06-24T02:58:46.957Z",
+    "lockCreatedAt": "2024-12-28T06:00:00.000Z",
+    "originalLock": "",
+    "submittedByUserId": "cm8oFWt2fBPTYdyhqnjBMsHlfNy1",
+    "submittedByUserBelt": "Brown",
+    "media": [
+      {
+        "sequenceId": 1,
+        "fullUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142519_lockpickingengineer-main.jpg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "thumbnailUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142519_lockpickingengineer-main-500.jpg",
+        "imageTitle": "LPE #1",
+        "fullSizeUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142519_lockpickingengineer-main-1024.jpg",
+        "title": "By: Lockpicking.Engineer",
+        "dateAdded": "2025-06-05T23:30:44.415Z"
+      },
+      {
+        "imageTitle": "LPE #1",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "dateAdded": "2025-06-05T23:30:44.470Z",
+        "thumbnailUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142108_lockpickingengineer-500.jpg",
+        "title": "By: Lockpicking.Engineer",
+        "sequenceId": 2,
+        "fullSizeUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142108_lockpickingengineer-1024.jpg",
+        "fullUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142108_lockpickingengineer.jpg"
+      },
+      {
+        "fullSizeUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142052_lockpickingengineer-1024.jpg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "fullUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142052_lockpickingengineer.jpg",
+        "dateAdded": "2025-06-05T23:30:44.450Z",
+        "sequenceId": 3,
+        "thumbnailUrl": "https://data.lpulocks.com/lockbazaar/images/lpe-1-lockpickingengineer-cl_de955dd5/lpe-1_20241228_142052_lockpickingengineer-500.jpg",
+        "imageTitle": "LPE #1",
+        "title": "By: Lockpicking.Engineer"
+      }
+    ],
+    "submittedByDisplayName": "LockpickingEngineer",
+    "ratingFun": [
+      4
+    ],
+    "approxBelt": [],
+    "country": "United States of America",
+    "userBelt": "Brown",
+    "latestCheckIn": "2024-11-01T04:00:00.000Z",
+    "submittedAt": "2025-06-05T23:30:44.149Z",
+    "latestUpdate": {
+      "lockId": "cl_de955dd5",
+      "stateProvince": "Kentucky",
+      "ratingDifficulty": "3",
+      "userId": "PHU1oYSJfKQbKarqTygoqMIG2Cr2",
+      "successfulPick": "Yes",
+      "pickDate": "2024-11-01T04:00:00.000Z",
+      "usernamePlatform": "discord",
+      "displayName": "NICVT_locks",
+      "ratingQuality": "4",
+      "ratingCreativity": "3",
+      "videoUrl": "https://youtu.be/u1M6MOh_kkk?si=RdPamSL1-zzuk9qK",
+      "userBelt": "Black",
+      "username": "Nicvt_locks",
+      "id": "clci_3620c908",
+      "country": "United States of America",
+      "submittedAt": "2025-06-12T13:49:52.502Z",
+      "ratingFun": "4"
+    },
+    "successCount": 1,
+    "checkInCount": 1
+  },
+  {
+    "source": "site",
+    "media": [
+      {
+        "title": "By: Unknown",
+        "sequenceId": 1,
+        "imageTitle": "Flotsom",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/flotsom-undefined-cl_7b4ccf69/flotsom_img_20250618_141841346_mp_undefined-1024.jpg",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/flotsom-undefined-cl_7b4ccf69/flotsom_img_20250618_141841346_mp_undefined-500.jpg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/flotsom-undefined-cl_7b4ccf69/flotsom_img_20250618_141841346_mp_undefined.jpg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "dateAdded": "2025-06-23T18:35:27.427Z",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/flotsom-undefined-cl_7b4ccf69/flotsom_img_20250618_141841346_mp_undefined-200-sq.jpg"
+      },
+      {
+        "subtitle": "CC BY-NC-SA 4.0",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/flotsom-undefined-cl_7b4ccf69/flotsom_img_20250618_143059347_hdr_undefined-1024.jpg",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/flotsom-undefined-cl_7b4ccf69/flotsom_img_20250618_143059347_hdr_undefined-500.jpg",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/flotsom-undefined-cl_7b4ccf69/flotsom_img_20250618_141841346_mp_undefined-200-sq.jpg",
+        "dateAdded": "2025-06-23T18:35:27.449Z",
+        "sequenceId": 2,
+        "title": "By: Unknown",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/flotsom-undefined-cl_7b4ccf69/flotsom_img_20250618_143059347_hdr_undefined.jpg",
+        "imageTitle": "Flotsom"
+      }
+    ],
+    "ratingQuality": [
+      3
+    ],
+    "submittedByDisplayName": "Loose-Shirt6551",
+    "name": "Flotsom",
+    "lockCreated": "2025-06-23T04:00:00.000Z",
+    "description": "Deep trench traps and mainly high lifts with a rattlesnake and may thin spools. Third chamber has a low lift. Difficult to hold all the high lifts up.",
+    "maker": "J.Gabriel",
+    "ratingDifficulty": [
+      3
+    ],
+    "submittedByUsernamePlatform": "Discord",
+    "lockingMechanism": "Pin-tumbler",
+    "originalLock": "Kwikset",
+    "mainPhoto": "true",
+    "submittedAt": "2025-06-23T18:35:27.135Z",
+    "stateProvince": "Virginia",
+    "id": "cl_7b4ccf69",
+    "submittedByUsername": "Loose",
+    "ratingCreativity": [
+      3
+    ],
+    "country": "United States of America",
+    "submittedByUserId": "g4S2MLVbHhSRs42gHfYOsukeb6C3",
+    "lockFormat": "Mortise",
+    "displayName": "Loose-Shirt6551",
+    "latestUpdate": {
+      "pickDate": "2025-06-18T04:00:00.000Z",
+      "sentTo": "JackRabbit",
+      "userId": "g4S2MLVbHhSRs42gHfYOsukeb6C3",
+      "stateProvince": "Virginia",
+      "username": "Loose",
+      "userBelt": "Black",
+      "country": "United States of America",
+      "ratingCreativity": "3",
+      "videoUrl": "https://youtu.be/LLhrjG3cVwk",
+      "id": "clci_753b45ca",
+      "displayName": "Loose-Shirt6551",
+      "ratingDifficulty": "3",
+      "submittedAt": "2025-06-23T18:36:41.636Z",
+      "ratingQuality": "3",
+      "ratingFun": "4",
+      "receivedDate": "2025-06-10T04:00:00.000Z",
+      "sentDate": "2025-06-23T04:00:00.000Z",
+      "lockId": "cl_7b4ccf69",
+      "receivedFrom": "J.Gabriel",
+      "usernamePlatform": "discord",
+      "successfulPick": "Yes"
+    },
+    "updatedAt": "2025-06-23T18:36:43.295Z",
+    "ratingFun": [
+      4
+    ],
+    "checkInIds": [
+      "clci_753b45ca"
+    ],
+    "submittedByUserBelt": "Black",
+    "checkInIdsSuccessful": [
+      "clci_753b45ca"
+    ]
+  },
+  {
+    "submittedByUserBelt": "Black",
+    "lockFormat": "Mortise",
+    "description": "Really tough CL to pick!",
+    "ratingQuality": [
+      5
+    ],
+    "checkInIdsSuccessful": [
+      "clci_ce5e654b"
+    ],
+    "maker": "J.Gabriel",
+    "updatedAt": "2025-06-23T18:11:09.455Z",
+    "lockingMechanism": "Pin-tumbler",
+    "ratingDifficulty": [
+      4
+    ],
+    "source": "site",
+    "name": "Jetsom",
+    "country": "United States of America",
+    "submittedByDisplayName": "Loose-Shirt6551",
+    "checkInIds": [
+      "clci_ce5e654b"
+    ],
+    "lockCreated": "2025-06-23T04:00:00.000Z",
+    "submittedByUsername": "Loose",
+    "id": "cl_25c82417",
+    "media": [
+      {
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/jetsom-undefined-cl_25c82417/jetsom_still-2025-06-23-140803_311_undefined-500.jpg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/jetsom-undefined-cl_25c82417/jetsom_still-2025-06-23-140803_311_undefined.jpg",
+        "imageTitle": "Jetsom",
+        "dateAdded": "2025-06-23T18:08:26.912Z",
+        "sequenceId": 1,
+        "subtitle": "CC BY-NC-SA 4.0",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/jetsom-undefined-cl_25c82417/jetsom_still-2025-06-23-140803_311_undefined-1024.jpg",
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/jetsom-undefined-cl_25c82417/jetsom_still-2025-06-23-140803_311_undefined-200-sq.jpg",
+        "title": "By: Unknown"
+      }
+    ],
+    "displayName": "Loose-Shirt6551",
+    "latestUpdate": {
+      "ratingCreativity": "5",
+      "successfulPick": "Yes",
+      "videoUrl": "https://youtu.be/PFjHxMHi8GQ",
+      "receivedFrom": "J.Gabriel",
+      "ratingQuality": "5",
+      "username": "Loose-Shirt6551",
+      "pickDate": "2025-06-21T04:00:00.000Z",
+      "userId": "g4S2MLVbHhSRs42gHfYOsukeb6C3",
+      "submittedAt": "2025-06-23T18:11:07.907Z",
+      "receivedDate": "2025-06-10T04:00:00.000Z",
+      "notes": "Reach out to J.Gabriel or Loose for tips if you get frustrated.",
+      "stateProvince": "Virginia",
+      "sentTo": "JackRabbit",
+      "country": "United States of America",
+      "usernamePlatform": "Discord",
+      "ratingFun": "4",
+      "userBelt": "Black",
+      "sentDate": "2025-06-23T04:00:00.000Z",
+      "id": "clci_ce5e654b",
+      "lockId": "cl_25c82417",
+      "ratingDifficulty": "4",
+      "displayName": "Loose-Shirt6551"
+    },
+    "stateProvince": "Virginia",
+    "submittedByUserId": "g4S2MLVbHhSRs42gHfYOsukeb6C3",
+    "ratingCreativity": [
+      5
+    ],
+    "originalLock": "Kwikset",
+    "ratingFun": [
+      4
+    ],
+    "submittedAt": "2025-06-23T18:08:26.828Z",
+    "mainPhoto": "true",
+    "submittedByUsernamePlatform": "Discord"
+  },
+  {
+    "name": "NT alif",
+    "source": "site",
+    "submittedByUserBelt": "Purple",
+    "lockingMechanism": "Pin-tumbler",
+    "description": "A green American 1100. Pins from brass rod. Key cut from a blank. Lock body and key engraved using a Dremel tracing free-hand Sharpie lines.",
+    "lockCreatedAt": "2025-01-19T07:00:00.000Z",
+    "originalLock": "American 1100",
+    "mainPhoto": "true",
+    "submittedByUserId": "jC4XyU3KaKM7wCPkHQgulralMEE3",
+    "country": "United States of America",
+    "submittedByUsername": "NoodleThumb",
+    "submittedAt": "2025-06-19T20:37:31.908Z",
+    "lockFormat": "Padlock",
+    "submittedByUsernamePlatform": "Discord",
+    "id": "cl_efc8abf8",
+    "maker": "NoodleThumb",
+    "displayName": "no display name",
+    "stateProvince": "Colorado",
+    "updatedAt": "2025-06-19T20:37:31.908Z",
+    "media": [
+      {
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/nt-alif-undefined-cl_efc8abf8/nt-alif_ntalif-body_undefined-200-sq.jpg",
+        "imageTitle": "NT alif",
+        "dateAdded": "2025-06-19T18:53:19.188Z",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/nt-alif-undefined-cl_efc8abf8/nt-alif_ntalif-body_undefined-1024.jpg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/nt-alif-undefined-cl_efc8abf8/nt-alif_ntalif-body_undefined-500.jpg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/nt-alif-undefined-cl_efc8abf8/nt-alif_ntalif-body_undefined.jpg",
+        "title": "By: Unknown",
+        "sequenceId": 1
+      },
+      {
+        "thumbnailSquareUrl": "https://data.lpulocks.com/challengelocks/lockimages/nt-alif-undefined-cl_efc8abf8/nt-alif_ntalif-body_undefined-200-sq.jpg",
+        "title": "By: Unknown",
+        "thumbnailUrl": "https://data.lpulocks.com/challengelocks/lockimages/nt-alif-undefined-cl_efc8abf8/nt-alif_ntalif-pins_undefined-500.jpg",
+        "subtitle": "CC BY-NC-SA 4.0",
+        "sequenceId": 2,
+        "dateAdded": "2025-06-19T18:53:18.952Z",
+        "fullSizeUrl": "https://data.lpulocks.com/challengelocks/lockimages/nt-alif-undefined-cl_efc8abf8/nt-alif_ntalif-pins_undefined-1024.jpg",
+        "fullUrl": "https://data.lpulocks.com/challengelocks/lockimages/nt-alif-undefined-cl_efc8abf8/nt-alif_ntalif-pins_undefined.jpg",
+        "imageTitle": "NT alif"
+      }
+    ]
+  }
+]

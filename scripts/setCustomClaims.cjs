@@ -6,21 +6,16 @@ const app = admin.initializeApp({
     databaseURL: 'https://lock-trackers.firebaseio.com'
 })
 
-const prod = false
+const prod = true
 
 const db = prod ? getFirestore(app) : getFirestore(app, 'locktrackersdev')
 
 // Custom claims to set
-const newClaims = {CLAdmin:true}
+const newClaims = {SPAdmin:true}
 
 // List of user IDs to update
 const users = [
-    {name: 'LockpickingEngineer', uid: 'cm8oFWt2fBPTYdyhqnjBMsHlfNy1'},
     {name: 'NICVT_Locks', uid: 'PHU1oYSJfKQbKarqTygoqMIG2Cr2'},
-    {name: 'NCR', uid: 'RmIFi3CsSCUdQRQ8BDvHxrLhmMg1'},
-    {name: 'Hyperion', uid: 'wE31g5qSO1UNm9gGrKQnZtX1jmN2'},
-    {name: 'Galaxy', uid: 'X2quVZEg1KgX1vZmhR3MJaJwiBN2'},
-    {name: 'Todd', uid: 'tOToqWMwuBOp5SKolSN1fyTjlK23'},
 ]
 
 
