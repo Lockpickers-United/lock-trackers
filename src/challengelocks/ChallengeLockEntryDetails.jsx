@@ -53,7 +53,6 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
         onExpand && onExpand(isExpanded ? entry.id : false)
     }, [entry.id, onExpand])
 
-    const dateCreated = entry.lockCreatedAt
     const dateSubmitted = entry.dateSubmitted || entry.submittedAt || ''
     const submittedCredit = entry.maker !== entry.submittedByUsername
         ? `Submitted by ${entry.submittedByUsername}`
@@ -160,8 +159,10 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
                 marginTop: 25
             }}>
                 <div style={{display: 'flex', flexDirection: 'row'}}>
-                    <FieldValue name='Created' value={internationalDate(dateCreated)}
-                                headerStyle={{color: '#999'}} style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
+                    {entry.lockCreatedAt &&
+                        <FieldValue name='Created' value={internationalDate(entry.lockCreatedAt)}
+                                    headerStyle={{color: '#999'}} style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
+                    }
                     <FieldValue name='Submitted' value={internationalDate(dateSubmitted)}
                                 headerStyle={{color: '#999'}} style={{marginRight: 15, whiteSpace: 'nowrap'}}/>
                 </div>

@@ -74,7 +74,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                 stateProvince: profile?.stateProvince || undefined,
                 submittedByDisplayName: profile?.username || undefined,
                 submittedByUserBelt: profile?.belt || undefined,
-                submittedByUserId: user?.uid || undefined,
+                submittedByUserId: user?.uid || undefined
             }
             setForm(newForm)
             setCountry(profile?.country || null)
@@ -97,7 +97,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
             delete formCopy.stateProvince
         }
         if (name === 'name' && value) {
-            value = sanitizeValues(value, { profanityOK: true })
+            value = sanitizeValues(value, {profanityOK: true})
         } else {
             value = sanitizeValues(value)
         }
@@ -143,15 +143,22 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         }
     }, [entry, form, profile, updateProfile])
 
-    const requiredFields = ['name', 'maker', 'lockCreated', 'lockFormat', 'submittedByUsername', 'submittedByUsernamePlatform']
+    const requiredFields = useMemo(() => {
+        return entry
+            ? ['name', 'maker', 'lockFormat', 'submittedByUsername', 'submittedByUsernamePlatform']
+            : ['name', 'maker', 'lockCreated', 'lockFormat', 'submittedByUsername', 'submittedByUsernamePlatform']
+    }, [entry])
+
     const uploadable = requiredFields.every(field => form[field] && form[field].length > 0) &&
         (mainPhoto.length > 0 || entry)
 
     const getHighlightColor = useCallback(field => {
-        return !form[field]
-                ? '#d00'
-                : '#090'
-    }, [form])
+        return requiredFields.includes(field) && !form[field]
+            ? '#d00'
+            : requiredFields.includes(field)
+                ? '#090'
+                : 'inherit'
+    }, [form, requiredFields])
 
     const handleDroppedFiles = useCallback((allFiles, zoneId = 'dropzone') => {
         if (zoneId === 'mainPhoto') {
@@ -477,12 +484,16 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                             {entry ? 'Original' : 'Your'} Username (required)
                                         </div>
                                         <TextField type='text' name='submittedByUsername' style={{width: 240}}
-                                                   onChange={handleFormChange} value={form.submittedByUsername || ''} color='info'
+                                                   onChange={handleFormChange} value={form.submittedByUsername || ''}
+                                                   color='info'
                                                    inputProps={{maxLength: textFieldMax}}/>
-                                        <div style={{...reqStyle, backgroundColor: getHighlightColor('submittedByUsername')}}/>
+                                        <div style={{
+                                            ...reqStyle,
+                                            backgroundColor: getHighlightColor('submittedByUsername')
+                                        }}/>
                                     </div>
                                     <div style={{marginTop: 25, marginRight: 30}}>
-                                    <RadioGroup
+                                        <RadioGroup
                                             name='submittedByUsernamePlatform'
                                             onChange={handleFormChange}
                                             size='small'
