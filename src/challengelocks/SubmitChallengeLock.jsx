@@ -27,6 +27,7 @@ import DataContext from '../context/DataContext.jsx'
 import FreeSoloAutoCompleteBox from '../formUtils/FreeSoloAutoCompleteBox.jsx'
 import statesProvinces from '../data/statesProvinces.json'
 import SignInButton from '../auth/SignInButton.jsx'
+import {nodeServerUrl} from '../data/dataUrls.js'
 
 /**
  * @prop acReset
@@ -34,8 +35,6 @@ import SignInButton from '../auth/SignInButton.jsx'
  */
 
 export default function SubmitChallengeLock({entry, profile, user}) {
-
-    const serverUrl = 'https://lpulocks.com:7443'
 
     const {authLoaded} = useContext(AuthContext)
     const {refreshEntries, updateVersion, updateEntry, updateProfile} = useContext(DBContext)
@@ -218,7 +217,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                 navigate(`/challengelocks?id=${formCopy.id}&name=${safeName}`)
             }
         } else {
-            const url = `${serverUrl}/submit-challenge-lock`
+            const url = `${nodeServerUrl}/submit-challenge-lock`
             try {
                 const results = await postData({user, url, formData, snackBars: false})
                 setResponse(results)

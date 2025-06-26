@@ -140,8 +140,6 @@ export default function CheckIn({checkIn, profile, user}) {
     const handleFormChange = useCallback((event) => {
         let {name, value} = event.target
 
-        console.log('handleFormChange', name, value)
-
         let formCopy = {...form}
         if (name === 'country') {
             setCountry(value)

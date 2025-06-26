@@ -1,6 +1,6 @@
 import fs from 'fs'
 import admin from 'firebase-admin'
-import {getFirestore} from 'firebase-admin/firestore'
+import {FieldValue, getFirestore} from 'firebase-admin/firestore'
 import dayjs from 'dayjs'
 import {prodUser} from '../../../keys/users.js'
 
@@ -118,10 +118,23 @@ console.log('no pre-flight issues found...')
 // set submittedAt and updatedAt to now
 
 lockData.forEach(lock => {
-    lock.submittedAt = dayjs().toISOString()
-    lock.updatedAt = dayjs().toISOString()
+    lock.submittedAt = lock.submittedAt || dayjs().toISOString()
+    lock.updatedAt = lock.updatedAt || dayjs().toISOString()
     lock.lockCreated = dayjs(lock.lockCreated).toISOString()
     lock.source = 'import'
+
+    delete lock.latestUpdate
+    delete lock.latestCheckIn
+    delete lock.checkInIds
+    delete lock.checkInIdsSuccessful
+
+    const ratingKeys = ['Fun', 'Difficulty', 'Creativity', 'Quality']
+    ratingKeys.forEach(key => {
+        const ratingKey = `rating${key}`
+        delete lock[ratingKey]
+    })
+
+
 })
 
 async function batchSubmitChallengeLocks(docs) {

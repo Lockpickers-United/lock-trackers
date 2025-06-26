@@ -4,13 +4,15 @@ const url = import.meta.env && import.meta.env.VITE_LOCAL_DATA === 'true' //esli
 
 const {VITE_DEV_FIRESTORE: devFirestore} = import.meta.env
 
-// TODO : Change dev port when everything is working.
-export const nodeServerUrl = devFirestore==='true' ? 'https://lpulocks.com:7443' : 'https://lpulocks.com:7443'
+console.log('devFirestore', devFirestore)
 
+// TODO : Change dev port when everything is working.
+export const nodeServerUrl = devFirestore==='true' ? 'https://lpulocks.com:2443' : 'https://lpulocks.com:7443'
 
 if (import.meta.env && import.meta.env.VITE_LOCAL_DATA === 'true') {
     console.info('Attention: App is using LOCAL DATA.')
 }
+
 
 export const allLocks = 'https://lpubelts.com/data.json'
 export const lockBazaarData = 'https://data.lpulocks.com/lockbazaar/lockBazaarData.json'

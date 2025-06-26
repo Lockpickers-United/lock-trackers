@@ -1,10 +1,9 @@
 import fs from 'fs'
 import admin from 'firebase-admin'
-import {getFirestore} from 'firebase-admin/firestore'
+import {FieldValue, getFirestore} from 'firebase-admin/firestore'
 import dayjs from 'dayjs'
 import {prodUser} from '../../../keys/users.js'
 import validator from 'validator'
-import {collection, getDocs, query, where} from 'firebase/firestore'
 
 const prodEnvironment = prodUser === process.env.USER
 const keysDir = prodEnvironment
@@ -22,7 +21,7 @@ dbProd.settings({ignoreUndefinedProperties: true})
 const dbDev = getFirestore(requestapp, 'locktrackersdev')
 dbDev.settings({ignoreUndefinedProperties: true})
 
-const db = dbDev
+const db = dbProd
 let errors = []
 
 const checkInData = JSON.parse(await fs.promises.readFile('./checkInImport.json', 'utf8'))
@@ -30,7 +29,7 @@ const countries = JSON.parse(await fs.promises.readFile('../../../../src/data/co
 const statesProvinces = JSON.parse(await fs.promises.readFile('../../../../src/data/statesProvinces.json', 'utf8'))
 
 // Pre-flight the data
-console.log('starting pre-flight checks on lock data...')
+console.log('starting pre-flight checks on check-in data...')
 
 const requiredFields = ['id', 'lockId', 'username', 'usernamePlatform', 'pickDate', 'successfulPick', 'userId']
 
@@ -107,8 +106,8 @@ console.log('no pre-flight issues found...')
 
 // Process the check-in data
 checkInData.forEach(checkIn => {
-    checkIn.submittedAt = dayjs().toISOString()
-    checkIn.updatedAt = dayjs().toISOString()
+    checkIn.submittedAt = checkIn.submittedAt || dayjs().toISOString()
+    checkIn.updatedAt = checkIn.updatedAt || dayjs().toISOString()
     checkIn.source = 'import'
     delete checkIn.maker
     delete checkIn.name
@@ -135,52 +134,71 @@ if (checkInData.length === 0) {
 async function submitCheckIn(checkIn) {
 
     try {
+        let ref = db.collection('challenge-locks').doc(checkIn.lockId)
+        const lockEntry = await fetchDocument(ref, checkIn.lockId)
+        if (!lockEntry) return console.error(`No lock matching id ${checkIn.lockId} found`)
+
         const urlError = checkIn.videoUrl?.length > 0 && !validator.isURL(checkIn.videoUrl)
         if (urlError) checkIn.videoUrl = 'invalid video URL'
 
-        let ref = db.collection('challenge-lock-check-ins').doc(checkIn.id)
+        ref = db.collection('challenge-lock-check-ins').doc(checkIn.id)
         try {
             await setDocument(ref, checkIn, checkIn.id)
         } catch (error) {
             console.error('Failed to create checkIn', error)
         }
 
-        ref = db.collection('challenge-locks').doc(checkIn.lockId)
-        const lockEntry = await fetchDocument(ref, checkIn.lockId)
-
+        const lockCheckIns = await getCheckInsForLock(db, checkIn.lockId)
         let updates = {}
-        if (!lockEntry.latestUpdate
-            || dayjs(checkIn.pickDate).isSame(lockEntry.latestUpdate?.pickDate)
-            || dayjs(checkIn.pickDate).isAfter(lockEntry.latestUpdate?.pickDate)
-        ) {
-            updates.latestUpdate = checkIn
-        }
 
-        const ratings = Object.keys(checkIn)
-            .filter(key => key.startsWith('rating'))
-            .reduce((acc, key) => {
-                acc[key] = parseInt(checkIn[key])
+        if (lockCheckIns.length > 0) {
+            updates.latestUpdate = lockCheckIns[0]
+            const ratings = lockCheckIns.reduce((acc, checkIn) => {
+                Object.keys(checkIn)
+                    .filter(key => key.startsWith('rating'))
+                    .forEach(key => {
+                        acc[key] = acc[key] || []
+                        const ratingValue = parseInt(checkIn[key])
+                        if (!isNaN(ratingValue)) {
+                            acc[key].push(ratingValue)
+                        }
+                    })
                 return acc
             }, {})
 
-        //TODO: update ratings with actual check-in data, not just add to existing
-        Object.keys(ratings).forEach(key => {
-            updates[key] = lockEntry[key]
-                ? [...lockEntry[key], ratings[key]]
-                : [ratings[key]]
-        })
+            Object.keys(ratings).forEach(key => {
+                updates[key] = [...ratings[key]]
+            })
 
-        updates.checkInIds = [... new Set([...lockEntry.checkInIds, checkIn.id])]
-        if (checkIn.successfulPick === 'Yes') {
-            updates.checkInIdsSuccessful = [... new Set([...lockEntry.checkInIdsSuccessful, checkIn.id])]
+            updates.checkInIds = lockCheckIns.map(checkIn => checkIn.id)
+            updates.checkInIdsSuccessful = lockCheckIns
+                .filter(checkIn => checkIn.successfulPick === 'Yes')
+                .map(checkIn => checkIn.id)
+            updates.updatedAt = dayjs().toISOString()
         } else {
-            updates.checkInIdsSuccessful = lockEntry.checkInIdsSuccessful?.filter(id => id !== checkIn.id)
+            // No check-ins for this lock, so clear the latestUpdate and ratings
+            updates.latestUpdate = FieldValue.delete()
+            updates.latestCheckIn = FieldValue.delete()
+            updates.checkInIds = FieldValue.delete()
+            updates.checkInIdsSuccessful = FieldValue.delete()
+
+            const ratingKeys = ['Fun', 'Difficulty', 'Creativity', 'Quality']
+            ratingKeys.forEach(key => {
+                const ratingKey = `rating${key}`
+                updates[ratingKey] = FieldValue.delete()
+            })
+            updates.updatedAt = dayjs().toISOString()
         }
-        updates.updatedAt = dayjs().toISOString()
+
 
         // SUBMIT UPDATES
         if (Object.keys(updates).length > 0) {
-            await updateDocument(ref, updates, checkIn.lockId)
+            ref = db.collection('challenge-locks').doc(checkIn.lockId)
+            try {
+                await updateDocument(ref, updates, checkIn.lockId)
+            } catch (error) {
+                console.error('Failed to update lock from check-ins', error)
+            }
         }
 
     } catch (err) {
@@ -189,18 +207,21 @@ async function submitCheckIn(checkIn) {
 
 }
 
-//         let ref = db.collection('challenge-lock-check-ins').doc(checkIn.id)
 
 async function getCheckInsForLock(db, lockId) {
-    console.log('get checkins for lockId:', lockId)
-    const checkIns = []
-    const q = query(collection(db, 'challenge-lock-check-ins'), where('lockId', '==', lockId))
-    const querySnapshot = await getDocs(q)
-    querySnapshot.forEach((doc) => {
-        checkIns.push(doc.data())
-    })
+    console.log('getting checkins for lockId:', lockId)
+    const snap = await db
+        .collection('challenge-lock-check-ins')
+        .where('lockId', '==', lockId)
+        .get()
+    const checkIns = snap.docs.map(doc => ({id: doc.id, ...doc.data()}))
     console.log('got checkins for id:', lockId, checkIns.length)
-    return checkIns.sort((a, b) => dayjs(b.pickDate).isBefore(dayjs(a.pickDate)) ? -1 : 1)
+    return checkIns.sort((a, b) => {
+        const pickA = dayjs(a.pickDate).valueOf()
+        const pickB = dayjs(b.pickDate).valueOf()
+        if (pickB !== pickA) return pickB - pickA
+        return dayjs(b.updatedAt).valueOf() - dayjs(a.updatedAt).valueOf()
+    })
 }
 
 

@@ -1,10 +1,15 @@
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useContext, useMemo} from 'react'
 import {useLocalStorage} from 'usehooks-ts'
+import AuthContext from './AuthContext.jsx'
 
 const AppContext = React.createContext({})
 
 export function AppProvider({children}) {
-    const [beta, setBeta] = useLocalStorage('beta', true)
+
+    const {authLoaded, isLoggedIn} = useContext(AuthContext)
+    const notLoggedIn = authLoaded && !isLoggedIn
+
+    const [beta, setBeta] = useLocalStorage('beta', !notLoggedIn)
 
     const handleSetBeta = useCallback(value => {
         setBeta(value)

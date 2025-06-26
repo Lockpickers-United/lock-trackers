@@ -14,7 +14,7 @@ import {exec} from 'child_process'
 import createThumbnails from '../../util/createThumbnails.js'
 import {contentUploadRecipients, prodUser} from '../../../keys/users.js'
 import admin from 'firebase-admin'
-import {getFirestore, FieldValue, setDoc} from 'firebase-admin/firestore'
+import {getFirestore, FieldValue} from 'firebase-admin/firestore'
 import jsonIt from '../../util/jsonIt.js'
 import validator from 'validator'
 import dayjs from 'dayjs'
@@ -327,8 +327,10 @@ export default async function submitChallengeLock(req, res) {
         try {
 
             // TODO : add support for {merge: false}
+            // but CL edits go directly to DB
 
-            await setDocument(ref, entry, entry.id)
+            console.log('setDocument', ref, entry, entry.id, false)
+            await setDocument(ref, entry, entry.id, false)
         } catch (error) {
             handleError(res, 'Failed to create Challenge Lock', error, 500)
         }
@@ -475,6 +477,7 @@ export async function submitCheckIn(req, res) {
                 const ratingKey = `rating${key}`
                 updates[ratingKey] = FieldValue.delete()
             })
+            updates.updatedAt = dayjs().toISOString()
         }
 
 
@@ -625,9 +628,9 @@ async function getCheckInsForLock(db, lockId) {
 }
 
 
-async function setDocument(ref, entry, entryId) {
+async function setDocument(ref, entry, entryId, merge = true) {
     try {
-        await ref.set(entry)
+        await ref.set(entry, {merge})
         return entry
     } catch (error) {
         console.error(`Error setting document ${entryId}:`, error)

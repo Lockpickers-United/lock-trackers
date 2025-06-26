@@ -132,7 +132,7 @@ export function DBProviderCL({children}) {
                     transaction.set(ref, cleanDelta)
                     statusText = 'Entry Created'
                 } else {
-                    transaction.update(ref, cleanDelta)
+                    transaction.set(ref, cleanDelta, {merge: false})
                     statusText = 'Entry Updated'
                 }
             })

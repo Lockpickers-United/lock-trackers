@@ -17,10 +17,9 @@ import AuthContext from '../app/AuthContext.jsx'
 import DBContext from '../app/DBContext.jsx'
 import Link from '@mui/material/Link'
 import SignInButton from '../auth/SignInButton.jsx'
+import {nodeServerUrl} from '../data/dataUrls.js'
 
 export default function EditImages({profile, user}) {
-
-    const serverUrl = 'https://lpulocks.com:7443'
 
     const {authLoaded} = useContext(AuthContext)
     const {refreshEntries, updateVersion, updateProfile} = useContext(DBContext)
@@ -117,7 +116,7 @@ export default function EditImages({profile, user}) {
             })
         }
 
-        const url = `${serverUrl}/update-lock-media`
+        const url = `${nodeServerUrl}/update-lock-media`
 
         try {
             try {

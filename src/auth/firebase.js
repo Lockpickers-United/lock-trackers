@@ -8,11 +8,11 @@ export const {VITE_DEV_FIRESTORE: devFirestore} = import.meta.env
 
 // LockTrackers Firebase configuration
 
-
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app)
 export const db = devFirestore==='true' ? getFirestore(app, 'locktrackersdev') : getFirestore(app)
+//export const db = getFirestore(app)
 export const analytics = getAnalytics(app)
 
 
