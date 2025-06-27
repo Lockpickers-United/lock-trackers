@@ -34,7 +34,6 @@ export default function ViewCheckIns({user}) {
     // Engineer  cm8oFWt2fBPTYdyhqnjBMsHlfNy1
 
     useEffect(() => {
-        console.log('ViewCheckIns useEffect')
         if (!id) return
         async function fetchData() {
             return await getProfile(id)
@@ -44,7 +43,6 @@ export default function ViewCheckIns({user}) {
             const safename = name ? removeAccents(name).replace(/[^a-zA-Z0-9 ]/g, '').trim() : undefined
             addFilters([{key: 'name', value: safename}], true)
         })
-
     }, [addFilters, filters, getProfile, id, user])
 
 

@@ -192,7 +192,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
 
         if (!entry) {
             const prefix = formCopy?.name?.replace('/', '+')
-            const suffix = formCopy?.username?.replace('/', '+')
+            const suffix = formCopy?.submittedByUsername?.replace('/', '+')
             const uploadsDir = `${prefix}-${suffix}-${form.id}`.toLowerCase()
             mainPhoto.forEach((file) => {
                 const {base, ext} = separateBasename(file.name)

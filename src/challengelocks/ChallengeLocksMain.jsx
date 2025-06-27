@@ -27,7 +27,7 @@ function ChallengeLocksMain({user}) {
         setEntryExpanded(entryId)
         addFilters([{key: 'id', value: entryId}, {key: 'name', value: undefined}], true)
     }, [addFilters])
-
+    
     useEffect(() => {
         if (visibleEntries?.length === 1 && !filters.id) {
             setEntryExpanded(visibleEntries[0].id)
