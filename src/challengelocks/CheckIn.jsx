@@ -8,7 +8,7 @@ import SelectBox from '../formUtils/SelectBox.jsx'
 import {uniqueBelts} from '../data/belts'
 import Link from '@mui/material/Link'
 import ChoiceButtonGroup from '../util/ChoiceButtonGroup.jsx'
-import {useNavigate} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 import {enqueueSnackbar} from 'notistack'
 import countries from '../data/countries.json'
 import statesProvinces from '../data/statesProvinces.json'
@@ -32,6 +32,7 @@ import SignInButton from '../auth/SignInButton.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 import Collapse from '@mui/material/Collapse'
 import {useLocalStorage} from 'usehooks-ts'
+import queryString from 'query-string'
 
 /**
  * @prop inputValue
@@ -49,9 +50,10 @@ export default function CheckIn({checkIn, profile, user}) {
     const [uploadError, setUploadError] = useState(undefined)
     const [scrolled, setScrolled] = useState(false)
     const navigate = useNavigate()
-    const {filters: allFilters} = useContext(FilterContext)
-    const {sort} = allFilters
-    const sortParam = sort ? `&sort=${sort}` : ''
+
+    const location = useLocation()
+    const searchParams = queryString.parse(location.search)
+    delete searchParams.id
 
     const [lock, setLock] = useState(undefined)
     const [dataLoaded, setDataLoaded] = useState(false)
@@ -222,6 +224,8 @@ export default function CheckIn({checkIn, profile, user}) {
 
         delete formCopy.ratings
 
+        Object.keys(formCopy).forEach(key => (formCopy[key] === undefined || formCopy[key] === '') ? delete formCopy[key] : {})
+
         const formData = new FormData()
         Object.keys(formCopy).forEach(key => {
             formData.append(key, formCopy[key])
@@ -230,7 +234,7 @@ export default function CheckIn({checkIn, profile, user}) {
         const url = `${nodeServerUrl}/check-in-challenge-lock`
 
         try {
-            const results = await postData({user, url, formData, snackBars: false})
+            const results = await postData({user, url, formData, snackBars: false, timeoutDuration: 25000})
             setResponse(results)
             await updateVersion()
         } catch (error) {
@@ -257,12 +261,12 @@ export default function CheckIn({checkIn, profile, user}) {
 
     const handleSubmitOK = useCallback(async () => {
         await refreshEntries()
-        navigate(`/challengelocks?id=${lockId}&name=${safeName}${sortParam}`)
-    }, [lockId, navigate, refreshEntries, safeName, sortParam])
+        navigate(`/challengelocks?id=${lockId}&name=${safeName}&${queryString.stringify(searchParams)}`)
+    }, [lockId, navigate, refreshEntries, safeName, searchParams])
 
     const handleLockClick = useCallback(() => {
-        navigate(`/challengelocks?id=${lockId}&name=${safeName}${sortParam}`)
-    }, [lockId, navigate, safeName, sortParam])
+        navigate(`/challengelocks?id=${lockId}&name=${safeName}&${queryString.stringify(searchParams)}`)
+    }, [lockId, navigate, safeName, searchParams])
 
     const handleChange = useCallback(newValue => {
         navigate(newValue.page)
@@ -540,7 +544,7 @@ export default function CheckIn({checkIn, profile, user}) {
 
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
                             {checkIn &&
-                                <Button onClick={() => navigate(`/challengelocks?id=${checkIn.lockId}`)}
+                                <Button onClick={() => navigate(`/challengelocks?id=${checkIn.lockId}&${queryString.stringify(searchParams)}`)}
                                         variant='contained'
                                         color='error' style={{marginRight: 20}}>
                                     Cancel

@@ -2,7 +2,7 @@ import React, {useCallback, useContext, useEffect, useState} from 'react'
 import Button from '@mui/material/Button'
 import useWindowSize from '../util/useWindowSize.jsx'
 import Dialog from '@mui/material/Dialog'
-import {useNavigate} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import LoadingDisplay from '../misc/LoadingDisplay.jsx'
@@ -18,6 +18,7 @@ import DBContext from '../app/DBContext.jsx'
 import Link from '@mui/material/Link'
 import SignInButton from '../auth/SignInButton.jsx'
 import {nodeServerUrl} from '../data/dataUrls.js'
+import queryString from 'query-string'
 
 export default function EditImages({profile, user}) {
 
@@ -25,13 +26,16 @@ export default function EditImages({profile, user}) {
     const {refreshEntries, updateVersion, updateProfile} = useContext(DBContext)
     const {allEntries, getEntryFromId, isMod} = useContext(DataContext)
 
+    const location = useLocation()
+    const searchParams = queryString.parse(location.search)
+    delete searchParams.id
+
     const {filters} = useContext(FilterContext)
     const lockId = filters.id
     const lock = getEntryFromId(lockId) || {}
     const notValidLock = (Object.keys(allEntries).length > 0 && Object.keys(lock).length === 0)
 
-    const safeName = lock?.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
-    const lockNavigate = `/challengelocks?id=${lockId}&name=${safeName}`
+    const lockNavigate = `/challengelocks?id=${lockId}&${queryString.stringify(searchParams)}`
 
     const [response, setResponse] = useState(undefined)
     const [uploadError, setUploadError] = useState(undefined)
@@ -120,7 +124,7 @@ export default function EditImages({profile, user}) {
 
         try {
             try {
-                await postData({user, url, formData, snackBars: true}).then(response => {setResponse(response)})
+                await postData({user, url, formData, snackBars: true, timeoutDuration: 25000}).then(response => {setResponse(response)})
             } catch (error) {
                 console.log('Error creating request', error)
             }
@@ -173,8 +177,8 @@ export default function EditImages({profile, user}) {
 
     const navigate = useNavigate()
     const handleLockClick = useCallback(() => {
-        navigate(`/challengelocks?id=${lockId}&name=${safeName}`)
-    }, [lockId, navigate, safeName])
+        navigate(`/challengelocks?id=${lockId}&${queryString.stringify(searchParams)}`)
+    }, [lockId, navigate, searchParams])
 
     const {width, isMobile} = useWindowSize()
     const paddingLeft = !isMobile ? 16 : 8
@@ -352,7 +356,7 @@ export default function EditImages({profile, user}) {
 
 
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
-                            <Button onClick={() => navigate(`/challengelocks?id=${lockId}`)} variant='contained'
+                            <Button onClick={() => navigate(`/challengelocks?id=${lockId}&${queryString.stringify(searchParams)}`)} variant='contained'
                                     color='error' style={{marginRight: 20}}>
                                 Cancel
                             </Button>

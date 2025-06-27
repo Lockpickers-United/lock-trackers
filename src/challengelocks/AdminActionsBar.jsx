@@ -2,11 +2,16 @@ import React, {useCallback, useContext, useState} from 'react'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import DBContextCL from './DBProviderCL.jsx'
-import {useNavigate} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 import LoadingDisplayWhite from '../misc/LoadingDisplayWhite.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
+import queryString from 'query-string'
 
 export default function AdminActionsBar({entry}) {
+
+    const location = useLocation()
+    const searchParams = queryString.parse(location.search)
+    searchParams.id = entry.id
 
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
@@ -25,9 +30,8 @@ export default function AdminActionsBar({entry}) {
     }, [deleteChallengeLock, entry.id, refreshEntries])
 
     const handleEdit = useCallback((dir = '') => {
-        const safeName = entry.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
-        navigate(`/challengelocks/edit${dir}?id=${entry.id}&name=${safeName}`)
-    }, [entry.id, entry.name, navigate])
+        navigate(`/challengelocks/edit${dir}?${queryString.stringify(searchParams)}`)
+    }, [navigate, searchParams])
 
     const {flexStyle} = useWindowSize()
     return (

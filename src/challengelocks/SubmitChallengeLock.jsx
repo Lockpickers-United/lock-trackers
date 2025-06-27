@@ -9,7 +9,7 @@ import SelectBox from '../formUtils/SelectBox.jsx'
 import {uniqueBelts} from '../data/belts'
 import Link from '@mui/material/Link'
 import ChoiceButtonGroup from '../util/ChoiceButtonGroup.jsx'
-import {useNavigate} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 import AuthContext from '../app/AuthContext.jsx'
 import {postData} from '../formUtils/postData.jsx'
 import {enqueueSnackbar} from 'notistack'
@@ -28,6 +28,7 @@ import FreeSoloAutoCompleteBox from '../formUtils/FreeSoloAutoCompleteBox.jsx'
 import statesProvinces from '../data/statesProvinces.json'
 import SignInButton from '../auth/SignInButton.jsx'
 import {nodeServerUrl} from '../data/dataUrls.js'
+import queryString from 'query-string'
 
 /**
  * @prop acReset
@@ -35,6 +36,9 @@ import {nodeServerUrl} from '../data/dataUrls.js'
  */
 
 export default function SubmitChallengeLock({entry, profile, user}) {
+    const location = useLocation()
+    const searchParams = queryString.parse(location.search)
+    delete searchParams.id
 
     const {authLoaded} = useContext(AuthContext)
     const {refreshEntries, updateVersion, updateEntry, updateProfile} = useContext(DBContext)
@@ -47,7 +51,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
     const [uploadError, setUploadError] = useState(undefined)
     const [form, setForm] = useState({})
     const [entryId, setEntryId] = useState(undefined)
-    const [entryName, setEntryName] = useState(undefined)
     const [checkIn, setCheckIn] = useState(false)
     const [contentChanged, setContentChanged] = useState(false)
 
@@ -63,7 +66,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
             setCountry(entry.country || null)
             setStateProvince(entry.stateProvince || null)
             setEntryId(entry.id)
-            setEntryName(entry.name)
         } else {
             const newForm = {
                 id: 'cl_' + genHexString(8),
@@ -121,7 +123,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                 localProfile = {...localProfile, redditUsername: form.submittedByUsername}
                 needUpdate = true
             }
-
             if (form.country && form.country !== profile.country) {
                 localProfile = {...localProfile, country: form.country}
                 needUpdate = true
@@ -213,13 +214,12 @@ export default function SubmitChallengeLock({entry, profile, user}) {
             } finally {
                 await refreshEntries()
                 setUploading(false)
-                const safeName = formCopy.name?.replace(/[\s/]/g, '_').replace(/\W/g, '')
-                navigate(`/challengelocks?id=${formCopy.id}&name=${safeName}`)
+                navigate(`/challengelocks?id=${formCopy.id}&${queryString.stringify(searchParams)}`)
             }
         } else {
             const url = `${nodeServerUrl}/submit-challenge-lock`
             try {
-                const results = await postData({user, url, formData, snackBars: false})
+                const results = await postData({user, url, formData, snackBars: false, timeoutDuration: 25000})
                 setResponse(results)
                 await refreshEntries()
                 await updateVersion()
@@ -229,7 +229,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                 throw error
             } finally {
                 setEntryId(form.id)
-                setEntryName(form.name)
                 files.forEach(file => URL.revokeObjectURL(file.preview))
                 mainPhoto.forEach(file => URL.revokeObjectURL(file.preview))
                 setFiles([])
@@ -250,13 +249,11 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         mainPhoto.forEach(file => URL.revokeObjectURL(file.preview))
         setMainPhoto([])
         if (checkIn) {
-            const safeName = entryName?.replace(/[\s/]/g, '_').replace(/\W/g, '')
-            navigate(`/challengelocks/checkin?id=${entryId}&name=${safeName}`)
+            navigate(`/challengelocks/checkin?id=${entryId}&${queryString.stringify(searchParams)}`)
         } else {
-            const safeName = entryName?.replace(/[\s/]/g, '_').replace(/\W/g, '')
-            navigate(`/challengelocks?id=${form.id}&name=${safeName}`)
+            navigate(`/challengelocks?id=${form.id}&${queryString.stringify(searchParams)}`)
         }
-    }, [checkIn, entryId, entryName, files, form, mainPhoto, navigate])
+    }, [checkIn, entryId, files, form.id, mainPhoto, navigate, searchParams])
 
     //TODO: clear form on error OK?
     const handleClose = useCallback(() => {
@@ -376,8 +373,8 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                         </div>
                                         <AutoCompleteBox changeHandler={handleFormChange}
                                                          options={statesProvinces[form.country].sort()}
-                                                         value={form.stateProvince}
-                                                         name={'stateProvince'} style={{width: 250}}
+                                                         value={form.stateProvince || null} style={{width: 250}}
+                                                         name={'stateProvince'}
                                                          reset={acReset}
                                                          inputValueHandler={setStateProvince}
                                         />
@@ -527,7 +524,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
 
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
                             {entry &&
-                                <Button onClick={() => navigate(`/challengelocks?id=${entry.id}`)} variant='contained'
+                                <Button onClick={() => navigate(`/challengelocks?id=${entry.id}&${queryString.stringify(searchParams)}`)} variant='contained'
                                         color='error' style={{marginRight: 20}}>
                                     Cancel
                                 </Button>

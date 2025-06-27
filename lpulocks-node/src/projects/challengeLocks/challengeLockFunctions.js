@@ -118,7 +118,7 @@ export async function updateLockMedia(req, res) {
             fullUrl: filepath,
             fullSizeUrl: (await createThumbnails({
                 inputFile: files.files[index].filepath,
-                width: 1024
+                width: 1600
             })).replace(uploadDir, serverPath),
             thumbnailUrl: (await createThumbnails({
                 inputFile: files.files[index].filepath,
@@ -294,7 +294,7 @@ export default async function submitChallengeLock(req, res) {
             fullUrl: filepath,
             fullSizeUrl: (await createThumbnails({
                 inputFile: files.files[index].filepath,
-                width: 1024
+                width: 1600
             })).replace(uploadDir, serverPath),
             thumbnailUrl: (await createThumbnails({
                 inputFile: files.files[index].filepath,
