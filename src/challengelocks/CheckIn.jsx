@@ -7,7 +7,7 @@ import LoadingDisplay from '../misc/LoadingDisplay.jsx'
 import SelectBox from '../formUtils/SelectBox.jsx'
 import {uniqueBelts} from '../data/belts'
 import Link from '@mui/material/Link'
-import ChoiceButtonGroup from '../util/ChoiceButtonGroup.jsx'
+import SubNav from '../nav/SubNav.jsx'
 import {useLocation, useNavigate} from 'react-router-dom'
 import {enqueueSnackbar} from 'notistack'
 import countries from '../data/countries.json'
@@ -59,6 +59,7 @@ export default function CheckIn({checkIn, profile, user}) {
     const [dataLoaded, setDataLoaded] = useState(false)
     const [addTracking, setAddTracking] = useLocalStorage('addCheckInTracking', false)
     const [showTracking, setShowTracking] = useState(!!checkIn || addTracking)
+    const [contentChanged, setContentChanged] = useState(false)
 
     const [acReset, setAcReset] = useState(false) // eslint-disable-line
     const [inputValue, setInputValue] = useState(undefined) // eslint-disable-line
@@ -71,9 +72,6 @@ export default function CheckIn({checkIn, profile, user}) {
     const {filters} = useContext(FilterContext)
     const id = filters.id
 
-    // if checkIn, just need lock for content
-    // if no checkIn, user is creating new check-in, id in url is lockId
-
     const lockId = checkIn ? checkIn.lockId : id
 
     const getEntities = useCallback(async () => {
@@ -82,7 +80,7 @@ export default function CheckIn({checkIn, profile, user}) {
     }, [getEntryFromId, lockId])
 
     useEffect(() => {
-            getEntities().then()
+        getEntities().then()
     }, [getEntities, lockId])
 
     const notValidLock = (dataLoaded && !lock)
@@ -141,8 +139,8 @@ export default function CheckIn({checkIn, profile, user}) {
 
     const handleFormChange = useCallback((event) => {
         let {name, value} = event.target
-
         let formCopy = {...form}
+
         if (name === 'country') {
             setCountry(value)
         }
@@ -153,27 +151,30 @@ export default function CheckIn({checkIn, profile, user}) {
             delete formCopy.stateProvince
         }
         if (name === 'videoUrl' && value) {
-            value = sanitizeValues(value, { urlsOK: true })
+            value = sanitizeValues(value, {urlsOK: true})
         } else {
             value = sanitizeValues(value)
         }
 
         let updates = {[name]: value}
         setForm({...formCopy, ...updates})
+        setContentChanged(true)
     }, [acReset, form])
-
-    const urlError = form.videoUrl?.length > 0 && !validator.isURL(form.videoUrl, {require_protocol: true})
-    const urlHelperText = urlError ? 'Video link is not a valid URL' : ' '
 
     const handleDateChange = useCallback((dateValue) => {
         setForm({...form, ...dateValue})
+        setContentChanged(true)
     }, [form])
+
+    const urlError = form.videoUrl?.length > 0 && !validator.isURL(form.videoUrl, {require_protocol: true})
+    const urlHelperText = urlError ? 'Video link is not a valid URL' : ' '
 
     const requiredFields = ['lockId', 'pickDate', 'username', 'usernamePlatform', 'successfulPick']
     const uploadable = requiredFields.every(field => form[field] && form[field].length > 0)
 
     const onRatingChange = useCallback(({dimension, rating}) => {
         setForm({...form, ratings: {...form.ratings, [dimension]: rating}})
+        setContentChanged(true)
     }, [form])
 
     const handleUpdateProfile = useCallback(async () => {
@@ -212,8 +213,9 @@ export default function CheckIn({checkIn, profile, user}) {
             ...form,
             lockId: lockId,
             submittedAt: dayjs().toISOString(), // TODO should this be set here on in DBcontext?
-            displayName: profile?.username || 'no display name',
-            userId: user.uid
+
+            displayName: checkIn ? form.username : profile?.username || 'unknown',
+            userId: checkIn ? form.userId : user.uid
         }
 
         if (form.ratings) {
@@ -242,7 +244,6 @@ export default function CheckIn({checkIn, profile, user}) {
             enqueueSnackbar(`Error creating request: ${error}`, {variant: 'error', autoHideDuration: 3000})
         } finally {
             setUploading(false)
-            //setForm(formCopy)
             if (!checkIn) {
                 setAddTracking(showTracking)
                 await handleUpdateProfile()
@@ -281,52 +282,40 @@ export default function CheckIn({checkIn, profile, user}) {
     const textFieldMax = 40
 
     const nameTextStyle = {
-        fontSize: '1.5rem',
-        lineHeight: '1.7rem',
-        color: '#fff',
-        fontWeight: 600,
-        wordBreak: 'break-word',
-        inlineSize: '100%',
-        marginRight: 20
+        fontSize: '1.5rem', lineHeight: '1.7rem', color: '#fff', fontWeight: 600,
+        wordBreak: 'break-word', inlineSize: '100%', marginRight: 20
     }
     const makerTextStyle = {
-        fontSize: '1.2rem',
-        lineHeight: '1.4rem',
-        color: '#fff',
-        wordBreak: 'break-word',
-        inlineSize: '100%',
-        marginRight: 20,
-        marginTop: 5
+        fontSize: '1.2rem', lineHeight: '1.4rem', color: '#fff',
+        wordBreak: 'break-word', inlineSize: '100%', marginRight: 20, marginTop: 5
     }
 
     return (
 
         <React.Fragment>
-            <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[0].label}/><br/>
+            <SubNav options={optionsCL} onChange={handleChange} defaultValue={optionsCL[0].label}/><br/>
 
             <div style={{
                 maxWidth: 720, padding: 8, backgroundColor: '#222',
                 marginLeft: 'auto', marginRight: 'auto', marginTop: 16, marginBottom: 46, paddingLeft: 8
             }}>
 
-                <div style={{margin: `10px 20px 30px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
+                <div style={{margin: `10px 20px 10px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
                     <div style={{
                         fontSize: '1.4rem',
-                        fontWeight: 700,
-                        marginBottom: 10
+                        fontWeight: 700
                     }}>{checkIn ? 'Edit Check-in' : 'Check In'}
                     </div>
                     {!checkIn &&
-                        <div style={{lineHeight: '1.5rem'}}>
+                        <div style={{lineHeight: '1.5rem', marginTop: 5}}>
                             Use this page to submit a Check-in for a challenge lock you have picked or
                             attempted.<br/>
                             Please do not include any personal information for yourself or other recipients.<br/>
                         </div>
                     }
                 </div>
-
                 <div style={{margin: `10px 20px 20px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
-                    <div style={{display: flexStyle, paddingBottom: 15, borderBottom: '1px solid #ccc'}}>
+                    <div style={{display: flexStyle, paddingBottom: 10, borderBottom: '1px solid #ccc'}}>
                         <div style={{display: 'flex', alignItems: 'center', flexGrow: 1}}>
                             <div>
                                 <div style={nameTextStyle}>
@@ -336,9 +325,9 @@ export default function CheckIn({checkIn, profile, user}) {
                             </div>
                         </div>
                         {lock?.thumbnail &&
-                            <div style={{marginTop: 5}}>
+                            <div style={{marginTop: 0}}>
                                 <img src={lock?.thumbnail} alt={lock?.name}
-                                     style={{width: 120, height: 120, marginRight: 10}}/>
+                                     style={{width: 100, height: 100, marginRight: 10}}/>
                             </div>
                         }
                     </div>
@@ -464,7 +453,8 @@ export default function CheckIn({checkIn, profile, user}) {
                                         State/Province<br/><span style={{color: '#aaa'}}>(optional)</span>
                                     </div>
                                     <AutoCompleteBox changeHandler={handleFormChange}
-                                                     options={statesProvinces[form.country].sort()} value={form.stateProvince || null}
+                                                     options={statesProvinces[form.country].sort()}
+                                                     value={form.stateProvince || null}
                                                      name={'stateProvince'} style={{width: 200}}
                                                      reset={acReset}
                                                      inputValueHandler={setStateProvince}
@@ -544,14 +534,15 @@ export default function CheckIn({checkIn, profile, user}) {
 
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
                             {checkIn &&
-                                <Button onClick={() => navigate(`/challengelocks?id=${checkIn.lockId}&${queryString.stringify(searchParams)}`)}
-                                        variant='contained'
-                                        color='error' style={{marginRight: 20}}>
+                                <Button
+                                    onClick={() => navigate(`/challengelocks?id=${checkIn.lockId}&${queryString.stringify(searchParams)}`)}
+                                    variant='contained'
+                                    color='error' style={{marginRight: 20}}>
                                     Cancel
                                 </Button>
                             }
                             <Button onClick={handleSubmit} variant='contained' color='info'
-                                    disabled={(!uploadable || uploading)}>
+                                    disabled={!uploadable || uploading || !contentChanged}>
                                 {checkIn ? 'Save Changes' : 'Submit'}
                             </Button>
                         </div>

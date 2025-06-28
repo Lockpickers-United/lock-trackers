@@ -1,7 +1,7 @@
 import React, {useCallback, useContext, useEffect} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
 import DataContext from '../context/DataContext.jsx'
-import ChoiceButtonGroup from '../util/ChoiceButtonGroup.jsx'
+import SubNav from '../nav/SubNav.jsx'
 import {useNavigate} from 'react-router-dom'
 import SortFilterBar from './SortFilterBar.jsx'
 import SortButtonCheckIns from './SortButtonCheckIns.jsx'
@@ -77,7 +77,7 @@ export default function ViewCheckIns({user}) {
 
     return (
         <React.Fragment>
-            <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[2].label}/>
+            <SubNav options={optionsCL} onChange={handleChange} defaultValue={optionsCL[2].label}/>
 
             <div style={{
                 minWidth: 330, maxWidth: 720, height: '100%',

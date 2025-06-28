@@ -3,7 +3,7 @@ import useWindowSize from '../util/useWindowSize.jsx'
 import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import ChallengeLockEntry from './ChallengeLockEntry.jsx'
-import ChoiceButtonGroup from '../util/ChoiceButtonGroup.jsx'
+import SubNav from '../nav/SubNav.jsx'
 import {useNavigate} from 'react-router-dom'
 import SortFilterBar from './SortFilterBar.jsx'
 import SortButtonCL from './SortButtonCL.jsx'
@@ -53,7 +53,7 @@ function ChallengeLocksMain({user}) {
 
     return (
         <React.Fragment>
-            <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={optionsCL[0].label}/>
+            <SubNav options={optionsCL} onChange={handleChange} defaultValue={optionsCL[0].label}/>
 
             <div style={{
                 minWidth: 330, maxWidth: 720, height: '100%',

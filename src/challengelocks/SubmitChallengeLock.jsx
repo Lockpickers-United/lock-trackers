@@ -8,7 +8,7 @@ import LoadingDisplay from '../misc/LoadingDisplay.jsx'
 import SelectBox from '../formUtils/SelectBox.jsx'
 import {uniqueBelts} from '../data/belts'
 import Link from '@mui/material/Link'
-import ChoiceButtonGroup from '../util/ChoiceButtonGroup.jsx'
+import SubNav from '../nav/SubNav.jsx'
 import {useLocation, useNavigate} from 'react-router-dom'
 import AuthContext from '../app/AuthContext.jsx'
 import {postData} from '../formUtils/postData.jsx'
@@ -59,6 +59,8 @@ export default function SubmitChallengeLock({entry, profile, user}) {
     const [inputValue, setInputValue] = useState(undefined) // eslint-disable-line
     const [country, setCountry] = useState(null) // eslint-disable-line
     const [stateProvince, setStateProvince] = useState(null) // eslint-disable-line
+
+    const subNavItem = entry ? optionsCL[0] : optionsCL[1]
 
     useEffect(() => {
         if (entry) {
@@ -175,7 +177,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
 
         setUploading(true)
         setCheckIn(doCheckIn)
-
         const formCopy = {
             ...form,
             displayName: sanitizeValues(profile?.username) || 'no display name',
@@ -183,12 +184,10 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         }
 
         Object.keys(formCopy).forEach(key => (formCopy[key] === undefined || formCopy[key] === '') ? delete formCopy[key] : {})
-
         const formData = new FormData()
         Object.keys(formCopy).forEach(key => {
             formData.append(key, formCopy[key])
         })
-
 
         if (!entry) {
             const prefix = formCopy?.name?.replace('/', '+')
@@ -262,6 +261,10 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         setUploadError(undefined)
     }, [])
 
+    const handleLockClick = useCallback(() => {
+        navigate(`/challengelocks?id=${entry?.id}&${queryString.stringify(searchParams)}`)
+    }, [entry?.id, navigate, searchParams])
+
     const countryList = useMemo(() => {
         return countries.map(country => country.country_area)
     }, [])
@@ -273,22 +276,30 @@ export default function SubmitChallengeLock({entry, profile, user}) {
     const optionalHeaderStyle = {fontSize: '1.0rem', fontWeight: 400, marginBottom: 5, paddingLeft: 2, color: '#ccc'}
     const reqStyle = {height: 4, borderRadius: 2}
 
-    const subNavItem = entry ? optionsCL[0] : optionsCL[1]
+
+    const nameTextStyle = {
+        fontSize: '1.5rem', lineHeight: '1.7rem', color: '#fff', fontWeight: 600,
+        wordBreak: 'break-word', inlineSize: '100%', marginRight: 20
+    }
+    const makerTextStyle = {
+        fontSize: '1.2rem', lineHeight: '1.4rem', color: '#fff',
+        wordBreak: 'break-word', inlineSize: '100%', marginRight: 20, marginTop: 5
+    }
 
     return (
 
         <React.Fragment>
-            <ChoiceButtonGroup options={optionsCL} onChange={handleChange} defaultValue={subNavItem.label}/><br/>
+            <SubNav options={optionsCL} onChange={handleChange} defaultValue={subNavItem.label}/><br/>
 
             <div style={{
                 maxWidth: 720, padding: 8, backgroundColor: '#222',
                 marginLeft: 'auto', marginRight: 'auto', marginTop: 16, marginBottom: 46, paddingLeft: 8
             }}>
-                <div style={{margin: `10px 20px 30px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
+
+                <div style={{margin: `10px 20px 10px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
                     <div style={{
                         fontSize: '1.4rem',
                         fontWeight: 700,
-                        marginBottom: 10
                     }}>{entry ? 'Edit' : 'Submit a'} Challenge Lock
                     </div>
                     {!entry &&
@@ -296,10 +307,27 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                             Use this page to submit a new Challenge Lock that you have either created or received.
                             Please be sure to <Link onClick={() => navigate('/challengelocks')}
                                                     style={{color: '#bbb', cursor: 'pointer', fontWeight: 700}}>check
-                            the
-                            existing locks</Link> for a match before submitting.
+                            the existing locks</Link> for a match before submitting.
                         </div>
                     }
+                </div>
+                <div style={{margin: `10px 20px 20px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
+                    <div style={{display: flexStyle, paddingBottom: 10, borderBottom: '1px solid #ccc'}}>
+                        <div style={{display: 'flex', alignItems: 'center', flexGrow: 1}}>
+                            <div>
+                                <div style={nameTextStyle}>
+                                    <Link onClick={handleLockClick} style={{cursor: 'pointer'}}>{entry?.name}</Link>
+                                </div>
+                                <div style={makerTextStyle}>By: {entry?.maker}</div>
+                            </div>
+                        </div>
+                        {entry?.media?.length > 0 && entry?.media[0].thumbnailSquareUrl &&
+                            <div style={{marginTop: 0}}>
+                                <img src={entry.media[0].thumbnailSquareUrl} alt={entry?.name}
+                                     style={{width: 100, height: 100, marginRight: 10}}/>
+                            </div>
+                        }
+                    </div>
                 </div>
 
                 <form action={null} encType='multipart/form-data' method='post'>
@@ -524,8 +552,10 @@ export default function SubmitChallengeLock({entry, profile, user}) {
 
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
                             {entry &&
-                                <Button onClick={() => navigate(`/challengelocks?id=${entry.id}&${queryString.stringify(searchParams)}`)} variant='contained'
-                                        color='error' style={{marginRight: 20}}>
+                                <Button
+                                    onClick={() => navigate(`/challengelocks?id=${entry.id}&${queryString.stringify(searchParams)}`)}
+                                    variant='contained'
+                                    color='error' style={{marginRight: 20}}>
                                     Cancel
                                 </Button>
                             }

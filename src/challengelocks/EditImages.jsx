@@ -47,10 +47,13 @@ export default function EditImages({profile, user}) {
     })
     const [form, setForm] = useState({})
     const [contentChanged, setContentChanged] = useState(false)
+    const currentPhotoCredit = lock?.media?.length > 0 && lock.media[0].title && lock.media[0].title !== 'By: Unknown'
+        ? lock.media[0].title?.replace('By: ', '')
+        : undefined
 
     useEffect(() => {
         setForm({
-            photoCredit: profile?.lastPhotoCredit || undefined,
+            photoCredit: profile?.lastPhotoCredit || currentPhotoCredit || profile?.username || undefined,
             id: lockId
         })
         setMediaArrays({
@@ -59,7 +62,7 @@ export default function EditImages({profile, user}) {
             newMainPhoto: [],
             newMedia: []
         })
-    }, [lock.media, lockId, profile])
+    }, [currentPhotoCredit, lock.media, lockId, profile])
 
     const [uploading, setUploading] = useState(false)
     const needPhotoCredit = (mediaArrays?.newMainPhoto?.length > 0 || mediaArrays?.newMedia?.length > 0) && !form.photoCredit
@@ -69,6 +72,12 @@ export default function EditImages({profile, user}) {
         && contentChanged
 
     const needMainPhoto = mediaArrays?.currentMainPhoto?.length === 0 && mediaArrays?.newMainPhoto?.length === 0
+
+    const getHighlightColor = useCallback(field => {
+        return !form[field]
+            ? '#d00'
+            : '#090'
+    }, [form])
 
     const handleFormChange = useCallback((event) => {
         let {name, value} = event.target
@@ -124,7 +133,9 @@ export default function EditImages({profile, user}) {
 
         try {
             try {
-                await postData({user, url, formData, snackBars: true, timeoutDuration: 25000}).then(response => {setResponse(response)})
+                await postData({user, url, formData, snackBars: true, timeoutDuration: 25000}).then(response => {
+                    setResponse(response)
+                })
             } catch (error) {
                 console.log('Error creating request', error)
             }
@@ -194,6 +205,7 @@ export default function EditImages({profile, user}) {
     const optionalHeaderStyle = {fontSize: '1.1rem', fontWeight: 400, marginBottom: 5, paddingLeft: 2, color: '#fff'}
 
     const requiredHeaderStyle = {backgroundColor: needMainPhoto ? '#c00' : 'inherit'}
+    const reqStyle = {height: 4, borderRadius: 2}
 
     const smallWindow = width <= 560
 
@@ -335,29 +347,87 @@ export default function EditImages({profile, user}) {
                         </div>
 
                         {(mediaArrays?.newMedia?.length > 0 || mediaArrays?.newMainPhoto?.length > 0) &&
-                            <div style={{display: 'flex', margin: '20px auto 0px auto', justifyContent: 'center'}}>
+                            <React.Fragment>
                                 <div style={{
-                                    ...headerStyle,
-                                    padding: '0px 10px 0px 10px',
-                                    width: 'auto',
-                                    margin: 0,
-                                    fontSize: '1.1rem',
-                                    backgroundColor: !form.photoCredit ? '#c00' : 'inherit',
-                                    alignContent: 'center',
+                                    margin: '30px auto 10px auto',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    width: '100%'
                                 }}>
-                                    New Image Photo Credit
+                                    <div>
+                                        <div style={{
+                                            ...headerStyle,
+                                            padding: '0px 0px 5px 0px',
+                                            width: 'auto',
+                                            margin: 0,
+                                            fontSize: '1.1rem',
+                                            backgroundColor: !form.photoCredit ? '#c00' : 'inherit',
+                                            alignContent: 'center'
+                                        }}>
+                                            Photo Credit for New Images
+                                        </div>
+                                        <TextField type='text' name='photoCredit' style={{width: 240}}
+                                                   onChange={handleFormChange} value={form.photoCredit || ''}
+                                                   color='info'
+                                                   inputProps={{maxLength: 40}} size='small'/>
+                                        <div style={{...reqStyle, backgroundColor: getHighlightColor('photoCredit')}}/>
+                                    </div>
                                 </div>
-                                <TextField type='text' name='photoCredit' style={{width: 240}}
-                                           onChange={handleFormChange} value={form.photoCredit || ''}
-                                           color='info'
-                                           inputProps={{maxLength: 40}} size='small'/>
-                            </div>
+                                <div style={{
+                                    fontSize: '0.9rem', fontWeight: 400, marginBottom: 5, color: '#fff',
+                                    textAlign: 'center'
+                                }}>
+                                    {profile?.lastPhotoCredit &&
+                                        <span><Link
+                                            onClick={() => handleFormChange({
+                                                target: {
+                                                    name: 'photoCredit',
+                                                    value: profile?.lastPhotoCredit
+                                                }
+                                            })}
+                                            style={{
+                                                cursor: 'pointer',
+                                                textDecoration: 'none',
+                                                fontWeight: form.photoCredit === profile?.lastPhotoCredit ? '600' : '400'
+                                            }}>Last Used</Link> • </span>
+                                    }
+                                    {currentPhotoCredit &&
+                                        <span><Link
+                                            onClick={() => handleFormChange({
+                                                target: {
+                                                    name: 'photoCredit',
+                                                    value: currentPhotoCredit
+                                                }
+                                            })}
+                                            style={{
+                                                cursor: 'pointer',
+                                                textDecoration: 'none',
+                                                fontWeight: form.photoCredit === currentPhotoCredit ? '600' : '400'
+                                            }}>Match Existing Photos</Link> • </span>
+                                    }
+                                    {profile?.username &&
+                                        <span><Link
+                                            onClick={() => handleFormChange({
+                                                target: {
+                                                    name: 'photoCredit',
+                                                    value: profile?.username
+                                                }
+                                            })}
+                                            style={{
+                                                cursor: 'pointer',
+                                                textDecoration: 'none',
+                                                fontWeight: form.photoCredit === profile?.username ? '600' : '400'
+                                            }}>Your Userame</Link></span>
+                                    }
+                                </div>
+                            </React.Fragment>
                         }
 
-
                         <div style={{margin: '30px 0px', width: '100%', textAlign: 'center'}}>
-                            <Button onClick={() => navigate(`/challengelocks?id=${lockId}&${queryString.stringify(searchParams)}`)} variant='contained'
-                                    color='error' style={{marginRight: 20}}>
+                            <Button
+                                onClick={() => navigate(`/challengelocks?id=${lockId}&${queryString.stringify(searchParams)}`)}
+                                variant='contained'
+                                color='error' style={{marginRight: 20}}>
                                 Cancel
                             </Button>
                             <Button onClick={handleSubmit} variant='contained' color='info'

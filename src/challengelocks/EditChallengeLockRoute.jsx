@@ -17,6 +17,7 @@ import SignInButton from '../auth/SignInButton.jsx'
 import AuthContext from '../app/AuthContext.jsx'
 import DBContext from '../app/DBContext.jsx'
 import DBContextCL from './DBProviderCL.jsx'
+import Fade from '@mui/material/Fade'
 
 function EditChallengeLockRoute() {
 
@@ -37,11 +38,20 @@ function EditChallengeLockRoute() {
 
     const getEntities = useCallback(async () => {
 
-        // TODO : try to limit db calls.
-        const thisLock = await getChallengeLock(id) || undefined
-        setLock(thisLock)
-        const thisCheckIn = await getCheckIn(id) || undefined
-        setCheckIn(thisCheckIn)
+        let thisCheckIn = undefined
+        let thisLock = undefined
+
+        if (id.substring(0, 3) === 'cl_') {
+            thisLock = await getChallengeLock(id) || undefined
+            setLock(thisLock)
+        }
+        if (!thisLock) {
+            thisCheckIn = await getCheckIn(id) || undefined
+            setCheckIn(thisCheckIn)
+        }
+        if (!thisCheckIn && !thisLock) {
+            thisLock = await getChallengeLock(id) || undefined
+        }
         setEntry(thisLock || thisCheckIn || undefined)
         setDataLoaded(true)
     }, [getCheckIn, getChallengeLock, id])
@@ -53,6 +63,7 @@ function EditChallengeLockRoute() {
             hasFetched.current = true
         }
     }, [getEntities])
+    const notValid = hasFetched.current && !entry
 
     usePageTitle(`Edit ${lock ? 'Challenge Lock' : 'Check-in'} `)
 
@@ -78,9 +89,11 @@ function EditChallengeLockRoute() {
                         ? <SubmitChallengeLock entry={editEntry} profile={profile} user={user}/>
                         : checkIn
                             ? <CheckIn checkIn={editEntry} profile={profile} user={user}/>
-                            : <div style={{color: 'red', textAlign: 'center', marginTop: 20}}>
+                            : <Fade in={notValid} style={{ transitionDelay: notValid ? '500ms' : '0ms' }}>
+                                <div style={{color: 'red', textAlign: 'center', marginTop: 20}}>
                                 Invalid ID.
                             </div>
+                            </Fade>
                     }
                     <Footer/>
 
