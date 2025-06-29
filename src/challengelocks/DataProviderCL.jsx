@@ -139,6 +139,10 @@ export function DataProvider({children}) {
         return mappedEntries?.find(({id}) => id === entryId)
     }, [mappedEntries])
 
+    const getEntryFromName = useCallback(entryName => {
+        return mappedEntries?.find(({name}) => name === entryName)
+    }, [mappedEntries])
+
     const makerData = useMemo(() => {
         return allEntries?.reduce((acc, entry) => {
             acc[entry.maker] = acc[entry.maker] ? acc[entry.maker] + 1 : 1
@@ -146,20 +150,32 @@ export function DataProvider({children}) {
         }, {})
     }, [allEntries])
 
+    const lockNames = useMemo(() => {
+        return allEntries?.map(entry => entry.name)
+    }, [allEntries])
+
     const value = useMemo(() => ({
         getEntryFromId,
-        isMod, adminEnabled, setAdminEnabled,
+        getEntryFromName,
+        isMod,
+        adminEnabled,
+        setAdminEnabled,
         allEntries,
         mappedEntries,
         visibleEntries,
-        makerData
+        makerData,
+        lockNames
     }), [
         getEntryFromId,
-        isMod, adminEnabled, setAdminEnabled,
+        getEntryFromName,
+        isMod,
+        adminEnabled,
+        setAdminEnabled,
         allEntries,
         mappedEntries,
         visibleEntries,
-        makerData
+        makerData,
+        lockNames
     ])
 
 

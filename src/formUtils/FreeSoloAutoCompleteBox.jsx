@@ -29,6 +29,16 @@ function AutoCompleteBox({name, changeHandler, options, value = null, maxLength 
                 clearOnBlur
                 clearOnEscape
                 handleHomeEndKeys
+                disablePortal
+                sx={{
+                    '& + .MuiAutocomplete-popper .MuiAutocomplete-option': {
+                        backgroundColor: '#777', color: '#fff', fontWeight: 500
+                    },
+                    '& + .MuiAutocomplete-popper .MuiAutocomplete-option:hover': {
+                        backgroundColor: '#86a7e3', fontWeight: 600
+                    },
+                }}
+
                 renderInput={(params) =>
                     <TextField {...params}
                                onChange={changeHandler}
@@ -47,6 +57,7 @@ function AutoCompleteBox({name, changeHandler, options, value = null, maxLength 
                 invisible
                 open={open && isMobile}
                 onClick={handleBlur}
+                style={{backgroundColor: '#0b0'}}
             />
         </React.Fragment>
     )

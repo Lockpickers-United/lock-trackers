@@ -29,6 +29,8 @@ import statesProvinces from '../data/statesProvinces.json'
 import SignInButton from '../auth/SignInButton.jsx'
 import {nodeServerUrl} from '../data/dataUrls.js'
 import queryString from 'query-string'
+import Fuse from 'fuse.js'
+import Popover from '@mui/material/Popover'
 
 /**
  * @prop acReset
@@ -43,7 +45,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
     const {authLoaded} = useContext(AuthContext)
     const {refreshEntries, updateVersion, updateEntry, updateProfile} = useContext(DBContext)
     const navigate = useNavigate()
-    const {makerData} = useContext(DataContext)
+    const {makerData, lockNames, getEntryFromName} = useContext(DataContext)
     const [mainPhoto, setMainPhoto] = useState([])
     const [files, setFiles] = useState([])
     const [response, setResponse] = useState(undefined)
@@ -53,6 +55,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
     const [entryId, setEntryId] = useState(undefined)
     const [checkIn, setCheckIn] = useState(false)
     const [contentChanged, setContentChanged] = useState(false)
+    const [nameMatches, setNameMatches] = useState([])
 
     // why are these here? needed for setting auto-complete??
     const [acReset, setAcReset] = useState(false) // eslint-disable-line
@@ -89,6 +92,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
     const makerOptions = Object.keys(makerData).sort((a, b) => {
         return a.localeCompare(b)
     })
+    const makerOptionsLC = makerOptions.map(maker => maker.toLowerCase())
 
     const handleFormChange = useCallback((event) => {
         let {name, value} = event.target
@@ -98,16 +102,24 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         }
         if (name === 'country' && !statesProvinces[value]) {
             delete formCopy.stateProvince
-        }
-        if (name === 'name' && value) {
+        } else if (name === 'name' && value) {
+            const fuse = new Fuse(lockNames, {ignoreDiacritics: true, includeScore: true, threshold: 0.1}) // lower = stricter
+            setNameMatches(fuse.search(form.name || ''))
+            console.log('result', form.name, nameMatches[0]?.item, nameMatches[0]?.score, nameMatches.length)
             value = sanitizeValues(value, {profanityOK: true})
+        } else if (name === 'maker' && value) {
+            const makerIndex = makerOptionsLC.indexOf(value?.toLowerCase())
+            if (makerIndex >= 0) {
+                value = makerOptions[makerIndex]
+            }
         } else {
             value = sanitizeValues(value)
         }
+
         let updates = {[name]: value}
         setForm({...formCopy, ...updates})
         setContentChanged(true)
-    }, [form])
+    }, [form, lockNames, makerOptions, makerOptionsLC, nameMatches])
 
     const handleDateChange = useCallback((dateValue) => {
         setForm({...form, ...dateValue})
@@ -174,7 +186,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
 
 
     const handleSubmit = async ({doCheckIn = false}) => {
-
         setUploading(true)
         setCheckIn(doCheckIn)
         const formCopy = {
@@ -265,6 +276,32 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         navigate(`/challengelocks?id=${entry?.id}&${queryString.stringify(searchParams)}`)
     }, [entry?.id, navigate, searchParams])
 
+    const [foundLock, setFoundLock] = useState(undefined)
+    const handleFoundLock = useCallback(() => {
+        navigate(`/challengelocks?id=${foundLock?.id}&${queryString.stringify(searchParams)}`)
+    }, [foundLock?.id, navigate, searchParams])
+
+    const [popper, setPopper] = useState(false)
+    const [anchorEl, setAnchorEl] = useState(document.getElementById('lockName'))
+
+    const handleLockBlur = useCallback(() => {
+        setAnchorEl(document.getElementById('lockName'))
+        if (nameMatches.length === 1 && !entry) {
+            setFoundLock(getEntryFromName(nameMatches[0]?.item))
+            setPopper(true)
+        }
+    }, [entry, getEntryFromName, nameMatches])
+
+    const handlePopperClose = useCallback(() => {
+        setPopper(false)
+    }, [])
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            setPopper(false)
+        }
+    })
+
     const countryList = useMemo(() => {
         return countries.map(country => country.country_area)
     }, [])
@@ -275,7 +312,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
     const headerStyle = {fontSize: '1.0rem', fontWeight: 600, marginBottom: 5, paddingLeft: 2, width: '100%'}
     const optionalHeaderStyle = {fontSize: '1.0rem', fontWeight: 400, marginBottom: 5, paddingLeft: 2, color: '#ccc'}
     const reqStyle = {height: 4, borderRadius: 2}
-
 
     const nameTextStyle = {
         fontSize: '1.5rem', lineHeight: '1.7rem', color: '#fff', fontWeight: 600,
@@ -299,7 +335,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                 <div style={{margin: `10px 20px 10px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
                     <div style={{
                         fontSize: '1.4rem',
-                        fontWeight: 700,
+                        fontWeight: 700
                     }}>{entry ? 'Edit' : 'Submit a'} Challenge Lock
                     </div>
                     {!entry &&
@@ -311,24 +347,26 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                         </div>
                     }
                 </div>
-                <div style={{margin: `10px 20px 20px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
-                    <div style={{display: flexStyle, paddingBottom: 10, borderBottom: '1px solid #ccc'}}>
-                        <div style={{display: 'flex', alignItems: 'center', flexGrow: 1}}>
-                            <div>
-                                <div style={nameTextStyle}>
-                                    <Link onClick={handleLockClick} style={{cursor: 'pointer'}}>{entry?.name}</Link>
+                {entry &&
+                    <div style={{margin: `10px 20px 20px ${paddingLeft}px`, lineHeight: '1.5rem'}}>
+                        <div style={{display: flexStyle, paddingBottom: 10, borderBottom: '1px solid #ccc'}}>
+                            <div style={{display: 'flex', alignItems: 'center', flexGrow: 1}}>
+                                <div>
+                                    <div style={nameTextStyle}>
+                                        <Link onClick={handleLockClick} style={{cursor: 'pointer'}}>{entry?.name}</Link>
+                                    </div>
+                                    <div style={makerTextStyle}>By: {entry?.maker}</div>
                                 </div>
-                                <div style={makerTextStyle}>By: {entry?.maker}</div>
                             </div>
+                            {entry?.media?.length > 0 && entry?.media[0].thumbnailSquareUrl &&
+                                <div style={{marginTop: 0}}>
+                                    <img src={entry.media[0].thumbnailSquareUrl} alt={entry?.name}
+                                         style={{width: 100, height: 100, marginRight: 10}}/>
+                                </div>
+                            }
                         </div>
-                        {entry?.media?.length > 0 && entry?.media[0].thumbnailSquareUrl &&
-                            <div style={{marginTop: 0}}>
-                                <img src={entry.media[0].thumbnailSquareUrl} alt={entry?.name}
-                                     style={{width: 100, height: 100, marginRight: 10}}/>
-                            </div>
-                        }
                     </div>
-                </div>
+                }
 
                 <form action={null} encType='multipart/form-data' method='post'>
                     <div style={{paddingLeft: paddingLeft}}>
@@ -338,10 +376,29 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                 <div style={{...headerStyle}}>
                                     Challenge Lock Name
                                 </div>
-                                <TextField type='text' name='name' style={{width: 315}}
-                                           onChange={handleFormChange}
+                                <TextField type='text' name='name' id='lockName' style={{width: 315}}
+                                           onChange={handleFormChange} onBlur={handleLockBlur}
                                            value={form.name || ''} color='info'
                                            inputProps={{maxLength: textFieldMax}}/>
+                                <Popover
+                                    id={'foo'}
+                                    open={popper}
+                                    anchorEl={anchorEl}
+                                    onClose={handlePopperClose}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'left'
+                                    }}
+                                >
+                                    <div style={{padding: 30, width: 320, backgroundColor: '#777'}}>
+                                        There&#39;s a lock named <span style={{fontWeight: 600}}>
+                                        {foundLock?.name}</span> by {foundLock?.maker}.
+                                        Is that the one you&#39;re looking for?<br/>
+                                        <Button onClick={() => handleFoundLock()} style={{marginTop:10}}>Yes, take me to that
+                                            one</Button><br/>
+                                        <Button onClick={() => setPopper(false)}>Nope, continue</Button>
+                                    </div>
+                                </Popover>
                                 <div style={{...reqStyle, backgroundColor: getHighlightColor('name')}}/>
                             </div>
                             <div style={{width: 315}}>
@@ -354,7 +411,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                                          reset={acReset} inputValueHandler={setInputValue}
                                 />
                                 <div style={{...reqStyle, backgroundColor: getHighlightColor('maker')}}/>
-
                             </div>
                         </div>
 
@@ -641,7 +697,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                 : <span>{'' + uploadError}</span>
                             }
                             </div>
-
                             <div style={{width: '100%', textAlign: 'center'}}>
                                 <Button onClick={handleClose} variant='contained' color='error'
                                         style={{marginLeft: 'auto', marginRight: 'auto'}}>
