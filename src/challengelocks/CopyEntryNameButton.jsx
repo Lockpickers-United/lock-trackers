@@ -5,10 +5,11 @@ import Tooltip from '@mui/material/Tooltip'
 import {enqueueSnackbar} from 'notistack'
 
 export default function CopyEntryNameButton({entry}) {
+
     const handleClick = useCallback(async () => {
-        await navigator.clipboard.writeText(entry.name)
+        await navigator.clipboard.writeText(`${entry.name} by ${entry.maker}`)
         enqueueSnackbar('Lock name copied to clipboard.')
-    }, [entry.name])
+    }, [entry])
 
     return (
         <Tooltip title='Copy Challenge Lock Name' arrow disableFocusListener>

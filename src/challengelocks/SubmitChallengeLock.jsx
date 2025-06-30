@@ -160,7 +160,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
     const requiredFields = useMemo(() => {
         return entry
             ? ['name', 'maker', 'lockFormat', 'submittedByUsername', 'submittedByUsernamePlatform']
-            : ['name', 'maker', 'lockCreated', 'lockFormat', 'submittedByUsername', 'submittedByUsernamePlatform']
+            : ['name', 'maker', 'lockFormat', 'submittedByUsername', 'submittedByUsernamePlatform']
     }, [entry])
 
     const uploadable = requiredFields.every(field => form[field] && form[field].length > 0) &&
@@ -416,6 +416,17 @@ export default function SubmitChallengeLock({entry, profile, user}) {
 
                         <div style={{display: flexStyle}}>
 
+                            <div style={{marginRight: 20, marginTop: 20, width: 170}}>
+                                <div style={{...headerStyle}}>Lock
+                                    Format
+                                </div>
+                                <SelectBox changeHandler={handleFormChange}
+                                           name='lockFormat' form={form}
+                                           optionsList={lockFormats} size={'large'}
+                                           width={170} multiple={false} defaultValue={''}/>
+                                <div style={{...reqStyle, backgroundColor: getHighlightColor('lockFormat')}}/>
+                            </div>
+
                             <div style={{marginRight: 20, marginTop: 20, width: 200}}>
                                 <div style={{...headerStyle}}>
                                     Created
@@ -428,17 +439,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                     maxDate={dayjs('2026-12-31')}
                                 />
                                 <div style={{...reqStyle, backgroundColor: getHighlightColor('lockCreated')}}/>
-                            </div>
-
-                            <div style={{marginRight: 20, marginTop: 20, width: 170}}>
-                                <div style={{...headerStyle}}>Lock
-                                    Format
-                                </div>
-                                <SelectBox changeHandler={handleFormChange}
-                                           name='lockFormat' form={form}
-                                           optionsList={lockFormats} size={'large'}
-                                           width={170} multiple={false} defaultValue={''}/>
-                                <div style={{...reqStyle, backgroundColor: getHighlightColor('lockFormat')}}/>
                             </div>
 
                             <div style={{marginTop: 20, width: 250}}>
