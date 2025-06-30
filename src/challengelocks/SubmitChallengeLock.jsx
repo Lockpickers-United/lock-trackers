@@ -45,7 +45,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
     const {authLoaded} = useContext(AuthContext)
     const {refreshEntries, updateVersion, updateEntry, updateProfile} = useContext(DBContext)
     const navigate = useNavigate()
-    const {makerData, lockNames, getEntryFromName} = useContext(DataContext)
+    const {makerData, makerListByCount, lockNames, getEntryFromName} = useContext(DataContext)
     const [mainPhoto, setMainPhoto] = useState([])
     const [files, setFiles] = useState([])
     const [response, setResponse] = useState(undefined)
@@ -92,7 +92,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
     const makerOptions = Object.keys(makerData).sort((a, b) => {
         return a.localeCompare(b)
     })
-    const makerOptionsLC = makerOptions.map(maker => maker.toLowerCase())
+    const makerListByCountLC = makerListByCount.map(maker => maker.toLowerCase())
 
     const handleFormChange = useCallback((event) => {
         let {name, value} = event.target
@@ -108,7 +108,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
             console.log('result', form.name, nameMatches[0]?.item, nameMatches[0]?.score, nameMatches.length)
             value = sanitizeValues(value, {profanityOK: true})
         } else if (name === 'maker' && value) {
-            const makerIndex = makerOptionsLC.indexOf(value?.toLowerCase())
+            const makerIndex = makerListByCountLC.indexOf(value?.toLowerCase())
             if (makerIndex >= 0) {
                 value = makerOptions[makerIndex]
             }
@@ -119,7 +119,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         let updates = {[name]: value}
         setForm({...formCopy, ...updates})
         setContentChanged(true)
-    }, [form, lockNames, makerOptions, makerOptionsLC, nameMatches])
+    }, [form, lockNames, makerOptions, makerListByCountLC, nameMatches])
 
     const handleDateChange = useCallback((dateValue) => {
         setForm({...form, ...dateValue})

@@ -150,6 +150,10 @@ export function DataProvider({children}) {
         }, {})
     }, [allEntries])
 
+    const makerListByCount = useMemo(() => {
+        return Object.keys(makerData).sort((a, b) => makerData[b] - makerData[a])
+    }, [allEntries])
+
     const lockNames = useMemo(() => {
         return allEntries?.map(entry => entry.name)
     }, [allEntries])
@@ -164,6 +168,7 @@ export function DataProvider({children}) {
         mappedEntries,
         visibleEntries,
         makerData,
+        makerListByCount,
         lockNames
     }), [
         getEntryFromId,
@@ -175,6 +180,7 @@ export function DataProvider({children}) {
         mappedEntries,
         visibleEntries,
         makerData,
+        makerListByCount,
         lockNames
     ])
 

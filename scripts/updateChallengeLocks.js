@@ -1,7 +1,9 @@
+/* eslint-disable */
+
 import fs from 'fs'
 import admin from 'firebase-admin'
 import {FieldValue, getFirestore} from 'firebase-admin/firestore'
-import {prodUser} from '../../../keys/users.js'
+import {prodUser} from '../lpulocks-node/keys/users.js'
 import dayjs from 'dayjs'
 
 const prodEnvironment = prodUser === process.env.USER
@@ -19,7 +21,8 @@ dbProd.settings({ignoreUndefinedProperties: true})
 
 const dbDev = getFirestore(requestapp, 'locktrackersdev')
 dbDev.settings({ignoreUndefinedProperties: true})
-const db = dbDev
+
+const db = dbProd
 
 async function getAllChallengeLocks() {
     return await db.collection('challenge-locks').get()
@@ -66,13 +69,12 @@ async function updateChallengeLocks(locks) {
     try {
         locks.forEach(lock => {
 
-
             // 2025-06-18T22:44:12.923Z
             //if (lock.lockCreated && dayjs(lock.lockCreated).isSame('2025-06-18', 'day')) {
-            if (lock.dateSubmitted) {
-                console.log(`Changing dateSubmitted from lock ${lock.id} to submittedAt ${lock.dateSubmitted}`)
-                lock.submittedAt = lock.dateSubmitted
-                lock.dateSubmitted = FieldValue.delete()
+
+            if (lock.maker === 'NicVT') {
+                console.log(`Changing NicVT to NICVT for lock ${lock.id}`)
+                lock.maker = 'NICVT'
 
                 setDocument(db.collection('challenge-locks').doc(lock.id), lock, lock.id)
                     .then(() => console.log(`Updated lock ${lock.id}`))

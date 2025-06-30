@@ -11,7 +11,9 @@ import fs from 'fs'
 import {sendEmail} from '../nodeMailer/nodeMailer.js'
 import util from 'util'
 import {exec} from 'child_process'
-import createThumbnails from '../../util/createThumbnails.js'
+import {fork} from 'child_process'
+import path from 'path'
+import {fileURLToPath} from 'url'
 import {contentUploadRecipients, prodUser} from '../../../keys/users.js'
 import admin from 'firebase-admin'
 import {getFirestore, FieldValue} from 'firebase-admin/firestore'
@@ -28,6 +30,10 @@ const keysDir = prodEnvironment
     ? `/home/${process.env.USER}/lpulocks-node/keys`
     : `/Users/${process.env.USER}/Documents/GitHub/lpulocks/lpulocks-node/keys`
 
+const workDir = prodEnvironment
+    ? `/home/${process.env.USER}/lpulocks-node`
+    : `/Users/${process.env.USER}/Documents/GitHub/lpulocks/lpulocks-node`
+
 const uploadDir = prodEnvironment
     ? `/home/${process.env.USER}/lpulocks.com.data/challengelocks/lockimages`
     : `/Users/${process.env.USER}/Documents/LOCKPICK/LockTrackers/challenge-locks/uploads`
@@ -39,18 +45,47 @@ const requestapp = admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: 'https://lock-trackers.firebaseio.com'
 })
-const dbProd = getFirestore(requestapp)
-dbProd.settings({ignoreUndefinedProperties: true})
 
-const dbDev = getFirestore(requestapp, 'locktrackersdev')
-dbDev.settings({ignoreUndefinedProperties: true})
+let _dbProd
+let _dbDev
+
+function getDb(prod) {
+    if (prod) {
+        if (!_dbProd) {
+            _dbProd = getFirestore(requestapp)
+            _dbProd.settings({ ignoreUndefinedProperties: true })
+        }
+        return _dbProd
+    } else {
+        if (!_dbDev) {
+            _dbDev = getFirestore(requestapp, 'locktrackersdev')
+            _dbDev.settings({ ignoreUndefinedProperties: true })
+        }
+        return _dbDev
+    }
+}
+
+const workerPath = `${workDir}/src/projects/challengeLocks/thumbnailWorker.js`
+
+function createThumbnailViaWorker(opts) {
+    return new Promise((resolve, reject) => {
+        const w = fork(workerPath)
+        w.send(opts)
+        w.on('message', ({result, error}) => {
+            if (error) return reject(new Error(error))
+            resolve(result)
+        })
+        w.on('error', reject)
+        w.on('exit', code => {
+            if (code !== 0) reject(new Error(`thumbnail worker exited ${code}`))
+        })
+    })
+}
 
 const maxCombinedFileSize = 100 * 1024 * 1024
-
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, {recursive: true})
 }
-
 let uploadSubDir
 
 function handleError(res, message, error, status = 500) {
@@ -80,7 +115,7 @@ export async function updateLockMedia(req, res) {
     }
 
     const {prod} = req.body
-    const db = prod ? dbProd : dbDev
+    const db = getDb(prod)
     let filepaths = []
 
     const form = formidable({
@@ -116,15 +151,15 @@ export async function updateLockMedia(req, res) {
             imageTitle: lockEntry.name,
             title: `By: ${flatFields.photoCredit || 'Unknown'}`,
             fullUrl: filepath,
-            fullSizeUrl: (await createThumbnails({
+            fullSizeUrl: (await createThumbnailViaWorker({
                 inputFile: files.files[index].filepath,
                 width: 1600
             })).replace(uploadDir, serverPath),
-            thumbnailUrl: (await createThumbnails({
+            thumbnailUrl: (await createThumbnailViaWorker({
                 inputFile: files.files[index].filepath,
                 width: 500
             })).replace(uploadDir, serverPath),
-            thumbnailSquareUrl: (await createThumbnails({
+            thumbnailSquareUrl: (await createThumbnailViaWorker({
                 inputFile: files.files[0].filepath,
                 width: 200,
                 square: true
@@ -152,12 +187,12 @@ export async function updateLockMedia(req, res) {
             const thumbnailSource = newMainImage.fullSizeUrl.replace(serverPath, uploadDir)
             const thumbnailOutputPath = thumbnailSource.replace(/-1024.jpg$/, '-200-sq.jpg')
             if (!fs.existsSync(thumbnailOutputPath)) {
-                const tSquare = await createThumbnails({ //eslint-disable-line no-unused-vars
+                const tSquare =  (await createThumbnailViaWorker({
                     inputFile: thumbnailSource,
                     width: 200,
                     square: true,
                     outputFilePath: thumbnailOutputPath
-                })
+                }))
             }
             if (!newMainImage.thumbnailSquareUrl) {
                 newMainImage.thumbnailSquareUrl = newMainImage.fullSizeUrl.replace(/-1024.jpg$/, '-200-sq.jpg')
@@ -192,7 +227,7 @@ export async function updateLockMedia(req, res) {
                 const thumbnailSource = media.fullSizeUrl.replace(serverPath, uploadDir)
                 const thumbnailOutputPath = thumbnailSource.replace(/-1024.jpg$/, '-200-sq.jpg')
                 if (!fs.existsSync(thumbnailOutputPath)) {
-                    await createThumbnails({
+                    await createThumbnailViaWorker({
                         inputFile: thumbnailSource,
                         width: 200,
                         square: true,
@@ -208,13 +243,9 @@ export async function updateLockMedia(req, res) {
         fullMedia.push(...keepMedia)
         fullMedia.push(...addedMedia)
 
-        console.log('fullMedia:', fullMedia)
-
         updates.media = fullMedia.filter(x => x).map((media, index) => ({...media, sequenceId: index + 1}))
         updates.thumbnail = FieldValue.delete()
         updates.mainImage = FieldValue.delete()
-
-        console.log('updates:', updates)
 
         updates.updatedAt = dayjs().toISOString()
 
@@ -249,7 +280,7 @@ export default async function submitChallengeLock(req, res) {
     }
 
     const {prod} = req.body
-    const db = prod ? dbProd : dbDev
+    const db = getDb(prod)
 
     const form = formidable({
         uploadDir,
@@ -273,10 +304,7 @@ export default async function submitChallengeLock(req, res) {
             }
         }
         const flatFields = flattenFields(fields)
-        console.log('flatFields:', flatFields)
-
         const cleanedFields = selectiveSanitizeValues(flatFields, {profanityOKFields: ['name'], urlsOKFields: []})
-        console.log('cleanedFields:', cleanedFields)
 
         const entry = {
             ...cleanedFields,
@@ -292,15 +320,15 @@ export default async function submitChallengeLock(req, res) {
             imageTitle: lockName,
             title: `By: ${username}`,
             fullUrl: filepath,
-            fullSizeUrl: (await createThumbnails({
+            fullSizeUrl: (await createThumbnailViaWorker({
                 inputFile: files.files[index].filepath,
                 width: 1600
             })).replace(uploadDir, serverPath),
-            thumbnailUrl: (await createThumbnails({
+            thumbnailUrl: (await createThumbnailViaWorker({
                 inputFile: files.files[index].filepath,
                 width: 500
             })).replace(uploadDir, serverPath),
-            thumbnailSquareUrl: (await createThumbnails({
+            thumbnailSquareUrl: (await createThumbnailViaWorker({
                 inputFile: files.files[0].filepath,
                 width: 200,
                 square: true
@@ -329,7 +357,6 @@ export default async function submitChallengeLock(req, res) {
             // TODO : add support for {merge: false}
             // but CL edits go directly to DB
 
-            console.log('setDocument', ref, entry, entry.id, false)
             await setDocument(ref, entry, entry.id, false)
         } catch (error) {
             handleError(res, 'Failed to create Challenge Lock', error, 500)
@@ -388,7 +415,7 @@ export async function submitCheckIn(req, res) {
     }
 
     const {prod} = req.body
-    const db = prod ? dbProd : dbDev
+    const db = getDb(prod)
 
     const form = formidable({})
 
@@ -501,7 +528,7 @@ export async function reportProblem(req, res) {
         return handleError(res, err.message, err, 403)
     }
     const {prod} = req.body
-    const db = prod ? dbProd : dbDev
+    const db = getDb(prod)
 
     const form = formidable({})
 
@@ -575,7 +602,7 @@ export async function clearProblems(req, res) {
     }
 
     const {prod} = req.body
-    const db = prod ? dbProd : dbDev
+    const db = getDb(prod)
 
     const form = formidable({})
 

@@ -10,6 +10,9 @@ export default async function createThumbnails({inputFile, width = 400, square =
         ? outputFilePath
         : `${pathComponents.join('/')}/${filenameParts[1]}-${width}${suffix}.${filenameParts[2]}`
 
+    sharp.cache(false)
+    sharp.concurrency(1) // Limit concurrency to 1 to avoid memory issues
+
     try {
         if (!square) {
             return await sharp(inputFile)
