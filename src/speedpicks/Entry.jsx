@@ -113,11 +113,12 @@ const Entry = ({entry, expanded, onExpand, entriesUpdate}) => {
                 <BeltStripe value={entry.belt}/>
                 <ListItemText
                     primary={entry.lock}
-                    primaryTypographyProps={{fontWeight: 600, color: entryColor, fontSize: fontSize}}
                     secondary={entry.version}
-                    secondaryTypographyProps={{color: entryColor}}
                     style={{padding: '4px 0px 4px 10px'}}
-                />
+                    slotProps={{
+                        primary: {fontWeight: 600, color: entryColor, fontSize: fontSize},
+                        secondary: {color: entryColor}
+                    }} />
                 <div style={combinedDivStyle}>
                     <div style={divStyle}>{entry.pickerName}</div>
                     <div style={divStyle}>{timeString}</div>

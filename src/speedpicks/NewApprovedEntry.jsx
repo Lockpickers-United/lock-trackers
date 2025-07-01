@@ -49,11 +49,12 @@ const Entry = ({entry, bestTimes}) => {
                 <BeltStripe value={entry.belt}/>
                 <ListItemText
                     primary={entry.lock}
-                    primaryTypographyProps={{fontWeight: 600, color: entryColor, fontSize:'0.9rem'}}
                     secondary={entry.version}
-                    secondaryTypographyProps={{color: entryColor}}
                     style={{padding: '0px 0px 0px 10px'}}
-                />
+                    slotProps={{
+                        primary: {fontWeight: 600, color: entryColor, fontSize:'0.9rem'},
+                        secondary: {color: entryColor}
+                    }} />
                 <div style={combinedDivStyle}>
                     <div style={divStyle}>{entry.totalTimeString}</div>
                 </div>

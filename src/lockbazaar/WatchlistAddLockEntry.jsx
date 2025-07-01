@@ -111,11 +111,12 @@ const WatchlistAddLockEntry = ({lock, expanded, onExpand}) => {
                         }}>
                             <ListItemText
                                 primary={lockName}
-                                primaryTypographyProps={{fontWeight: 600}}
                                 secondary={lockVersion}
-                                secondaryTypographyProps={{}}
                                 style={{padding: '0px 0px 0px 10px'}}
-                            />
+                                slotProps={{
+                                    primary: {fontWeight: 600},
+                                    secondary: {}
+                                }} />
                         </div>
 
                         {(!smallWindow) &&
@@ -165,8 +166,10 @@ const WatchlistAddLockEntry = ({lock, expanded, onExpand}) => {
                                                             <td style={{paddingLeft: 20, fontSize: '1rem'}}>
                                                                 <ListItemText
                                                                     primary={sameline.name}
-                                                                    primaryTypographyProps={{fontWeight: 600}}
                                                                     style={{padding: '0px 0px 0px 10px'}}
+                                                                    slotProps={{
+                                                                        primary: {fontWeight: 600}
+                                                                    }}
                                                                 />
                                                             </td>
                                                             <td style={{paddingLeft: 20, fontSize: '1rem'}}>
@@ -207,7 +210,6 @@ const WatchlistAddLockEntry = ({lock, expanded, onExpand}) => {
                 </React.Fragment>
             }
         </Accordion>
-
     )
 }
 

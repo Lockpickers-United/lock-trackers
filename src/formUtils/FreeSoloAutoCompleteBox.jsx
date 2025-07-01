@@ -4,7 +4,7 @@ import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import useWindowSize from '../util/useWindowSize.jsx'
 
-function AutoCompleteBox({name, changeHandler, options, value = null, maxLength = 32, style, placeholder = ''}) {
+export default function FreeSoloAutoCompleteBox({name, changeHandler, options, value = null, maxLength = 32, style, placeholder = ''}) {
     const [open, setOpen] = useState(false)
     const handleBlur = useCallback(() => setOpen(false), [])
     const {isMobile} = useWindowSize()
@@ -40,18 +40,21 @@ function AutoCompleteBox({name, changeHandler, options, value = null, maxLength 
                 }}
 
                 renderInput={(params) =>
-                    <TextField {...params}
-                               onChange={changeHandler}
-                               name={name}
-                               placeholder={placeholder}
-                               InputProps={{
-                                   ...params.InputProps
-                               }}
-                               inputProps={{
-                                   ...params.inputProps,
-                                   maxLength: maxLength
-                               }}
-                    />}
+                    <TextField
+                        {...params}
+                        onChange={changeHandler}
+                        name={name}
+                        placeholder={placeholder}
+                        slotProps={{
+                            input: {
+                                ...params.InputProps,
+                                type: 'search',
+                            },
+                            htmlInput: {
+                                ...params.inputProps,
+                                maxLength: maxLength
+                            }
+                        }} />}
             />
             <Backdrop
                 invisible
@@ -62,5 +65,3 @@ function AutoCompleteBox({name, changeHandler, options, value = null, maxLength 
         </React.Fragment>
     )
 }
-
-export default AutoCompleteBox

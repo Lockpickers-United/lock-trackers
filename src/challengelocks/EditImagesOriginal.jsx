@@ -213,9 +213,7 @@ export default function EditImages({profile, user}) {
     const imageHeight = smallWindow ? 120 : 150
 
     return (
-
         <React.Fragment>
-
             <div style={{
                 maxWidth: 720, padding: 8, backgroundColor: '#222',
                 marginLeft: 'auto', marginRight: 'auto', marginTop: 16, marginBottom: 46, paddingLeft: 8
@@ -369,7 +367,10 @@ export default function EditImages({profile, user}) {
                                         <TextField type='text' name='photoCredit' style={{width: 240}}
                                                    onChange={handleFormChange} value={form.photoCredit || ''}
                                                    color='info'
-                                                   inputProps={{maxLength: 40}} size='small'/>
+                                                   size='small'
+                                                   slotProps={{
+                                                       htmlInput: {maxLength: 40}
+                                                   }}/>
                                         <div style={{...reqStyle, backgroundColor: getHighlightColor('photoCredit')}}/>
                                     </div>
                                 </div>

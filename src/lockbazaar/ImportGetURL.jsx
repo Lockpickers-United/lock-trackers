@@ -113,17 +113,19 @@ const ImportGetURL = () => {
                                    label='Profile URL'
                                    value={profileURL}
                                    onChange={handleChange}
-                                   InputProps={{
-                                       startAdornment: (
-                                           <InputAdornment position='start'>
-                                               <LockIcon style={{fontSize: 'medium'}}/>
-                                           </InputAdornment>
-                                       )
-                                   }}
                                    style={{width: '90%'}}
                                    size='small'
                                    error={profileURLError}
                                    helperText={profileURLHelperText}
+                                   slotProps={{
+                                       input: {
+                                           startAdornment: (
+                                               <InputAdornment position='start'>
+                                                   <LockIcon style={{fontSize: 'medium'}}/>
+                                               </InputAdornment>
+                                           )
+                                       }
+                                   }}
                         />
                         <div>
                             <Button type='text' style={buttonStyle}

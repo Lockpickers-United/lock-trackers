@@ -110,7 +110,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         } else if (name === 'maker' && value) {
             const makerIndex = makerListByCountLC.indexOf(value?.toLowerCase())
             if (makerIndex >= 0) {
-                value = makerOptions[makerIndex]
+                value = makerListByCountLC[makerIndex]
             }
         } else {
             value = sanitizeValues(value)

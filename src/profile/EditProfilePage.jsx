@@ -142,10 +142,12 @@ function EditProfilePage() {
                                     value={localProfile?.sellerEmail || ''}
                                     onChange={handleChange}
                                     onFocus={handleFocus}
-                                    inputProps={{
-                                        maxLength: 32
-                                    }}
                                     style={{marginTop: 20}}
+                                    slotProps={{
+                                        htmlInput: {
+                                            maxLength: 32
+                                        }
+                                    }}
                                 />
                                 <TextField
                                     name='spreadsheetId'
@@ -157,10 +159,12 @@ function EditProfilePage() {
                                     value={adminFlags?.spreadsheetId || ''}
                                     onChange={handleChange}
                                     onFocus={handleFocus}
-                                    inputProps={{
-                                        maxLength: 50
-                                    }}
                                     style={{marginTop: 20}}
+                                    slotProps={{
+                                        htmlInput: {
+                                            maxLength: 50
+                                        }
+                                    }}
                                 />
                             </div>
                         }
@@ -193,10 +197,12 @@ function EditProfilePage() {
                             value={localProfile?.discordUsername || ''}
                             onChange={handleChange}
                             onFocus={handleFocus}
-                            inputProps={{
-                                maxLength: 32
-                            }}
                             style={{marginTop: 20}}
+                            slotProps={{
+                                htmlInput: {
+                                    maxLength: 32
+                                }
+                            }}
                         />
                         <TextField
                             name='redditUsername'
@@ -207,10 +213,12 @@ function EditProfilePage() {
                             value={localProfile?.redditUsername || ''}
                             onChange={handleChange}
                             onFocus={handleFocus}
-                            inputProps={{
-                                maxLength: 32
-                            }}
                             style={{marginTop: 20}}
+                            slotProps={{
+                                htmlInput: {
+                                    maxLength: 32
+                                }
+                            }}
                         />
                         <TextField
                             name='LPUBeltsProfile'
@@ -223,10 +231,12 @@ function EditProfilePage() {
                             onFocus={handleFocus}
                             error={lpuError}
                             helperText={lpuHelperText}
-                            inputProps={{
-                                maxLength: 128
-                            }}
                             style={{marginTop: 20}}
+                            slotProps={{
+                                htmlInput: {
+                                    maxLength: 128
+                                }
+                            }}
                         />
 
                         <FormControl id='country' size='small' sx={{minWidth: 220, marginTop: '20px'}}>

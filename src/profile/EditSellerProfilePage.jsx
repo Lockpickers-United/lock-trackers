@@ -97,8 +97,10 @@ function EditSellerProfilePage() {
                         value={localProfile?.username || ''}
                         onChange={handleChange}
                         onFocus={handleFocus}
-                        inputProps={{
-                            maxLength: 20
+                        slotProps={{
+                            htmlInput: {
+                                maxLength: 20
+                            }
                         }}
                     />
                     <TextField
@@ -111,10 +113,12 @@ function EditSellerProfilePage() {
                         value={localProfile?.discordUsername || ''}
                         onChange={handleChange}
                         onFocus={handleFocus}
-                        inputProps={{
-                            maxLength: 32
-                        }}
                         style={{marginTop: 20}}
+                        slotProps={{
+                            htmlInput: {
+                                maxLength: 32
+                            }
+                        }}
                     />
                     <FormControl id='country' size='small' sx={{minWidth: 220, marginTop: '20px'}}>
                         <InputLabel>Country</InputLabel>
@@ -141,10 +145,12 @@ function EditSellerProfilePage() {
                         value={localProfile?.spreadsheetId || ''}
                         onChange={handleChange}
                         onFocus={handleFocus}
-                        inputProps={{
-                            maxLength: 32
-                        }}
                         style={{marginTop: 20}}
+                        slotProps={{
+                            htmlInput: {
+                                maxLength: 32
+                            }
+                        }}
                     />
                     <TextField
                         name='range'
@@ -156,10 +162,12 @@ function EditSellerProfilePage() {
                         value={localProfile?.range || ''}
                         onChange={handleChange}
                         onFocus={handleFocus}
-                        inputProps={{
-                            maxLength: 32
-                        }}
                         style={{marginTop: 20}}
+                        slotProps={{
+                            htmlInput: {
+                                maxLength: 32
+                            }
+                        }}
                     />
 
                     <div style={{display: 'flex', marginTop: 20, placeItems: 'center'}}>
@@ -283,10 +291,12 @@ function EditSellerProfilePage() {
                         value={localProfile?.redditUsername || ''}
                         onChange={handleChange}
                         onFocus={handleFocus}
-                        inputProps={{
-                            maxLength: 32
-                        }}
                         style={{marginTop: 20}}
+                        slotProps={{
+                            htmlInput: {
+                                maxLength: 32
+                            }
+                        }}
                     />
                     <TextField
                         name='LPUBeltsProfile'
@@ -297,10 +307,12 @@ function EditSellerProfilePage() {
                         value={localProfile?.LPUBeltsProfile || ''}
                         onChange={handleChange}
                         onFocus={handleFocus}
-                        inputProps={{
-                            maxLength: 128
-                        }}
                         style={{marginTop: 20}}
+                        slotProps={{
+                            htmlInput: {
+                                maxLength: 128
+                            }
+                        }}
                     />
 
                 </Stack>

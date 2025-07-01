@@ -91,17 +91,6 @@ function SearchBox({label, extraFilters = []}) {
         <div style={{marginBottom:0}}>
             <TextField
                 placeholder={`Search ${label}`}
-                InputProps={{
-                    inputProps: {
-                        ref: inputEl
-                    },
-                    startAdornment: (
-                        <InputAdornment position='start'>
-                            <SearchIcon/>
-                        </InputAdornment>
-                    ),
-                    endAdornment
-                }}
                 variant='standard'
                 color='secondary'
                 onChange={handleChange}
@@ -109,6 +98,19 @@ function SearchBox({label, extraFilters = []}) {
                 value={text}
                 style={{...style, ...focusStyle}}
                 fullWidth
+                slotProps={{
+                    input: {
+                        inputProps: {
+                            ref: inputEl
+                        },
+                        startAdornment: (
+                            <InputAdornment position='start'>
+                                <SearchIcon/>
+                            </InputAdornment>
+                        ),
+                        endAdornment
+                    }
+                }}
             />
             <Backdrop
                 invisible

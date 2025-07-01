@@ -168,7 +168,6 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     }, [cancelEdit, entry, refreshData, updateEntry])
 
     return (
-
         <div style={{margin: 20}}>
             <div style={{display: 'flex', placeItems: 'center', width: '90%'}}>
                 <TextField variant='outlined' color='secondary' label='Picker'
@@ -180,33 +179,35 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                         <div style={{width: '90%', display: 'flex', fontSize: '1.1rem'}}>
                             <ListItemText
                                 primary={lockName}
-                                primaryTypographyProps={{fontWeight: 600}}
                                 secondary={lockVersion}
-                                secondaryTypographyProps={{}}
                                 style={{padding: '0px 0px 0px 10px'}}
-                            />
+                                slotProps={{
+                                    primary: {fontWeight: 600},
+                                    secondary: {}
+                                }} />
                         </div>
                     </div>
                 }
             </div>
-
             <div style={{display: 'flex', placeItems: 'center', marginTop: 25}}>
                 <TextField variant='outlined'
                            color='secondary'
                            label='Lock URL'
                            value={lockURL}
                            onChange={processURL}
-                           InputProps={{
-                               startAdornment: (
-                                   <InputAdornment position='start'>
-                                       <LockIcon style={{fontSize: 'medium'}}/>
-                                   </InputAdornment>
-                               )
-                           }}
                            style={{width: '90%'}}
                            size='small'
                            error={lockURLError}
                            helperText={lockURLHelperText}
+                           slotProps={{
+                               input: {
+                                   startAdornment: (
+                                       <InputAdornment position='start'>
+                                           <LockIcon style={{fontSize: 'medium'}}/>
+                                       </InputAdornment>
+                                   )
+                               }
+                           }}
                 />
                 <div>
                     <Button type='text' style={buttonStyle}
@@ -228,17 +229,19 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                            label='Video URL'
                            value={videoUrl}
                            onChange={(newValue) => setvideoUrl(newValue.target.value)}
-                           InputProps={{
-                               startAdornment: (
-                                   <InputAdornment position='start'>
-                                       <VideocamIcon style={{fontSize: 'large'}}/>
-                                   </InputAdornment>
-                               )
-                           }}
                            size='small'
                            style={{width: '90%'}}
                            error={videoUrlError}
                            helperText={videoURLHelperText}
+                           slotProps={{
+                               input: {
+                                   startAdornment: (
+                                       <InputAdornment position='start'>
+                                           <VideocamIcon style={{fontSize: 'large'}}/>
+                                       </InputAdornment>
+                                   )
+                               }
+                           }}
 
                 />
                 <Button type='text'
@@ -249,7 +252,6 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                 </Button>
             </div>
             <br/>
-
             <div style={{marginTop: 30}}>
                 <DatePicker
                     label='Pick date'
@@ -305,7 +307,6 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                            disabled
                 />
             </div>
-
             <div style={{width: '100%', textAlign: 'right', marginTop: 14}}>
                 {(!isMod && !isNew) &&
                     <div style={{fontSize: '1rem', lineHeight: '1.4rem', marginBottom: 8}}>
@@ -338,7 +339,6 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                     </Button>
                 }
             </div>
-
             <Backdrop
                 sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
                 open={overlayIsOpen} onClick={handleOverlayClose}
@@ -353,7 +353,6 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                                  commenter={profile?.username}
                 />
             </Backdrop>
-
         </div>
     )
 }

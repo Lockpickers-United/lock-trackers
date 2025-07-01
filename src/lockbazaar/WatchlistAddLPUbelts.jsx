@@ -49,26 +49,26 @@ const WatchlistAddLPUbelts = () => {
 
 
     return (
-
         <div style={{margin: 0, width: '100%', textAlign: 'left'}}>
-
             <div style={{display: 'flex', placeItems: 'center'}}>
                 <TextField variant='outlined'
                            color='secondary'
                            label='Lock URL'
                            value={lockURL}
                            onChange={processURL}
-                           InputProps={{
-                               startAdornment: (
-                                   <InputAdornment position='start'>
-                                       <LockIcon style={{fontSize: 'medium'}}/>
-                                   </InputAdornment>
-                               )
-                           }}
                            style={{width: '90%'}}
                            size='small'
                            error={lockURLError}
                            helperText={lockURLHelperText}
+                           slotProps={{
+                               input: {
+                                   startAdornment: (
+                                       <InputAdornment position='start'>
+                                           <LockIcon style={{fontSize: 'medium'}}/>
+                                       </InputAdornment>
+                                   )
+                               }
+                           }}
                 />
                 <div>
                     <Button type='text' style={buttonStyle}
@@ -85,18 +85,15 @@ const WatchlistAddLPUbelts = () => {
                 </div>
             </div>
             <br/>
-
             {lock &&
                 <WatchlistAddLockEntry lock={lock}/>
             }
-
             <Backdrop
                 sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
                 open={overlayIsOpen} onClick={handleOverlayClose}
             >
                 <WatchlistLpuCopyLinkInfo/>
             </Backdrop>
-
         </div>
     )
 }
