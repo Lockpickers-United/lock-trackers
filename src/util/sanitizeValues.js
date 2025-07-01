@@ -64,7 +64,7 @@ function stripExtras(str) {
             // 4) collapse spaces/tabs, normalize line breaks, trim
             .replace(/[ \t]{2,}/g, ' ')
             .replace(/\r\n?/g, '\n')
-        : '' 
+        : ''
 }
 
 export function filterProfanity(input) {

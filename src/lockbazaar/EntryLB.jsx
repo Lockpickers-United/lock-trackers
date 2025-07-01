@@ -76,7 +76,7 @@ const Entry = ({entry, expanded, onExpand}) => {
     const handleFilter = useCallback(event => {
         event.preventDefault()
         event.stopPropagation()
-        addFilter('sellerName', event.target.value)
+        addFilter('sellerName', event.target.textContent.trim())
         window.scrollTo({top: 0})
     }, [addFilter])
 

@@ -217,6 +217,7 @@ export default function EditImages({profile, user}) {
     const cardWidth = smallWindow ? 115 : 145
     const imageHeight = smallWindow ? 120 : 150
 
+    const dragTest = false
     const [isDropped, setIsDropped] = useState(false)
     const draggableMarkup = (
         <Draggable>Drag me</Draggable>
@@ -227,7 +228,7 @@ export default function EditImages({profile, user}) {
             setIsDropped(true)
         }
     }
-    
+
     return (
 
         <React.Fragment>
@@ -237,13 +238,14 @@ export default function EditImages({profile, user}) {
                 marginLeft: 'auto', marginRight: 'auto', marginTop: 16, marginBottom: 46, paddingLeft: 8
             }}>
 
-                <DndContext onDragEnd={handleDragEnd}>
-                    {!isDropped ? draggableMarkup : null}
-                    <Droppable>
-                        {isDropped ? draggableMarkup : 'Drop here'}
-                    </Droppable>
-                </DndContext>
-
+                {dragTest &&
+                    <DndContext onDragEnd={handleDragEnd}>
+                        {!isDropped ? draggableMarkup : null}
+                        <Droppable>
+                            {isDropped ? draggableMarkup : 'Drop here'}
+                        </Droppable>
+                    </DndContext>
+                }
 
                 <div style={{}}>
 
@@ -393,7 +395,7 @@ export default function EditImages({profile, user}) {
                                                    onChange={handleFormChange} value={form.photoCredit || ''}
                                                    color='info'
                                                    slotProps={{
-                                                       htmlInput: {maxLength: 40},
+                                                       htmlInput: {maxLength: 40}
                                                    }} size='small'/>
                                         <div style={{...reqStyle, backgroundColor: getHighlightColor('photoCredit')}}/>
                                     </div>
@@ -492,7 +494,7 @@ export default function EditImages({profile, user}) {
 
 
                         <Dialog open={uploading}
-                                componentsProps={{backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}}}>
+                                slotProps={{backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}}}>
                             <div style={{width: 320, textAlign: 'center', padding: 30}}>
                                 <LoadingDisplay/>
                             </div>
