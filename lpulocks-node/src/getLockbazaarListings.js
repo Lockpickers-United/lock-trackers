@@ -449,7 +449,7 @@ async function getAllListings() {
                 listingType: listing.listingType,
                 otherInfo: listing.otherInfo || undefined,
                 packageContents: listing.packageContents
-            }
+            };
         }
     )
 

@@ -379,7 +379,9 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                 <TextField type='text' name='name' id='lockName' style={{width: 315}}
                                            onChange={handleFormChange} onBlur={handleLockBlur}
                                            value={form.name || ''} color='info'
-                                           inputProps={{maxLength: textFieldMax}}/>
+                                           slotProps={{
+                                               htmlInput: {maxLength: textFieldMax},
+                                           }}/>
                                 <Popover
                                     id={'foo'}
                                     open={popper}
@@ -394,7 +396,8 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                         There&#39;s a lock named <span style={{fontWeight: 600}}>
                                         {foundLock?.name}</span> by {foundLock?.maker}.
                                         Is that the one you&#39;re looking for?<br/>
-                                        <Button onClick={() => handleFoundLock()} style={{marginTop:10}}>Yes, take me to that
+                                        <Button onClick={() => handleFoundLock()} style={{marginTop: 10}}>Yes, take me
+                                            to that
                                             one</Button><br/>
                                         <Button onClick={() => setPopper(false)}>Nope, continue</Button>
                                     </div>
@@ -532,7 +535,10 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                 <TextField type='text' name='description' multiline fullWidth rows={3}
                                            color='info' style={{}} value={form.description || ''}
                                            id='description' onChange={handleFormChange}
-                                           inputProps={{maxLength: 1200}}/>
+                                           slotProps={{
+                                               htmlInput: {maxLength: 1200},
+                                           }}
+                                />
                             </div>
                         </div>
 
@@ -552,7 +558,9 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                 </div>
                                 <TextField type='text' name='originalLock' style={{width: 300}}
                                            onChange={handleFormChange} value={form.originalLock || ''} color='info'
-                                           inputProps={{maxLength: textFieldMax}}/>
+                                           slotProps={{
+                                               htmlInput: {maxLength: textFieldMax},
+                                           }}/>
                             </div>
                         </div>
 
@@ -566,7 +574,9 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                         <TextField type='text' name='submittedByUsername' style={{width: 240}}
                                                    onChange={handleFormChange} value={form.submittedByUsername || ''}
                                                    color='info'
-                                                   inputProps={{maxLength: textFieldMax}}/>
+                                                   slotProps={{
+                                                       htmlInput: {maxLength: textFieldMax},
+                                                   }}/>
                                         <div style={{
                                             ...reqStyle,
                                             backgroundColor: getHighlightColor('submittedByUsername')

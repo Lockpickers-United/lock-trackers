@@ -90,7 +90,7 @@ export function DataProvider({children}) {
             searched = [exactMatch]
         } else if (search) {
             searched = search
-                ? fuzzysort.go(removeAccents(search), filtered, {keys: fuzzySortKeys, threshold: -15000})
+                ? fuzzysort.go(removeAccents(search.toString()), filtered, {keys: fuzzySortKeys, threshold: -15000})
                     .map(result => ({
                         ...result.obj,
                         score: result.score
@@ -152,7 +152,7 @@ export function DataProvider({children}) {
 
     const makerListByCount = useMemo(() => {
         return Object.keys(makerData).sort((a, b) => makerData[b] - makerData[a])
-    }, [allEntries])
+    }, [makerData])
 
     const lockNames = useMemo(() => {
         return allEntries?.map(entry => entry.name)

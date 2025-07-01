@@ -169,5 +169,5 @@ function createInitMultipart(boundary) {
     })
 
     this._parser = parser
-  }
+  };
 }

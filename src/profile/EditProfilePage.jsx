@@ -99,8 +99,8 @@ function EditProfilePage() {
                         value={localProfile?.username || ''}
                         onChange={handleChange}
                         onFocus={handleFocus}
-                        inputProps={{
-                            maxLength: 20
+                        slotProps={{
+                            htmlInput: {maxLength: 25},
                         }}
                     />
                     <div>

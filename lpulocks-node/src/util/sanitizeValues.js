@@ -70,7 +70,7 @@ function stripExtras(str) {
             // 4) collapse spaces/tabs, normalize line breaks, trim
             .replace(/[ \t]{2,}/g, ' ')
             .replace(/\r\n?/g, '\n')
-        : ''
+        : '';
 }
 
 export function filterProfanity(input) {
@@ -88,5 +88,5 @@ export function removeLinks(input) {
         .replace(/<a[^>]*>(.*?)<\/a>/g, '$1')
         .replace(/https?:\/\/\S+/g, '[link removed]')
         .replace(/<link[^>]*>/g, '[link removed]')
-        .replace(/<script[^>]*>.*?<\/script>/g, '[link removed]')
+        .replace(/<script[^>]*>.*?<\/script>/g, '[link removed]');
 }

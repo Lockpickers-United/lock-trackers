@@ -465,7 +465,7 @@ class IncomingForm extends EventEmitter {
     await Promise.all(this._plugins.map(async (plugin, idx) => {
       let pluginReturn = null
       try {
-        pluginReturn = await plugin(this, this.options) || this
+        pluginReturn = (await plugin(this, this.options)) || this
       } catch (err) {
         // directly throw from the `form.parse` method;
         // there is no other better way, except a handle through options

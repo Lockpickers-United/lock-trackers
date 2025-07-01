@@ -744,7 +744,7 @@ function sanitizeHTML(str) {
             default:
                 return char
         }
-    })
+    });
 }
 
 function slugify(str) {
@@ -753,7 +753,7 @@ function slugify(str) {
         .replace(/[^a-zA-Z0-9\-_+ ]/g, '')
         .replace(/\s+/g, '-')
         .replace(/-+/g, '-')
-        .replace(/'/g, '')
+        .replace(/'/g, '');
 }
 
 if (!Array.prototype.firstValue) {

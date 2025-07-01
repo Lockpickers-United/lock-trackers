@@ -75,7 +75,7 @@ export default function CheckIn({checkIn, profile, user}) {
     const lockId = checkIn ? checkIn.lockId : id
 
     const getEntities = useCallback(async () => {
-        setLock(await getEntryFromId(lockId) || {})
+        setLock((await getEntryFromId(lockId)) || {})
         setDataLoaded(true)
     }, [getEntryFromId, lockId])
 
@@ -488,7 +488,9 @@ export default function CheckIn({checkIn, profile, user}) {
                                     <TextField type='text' name='receivedFrom' style={{width: 240}}
                                                onChange={handleFormChange}
                                                value={form.receivedFrom || ''} color='info'
-                                               inputProps={{maxLength: textFieldMax}}/>
+                                               slotProps={{
+                                                   htmlInput: {maxLength: textFieldMax},
+                                               }}/>
                                 </div>
 
                                 <div style={{marginRight: 20, width: 200, marginTop: 10}}>
@@ -514,7 +516,9 @@ export default function CheckIn({checkIn, profile, user}) {
                                     <TextField type='text' name='sentTo' style={{width: 240}}
                                                onChange={handleFormChange}
                                                value={form.sentTo || ''} color='info'
-                                               inputProps={{maxLength: textFieldMax}}/>
+                                               slotProps={{
+                                                   htmlInput: {maxLength: textFieldMax},
+                                               }}/>
                                 </div>
 
                                 <div style={{marginRight: 20, width: 200, marginTop: 10}}>

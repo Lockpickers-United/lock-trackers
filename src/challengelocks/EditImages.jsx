@@ -20,6 +20,10 @@ import SignInButton from '../auth/SignInButton.jsx'
 import {nodeServerUrl} from '../data/dataUrls.js'
 import queryString from 'query-string'
 
+import {DndContext} from '@dnd-kit/core'
+import Droppable from './Droppable'
+import Draggable from './Draggable'
+
 export default function EditImages({profile, user}) {
 
     const {authLoaded} = useContext(AuthContext)
@@ -50,6 +54,7 @@ export default function EditImages({profile, user}) {
     const currentPhotoCredit = lock?.media?.length > 0 && lock.media[0].title && lock.media[0].title !== 'By: Unknown'
         ? lock.media[0].title?.replace('By: ', '')
         : undefined
+
 
     useEffect(() => {
         setForm({
@@ -212,6 +217,17 @@ export default function EditImages({profile, user}) {
     const cardWidth = smallWindow ? 115 : 145
     const imageHeight = smallWindow ? 120 : 150
 
+    const [isDropped, setIsDropped] = useState(false)
+    const draggableMarkup = (
+        <Draggable>Drag me</Draggable>
+    )
+
+    function handleDragEnd(event) {
+        if (event.over && event.over.id === 'droppable') {
+            setIsDropped(true)
+        }
+    }
+    
     return (
 
         <React.Fragment>
@@ -220,6 +236,14 @@ export default function EditImages({profile, user}) {
                 maxWidth: 720, padding: 8, backgroundColor: '#222',
                 marginLeft: 'auto', marginRight: 'auto', marginTop: 16, marginBottom: 46, paddingLeft: 8
             }}>
+
+                <DndContext onDragEnd={handleDragEnd}>
+                    {!isDropped ? draggableMarkup : null}
+                    <Droppable>
+                        {isDropped ? draggableMarkup : 'Drop here'}
+                    </Droppable>
+                </DndContext>
+
 
                 <div style={{}}>
 
@@ -342,7 +366,6 @@ export default function EditImages({profile, user}) {
                                               backgroundColor={'#444'}/>
                                 </div>
 
-
                             </div>
                         </div>
 
@@ -369,7 +392,9 @@ export default function EditImages({profile, user}) {
                                         <TextField type='text' name='photoCredit' style={{width: 240}}
                                                    onChange={handleFormChange} value={form.photoCredit || ''}
                                                    color='info'
-                                                   inputProps={{maxLength: 40}} size='small'/>
+                                                   slotProps={{
+                                                       htmlInput: {maxLength: 40},
+                                                   }} size='small'/>
                                         <div style={{...reqStyle, backgroundColor: getHighlightColor('photoCredit')}}/>
                                     </div>
                                 </div>

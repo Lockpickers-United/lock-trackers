@@ -100,7 +100,7 @@ export function DataProvider({children}) {
     const visibleEntries = useMemo(() => {
 
         const searched = search
-                ? fuzzysort.go(removeAccents(search), filteredEntries, {keys: fuzzySortKeys, threshold: -25000})
+                ? fuzzysort.go(removeAccents(search.toString()), filteredEntries, {keys: fuzzySortKeys, threshold: -25000})
                     .map(result => ({
                         ...result.obj,
                         score: result.score

@@ -125,7 +125,7 @@ export function DataProvider({children}) {
 
         // If there is a search term, fuzzy match that
         const searched = search
-            ? fuzzysort.go(removeAccents(search), filtered, {keys: fuzzySortKeys, threshold: -15000})
+            ? fuzzysort.go(removeAccents(search.toString()), filtered, {keys: fuzzySortKeys, threshold: -15000})
                 .map(result => ({
                     ...result.obj,
                     score: result.score

@@ -93,7 +93,6 @@ const ListingDetailsRow = ({listing, sellerView}) => {
                     </ul>
                 </div>
             }
-
             <div style={{height: 10}}/>
         </React.Fragment>
     )

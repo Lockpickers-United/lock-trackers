@@ -53,10 +53,9 @@ function EntryCommentAdd({handleCloseComment, addCommentAction, targetStatus, co
                             fullWidth
                             onChange={handleChange}
                             value={commentText || ''}
-                            inputProps={{
-                                maxLength: 255
-                            }}
-                        />
+                            slotProps={{
+                                htmlInput: {maxLength: 255},
+                            }}/>
                     </div>
                 </div>
 

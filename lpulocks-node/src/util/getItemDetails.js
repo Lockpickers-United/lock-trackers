@@ -122,12 +122,12 @@ export async function glossaryDetails() {
 
 export async function itemDetails() {
     return {
-        ...await lockDetails(),
-        ...await safelockDetails(),
-        ...await projectDetails(),
-        ...await awardDetails(),
-        ...await glossaryDetails()
-    }
+        ...(await lockDetails()),
+        ...(await safelockDetails()),
+        ...(await projectDetails()),
+        ...(await awardDetails()),
+        ...(await glossaryDetails())
+    };
 }
 
 function ucfirst(string) {

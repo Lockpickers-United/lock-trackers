@@ -42,15 +42,15 @@ function EditChallengeLockRoute() {
         let thisLock = undefined
 
         if (id.substring(0, 3) === 'cl_') {
-            thisLock = await getChallengeLock(id) || undefined
+            thisLock = (await getChallengeLock(id)) || undefined
             setLock(thisLock)
         }
         if (!thisLock) {
-            thisCheckIn = await getCheckIn(id) || undefined
+            thisCheckIn = (await getCheckIn(id)) || undefined
             setCheckIn(thisCheckIn)
         }
         if (!thisCheckIn && !thisLock) {
-            thisLock = await getChallengeLock(id) || undefined
+            thisLock = (await getChallengeLock(id)) || undefined
         }
         setEntry(thisLock || thisCheckIn || undefined)
         setDataLoaded(true)

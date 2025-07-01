@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton'
 import SearchIcon from '@mui/icons-material/Search'
 import ClearIcon from '@mui/icons-material/Clear'
 import {useSearchParams} from 'react-router-dom'
-import {useDebounce} from 'usehooks-ts'
+import {useDebounceValue} from 'usehooks-ts'
 import FilterContext from '../context/FilterContext'
 import useWindowSize from '../util/useWindowSize'
 import {useHotkeys} from 'react-hotkeys-hook'
@@ -32,7 +32,8 @@ function SearchBox({label, extraFilters = []}) {
         setText(value)
     }, [])
 
-    const debounceText = useDebounce(text, 250)
+    const [debounceText, setValue] = useDebounceValue(text, 250) //eslint-disable-line
+
     useEffect(() => {
         if (debounceText !== searchParams.get('search')) {
             if (debounceText) {
