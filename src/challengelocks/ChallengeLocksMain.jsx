@@ -4,7 +4,6 @@ import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import ChallengeLockEntry from './ChallengeLockEntry.jsx'
 import SubNav from '../nav/SubNav.jsx'
-import {useNavigate} from 'react-router-dom'
 import SortFilterBar from './SortFilterBar.jsx'
 import SortButtonCL from './SortButtonCL.jsx'
 import {optionsCL} from '../data/subNavOptions.js'
@@ -41,19 +40,17 @@ function ChallengeLocksMain({user}) {
         ? '24px 24px 32px 24px'
         : '8px 8px 32px 8px'
 
-    const navigate = useNavigate()
-    const handleChange = useCallback(newValue => {
+    const onNavChange = useCallback(() => {
         clearFilters()
         setEntryExpanded(false)
-        navigate(newValue.page)
-    }, [clearFilters, navigate])
+    }, [clearFilters])
 
     const navSortButton = <SortButtonCL/>
     const navAdminButton = <AdminActionsButton/>
 
     return (
         <React.Fragment>
-            <SubNav options={optionsCL} onChange={handleChange} defaultValue={optionsCL[0].label}/>
+            <SubNav options={optionsCL} onNavChange={onNavChange} defaultValue={optionsCL[0].label}/>
 
             <div style={{
                 minWidth: 330, maxWidth: 720, height: '100%',

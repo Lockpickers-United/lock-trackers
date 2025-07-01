@@ -63,7 +63,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
     const [country, setCountry] = useState(null) // eslint-disable-line
     const [stateProvince, setStateProvince] = useState(null) // eslint-disable-line
 
-    const subNavItem = entry ? optionsCL[0] : optionsCL[1]
 
     useEffect(() => {
         if (entry) {
@@ -119,7 +118,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         let updates = {[name]: value}
         setForm({...formCopy, ...updates})
         setContentChanged(true)
-    }, [form, lockNames, makerOptions, makerListByCountLC, nameMatches])
+    }, [form, lockNames, makerListByCountLC, nameMatches])
 
     const handleDateChange = useCallback((dateValue) => {
         setForm({...form, ...dateValue})
@@ -249,10 +248,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         }
     }
 
-    const handleChange = useCallback(newValue => {
-        navigate(newValue.page)
-    }, [navigate])
-
     const handleReload = useCallback(async () => {
         files.forEach(file => URL.revokeObjectURL(file.preview))
         setFiles([])
@@ -325,7 +320,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
     return (
 
         <React.Fragment>
-            <SubNav options={optionsCL} onChange={handleChange} defaultValue={subNavItem.label}/><br/>
+            <SubNav options={optionsCL} defaultValue={entry? 'Challenge Locks' : 'Submit Lock'}/>
 
             <div style={{
                 maxWidth: 720, padding: 8, backgroundColor: '#222',
@@ -640,14 +635,14 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                     </div>
                 </form>
 
-                <Dialog open={uploading} componentsProps={{backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}}}>
+                <Dialog open={uploading} slotProps={{backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}}}>
                     <div style={{width: 320, textAlign: 'center', padding: 30}}>
                         <LoadingDisplay/>
                     </div>
                 </Dialog>
 
                 <Dialog open={authLoaded && !user}
-                        componentsProps={{backdrop: {style: {backgroundColor: '#000', opacity: 0.6}}}}>
+                        slotProps={{backdrop: {style: {backgroundColor: '#000', opacity: 0.6}}}}>
                     <div style={{
                         width: '350px', textAlign: 'center',
                         padding: 50, marginTop: 0, backgroundColor: '#292929',
@@ -667,7 +662,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                     </div>
                 </Dialog>
 
-                <Dialog open={!!response && !uploadError} componentsProps={{
+                <Dialog open={!!response && !uploadError} slotProps={{
                     backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
                 }}>
                     <div style={{display: 'flex'}}>
@@ -691,7 +686,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                 </Dialog>
 
 
-                <Dialog open={!!uploadError} componentsProps={{
+                <Dialog open={!!uploadError} slotProps={{
                     backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
                 }}>
                     <div style={{display: 'flex'}}>

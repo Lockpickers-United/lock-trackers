@@ -23,6 +23,8 @@ import queryString from 'query-string'
 import {DndContext} from '@dnd-kit/core'
 import Droppable from './Droppable'
 import Draggable from './Draggable'
+import SubNav from '../nav/SubNav.jsx'
+import {optionsCL} from '../data/subNavOptions.js'
 
 export default function EditImages({profile, user}) {
 
@@ -232,6 +234,7 @@ export default function EditImages({profile, user}) {
     return (
 
         <React.Fragment>
+            <SubNav options={optionsCL} defaultValue={'Challenge Locks'}/>
 
             <div style={{
                 maxWidth: 720, padding: 8, backgroundColor: '#222',

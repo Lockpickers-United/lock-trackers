@@ -269,10 +269,6 @@ export default function CheckIn({checkIn, profile, user}) {
         navigate(`/challengelocks?id=${lockId}&name=${safeName}&${queryString.stringify(searchParams)}`)
     }, [lockId, navigate, safeName, searchParams])
 
-    const handleChange = useCallback(newValue => {
-        navigate(newValue.page)
-    }, [navigate])
-
     const {isMobile, flexStyle} = useWindowSize()
     const paddingLeft = !isMobile ? 16 : 8
 
@@ -293,7 +289,7 @@ export default function CheckIn({checkIn, profile, user}) {
     return (
 
         <React.Fragment>
-            <SubNav options={optionsCL} onChange={handleChange} defaultValue={optionsCL[0].label}/><br/>
+            <SubNav options={optionsCL} defaultValue={'Challenge Locks'}/>
 
             <div style={{
                 maxWidth: 720, padding: 8, backgroundColor: '#222',

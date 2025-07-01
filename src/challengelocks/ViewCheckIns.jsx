@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect} from 'react'
+import React, {useContext, useEffect} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
 import DataContext from '../context/DataContext.jsx'
 import SubNav from '../nav/SubNav.jsx'
@@ -68,16 +68,12 @@ export default function ViewCheckIns({user}) {
         ? '24px 24px 32px 24px'
         : '8px 8px 32px 8px'
 
-    const handleChange = useCallback(newValue => {
-        navigate(newValue.page)
-    }, [navigate])
-
     const navSortButton = <SortButtonCheckIns/>
     const navAdminButton = <AdminActionsButtonCheckIns/>
 
     return (
         <React.Fragment>
-            <SubNav options={optionsCL} onChange={handleChange} defaultValue={optionsCL[2].label}/>
+            <SubNav options={optionsCL} defaultValue={'My Check‑ins'}/>
 
             <div style={{
                 minWidth: 330, maxWidth: 720, height: '100%',
