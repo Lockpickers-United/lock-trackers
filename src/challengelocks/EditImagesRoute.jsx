@@ -11,7 +11,7 @@ import Tracker from '../app/Tracker.jsx'
 
 export default function EditImagesRoute() {
 
-    usePageTitle('LPU Locks - Edit CL Images')
+    usePageTitle('Edit CL Images')
 
     const {profile} = useContext(DBContext)
     const {user} = useOutletContext()

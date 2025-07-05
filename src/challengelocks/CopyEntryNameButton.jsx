@@ -4,7 +4,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import Tooltip from '@mui/material/Tooltip'
 import {enqueueSnackbar} from 'notistack'
 
-export default function CopyEntryNameButton({entry}) {
+export default function CopyEntryNameButton({entry, style={}}) {
 
     const handleClick = useCallback(async () => {
         await navigator.clipboard.writeText(`${entry.name} by ${entry.maker}`)
@@ -13,7 +13,7 @@ export default function CopyEntryNameButton({entry}) {
 
     return (
         <Tooltip title='Copy Challenge Lock Name' arrow disableFocusListener>
-            <IconButton onClick={handleClick}>
+            <IconButton onClick={handleClick}  style={{height:40, width:40, ...style}}>
                 <ContentCopyIcon/>
             </IconButton>
         </Tooltip>

@@ -4,7 +4,7 @@ import {useLocation} from 'react-router-dom'
 import FilterContext from '../context/FilterContext'
 import ImageGallery from '../misc/ImageGallery'
 
-function ChallengeLockImageGallery({entry, blurred}) {
+function ChallengeLockImageGallery({entry, blurred, columns}) {
 
     const location = useLocation()
     const {filters, addFilter, removeFilters} = useContext(FilterContext)
@@ -72,6 +72,7 @@ function ChallengeLockImageGallery({entry, blurred}) {
                             onBackButton={handleBackButton}
                             shareParams={{id: entry.id, name: filters.name}}
                             showFullSize={false}
+                            columns={columns}
                         />
                     </div>
                 </React.Fragment>

@@ -4,7 +4,13 @@ import Link from '@mui/material/Link'
 import CancelIcon from '@mui/icons-material/Cancel'
 import IconButton from '@mui/material/IconButton'
 
-export default function Dropzone({files, handleDroppedFiles, maxFiles=10, zoneId = 'dropzone', backgroundColor = '#333'}) {
+export default function Dropzone({
+                                     files,
+                                     handleDroppedFiles,
+                                     maxFiles = 10,
+                                     zoneId = 'dropzone',
+                                     backgroundColor = '#333'
+                                 }) {
 
     const {getRootProps, getInputProps, isFocused, isDragAccept, isDragReject} =
         useDropzone({
@@ -13,7 +19,9 @@ export default function Dropzone({files, handleDroppedFiles, maxFiles=10, zoneId
                 'image/*': []
             },
             onDrop: acceptedFiles => {
-                const newFiles = acceptedFiles.map(file => Object.assign(file, {preview: URL.createObjectURL(file)}))
+                const newFiles = acceptedFiles
+                    .filter(file => !files.find(f => f.path === file.path))
+                    .map(file => Object.assign(file, {preview: URL.createObjectURL(file)}))
                 handleDroppedFiles([...files, ...newFiles], zoneId)
             }
         })
@@ -85,7 +93,9 @@ export default function Dropzone({files, handleDroppedFiles, maxFiles=10, zoneId
     }, [files, handleDroppedFiles, zoneId])
 
     const clearFile = useCallback((filename) => {
-        const matchedFiles = files.filter(e => {return e.name === filename})
+        const matchedFiles = files.filter(e => {
+            return e.name === filename
+        })
         matchedFiles.forEach(file => URL.revokeObjectURL(file.preview))
         handleDroppedFiles(files.filter(e => e.name !== filename), zoneId)
     }, [files, handleDroppedFiles, zoneId])

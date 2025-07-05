@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import FilterContext from '../context/FilterContext.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 
-export default function CheckInButton({entry, style}) {
+export default function SubmitImagesButton({entry, style}) {
 
     const {filters: allFilters} = useContext(FilterContext)
     const {sort} = allFilters
@@ -14,7 +14,7 @@ export default function CheckInButton({entry, style}) {
     const sortParam = sort ? `&sort=${sort}` : ''
 
     const handleClick = useCallback(() => {
-        navigate(`/challengelocks/checkin?id=${entry.id}&name=${safeName}${sortParam}`)
+        navigate(`/challengelocks/submit/images?id=${entry.id}&name=${safeName}${sortParam}`)
     },[entry.id, navigate, safeName, sortParam])
 
     const {isMobile} = useWindowSize()
@@ -23,7 +23,7 @@ export default function CheckInButton({entry, style}) {
 
     return (
         <Button variant='contained' onClick={handleClick} style={buttonStyle} size='small' color='success'>
-            Check In!
+            Submit Images
         </Button>
     )
 

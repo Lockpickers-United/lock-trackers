@@ -14,7 +14,7 @@ function UserInfoRoute() {
     const {authLoaded, isLoggedIn, user} = useContext(AuthContext)
     const {dbLoaded} = useContext(DBContext)
 
-    usePageTitle('LPU Locks - User Info')
+    usePageTitle('User Info')
 
     return (
         <FilterProvider filterFields={[]}>

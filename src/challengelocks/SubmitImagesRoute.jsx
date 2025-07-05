@@ -1,18 +1,17 @@
 import React, {useContext} from 'react'
-import Footer from '../nav/Footer.jsx'
-import Tracker from '../app/Tracker.jsx'
-import usePageTitle from '../util/usePageTitle.jsx'
-import SubmitChallengeLock from './SubmitChallengeLock.jsx'
 import {CLFilterFields} from '../data/filterFields.js'
-import {ListProvider} from '../context/ListContext.jsx'
 import {FilterProvider} from '../context/FilterContext.jsx'
 import {DataProvider} from './DataProviderCL.jsx'
+import usePageTitle from '../util/usePageTitle.jsx'
+import {ListProvider} from '../context/ListContext.jsx'
+import EditImages from './EditImages.jsx'
 import {useOutletContext} from 'react-router-dom'
 import DBContext from '../app/DBContext.jsx'
+import Tracker from '../app/Tracker.jsx'
 
-function SubmitChallengeLockRoute() {
+export default function SubmitImagesRoute() {
 
-    usePageTitle('Submit Challenge Lock')
+    usePageTitle('Submit Challenge Lock Images')
 
     const {profile} = useContext(DBContext)
     const {user} = useOutletContext()
@@ -21,13 +20,11 @@ function SubmitChallengeLockRoute() {
         <FilterProvider filterFields={CLFilterFields}>
             <DataProvider>
                 <ListProvider>
-                    <SubmitChallengeLock profile={profile} user={user}/>
-                    <Footer/>
-                    <Tracker feature='clSubmit'/>
+                    <EditImages profile={profile} user={user} isSubmit={true}/>
+                    <Tracker feature='clSubmitImages'/>
                 </ListProvider>
             </DataProvider>
         </FilterProvider>
     )
-}
 
-export default SubmitChallengeLockRoute
+}

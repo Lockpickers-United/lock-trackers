@@ -54,7 +54,9 @@ export function DataProvider({children}) {
                     checkInCount: entry.checkInIds?.length || 0,
                     successCount: entry.checkInIdsSuccessful?.length || 0,
                     lockingMechanism: entry.lockingMechanism || 'Pin-tumbler',
-                    hasImages: entry.media?.length > 0 ? 'Images' : 'No Images'
+                    hasImages: entry.media?.length > 0 ? 'Images' : 'No Images',
+                    newPendingMedia: entry.newPendingMedia ? 'New Pending Media' : 'No New Pending Media',
+                    hasPendingMedia: entry.pendingMedia?.length > 0 ? 'Pending Media' : 'No Pending Media',
                 }
             })
             : []

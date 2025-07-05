@@ -12,7 +12,7 @@ import DBContext from '../app/DBContext.jsx'
 
 function ViewCheckInsRoute() {
 
-    usePageTitle('LPU Locks - View Check-ins')
+    usePageTitle('View Check-ins')
 
     const {profile} = useContext(DBContext)
     const {user} = useOutletContext()

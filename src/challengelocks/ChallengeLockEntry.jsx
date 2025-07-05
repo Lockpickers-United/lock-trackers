@@ -20,9 +20,10 @@ import DataContext from '../context/DataContext.jsx'
 import CopyEntryIdButton from './CopyEntryIdButton.jsx'
 import ChallengeLockEntryDataDisplay from './ChallengeLockEntryDataDisplay.jsx'
 import CopyEntryNameButton from './CopyEntryNameButton.jsx'
+import SubmitImagesButton from './SubmitImagesButton.jsx'
 
 const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) => {
-    const {adminEnabled} = useContext(DataContext)
+    const {isMod, adminEnabled} = useContext(DataContext)
     const {getCheckIns} = useContext(DBContextCL)
     const [checkIns, setCheckIns] = useState([])
     const refreshCheckIns = useCallback(async () => {
@@ -155,11 +156,11 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) =>
                                         <ReportProblem fontSize='medium' style={{color: '#fd4d4d'}}/>
                                     </div>
                                 }
-                                <div style={{...nameTextStyle}}>{sanitizeValues(entry.name, { profanityOK: true })}</div>
+                                <div style={{...nameTextStyle}}>{sanitizeValues(entry.name, {profanityOK: true})}</div>
                             </div>
                             <div style={makerTextStyle}>By: {sanitizeValues(entry.maker)}</div>
                             {isMobile &&
-                                <div style={{display: 'flex', justifyContent:'end', marginTop: 10}}>
+                                <div style={{display: 'flex', justifyContent: 'end', marginTop: 10}}>
                                     <ChallengeLockEntryDataDisplay entry={entry}/>
                                 </div>
                             }
@@ -180,22 +181,26 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) =>
                     <AccordionDetails style={{backgroundColor: '#333'}}>
                         <ChallengeLockEntryDetails entry={entry} expanded={expanded} onExpand={onExpand}
                                                    checkIns={checkIns} setCheckIns={setCheckIns}
-                                                   refreshCheckIns={refreshCheckIns} cycleExpanded={cycleExpanded} user={user}/>
+                                                   refreshCheckIns={refreshCheckIns} cycleExpanded={cycleExpanded}
+                                                   user={user}/>
                         <Tracker feature='challengeLock' id={entry.id} name={entry?.name}/>
                     </AccordionDetails>
 
                     <AccordionActions>
-                        <div style={{display: 'flex', width: '100%'}}>
+                        <div style={{display: 'flex', width: '100%', alignItems: 'center'}}>
                             <div style={{flexGrow: 1}}>
                                 {user &&
                                     <ProblemReportButton entry={entry} style={{color: '#da5353'}}/>
                                 }
-                                <CopyEntryIdButton entry={entry}/>
+                                {isMod &&
+                                    <CopyEntryIdButton entry={entry}/>
+                                }
                             </div>
                             <CopyEntryNameButton entry={entry} style={{}}/>
                             <CopyLinkToCLButton entry={entry} style={{}}/>
                             <PrintButton entry={entry} style={{}}/>
-                            <CheckInButton entry={entry} style={{margin: '4px 20px'}}/>
+                            <SubmitImagesButton entry={entry} style={{margin: '4px 4px'}}/>
+                            <CheckInButton entry={entry} style={{margin: '4px 4px'}}/>
                             <Tracker feature='challengelock' id={entry.id}/>
                         </div>
                     </AccordionActions>

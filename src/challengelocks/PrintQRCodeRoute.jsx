@@ -9,7 +9,7 @@ import DBContext from '../app/DBContext.jsx'
 
 export default function PrintQRCodeRoute() {
 
-    usePageTitle('LPU Locks - Print Challenge Lock')
+    usePageTitle('Print Challenge Lock')
 
     const {profile} = useContext(DBContext)
     const {user} = useOutletContext()

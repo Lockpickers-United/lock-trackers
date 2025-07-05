@@ -12,7 +12,7 @@ import DBContext from '../app/DBContext.jsx'
 
 function ChallengeLocksRoute() {
 
-    usePageTitle('LPU Locks - Challenge Locks')
+    usePageTitle('Challenge Locks')
 
     const {profile} = useContext(DBContext)
     const {user} = useOutletContext()

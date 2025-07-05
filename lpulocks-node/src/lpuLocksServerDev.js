@@ -7,7 +7,7 @@ import EventEmitter from 'events'
 import dayjs from 'dayjs'
 
 import {localUser} from '../keys/users.js'
-import submitChallengeLock, {submitCheckIn, updateLockMedia, reportProblem, clearProblems} from './projects/challengeLocks/challengeLockFunctions.js'
+import submitChallengeLock, {submitCheckIn, updateLockMedia, reportProblem, clearProblems} from './projects/challengeLocks/challengeLockFunctionsNew.js'
 
 // pm2 start /home/dh_m5s5pf/explore-lpubelts-com-node/exploreLPUbeltsServer.js --watch
 // https://explore.lpubelts.com:8443/rafl-stats

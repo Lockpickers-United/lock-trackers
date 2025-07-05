@@ -65,7 +65,7 @@ function ImageGallery(props) {
                     showFullSize={showFullSize}
                 />
             }
-            <ImageList variant='masonry' cols={cols} sx={{}}>
+            <ImageList variant='masonry' cols={cols}  gap={4}>
                 {media.map(({title, subtitle, thumbnailUrl, fullUrl, sequenceId}, index) =>
                     <ImageListItem key={index} style={{marginBottom: 4}}>
                         <img

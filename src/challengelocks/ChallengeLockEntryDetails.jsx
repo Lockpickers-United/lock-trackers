@@ -4,7 +4,7 @@ import FieldValue from '../util/FieldValue.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
 import Button from '@mui/material/Button'
 import DataContext from '../context/DataContext.jsx'
-import {useNavigate} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 import ChallengeLockCheckInDisplay from './ChallengeLockCheckInDisplay.jsx'
 import sanitizeValues from '../util/sanitizeValues.js'
 import Collapse from '@mui/material/Collapse'
@@ -14,6 +14,8 @@ import AdminActionsBar from './AdminActionsBar.jsx'
 import ProblemsDisplay from './ProblemsDisplay.jsx'
 import {internationalDate} from '../util/formatTime.js'
 import FilterContext from '../context/FilterContext.jsx'
+import queryString from 'query-string'
+import Link from '@mui/material/Link'
 
 const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, setCheckIns, user}) => {
     if (!entry) return null
@@ -21,10 +23,18 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
     const {adminEnabled} = useContext(DataContext)
     const {filters: allFilters} = useContext(FilterContext)
     const {sort} = allFilters
+    const navigate = useNavigate()
 
     const {latestUpdate} = entry
     const [showCheckIns, setShowCheckIns] = useState(false)
     const [loading, setLoading] = useState(false)
+
+    const location = useLocation()
+    const searchParams = queryString.parse(location.search)
+    searchParams.id = entry.id
+    const handleEditImages = useCallback(() => {
+        navigate(`/challengelocks/edit/images?${queryString.stringify(searchParams)}`)
+    }, [navigate, searchParams])
 
     const buttonText = showCheckIns ? 'Hide Check-ins' : 'View All Check-ins'
 
@@ -59,7 +69,6 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
         : null
     const {makerData} = useContext(DataContext)
     const makerLockCount = makerData?.[entry.maker]
-    const navigate = useNavigate()
     const handleMakerClick = useCallback(() => {
         handleChange()
         window.scrollTo({top: 0, behavior: 'smooth'})
@@ -82,6 +91,13 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
         setBlurred(!blurred)
         setShowWarning(!blurred)
     }, [blurred])
+
+    const pendingMediaAuthors = entry.pendingMedia?.reduce((acc, media) => {
+        if (media.title && !acc.includes(media.title.replace(/By: /, ''))) {
+            acc.push(media.title.replace(/By: /, ''))
+        }
+        return acc
+    },[])
 
     const {flexStyle, isMobile} = useWindowSize()
     const breakWordStyle = {wordBreak: 'break-word', inlineSize: '100%'}
@@ -147,6 +163,34 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
                             Click to view images
                         </div>
                     </div>
+                </div>
+            }
+
+            {pendingMediaAuthors?.length > 0 && !adminEnabled &&
+                <div style={{fontSize: '0.9rem', marginTop: entry.media ? 0 : 20, color: '#ccc'}}>
+                    (
+                    {entry.media ? 'Additional images' : 'Images'}&nbsp;
+                    {pendingMediaAuthors.length === 1 ? `by ${pendingMediaAuthors[0]}` : `by ${pendingMediaAuthors.length} users`}&nbsp;
+                    pending review)
+                </div>
+            }
+
+            {entry.pendingMedia.length > 0 && adminEnabled &&
+                <div style={{
+                    fontSize: '1.1rem',
+                    lineHeight: '1.3rem',
+                    fontWeight: 600,
+                    marginTop: 20,
+                    padding: '0px 10px',
+                    color: '#ffed1f'
+                }}>
+                    Pending Images &bull; <Link
+                    onClick={handleEditImages}>
+                    Review
+                </Link>
+                    <ChallengeLockImageGallery
+                        entry={{...entry, media: entry.pendingMedia}}
+                        blurred={false} columns={isMobile ? 3 : 4}/>
                 </div>
             }
 

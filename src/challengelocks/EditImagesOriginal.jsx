@@ -20,7 +20,15 @@ import SignInButton from '../auth/SignInButton.jsx'
 import {nodeServerUrl} from '../data/dataUrls.js'
 import queryString from 'query-string'
 
-export default function EditImages({profile, user}) {
+import SubNav from '../nav/SubNav.jsx'
+import {optionsCL} from '../data/subNavOptions.js'
+
+import {Pages} from './dnd/Pages.jsx'
+import {Layout} from './dnd/Page.jsx'
+import {MultipleContainers} from './dnd/MultipleContainers.jsx'
+
+
+export default function EditImages({profile, user, isSubmit = false}) {
 
     const {authLoaded} = useContext(AuthContext)
     const {refreshEntries, updateVersion, updateProfile} = useContext(DBContext)
@@ -34,7 +42,7 @@ export default function EditImages({profile, user}) {
     const lockId = filters.id
     const lock = getEntryFromId(lockId) || {}
     const notValidLock = (Object.keys(allEntries).length > 0 && Object.keys(lock).length === 0)
-
+    const lockHasMedia = lock?.media && lock?.media?.length > 0
     const lockNavigate = `/challengelocks?id=${lockId}&${queryString.stringify(searchParams)}`
 
     const [response, setResponse] = useState(undefined)
@@ -47,22 +55,23 @@ export default function EditImages({profile, user}) {
     })
     const [form, setForm] = useState({})
     const [contentChanged, setContentChanged] = useState(false)
-    const currentPhotoCredit = lock?.media?.length > 0 && lock.media[0].title && lock.media[0].title !== 'By: Unknown'
+    const currentPhotoCredit = lockHasMedia > 0 && lock.media[0].title && lock.media[0].title !== 'By: Unknown'
         ? lock.media[0].title?.replace('By: ', '')
         : undefined
 
     useEffect(() => {
         setForm({
             photoCredit: profile?.lastPhotoCredit || currentPhotoCredit || profile?.username || undefined,
+            isSubmit,
             id: lockId
         })
         setMediaArrays({
-            currentMainPhoto: lock?.media?.length > 0 ? [[...lock.media].shift()] : [],
-            currentMedia: lock?.media?.length > 0 ? [...lock.media].slice(1, lock.media.length) : [],
+            currentMainPhoto: lockHasMedia ? [[...lock.media].shift()] : [],
+            currentMedia: lockHasMedia ? [...lock.media].slice(1, lock.media.length) : [],
             newMainPhoto: [],
             newMedia: []
         })
-    }, [currentPhotoCredit, lock.media, lockId, profile])
+    }, [currentPhotoCredit, isSubmit, lock.media, lockHasMedia, lockId, profile])
 
     const [uploading, setUploading] = useState(false)
     const needPhotoCredit = (mediaArrays?.newMainPhoto?.length > 0 || mediaArrays?.newMedia?.length > 0) && !form.photoCredit
@@ -212,12 +221,27 @@ export default function EditImages({profile, user}) {
     const cardWidth = smallWindow ? 115 : 145
     const imageHeight = smallWindow ? 120 : 150
 
+    const [containerItems, setContainerItems] = useState({A: [], B: []})
+    console.log('containerItems', containerItems)
+
     return (
+
         <React.Fragment>
+            <SubNav options={optionsCL} defaultValue={'Challenge Locks'}/>
+
             <div style={{
                 maxWidth: 720, padding: 8, backgroundColor: '#222',
                 marginLeft: 'auto', marginRight: 'auto', marginTop: 16, marginBottom: 46, paddingLeft: 8
             }}>
+
+                <Pages layout={Layout.Horizontal} media={lock.media}/>
+
+                <MultipleContainers media={lock.media}
+                                    pendingMedia={lock.pendingMedia}
+                                    lock={lock}
+                                    setContainerItems={setContainerItems}
+                                    containerList={{A: 'Current Media', B: 'Pending Media'}}
+                />
 
                 <div style={{}}>
 
@@ -226,7 +250,7 @@ export default function EditImages({profile, user}) {
                             fontSize: '1.2rem',
                             fontWeight: 700,
                             marginBottom: 10
-                        }}>Edit Challenge Lock Images
+                        }}>{isSubmit ? 'Submit' : 'Edit'} Challenge Lock Images
                         </div>
 
                         <div style={{margin: '10px 0px 20px 0px', lineHeight: '1.5rem'}}>
@@ -239,7 +263,6 @@ export default function EditImages({profile, user}) {
                                         <div style={makerTextStyle}>By: {lock.maker}</div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 
@@ -254,20 +277,24 @@ export default function EditImages({profile, user}) {
                                 </div>
                                 {mediaArrays?.currentMainPhoto && mediaArrays.currentMainPhoto.length > 0 &&
                                     <div>
-                                        <div style={{}}><ImageCard
-                                            image={mediaArrays.currentMainPhoto ? mediaArrays.currentMainPhoto[0] : []}
-                                            handleRemove={handleRemove}
-                                            mediaArrayName={'currentMainPhoto'}
-                                            height={imageHeight + 30} maxWidth={150}
-                                            style={{marginTop: 10}}
-                                        />
+                                        <div style={{}}>
+                                            <ImageCard
+                                                image={mediaArrays.currentMainPhoto ? mediaArrays.currentMainPhoto[0] : []}
+                                                icon={isSubmit ? 'none' : 'remove'}
+                                                handleRemove={handleRemove}
+                                                mediaArrayName={'currentMainPhoto'}
+                                                height={imageHeight + 30} maxWidth={150}
+                                                style={{marginTop: 10}}
+                                            />
                                         </div>
-                                        <Button endIcon={<ForwardIcon style={{transform: moveRotation}}/>}
-                                                onClick={() => handleImageMove('currentMainPhoto', mediaArrays.currentMainPhoto[0].sequenceId, 'currentMedia')}
-                                                variant='contained' color='info'
-                                                style={{width: 145}}>
-                                            MOVE
-                                        </Button>
+                                        {!isSubmit &&
+                                            <Button endIcon={<ForwardIcon style={{transform: moveRotation}}/>}
+                                                    onClick={() => handleImageMove('currentMainPhoto', mediaArrays.currentMainPhoto[0].sequenceId, 'currentMedia')}
+                                                    variant='contained' color='info'
+                                                    style={{width: 145}}>
+                                                MOVE
+                                            </Button>
+                                        }
                                     </div>
                                 }
 
@@ -298,6 +325,7 @@ export default function EditImages({profile, user}) {
                                         {mediaArrays?.currentMedia && mediaArrays?.currentMedia?.map((image, index) => (
                                             <div key={index} style={{justifyItems: 'center'}}>
                                                 <ImageCard image={image} key={index} index={index}
+                                                           icon={isSubmit ? 'none' : 'remove'}
                                                            mediaArrayName={'currentMedia'}
                                                            height={imageHeight}
                                                            handleRemove={handleRemove}/>
@@ -329,22 +357,37 @@ export default function EditImages({profile, user}) {
                                     </div>
                                 }
 
-                                <div style={{marginTop: 30}}>
-                                    <div style={{...headerStyle, flexGrow: 1, marginBottom: 10}}>
-                                        Add More Images <span
-                                        style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>
+                                {!isSubmit &&
+                                    <div style={{marginTop: 30}}>
+                                        <div style={{...headerStyle, flexGrow: 1, marginBottom: 10}}>
+                                            Add More Images <span
+                                            style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>
                                     (optional, spoilers OK, max 5)</span>
+                                        </div>
+                                        <Dropzone files={mediaArrays.newMedia || []}
+                                                  handleDroppedFiles={handleDroppedFiles}
+                                                  maxFiles={5}
+                                                  backgroundColor={'#444'}/>
                                     </div>
-                                    <Dropzone files={mediaArrays.newMedia || []} handleDroppedFiles={handleDroppedFiles}
-                                              maxFiles={5}
-                                              backgroundColor={'#444'}/>
-                                </div>
-
-
+                                }
                             </div>
                         </div>
 
-                        {(mediaArrays?.newMedia?.length > 0 || mediaArrays?.newMainPhoto?.length > 0) &&
+                        {isSubmit &&
+                            <div style={{marginTop: 30}}>
+                                <div style={{...headerStyle, flexGrow: 1, marginBottom: 10}}>
+                                    Submit {lockHasMedia ? 'More' : ''} Images <span
+                                    style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>
+                                    (optional, spoilers OK, max 5)</span>
+                                </div>
+                                <Dropzone files={mediaArrays.newMedia || []}
+                                          handleDroppedFiles={handleDroppedFiles}
+                                          maxFiles={5}
+                                          backgroundColor={'#444'}/>
+                            </div>
+                        }
+
+                        {(mediaArrays?.newMedia?.length > 0 || mediaArrays?.newMainPhoto?.length > 0 || isSubmit) &&
                             <React.Fragment>
                                 <div style={{
                                     margin: '30px auto 10px auto',
@@ -367,10 +410,9 @@ export default function EditImages({profile, user}) {
                                         <TextField type='text' name='photoCredit' style={{width: 240}}
                                                    onChange={handleFormChange} value={form.photoCredit || ''}
                                                    color='info'
-                                                   size='small'
                                                    slotProps={{
                                                        htmlInput: {maxLength: 40}
-                                                   }}/>
+                                                   }} size='small'/>
                                         <div style={{...reqStyle, backgroundColor: getHighlightColor('photoCredit')}}/>
                                     </div>
                                 </div>
@@ -432,13 +474,12 @@ export default function EditImages({profile, user}) {
                                 Cancel
                             </Button>
                             <Button onClick={handleSubmit} variant='contained' color='info'
-                                    disabled={!uploadable || uploading}
-                                    style={{marginRight: 20}}>
-                                Save Changes
+                                    disabled={!uploadable || uploading}>
+                                {isSubmit ? 'Submit Images' : 'Save Changes'}
                             </Button>
                         </div>
 
-                        <Dialog open={!!response && !uploadError} componentsProps={{
+                        <Dialog open={!!response && !uploadError} slotProps={{
                             backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
                         }}>
                             <div style={{display: 'flex'}}>
@@ -453,7 +494,7 @@ export default function EditImages({profile, user}) {
                                         fontWeight: 500,
                                         marginBottom: 60,
                                         textAlign: 'center'
-                                    }}>Images Updated!
+                                    }}>Images {isSubmit ? 'Submitted' : 'Updated'}!
                                     </div>
 
                                     <div style={{width: '100%', textAlign: 'center'}}>
@@ -468,15 +509,14 @@ export default function EditImages({profile, user}) {
 
 
                         <Dialog open={uploading}
-                                componentsProps={{backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}}}>
+                                slotProps={{backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}}}>
                             <div style={{width: 320, textAlign: 'center', padding: 30}}>
                                 <LoadingDisplay/>
                             </div>
                         </Dialog>
 
-
                         <Dialog open={(authLoaded && !user) || !isMod}
-                                componentsProps={{backdrop: {style: {backgroundColor: '#000', opacity: 0.6}}}}>
+                                slotProps={{backdrop: {style: {backgroundColor: '#000', opacity: 0.6}}}}>
                             <div style={{
                                 width: '350px', textAlign: 'center',
                                 padding: 50, marginTop: 0, backgroundColor: '#292929',
@@ -490,8 +530,7 @@ export default function EditImages({profile, user}) {
                             </div>
                         </Dialog>
 
-
-                        <Dialog open={notValidLock} componentsProps={{
+                        <Dialog open={notValidLock} slotProps={{
                             backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
                         }}>
                             <div style={{display: 'flex'}}>

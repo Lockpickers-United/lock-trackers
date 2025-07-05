@@ -43,6 +43,13 @@ export default [
                 }
             },
             {
+                path: '/challengelocks/submit/images',
+                lazy: async () => {
+                    const {default: SubmitImagesRoute} = await import('../challengelocks/SubmitImagesRoute')
+                    return {element: <SubmitImagesRoute/>}
+                }
+            },
+            {
                 path: '/challengelocks/checkin',
                 lazy: async () => {
                     const {default: CheckInRoute} = await import('../challengelocks/CheckInRoute')
@@ -68,6 +75,13 @@ export default [
                 lazy: async () => {
                     const {default: EditImagesRoute} = await import('../challengelocks/EditImagesRoute')
                     return {element: <EditImagesRoute/>}
+                }
+            },
+            {
+                path: '/challengelocks/organize/images',
+                lazy: async () => {
+                    const {default: OrganizeImagesRoute} = await import('../challengelocks/OrganizeImagesRoute')
+                    return {element: <OrganizeImagesRoute/>}
                 }
             },
             {

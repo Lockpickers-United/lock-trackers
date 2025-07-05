@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React, {createContext, useMemo, useState} from 'react'
 import {ThemeProvider, createTheme} from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 
-const ColorModeContext = React.createContext({
+const ColorModeContext = createContext({
     toggleColorMode: () => {}
 })
 
@@ -14,7 +14,16 @@ export function ColorModeProvider({children}) {
             secondary: {
                 main: '#2d49bc',
             }
-
+        },
+        components: {
+            MuiLink: {
+                styleOverrides: {
+                    root: {
+                        textDecoration: 'none',
+                        cursor: 'pointer',
+                    },
+                },
+            },
         }
     })
 
@@ -22,6 +31,16 @@ export function ColorModeProvider({children}) {
         palette: {
             mode: 'light',
         },
+        components: {
+            MuiLink: {
+                styleOverrides: {
+                    root: {
+                        textDecoration: 'none',
+                        cursor: 'pointer',
+                    },
+                },
+            },
+        }
     })
 
     const [mode, setMode] = useState('dark')
@@ -33,7 +52,7 @@ export function ColorModeProvider({children}) {
         []
     )
 
-    const theme = React.useMemo(() =>
+    const theme = useMemo(() =>
         mode === 'light'
             ? lightTheme
             : darkTheme,
