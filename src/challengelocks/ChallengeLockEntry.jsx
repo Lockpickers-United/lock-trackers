@@ -199,7 +199,7 @@ const ChallengeLockEntry = ({entry, expanded, onExpand, cycleExpanded, user}) =>
                             <CopyEntryNameButton entry={entry} style={{}}/>
                             <CopyLinkToCLButton entry={entry} style={{}}/>
                             <PrintButton entry={entry} style={{}}/>
-                            <SubmitImagesButton entry={entry} style={{margin: '4px 4px'}}/>
+                            <SubmitImagesButton entry={entry} style={{margin: '4px 4px 4px 8px'}}/>
                             <CheckInButton entry={entry} style={{margin: '4px 4px'}}/>
                             <Tracker feature='challengelock' id={entry.id}/>
                         </div>

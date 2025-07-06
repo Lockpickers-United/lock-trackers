@@ -40,6 +40,9 @@ export const Page = forwardRef(function Page(
             {index === 0 && containerId === 'A' &&
                 <span>Main Image</span>
             }
+            {index !== 0 && containerId === 'A' &&
+                <span>&nbsp;</span>
+            }
             <button
                 className={styles.Page}
                 data-id={String(id)}
@@ -58,6 +61,7 @@ export const Page = forwardRef(function Page(
                     className={styles.Remove}
                     onClick={onRemove}
                     disabled={disabled}
+                    style={{top: (index === 0 && containerId === 'A') ? 30 : 0}}
                 >
                     {removeIcon}
                 </button>

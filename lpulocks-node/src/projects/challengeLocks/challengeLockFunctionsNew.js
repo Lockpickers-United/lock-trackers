@@ -230,9 +230,10 @@ export async function updateLockMedia(req, res) {
             }
             if (addedMedia.length > 0) {
                 // new media from admin, so add to update
-                updates.media = [...(updates.media || lockEntry.media), ...addedMedia.map((media, index) => ({
+                const updatedMedia = [...(updates.media || lockEntry.media || [])]
+                updates.media = [...updatedMedia, ...addedMedia.map((media, index) => ({
                     ...media,
-                    sequenceId: (updates.media || lockEntry.media)?.length + index + 1
+                    sequenceId: updatedMedia?.length + index + 1
                 }))]
             }
             updates.newPendingMedia = FieldValue.delete()

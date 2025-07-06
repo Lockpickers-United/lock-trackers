@@ -97,7 +97,7 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
             acc.push(media.title.replace(/By: /, ''))
         }
         return acc
-    },[])
+    }, [])
 
     const {flexStyle, isMobile} = useWindowSize()
     const breakWordStyle = {wordBreak: 'break-word', inlineSize: '100%'}
@@ -167,7 +167,10 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
             }
 
             {pendingMediaAuthors?.length > 0 && !adminEnabled &&
-                <div style={{fontSize: '0.9rem', marginTop: entry.media ? 0 : 20, color: '#ccc'}}>
+                <div style={{
+                    fontSize: '0.9rem', fontWeight: entry.media ? 400 : 700, marginTop: entry.media ? 0 : 20,
+                    color: entry.media ? '#ccc' : '#fff'
+                }}>
                     (
                     {entry.media ? 'Additional images' : 'Images'}&nbsp;
                     {pendingMediaAuthors.length === 1 ? `by ${pendingMediaAuthors[0]}` : `by ${pendingMediaAuthors.length} users`}&nbsp;
@@ -175,7 +178,7 @@ const ChallengeLockEntryDetails = ({entry, onExpand, refreshCheckIns, checkIns, 
                 </div>
             }
 
-            {entry.pendingMedia.length > 0 && adminEnabled &&
+            {entry.pendingMedia?.length > 0 && adminEnabled &&
                 <div style={{
                     fontSize: '1.1rem',
                     lineHeight: '1.3rem',

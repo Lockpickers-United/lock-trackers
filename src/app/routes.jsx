@@ -78,13 +78,6 @@ export default [
                 }
             },
             {
-                path: '/challengelocks/organize/images',
-                lazy: async () => {
-                    const {default: OrganizeImagesRoute} = await import('../challengelocks/OrganizeImagesRoute')
-                    return {element: <OrganizeImagesRoute/>}
-                }
-            },
-            {
                 path: '/challengelocks/print',
                 lazy: async () => {
                     const {default: PrintQRCodeRoute} = await import('../challengelocks/PrintQRCodeRoute')

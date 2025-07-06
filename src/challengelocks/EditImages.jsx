@@ -187,8 +187,6 @@ export default function EditImages({profile, user, isSubmit = false}) {
         return acc
     }, [])
 
-    console.log('pendingMediaAuthors', pendingMediaAuthors)
-
     const navigate = useNavigate()
     const handleLockClick = useCallback(() => {
         navigate(`/challengelocks?id=${lockId}&${queryString.stringify(searchParams)}`)

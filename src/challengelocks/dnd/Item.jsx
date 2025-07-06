@@ -30,7 +30,6 @@ export const Item = memo(
     ) {
         useEffect(() => {
             if (!dragOverlay) return
-
             document.body.style.cursor = 'grabbing'
             return () => {
                 document.body.style.cursor = ''

@@ -11,6 +11,7 @@
     "scripts": {
         "dev": "vite",
         "build": "yarn lint && yarn versionFile && NODE_ENV=production vite build",
+        "build-dev": "yarn lint && yarn versionFile && NODE_ENV=production vite build --mode dev",
         "preview": "vite preview",
         "lint": "eslint \"./src/**\" \"./scripts/**\"",
         "versionFile": "node ./scripts/versionCode.js",
