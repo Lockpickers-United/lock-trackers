@@ -1,12 +1,13 @@
-import React, {forwardRef} from 'react'
+import React, { forwardRef } from 'react'
 import classNames from 'classnames'
 
-import styles from './Container.module.css'
+import { Handle, Remove } from '../Item'
+import styles from '../dnd/Container.module.css'
 
 export const Container = forwardRef(function Container(
     {
         children,
-        columns = 3,
+        columns = 1,
         handleProps,
         horizontal,
         hover,
@@ -18,7 +19,6 @@ export const Container = forwardRef(function Container(
         scrollable,
         shadow,
         unstyled,
-        disabled,
         ...props
     },
     ref
@@ -31,8 +31,7 @@ export const Container = forwardRef(function Container(
             ref={ref}
             style={{
                 ...style,
-                '--columns': columns,
-                width: '100%',
+                '--columns': columns
             }}
             className={classNames(
                 styles.Container,
@@ -45,14 +44,17 @@ export const Container = forwardRef(function Container(
             )}
             onClick={onClick}
             tabIndex={onClick ? 0 : undefined}
-            disabled={disabled}
         >
             {label && (
-                <div className={styles.Header} style={{marginBottom: 1}}>
+                <div className={styles.Header}>
                     {label}
+                    <div className={styles.Actions}>
+                        {onRemove && <Remove onClick={onRemove} />}
+                        <Handle {...handleProps} />
+                    </div>
                 </div>
             )}
-            {placeholder ? children : <ul className={classNames(styles.Pages, styles['grid'])}>{children}</ul>}
+            {placeholder ? children : <ul>{children}</ul>}
         </Component>
     )
 })

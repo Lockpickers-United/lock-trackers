@@ -1,5 +1,7 @@
+/* eslint-disable */
+
 import React, {useCallback, useEffect, useRef, useState} from 'react'
-import {createPortal, unstable_batchedUpdates} from 'react-dom'
+import {unstable_batchedUpdates} from 'react-dom'
 import {
     closestCenter,
     pointerWithin,
@@ -10,12 +12,11 @@ import {
     KeyboardSensor,
     MouseSensor,
     TouchSensor,
-    //Modifiers,
     useDroppable,
     useSensors,
     useSensor,
     MeasuringStrategy,
-    defaultDropAnimationSideEffects
+    defaultDropAnimationSideEffects, useDndContext
 } from '@dnd-kit/core'
 import {
     defaultAnimateLayoutChanges,
@@ -25,64 +26,16 @@ import {
     verticalListSortingStrategy,
     horizontalListSortingStrategy
 } from '@dnd-kit/sortable'
-import {CSS} from '@dnd-kit/utilities'
-import {coordinateGetter as multipleContainersCoordinateGetter} from './multipleContainersKeyboardCoordinates'
+import {CSS, isKeyboardEvent} from '@dnd-kit/utilities'
+import {coordinateGetter as multipleContainersCoordinateGetter} from '../dnd/multipleContainersKeyboardCoordinates.js'
 
-import {Item} from './Item.jsx'
-import {Container} from './Container.jsx'
-
-function DroppableContainer({
-                                children,
-                                columns = 3,
-                                disabled,
-                                id,
-                                items,
-                                style,
-                                ...props
-                            }) {
-    const {
-        active,
-        attributes,
-        isDragging,
-        listeners,
-        over,
-        setNodeRef,
-        transition,
-        transform
-    } = useSortable({
-        id,
-        data: {type: 'container', children: items},
-        animateLayoutChanges: args =>
-            defaultAnimateLayoutChanges({...args, wasDragging: true})
-    })
-
-    const isOverContainer = over
-        ? (id === over.id && active?.data?.current?.type !== 'container') ||
-        items.includes(over.id)
-        : false
-
-    return (
-        <Container
-            ref={disabled ? undefined : setNodeRef}
-            style={{
-                ...style,
-                transition,
-                transform: CSS.Translate.toString(transform),
-                opacity: isDragging ? 0.5 : undefined
-            }}
-            hover={isOverContainer}
-            handleProps={{...attributes, ...listeners}}
-            columns={columns}
-            {...props}
-        >
-            {children}
-        </Container>
-    )
-}
+import {Item} from '../dnd/Item.jsx'
+import {Container} from '../dnd/Container.jsx'
+import {Page, Position} from './Page.jsx'
 
 const dropAnimation = {
     sideEffects: defaultDropAnimationSideEffects({
-        styles: {active: {opacity: '0.5'}}
+        styles: {active: {opacity: '1'}}
     })
 }
 
@@ -90,13 +43,12 @@ const TRASH_ID = 'void'
 const PLACEHOLDER_ID = 'placeholder'
 
 export function MultipleContainers({
-                                       lock,
                                        containerList = {},
-                                       adjustScale = false,
+                                       lock,
+                                       setContainerItems,
                                        cancelDrop,
                                        columns,
                                        handle = false,
-                                       setContainerItems,
                                        containerStyle,
                                        coordinateGetter = multipleContainersCoordinateGetter,
                                        getItemStyles = () => ({}),
@@ -105,8 +57,7 @@ export function MultipleContainers({
                                        modifiers,
                                        renderItem,
                                        strategy = verticalListSortingStrategy,
-                                       trashable = true,
-                                       vertical = false,
+                                       vertical = true,
                                        scrollable,
                                        disabled = false
                                    }) {
@@ -127,11 +78,14 @@ export function MultipleContainers({
         setContainerItems(items)
     }, [items, setContainerItems])
 
+    console.log('items', items)
+
+    const layout = vertical ? 'Vertical' : 'Horizontal'
     const [containers, setContainers] = useState(Object.keys(containerList))
     const [activeId, setActiveId] = useState(null)
     const lastOverId = useRef(null)
     const recentlyMovedToNewContainer = useRef(false)
-    const isSortingContainer = activeId !== null && containers.includes(activeId)
+    const isSortingContainer = activeId !== null && containers.includes(activeId.toString())
 
     // custom collision‐detection for multi‐container drag
     const collisionDetectionStrategy = useCallback(
@@ -260,7 +214,7 @@ export function MultipleContainers({
             onDragEnd={({active, over}) => {
                 // reorder containers if dragging a container
                 if (active.id in items && over?.id) {
-                    setContainers(c => arrayMove(c, c.indexOf(active.id), c.indexOf(over.id)))
+                    setContainers(c => arrayMove(c, c.indexOf(active.id.toString()), c.indexOf(over.id.toString())))
                 }
 
                 const activeContainer = findContainer(active.id)
@@ -321,9 +275,7 @@ export function MultipleContainers({
                     display: 'inline-grid',
                     boxSizing: 'border-box',
                     padding: 0,
-                    gridAutoFlow: vertical ? 'row' : 'column',
-                    width: '100%',
-                    pointerEvents: disabled ? 'none' : undefined,
+                    gridAutoFlow: vertical ? 'row' : 'column'
                 }}
             >
                 <SortableContext
@@ -331,62 +283,183 @@ export function MultipleContainers({
                     strategy={vertical ? verticalListSortingStrategy : horizontalListSortingStrategy}
                 >
                     {containers.map(cid => (
-                        <DroppableContainer
-                            key={cid}
-                            id={cid}
-                            label={minimal ? undefined : containerList[cid]}
-                            columns={columns}
-                            items={items[cid]}
-                            scrollable={scrollable}
-                            style={containerStyle}
-                            unstyled={minimal}
-                            disabled={disabled}
-                        >
-                            <SortableContext items={items[cid]} strategy={strategy}>
-                                {items[cid].map((val, idx) => (
-                                    <div key={val} style={{}}>
-                                        {idx === 0 && cid === 'A'
-                                            ? <div style={{fontWeight: 700, textAlign: 'center', backgroundColor: '#666', paddingBottom: 2}}>
-                                                Main Image
-                                            </div>
-                                            : cid === 'A'
-                                                ? <span>&nbsp;</span>
-                                                : null
-                                        }
-                                        <SortableItem
-                                            key={val}
-                                            disabled={isSortingContainer || disabled}
-                                            id={val}
-                                            index={idx}
-                                            containerId={cid}
-                                            handle={handle}
-                                            style={getItemStyles}
-                                            wrapperStyle={wrapperStyle}
-                                            renderItem={renderItem}
-                                            getIndex={getIndex}
-                                        />
-                                    </div>
-                                ))}
-                            </SortableContext>
-                        </DroppableContainer>
+                        <React.Fragment key={cid}>
+                            {(items[cid]?.length > 0 || cid === 'A') &&
+                                <DroppableContainer
+                                    key={cid}
+                                    id={cid}
+                                    label={minimal ? undefined : containerList[cid]}
+                                    columns={columns}
+                                    items={items[cid]}
+                                    scrollable={scrollable}
+                                    style={containerStyle}
+                                    unstyled={minimal}
+                                    onRemove={() => handleRemove(cid)}
+                                    disabled={disabled}
+                                >
+                                    <SortableContext items={items[cid]} strategy={strategy}>
+                                        {items[cid]?.map((val, idx) => (
+                                            <React.Fragment key={val}>
+                                                <SortablePage
+                                                    key={val}
+                                                    disabled={isSortingContainer || disabled}
+                                                    id={val}
+                                                    index={idx}
+                                                    handle={handle}
+                                                    style={getItemStyles}
+                                                    layout={layout}
+                                                    wrapperStyle={wrapperStyle}
+                                                    renderItem={renderItem}
+                                                    containerId={cid}
+                                                    getIndex={getIndex}
+                                                    onRemove={() => {
+                                                        console.log('remove')
+                                                        const currentItems = {...items}
+                                                        currentItems[cid] = items[cid].filter(item => item !== val)
+                                                        setItems(currentItems)
+                                                    }}
+                                                />
+                                                <DragOverlay dropAnimation={dropAnimation}>
+                                                    {activeId !== null && (
+                                                        <PageOverlay id={activeId} layout={'Vertical'}
+                                                                     items={items[cid]}/>
+                                                    )}
+                                                </DragOverlay>
+                                            </React.Fragment>
+                                        ))}
+                                    </SortableContext>
+                                </DroppableContainer>
+                            }
+                        </React.Fragment>
                     ))}
                 </SortableContext>
             </div>
-
-            {createPortal(
-                <DragOverlay adjustScale={adjustScale} dropAnimation={dropAnimation}>
-                    {activeId
-                        ? containers.includes(activeId)
-                            ? renderContainerDragOverlay(activeId)
-                            : renderSortableItemDragOverlay(activeId)
-                        : null}
-                </DragOverlay>,
-                document.body
-            )}
-
-            {trashable && activeId && !containers.includes(activeId) && <Trash id={TRASH_ID}/>}
         </DndContext>
     )
+
+    function DroppableContainer({
+                                    children,
+                                    columns = 1,
+                                    disabled,
+                                    id,
+                                    items,
+                                    style,
+                                    ...props
+                                }) {
+        const {
+            active,
+            attributes,
+            isDragging,
+            listeners,
+            over,
+            setNodeRef,
+            transition,
+            transform
+        } = useSortable({
+            id,
+            disabled,
+            data: {type: 'container', children: items},
+            animateLayoutChanges: args =>
+                defaultAnimateLayoutChanges({...args, wasDragging: true})
+        })
+
+        const isOverContainer = over
+            ? (id === over.id && active?.data?.current?.type !== 'container') ||
+            items.includes(over.id)
+            : false
+
+        return (
+            <Container
+                ref={disabled ? undefined : setNodeRef}
+                style={{
+                    ...style,
+                    transition,
+                    transform: CSS.Translate.toString(transform),
+                    opacity: isDragging ? 0.5 : undefined
+                }}
+                hover={isOverContainer}
+                handleProps={{...attributes, ...listeners}}
+                columns={columns}
+                disabled={disabled}
+                {...props}
+            >
+                {children}
+            </Container>
+        )
+    }
+
+    function PageOverlay({id, items, layout}) {
+        const {activatorEvent, over} = useDndContext()
+        const isKeyboardSorting = isKeyboardEvent(activatorEvent)
+        const activeIndex = items.indexOf(id)
+        const overIndex = over?.id ? items.indexOf(over.id) : -1
+
+        return (
+            <Page
+                id={id}
+                layout={layout}
+                clone
+                insertPosition={
+                    isKeyboardSorting && overIndex !== activeIndex
+                        ? overIndex > activeIndex
+                            ? Position.After
+                            : Position.Before
+                        : undefined
+                }
+            />
+        )
+    }
+
+
+    function SortablePage({id, thumb, activeIndex, index, containerId = 'A', layout, onRemove, disabled}) {
+        const {
+            setNodeRef,
+            attributes,
+            listeners,
+            index: sortableIndex,
+            isDragging,
+            isSorting,
+            over,
+            transform,
+            transition
+        } = useSortable({
+            id,
+            disabled,
+            animateLayoutChanges: () => true
+        })
+
+        // TODO: where is layout coming from and what does it do?
+
+        return (
+            <div>
+                <Page
+                    ref={setNodeRef}
+                    id={id}
+                    thumb={thumb}
+                    index={index}
+                    containerId={containerId}
+                    layout={layout}
+                    active={isDragging}
+                    onRemove={onRemove}
+                    disabled={disabled}
+                    style={{
+                        transition,
+                        transform: isSorting ? undefined : CSS.Translate.toString(transform)
+                    }}
+                    insertPosition={
+                        over?.id === id
+                            ? sortableIndex > activeIndex
+                                ? Position.After
+                                : Position.Before
+                            : undefined
+                    }
+                    {...attributes}
+                    {...listeners}
+                />
+            </div>
+        )
+    }
+
 
     function renderSortableItemDragOverlay(id) {
         return (
@@ -402,6 +475,7 @@ export function MultipleContainers({
                     isDragging: true,
                     isDragOverlay: true
                 })}
+                color={getColor(id)}
                 wrapperStyle={wrapperStyle({index: 0})}
                 renderItem={renderItem}
                 dragOverlay
@@ -411,7 +485,7 @@ export function MultipleContainers({
 
     function renderContainerDragOverlay(cid) {
         return (
-            <Container label={`Column ${cid}`} columns={columns} style={{height: '100%'}} shadow unstyled={false}>
+            <Container label={containerList[cid]} columns={columns} style={{height: '100%'}} shadow unstyled={false}>
                 {items[cid].map((it, idx) => (
                     <Item
                         key={it}
@@ -426,12 +500,17 @@ export function MultipleContainers({
                             isSorting: false,
                             isDragOverlay: false
                         })}
+                        color={getColor(it)}
                         wrapperStyle={wrapperStyle({index: idx})}
                         renderItem={renderItem}
                     />
                 ))}
             </Container>
         )
+    }
+
+    function handleRemove(containerID) {
+        setContainers(c => c.filter(i => i !== containerID))
     }
 
     function getNextContainerId() {
@@ -441,42 +520,32 @@ export function MultipleContainers({
     }
 }
 
-function Trash({id}) {
-    const {setNodeRef, isOver} = useDroppable({id})
-    return (
-        <div
-            ref={setNodeRef}
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                position: 'relative',
-                left: '50%',
-                marginLeft: -150,
-                bottom: 20,
-                width: 300,
-                height: 60,
-                borderRadius: 5,
-                border: '1px solid',
-                borderColor: isOver ? 'red' : '#DDD',
-                backgroundColor: isOver ? 'red' : '#444'
-            }}
-        >
-            Drop here to delete
-        </div>
-    )
+function getColor(id) {
+    switch (String(id)[0]) {
+        case 'A':
+            return '#7193f1'
+        case 'B':
+            return '#ffda6c'
+        case 'C':
+            return '#00bcd4'
+        case 'D':
+            return '#ef769f'
+        default:
+            return undefined
+    }
 }
+
 
 function SortableItem({
                           disabled,
                           id,
-                          containerId,
                           index,
                           handle,
                           renderItem,
                           style,
+                          containerId,
                           getIndex,
-                          wrapperStyle,
+                          wrapperStyle
                       }) {
     const {
         setNodeRef,
@@ -496,7 +565,6 @@ function SortableItem({
         <Item
             ref={disabled ? undefined : setNodeRef}
             value={id}
-            containerId={containerId}
             dragging={isDragging}
             sorting={isSorting}
             handle={handle}
@@ -511,6 +579,7 @@ function SortableItem({
                 overIndex: over ? getIndex(over.id) : overIndex,
                 containerId
             })}
+            color={getColor(id)}
             transition={transition}
             transform={transform}
             fadeIn={mountedWhileDragging}
@@ -527,4 +596,29 @@ function useMountStatus() {
         return () => clearTimeout(t)
     }, [])
     return isMounted
+}
+
+function Trash({id}) {
+    const {setNodeRef, isOver} = useDroppable({id})
+    return (
+        <div
+            ref={setNodeRef}
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'fixed',
+                left: '50%',
+                marginLeft: -150,
+                bottom: 20,
+                width: 300,
+                height: 60,
+                borderRadius: 5,
+                border: '1px solid',
+                borderColor: isOver ? 'red' : '#DDD'
+            }}
+        >
+            Drop here to delete
+        </div>
+    )
 }

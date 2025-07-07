@@ -1,17 +1,18 @@
-import React, {useEffect, forwardRef, memo} from 'react'
+import React, { useEffect, forwardRef, memo } from 'react'
 import classNames from 'classnames'
 
-import styles from './Item.module.css'
+//import { Handle, Remove } from './components'
+import { Handle } from './Handle.jsx'
+import { Remove } from './Remove.jsx'
+import styles from '../dnd/Item.module.css'
 
 export const Item = memo(
     forwardRef(function Item(
         {
             color,
-            containerId,
             dragOverlay,
             dragging,
             disabled,
-            active,
             fadeIn,
             handle,
             handleProps,
@@ -72,51 +73,31 @@ export const Item = memo(
                     '--scale-x': transform?.scaleX ? `${transform.scaleX}` : undefined,
                     '--scale-y': transform?.scaleY ? `${transform.scaleY}` : undefined,
                     '--index': index,
-                    '--color': color,
-
-                    // alternative to css if needed
-                    // transform: `translate3d(${transform ? Math.round(transform.x): 0}px, ${transform ? Math.round(transform.y): 0}px, 0)`,
-
-                    backgroundColor: index === 0 && containerId === 'A' ? '#666' : undefined,
+                    '--color': color
                 }}
                 ref={ref}
             >
                 <div
-                        className={classNames(
-                            styles.Item,
-                            dragging && styles.dragging,
-                            handle && styles.withHandle,
-                            dragOverlay && styles.dragOverlay,
-                            disabled && styles.disabled,
-                            color && styles.color
-                        )}
-                        style={{
-                            ...style,
-                        }}
-                        data-cypress='draggable-item'
-                        {...(!handle ? listeners : {})}
-                        {...props}
-                        tabIndex={!handle ? 0 : undefined}
-                    >
-                        <button
-                            className={classNames(
-                                styles.Item,
-                                dragging && styles.dragging,
-                                handle && styles.withHandle,
-                                dragOverlay && styles.dragOverlay,
-                                disabled && styles.disabled,
-                                color && styles.color
-                            )}
-                            style={{
-                                backgroundImage: `url(${String(value)})`,
-                                backgroundSize: 'contain',
-                                backgroundPosition: 'center',
-                                backgroundRepeat: 'no-repeat',
-                            }}
-                            disabled={disabled}
-                            {...props}
-                        />
-                    </div>
+                    className={classNames(
+                        styles.Item,
+                        dragging && styles.dragging,
+                        handle && styles.withHandle,
+                        dragOverlay && styles.dragOverlay,
+                        disabled && styles.disabled,
+                        color && styles.color
+                    )}
+                    style={style}
+                    data-cypress="draggable-item"
+                    {...(!handle ? listeners : {})}
+                    {...props}
+                    tabIndex={!handle ? 0 : undefined}
+                >
+                    {value}
+                    <span className={styles.Actions}>
+            {onRemove && <Remove className={styles.Remove} onClick={onRemove}/>}
+                        {handle && <Handle {...handleProps} {...listeners} />}
+          </span>
+                </div>
             </li>
         )
     })

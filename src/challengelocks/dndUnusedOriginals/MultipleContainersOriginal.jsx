@@ -26,14 +26,22 @@ import {
     horizontalListSortingStrategy
 } from '@dnd-kit/sortable'
 import {CSS} from '@dnd-kit/utilities'
-import {coordinateGetter as multipleContainersCoordinateGetter} from './multipleContainersKeyboardCoordinates'
+import {coordinateGetter as multipleContainersCoordinateGetter} from '../dnd/multipleContainersKeyboardCoordinates.js'
 
-import {Item} from './Item.jsx'
-import {Container} from './Container.jsx'
+//import {Item, Container} from '../../components'
+//import {createRange} from '../../utilities'
+
+import {Item} from '../dnd/Item.jsx'
+import {Container} from '../dnd/Container.jsx'
+import {createRange} from './createRange.js'
+
+export default {
+    title: 'Presets/Sortable/Multiple Containers'
+}
 
 function DroppableContainer({
                                 children,
-                                columns = 3,
+                                columns = 1,
                                 disabled,
                                 id,
                                 items,
@@ -88,15 +96,15 @@ const dropAnimation = {
 
 const TRASH_ID = 'void'
 const PLACEHOLDER_ID = 'placeholder'
+const empty = []
 
 export function MultipleContainers({
-                                       lock,
-                                       containerList = {},
                                        adjustScale = false,
+                                       itemCount = 3,
                                        cancelDrop,
                                        columns,
                                        handle = false,
-                                       setContainerItems,
+                                       items: initialItems,
                                        containerStyle,
                                        coordinateGetter = multipleContainersCoordinateGetter,
                                        getItemStyles = () => ({}),
@@ -105,29 +113,20 @@ export function MultipleContainers({
                                        modifiers,
                                        renderItem,
                                        strategy = verticalListSortingStrategy,
-                                       trashable = true,
+                                       trashable = false,
                                        vertical = false,
-                                       scrollable,
-                                       disabled = false
+                                       scrollable
                                    }) {
-
     const [items, setItems] = useState(
-        {A: [], B: []}
+        () =>
+            initialItems ?? {
+                A: createRange(itemCount, i => `A${i + 1}`),
+                B: createRange(itemCount, i => `B${i + 1}`),
+                C: createRange(itemCount, i => `C${i + 1}`),
+                D: createRange(itemCount, i => `D${i + 1}`)
+            }
     )
-    useEffect(() => {
-        if (lock?.media?.length > 0 || lock?.pendingMedia?.length > 0) {
-            setItems({
-                A: lock?.media?.map(m => m.thumbnailUrl) || [],
-                B: lock?.pendingMedia?.map(m => m.thumbnailUrl) || []
-            })
-        }
-    }, [lock])
-
-    useEffect(() => {
-        setContainerItems(items)
-    }, [items, setContainerItems])
-
-    const [containers, setContainers] = useState(Object.keys(containerList))
+    const [containers, setContainers] = useState(Object.keys(items))
     const [activeId, setActiveId] = useState(null)
     const lastOverId = useRef(null)
     const recentlyMovedToNewContainer = useRef(false)
@@ -320,10 +319,8 @@ export function MultipleContainers({
                 style={{
                     display: 'inline-grid',
                     boxSizing: 'border-box',
-                    padding: 0,
-                    gridAutoFlow: vertical ? 'row' : 'column',
-                    width: '100%',
-                    pointerEvents: disabled ? 'none' : undefined,
+                    padding: 20,
+                    gridAutoFlow: vertical ? 'row' : 'column'
                 }}
             >
                 <SortableContext
@@ -334,42 +331,43 @@ export function MultipleContainers({
                         <DroppableContainer
                             key={cid}
                             id={cid}
-                            label={minimal ? undefined : containerList[cid]}
+                            label={minimal ? undefined : `Column ${cid}`}
                             columns={columns}
                             items={items[cid]}
                             scrollable={scrollable}
                             style={containerStyle}
                             unstyled={minimal}
-                            disabled={disabled}
+                            onRemove={() => handleRemove(cid)}
                         >
                             <SortableContext items={items[cid]} strategy={strategy}>
                                 {items[cid].map((val, idx) => (
-                                    <div key={val} style={{}}>
-                                        {idx === 0 && cid === 'A'
-                                            ? <div style={{fontWeight: 700, textAlign: 'center', backgroundColor: '#666', paddingBottom: 2}}>
-                                                Main Image
-                                            </div>
-                                            : cid === 'A'
-                                                ? <span>&nbsp;</span>
-                                                : null
-                                        }
-                                        <SortableItem
-                                            key={val}
-                                            disabled={isSortingContainer || disabled}
-                                            id={val}
-                                            index={idx}
-                                            containerId={cid}
-                                            handle={handle}
-                                            style={getItemStyles}
-                                            wrapperStyle={wrapperStyle}
-                                            renderItem={renderItem}
-                                            getIndex={getIndex}
-                                        />
-                                    </div>
+                                    <SortableItem
+                                        key={val}
+                                        disabled={isSortingContainer}
+                                        id={val}
+                                        index={idx}
+                                        handle={handle}
+                                        style={getItemStyles}
+                                        wrapperStyle={wrapperStyle}
+                                        renderItem={renderItem}
+                                        containerId={cid}
+                                        getIndex={getIndex}
+                                    />
                                 ))}
                             </SortableContext>
                         </DroppableContainer>
                     ))}
+                    {!minimal && (
+                        <DroppableContainer
+                            id={PLACEHOLDER_ID}
+                            disabled={isSortingContainer}
+                            items={empty}
+                            onClick={handleAddColumn}
+                            placeholder
+                        >
+                            + Add column
+                        </DroppableContainer>
+                    )}
                 </SortableContext>
             </div>
 
@@ -384,7 +382,7 @@ export function MultipleContainers({
                 document.body
             )}
 
-            {trashable && activeId && !containers.includes(activeId) && <Trash id={TRASH_ID}/>}
+            {trashable && activeId && !containers.includes(activeId) && <Trash id={TRASH_ID} />}
         </DndContext>
     )
 
@@ -402,6 +400,7 @@ export function MultipleContainers({
                     isDragging: true,
                     isDragOverlay: true
                 })}
+                color={getColor(id)}
                 wrapperStyle={wrapperStyle({index: 0})}
                 renderItem={renderItem}
                 dragOverlay
@@ -426,6 +425,7 @@ export function MultipleContainers({
                             isSorting: false,
                             isDragOverlay: false
                         })}
+                        color={getColor(it)}
                         wrapperStyle={wrapperStyle({index: idx})}
                         renderItem={renderItem}
                     />
@@ -434,10 +434,37 @@ export function MultipleContainers({
         )
     }
 
+    function handleRemove(containerID) {
+        setContainers(c => c.filter(i => i !== containerID))
+    }
+
+    function handleAddColumn() {
+        const newContainerId = getNextContainerId()
+        unstable_batchedUpdates(() => {
+            setContainers(c => [...c, newContainerId])
+            setItems(cur => ({...cur, [newContainerId]: []}))
+        })
+    }
+
     function getNextContainerId() {
         const ids = Object.keys(items)
         const last = ids[ids.length - 1]
         return String.fromCharCode(last.charCodeAt(0) + 1)
+    }
+}
+
+function getColor(id) {
+    switch (String(id)[0]) {
+        case 'A':
+            return '#7193f1'
+        case 'B':
+            return '#ffda6c'
+        case 'C':
+            return '#00bcd4'
+        case 'D':
+            return '#ef769f'
+        default:
+            return undefined
     }
 }
 
@@ -450,7 +477,7 @@ function Trash({id}) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                position: 'relative',
+                position: 'fixed',
                 left: '50%',
                 marginLeft: -150,
                 bottom: 20,
@@ -458,8 +485,7 @@ function Trash({id}) {
                 height: 60,
                 borderRadius: 5,
                 border: '1px solid',
-                borderColor: isOver ? 'red' : '#DDD',
-                backgroundColor: isOver ? 'red' : '#444'
+                borderColor: isOver ? 'red' : '#DDD'
             }}
         >
             Drop here to delete
@@ -470,13 +496,13 @@ function Trash({id}) {
 function SortableItem({
                           disabled,
                           id,
-                          containerId,
                           index,
                           handle,
                           renderItem,
                           style,
+                          containerId,
                           getIndex,
-                          wrapperStyle,
+                          wrapperStyle
                       }) {
     const {
         setNodeRef,
@@ -496,7 +522,6 @@ function SortableItem({
         <Item
             ref={disabled ? undefined : setNodeRef}
             value={id}
-            containerId={containerId}
             dragging={isDragging}
             sorting={isSorting}
             handle={handle}
@@ -511,6 +536,7 @@ function SortableItem({
                 overIndex: over ? getIndex(over.id) : overIndex,
                 containerId
             })}
+            color={getColor(id)}
             transition={transition}
             transform={transform}
             fadeIn={mountedWhileDragging}

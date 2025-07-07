@@ -1,31 +1,31 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react'
 import Button from '@mui/material/Button'
-import useWindowSize from '../util/useWindowSize.jsx'
+import useWindowSize from '../../util/useWindowSize.jsx'
 import Dialog from '@mui/material/Dialog'
 import {useLocation, useNavigate} from 'react-router-dom'
-import DataContext from '../context/DataContext.jsx'
-import FilterContext from '../context/FilterContext.jsx'
-import LoadingDisplay from '../misc/LoadingDisplay.jsx'
-import ImageCard from './ImageCard.jsx'
-import Dropzone from '../formUtils/Dropzone.jsx'
+import DataContext from '../../context/DataContext.jsx'
+import FilterContext from '../../context/FilterContext.jsx'
+import LoadingDisplay from '../../misc/LoadingDisplay.jsx'
+import ImageCard from '../ImageCard.jsx'
+import Dropzone from '../../formUtils/Dropzone.jsx'
 import TextField from '@mui/material/TextField'
-import {filterProfanity} from '../util/sanitizeValues.js'
+import {filterProfanity} from '../../util/sanitizeValues.js'
 import ForwardIcon from '@mui/icons-material/Forward'
-import {postData} from '../formUtils/postData.jsx'
+import {postData} from '../../formUtils/postData.jsx'
 import {enqueueSnackbar} from 'notistack'
-import AuthContext from '../app/AuthContext.jsx'
-import DBContext from '../app/DBContext.jsx'
+import AuthContext from '../../app/AuthContext.jsx'
+import DBContext from '../../app/DBContext.jsx'
 import Link from '@mui/material/Link'
-import SignInButton from '../auth/SignInButton.jsx'
-import {nodeServerUrl} from '../data/dataUrls.js'
+import SignInButton from '../../auth/SignInButton.jsx'
+import {nodeServerUrl} from '../../data/dataUrls.js'
 import queryString from 'query-string'
 
-import SubNav from '../nav/SubNav.jsx'
-import {optionsCL} from '../data/subNavOptions.js'
+import SubNav from '../../nav/SubNav.jsx'
+import {optionsCL} from '../../data/subNavOptions.js'
 
-import {Pages} from './dnd/Pages.jsx'
-import {Layout} from './dnd/Page.jsx'
-import {MultipleContainers} from './dnd/MultipleContainers.jsx'
+import {Pages} from './Pages.jsx'
+import {Layout} from './Page.jsx'
+import {MultipleContainersInitial} from './MultipleContainersInitial.jsx'
 
 
 export default function EditImages({profile, user, isSubmit = false}) {
@@ -236,11 +236,11 @@ export default function EditImages({profile, user, isSubmit = false}) {
 
                 <Pages layout={Layout.Horizontal} media={lock.media}/>
 
-                <MultipleContainers media={lock.media}
-                                    pendingMedia={lock.pendingMedia}
-                                    lock={lock}
-                                    setContainerItems={setContainerItems}
-                                    containerList={{A: 'Current Media', B: 'Pending Media'}}
+                <MultipleContainersInitial media={lock.media}
+                                           pendingMedia={lock.pendingMedia}
+                                           lock={lock}
+                                           setContainerItems={setContainerItems}
+                                           containerList={{A: 'Current Media', B: 'Pending Media'}}
                 />
 
                 <div style={{}}>

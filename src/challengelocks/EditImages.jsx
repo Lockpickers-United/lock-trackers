@@ -21,6 +21,7 @@ import queryString from 'query-string'
 import {isDeepEqual} from '../util/isDeepEqual.js'
 import {MultipleContainers} from './dnd/MultipleContainers.jsx'
 import {optionsCL} from '../data/subNavOptions.js'
+import {rectSortingStrategy} from '@dnd-kit/sortable'
 
 export default function EditImages({profile, user, isSubmit = false}) {
 
@@ -30,8 +31,11 @@ export default function EditImages({profile, user, isSubmit = false}) {
     const {refreshEntries, updateVersion, updateProfile} = useContext(DBContext)
 
     const location = useLocation()
-    const searchParams = queryString.parse(location.search)
-    delete searchParams.id
+    const searchParams = useMemo(() => {
+        const sp = queryString.parse(location.search)
+        delete sp.id
+        return sp
+    }, [location.search])
 
     const {filters} = useContext(FilterContext)
     const lockId = filters.id
@@ -46,14 +50,17 @@ export default function EditImages({profile, user, isSubmit = false}) {
         return (lock.media && lock.media.length > 0) || (adminEnabled && lock.pendingMedia && lock.pendingMedia.length > 0)
     }, [adminEnabled, lock])
 
-    const containerList = useMemo(() => isMod ? {
+    const containerList = useMemo(() => adminEnabled ? {
         A: 'Current Media',
         B: 'Pending Media'
-    } : {A: 'Current Media'}, [isMod])
-    const [containerItems, setContainerItems] = useState({A: [], B: []})
-    const [originalItems, setOriginalItems] = useState(
-        {A: [], B: []}
-    )
+    } : {A: 'Current Media'}, [adminEnabled])
+
+    const lockMedia = lock.media?.map(m => m.thumbnailUrl) || []
+    const lockPendMedia = lock.pendingMedia?.map(m => m.thumbnailUrl) || []
+    const initialItems = {A: lockMedia, B: lockPendMedia}
+    const [containerItems, setContainerItems] = useState(() => initialItems)
+
+    const [originalItems, setOriginalItems] = useState({A: [], B: []})
     useEffect(() => {
         if (lock?.media?.length > 0 || lock?.pendingMedia?.length > 0) {
             setOriginalItems({
@@ -65,7 +72,6 @@ export default function EditImages({profile, user, isSubmit = false}) {
 
     const [newMedia, setNewMedia] = useState([])
     const [newMainPhoto, setNewMainPhoto] = useState([])
-    const [form, setForm] = useState({})
     const [uploading, setUploading] = useState(false)
     const [contentChanged, setContentChanged] = useState(false)
     const [response, setResponse] = useState(undefined)
@@ -74,26 +80,22 @@ export default function EditImages({profile, user, isSubmit = false}) {
         ? lock.media[0].title?.replace('By: ', '')
         : undefined
     const needMainPhoto = containerItems.A?.length === 0 && newMainPhoto?.length === 0
-    const needPhotoCredit = newMedia.length > 0 && !form.photoCredit
     const existingMediaChanged = !isDeepEqual(originalItems, containerItems)
+
+    const initialForm = {
+        photoCredit: profile?.lastPhotoCredit || currentPhotoCredit || profile?.username || undefined,
+        existingMediaChanged,
+        isSubmit,
+        id: lockId
+    }
+    const [form, setForm] = useState(() => initialForm)
+    console.log('EditImages', originalItems, containerItems)
+
+    const needPhotoCredit = newMedia.length > 0 && !form.photoCredit
     const uploadable = (existingMediaChanged || contentChanged)
         && (!needMainPhoto || isMod)
         && !needPhotoCredit
         && !uploading
-
-    useEffect(() => {
-        console.log('originalItems', originalItems)
-        console.log('containerItems', containerItems)
-    }, [originalItems, containerItems])
-
-    useEffect(() => {
-        setForm({
-            photoCredit: profile?.lastPhotoCredit || currentPhotoCredit || profile?.username || undefined,
-            existingMediaChanged,
-            isSubmit,
-            id: lockId
-        })
-    }, [currentPhotoCredit, existingMediaChanged, isSubmit, lock, lockHasMedia, lockId, profile])
 
     const getHighlightColor = useCallback(field => {
         return !form[field]
@@ -101,10 +103,10 @@ export default function EditImages({profile, user, isSubmit = false}) {
             : '#090'
     }, [form])
 
-    const handleFormChange = useCallback((event) => {
-        let {name, value} = event.target
-        setForm({...form, [name]: filterProfanity(value)})
-    }, [form])
+    const handleFormChange = useCallback((e) => {
+        const {name, value} = e.target
+        setForm(f => ({...f, [name]: filterProfanity(value)}))
+    }, [])
 
     const handleDroppedFiles = useCallback((allFiles, zoneId = 'dropzone') => {
         if (zoneId === 'mainPhoto') {
@@ -112,8 +114,10 @@ export default function EditImages({profile, user, isSubmit = false}) {
         } else {
             setNewMedia(allFiles)
         }
+        const name = 'photoCredit'
+        setForm(f => ({...f, [name]: profile?.lastPhotoCredit || currentPhotoCredit || profile?.username || undefined}))
         setContentChanged(true)
-    }, [])
+    }, [currentPhotoCredit, profile?.lastPhotoCredit, profile?.username])
 
     const handlePhotoCredit = useCallback(async () => {
         try {
@@ -196,6 +200,7 @@ export default function EditImages({profile, user, isSubmit = false}) {
     const flexStyle = width < 500 ? 'block' : 'flex'
     const paddingLeft = !isMobile ? 20 : 8
 
+    const containerWidth = width < 500 ? width - 30 : 670
 
     const nameTextStyle = {fontSize: '1.5rem', lineHeight: '1.7rem', fontWeight: 600, marginLeft: 0}
     const makerTextStyle = {fontSize: '1.2rem', lineHeight: '1.4rem', marginLeft: 0, marginTop: 10}
@@ -204,20 +209,20 @@ export default function EditImages({profile, user, isSubmit = false}) {
     const optionalHeaderStyle = {fontSize: '1.1rem', fontWeight: 400, marginBottom: 5, paddingLeft: 2, color: '#fff'}
 
     const requiredHeaderStyle = {backgroundColor: needMainPhoto ? '#c00' : 'inherit'}
-
     const reqStyle = {height: 4, borderRadius: 2}
+
+    const mainDivStyle = useMemo(() => ({
+        maxWidth: 720, backgroundColor: '#222',
+        marginLeft: 'auto', marginRight: 'auto', marginTop: 16, marginBottom: 46,
+        padding: `16px ${paddingLeft}px 30px ${paddingLeft}px`, lineHeight: '1.5rem'
+    }), [paddingLeft])
 
     return (
 
         <React.Fragment>
             <SubNav options={optionsCL} defaultValue={'Challenge Locks'}/>
 
-            <div style={{
-                maxWidth: 720, backgroundColor: '#222',
-                marginLeft: 'auto', marginRight: 'auto', marginTop: 16, marginBottom: 46,
-                padding: `16px ${paddingLeft}px 30px ${paddingLeft}px`, lineHeight: '1.5rem'
-            }}>
-
+            <div style={mainDivStyle}>
                 <div style={{
                     fontSize: '1.2rem',
                     fontWeight: 700,
@@ -243,15 +248,23 @@ export default function EditImages({profile, user, isSubmit = false}) {
                         <MultipleContainers lock={lock}
                                             setContainerItems={setContainerItems}
                                             containerList={containerList}
-                                            disabled={isSubmit && !isMod}
+                                            disabled={isSubmit && !adminEnabled}
+                                            columns={4}
+                                            containerWidth={containerWidth}
+                                            strategy={rectSortingStrategy}
+                                            wrapperStyle={() => ({
+                                                width: 150,
+                                                height: 150
+                                            })}
+                                            vertical
+
                         />
                     </div>
                 }
 
                 {pendingMediaAuthors?.length > 0 && !adminEnabled &&
                     <div style={{fontSize: '1.1rem', marginTop: lock.media ? 5 : 20, color: '#ccc'}}>
-                        (
-                        {lock.media ? 'Additional images' : 'Images'}&nbsp;
+                        ({lock.media ? 'Additional images' : 'Images'}&nbsp;
                         {pendingMediaAuthors.length === 1 ? `by ${pendingMediaAuthors[0]}` : `by ${pendingMediaAuthors.length} users`} pending
                         review)
                     </div>
@@ -440,10 +453,17 @@ export default function EditImages({profile, user, isSubmit = false}) {
                         marginLeft: 'auto', marginRight: 'auto',
                         fontSize: '1.4rem', fontWeight: 700
                     }}>
-                        You are not authorized to {isSubmit ? 'submit' : 'edit'} images.<br/><br/>
+                        {isSubmit ? 'You must be logged in to submit images.' : 'You are not authorized to edit images.'}<br/><br/>
                         <div style={{width: 210, marginLeft: 'auto', marginRight: 'auto'}}>
                             <SignInButton/>
                         </div>
+                        <div style={{marginTop: 30, fontSize: '1.0rem'}}>
+                            <Button variant='text' size='small'
+                                    onClick={() => navigate('/challengelocks')}>
+                                Browse Challenge Locks
+                            </Button>
+                        </div>
+
                     </div>
                 </Dialog>
 
