@@ -7,8 +7,6 @@ import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import LoadingDisplay from '../misc/LoadingDisplay.jsx'
 import Dropzone from '../formUtils/Dropzone.jsx'
-import TextField from '@mui/material/TextField'
-import {filterProfanity} from '../util/sanitizeValues.js'
 import {postData} from '../formUtils/postData.jsx'
 import {enqueueSnackbar} from 'notistack'
 import AuthContext from '../app/AuthContext.jsx'
@@ -22,6 +20,7 @@ import {isDeepEqual} from '../util/isDeepEqual.js'
 import {MultipleContainers} from './dnd/MultipleContainers.jsx'
 import {optionsCL} from '../data/subNavOptions.js'
 import {rectSortingStrategy} from '@dnd-kit/sortable'
+import EditImagesPhotoCredit from './EditImagesPhotoCredit.jsx'
 
 export default function EditImages({profile, user, isSubmit = false}) {
 
@@ -59,7 +58,6 @@ export default function EditImages({profile, user, isSubmit = false}) {
     const lockPendMedia = lock.pendingMedia?.map(m => m.thumbnailUrl) || []
     const initialItems = {A: lockMedia, B: lockPendMedia}
     const [containerItems, setContainerItems] = useState(() => initialItems)
-
     const [originalItems, setOriginalItems] = useState({A: [], B: []})
     useEffect(() => {
         if (lock?.media?.length > 0 || lock?.pendingMedia?.length > 0) {
@@ -82,31 +80,14 @@ export default function EditImages({profile, user, isSubmit = false}) {
     const needMainPhoto = containerItems.A?.length === 0 && newMainPhoto?.length === 0
     const existingMediaChanged = !isDeepEqual(originalItems, containerItems)
 
-    const initialForm = {
-        photoCredit: profile?.lastPhotoCredit || currentPhotoCredit || profile?.username || undefined,
-        existingMediaChanged,
-        isSubmit,
-        id: lockId
-    }
-    const [form, setForm] = useState(() => initialForm)
-    console.log('EditImages', originalItems, containerItems)
+//    console.log('EditImages', originalItems, containerItems)
 
-    const needPhotoCredit = newMedia.length > 0 && !form.photoCredit
+    const [photoCredit, setPhotoCredit] = useState(undefined)
+    const needPhotoCredit = newMedia.length > 0 && !photoCredit
     const uploadable = (existingMediaChanged || contentChanged)
         && (!needMainPhoto || isMod)
         && !needPhotoCredit
         && !uploading
-
-    const getHighlightColor = useCallback(field => {
-        return !form[field]
-            ? '#d00'
-            : '#090'
-    }, [form])
-
-    const handleFormChange = useCallback((e) => {
-        const {name, value} = e.target
-        setForm(f => ({...f, [name]: filterProfanity(value)}))
-    }, [])
 
     const handleDroppedFiles = useCallback((allFiles, zoneId = 'dropzone') => {
         if (zoneId === 'mainPhoto') {
@@ -114,31 +95,33 @@ export default function EditImages({profile, user, isSubmit = false}) {
         } else {
             setNewMedia(allFiles)
         }
-        const name = 'photoCredit'
-        setForm(f => ({...f, [name]: profile?.lastPhotoCredit || currentPhotoCredit || profile?.username || undefined}))
+        setPhotoCredit(photoCredit || profile?.lastPhotoCredit || currentPhotoCredit || profile?.username || undefined)
         setContentChanged(true)
-    }, [currentPhotoCredit, profile?.lastPhotoCredit, profile?.username])
+    }, [currentPhotoCredit, photoCredit, profile?.lastPhotoCredit, profile?.username])
 
     const handlePhotoCredit = useCallback(async () => {
         try {
-            if (form.photoCredit && form.photoCredit !== profile?.lastPhotoCredit) {
-                const localProfile = {...profile, lastPhotoCredit: form.photoCredit}
+            if (photoCredit && photoCredit !== profile?.lastPhotoCredit) {
+                const localProfile = {...profile, lastPhotoCredit: photoCredit}
                 await updateProfile(localProfile)
             }
         } catch (error) {
             console.error('Couldn\'t set lastPhotoCredit on profile', error)
         }
-    }, [form, profile, updateProfile])
+    }, [photoCredit, profile, updateProfile])
 
     const handleSubmit = async () => {
         setUploading(true)
 
         const addedMedia = [...newMainPhoto, ...newMedia]
         const formCopy = {
-            ...form,
+            isSubmit,
+            id: lockId,
             newPendingMedia: addedMedia.length > 0 && isSubmit && !isMod,
             currentMedia: containerItems.A,
-            pendingMedia: containerItems.B
+            pendingMedia: containerItems.B,
+            existingMediaChanged,
+            photoCredit,
         }
 
         console.log('handleSubmit formCopy', formCopy)
@@ -178,7 +161,6 @@ export default function EditImages({profile, user, isSubmit = false}) {
         } finally {
             newMedia?.forEach(file => URL.revokeObjectURL(file.preview))
             setUploading(false)
-            setForm(formCopy)
             await handlePhotoCredit()
         }
         setUploading(false)
@@ -209,7 +191,6 @@ export default function EditImages({profile, user, isSubmit = false}) {
     const optionalHeaderStyle = {fontSize: '1.1rem', fontWeight: 400, marginBottom: 5, paddingLeft: 2, color: '#fff'}
 
     const requiredHeaderStyle = {backgroundColor: needMainPhoto ? '#c00' : 'inherit'}
-    const reqStyle = {height: 4, borderRadius: 2}
 
     const mainDivStyle = useMemo(() => ({
         maxWidth: 720, backgroundColor: '#222',
@@ -246,6 +227,7 @@ export default function EditImages({profile, user, isSubmit = false}) {
                 {showMediaContainers &&
                     <div style={{marginTop: 10}}>
                         <MultipleContainers lock={lock}
+                                            containerItems={containerItems}
                                             setContainerItems={setContainerItems}
                                             containerList={containerList}
                                             disabled={isSubmit && !adminEnabled}
@@ -257,7 +239,6 @@ export default function EditImages({profile, user, isSubmit = false}) {
                                                 height: 150
                                             })}
                                             vertical
-
                         />
                     </div>
                 }
@@ -295,83 +276,8 @@ export default function EditImages({profile, user, isSubmit = false}) {
                 </div>
 
                 {(newMedia?.length > 0 || isSubmit) &&
-                    <React.Fragment>
-                        <div style={{
-                            margin: '30px auto 10px auto',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            width: '100%'
-                        }}>
-                            <div>
-                                <div style={{
-                                    ...headerStyle,
-                                    padding: '0px 0px 5px 0px',
-                                    width: 'auto',
-                                    margin: 0,
-                                    fontSize: '1.1rem',
-                                    backgroundColor: !form.photoCredit ? '#c00' : 'inherit',
-                                    alignContent: 'center'
-                                }}>
-                                    Photo Credit for New Images
-                                </div>
-                                <TextField type='text' name='photoCredit' style={{width: 240}}
-                                           onChange={handleFormChange} value={form.photoCredit || ''}
-                                           color='info'
-                                           slotProps={{
-                                               htmlInput: {maxLength: 40}
-                                           }} size='small'/>
-                                <div style={{...reqStyle, backgroundColor: getHighlightColor('photoCredit')}}/>
-                            </div>
-                        </div>
-
-                        <div style={{
-                            fontSize: '0.9rem', fontWeight: 400, marginBottom: 5, color: '#fff',
-                            textAlign: 'center'
-                        }}>
-                            {profile?.lastPhotoCredit &&
-                                <span><Link
-                                    onClick={() => handleFormChange({
-                                        target: {
-                                            name: 'photoCredit',
-                                            value: profile?.lastPhotoCredit
-                                        }
-                                    })}
-                                    style={{
-                                        cursor: 'pointer',
-                                        textDecoration: 'none',
-                                        fontWeight: form.photoCredit === profile?.lastPhotoCredit ? '600' : '400'
-                                    }}>Last Used</Link> • </span>
-                            }
-                            {currentPhotoCredit &&
-                                <span><Link
-                                    onClick={() => handleFormChange({
-                                        target: {
-                                            name: 'photoCredit',
-                                            value: currentPhotoCredit
-                                        }
-                                    })}
-                                    style={{
-                                        cursor: 'pointer',
-                                        textDecoration: 'none',
-                                        fontWeight: form.photoCredit === currentPhotoCredit ? '600' : '400'
-                                    }}>Match Existing Photos</Link> • </span>
-                            }
-                            {profile?.username &&
-                                <span><Link
-                                    onClick={() => handleFormChange({
-                                        target: {
-                                            name: 'photoCredit',
-                                            value: profile?.username
-                                        }
-                                    })}
-                                    style={{
-                                        cursor: 'pointer',
-                                        textDecoration: 'none',
-                                        fontWeight: form.photoCredit === profile?.username ? '600' : '400'
-                                    }}>Your Userame</Link></span>
-                            }
-                        </div>
-                    </React.Fragment>
+                        <EditImagesPhotoCredit photoCredit={photoCredit} setPhotoCredit={setPhotoCredit}
+                                               profile={profile} currentPhotoCredit={currentPhotoCredit}/>
                 }
 
                 {(newMedia?.length > 0 || isSubmit) && !isMod &&

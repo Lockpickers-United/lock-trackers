@@ -96,6 +96,7 @@ export function MultipleContainers({
                                        cancelDrop,
                                        columns,
                                        handle = false,
+                                       containerItems,
                                        setContainerItems,
                                        containerStyle,
                                        coordinateGetter = multipleContainersCoordinateGetter,
@@ -111,21 +112,16 @@ export function MultipleContainers({
                                        disabled = false
                                    }) {
 
-    const [items, setItems] = useState(
-        {A: [], B: []}
-    )
-    useEffect(() => {
-        if (lock?.media?.length > 0 || lock?.pendingMedia?.length > 0) {
-            setItems({
-                A: lock?.media?.map(m => m.thumbnailUrl) || [],
-                B: lock?.pendingMedia?.map(m => m.thumbnailUrl) || []
-            })
-        }
-    }, [lock])
+
+    const lockMedia = lock.media?.map(m => m.thumbnailUrl) || []
+    const lockPendMedia = lock.pendingMedia?.map(m => m.thumbnailUrl) || []
+    const initialItems = {A: lockMedia, B: lockPendMedia}
+    const [items, setItems] = useState(() => initialItems)
 
     useEffect(() => {
+        if (containerItems !== items)
         setContainerItems(items)
-    }, [items, setContainerItems])
+    }, [containerItems, items, setContainerItems])
 
     const [containers, setContainers] = useState(Object.keys(containerList))
     const [activeId, setActiveId] = useState(null)

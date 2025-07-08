@@ -10,10 +10,7 @@ import {parseForm, flattenFields} from '../../util/formUtils.js'
 import fs from 'fs'
 import {sendEmail} from '../nodeMailer/nodeMailer.js'
 import util from 'util'
-import {exec} from 'child_process'
-import {fork} from 'child_process'
-import path from 'path'
-import {fileURLToPath} from 'url'
+import {exec, fork} from 'child_process'
 import {contentUploadRecipients, prodUser} from '../../../keys/users.js'
 import admin from 'firebase-admin'
 import {getFirestore, FieldValue} from 'firebase-admin/firestore'
@@ -53,13 +50,13 @@ function getDb(prod) {
     if (prod) {
         if (!_dbProd) {
             _dbProd = getFirestore(requestapp)
-            _dbProd.settings({ ignoreUndefinedProperties: true })
+            _dbProd.settings({ignoreUndefinedProperties: true})
         }
         return _dbProd
     } else {
         if (!_dbDev) {
             _dbDev = getFirestore(requestapp, 'locktrackersdev')
-            _dbDev.settings({ ignoreUndefinedProperties: true })
+            _dbDev.settings({ignoreUndefinedProperties: true})
         }
         return _dbDev
     }
@@ -110,9 +107,7 @@ export async function updateLockMedia(req, res) {
         return handleError(res, err.message, err, 403)
     }
 
-    if (!req.user.CLAdmin && !req.user.admin) {
-        return handleError(res, 'Unauthorized', 'Unauthorized', 403)
-    }
+    const isAdmin = req.user.CLAdmin || req.user.admin
 
     const {prod} = req.body
     const db = getDb(prod)
@@ -133,124 +128,136 @@ export async function updateLockMedia(req, res) {
 
     try {
         const {fields, files} = await parseForm(req, form)
-
         for (const fieldName in fields) {
             if (!Array.isArray(fields[fieldName])) {
                 fields[fieldName] = [fields[fieldName]]
             }
         }
         const flatFields = flattenFields(fields)
-        // no need to sanitize
+
+        console.log('flatFields', flatFields)
 
         let ref = db.collection('challenge-locks').doc(flatFields.id)
         const lockEntry = await fetchDocument(ref, flatFields.id)
         if (!lockEntry) return handleError(res, 'Lock not found', `No lock matching id ${flatFields.id} found`, 404)
+        const allExistingMedia = [...(lockEntry.media || []), ...(lockEntry.pendingMedia || [])]
 
-        // save files/thumbs
-        const addedMedia = await Promise.all(filepaths.map(async (filepath, index) => ({
-            imageTitle: lockEntry.name,
-            title: `By: ${flatFields.photoCredit || 'Unknown'}`,
-            fullUrl: filepath,
-            fullSizeUrl: (await createThumbnailViaWorker({
-                inputFile: files.files[index].filepath,
-                width: 1600
-            })).replace(uploadDir, serverPath),
-            thumbnailUrl: (await createThumbnailViaWorker({
-                inputFile: files.files[index].filepath,
-                width: 500
-            })).replace(uploadDir, serverPath),
-            thumbnailSquareUrl: (await createThumbnailViaWorker({
-                inputFile: files.files[0].filepath,
-                width: 200,
-                square: true
-            })).replace(uploadDir, serverPath),
-            dateAdded: dayjs().toISOString(),
-            subtitle: 'CC BY-NC-SA 4.0'
-        })))
+        // new media so save files/thumbs if not dupes
+        const uniqueFilepaths = [...new Set(filepaths)]
+            .filter(filepath => !allExistingMedia.find(media => media.fullUrl === filepath))
+        const addedMedia = uniqueFilepaths.length === 0
+            ? []
+            : await Promise.all(uniqueFilepaths.map(async (filepath, index) => ({
+                imageTitle: lockEntry.name,
+                title: `By: ${flatFields.photoCredit || 'Unknown'}`,
+                fullUrl: filepath,
+                fullSizeUrl: (await createThumbnailViaWorker({
+                    inputFile: files.files[index].filepath,
+                    width: 1600
+                })).replace(uploadDir, serverPath),
+                thumbnailUrl: (await createThumbnailViaWorker({
+                    inputFile: files.files[index].filepath,
+                    width: 500
+                })).replace(uploadDir, serverPath),
+                thumbnailSquareUrl: (await createThumbnailViaWorker({
+                    inputFile: files.files[0].filepath,
+                    width: 200,
+                    square: true
+                })).replace(uploadDir, serverPath),
+                dateAdded: dayjs().toISOString(),
+                subtitle: 'CC BY-NC-SA 4.0'
+            })))
 
-        let fullMedia = []
+        console.log('addedMedia', addedMedia)
+
         const updates = {}
 
-        // new upload as main photo
-        if (!flatFields.updatedMainPhotoId && flatFields.replaceMainPhoto && addedMedia?.length > 0) {
-            const newMainImage = addedMedia.shift()
-            fullMedia.push(newMainImage)
+        /*
+        - if isAdmin:
+            - if existing media has changed map urls to media items, set as updates.media
+            - if pendingMedia (has changed?) add to updates.pendingMedia (new, note that admins can pend existing media)
+            - if new media FROM ADMIN, add to fullMedia
+        - if not admin:
+            if new media FROM USER, add to pendingMedia
+        - submit updates
+        - (delete unused media from disk)
+         */
 
-        } else if (flatFields.updatedMainPhotoId && lockEntry.media?.length > 0 && (lockEntry.media[0].sequenceId !== flatFields.updatedMainPhotoId)) {
-            console.log('mainPhoto changed:', lockEntry.media[0].sequenceId, 'to', flatFields.updatedMainPhotoId)
-            // existing image now used as main photo
+        if (isAdmin) {
+            if (flatFields.existingMediaChanged === 'true') {
+                const updatedCurrentMedia = flatFields.currentMedia?.length > 0
+                    ? [...new Set(flatFields.currentMedia.split(',').map(url => url.trim()))]
+                    : []
+                console.log('updatedCurrentMedia', updatedCurrentMedia)
 
-            // replace mainImage with other existing media
-            const newMainImage = lockEntry.media?.find(media => media.sequenceId === parseInt(flatFields.updatedMainPhotoId))
+                const updatedPendingMedia = flatFields.pendingMedia?.length > 0
+                    ? [...new Set(flatFields.pendingMedia.split(',').map(url => url.trim()))]
+                    : []
 
-            // make new thumbnail if needed
-            const thumbnailSource = newMainImage.fullSizeUrl.replace(serverPath, uploadDir)
-            const thumbnailOutputPath = thumbnailSource.replace(/-1024.jpg$/, '-200-sq.jpg')
-            if (!fs.existsSync(thumbnailOutputPath)) {
-                const tSquare =  (await createThumbnailViaWorker({
-                    inputFile: thumbnailSource,
-                    width: 200,
-                    square: true,
-                    outputFilePath: thumbnailOutputPath
-                }))
+                updates.media = updatedCurrentMedia.map((url, index) => {
+                    const mediaItem = allExistingMedia?.find(media => media.thumbnailUrl === url)
+                    return {...mediaItem, sequenceId: index+1}
+                }) || []
+                updates.pendingMedia = updatedPendingMedia.map((url, index) => {
+                    const mediaItem = allExistingMedia?.find(media => media.thumbnailUrl === url)
+                    return {...mediaItem, sequenceId: index+1}
+                }) || []
+
+                const remainingMedia = [...(updates.media || []), ...(updates.pendingMedia || [])]
+                const unusedMedia = allExistingMedia.filter(media => {
+                    return !flatFields.currentMedia?.includes(media.thumbnailUrl) &&
+                        !flatFields.pendingMedia?.includes(media.thumbnailUrl)
+                })
+
+                // add thumbnails for existing media if needed
+                if (remainingMedia.length > 0) {
+                    for (const media of remainingMedia) {
+                        const thumbnailSource = media.fullSizeUrl?.replace(serverPath, uploadDir)
+                        const thumbnailOutputPath = thumbnailSource.replace(/-1024.jpg$/, '-200-sq.jpg')
+                        if (!fs.existsSync(thumbnailOutputPath)) {
+                            await createThumbnailViaWorker({
+                                inputFile: thumbnailSource,
+                                width: 200,
+                                square: true,
+                                outputFilePath: thumbnailOutputPath
+                            })
+                        }
+                        if (!media.thumbnailSquareUrl) {
+                            media.thumbnailSquareUrl = media.fullSizeUrl.replace(/-1024.jpg$/, '-200-sq.jpg')
+                        }
+                    }
+                }
             }
-            if (!newMainImage.thumbnailSquareUrl) {
-                newMainImage.thumbnailSquareUrl = newMainImage.fullSizeUrl.replace(/-1024.jpg$/, '-200-sq.jpg')
+            if (addedMedia.length > 0) {
+                // new media from admin, so add to update
+                const updatedMedia = [...(updates.media || lockEntry.media || [])]
+                updates.media = [...updatedMedia, ...addedMedia.map((media, index) => ({
+                    ...media,
+                    sequenceId: updatedMedia?.length + index + 1
+                }))]
             }
-
-            fullMedia.push(newMainImage)
-            //updates.mainImage = [{...newMainImage, sequenceId: 1}] // backwards compatibility with old mainImage format
-
-        } else if (!flatFields.updatedMainPhotoId) {
-            // if no mainImage, set first existing or addedMedia as mainImage (whether or not it was in that slot??)
-            const newMainImage = lockEntry.media?.length > 0
-                ? lockEntry.media[0]
-                : undefined
-            fullMedia.push(newMainImage)
-            //updates.mainImage = [{...newMainImage, sequenceId: 1}]
+            updates.newPendingMedia = FieldValue.delete()
 
         } else {
-            // no change to mainImage so keep it first in fullMedia
-            fullMedia.push(lockEntry.mainImage)
-        }
-
-        const keepMediaIds = flatFields.updatedMediaIds
-            ? flatFields.updatedMediaIds.split(',').map(id => parseInt(id))
-            : []
-        const keepMedia = lockEntry.media?.length > 0
-            ? lockEntry.media?.filter(media => keepMediaIds.includes(media.sequenceId))
-            : []
-
-        if (keepMedia.length > 0) {
-            // make/set square thumbnails for existing media
-            for (const media of keepMedia) {
-                const thumbnailSource = media.fullSizeUrl.replace(serverPath, uploadDir)
-                const thumbnailOutputPath = thumbnailSource.replace(/-1024.jpg$/, '-200-sq.jpg')
-                if (!fs.existsSync(thumbnailOutputPath)) {
-                    await createThumbnailViaWorker({
-                        inputFile: thumbnailSource,
-                        width: 200,
-                        square: true,
-                        outputFilePath: thumbnailOutputPath
-                    })
+            if (addedMedia.length > 0) {
+                // new media from user, so add to pendingMedia
+                if (!lockEntry.pendingMedia) {
+                    lockEntry.pendingMedia = []
                 }
-                if (!media.thumbnailSquareUrl) {
-                    media.thumbnailSquareUrl = media.fullSizeUrl.replace(/-1024.jpg$/, '-200-sq.jpg')
-                }
+                const allPendingMedia = [...lockEntry.pendingMedia, ...addedMedia]
+                updates.pendingMedia = allPendingMedia.filter(x => x).map((media, index) => ({
+                    ...media,
+                    sequenceId: index + 1
+                }))
+                if (flatFields.newPendingMedia === 'true') updates.newPendingMedia = true
             }
         }
 
-        fullMedia.push(...keepMedia)
-        fullMedia.push(...addedMedia)
-
-        updates.media = fullMedia.filter(x => x).map((media, index) => ({...media, sequenceId: index + 1}))
-        updates.thumbnail = FieldValue.delete()
-        updates.mainImage = FieldValue.delete()
-
-        updates.updatedAt = dayjs().toISOString()
+        // TODO: delete unused media from disk
 
         // SUBMIT UPDATES
         if (Object.keys(updates).length > 0) {
+            updates.updatedAt = dayjs().toISOString()
             try {
                 await updateDocument(ref, updates, flatFields.id)
             } catch (err) {
@@ -261,7 +268,8 @@ export async function updateLockMedia(req, res) {
         console.log('done')
         return res.status(200).json(flatFields)
 
-    } catch (err) {
+    } catch
+        (err) {
         return handleError(res, 'Form Parse Error', err)
     }
 
@@ -269,7 +277,7 @@ export async function updateLockMedia(req, res) {
 
 export default async function submitChallengeLock(req, res) {
 
-    const sendEmail = false
+    const sendEmailFlag = false
     let subdirs = ''
     let filepaths = []
 
@@ -386,7 +394,7 @@ export default async function submitChallengeLock(req, res) {
         }
         fieldsHtml += '</table>'
 
-        if (sendEmail) try {
+        if (sendEmailFlag) try {
             const email = await sendEmail({
                 emailConfig: 'challengeLock',
                 to: contentUploadRecipients,
@@ -588,7 +596,6 @@ export async function reportProblem(req, res) {
     return res.status(200).json('Report Problem Endpoint Hit')
 }
 
-
 export async function clearProblems(req, res) {
 
     try {
@@ -744,7 +751,7 @@ function sanitizeHTML(str) {
             default:
                 return char
         }
-    });
+    })
 }
 
 function slugify(str) {
@@ -753,7 +760,7 @@ function slugify(str) {
         .replace(/[^a-zA-Z0-9\-_+ ]/g, '')
         .replace(/\s+/g, '-')
         .replace(/-+/g, '-')
-        .replace(/'/g, '');
+        .replace(/'/g, '')
 }
 
 if (!Array.prototype.firstValue) {
