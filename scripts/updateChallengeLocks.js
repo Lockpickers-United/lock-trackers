@@ -72,9 +72,9 @@ async function updateChallengeLocks(locks) {
             // 2025-06-18T22:44:12.923Z
             //if (lock.lockCreated && dayjs(lock.lockCreated).isSame('2025-06-18', 'day')) {
 
-            if (lock.maker === 'NicVT') {
-                console.log(`Changing NicVT to NICVT for lock ${lock.id}`)
-                lock.maker = 'NICVT'
+            if (lock.maker === 'dew') {
+                console.log(`Changing dew to DEW for lock ${lock.id}`)
+                lock.maker = 'DEW'
 
                 setDocument(db.collection('challenge-locks').doc(lock.id), lock, lock.id)
                     .then(() => console.log(`Updated lock ${lock.id}`))

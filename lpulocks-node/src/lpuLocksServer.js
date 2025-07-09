@@ -47,7 +47,7 @@ app.post('/submit-challenge-lock', async (req, res) => {
 app.post('/update-lock-media', async (req, res) => {
     req.body = req.body || {}
     req.body.prod = prodDB
-    myEmitter.emit('myEvent', 'Challenge Lock Submitted' + envText)
+    myEmitter.emit('myEvent', 'Lock Media Update' + envText)
     await updateLockMedia(req, res).then()
 })
 

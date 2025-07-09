@@ -1,7 +1,6 @@
 import fs from 'fs'
-import {sendEmail} from './util/nodeMailer.js' // eslint-disable-line
-
-import {localUser, prodUser} from '../keys/users.js' // eslint-disable-line
+import {sendEmail} from './util/sendEmail.js'
+import {localUser, prodUser} from '../keys/users.js'
 
 async function main() {
 
@@ -33,7 +32,6 @@ async function main() {
                 text: `SpeedPicks: ${numEntries} ${entryText}`,
                 html: fieldsHtml,
             })
-            //console.log('Message sent: %s', email.messageId)
         } catch (error) {
             console.error('Message send failure', error)
         }

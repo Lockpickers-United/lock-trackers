@@ -109,7 +109,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         } else if (name === 'maker' && value) {
             const makerIndex = makerListByCountLC.indexOf(value?.toLowerCase())
             if (makerIndex >= 0) {
-                value = makerListByCountLC[makerIndex]
+                value = makerListByCount[makerIndex]
             }
         } else {
             value = sanitizeValues(value)
@@ -118,7 +118,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         let updates = {[name]: value}
         setForm({...formCopy, ...updates})
         setContentChanged(true)
-    }, [form, lockNames, makerListByCountLC, nameMatches])
+    }, [form, lockNames, makerListByCount, makerListByCountLC, nameMatches])
 
     const handleDateChange = useCallback((dateValue) => {
         setForm({...form, ...dateValue})

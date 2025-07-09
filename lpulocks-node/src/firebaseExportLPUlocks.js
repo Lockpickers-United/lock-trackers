@@ -2,7 +2,7 @@ import { writeFile, readFile } from 'fs/promises'
 import {initializeApp} from 'firebase/app'
 import {getFirestore, collection, getDocs, terminate} from 'firebase/firestore'
 import {firebaseConfig} from '../keys/firebaseConfig.js'
-import {sendEmail} from './util/nodeMailer.js'
+import {sendEmail} from './util/sendEmail.js'
 
 import {localUser, prodUser} from '../keys/users.js'
 const production = process.env.USER !== localUser
@@ -104,8 +104,6 @@ async function getAllData() {
             console.error('Message send failure', error)
         }
     }
-
-
 
     const pendingEntriesJson = JSON.stringify(pendingEntries, null, 2)
     const newPendingEntriesJson = JSON.stringify(newPendingEntries, null, 2)

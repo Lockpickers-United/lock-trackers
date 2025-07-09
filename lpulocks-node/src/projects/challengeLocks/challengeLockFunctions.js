@@ -8,13 +8,12 @@
 import {formidable} from '../../util/formidable/src/index.js'
 import {parseForm, flattenFields} from '../../util/formUtils.js'
 import fs from 'fs'
-import {sendEmail} from '../nodeMailer/nodeMailer.js'
+import {sendEmail} from '../../util/sendEmail.js'
 import util from 'util'
 import {exec, fork} from 'child_process'
 import {contentUploadRecipients, prodUser} from '../../../keys/users.js'
 import admin from 'firebase-admin'
 import {getFirestore, FieldValue} from 'firebase-admin/firestore'
-import jsonIt from '../../util/jsonIt.js'
 import validator from 'validator'
 import dayjs from 'dayjs'
 import {selectiveSanitizeValues} from '../../util/sanitizeValues.js'
@@ -34,6 +33,10 @@ const workDir = prodEnvironment
 const uploadDir = prodEnvironment
     ? `/home/${process.env.USER}/lpulocks.com.data/challengelocks/lockimages`
     : `/Users/${process.env.USER}/Documents/LOCKPICK/LockTrackers/challenge-locks/uploads`
+
+const dataDir = prodEnvironment
+    ? `/home/${process.env.USER}/lpulocks-node/data/working`
+    : `/Users/${process.env.USER}/Documents/GitHub/lpulocks/lpulocks-node/data/working`
 
 const serverPath = 'https://data.lpulocks.com/challengelocks/lockimages'
 
@@ -98,7 +101,6 @@ function handleError(res, message, error, status = 500) {
     res.status(status).send({status, message})
 }
 
-
 export async function updateLockMedia(req, res) {
 
     try {
@@ -135,7 +137,7 @@ export async function updateLockMedia(req, res) {
         }
         const flatFields = flattenFields(fields)
 
-        console.log('flatFields', flatFields)
+        //console.log('flatFields', flatFields)
 
         let ref = db.collection('challenge-locks').doc(flatFields.id)
         const lockEntry = await fetchDocument(ref, flatFields.id)
@@ -168,7 +170,7 @@ export async function updateLockMedia(req, res) {
                 subtitle: 'CC BY-NC-SA 4.0'
             })))
 
-        console.log('addedMedia', addedMedia)
+        //console.log('addedMedia', addedMedia)
 
         const updates = {}
 
@@ -464,20 +466,16 @@ export async function submitCheckIn(req, res) {
                 return handleError(res, 'Failed to delete Challenge Lock Check-In', error, 500)
             }
             console.log('Check-in deleted:', checkIn.id)
+            // TODO: why is this commented out?
             //return res.status(200).json({status: 200, message: 'Check-in deleted successfully'})
         }
 
 
-        // TODO: from here on out, just use lockCheckIns
 
         const lockCheckIns = await getCheckInsForLock(db, checkIn.lockId)
-
         let updates = {}
-
         if (lockCheckIns.length > 0) {
-
             updates.latestUpdate = lockCheckIns[0]
-
             const ratings = lockCheckIns.reduce((acc, checkIn) => {
                 Object.keys(checkIn)
                     .filter(key => key.startsWith('rating'))
@@ -515,7 +513,6 @@ export async function submitCheckIn(req, res) {
             updates.updatedAt = dayjs().toISOString()
         }
 
-
         // SUBMIT UPDATES
         if (Object.keys(updates).length > 0) {
             ref = db.collection('challenge-locks').doc(checkIn.lockId)
@@ -537,7 +534,6 @@ export async function reportProblem(req, res) {
     }
     const {prod} = req.body
     const db = getDb(prod)
-
     const form = formidable({})
 
     try {
@@ -553,8 +549,6 @@ export async function reportProblem(req, res) {
         let ref = db.collection('challenge-locks').doc(entry.entryId)
         const lockEntry = await fetchDocument(ref, entry.entryId)
 
-        console.log('lockEntry:', lockEntry)
-
         const updates = {problems: lockEntry.problems ? [...lockEntry.problems, entry] : [entry]}
 
         if (Object.keys(updates).length > 0) {
@@ -566,30 +560,31 @@ export async function reportProblem(req, res) {
         }
 
         // send email
-        let html = `<strong>Problem reported: <a href='https://beta.lpulocks.com/#/challengelocks?id=${entry.entryId}'>${sanitizeHTML(entry.entryName)} by ${sanitizeHTML(entry.entryMaker)}</a><br/></strong><br/><br/>`
+        let html = `<strong>Problem reported: <a href='https://lpulocks.com/#/challengelocks?id=${entry.entryId}'>${sanitizeHTML(entry.entryName)} by ${sanitizeHTML(entry.entryMaker)}</a><br/></strong><br/><br/>`
         let fieldsHtml = html + '<table style="border-width:1px">'
         for (const key in entry) {
             fieldsHtml += `<tr><td>${sanitizeHTML(key)}</td><td>${sanitizeHTML(fields[key])}</td></tr>`
         }
         fieldsHtml += '</table>'
 
-        console.log('fieldsHtml:', fieldsHtml)
+        //console.log('fieldsHtml:', fieldsHtml)
 
         try {
             const email = await sendEmail({
                 emailConfig: 'challengeLock',
-                to: contentUploadRecipients,
                 subject: `Challenge Lock Problem Reported for: ${entry.entryName}`,
                 text: `Challenge Lock Problem Reported for: ${entry.entryName}`,
                 html: fieldsHtml
             })
             console.log('Message sent: %s', email.messageId)
         } catch (error) {
+
+            // todo: just log error, don't return it
             return handleError(res, 'Email send error', error)
         }
 
     } catch (err) {
-        return handleError(res, 'Form Parse Error', err)
+        return handleError(res, 'Problem Report error', err)
     }
 
     console.log('done')
@@ -621,13 +616,9 @@ export async function clearProblems(req, res) {
             }
         }
         const entry = flattenFields(fields)
-        jsonIt('entry:', entry)
+        //jsonIt('entry:', entry)
 
         let ref = db.collection('challenge-locks').doc(entry.entryId)
-        const lockEntry = await fetchDocument(ref, entry.entryId)
-
-        console.log('lockEntry:', lockEntry)
-
         const updates = {problems: FieldValue.delete()}
 
         if (Object.keys(updates).length > 0) {
@@ -642,7 +633,7 @@ export async function clearProblems(req, res) {
     }
 
     console.log('done')
-    return res.status(200).json('Report Problem Endpoint Hit')
+    return res.status(200).json('Problems Cleared Successfully')
 }
 
 async function getCheckInsForLock(db, lockId) {
