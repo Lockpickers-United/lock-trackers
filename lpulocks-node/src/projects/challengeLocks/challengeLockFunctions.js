@@ -162,7 +162,7 @@ export async function updateLockMedia(req, res) {
                     width: 500
                 })).replace(uploadDir, serverPath),
                 thumbnailSquareUrl: (await createThumbnailViaWorker({
-                    inputFile: files.files[0].filepath,
+                    inputFile: files.files[index].filepath,
                     width: 200,
                     square: true
                 })).replace(uploadDir, serverPath),
@@ -174,23 +174,11 @@ export async function updateLockMedia(req, res) {
 
         const updates = {}
 
-        /*
-        - if isAdmin:
-            - if existing media has changed map urls to media items, set as updates.media
-            - if pendingMedia (has changed?) add to updates.pendingMedia (new, note that admins can pend existing media)
-            - if new media FROM ADMIN, add to fullMedia
-        - if not admin:
-            if new media FROM USER, add to pendingMedia
-        - submit updates
-        - (delete unused media from disk)
-         */
-
         if (isAdmin) {
             if (flatFields.existingMediaChanged === 'true') {
                 const updatedCurrentMedia = flatFields.currentMedia?.length > 0
                     ? [...new Set(flatFields.currentMedia.split(',').map(url => url.trim()))]
                     : []
-                console.log('updatedCurrentMedia', updatedCurrentMedia)
 
                 const updatedPendingMedia = flatFields.pendingMedia?.length > 0
                     ? [...new Set(flatFields.pendingMedia.split(',').map(url => url.trim()))]
@@ -198,15 +186,15 @@ export async function updateLockMedia(req, res) {
 
                 updates.media = updatedCurrentMedia.map((url, index) => {
                     const mediaItem = allExistingMedia?.find(media => media.thumbnailUrl === url)
-                    return {...mediaItem, sequenceId: index+1}
+                    return {...mediaItem, sequenceId: index + 1}
                 }) || []
                 updates.pendingMedia = updatedPendingMedia.map((url, index) => {
                     const mediaItem = allExistingMedia?.find(media => media.thumbnailUrl === url)
-                    return {...mediaItem, sequenceId: index+1}
+                    return {...mediaItem, sequenceId: index + 1}
                 }) || []
 
                 const remainingMedia = [...(updates.media || []), ...(updates.pendingMedia || [])]
-                const unusedMedia = allExistingMedia.filter(media => {
+                const unusedMedia = allExistingMedia.filter(media => {  // eslint-disable-line no-unused-vars
                     return !flatFields.currentMedia?.includes(media.thumbnailUrl) &&
                         !flatFields.pendingMedia?.includes(media.thumbnailUrl)
                 })
@@ -267,6 +255,14 @@ export async function updateLockMedia(req, res) {
             }
         }
 
+        if (updates?.pendingMedia && updates.pendingMedia.length > 0) {
+            const updatedEntry = {...lockEntry, pendingMedia: updates.pendingMedia || []}
+            try {
+                await logActivity({newPendingMedia: [updatedEntry]})
+            } catch (error) {
+                console.error('Error logging activity', error)
+            }
+        }
         console.log('done')
         return res.status(200).json(flatFields)
 
@@ -373,7 +369,12 @@ export default async function submitChallengeLock(req, res) {
         }
 
         try {
+            await logActivity({newChallengeLocks: [entry]})
+        } catch (error) {
+            console.error('Error logging activity', error)
+        }
 
+        try {
             const filesToDelete = filepaths ? [...filepaths] : []
             filesToDelete.shift()
 
@@ -416,6 +417,25 @@ export default async function submitChallengeLock(req, res) {
         return handleError(res, 'Form Parse Error', err)
     }
 }
+
+async function logActivity(update) {
+    const currentActivity = JSON.parse(await fs.promises.readFile(`${dataDir}/challengeLockActivity.json`, 'utf8'))
+    const {newChallengeLocks, newPendingMedia} = currentActivity
+
+    const updatedActivity = {
+        newChallengeLocks: [...newChallengeLocks || [], ...update.newChallengeLocks || []],
+        newPendingMedia: [...newPendingMedia || [], ...update.newPendingMedia || []]
+    }
+
+    const updatedActivityJson = JSON.stringify(updatedActivity, null, 2)
+    try {
+        await writeFile(`${dataDir}/challengeLockActivity.json`, updatedActivityJson)
+    } catch (error) {
+        console.error('Error writing updated activity file:', error)
+        throw new Error('Failed to write updated activity file')
+    }
+}
+
 
 export async function submitCheckIn(req, res) {
     try {
@@ -469,7 +489,6 @@ export async function submitCheckIn(req, res) {
             // TODO: why is this commented out?
             //return res.status(200).json({status: 200, message: 'Check-in deleted successfully'})
         }
-
 
 
         const lockCheckIns = await getCheckInsForLock(db, checkIn.lockId)

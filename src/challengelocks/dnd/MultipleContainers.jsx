@@ -327,6 +327,7 @@ export function MultipleContainers({
                     strategy={vertical ? verticalListSortingStrategy : horizontalListSortingStrategy}
                 >
                     {containers.map(cid => (
+                        <React.Fragment key={cid}>
                         <DroppableContainer
                             key={cid}
                             id={cid}
@@ -365,6 +366,13 @@ export function MultipleContainers({
                                 ))}
                             </SortableContext>
                         </DroppableContainer>
+
+                            {cid === 'A' && trashable && activeId && !containers.includes(activeId) &&
+                                <Trash id={TRASH_ID}/>
+                            }
+
+                        </React.Fragment>
+
                     ))}
                 </SortableContext>
             </div>
@@ -380,7 +388,6 @@ export function MultipleContainers({
                 document.body
             )}
 
-            {trashable && activeId && !containers.includes(activeId) && <Trash id={TRASH_ID}/>}
         </DndContext>
     )
 
@@ -449,7 +456,7 @@ function Trash({id}) {
                 position: 'relative',
                 left: '50%',
                 marginLeft: -150,
-                bottom: 20,
+                bottom: 0,
                 width: 300,
                 height: 60,
                 borderRadius: 5,

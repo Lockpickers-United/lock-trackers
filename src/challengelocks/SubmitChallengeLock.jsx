@@ -75,8 +75,8 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                 id: 'cl_' + genHexString(8),
                 submittedByUsername: profile?.discordUsername || undefined,
                 submittedByUsernamePlatform: 'Discord',
-                country: profile?.country || undefined,
-                stateProvince: profile?.stateProvince || undefined,
+                //country: profile?.country || undefined,
+                //stateProvince: profile?.stateProvince || undefined,
                 submittedByDisplayName: profile?.username || undefined,
                 submittedByUserBelt: profile?.belt || undefined,
                 submittedByUserId: user?.uid || undefined
@@ -104,7 +104,6 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         } else if (name === 'name' && value) {
             const fuse = new Fuse(lockNames, {ignoreDiacritics: true, includeScore: true, threshold: 0.1}) // lower = stricter
             setNameMatches(fuse.search(form.name || ''))
-            console.log('result', form.name, nameMatches[0]?.item, nameMatches[0]?.score, nameMatches.length)
             value = sanitizeValues(value, {profanityOK: true})
         } else if (name === 'maker' && value) {
             const makerIndex = makerListByCountLC.indexOf(value?.toLowerCase())
@@ -118,7 +117,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         let updates = {[name]: value}
         setForm({...formCopy, ...updates})
         setContentChanged(true)
-    }, [form, lockNames, makerListByCount, makerListByCountLC, nameMatches])
+    }, [form, lockNames, makerListByCount, makerListByCountLC])
 
     const handleDateChange = useCallback((dateValue) => {
         setForm({...form, ...dateValue})
@@ -203,11 +202,8 @@ export default function SubmitChallengeLock({entry, profile, user}) {
             const prefix = formCopy?.name?.replace('/', '+')
             const suffix = formCopy?.submittedByUsername?.replace('/', '+')
             const uploadsDir = `${prefix}-${suffix}-${form.id}`.toLowerCase()
-            mainPhoto.forEach((file) => {
-                const {base, ext} = separateBasename(file.name)
-                formData.append('files', file, `${uploadsDir}/${prefix}_${base}_${suffix}${ext}`.toLowerCase())
-            })
-            files.forEach((file) => {
+            const allPhotos = [...mainPhoto, ...files]
+            allPhotos.forEach((file) => {
                 const {base, ext} = separateBasename(file.name)
                 formData.append('files', file, `${uploadsDir}/${prefix}_${base}_${suffix}${ext}`.toLowerCase())
             })
@@ -484,7 +480,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                         <div style={{...headerStyle}}>
                                             Main Lock Photo (no spoilers!)<br/>
                                         </div>
-                                        <Dropzone files={mainPhoto} handleDroppedFiles={handleDroppedFiles} maxFiles={1}
+                                        <Dropzone files={mainPhoto} otherFiles={files} handleDroppedFiles={handleDroppedFiles} maxFiles={1}
                                                   zoneId={'mainPhoto'}/>
                                         <div style={{...reqStyle, backgroundColor: getHighlightColor('mainPhoto')}}/>
                                     </div>
@@ -493,7 +489,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
                                             Other Lock Photos <span
                                             style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>(optional, spoilers OK, max 5)</span>
                                         </div>
-                                        <Dropzone files={files} handleDroppedFiles={handleDroppedFiles} maxFiles={5}/>
+                                        <Dropzone files={files} otherFiles={mainPhoto} handleDroppedFiles={handleDroppedFiles} maxFiles={5}/>
                                     </div>
                                 </div>
                             </React.Fragment>

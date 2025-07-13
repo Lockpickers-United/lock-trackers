@@ -162,7 +162,7 @@ export async function updateLockMedia(req, res) {
                     width: 500
                 })).replace(uploadDir, serverPath),
                 thumbnailSquareUrl: (await createThumbnailViaWorker({
-                    inputFile: files.files[0].filepath,
+                    inputFile: files.files[index].filepath,
                     width: 200,
                     square: true
                 })).replace(uploadDir, serverPath),
@@ -179,7 +179,6 @@ export async function updateLockMedia(req, res) {
                 const updatedCurrentMedia = flatFields.currentMedia?.length > 0
                     ? [...new Set(flatFields.currentMedia.split(',').map(url => url.trim()))]
                     : []
-                console.log('updatedCurrentMedia', updatedCurrentMedia)
 
                 const updatedPendingMedia = flatFields.pendingMedia?.length > 0
                     ? [...new Set(flatFields.pendingMedia.split(',').map(url => url.trim()))]

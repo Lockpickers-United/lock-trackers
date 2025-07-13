@@ -14,10 +14,10 @@ async function main() {
 
     const currentActivity = JSON.parse(await fs.promises.readFile(`${dataDir}/challengeLockActivity.json`, 'utf8'))
     const {newChallengeLocks, newPendingMedia} = currentActivity
-    if (!newChallengeLocks?.length > 0 || !newPendingMedia?.length > 0) return
 
     const newLockCount = newChallengeLocks?.length || 0
     const newMediaCount = newPendingMedia?.length || 0
+    if (newLockCount === 0 && newMediaCount === 0) return
 
     const titleA = newLockCount > 0 ? `${newLockCount} new challenge locks` : undefined
     const titleJoin = titleA && newMediaCount > 0 ? ' and ' : ''

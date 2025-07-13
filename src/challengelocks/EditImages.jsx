@@ -124,8 +124,6 @@ export default function EditImages({profile, user, isSubmit = false}) {
             photoCredit,
         }
 
-        console.log('handleSubmit formCopy', formCopy)
-
         const formData = new FormData()
         Object.keys(formCopy).forEach(key => {
             formData.append(key, formCopy[key])
@@ -257,7 +255,8 @@ export default function EditImages({profile, user, isSubmit = false}) {
                             <div style={{...optionalHeaderStyle, ...requiredHeaderStyle, marginBottom: 10}}>
                                 Main Photo
                             </div>
-                            <Dropzone files={newMainPhoto} handleDroppedFiles={handleDroppedFiles}
+                            <Dropzone files={newMainPhoto} otherFiles={newMedia}
+                                      handleDroppedFiles={handleDroppedFiles}
                                       maxFiles={1}
                                       zoneId={'mainPhoto'} backgroundColor={'#444'}/>
                         </div>
@@ -268,7 +267,7 @@ export default function EditImages({profile, user, isSubmit = false}) {
                             style={{...optionalHeaderStyle, fontWeight: 400, color: '#aaa'}}>
                                     (optional, spoilers OK, max 5)</span>
                         </div>
-                        <Dropzone files={newMedia || []}
+                        <Dropzone files={newMedia || []} otherFiles={newMainPhoto}
                                   handleDroppedFiles={handleDroppedFiles}
                                   maxFiles={5}
                                   backgroundColor={'#444'}/>
