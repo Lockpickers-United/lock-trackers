@@ -83,7 +83,7 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, vi
         if (newWindow) newWindow.opener = null
     }
 
-    const sidePadding = (isMobile || viewRoute) ? 0 : 15
+    const sidePadding = (isMobile || viewRoute) ? 10 : 15
     const sideMargin = isMobile ? 0 : 20
 
     const style = latest
@@ -113,35 +113,49 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, vi
         ? <Link onClick={() => navigate(`/challengelocks?id=${checkIn.lockId}`)}
                 style={{color: '#cfcff1', cursor: 'pointer'}}>{checkIn.lockName}</Link>
         : checkIn.lockName
+    const makerName = isMobile
+        ? <div style={{fontWeight: 400, fontSize: '1.1rem'}}>By: {checkIn.lock?.maker}</div>
+        : <div style={{fontWeight: 400, fontSize: '1.1rem'}}>by {checkIn.lock?.maker}</div>
+    const challengeLockTitle = <div style={{display: flexStyle}}>{lockLink} &nbsp;{makerName}</div>
+    const pickDate = isMobile
+        ? <span style={{
+            fontWeight: 400,
+            fontSize: '1.1rem'
+        }}>{internationalDate(checkIn.pickDate)}</span>
+        : <span style={{
+            fontWeight: 400,
+            fontSize: '1.1rem'
+        }}>&nbsp; ({internationalDate(checkIn.pickDate)})</span>
 
     return (
         <React.Fragment>
             {viewRoute &&
-                <div style={{display: 'flex', flexWrap: 'wrap', ...viewCheckInStyle, marginTop: 15}}>
-                    <FieldValue name='Pick Date' value={internationalDate(checkIn.pickDate)}
-                                textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
-                                headerStyle={{color: '#999'}} style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
-                    <FieldValue name='CL Name' value={lockLink}
-                                headerStyle={{color: '#999'}}
-                                textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
-                                style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
-                    <FieldValue name='Maker' value={checkIn.lock?.maker}
-                                headerStyle={{color: '#999'}}
-                                textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
-                                style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
-                    <FieldValue name='Picked?' value={checkIn.successfulPick}
-                                headerStyle={{color: '#999'}}
-                                textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 600}}
-                                style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
-                    <FieldValue name='Format' value={checkIn.lock?.lockFormat}
-                                headerStyle={{color: '#999'}}
-                                textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 400}}
-                                style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
-                    <FieldValue name='Mechanism' value={checkIn.lock?.lockingMechanism}
-                                headerStyle={{color: '#999'}}
-                                textStyle={{fontSize: '1.1rem', lineHeight: '1.3rem', fontWeight: 400}}
-                                style={{marginRight: 0, whiteSpace: 'nowrap'}}/>
-                </div>
+                <React.Fragment>
+                    <div style={{display: flexStyle, flexWrap: 'wrap', ...viewCheckInStyle, marginTop: 15}}>
+                        <div style={{display: flexStyle, fontSize: '1.3rem', lineHeight: '1.5rem', fontWeight: 600}}>
+                            {challengeLockTitle} {pickDate}
+                        </div>
+                    </div>
+                    <div style={{display: 'flex', flexWrap: 'wrap', ...viewCheckInStyle, marginTop: 10}}>
+                        <FieldValue name='Picked?' value={checkIn.successfulPick}
+                                    headerStyle={{color: '#999'}}
+                                    textStyle={{fontSize: '1.0rem', lineHeight: '1.3rem', fontWeight: 400}}
+                                    style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
+                        {checkIn.lock?.lockFormat &&
+                            <FieldValue name='Format' value={checkIn.lock?.lockFormat}
+                                        headerStyle={{color: '#999'}}
+                                        textStyle={{fontSize: '1.0rem', lineHeight: '1.3rem', fontWeight: 400}}
+                                        style={{marginRight: 25, whiteSpace: 'nowrap'}}/>
+                        }
+                        {checkIn.lock?.lockingMechanism &&
+                            <FieldValue name='Mechanism' value={checkIn.lock?.lockingMechanism}
+                                        headerStyle={{color: '#999'}}
+                                        textStyle={{fontSize: '1.0rem', lineHeight: '1.3rem', fontWeight: 400}}
+                                        style={{marginRight: 0, whiteSpace: 'nowrap'}}/>
+                        }
+
+                    </div>
+                </React.Fragment>
             }
 
             <div style={{display: flexStyle, ...style}}>
@@ -236,7 +250,7 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, vi
                                 fontSize: '0.95rem',
                                 lineHeight: '1.2rem',
                                 fontWeight: 400,
-                                marginBottom: 10
+                                marginBottom: 15
                             }}
                             value={
                                 <span>{checkIn.notes}</span>
@@ -244,9 +258,9 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, vi
 
             }
 
-            <div style={{display: 'flex', flexWrap: 'wrap', borderBottom: '1px solid #bbb'}}>
+            <div style={{display: 'flex', flexWrap: 'wrap', paddingBottom: 10, borderBottom: '1px solid #bbb'}}>
                 {viewRoute && (checkIn.receivedDate || checkIn.sentDate || checkIn.receivedFrom || checkIn.sentTo) &&
-                    <div style={{display: 'flex', flexWrap: 'wrap', margin: '0px 15px 15px 15px'}}>
+                    <div style={{display: 'flex', flexWrap: 'wrap', ...viewCheckInStyle, margin: '0px 15px 5px 15px'}}>
                         <div style={{display: 'flex', flexWrap: 'wrap'}}>
                             {checkIn.receivedDate &&
                                 <FieldValue name='Received' value={internationalDate(checkIn.receivedDate)}
@@ -279,7 +293,7 @@ export default function ChallengeLockCheckInDisplay({checkIn, latest = false, vi
                 }
             </div>
 
-            <Dialog open={checkInDeleted} componentsProps={{
+            <Dialog open={checkInDeleted} slotProps={{
                 backdrop: {style: {backgroundColor: '#000', opacity: 0.7}}
             }}>
                 <div style={{display: 'flex'}}>

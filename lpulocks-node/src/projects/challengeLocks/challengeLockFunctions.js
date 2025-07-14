@@ -256,9 +256,11 @@ export async function updateLockMedia(req, res) {
         }
 
         if (updates?.pendingMedia && updates.pendingMedia.length > 0) {
+
             const updatedEntry = {...lockEntry, pendingMedia: updates.pendingMedia || []}
+            const newEntry = prod ? updatedEntry : {...updatedEntry, name: `${updatedEntry.name} (DEV)` }
             try {
-                await logActivity({newPendingMedia: [updatedEntry]})
+                await logActivity({newPendingMedia: [newEntry]})
             } catch (error) {
                 console.error('Error logging activity', error)
             }
@@ -368,8 +370,9 @@ export default async function submitChallengeLock(req, res) {
             handleError(res, 'Failed to create Challenge Lock', error, 500)
         }
 
+        const newEntry = prod ? entry : {...entry, name: `${entry.name} (DEV)` }
         try {
-            await logActivity({newChallengeLocks: [entry]})
+            await logActivity({newChallengeLocks: [newEntry]})
         } catch (error) {
             console.error('Error logging activity', error)
         }

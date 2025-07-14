@@ -63,7 +63,7 @@ export default function ViewCheckIns({user}) {
     }
 
     const {width} = useWindowSize()
-    const smallWindow = width <= 560
+    const smallWindow = width <= 500
     const pagePadding = !smallWindow
         ? '24px 24px 32px 24px'
         : '8px 8px 32px 8px'
@@ -105,28 +105,6 @@ export default function ViewCheckIns({user}) {
                         </Fade>
                     }
 
-                    <Dialog open={authLoaded && !user}
-                            componentsProps={{backdrop: {style: {backgroundColor: '#000', opacity: 0.6}}}}>
-                        <div style={{
-                            width: '350px', textAlign: 'center',
-                            padding: 50, marginTop: 0, backgroundColor: '#333',
-                            marginLeft: 'auto', marginRight: 'auto',
-                            fontSize: '1.4rem', lineHeight: '1.8rem', fontWeight: 700
-                        }}>
-                            You must be logged in to view your check-ins.<br/><br/>
-                            <div style={{width: 210, marginLeft: 'auto', marginRight: 'auto'}}>
-                                <SignInButton/>
-                            </div>
-                            <div style={{marginTop: 30, fontSize: '1.0rem'}}>
-                                <Button variant='text' size='small'
-                                        onClick={() => navigate('/challengelocks')}>
-                                    Browse Challenge Locks
-                                </Button>
-                            </div>
-                        </div>
-                    </Dialog>
-
-
                     {displayEntries.map((checkIn) => (
                         <ChallengeLockCheckInDisplay
                             key={checkIn.id}
@@ -137,6 +115,27 @@ export default function ViewCheckIns({user}) {
                         />
                     ))}
                 </div>
+                <Dialog open={authLoaded && !user}
+                        slotProps={{backdrop: {style: {backgroundColor: '#000', opacity: 0.6}}}}>
+                    <div style={{
+                        width: '350px', textAlign: 'center',
+                        padding: 50, marginTop: 0, backgroundColor: '#333',
+                        marginLeft: 'auto', marginRight: 'auto',
+                        fontSize: '1.4rem', lineHeight: '1.8rem', fontWeight: 700
+                    }}>
+                        You must be logged in to view your check-ins.<br/><br/>
+                        <div style={{width: 210, marginLeft: 'auto', marginRight: 'auto'}}>
+                            <SignInButton/>
+                        </div>
+                        <div style={{marginTop: 30, fontSize: '1.0rem'}}>
+                            <Button variant='text' size='small'
+                                    onClick={() => navigate('/challengelocks')}>
+                                Browse Challenge Locks
+                            </Button>
+                        </div>
+                    </div>
+                </Dialog>
+
             </div>
 
             {visibleEntries?.length > 0 &&

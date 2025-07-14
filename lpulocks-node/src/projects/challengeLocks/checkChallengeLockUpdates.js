@@ -31,7 +31,8 @@ async function main() {
         let fieldsHtml = `<strong>${newLockCount} ${entryText} found</strong><br/><br/>`
         fieldsHtml += '<table style="border-width:1px">'
         newChallengeLocks.forEach(entry => {
-            fieldsHtml += `<tr><td>&nbsp;</td><td><strong>${entry.name}&nbsp;</strong></td><td>https://lpulocks.com/#/challengelocks?sort=updatedAt&id=${entry.id}</td></tr>`
+            const host = entry.name.includes('(DEV)') ? 'dev.' : ''
+            fieldsHtml += `<tr><td>&nbsp;</td><td><strong>${entry.name}&nbsp;</strong></td><td>https://${host}lpulocks.com/#/challengelocks?sort=updatedAt&id=${entry.id}</td></tr>`
         })
         fieldsHtml += '</table><br/><br/>'
         html = fieldsHtml
@@ -42,7 +43,8 @@ async function main() {
         let fieldsHtml = `<strong>${newMediaCount} ${entryText} found</strong><br/><br/>`
         fieldsHtml += '<table style="border-width:1px">'
         newPendingMedia.forEach(entry => {
-            fieldsHtml += `<tr><td>&nbsp;</td><td><strong>${entry.name}&nbsp;</strong></td><td>https://lpulocks.com/#/challengelocks?sort=updatedAt&id=${entry.id}</td></tr>`
+            const host = entry.name.includes('(DEV)') ? 'dev.' : ''
+            fieldsHtml += `<tr><td>&nbsp;</td><td><strong>${entry.name}&nbsp;</strong></td><td>https://lpulocks.com/#/${host}challengelocks?sort=updatedAt&id=${entry.id}</td></tr>`
         })
         fieldsHtml += '</table>'
         html += fieldsHtml

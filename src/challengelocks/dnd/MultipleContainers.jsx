@@ -127,7 +127,7 @@ export function MultipleContainers({
     const [activeId, setActiveId] = useState(null)
     const lastOverId = useRef(null)
     const recentlyMovedToNewContainer = useRef(false)
-    const isSortingContainer = activeId !== null && containers.includes(activeId)
+    const isSortingContainer = activeId !== null && containers.includes(activeId.toString())
 
     // custom collision‐detection for multi‐container drag
     const collisionDetectionStrategy = useCallback(
@@ -256,7 +256,7 @@ export function MultipleContainers({
             onDragEnd={({active, over}) => {
                 // reorder containers if dragging a container
                 if (active.id in items && over?.id) {
-                    setContainers(c => arrayMove(c, c.indexOf(active.id), c.indexOf(over.id)))
+                    setContainers(c => arrayMove(c, c.indexOf(active.id.toString()), c.indexOf(over.id.toString())))
                 }
 
                 const activeContainer = findContainer(active.id)
@@ -367,7 +367,7 @@ export function MultipleContainers({
                             </SortableContext>
                         </DroppableContainer>
 
-                            {cid === 'A' && trashable && activeId && !containers.includes(activeId) &&
+                            {cid === 'A' && trashable && activeId && !containers.includes(activeId.toString()) &&
                                 <Trash id={TRASH_ID}/>
                             }
 
@@ -380,7 +380,7 @@ export function MultipleContainers({
             {createPortal(
                 <DragOverlay adjustScale={adjustScale} dropAnimation={dropAnimation}>
                     {activeId
-                        ? containers.includes(activeId)
+                        ? containers.includes(activeId.toString())
                             ? renderContainerDragOverlay(activeId)
                             : renderSortableItemDragOverlay(activeId)
                         : null}
