@@ -12,13 +12,16 @@ import FilterContext from '../context/FilterContext'
 import useWindowSize from '../util/useWindowSize'
 import {useHotkeys} from 'react-hotkeys-hook'
 
-function SearchBox({label, extraFilters = []}) {
+function SearchBox({label, entryCount, extraFilters = []}) {
     const [searchParams] = useSearchParams()
     const {filters, addFilters, removeFilter} = useContext(FilterContext)
     const [text, setText] = useState(filters.search || '')
     const {isMobile} = useWindowSize()
     const inputEl = useRef()
     useHotkeys('s', () => inputEl?.current?.focus(), {preventDefault: true})
+
+
+    const placeholder = `Search ${entryCount ? entryCount.toString() + ' ' : ''}${label}`
 
     const handleClear = useCallback(() => {
         window.scrollTo({top: 0})
@@ -90,7 +93,7 @@ function SearchBox({label, extraFilters = []}) {
     return (
         <div style={{marginBottom:0}}>
             <TextField
-                placeholder={`Search ${label}`}
+                placeholder={placeholder}
                 variant='standard'
                 color='secondary'
                 onChange={handleChange}

@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
 import DataContext from '../context/DataContext.jsx'
 import FilterContext from '../context/FilterContext.jsx'
@@ -26,7 +26,18 @@ function ChallengeLocksMain({user}) {
         setEntryExpanded(entryId)
         addFilters([{key: 'id', value: entryId}, {key: 'name', value: undefined}], true)
     }, [addFilters])
-    
+
+    const imageCount = useMemo(() => { // eslint-disable-line
+        return allEntries?.reduce((acc, entry) => {
+            if (entry.media && entry.media.length > 0) {
+                acc += entry.media.length
+            }
+            return acc
+        }, 0) || 0
+    },[allEntries])
+
+    //console.log('imageCount', imageCount)
+
     useEffect(() => {
         if (visibleEntries?.length === 1 && !filters.id) {
             setEntryExpanded(visibleEntries[0].id)
@@ -58,7 +69,7 @@ function ChallengeLocksMain({user}) {
                 marginLeft: 'auto', marginRight: 'auto',
                 fontSize: '1.5rem', lineHeight: 0.8, textAlign: 'center'
             }}>
-                <SortFilterBar label='Challenge Locks' sortButton={navSortButton} adminButtons={navAdminButton}/>
+                <SortFilterBar label='Challenge Locks' entryCount={visibleEntries.length} sortButton={navSortButton} adminButtons={navAdminButton}/>
 
                 {(allEntries?.length > 0 && visibleEntries?.length === 0) &&
                     <NoEntriesCardCL/>

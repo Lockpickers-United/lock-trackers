@@ -81,7 +81,7 @@ export default function ViewCheckIns({user}) {
                 marginLeft: 'auto', marginRight: 'auto',
                 fontSize: '1.5rem', lineHeight: 0.8, textAlign: 'center'
             }}>
-                <SortFilterBar label='Check-ins' sortButton={navSortButton} adminButtons={navAdminButton}/>
+                <SortFilterBar label='Check-ins' entryCount={visibleEntries.length} sortButton={navSortButton} adminButtons={navAdminButton}/>
 
                 {(checkInsLoaded && allCheckIns?.length > 0 && visibleEntries?.length === 0) &&
                     <NoEntriesCardCL entryType={'check-ins'}/>

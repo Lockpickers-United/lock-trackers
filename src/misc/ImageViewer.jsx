@@ -108,7 +108,7 @@ function ImageViewer({media, openIndex, onOpenImage, onClose, showFullSize = tru
 
     const handleCopyLink = useCallback(async () => {
         const query = queryString.stringify({...shareParams, image: openIndex})
-        const href = `https://share.lpubelts.com/?${query}`
+        const href = `https://lpulocks.com/#/challengelocks?${query}`
 
         await navigator.clipboard.writeText(href)
         enqueueSnackbar('Link to entry copied to clipboard.')

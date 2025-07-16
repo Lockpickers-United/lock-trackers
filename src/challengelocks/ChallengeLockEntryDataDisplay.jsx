@@ -21,7 +21,7 @@ const valueDisplayStyle = !isMobile
         <React.Fragment>
             {(!sort || ['maker', 'name'].includes(sort)) && !isMobile &&
                 <div style={{display: flexStyle}}>
-                    {entry.lockFormat &&
+                    {entry.lockFormat && entry.lockFormat !== 'Unknown Format' &&
                         <FilterChip
                         value={entry.lockFormat}
                         field='lockFormat'

@@ -5,7 +5,7 @@ import DataContext from '../context/DataContext.jsx'
 import SearchBox from '../nav/SearchBox.jsx'
 import FilterDisplayToggleButtons from '../filters/FilterDisplayToggleButtons.jsx'
 
-function SortFilterBar({label = '', sortButton = null, adminButtons = null, speedpicks = false}) {
+function SortFilterBar({label = '', sortButton = null, adminButtons = null, speedpicks = false, entryCount}) {
 
     const {isMod = []} = useContext(DataContext)
 
@@ -24,7 +24,7 @@ function SortFilterBar({label = '', sortButton = null, adminButtons = null, spee
     return (
         <div style={combinedDivStyle}>
             <div style={{textAlign: 'left', marginTop: 10, flexGrow: 1, color: '#fff', opacity: 1}}>
-                <SearchBox label={label}/>
+                <SearchBox label={label} entryCount={entryCount}/>
             </div>
             <div style={{justifyContent: 'right', display: 'flex', flexDirection: 'column'}}>
                 <div style={{display: 'flex', flexGrow: 1, justifyContent: 'right'}}>
