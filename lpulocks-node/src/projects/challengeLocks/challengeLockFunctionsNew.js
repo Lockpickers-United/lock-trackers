@@ -314,6 +314,8 @@ export default async function submitChallengeLock(req, res) {
         const flatFields = flattenFields(fields)
         const cleanedFields = selectiveSanitizeValues(flatFields, {profanityOKFields: ['name'], urlsOKFields: []})
 
+        console.log('cleanedFields', cleanedFields)
+
         const entry = {
             ...cleanedFields,
             originalLock: cleanedFields.originalLock || cleanedFields.originalMake,
@@ -322,7 +324,7 @@ export default async function submitChallengeLock(req, res) {
         }
 
         const lockName = cleanedFields.name
-        const username = cleanedFields.username || 'Unknown'
+        const username = cleanedFields.submittedByUsername || cleanedFields.displayName || 'Unknown'
 
         entry.media = await Promise.all(filepaths.map(async (filepath, index) => ({
             imageTitle: lockName,

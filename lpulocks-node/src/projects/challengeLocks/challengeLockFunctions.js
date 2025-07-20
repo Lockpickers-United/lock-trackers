@@ -322,7 +322,7 @@ export default async function submitChallengeLock(req, res) {
         }
 
         const lockName = cleanedFields.name
-        const username = cleanedFields.username || 'Unknown'
+        const username = cleanedFields.submittedByUsername || cleanedFields.displayName || 'Unknown'
 
         entry.media = await Promise.all(filepaths.map(async (filepath, index) => ({
             imageTitle: lockName,

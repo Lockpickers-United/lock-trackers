@@ -55,8 +55,8 @@ async function getAllCheckIns() {
 const challengeLocks = await getAllChallengeLocks()
 console.log(`Found ${challengeLocks.length} challenge locks`)
 
-const checkIns = await getAllCheckIns()
-console.log(`Found ${checkIns.length} check-ins`)
+//const checkIns = await getAllCheckIns()
+//console.log(`Found ${checkIns.length} check-ins`)
 
 
 await updateChallengeLocks(challengeLocks).then(() => console.log('Update complete'))
@@ -66,27 +66,58 @@ await updateChallengeLocks(challengeLocks).then(() => console.log('Update comple
 
 
 async function updateChallengeLocks(locks) {
+
+    let newLocks = []
+
     try {
         locks.forEach(lock => {
 
             // 2025-06-18T22:44:12.923Z
             //if (lock.lockCreated && dayjs(lock.lockCreated).isSame('2025-06-18', 'day')) {
 
-            if (lock.maker === 'dew') {
-                console.log(`Changing dew to DEW for lock ${lock.id}`)
-                lock.maker = 'DEW'
+            // if (lock.maker === 'dew') {
+            //    console.log(`Changing dew to DEW for lock ${lock.id}`)
+            //    lock.maker = 'DEW'
 
-                setDocument(db.collection('challenge-locks').doc(lock.id), lock, lock.id)
-                    .then(() => console.log(`Updated lock ${lock.id}`))
-                    .catch(err => console.error(`Error updating lock ${lock.id}`, err))
-
-            }
+            const newLock = fixImageTitles(lock)
+            if ( newLock ) newLocks.push(newLock)
 
         })
-        return 'Locks updated successfully'
+
+        console.log('Updating locks with fixed image titles:', newLocks.length)
+
+        if (newLocks.length > 0) {
+            newLocks.forEach(newLock => {
+                setDocument(db.collection('challenge-locks').doc(newLock.id), newLock, newLock.id)
+                    .then(() => console.log(`Updated lock ${newLock.id}`))
+                    .catch(err => console.error(`Error updating lock ${newLock.id}`, err))
+            })
+        }
+
+        return newLocks.length + ' locks updated successfully'
+
     } catch (error) {
         console.error('Error updating challenge locks:', error)
         return 'Error updating challenge locks'
+    }
+}
+
+function fixImageTitles(lock) {
+    let entry = {...lock}
+    let changed = false
+    if (!entry.media || !Array.isArray(entry.media)) return null
+    entry.media.forEach((media, index) => {
+        if (media.title && media.title === 'By: Unknown') {
+
+            console.log(`Changing title for lock ${entry.id} media ${index} to ${entry.submittedByUsername}`)
+            media.title = 'By: ' + entry.submittedByUsername
+            changed = true
+        }
+    })
+    if (changed) {
+        return entry
+    } else {
+        return null
     }
 }
 
@@ -118,8 +149,8 @@ async function batchSubmitChallengeLocks(docs) {
 }
 
 //batchSubmitChallengeLocks(challengeLocks)
-  //  .then(() => console.log('batch write complete'))
-    //.catch(err => console.error('batch write failed', err))
+//  .then(() => console.log('batch write complete'))
+//.catch(err => console.error('batch write failed', err))
 
 async function setDocument(ref, entry, entryId) {
     try {

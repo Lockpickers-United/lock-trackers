@@ -6,7 +6,9 @@ const app = admin.initializeApp({
     databaseURL: 'https://lock-trackers.firebaseio.com'
 })
 
-const prod = true
+const {setDeep} = require('./setDeep.js')
+
+const prod = false
 const db = prod ? getFirestore(app) : getFirestore(app, 'locktrackersdev')
 
 const myCollectionRef = db.collection('challenge-locks')
@@ -47,18 +49,17 @@ getCollectionData().then(data => {
     // media directories
     // fullSizeUrl : https://data.lpulocks.com/challengelocks/lockimages/brain-drain-lockpickingengineer-cl_b33ce945/brain-drain_20241230_175536_lockpickingengineer-main-1024.jpg
 
-    const allMediaUrls = challengeLocks?.reduce((acc, entry) => {
+    const allMediaTitles = challengeLocks?.reduce((acc, entry) => {
         acc = acc || []
         if (!entry.media || !Array.isArray(entry.media)) return acc
-        entry.media.forEach(media => {
-            if (media.fullSizeUrl) {
-                const directory = media.fullSizeUrl.split('/').slice(0, -1).join('/').replace('https://data.lpulocks.com/challengelocks/lockimages','')
-                acc = [...acc, directory]
+        entry.media.forEach((media, index) => {
+            if (media.title) {
+                setDeep(acc, [entry.id, index], media.title)
             }
         })
-        return new Set([...acc])
-    }, [])
-    console.log('allMediaUrls' , allMediaUrls)
+        return acc
+    }, {})
+    console.log('allMediaTitles' , allMediaTitles)
 
 })
 
