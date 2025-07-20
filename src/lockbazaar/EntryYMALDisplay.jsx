@@ -1,9 +1,8 @@
 import React, {useCallback, useContext, useState} from 'react'
-import Button from '@mui/material/Button'
 import FilterContext from '../context/FilterContext.jsx'
 import entryName from '../util/entryName'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
-import IconButton from '@mui/material/IconButton'
+import Link from '@mui/material/Link'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import Popover from '@mui/material/Popover'
 import SignInButton from '../auth/SignInButton.jsx'
@@ -14,19 +13,21 @@ function EntryYMALDisplay({otherIds}) {
     const {getLockLineFromId} = useContext(LoadingContextLB)
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
-    const handleClose = useCallback(() => setAnchorEl(null), [])
-
-    const handleOpen = useCallback((event) => {
-        setAnchorEl(event.currentTarget)
-
+    const handleClose = useCallback((event) => {
+        event.preventDefault()
+        event.stopPropagation()
+        setAnchorEl(null)
     }, [])
-
-
-    const handleClick = useCallback(event => {
+    const handleOpen = useCallback((event) => {
+        event.preventDefault()
+        event.stopPropagation()
+        setAnchorEl(event.currentTarget)
+    }, [])
+    const handleClick = useCallback((event, id) => {
         event.preventDefault()
         event.stopPropagation()
         clearFilters()
-        setFilters({'id': event.target.value})
+        setFilters({'id': id})
     }, [clearFilters, setFilters])
 
     return (
@@ -38,27 +39,30 @@ function EntryYMALDisplay({otherIds}) {
                 lineHeight: '1.2rem',
                 color: '#aaa'
             }}>
-                <span style={{marginTop: 9}}>You might also like:</span>
+                <span style={{marginTop: 0}}>You might also like:&nbsp;</span>
                 {otherIds.map((id, index) =>
-                    <Button variant='text' size='large'
-                            key={index}
-                            style={{
-                                textTransform: 'none',
-                                lineHeight: '.9rem',
-                                minWidth: 40,
-                                textAlign: 'left',
-                                marginTop:3
-                            }}
-                            color='primary'
-                            value={id}
-                            onClick={handleClick}
+                    <span key={index}>
+                    <Link
+                        style={{
+                            fontSize: '.9rem',
+                            fontWeight: 600,
+                            minWidth: 40,
+                            textAlign: 'left',
+                            marginTop: 3
+                        }}
+                        color='primary'
+                        value={id}
+                        onClick={(event) => handleClick(event, id)}
                     >
                         {entryName(getLockLineFromId(id), 'short')}
-                    </Button>
+                    </Link>
+                        {index < otherIds.length - 1 && <span style={{margin: '0 4px'}}>/</span>}
+                        </span>
                 )}
-                <IconButton onClick={handleOpen} style={{color:'#aaa'}}>
-                    <HelpOutlineIcon fontSize='small' />
-                </IconButton>
+                &nbsp;
+                <Link onClick={handleOpen} style={{color: '#aaa'}}>
+                    <HelpOutlineIcon fontSize='small'/>
+                </Link>
                 <Popover
                     open={open}
                     anchorEl={anchorEl}

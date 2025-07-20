@@ -1,14 +1,14 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useDeferredValue} from 'react'
 import NoEntriesCardLB from './NoEntriesCardLB.jsx'
 import EntryLB from './EntryLB.jsx'
-import FilterContext from '../context/FilterContext.jsx'
+import ListContext from '../context/ListContext.jsx'
 
 function EntriesLB({entries}) {
 
     document.title = 'LPU Locks - Lock Bazaar Browser'
 
-    const {filters} = useContext(FilterContext)
-    const [entryExpanded, setEntryExpanded] = useState(filters.id)
+    const {expanded, setExpanded} = useContext(ListContext)
+    const defExpanded = useDeferredValue(expanded)
 
     return (
         <div>
@@ -19,8 +19,8 @@ function EntriesLB({entries}) {
                 <EntryLB
                     key={entry.id}
                     entry={entry}
-                    expanded={entry.id === entryExpanded}
-                    onExpand={setEntryExpanded}
+                    expanded={entry.id === defExpanded}
+                    onExpand={setExpanded}
                 />
             )}
         </div>
