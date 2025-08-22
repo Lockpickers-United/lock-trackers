@@ -77,14 +77,14 @@ export default [
                     return {element: <EditImagesRoute/>}
                 }
             },
-            {
-                path: '/challengelocks/print',
-                lazy: async () => {
-                    const {default: PrintQRCodeRoute} = await import('../challengelocks/PrintQRCodeRoute')
-                    return {element: <PrintQRCodeRoute/>}
-                }
-            }
         ]
+    },
+    {
+        path: '/challengelocksPrint',
+        lazy: async () => {
+            const {default: PrintQRCodeRoute} = await import('../challengelocks/PrintQRCodeRoute')
+            return {element: <PrintQRCodeRoute/>}
+        }
     },
     {
         path: '/lockbazaar',

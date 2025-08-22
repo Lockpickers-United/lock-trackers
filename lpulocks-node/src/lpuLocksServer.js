@@ -7,7 +7,7 @@ import EventEmitter from 'events'
 import dayjs from 'dayjs'
 
 import {localUser} from '../keys/users.js'
-import submitChallengeLock, {submitCheckIn, updateLockMedia, reportProblem, clearProblems} from './projects/challengeLocks/challengeLockFunctions.js'
+import submitChallengeLock, {submitCheckIn, updateLockMedia, reportProblem, clearProblems} from './projects/challengeLocks/challengeLockFunctionsNew.js'
 
 const prodServer = true
 const prodDB = true
@@ -19,9 +19,6 @@ const local = localUser === process.env.USER
 const keysDir = !local
     ? `/home/${process.env.USER}/lpulocks-node/keys`
     : `/Users/${process.env.USER}/Documents/GitHub/lpulocks/lpulocks-node/keys`
-
-
-//  /home/dh_m5s5pf/explore-lpubelts-com-node/keys
 
 const privateKey = fs.readFileSync(`${keysDir}/server.key`, 'utf8')
 const certificate = fs.readFileSync(`${keysDir}/server.crt`, 'utf8')
