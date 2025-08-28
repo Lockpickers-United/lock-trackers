@@ -14,8 +14,10 @@ export default function PrintQRCode() {
     const safeName = decodedName.replace(/[\s/]/g, '_').replace(/\W/g, '')
     const filename=`${safeName}-qr.png`
 
+    const shortId = id.replace(/cl_/g, '')
+
     const lockUrl = id
-        ? `${location.origin}/#/challengelocks/checkin?id=${id}&name=${safeName}`
+        ? `https://lpu.one?cl=${shortId}`
         : `${location.origin}/#/challengelocks`
 
     const {width, isMobile} = useWindowSize()
