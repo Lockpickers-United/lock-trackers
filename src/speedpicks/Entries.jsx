@@ -8,12 +8,16 @@ import {useTheme} from '@mui/material/styles'
 import ViewProfileInline from '../profile/ViewProfileInline.jsx'
 import FilterContext from '../context/FilterContext.jsx'
 import NoEntriesCard from './NoEntriesCard.jsx'
+import Link from '@mui/material/Link'
+import {useNavigate} from 'react-router-dom'
+
 
 function Entries() {
 
     const {bestTimes, visibleEntries = []} = useContext(DataContext)
     const {filters} = useContext(FilterContext)
     const [entryExpanded, setEntryExpanded] = useState(filters.id)
+    const navigate = useNavigate()
 
     const [view, setView] = useState('all')
     const [updated, setUpdated] = useState(0) // eslint-disable-line
@@ -38,6 +42,10 @@ function Entries() {
     const theme = useTheme()
     const background = theme.palette.mode === 'dark' ? '#223' : '#ffffff'
 
+    const linkSx = {color: '#ddd', fontWeight:700, textDecoration: 'underline', cursor: 'pointer', '&:hover': {
+            color: '#fff'
+        }}
+
     return (
         <React.Fragment>
             <div style={{
@@ -54,8 +62,11 @@ function Entries() {
                     marginTop: 10
                 }}>
                     Check out who&#39;s got the fastest pick times from across the community and share your best
-                    picks! Join
-                    the conversation on the <a href={'https://discord.gg/BQDN5fa9ff'}
+                    picks! Everyone is welcome, whether you&#39;re a beginner or a seasoned pro, but please make sure
+                    to read the <Link onClick={()=>{navigate('/view?pageId=speedPickRules')}} sx={linkSx}>rules</Link> before
+                    submitting your entry.<br/><br/>
+
+                    Join the conversation on the <a href={'https://discord.gg/BQDN5fa9ff'}
                                                target='_blank'
                                                rel='noopener noreferrer'>#unLOCKED discord</a>.
 

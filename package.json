@@ -60,14 +60,18 @@
         "react-simple-star-rating": "^5.1.7",
         "react-swipeable": "^7.0.2",
         "rehype-external-links": "^3.0.0",
+        "remark-gfm": "^4.0.1",
         "remove-accents": "^0.5.0",
         "use-debounce": "^10.0.0",
         "usehooks-ts": "^3.1.1",
         "validator": "^13.15.15"
     },
     "devDependencies": {
+        "@playwright/test": "^1.56.0",
         "@types/react": "^18.2.21",
         "@vitejs/plugin-react": "^4.0.4",
+        "allure-js-commons": "^3.4.1",
+        "allure-playwright": "^3.4.1",
         "eslint": "^8.49.0",
         "eslint-plugin-import": "^2.29.1",
         "eslint-plugin-react": "^7.33.2",

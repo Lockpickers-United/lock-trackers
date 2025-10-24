@@ -44,8 +44,8 @@ export default function SubmitChallengeLock({entry, profile, user}) {
 
     const {authLoaded} = useContext(AuthContext)
     const {refreshEntries, updateVersion, updateEntry, updateProfile} = useContext(DBContext)
-    const navigate = useNavigate()
     const {makerData, makerListByCount, lockNames, getEntryFromName} = useContext(DataContext)
+    const navigate = useNavigate()
     const [mainPhoto, setMainPhoto] = useState([])
     const [files, setFiles] = useState([])
     const [response, setResponse] = useState(undefined)

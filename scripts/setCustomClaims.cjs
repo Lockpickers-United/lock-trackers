@@ -11,16 +11,16 @@ const prod = false
 const db = prod ? getFirestore(app) : getFirestore(app, 'locktrackersdev')
 
 // Custom claims to set
-const newClaims = {SPAdmin:true, CLAdmin:true, admin:true}
+const newClaims = {SPAdmin:true}
 
 // List of user IDs to update
 const users = [
-    {name: 'NiXXeD', uid: 'X3phSmxfnoQypUN8L5zVqUGbZb13'},
+    {name: 'Sidepicks', uid: 'm7kpLfNRQAfvyXXDVyMmCPWqVxi1'},
 ]
-
 
 const REFERENCE = [ // eslint-disable-line
     {name: 'mgsecure', uid: 'ClbjuilBEHgbzO4UZl4y3GStlEz2'},
+    {name: 'NiXXeD', uid: 'X3phSmxfnoQypUN8L5zVqUGbZb13'},
     {name: 'LPUBeltApp', uid: 'RurNRdbzIWPDCYrFvF52H5051Gy1'},
     {name: 'Loose', uid: 'g4S2MLVbHhSRs42gHfYOsukeb6C3'},
     {name: 'LockpickingEngineer', uid: 'cm8oFWt2fBPTYdyhqnjBMsHlfNy1'},

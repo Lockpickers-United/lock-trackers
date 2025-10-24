@@ -111,7 +111,7 @@ export async function updateLockMedia(req, res) {
 
     const isAdmin = req.user.CLAdmin || req.user.admin
 
-    const {prod} = req.body
+    const {prod} = req.body || {prod: false}
     const db = getDb(prod)
     let filepaths = []
 
@@ -287,7 +287,7 @@ export default async function submitChallengeLock(req, res) {
         return handleError(res, err.message, err, 403)
     }
 
-    const {prod} = req.body
+    const {prod} = req.body || {prod: false}
     const db = getDb(prod)
 
     const form = formidable({
@@ -449,7 +449,7 @@ export async function submitCheckIn(req, res) {
         return handleError(res, err.message, err, 403)
     }
 
-    const {prod} = req.body
+    const {prod} = req.body || {prod: false}
     const db = getDb(prod)
 
     const form = formidable({})
@@ -556,7 +556,7 @@ export async function reportProblem(req, res) {
     } catch (err) {
         return handleError(res, err.message, err, 403)
     }
-    const {prod} = req.body
+    const {prod} = req.body || {prod: false}
     const db = getDb(prod)
     const form = formidable({})
 
@@ -627,7 +627,7 @@ export async function clearProblems(req, res) {
         return handleError(res, 'Unauthorized', 'Unauthorized', 403)
     }
 
-    const {prod} = req.body
+    const {prod} = req.body || {prod: false}
     const db = getDb(prod)
 
     const form = formidable({})

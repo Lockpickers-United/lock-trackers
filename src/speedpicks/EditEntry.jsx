@@ -22,6 +22,10 @@ import TextField from '@mui/material/TextField'
 import VideocamIcon from '@mui/icons-material/Videocam'
 import EntryCommentAdd from './EntryCommentAdd.jsx'
 import DBContextSP from './DBContextSP.jsx'
+import {lockEntryRequirements} from './lockEntryRequirements'
+import Collapse from '@mui/material/Collapse'
+import Link from '@mui/material/Link'
+import {useNavigate} from 'react-router-dom'
 
 const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const {bestTimes, getLockFromId, getEntryFromId = []} = useContext(DataContext)
@@ -30,6 +34,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const {updateEntry} = useContext(DBContextSP)
     const {isMod = []} = useContext(DataContext)
     const {refreshData} = useContext(LoadingContext)
+    const navigate = useNavigate()
 
     const isNew = !entry
     const [entryId, setEntryId] = useState(entry && entry.id ? entry.id : 'sp_' + genHexString(8))
@@ -50,7 +55,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
     const lockVersion = lock ? lock.version : ''
     const lockBelt = lock ? lock.belt : ''
     const lockRegex = useMemo(() => /id=(\w{8})/, [])
-    const [bestTime, setBestTime] = useState(entry ? bestTimes.lockId : 0)
+    const [bestTime, setBestTime] = useState(entry ? bestTimes[lockId] : 0)
 
     const processURL = useCallback(event => {
         const {value} = event.target
@@ -61,7 +66,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
         const thisLock = getLockFromId(thisId)
         setLock(thisLock ? thisLock : null)
         setLockId(thisId)
-        setBestTime(thisLock && bestTimes.get(thisId) ? bestTimes.get(thisId) : 0)
+        setBestTime(thisLock && bestTimes[thisId] ? bestTimes[thisId] : 0)
     }, [bestTimes, getLockFromId, lockRegex])
 
     const {color: backgroundColor} = belts[lockBelt] || {}
@@ -167,8 +172,25 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
         cancelEdit()
     }, [cancelEdit, entry, refreshData, updateEntry])
 
+    const linkSx = {
+        color: '#ddd', fontWeight: 700, textDecoration: 'underline', cursor: 'pointer', '&:hover': {
+            color: '#fff'
+        }
+    }
+
     return (
-        <div style={{margin: 20}}>
+        <div style={{margin: '0px 20px 20px 20px'}}>
+            <div style={{
+                fontSize: '1rem',
+                lineHeight: '1.2rem',
+                width: '100%',
+                textAlign: 'left',
+                marginBottom: 30
+            }}>
+                <Link onClick={() => {
+                    navigate('/view?pageId=speedPickRules')
+                }} sx={linkSx}>Click here</Link> to read rules and information <em>before</em> submitting your entry.
+            </div>
             <div style={{display: 'flex', placeItems: 'center', width: '90%'}}>
                 <TextField variant='outlined' color='secondary' label='Picker'
                            value={pickerName}
@@ -184,7 +206,7 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                                 slotProps={{
                                     primary: {fontWeight: 600},
                                     secondary: {}
-                                }} />
+                                }}/>
                         </div>
                     </div>
                 }
@@ -223,6 +245,19 @@ const EditEntry = ({entry, toggleOpen, entriesUpdate, endEdit}) => {
                     </Button>
                 </div>
             </div>
+
+            <Collapse in={!!lockEntryRequirements[lockId]}>
+                <div style={{
+                    fontSize: '1rem',
+                    lineHeight: '1.4rem',
+                    margin: '10px 30px 10px 0px',
+                    backgroundColor: '#2f4067',
+                    padding: 8
+                }}>
+                    <strong>Please note:</strong> {lockEntryRequirements[lockId]}
+                </div>
+            </Collapse>
+
             <div style={{display: 'flex', placeItems: 'center', marginTop: 25}}>
                 <TextField variant='outlined'
                            color='secondary'

@@ -106,7 +106,7 @@ export function DBSPProvider({children}) {
     }, [dbError, updateVersion])
 
     const updateEntry = useCallback(async entry => {
-        console.log('DB, updating entry: ', entry)
+        //console.log('DB, updating entry: ', entry)
         if (dbError) return false
         const modified = dayjs().format()
         const ref = doc(db, 'speedPicks', entry.id)
@@ -129,6 +129,7 @@ export function DBSPProvider({children}) {
                     created: entry.created,
                     reviewerId: entry.reviewerId,
                     comments: entry.comments,
+                    checkOut: entry.checkOut || {},
                     modified: modified
                 }
                 if (!sfDoc.exists()) {

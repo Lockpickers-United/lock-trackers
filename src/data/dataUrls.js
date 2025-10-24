@@ -7,7 +7,7 @@ const {VITE_DEV_FIRESTORE: devFirestore} = import.meta.env
 if (devFirestore) console.log('devFirestore', devFirestore)
 
 // TODO : Change dev port when everything is working.
-export const nodeServerUrl = devFirestore==='true' ? 'https://lpulocks.com:2443' : 'https://lpulocks.com:7443'
+export const nodeServerUrl = devFirestore==='true' ? 'https://lpulocks.com/servicesDev' : 'https://lpulocks.com/services'
 
 if (import.meta.env && import.meta.env.VITE_LOCAL_DATA === 'true') {
     console.info('Attention: App is using LOCAL DATA.')

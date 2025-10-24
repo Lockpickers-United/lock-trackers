@@ -33,7 +33,7 @@ function TopNav(route) {
     const lbsFill = location.pathname === '/lockbazaar/sellers' ? '#fff' : '#777'
     const raflFill = location.pathname === '/rafl' ? '#fff' : '#777'
     const repFill = location.pathname === '/reports' ? '#fff' : '#777'
-    const spFill = location.pathname === '/speedpicks' ? '#fff' : '#777'
+    const spFill = (location.pathname === '/speedpicks' || route.route === 'sp') ? '#fff' : '#777'
     const prFill = location.pathname === '/profile/edit' ? '#fff' : '#777'
     const coFill = location.pathname === '/contact' ? '#fff' : '#777'
     const privFill = location.pathname === '/privacy' ? '#fff' : '#777'

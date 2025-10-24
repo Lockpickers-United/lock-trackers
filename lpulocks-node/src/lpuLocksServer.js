@@ -2,7 +2,6 @@ import express from 'express'
 import cors from 'cors'
 import fs from 'fs'
 import http from 'http'
-import https from 'https'
 import EventEmitter from 'events'
 import dayjs from 'dayjs'
 
@@ -12,7 +11,7 @@ import submitChallengeLock, {submitCheckIn, updateLockMedia, reportProblem, clea
 const prodServer = true
 const prodDB = true
 
-const ports = prodServer ? {http: 7080, https: 7443} : {http: 2080, https: 2443}
+const ports = prodServer ? {http: 9080, https: 9443} : {http: 9080, https: 9443}
 const envText = prodServer ? '' : ' (DEV)'
 
 const local = localUser === process.env.USER
@@ -34,48 +33,52 @@ myEmitter.on('myEvent', (data) => {
     console.log(timestamp, '-', data)
 })
 
-app.post('/submit-challenge-lock', async (req, res) => {
+app.post('//submit-challenge-lock', async (req, res) => {
     req.body = req.body || {}
     req.body.prod = prodDB
     myEmitter.emit('myEvent', 'Challenge Lock Submitted' + envText)
     await submitChallengeLock(req, res).then()
 })
 
-app.post('/update-lock-media', async (req, res) => {
+app.post('//update-lock-media', async (req, res) => {
     req.body = req.body || {}
     req.body.prod = prodDB
     myEmitter.emit('myEvent', 'Lock Media Update' + envText)
     await updateLockMedia(req, res).then()
 })
 
-app.post('/check-in-challenge-lock', async (req, res) => {
+app.post('//check-in-challenge-lock', async (req, res) => {
     req.body = req.body || {}
     req.body.prod = prodDB
     myEmitter.emit('myEvent', 'Check-in Submitted' + envText)
     await submitCheckIn(req, res).then()
 })
 
-app.post('/report-problem', async (req, res) => {
+app.post('//report-problem', async (req, res) => {
     req.body = req.body || {}
     req.body.prod = prodDB
     myEmitter.emit('myEvent', 'Problem Reported' + envText)
     await reportProblem(req, res).then()
 })
 
-app.post('/clear-problems', async (req, res) => {
+app.post('//clear-problems', async (req, res) => {
     req.body = req.body || {}
     req.body.prod = prodDB
     myEmitter.emit('myEvent', 'Clear Problems requested' + envText)
     await clearProblems(req, res).then()
 })
 
+app.get('//test', async (req, res) => {
+    myEmitter.emit('myEvent', 'Test')
+    res.send({test: 'true'})
+})
+
+app.get('/', (req, res) => {
+    res.send('LPU Locks Server is running' + envText)
+})
 
 /////////////
 
 const httpServer = http.createServer(app)
-const httpsServer = https.createServer(credentials, app)
 httpServer.listen(ports.http, () => {
 })
-httpsServer.listen(ports.https, () => {
-})
-

@@ -164,6 +164,13 @@ export default [
         }
     },
     {
+        path: '/view',
+        lazy: async () => {
+            const {default: ViewPageRoute} = await import('../viewPage/ViewPageRoute.jsx')
+            return {element: <ViewPageRoute/>}
+        }
+    },
+    {
         path: '/beta',
         lazy: async () => {
             const {default: BetaToggleRoute} = await import('../betaToggle/BetaToggleRoute.jsx')

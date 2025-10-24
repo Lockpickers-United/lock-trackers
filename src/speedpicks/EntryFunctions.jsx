@@ -9,10 +9,17 @@ import {enqueueSnackbar} from 'notistack'
 import Backdrop from '@mui/material/Backdrop'
 import EntryCommentAdd from './EntryCommentAdd.jsx'
 import DBContextSP from './DBContextSP.jsx'
+import dayjs from 'dayjs'
+import DBContext from '../app/DBContext.jsx'
+import relativeTime from 'dayjs/plugin/relativeTime'
+
 
 const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
+    dayjs.extend(relativeTime)
 
     const {updateEntry} = useContext(DBContextSP)
+    const {profile} = useContext(DBContext)
+
     const {user} = useContext(AuthContext)
     const {refreshData} = useContext(LoadingContext)
 
@@ -26,11 +33,32 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
         console.log('status', entry.status)
         entry.status = entry.status === 'approved' ? 'pending' : 'approved'
         entry.reviewerId = user?.uid ? user?.uid : 'unknown'
+        if (entry.status === 'approved') entry.checkOut = {}
         await updateEntry(entry)
         enqueueSnackbar(`Entry ${entry.status}.`)
         refreshData()
         entriesUpdate(Math.random())
     }, [entriesUpdate, entry, refreshData, updateEntry, user?.uid])
+
+    const checkOut = useCallback(async () => {
+        const checkoutAt = dayjs().format()
+        const reviewerId = user?.uid ? user?.uid : 'unknown'
+        const reviewerName = profile?.username ? profile?.username : 'unknown'
+        entry.checkOut = {reviewerId, reviewerName, checkoutAt}
+        entry.reviewerId = user?.uid ? user?.uid : 'unknown'
+        await updateEntry(entry)
+        enqueueSnackbar(`Entry checked out by ${reviewerName}.`)
+        refreshData()
+        entriesUpdate(Math.random())
+    }, [entriesUpdate, entry, profile, refreshData, updateEntry, user?.uid])
+
+    const cancelCheckOut = useCallback(async () => {
+        entry.checkOut = {}
+        await updateEntry(entry)
+        enqueueSnackbar('Entry check-out cancelled.')
+        refreshData()
+        entriesUpdate(Math.random())
+    }, [entriesUpdate, entry, refreshData, updateEntry])
 
     const deleteEntry = useCallback(async () => {
         entry.status = 'deleted'
@@ -42,7 +70,7 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
         entriesUpdate(Math.random())
     }, [entriesUpdate, entry, refreshData, updateEntry, user?.uid])
 
-    const {width} = useWindowSize()
+    const {flexStyle, width} = useWindowSize()
     const mobileLarge428 = width <= 428
     const mobileSmall360 = width <= 360
 
@@ -80,6 +108,8 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
         refreshData()
     }, [entry, refreshData, updateEntry])
 
+    const isCheckedOut = entry.checkOut?.checkoutAt && dayjs().diff(dayjs(entry.checkOut?.checkoutAt), 'day') < 1
+
     return (
 
         <div>
@@ -93,38 +123,76 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
             </Backdrop>
 
             {isMod &&
-                <div style={{fontSize: '1rem', textAlign: 'right', margin: '15px 25px 5px 0px', color: '#ccc'}}>
-                    Last reviewed by {entry.reviewerName}
-                </div>
-            }
-            <div style={{display: 'flex'}}>
-                <div style={{marginLeft: 30}}>
-                    <Button style={{marginRight: 10, color: '#d00'}} onClick={handleOpen} edge='start'>
-                        Delete
-                    </Button>
-                    <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                        <div style={{padding: 20, textAlign: 'center'}}>
-                            You cannot undo delete.<br/>
-                            Are you sure?
-                        </div>
-                        <div style={{textAlign: 'center'}}>
-                            <Button style={{marginBottom: 10, color: '#000'}}
-                                    variant='contained'
-                                    onClick={deleteEntry}
-                                    edge='start'
-                                    color='error'
-                            >
-                                Delete
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyItems: 'center',
+                    alignItems: 'center',
+                    fontSize: '1rem',
+                    fontWeight: 500,
+                    marginTop: 20
+                }}>
+                    {isCheckedOut &&
+                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                            Checked out
+                            by {entry.checkOut?.reviewerName ? entry.checkOut?.reviewerName : 'unknown'} {' '}
+                            {entry.checkOut?.checkoutAt ? dayjs(entry.checkOut?.checkoutAt).fromNow() : 'unknown'}
+                            <Button style={{marginTop: 15, backgroundColor: '#6a86d9', padding: '2px 10px'}}
+                                    onClick={cancelCheckOut}
+                                    variant='contained' size='small'>
+                                Cancel
                             </Button>
                         </div>
-                    </Menu>
+                    }
+                    {!isCheckedOut && entry.reviewerName && entry.reviewerName !== 'unknown' &&
+                        <div style={{
+                            fontSize: '1rem',
+                            textAlign: 'right',
+                            margin: '0px 0px 5px 0px',
+                            color: '#ccc'
+                        }}>
+                            Last reviewed by {entry.reviewerName}
+                        </div>
+                    }
+                </div>
+            }
+            <div style={{display: flexStyle, alignItems: 'center', margin: '20px 0'}}>
+                <div style={{display: 'flex', flexGrow: 1, alignItems: 'center'}}>
+                    <div style={{marginLeft: 30}}>
+                        <Button style={{marginRight: 10, color: '#d00'}} onClick={handleOpen} edge='start'>
+                            Delete
+                        </Button>
+                        <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+                            <div style={{padding: 20, textAlign: 'center'}}>
+                                You cannot undo delete.<br/>
+                                Are you sure?
+                            </div>
+                            <div style={{textAlign: 'center'}}>
+                                <Button style={{marginBottom: 10, color: '#000'}}
+                                        variant='contained'
+                                        onClick={deleteEntry}
+                                        edge='start'
+                                        color='error'
+                                >
+                                    Delete
+                                </Button>
+                            </div>
+                        </Menu>
+                    </div>
+                    <div style={{flexGrow: 1, display: 'flex', justifyContent: 'flex-end'}}>
+                        <Button disabled style={{
+                            color: statusColor,
+                            fontWeight: 600,
+                            whiteSpace: 'nowrap'
+                        }}>{statusString}</Button>
+                    </div>
                 </div>
                 <div style={{
-                    width: '100%',
-                    textAlign: 'right',
-                    padding: '0px 12px 8px 0px'
+                    flexGrow: 1, alignItems: 'center', display: 'flex', justifyContent: 'flex-end'
                 }}>
-                    <Button disabled style={{color: statusColor, fontWeight: 600}}>{statusString}</Button>
+                    <Button style={{marginRight: 0, color: '#6a86d9'}} onClick={checkOut}>
+                        Check-Out
+                    </Button>
                     {(entry.status !== 'approved' || isMod) &&
                         <Button style={{color: '#ccc'}} onClick={startEdit}>Edit</Button>
                     }
@@ -132,10 +200,10 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
                         <Button style={{marginRight: 0, color: functionColor}} onClick={toggleApprove}>Pend</Button>
                     }
                     {((entry.status === 'pending') && isMod) &&
-                        <Button style={{marginRight: 10, color: '#e15c07'}} onClick={handleOpenComment}>Reject</Button>
+                        <Button style={{marginRight: 0, color: '#e15c07'}} onClick={handleOpenComment}>Reject</Button>
                     }
                     {(entry.status !== 'approved' && isMod) &&
-                        <Button style={{marginRight: 10, color: functionColor}} onClick={toggleApprove}>Approve</Button>
+                        <Button style={{marginRight: 20, color: functionColor}} onClick={toggleApprove}>Approve</Button>
                     }
                 </div>
             </div>

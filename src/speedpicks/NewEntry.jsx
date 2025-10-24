@@ -7,8 +7,7 @@ import AuthContext from '../app/AuthContext.jsx'
 import DBContext from '../app/DBContext.jsx'
 import EditProfilePage from '../profile/EditProfilePage.jsx'
 import SignInButton from '../auth/SignInButton.jsx'
-import RulesInfo from './RulesInfo.jsx'
-import Button from '@mui/material/Button'
+import {Box} from '@mui/material'
 
 const NewEntry = ({entriesUpdate}) => {
 
@@ -16,12 +15,7 @@ const NewEntry = ({entriesUpdate}) => {
     const toggleOpen = useCallback(() => {
         setOpen(!open)
     }, [open])
-
-    const [openRules, setOpenRules] = useState(false)
-    const toggleOpenRules = useCallback(() => {
-        setOpenRules(!openRules)
-    }, [openRules])
-
+    
     const {user, isLoggedIn} = useContext(AuthContext)
     const {profile} = useContext(DBContext)
     const noUsername = isLoggedIn && user && !profile?.username
@@ -44,9 +38,31 @@ const NewEntry = ({entriesUpdate}) => {
                        }}>
                 <AccordionSummary>
                     <div style={{fontSize: '.9rem', textAlign: 'center', width: '100%'}}>
-                        <Button variant='contained' size='small' style={{backgroundColor:'#d0770f'}} >
-                            New Entry
-                        </Button>
+                        <Box
+                            style={{
+                                display: 'inline-block',
+                                whiteSpace: 'nowrap',
+                                color: '#333',
+                                fontSize: '0.8rem',
+                                fontWeight: 600,
+                                border: '1px solid #000',
+                                borderRadius: 5,
+                                padding: '8px 12px',
+                                cursor: 'pointer',
+                                marginRight: 4,
+                                marginBottom: 4
+                            }}
+                            sx={{
+                                backgroundColor:'#d0770f',
+                                '&:hover': {
+                                    backgroundColor: '#e1810f'
+                                }
+                            }}
+                        >
+                            NEW ENTRY
+                        </Box>
+
+
                     </div>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -68,26 +84,6 @@ const NewEntry = ({entriesUpdate}) => {
                     {noUsername && <EditProfilePage/>}
                     {editOK &&
                         <React.Fragment>
-
-                            <Accordion expanded={openRules} onChange={toggleOpenRules}
-                                       style={{
-                                           maxWidth: 700, marginLeft: 'auto',
-                                           marginRight: 'auto', marginBottom: 0, boxShadow: 'none',
-                                           backgroundColor: '#222231'
-                                       }}
-                                       disableGutters
-                            >
-                                <AccordionSummary>
-                                    <div style={{fontSize: '1rem', lineHeight: '1.2rem'}}>
-                                        <a onClick={toggleOpenRules}>Click here</a> for
-                                        submission rules and information.
-                                    </div>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    <RulesInfo/>
-                                </AccordionDetails>
-                            </Accordion>
-
                             <EditEntry entry={null} toggleOpen={toggleOpen} entriesUpdate={entriesUpdate}
                                        endEdit={endEdit}/>
                         </React.Fragment>
