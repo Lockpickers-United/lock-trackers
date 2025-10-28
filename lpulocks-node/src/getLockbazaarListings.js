@@ -289,7 +289,18 @@ async function copyDataJson() {
 
 async function getAllListings() {
     const admins = await getAdmins()
-    const sellers = await getSellers(admins)
+    const allSellers = await getSellers(admins)
+    const sellers = allSellers.filter(seller => !seller.sellerPaused)
+
+    const sellerList = allSellers
+        .sort()
+        .reduce((acc, seller) => {
+            acc = (acc || '') + seller.username
+            if (seller.sellerPaused) acc += ' (PAUSED)'
+            acc += '\n'
+            return acc
+        }, '')
+    !production && console.log('sellerList:\n' + sellerList)
 
     const auth = await authorize()
     const sellerLockURLs = await getLockURLs(auth, sellers)
@@ -449,7 +460,7 @@ async function getAllListings() {
                 listingType: listing.listingType,
                 otherInfo: listing.otherInfo || undefined,
                 packageContents: listing.packageContents
-            };
+            }
         }
     )
 
@@ -471,10 +482,10 @@ async function getAllListings() {
         .filter(id => !id.includes('lb_'))
         .reduce((acc, id) => {
             if (id.includes('lb_')) return acc
-            const [lockId, samelineIndex] = id.split('-') //eslint-disable-line
+            const [lockId, _samelineIndex] = id.split('-') //eslint-disable-line
             acc.push(lockId)
             return acc
-        },[])
+        }, [])
 
     const allEntries = uniqueLockIds.map((id) => {
         const [lockId, samelineIndex] = id.split('-')
@@ -561,7 +572,7 @@ async function getAllListings() {
         .map((entry) => {
             if (entry.listings.length > prevListingCounts[entry.id]) {
                 entry.newListingsDate = new Date()
-                console.log('New Listings:', entryName(entry, 'any', true), entry.id, prevListingCounts[entry.id], entry.listings.length, entry.newListingsDate)
+                console.log('New Listings:', entry.username, entryName(entry, 'any', true), entry.id, prevListingCounts[entry.id], entry.listings.length, entry.newListingsDate)
             }
         }, {})
 
@@ -575,7 +586,7 @@ async function getAllListings() {
     let version = previousJson.version
     if (!isDeepEqual(prevListings, currentListings)) {
         version = new Date().toString()
-        !production && console.log('updated listings or profiles found')
+        !production && console.log('Updated listings or profiles found')
         !production && console.log('Listing count:', validListings.length)
         !production && console.log('  new version: ', version)
     }
@@ -590,7 +601,7 @@ async function getAllListings() {
             await writeFile(`${serverDir}/version.json`, versionString),
             await writeFile(`${serverDir}/lockBazaarData.json`, JSON.stringify(jsonData, null, 2)),
             await writeFile(`${serverDir}/lockbazzarEntryIds.json`, JSON.stringify(lockbazzarEntryIds, null, 2)),
-            await writeFile(`${serverDir}/badListings.json`, JSON.stringify(badListings, null, 2)),
+            await writeFile(`${serverDir}/badListings.json`, JSON.stringify(badListings, null, 2))
         ]
         try {
             await Promise.all(writes)
@@ -616,7 +627,6 @@ async function main() {
         // terminate the Firestore client (close HTTP sockets)
         await terminate(db)
         !production && console.log('done')
-
         process.exit(0)
     }
 }

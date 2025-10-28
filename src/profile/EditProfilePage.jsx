@@ -16,11 +16,14 @@ import InputLabel from '@mui/material/InputLabel'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import ShipsToSelect from './ShipsToSelect.jsx'
+import Link from '@mui/material/Link'
+import Switch from '@mui/material/Switch'
 
 function EditProfilePage() {
 
-    const {updateProfile, profile, adminFlags= {}} = useContext(DBContext)
+    const {updateProfile, profile, adminFlags = {}} = useContext(DBContext)
     const [localProfile, setLocalProfile] = useState(profile)
+    const sellerListingsPaused = !!localProfile.sellerPaused
 
     const cardTitle = profile.username
         ? `Hey ${profile?.username}!`
@@ -48,17 +51,28 @@ function EditProfilePage() {
 
     const handleFocus = useCallback(event => event.target.select(), [])
 
-    const handleSave = useCallback(async () => {
+    const handleSave = useCallback(async (profileToSave = localProfile) => {
         try {
-            updateProfile(localProfile)
-            //await refreshData()
+            await updateProfile(profileToSave)
             enqueueSnackbar('Profile updated')
             setProfileChanged(false)
         } catch (ex) {
             console.error('Error while updating profile', ex)
-            enqueueSnackbar('Error while updating profile', ex)
+            enqueueSnackbar('Error while updating profile')
         }
     }, [updateProfile, localProfile])
+
+    const togglePause = useCallback(async () => {
+        const payload = { target: { name: 'sellerPaused', value: !localProfile.sellerPaused } }
+        handleChange(payload)
+        const next = {
+            ...localProfile,
+            sellerPaused: !localProfile.sellerPaused,
+            created: localProfile.created || dayjs().format(),
+            modified: dayjs().format(),
+        }
+        await handleSave(next)
+    }, [handleChange, handleSave, localProfile])
 
     const pattern = /^[\sa-zA-Z0-9_-]{1,32}$/
     const error = localProfile.username?.length > 0 && !pattern.test(localProfile.username.toString())
@@ -75,6 +89,14 @@ function EditProfilePage() {
     const lpuHelperText = lpuError
         ? 'Not a valid LPUbelts profile.'
         : ''
+
+    const pausedColor = localProfile?.sellerPaused ? '#fa8500' : '#fff'
+    const linkSx = {
+        color: localProfile?.sellerPaused ? '#fa8500' : '#bbb', textDecoration: 'none', cursor: 'pointer', '&:hover': {
+            textDecoration: 'underline'
+        }
+    }
+
 
     return (
         <Card style={{
@@ -100,19 +122,25 @@ function EditProfilePage() {
                         onChange={handleChange}
                         onFocus={handleFocus}
                         slotProps={{
-                            htmlInput: {maxLength: 25},
+                            htmlInput: {maxLength: 25}
                         }}
                     />
                     <div>
 
                         {adminFlags.isSeller &&
                             <div>
-                                <div id={'SELLER PROFILE'} style={{
-                                    marginTop: 25,
-                                    marginBottom: 0,
-                                    fontWeight: 600,
-                                    fontSize: '1rem'
-                                }}>SELLER PROFILE
+                                <div style={{display: 'flex', marginTop: 25, alignItems: 'center'}}>
+                                    <div id={'SELLER PROFILE'} style={{
+                                        marginBottom: 0,
+                                        fontWeight: 600,
+                                        fontSize: '1rem',
+                                        color: pausedColor
+                                    }}>SELLER PROFILE
+                                    </div>
+                                    <div style={{display: 'flex', flexGrow:1, justifyContent: 'right', alignItems: 'center', fontWeight: 700}}>
+                                        <Link onClick={togglePause} sx={linkSx}>{sellerListingsPaused ? 'Pause Listings' : 'Pause Listings'}</Link>
+                                        <Switch label='Pause Listings' checked={sellerListingsPaused} onChange={togglePause} color='warning'/>
+                                    </div>
                                 </div>
 
                                 <TextField
@@ -177,6 +205,7 @@ function EditProfilePage() {
                             <InputLabel>Belt (Honor system!)</InputLabel>
                             <Select
                                 id='belt'
+                                variant='outlined'
                                 name='belt'
                                 value={localProfile?.belt || ''}
                                 label='Belt (Honor system!)'
@@ -245,6 +274,7 @@ function EditProfilePage() {
                                 name='country'
                                 value={localProfile?.country || ''}
                                 label='Country'
+                                variant='outlined'
                                 onChange={handleChange}
                             >
                                 {countries.map((countryInfo) =>

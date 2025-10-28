@@ -93,7 +93,7 @@ function UserMenu() {
                                 <ListItemIcon style={{marginTop:5}}>
                                     <ShoppingCartOutlinedIcon fontSize='small'/>
                                 </ListItemIcon>
-                                <ListItemText>Seller Profile</ListItemText>
+                                <ListItemText>View Seller Profile</ListItemText>
                             </MenuItem>
                         }
                         {hasWatchlist &&

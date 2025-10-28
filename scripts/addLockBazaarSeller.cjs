@@ -9,10 +9,10 @@ const app = admin.initializeApp({
 const prod = true
 const db = prod ? getFirestore(app) : getFirestore(app, 'locktrackersdev')
 
-const userId = 'fsauEWhLqge8ThqheLwRv4j27mq1'
+const userId = 'zdFKqGZUuufHVHDtdbruRjFXD2v1'
 const data = {
     isSeller: false,
-    name: 'MarkUk',
+    name: 'Alpama',
     spreadsheetId: '12345'
 }
 
