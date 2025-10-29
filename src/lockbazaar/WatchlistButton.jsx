@@ -1,13 +1,11 @@
-import IconButton from '@mui/material/IconButton'
 import React, {useCallback, useContext, useMemo, useState} from 'react'
-import Tooltip from '@mui/material/Tooltip'
 import Popover from '@mui/material/Popover'
 import SignInButton from '../auth/SignInButton'
 import AuthContext from '../app/AuthContext'
 import DBContext from '../app/DBContext'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import Button from '@mui/material/Button'
 import useWindowSize from '../util/useWindowSize.jsx'
+import NotButton from '../misc/NotButton'
+import NotIconButton from '../misc/NotIconButton.jsx'
 
 function WatchlistButton({id, fontSize, dense}) {
     const {isLoggedIn} = useContext(AuthContext)
@@ -45,21 +43,12 @@ function WatchlistButton({id, fontSize, dense}) {
     return (
         <React.Fragment>
             {dense &&
-                <Tooltip title={tooltipText} arrow disableFocusListener>
-                    <IconButton onClick={handleChange} style={{height: 40, width: 40}}>
-                        <FavoriteIcon fontSize={fontSize} color={isCollected ? 'error' : 'inherit'}/>
-                    </IconButton>
-                </Tooltip>
+                    <NotIconButton iconName={'favorite'} onClick={handleChange} size={fontSize}
+                                   tooltip={tooltipText} color={isCollected ? '#F44336' : 'inherit'}/>
             }
             {!dense &&
-                <Tooltip title={tooltipText} arrow disableFocusListener>
-                    <div style={{display: 'flex', alignItems: 'center', width: '100%'}}>
-                        <Button size='small' startIcon={<FavoriteIcon/>} onClick={handleChange}
-                                color={isCollected ? 'error' : 'inherit'}>
-                            <nobr>{tooltipText}</nobr>
-                        </Button>
-                    </div>
-                </Tooltip>
+                <NotButton text={tooltipText} startIconName={'favorite'} onClick={handleChange}
+                           color={isCollected ? '#F44336' : 'inherit'} tooltip={tooltipText} size={fontSize}/>
             }
 
             {(!isLoggedIn && open) &&

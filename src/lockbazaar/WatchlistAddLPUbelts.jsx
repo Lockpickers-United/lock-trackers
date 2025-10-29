@@ -1,11 +1,8 @@
 import React, {useContext, useState, useCallback, useMemo} from 'react'
-import Backdrop from '@mui/material/Backdrop'
 import Button from '@mui/material/Button'
-import InfoIcon from '@mui/icons-material/Info'
 import InputAdornment from '@mui/material/InputAdornment'
 import LaunchIcon from '@mui/icons-material/Launch'
 import LockIcon from '@mui/icons-material/Lock'
-import WatchlistLpuCopyLinkInfo from './WatchlistLpuCopyLinkInfo.jsx'
 import TextField from '@mui/material/TextField'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 import WatchlistAddLockEntry from './WatchlistAddLockEntry.jsx'
@@ -38,16 +35,6 @@ const WatchlistAddLPUbelts = () => {
 
     const buttonStyle = {border: 0, padding: 0, marginRight: 0, minWidth: 33}
 
-
-    const [overlayIsOpen, setOverlayIsOpen] = useState(false)
-    const handleOverlayClose = useCallback(() => {
-        setOverlayIsOpen(false)
-    }, [])
-    const handleOverlayOpen = useCallback(() => {
-        setOverlayIsOpen(true)
-    }, [])
-
-
     return (
         <div style={{margin: 0, width: '100%', textAlign: 'left'}}>
             <div style={{display: 'flex', placeItems: 'center'}}>
@@ -71,11 +58,6 @@ const WatchlistAddLPUbelts = () => {
                            }}
                 />
                 <div>
-                    <Button type='text' style={buttonStyle}
-                            sx={{color: '#fff', marginBottom: '10px'}}
-                            onClick={handleOverlayOpen}>
-                        <InfoIcon style={{fontSize: 'large'}}/>
-                    </Button>
                     <Button type='text'
                             style={buttonStyle}
                             disabled={!lockURLValid}>
@@ -88,12 +70,6 @@ const WatchlistAddLPUbelts = () => {
             {lock &&
                 <WatchlistAddLockEntry lock={lock}/>
             }
-            <Backdrop
-                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
-                open={overlayIsOpen} onClick={handleOverlayClose}
-            >
-                <WatchlistLpuCopyLinkInfo/>
-            </Backdrop>
         </div>
     )
 }

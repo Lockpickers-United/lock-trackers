@@ -4,11 +4,11 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AuthContext from '../app/AuthContext.jsx'
 import SignInButton from '../auth/SignInButton.jsx'
-import Button from '@mui/material/Button'
 import WatchlistAddLPUbelts from './WatchlistAddLPUbelts.jsx'
 import {useNavigate} from 'react-router-dom'
+import NotButton from '../misc/NotButton'
 
-const WatchlistAddLPUbeltsButton = () => {
+const WatchlistAddBar = () => {
 
     const {isLoggedIn} = useContext(AuthContext)
     const navigate = useNavigate()
@@ -24,6 +24,8 @@ const WatchlistAddLPUbeltsButton = () => {
         navigate('/import')
     }, [navigate])
 
+    // Add LPUbelts Lock to Watchlist
+
     return (
         <Accordion expanded={open} onChange={toggleOpen}
                    style={{
@@ -35,14 +37,16 @@ const WatchlistAddLPUbeltsButton = () => {
                    }}>
             <AccordionSummary>
                 <div style={{fontSize: '.9rem', textAlign: 'center', width: '100%'}}>
-                    <Button variant='contained' size='small'
-                            style={{backgroundColor: '#a5a5a5', textTransform: 'none', margin: '4px 10px'}}>
-                        Add LPUbelts Lock to Watchlist
-                    </Button>
-                    <Button variant='contained' size='small' onClick={handleClick}
-                            style={{backgroundColor: '#a5a5a5', textTransform: 'none', margin: '4px 10px'}}>
-                        New! Import Your LPUbelts Wishlist
-                    </Button>
+
+                    <NotButton text={'Add LPUbelts Lock to Watchlist'} startIconName={''} onClick={()=>{}}
+                               variant='contained' textStyle={{textTransform: 'none'}}
+                               style={{backgroundColor: '#a5a5a5', margin: '4px 10px'}}
+                               color={'#000'} tooltip={''} size={'medium'}/>
+
+                    <NotButton text={'New! Import Your LPUbelts Wishlist'} startIconName={''} onClick={handleClick}
+                               variant='contained' textStyle={{textTransform: 'none'}}
+                               style={{backgroundColor: '#a5a5a5', margin: '4px 10px'}}
+                               color={'#000'} tooltip={''} size={'medium'}/>
                 </div>
             </AccordionSummary>
             <AccordionDetails>
@@ -66,4 +70,4 @@ const WatchlistAddLPUbeltsButton = () => {
     )
 }
 
-export default WatchlistAddLPUbeltsButton
+export default WatchlistAddBar

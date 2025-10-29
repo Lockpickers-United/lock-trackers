@@ -8,9 +8,9 @@ import FilterContext from '../context/FilterContext.jsx'
 import LoadingContextLB from '../lockbazaarContext/LoadingContextLB.jsx'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
-import LinkIcon from '@mui/icons-material/Link'
 import {enqueueSnackbar} from 'notistack'
 import ListAltIcon from '@mui/icons-material/ListAlt'
+import NotIconButton from '../misc/NotIconButton'
 
 function SellerProfileInline({listing, handleClose}) {
 
@@ -72,11 +72,8 @@ function SellerProfileInline({listing, handleClose}) {
                 <CardHeader title={profileName}
                             style={{paddingBottom: 0, paddingLeft: 40}}
                             action={
-                                <Tooltip title='Copy Seller Link' arrow disableFocusListener>
-                                    <IconButton onClick={handleCopyLink}>
-                                        <LinkIcon/>
-                                    </IconButton>
-                                </Tooltip>
+                                <NotIconButton iconName={'link'} onClick={handleCopyLink}
+                                               tooltip={'Copy Seller Link'}/>
                             }
                 />
             }

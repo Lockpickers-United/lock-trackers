@@ -13,7 +13,7 @@ import DBContext from '../app/DBContext.jsx'
 import SignInButton from '../auth/SignInButton'
 import AuthContext from '../app/AuthContext.jsx'
 import DataContext from '../context/DataContext.jsx'
-import WatchlistAddLPUbeltsButton from './WatchlistAddLPUbeltsButton.jsx'
+import WatchlistAddBar from './WatchlistAddBar.jsx'
 import MessageContext from '../app/MessageContext.jsx'
 import Link from '@mui/material/Link'
 
@@ -149,7 +149,7 @@ function LockBazaarMain() {
 
             <SortFilterBarLB/>
 
-            {(allDataLoaded && watchlistView) && <WatchlistAddLPUbeltsButton/>}
+            {(allDataLoaded && watchlistView) && <WatchlistAddBar/>}
 
             {!allDataLoaded && <EntriesSkeletonLB/>}
             {allDataLoaded && <EntriesLB entries={visibleEntries}/>}

@@ -17,6 +17,7 @@ import EntryActionsLB from './EntryActionsLB.jsx'
 import Tracker from '../app/Tracker.jsx'
 import queryString from 'query-string'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import NotButton from '../misc/NotButton.jsx'
 
 const WatchlistAddLockEntry = ({lock, expanded, onExpand}) => {
     const {getLockLinesInfoFromId, getListingsFromId, getLockFromId} = useContext(LoadingContextLB)
@@ -127,7 +128,11 @@ const WatchlistAddLockEntry = ({lock, expanded, onExpand}) => {
                                 alignItems: 'center',
                                 fontSize: '1rem'
                             }}>
-                                <Button style={{whiteSpace:'preserve nowrap'}}>{getListingCountFromId(lock.id)}</Button>
+                                <NotButton text={getListingCountFromId(lock.id)} startIconName={''} onClick={()=>{}}
+                                           variant='text' textStyle={{}}
+                                           style={{margin: '4px 10px'}}
+                                           color={'#6cc5f1'} tooltip={''} size={'medium'}/>
+
                             </div>
                         }
 
@@ -173,7 +178,6 @@ const WatchlistAddLockEntry = ({lock, expanded, onExpand}) => {
                                                                 />
                                                             </td>
                                                             <td style={{paddingLeft: 20, fontSize: '1rem'}}>
-
                                                                 <Button style={{whiteSpace:'preserve nowrap'}}>{getListingCountFromId(sameline.id)}</Button>
                                                             </td>
                                                             <td style={{paddingLeft: 10}}>

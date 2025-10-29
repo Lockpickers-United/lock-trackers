@@ -176,7 +176,7 @@ const Entry = ({entry, expanded, onExpand}) => {
                               }}>
 
                 <div style={summaryFlexStyle}>
-                    <div style={{display: 'flex', width: '100%'}}>
+                    <div style={{display: 'flex', width: '100%', alignItems: 'center'}}>
                         <BeltStripe value={entry.belt}/>
                         <div style={{
                             margin: '12px 0px 8px 8px',

@@ -12,7 +12,7 @@ const EntryActions = ({entry}) => {
     const divStyle = !mobileLarge428 ? {margin: '0px 20px 10px 0px'} : {margin: '0px 5px 5px 0px'}
 
     return (
-        <div style={divStyle}>
+        <div style={{display: 'flex', ...divStyle}}>
             {!entry.id.includes('lb_') &&
                 <WatchlistButton id={entry.id} dense={true} fontSize='medium'/>
             }
