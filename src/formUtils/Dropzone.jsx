@@ -3,6 +3,8 @@ import {useDropzone} from 'react-dropzone'
 import Link from '@mui/material/Link'
 import CancelIcon from '@mui/icons-material/Cancel'
 import IconButton from '@mui/material/IconButton'
+import heic2any from 'heic2any'
+import LoadingDisplaySmall from '../misc/LoadingDisplaySmall.jsx'
 
 export default function Dropzone({
                                      files,
@@ -10,7 +12,7 @@ export default function Dropzone({
                                      handleDroppedFiles,
                                      maxFiles = 10,
                                      maxMBperFile = 10,
-                                     maxTotalMB = 50,
+                                     maxTotalMB = 60,
                                      zoneId = 'dropzone',
                                      backgroundColor = '#333'
                                  }) {
@@ -21,6 +23,7 @@ export default function Dropzone({
 
     const [errorMessage, setErrorMessage] = React.useState('')
     const [warning, setWarning] = React.useState('')
+    const [converting, setConverting] = React.useState(false)
 
     const displayError = useCallback((errorMessage) => {
         const errorMessageDisplay = {
@@ -60,20 +63,82 @@ export default function Dropzone({
             accept: {
                 'image/*': []
             },
-            onDrop: acceptedFiles => {
-                const combinedFiles = [...files, ...otherFiles]
-                const uniqueFiles = acceptedFiles
-                    .filter(file => !combinedFiles.find(f => f.path === file.path))
-                const newFiles = uniqueFiles
-                    .map(file => Object.assign(file, {preview: URL.createObjectURL(file)}))
-                const allFiles = [...files, ...newFiles]
-                if (uniqueFiles.length !== acceptedFiles.length || allFiles.length > maxFiles) {
-                    setWarning(`Duplicate file${acceptedFiles.length - uniqueFiles.length > 1 ? 's' : ''} detected. Only unique files added.`)
-                } else {
-                    warningCheck(uniqueFiles)
+            onDrop: async (acceptedFiles) => {
+                let needsHeicConversion = false
+                try {
+                    //console.log('acceptedFiles', acceptedFiles)
+                    const combinedFiles = [...files, ...otherFiles]
+                    const combinedNames = new Set(combinedFiles.map(f => (f.path || f.name)))
+
+                    // Remove duplicates against already-added files
+                    const uniqueIncoming = acceptedFiles.filter(file => {
+                        const key = file.path || file.name
+                        return !combinedNames.has(key)
+                    })
+
+                    // Determine if any file needs HEIC conversion and show spinner
+                    needsHeicConversion = uniqueIncoming.some(file => /heic|heif/i.test(file.type) || /\.(heic|heif)$/i.test(file.name))
+                    if (needsHeicConversion) setConverting(true)
+
+                    // Convert HEIC/HEIF to JPEG, leave others as-is
+                    const convertIfNeeded = async (file) => {
+                        const isHeic = /heic|heif/i.test(file.type) || /\.(heic|heif)$/i.test(file.name)
+                        if (!isHeic) return file
+                        try {
+                            const jpegBlob = await heic2any({blob: file, toType: 'image/jpeg', quality: 0.80})
+                            const newName = file.name.replace(/\.(heic|heif)$/i, '.jpg')
+                            const jpegFile = new File([jpegBlob], newName, {
+                                type: 'image/jpeg',
+                                lastModified: file.lastModified
+                            })
+                            // preserve a path property for dedupe if present
+                            jpegFile.path = (file.path ? file.path.replace(/\.(heic|heif)$/i, '.jpg') : newName)
+                            // @ts-ignore - extend File with custom fields used by the app
+                            return jpegFile
+                        } catch (e) {
+                            console.error('HEIC conversion failed for', file.name, e)
+                            setWarning(prev => (prev?.length ? prev + ' ' : '') + `Warning: failed to convert ${file.name} from HEIC. File skipped.`)
+                            return null
+                        }
+                    }
+
+                    const processed = await Promise.all(uniqueIncoming.map(convertIfNeeded))
+                    const processedFiles = processed.filter(Boolean)
+
+                    // Create previews
+                    const newFiles = processedFiles.map(file => Object.assign(file, {preview: URL.createObjectURL(file)}))
+
+                    const allFiles = [...files, ...newFiles]
+
+                    // Handle duplicates from within the new batch (e.g., same name after conversion)
+                    // Deduplicate by path/name in the combined list while preserving order
+                    const seen = new Set()
+                    const deduped = []
+                    for (const f of allFiles) {
+                        const key = f.path || f.name
+                        if (!seen.has(key)) {
+                            seen.add(key)
+                            deduped.push(f)
+                        }
+                    }
+
+                    if (uniqueIncoming.length !== acceptedFiles.length || deduped.length > maxFiles) {
+                        setWarning(`Duplicate file${acceptedFiles.length - uniqueIncoming.length > 1 ? 's' : ''} detected. Only unique files added.`)
+                    } else {
+                        warningCheck(newFiles)
+                    }
+
+                    const limited = deduped.slice(0, maxFiles)
+                    handleDroppedFiles(limited, zoneId)
+                    setErrorMessage('')
+                } catch (err) {
+                    console.error('onDrop processing error', err)
+                    setErrorMessage('An error occurred while processing images.')
+                } finally {
+                    if (typeof needsHeicConversion !== 'undefined' && needsHeicConversion) {
+                        setConverting(false)
+                    }
                 }
-                handleDroppedFiles(allFiles.slice(0, 5), zoneId)
-                setErrorMessage('')
             },
             onDropRejected: (rejectedFiles) => {
                 if (rejectedFiles.length > 0) {
@@ -81,7 +146,7 @@ export default function Dropzone({
                     setErrorMessage(displayError(errorMessage))
                 }
             },
-            disabled: maxFilesHit
+            disabled: maxFilesHit || converting
         })
 
     const baseStyle = {
@@ -208,9 +273,11 @@ export default function Dropzone({
         <section className='container'>
             <div {...getRootProps({style})}>
                 <input {...getInputProps()} />
-                {maxFilesHit
-                    ? <p style={{textAlign: 'center'}}>Maximum Number of<br/> Files Added</p>
-                    : <p style={{textAlign: 'center'}}>Drag Files Here or<br/> Click to Browse</p>
+                {converting
+                    ? <LoadingDisplaySmall/>
+                    : maxFilesHit
+                        ? <p style={{textAlign: 'center'}}>Maximum Number of<br/> Files Added</p>
+                        : <p style={{textAlign: 'center'}}>Drag Files Here or<br/> Click to Browse</p>
                 }
                 {errorMessage.length > 0 &&
                     <div style={errorMessageStyle}>{errorMessage}</div>

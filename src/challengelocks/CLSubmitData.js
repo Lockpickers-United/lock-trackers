@@ -4,9 +4,6 @@ export const serverUrl = devFirestore==='true' ? 'https://explore.lpubelts.com:3
 
 export const lockingMechanisms = ['Dimple', 'Disc detainer', 'Lever', 'Lever/sidebar', 'Magnet', 'Multiple', 'Other', 'Pin-tumbler', 'Pump/push', 'Sidebar', 'Sidepins', 'Slider', 'Trap Pins', 'Various', 'Wafer']
 
-
-
-
 export const requestStatuses = ['Submitted', 'Under Review', 'Ranked', 'Declined', 'Deleted']
 
 export const statusSort = (a, b) => {

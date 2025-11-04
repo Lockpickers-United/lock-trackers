@@ -144,7 +144,7 @@ export default function EditImages({profile, user, isSubmit = false}) {
 
         try {
             try {
-                await postData({user, url, formData, snackBars: true, timeoutDuration: 25000}).then(response => {
+                await postData({user, url, formData, snackBars: true, timeoutDuration: 45000}).then(response => {
                     setResponse(response)
                 })
             } catch (error) {

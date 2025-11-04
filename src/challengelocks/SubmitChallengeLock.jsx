@@ -224,7 +224,7 @@ export default function SubmitChallengeLock({entry, profile, user}) {
         } else {
             const url = `${nodeServerUrl}/submit-challenge-lock`
             try {
-                const results = await postData({user, url, formData, snackBars: false, timeoutDuration: 25000})
+                const results = await postData({user, url, formData, snackBars: false, timeoutDuration: 45000})
                 setResponse(results)
                 await refreshEntries()
                 await updateVersion()
