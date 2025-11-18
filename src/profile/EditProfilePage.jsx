@@ -295,7 +295,7 @@ function EditProfilePage() {
                     <Button variant='outlined'
                             disabled={error || lpuError || empty || !profileChanged}
                             color={error ? undefined : 'success'}
-                            onClick={handleSave}
+                            onClick={() => handleSave()}
                             style={{}}>
                         Save&nbsp;Profile
                     </Button>
