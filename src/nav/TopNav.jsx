@@ -1,4 +1,4 @@
-import React, {useCallback, useContext} from 'react'
+import React, {useCallback} from 'react'
 import {useLocation, useNavigate} from 'react-router-dom'
 import SpeedPicks from '../assets/SpeedPicks.jsx'
 import Button from '@mui/material/Button'
@@ -13,10 +13,8 @@ import CL_logo from '../assets/CL_logo.jsx'
 import RAFL_logo from '../assets/RAFL_logo.jsx'
 import Nav_Reports from '../assets/Nav_Reports.jsx'
 import useWindowSize from '../util/useWindowSize.jsx'
-import AppContext from '../app/AppContext.jsx'
 
 function TopNav(route) {
-    const {beta} = useContext(AppContext)
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -56,12 +54,10 @@ function TopNav(route) {
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SpeedPicks fill={spFill} style={{height: iconSize}}/>
                             </Button>
-                            {beta &&
-                                <Button variant='text' style={buttonSyle}
-                                        onClick={handleButtonClick('/challengelocks')}>
-                                    <CL_logo fill={clFill} style={{height: iconSize}}/>
-                                </Button>
-                            }
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/challengelocks')}>
+                                <CL_logo fill={clFill} style={{height: iconSize}}/>
+                            </Button>
                             {raflState !== 'hidden' &&
                                 <Button variant='text' style={buttonSyle}
                                         onClick={handleButtonClick('/rafl')}>
@@ -86,12 +82,10 @@ function TopNav(route) {
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
-                            {beta &&
-                                <Button variant='text' style={buttonSyle}
-                                        onClick={handleButtonClick('/challengelocks')}>
-                                    <CL_logo fill={clFill} style={{height: iconSize}}/>
-                                </Button>
-                            }
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/challengelocks')}>
+                                <CL_logo fill={clFill} style={{height: iconSize}}/>
+                            </Button>
                             {raflState !== 'hidden' &&
                                 <Button variant='text' style={buttonSyle}
                                         onClick={handleButtonClick('/rafl')}>
@@ -116,12 +110,10 @@ function TopNav(route) {
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
-                            {beta &&
-                                <Button variant='text' style={buttonSyle}
-                                        onClick={handleButtonClick('/challengelocks')}>
-                                    <CL_logo fill={clFill} style={{height: iconSize}}/>
-                                </Button>
-                            }
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/challengelocks')}>
+                                <CL_logo fill={clFill} style={{height: iconSize}}/>
+                            </Button>
                             {raflState !== 'hidden' &&
                                 <Button variant='text' style={buttonSyle}
                                         onClick={handleButtonClick('/rafl')}>
@@ -170,12 +162,10 @@ function TopNav(route) {
                                 onClick={handleButtonClick('/speedpicks')}>
                             <SP_logo fill={spFill} style={{height: iconSize}}/>
                         </Button>
-                        {beta &&
-                            <Button variant='text' style={buttonSyle}
-                                    onClick={handleButtonClick('/challengelocks')}>
-                                <CL_logo fill={clFill} style={{height: iconSize}}/>
-                            </Button>
-                        }
+                        <Button variant='text' style={buttonSyle}
+                                onClick={handleButtonClick('/challengelocks')}>
+                            <CL_logo fill={clFill} style={{height: iconSize}}/>
+                        </Button>
                         <div style={{padding: 0}}>
                             <Button variant='text' style={buttonSyle}>
                                 <Profile fill={prFill} style={{height: iconSize}}/>
@@ -220,12 +210,10 @@ function TopNav(route) {
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
-                            {beta &&
-                                <Button variant='text' style={buttonSyle}
-                                        onClick={handleButtonClick('/challengelocks')}>
-                                    <CL_logo fill={clFill} style={{height: iconSize}}/>
-                                </Button>
-                            }
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/challengelocks')}>
+                                <CL_logo fill={clFill} style={{height: iconSize}}/>
+                            </Button>
                             <Button variant='text' style={buttonSyle}>
                                 <Nav_Contact fill={coFill} style={{height: iconSize}}/>
                             </Button>
@@ -247,12 +235,10 @@ function TopNav(route) {
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
-                            {beta &&
-                                <Button variant='text' style={buttonSyle}
-                                        onClick={handleButtonClick('/challengelocks')}>
-                                    <CL_logo fill={clFill} style={{height: iconSize}}/>
-                                </Button>
-                            }
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/challengelocks')}>
+                                <CL_logo fill={clFill} style={{height: iconSize}}/>
+                            </Button>
                             <Button variant='text' style={buttonSyle}>
                                 <Nav_PrivacyPolicy fill={privFill} style={{height: iconSize}}/>
                             </Button>
@@ -274,12 +260,10 @@ function TopNav(route) {
                                     onClick={handleButtonClick('/speedpicks')}>
                                 <SP_logo fill={spFill} style={{height: iconSize}}/>
                             </Button>
-                            {beta &&
-                                <Button variant='text' style={buttonSyle}
-                                        onClick={handleButtonClick('/challengelocks')}>
-                                    <CL_logo fill={clFill} style={{height: iconSize}}/>
-                                </Button>
-                            }
+                            <Button variant='text' style={buttonSyle}
+                                    onClick={handleButtonClick('/challengelocks')}>
+                                <CL_logo fill={clFill} style={{height: iconSize}}/>
+                            </Button>
                         </div>
                     </div>
                     <div style={{height: 12}}/>

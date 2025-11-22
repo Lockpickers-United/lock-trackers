@@ -1,4 +1,4 @@
-import React, {useCallback, useContext} from 'react'
+import React, {useCallback, useContext, useEffect} from 'react'
 import useWindowSize from '../util/useWindowSize.jsx'
 
 import EntriesLB from './EntriesLB.jsx'
@@ -24,6 +24,7 @@ function LockBazaarMain() {
     const {isLoggedIn} = useContext(AuthContext)
     const {filters} = useContext(FilterContext)
     const {systemMessage} = useContext(MessageContext)
+    const navigate = useNavigate()
 
     const watchlistView = !!filters && filters?.collection === 'Watchlist'
 
@@ -33,15 +34,14 @@ function LockBazaarMain() {
         ? '8px 24px 32px 24px'
         : '8px 8px 32px 8px'
 
-    const navigate = useNavigate()
-    if (filters?.viewSeller) {
-        if (getSellerFromId(filters.viewSeller)) {
+    // http://localhost:3000/#/lockbazaar?viewSeller=EPf2Xb3iw0R9T10bxJaPouelRiq1&name=decoder
+
+    useEffect(() => {
+        if (filters?.viewSeller && getSellerFromId(filters.viewSeller)) {
             const sellerName = getSellerFromId(filters.viewSeller).username
             navigate(`/lockbazaar?sellerName=${sellerName}`)
-        } else {
-            navigate('/lockbazaar')
         }
-    }
+    }, [filters, getSellerFromId, navigate])
 
     const handleClick = useCallback(link => {
         navigate(link)
@@ -106,7 +106,8 @@ function LockBazaarMain() {
                                        rel='noopener noreferrer'>LPU Charity Raffle</a></strong> have
                         the option of including &#34;Gift Certificates&#34; redeemable with select #lock-bazaar sellers.
                         Here&#39;s the list of all items available from sellers who currently accept
-                        Gift Certificates. <Link onClick={() => handleClick('/rafl')}>Click here for the list of Gift Certificate sellers.</Link>
+                        Gift Certificates. <Link onClick={() => handleClick('/rafl')}>Click here for the list of Gift
+                        Certificate sellers.</Link>
                     </div>
 
                 </div>

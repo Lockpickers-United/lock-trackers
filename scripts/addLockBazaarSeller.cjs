@@ -9,11 +9,11 @@ const app = admin.initializeApp({
 const prod = true
 const db = prod ? getFirestore(app) : getFirestore(app, 'locktrackersdev')
 
-const userId = 'zdFKqGZUuufHVHDtdbruRjFXD2v1'
+const userId = 'Z0IiGe4oTTbMXHwQ9E3PCA9F9bl2'
 const data = {
-    isSeller: false,
-    name: 'Alpama',
-    spreadsheetId: '12345'
+    isSeller: true,
+    name: 'Kaiser',
+    spreadsheetId: '11fZHTo0dQpyk4cuknTEkRm1ZmqIVUg0Q9FH_SQv21Y0'
 }
 
 setDocument(db.collection('admins').doc(userId), data, userId)
