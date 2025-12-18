@@ -190,9 +190,11 @@ const EntryFunctions = ({entry, startEdit, entriesUpdate}) => {
                 <div style={{
                     flexGrow: 1, alignItems: 'center', display: 'flex', justifyContent: 'flex-end'
                 }}>
-                    <Button style={{marginRight: 0, color: '#6a86d9'}} onClick={checkOut}>
-                        Check-Out
-                    </Button>
+                    {isMod &&
+                        <Button style={{marginRight: 0, color: '#6a86d9'}} onClick={checkOut}>
+                            Check-Out
+                        </Button>
+                    }
                     {(entry.status !== 'approved' || isMod) &&
                         <Button style={{color: '#ccc'}} onClick={startEdit}>Edit</Button>
                     }
